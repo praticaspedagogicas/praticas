@@ -2177,7 +2177,9 @@ body.cbl-exporting #objetivos{ min-height:22px !important; height:24px !importan
     try{
       var payload = collectPayload();
       payload.pdfFileName = 'CBL_' + (payload.title || 'guiao').replace(/[^a-z0-9_-]+/gi, '_').slice(0,60) + '_' + new Date().toISOString().slice(0,10) + '.pdf';
-      payload.pdfBase64 = await generatePdfBase64();
+      // PDF final será gerado pelo Power Automate a partir do HTML preenchido.
+      // Não gerar pdfBase64 aqui: evita o bug/corte do html2pdf no browser.
+      payload.pdfBase64 = '';
       payload.html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
       var res = await fetch(FLOW_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
       var txt = await res.text();
