@@ -1720,200 +1720,30 @@ body.cbl-exporting #desafio,
 body.cbl-exporting #objetivos{ min-height:22px !important; height:24px !important; }
 </style>
 
-<style id="cbl-unified-pretty-pdf-v2">
-/* ===== PDF UNIFICADO BONITO — usado por Salvar PDF e Enviar para Validação ===== */
-.cbl-pdf-pretty-document,
-.cbl-pdf-pretty-document *{
-  box-sizing:border-box !important;
-  box-shadow:none !important;
-  text-shadow:none !important;
-  animation:none !important;
-  transition:none !important;
+<style id="cbl-v11-email-required-ai">
+/* ===== V11 — Email expansível + validação obrigatória + mensagem IA mais legível ===== */
+#emails.cbl-expandable-field{
+  min-height:34px !important;
+  height:34px !important;
+  max-height:120px !important;
+  resize:vertical !important;
+  overflow:auto !important;
+  line-height:18px !important;
 }
-.cbl-pdf-pretty-document{
-  width:190mm !important;
-  max-width:190mm !important;
-  margin:0 auto !important;
-  padding:0 !important;
-  background:#fff !important;
-  color:#111 !important;
-  border:0 !important;
-  border-radius:0 !important;
-  font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;
-  font-size:9.6px !important;
-  line-height:1.22 !important;
+#emails.cbl-email-error{
+  border-color:#E31E24 !important;
+  outline:3px solid rgba(227,30,36,.14) !important;
+  background:#fffafa !important;
 }
-.cbl-pdf-pretty-document .no-print,
-.cbl-pdf-pretty-document .premium-status,
-.cbl-pdf-pretty-document .ux-actions,
-.cbl-pdf-pretty-document .ux-menu,
-.cbl-pdf-pretty-document #uxMenuMaisOpcoes,
-.cbl-pdf-pretty-document .ux-info-panel,
-.cbl-pdf-pretty-document .ux-ai-guidance,
-.cbl-pdf-pretty-document button,
-.cbl-pdf-pretty-document .btn,
-.cbl-pdf-pretty-document .btn-group,
-.cbl-pdf-pretty-document .toast-message{
-  display:none !important;
-  visibility:hidden !important;
-}
-.cbl-pdf-pretty-document .header{
-  margin:0 0 7px 0 !important;
-  padding:0 !important;
-  text-align:center !important;
-}
-.cbl-pdf-pretty-document .header img,
-.cbl-pdf-pretty-document .logo img{
-  height:24px !important;
-  max-height:24px !important;
-  width:auto !important;
-  display:block !important;
-  margin:0 auto 4px auto !important;
-}
-.cbl-pdf-pretty-document h1{
-  font-size:15px !important;
-  line-height:1.12 !important;
-  margin:0 0 7px 0 !important;
-  padding:0 0 5px 0 !important;
-  color:#111 !important;
-  text-align:center !important;
-  font-weight:800 !important;
-  border-bottom:0 !important;
-  page-break-after:avoid !important;
-  break-after:avoid !important;
-}
-.cbl-pdf-pretty-document h1::after{
-  content:"" !important;
-  display:block !important;
-  width:100% !important;
-  height:1.4px !important;
-  margin:6px 0 0 0 !important;
-  background:#E31E24 !important;
-  border-radius:0 !important;
-}
-.cbl-pdf-pretty-document .header-grid{
-  display:grid !important;
-  grid-template-columns:1fr 1fr !important;
-  gap:5px !important;
-  margin:0 0 6px 0 !important;
-}
-.cbl-pdf-pretty-document .header-card,
-.cbl-pdf-pretty-document .section,
-.cbl-pdf-pretty-document .cbl-meta-panel{
-  margin:4px 0 !important;
-  padding:5px 6px !important;
-  border:1px solid #cfcfcf !important;
-  border-radius:7px !important;
-  background:#fff !important;
-  break-inside:avoid !important;
-  page-break-inside:avoid !important;
-}
-.cbl-pdf-pretty-document .cbl-meta-panel{
-  margin:5px 0 7px 0 !important;
-}
-.cbl-pdf-pretty-document .header-card label,
-.cbl-pdf-pretty-document label,
-.cbl-pdf-pretty-document .section label,
-.cbl-pdf-pretty-document .cbl-meta-field label{
-  display:block !important;
-  font-size:8.8px !important;
-  line-height:1.16 !important;
-  margin:0 0 2px 0 !important;
-  padding:0 !important;
-  font-weight:800 !important;
-  color:#111 !important;
-}
-.cbl-pdf-pretty-document h3,
-.cbl-pdf-pretty-document .section h3,
-.cbl-pdf-pretty-document .cbl-meta-title{
-  font-size:10.8px !important;
-  line-height:1.15 !important;
-  margin:0 0 4px 0 !important;
-  padding:0 0 3px 0 !important;
-  color:#111 !important;
-  border-image:none !important;
-  border-bottom:1.2px solid #E31E24 !important;
-}
-.cbl-pdf-pretty-document .cbl-meta-grid{
-  display:block !important;
-  width:100% !important;
-}
-.cbl-pdf-pretty-document .cbl-meta-field{
-  margin:0 0 4px 0 !important;
-  padding:0 !important;
-  width:100% !important;
-}
-.cbl-pdf-pretty-document table,
-.cbl-pdf-pretty-document .cbl-ident-table{
-  display:table !important;
-  width:100% !important;
-  max-width:100% !important;
-  margin:4px 0 6px 0 !important;
-  border-collapse:separate !important;
-  border-spacing:0 !important;
-  table-layout:fixed !important;
-  border:1px solid #cfcfcf !important;
-  border-radius:7px !important;
-  overflow:hidden !important;
-  background:#fff !important;
-}
-.cbl-pdf-pretty-document th,
-.cbl-pdf-pretty-document td{
-  border:1px solid #d8d8d8 !important;
-  background:#fff !important;
-  color:#111 !important;
-  font-size:8.4px !important;
-  line-height:1.12 !important;
-  padding:3px 4px !important;
-  vertical-align:middle !important;
-  overflow:visible !important;
-  overflow-wrap:anywhere !important;
-}
-.cbl-pdf-pretty-document th{
-  font-weight:800 !important;
-  background:#f5f5f5 !important;
-}
-.cbl-pdf-pretty-value{
-  display:block !important;
-  min-height:13px !important;
-  padding:1px 0 !important;
-  margin:0 !important;
-  border:0 !important;
-  background:transparent !important;
-  color:#111 !important;
-  white-space:pre-wrap !important;
-  overflow-wrap:anywhere !important;
-  font-size:9.2px !important;
-  line-height:1.2 !important;
-  font-weight:500 !important;
-}
-.cbl-pdf-pretty-document td .cbl-pdf-pretty-value{
-  min-height:11px !important;
-  font-size:8.6px !important;
-  line-height:1.16 !important;
-}
-.cbl-pdf-pretty-value.is-empty{
-  color:#666 !important;
-  font-style:normal !important;
-}
-.cbl-pdf-pretty-document .section .cbl-pdf-pretty-value,
-.cbl-pdf-pretty-document .cbl-meta-field .cbl-pdf-pretty-value{
-  min-height:16px !important;
-}
-.cbl-pdf-pretty-document #docenteTab,
-.cbl-pdf-pretty-document #estudanteTab,
-.cbl-pdf-pretty-document #avaliacaoTab,
-.cbl-pdf-pretty-document .tab-content{
-  display:block !important;
-  padding:2px 0 !important;
-}
-.cbl-pdf-pretty-document .tab{
-  display:none !important;
-}
-textarea::-webkit-resizer{
-  display:none !important;
+.toast-message.cbl-toast-long{
+  bottom:34px !important;
+  min-width:360px !important;
+  max-width:720px !important;
+  white-space:normal !important;
+  line-height:1.35 !important;
 }
 </style>
+
 </head>
 <body>
 <div class="page">
@@ -1964,7 +1794,7 @@ textarea::-webkit-resizer{
 </tr>
 <tr>
 <th>Email(s):</th>
-<td colspan="3"><input id="emails" placeholder="email@universidade.pt" type="text"/></td>
+<td colspan="3"><textarea class="cbl-expandable-field" id="emails" placeholder="email@universidade.pt; outro.email@universidade.pt"></textarea></td>
 </tr>
 </table>
 <div class="cbl-meta-panel">
@@ -2075,16 +1905,22 @@ textarea::-webkit-resizer{
     return Array.prototype.slice.call(document.querySelectorAll('input, textarea, select'))
       .filter(function(el){ return !el.disabled && el.type !== 'hidden'; });
   }
-  function toast(message, type){
+  function toast(message, type, duration){
     var old = document.querySelector('.toast-message');
     if(old) old.remove();
+
+    // Mensagens do Assistente IA precisam ficar mais tempo para serem lidas.
+    var msgText = String(message || '');
+    var isAssistantMsg = msgText.toLowerCase().indexOf('assistente') >= 0 || msgText.toLowerCase().indexOf('teams') >= 0;
+    var tempo = duration || (isAssistantMsg ? 9000 : 2800);
+
     var div = document.createElement('div');
-    div.className = 'toast-message';
-    div.textContent = message;
+    div.className = 'toast-message' + (isAssistantMsg ? ' cbl-toast-long' : '');
+    div.textContent = msgText;
     div.style.background = type === 'error' ? '#7a1f1f' : (type === 'ok' ? '#1f4d2b' : '#333');
     div.style.whiteSpace = 'normal';
     document.body.appendChild(div);
-    window.setTimeout(function(){ if(div.parentNode) div.remove(); }, 2800);
+    window.setTimeout(function(){ if(div.parentNode) div.remove(); }, tempo);
   }
   window.toast = toast;
   window.showToast = toast;
@@ -2295,77 +2131,253 @@ textarea::-webkit-resizer{
   }
   window.addEventListener('afterprint', function(){ window.setTimeout(function(){ removePrintHost(); printLock = false; }, 250); });
 
-  function createPrettyPdfClone(){
-    var livePage = document.querySelector('.page') || document.body;
-    var clone = livePage.cloneNode(true);
-    clone.classList.remove('cbl-print-document');
-    clone.classList.add('cbl-pdf-pretty-document');
-    clone.removeAttribute('style');
-
-    Array.prototype.forEach.call(clone.querySelectorAll('.no-print,.premium-status,.ux-actions,.ux-menu,#uxMenuMaisOpcoes,.ux-info-panel,.ux-ai-guidance,.toast-message,script'), function(el){
-      if(el && el.parentNode) el.parentNode.removeChild(el);
-    });
-
-    var liveControls = Array.prototype.slice.call(livePage.querySelectorAll('input, textarea, select'));
-    var cloneControls = Array.prototype.slice.call(clone.querySelectorAll('input, textarea, select'));
-    cloneControls.forEach(function(ctrl, idx){
-      var live = liveControls[idx] || ctrl;
-      var text = getControlText(live);
-      var fallback = getControlFallback(live);
-      var span = document.createElement('span');
-      span.className = 'cbl-pdf-pretty-value' + (text ? '' : ' is-empty');
-      span.textContent = text || fallback || ' ';
-      if(ctrl.parentNode) ctrl.parentNode.replaceChild(span, ctrl);
-    });
-
-    Array.prototype.forEach.call(clone.querySelectorAll('[id]'), function(el){ el.removeAttribute('id'); });
-    return clone;
-  }
-
   async function renderPdfBlob(){
-    /* Fonte única do PDF: Salvar PDF e Enviar para Validação usam este mesmo Blob.
-       Usa o layout documental bonito, em HTML, em vez do PDF vetorial seco. */
-    await loadScript(HTML2PDF_CDN);
-    if(!window.html2pdf) throw new Error('html2pdf não carregou.');
+    /* PDF institucional gerado em vetor, dentro do próprio HTML. V4: bordas da tabela corrigidas.
+       Não usa html2canvas nem conversor de HTML: evita cortes laterais, páginas brancas
+       e problemas do OneDrive/Power Automate. */
+    await loadScript(JSPDF_CDN);
+    var jsPDF = window.jspdf && window.jspdf.jsPDF;
+    if(!jsPDF) throw new Error('jsPDF não carregou.');
 
-    var host = document.createElement('div');
-    host.style.position = 'fixed';
-    host.style.left = '0';
-    host.style.top = '0';
-    host.style.width = '210mm';
-    host.style.minHeight = '297mm';
-    host.style.padding = '0';
-    host.style.margin = '0';
-    host.style.background = '#fff';
-    host.style.zIndex = '-1';
-    host.style.opacity = '0';
-    host.style.pointerEvents = 'none';
-    var clone = createPrettyPdfClone();
-    host.appendChild(clone);
-    document.body.appendChild(host);
+    var pdf = new jsPDF({unit:'mm', format:'a4', orientation:'portrait'});
+    var pageW = 210, pageH = 297;
+    var margin = 12.8;
+    var y = 12;
+    var red = [227,30,36];
+    var dark = [20,20,20];
+    var grey = [115,115,115];
+    var light = [248,248,248];
+    var labelFill = [245,245,245];
+    var border = [178,178,178];
+    var softBorder = [196,196,196];
+    var radius = 3.2;
 
-    try{
-      var opt = {
-        margin: [8, 8, 8, 8],
-        filename: makePdfFileName(),
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: {
-          scale: 2,
-          useCORS: true,
-          backgroundColor: '#ffffff',
-          scrollX: 0,
-          scrollY: 0,
-          windowWidth: 794
-        },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
-        pagebreak: { mode: ['css', 'legacy'], avoid: ['.header-card', '.cbl-meta-field', '.section'] }
-      };
-      var worker = window.html2pdf().set(opt).from(clone).toPdf();
-      var pdf = await worker.get('pdf');
-      return pdf.output('blob');
-    }finally{
-      if(host && host.parentNode) host.parentNode.removeChild(host);
+    function val(id, fallback){
+      var el = document.getElementById(id);
+      if(!el) return '';
+
+      // No PDF final, exemplos/placeholders não devem aparecer como preenchimento real.
+      // Se o campo estiver vazio, o PDF fica em branco.
+      if(el.tagName === 'SELECT'){
+        var opt = el.options && el.selectedIndex >= 0 ? el.options[el.selectedIndex] : null;
+        var t = (opt ? opt.text : el.value || '').trim();
+        return t === 'Selecionar' ? '' : t;
+      }
+
+      return String(el.value || '').trim();
     }
+    function split(text, width, size){
+      pdf.setFontSize(size || 9);
+      return pdf.splitTextToSize(String(text || '—'), width);
+    }
+    function ensure(h){
+      if(y + h > pageH - margin){
+        pdf.addPage();
+        y = margin;
+        footer();
+      }
+    }
+    function footer(){
+      var n = pdf.internal.getNumberOfPages();
+      pdf.setPage(n);
+      pdf.setFont('helvetica','normal');
+      pdf.setFontSize(7);
+      pdf.setTextColor(130,130,130);
+      pdf.text('Guião Challenge-Based Learning · Universidade Europeia | IADE | IPAM', margin, pageH - 7);
+      pdf.text(String(n), pageW - margin, pageH - 7, {align:'right'});
+      pdf.setTextColor(0,0,0);
+    }
+    function line(){
+      pdf.setDrawColor.apply(pdf, red);
+      pdf.setLineWidth(0.35);
+      pdf.line(margin, y, pageW - margin, y);
+      y += 4;
+    }
+    function textBlock(label, text, opts){
+      opts = opts || {};
+      var w = opts.w || (pageW - margin*2);
+      var minH = opts.minH || 12;
+      var lines = split(text || '—', w - 8, opts.size || 8.1);
+      var h = Math.max(minH, 7.2 + lines.length * 3.65);
+      ensure(h + 4);
+      pdf.setDrawColor.apply(pdf, softBorder);
+      pdf.setLineWidth(0.28);
+      pdf.setFillColor(255,255,255);
+      pdf.roundedRect(margin, y, w, h, radius, radius, 'S');
+      pdf.setFont('helvetica','bold');
+      pdf.setFontSize(8.0);
+      pdf.setTextColor.apply(pdf, dark);
+      pdf.text(label, margin + 4, y + 4.9);
+      pdf.setFont('helvetica','normal');
+      pdf.setFontSize(opts.size || 8.25);
+      pdf.setTextColor.apply(pdf, text ? dark : grey);
+      pdf.text(lines, margin + 4, y + 9.4);
+      y += h + 4.8;
+    }
+    function section(title){
+      ensure(14);
+      if(y > margin + 18) y += 1.6;
+      pdf.setFont('helvetica','bold');
+      pdf.setFontSize(11.5);
+      pdf.setTextColor.apply(pdf, dark);
+      pdf.text(title, margin, y);
+      y += 3.1;
+      line();
+      y += 1.0;
+    }
+    function pairRow(label1, text1, label2, text2){
+      var colGap=4.8, colW=(pageW - margin*2 - colGap)/2;
+      var l1=split(text1 || '—', colW-8, 8.15), l2=split(text2 || '—', colW-8, 8.15);
+      var h=Math.max(14.5, 8.7 + Math.max(l1.length,l2.length)*3.75);
+      ensure(h+4);
+      [[margin,label1,l1,text1],[margin+colW+colGap,label2,l2,text2]].forEach(function(c){
+        pdf.setDrawColor.apply(pdf, softBorder); pdf.setLineWidth(0.28); pdf.setFillColor(255,255,255);
+        pdf.roundedRect(c[0], y, colW, h, radius, radius, 'S');
+        pdf.setFont('helvetica','bold'); pdf.setFontSize(8.0); pdf.setTextColor.apply(pdf,dark);
+        pdf.text(c[1], c[0]+4, y+5.0);
+        pdf.setFont('helvetica','normal'); pdf.setFontSize(8.15); pdf.setTextColor.apply(pdf,c[3]?dark:grey);
+        pdf.text(c[2], c[0]+4, y+9.8);
+      });
+      y += h + 4.7;
+    }
+    function simpleTable(rows){
+      /* Tabela institucional mais suave: mantém organização, mas com canto arredondado
+         e respiro interno para não parecer formulário bruto.
+         Suporta também linha final com valor alargado (ex.: Email), como no original. */
+      var w1=38, w2=55, w3=38, w4=pageW-margin*2-w1-w2-w3;
+      var tableX = margin;
+      var tableW = pageW - margin*2;
+      var rowHs = [];
+      rows.forEach(function(r){
+        var merged = !r[2] && !r[3];
+        var a = split(r[1] || '—', (merged ? (w2+w3+w4) : w2) - 6, 8.05);
+        var b = merged ? [] : split(r[3] || '—', w4-6, 8.05);
+        rowHs.push(Math.max(11.5, 5.8 + Math.max(a.length, b.length || 1)*3.7));
+      });
+      var totalH = rowHs.reduce(function(a,b){return a+b;}, 0);
+      ensure(totalH + 8);
+      var y0 = y;
+      // Fundo branco da tabela primeiro; o contorno arredondado é desenhado no fim.
+      // Isto evita que os fundos cinza dos rótulos cubram/cortem a borda esquerda.
+      pdf.setFillColor(255,255,255);
+      pdf.rect(tableX, y0, tableW, totalH, 'F');
+      var yy = y0;
+      rows.forEach(function(r, idx){
+        var h=rowHs[idx];
+        var merged = !r[2] && !r[3];
+        var x=tableX;
+        var valueW = merged ? (w2+w3+w4) : w2;
+        var a=split(r[1] || '—', valueW-6, 8.05), b=merged ? [] : split(r[3] || '—', w4-6, 8.05);
+        if(idx > 0){ pdf.setDrawColor.apply(pdf, softBorder); pdf.line(tableX, yy, tableX + tableW, yy); }
+        // fundos dos rótulos exatamente no espírito do guião original: cinza suave + valores em branco
+        pdf.setFillColor.apply(pdf, labelFill);
+        pdf.rect(tableX, yy, w1, h, 'F');
+        if(!merged){ pdf.rect(tableX+w1+w2, yy, w3, h, 'F'); }
+        // linhas verticais internas leves
+        pdf.setDrawColor.apply(pdf, softBorder);
+        pdf.line(tableX+w1, yy, tableX+w1, yy+h);
+        if(!merged){
+          pdf.line(tableX+w1+w2, yy, tableX+w1+w2, yy+h);
+          pdf.line(tableX+w1+w2+w3, yy, tableX+w1+w2+w3, yy+h);
+        }
+        pdf.setTextColor.apply(pdf,dark);
+        pdf.setFont('helvetica','bold'); pdf.setFontSize(8.05); pdf.text(r[0],x+3.2,yy+6.75);
+        x+=w1;
+        pdf.setFont('helvetica','normal'); pdf.setFontSize(8.05); pdf.setTextColor.apply(pdf,r[1]?dark:grey); pdf.text(a,x+3.2,yy+6.75);
+        if(!merged){
+          x+=w2;
+          pdf.setFont('helvetica','bold'); pdf.setFontSize(8.05); pdf.setTextColor.apply(pdf,dark); pdf.text(r[2],x+3.2,yy+6.75);
+          x+=w3;
+          pdf.setFont('helvetica','normal'); pdf.setFontSize(8.05); pdf.setTextColor.apply(pdf,r[3]?dark:grey); pdf.text(b,x+3.2,yy+6.75);
+        }
+        yy += h;
+      });
+      // Contorno final por cima de todos os preenchimentos internos.
+      pdf.setDrawColor.apply(pdf, softBorder);
+      pdf.setLineWidth(0.30);
+      pdf.roundedRect(tableX, y0, tableW, totalH, radius, radius, 'S');
+      y = y0 + totalH + 5.6;
+    }
+
+    function assessmentOriginalStyle(items){
+      /* Avaliação no estilo original, mas com a mesma borda cinza suave dos demais campos.
+         Mantém rótulo em negrito + valor em linha própria, sem transformar em tabela. */
+      var w = pageW - margin*2;
+      var padX = 4;
+      var labelSize = 8.05;
+      var valueSize = 8.25;
+      var gap = 3.4;
+      items.forEach(function(it){
+        var label = it[0] || '';
+        var value = it[1] || '—';
+        var lines = split(value, w - padX*2, valueSize);
+        var h = Math.max(12.5, 8.2 + Math.max(1, lines.length) * 3.8);
+        ensure(h + gap + 1);
+        pdf.setDrawColor.apply(pdf, softBorder);
+        pdf.setLineWidth(0.28);
+        pdf.setFillColor(255,255,255);
+        pdf.roundedRect(margin, y, w, h, radius, radius, 'S');
+
+        pdf.setFont('helvetica','bold');
+        pdf.setFontSize(labelSize);
+        pdf.setTextColor.apply(pdf, dark);
+        pdf.text(label + ':', margin + padX, y + 5.0);
+
+        pdf.setFont('helvetica','normal');
+        pdf.setFontSize(valueSize);
+        pdf.setTextColor.apply(pdf, value ? dark : grey);
+        pdf.text(lines, margin + padX, y + 9.4);
+
+        y += h + gap;
+      });
+      y += 1.0;
+    }
+
+    // Cabeçalho
+    try{
+      var img = document.querySelector('.header img');
+      if(img && img.src && img.src.indexOf('data:image') === 0){ pdf.addImage(img.src, 'PNG', pageW/2 - 18, y, 36, 11); y += 15; }
+    }catch(e){ y += 2; }
+    pdf.setFont('helvetica','bold');
+    pdf.setFontSize(14.7);
+    pdf.setTextColor.apply(pdf, dark);
+    pdf.text('Guião Challenge-Based Learning', pageW/2, y, {align:'center'});
+    y += 5; line();
+    y += 1.2;
+
+    pairRow('Unidade Orgânica', val('unidadeOrganica'), 'Modalidade', val('modalidade'));
+    simpleTable([
+      ['Curso:', val('curso'), 'Unidades Curriculares:', val('uc')],
+      ['Ano Letivo:', val('ano'), 'Docente(s):', val('professor')],
+      ['Email(s):', val('emails'), '', '']
+    ]);
+
+    section('Identificação do guião');
+    textBlock('Autoria', val('autoria'), {minH:12});
+    pairRow('Estado do Guião', val('estado'), 'Número de Estudantes', val('n_estudantes'));
+    textBlock('Organização(ões) / contacto', val('organizacao'), {minH:13});
+    textBlock('Conteúdo(s) alinhados com os Conteúdos Programáticos da FUC', val('conteudos'), {minH:16});
+
+    section('Desafio');
+    textBlock('Descrição do desafio', val('desafio'), {minH:22});
+    textBlock('Objetivos de aprendizagem', val('objetivos'), {minH:18});
+
+    section('Entregas');
+    textBlock('Documento escrito', val('doc_escrito'), {minH:13});
+    textBlock('Apresentação', val('apresentacao'), {minH:13});
+
+    section('Avaliação');
+    assessmentOriginalStyle([
+      ['Ponderação do CBL na Avaliação Contínua', val('pond_total')],
+      ['Ponderação - Documento Escrito', val('pond_doc')],
+      ['Ponderação - Apresentação Final', val('pond_apres')]
+    ]);
+
+    section('Calendarização');
+    textBlock('Data / hora', val('calendarizacao'), {minH:12});
+
+    footer();
+    return pdf.output('blob');
   }
 
   function makePdfFileName(){
@@ -2451,7 +2463,21 @@ textarea::-webkit-resizer{
     }catch(e){ console.error(e); return ''; }
   }
   async function submitValidation(button){
-    if(submitLock) return;
+    
+      var emailEl = document.getElementById('emails');
+      var emailValue = emailEl ? String(emailEl.value || '').trim() : '';
+      if(!emailValue){
+        if(emailEl){
+          emailEl.classList.add('cbl-email-error');
+          try{ emailEl.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){}
+          try{ emailEl.focus(); }catch(e){}
+        }
+        showToast('Para enviar o guião para validação, indique pelo menos um e-mail no campo Email(s).', 'error', 7500);
+        return;
+      }
+      if(emailEl){ emailEl.classList.remove('cbl-email-error'); }
+
+if(submitLock) return;
     if(!window.validarCamposNumericosGuiao()) return;
     submitLock = true;
     var original = button ? button.textContent : '';
@@ -2506,7 +2532,20 @@ textarea::-webkit-resizer{
     var ai = $('btnAssistenteIA');
     if(ai && ai.dataset.bound !== '1'){
       ai.dataset.bound = '1';
-      ai.addEventListener('click', function(ev){ ev.preventDefault(); window.open(BOT_URL, '_blank', 'noopener,noreferrer'); toast('A abrir o Assistente IA no Teams...'); });
+      ai.addEventListener('click', function(ev){
+        ev.preventDefault();
+
+        // Opção A: mensagem curta e controlada antes de abrir o Assistente.
+        // Dá tempo real para o docente ler antes de o Teams/nova aba assumir o foco.
+        toast('A abrir o Assistente IA no Teams...', 'ok', 2200);
+
+        setTimeout(function(){
+          var win = window.open(BOT_URL, '_blank', 'noopener,noreferrer');
+          if(!win){
+            toast('O navegador bloqueou a abertura do Assistente IA. Autorize pop-ups para este site.', 'error', 6500);
+          }
+        }, 900);
+      });
     }
     var pdf = $('btnSalvarPDF');
     if(pdf && pdf.dataset.bound !== '1'){
@@ -2517,6 +2556,15 @@ textarea::-webkit-resizer{
     if(enviar && enviar.dataset.bound !== '1'){
       enviar.dataset.bound = '1';
       enviar.addEventListener('click', function(ev){ ev.preventDefault(); submitValidation(enviar); });
+    }
+
+    var emailObrigatorio = document.getElementById('emails');
+    if(emailObrigatorio){
+      emailObrigatorio.addEventListener('input', function(){
+        if(String(emailObrigatorio.value || '').trim()){
+          emailObrigatorio.classList.remove('cbl-email-error');
+        }
+      });
     }
   }
   function bindFields(){
