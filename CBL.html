@@ -1866,7 +1866,7 @@ body.cbl-exporting #objetivos{ min-height:22px !important; height:24px !importan
   'use strict';
 
   var TEMPLATE_TYPE = 'CBL';
-  var TEMPLATE_SCENARIO = 'Challenge Based Learning';
+  var TEMPLATE_SCENARIO = 'CBL';
   var STORAGE_KEY = 'template_autosave_CBL_v3';
   var FLOW_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e204529fc1f342fc87cd935dfa2a58f1/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=twiVi70IgSoNelyf9E_StjR8n6gtjcasJu3ULIuXErc';
   var HTML2PDF_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
@@ -2183,6 +2183,7 @@ body.cbl-exporting #objetivos{ min-height:22px !important; height:24px !importan
       var txt = await res.text();
       if(!res.ok) throw new Error('Power Automate respondeu ' + res.status + '. ' + txt);
       toast('Guião submetido com sucesso. O seu guião foi enviado para validação.', 'ok');
+      showSubmissionConfirmation();
     }catch(e){
       console.error(e);
       toast('Não foi possível enviar para validação.', 'error');
@@ -2193,6 +2194,30 @@ body.cbl-exporting #objetivos{ min-height:22px !important; height:24px !importan
     }
   }
   window.submitToGuiesPowerAutomate = submitValidation;
+
+  function showSubmissionConfirmation(result){
+    try {
+      let panel = document.getElementById("powerAutomateSubmissionConfirmation");
+      if (!panel) {
+        panel = document.createElement("div");
+        panel.id = "powerAutomateSubmissionConfirmation";
+        panel.className = "no-print";
+        panel.style.margin = "18px 0";
+        panel.style.padding = "16px 18px";
+        panel.style.border = "1.5px solid #1f4d2b";
+        panel.style.borderRadius = "14px";
+        panel.style.background = "#f3fff6";
+        panel.style.color = "#1f4d2b";
+        panel.style.fontSize = "13px";
+        const actions = document.querySelector(".ux-actions");
+        if (actions && actions.parentNode) actions.parentNode.insertBefore(panel, actions);
+        else document.body.appendChild(panel);
+      }
+      const itemInfo = result && (result.itemId || result.ID || result.id) ? ` — ID ${result.itemId || result.ID || result.id}` : "";
+      panel.innerHTML = `<strong>✅ Guião submetido com sucesso.</strong><br>O seu guião foi enviado para validação${itemInfo}.<br>Pode fechar esta página.`;
+      panel.scrollIntoView({behavior:"smooth", block:"center"});
+    } catch(e) {}
+  }
 
   function bindButtons(){
     var ai = $('btnAssistenteIA');
