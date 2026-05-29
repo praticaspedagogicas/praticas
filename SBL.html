@@ -1704,6 +1704,3963 @@ body.guiao-pdf-mode h1{
 }
 
 </style>
+
+<style id="sbl-cbl-rbl-v2-css-final">
+/* ===== SBL V2 — correções reais herdadas do CBL/RBL ===== */
+
+/* Email expansível + erro obrigatório */
+#emails{
+  min-height:34px !important;
+  height:34px !important;
+  max-height:130px !important;
+  resize:vertical !important;
+  overflow:auto !important;
+  line-height:18px !important;
+}
+#emails.sbl-email-error{
+  border-color:#E31E24 !important;
+  outline:3px solid rgba(227,30,36,.14) !important;
+  background:#fffafa !important;
+}
+
+/* Texto preenchido/selecionado a preto; placeholders cinza na web */
+input, textarea, select,
+.header-card select,
+.sbl-meta-coupled-card input,
+.sbl-meta-coupled-card textarea,
+.sbl-rounded-block textarea,
+.sbl-rounded-block input[type="text"],
+#quadroAcao textarea{
+  color:#222 !important;
+  -webkit-text-fill-color:#222 !important;
+}
+input::placeholder,
+textarea::placeholder{
+  color:#777 !important;
+  opacity:1 !important;
+  -webkit-text-fill-color:#777 !important;
+}
+
+/* Foco padronizado como CBL/RBL */
+input:focus,
+textarea:focus,
+select:focus,
+.header-card select:focus,
+.sbl-meta-coupled-card input:focus,
+.sbl-meta-coupled-card textarea:focus,
+.sbl-rounded-block textarea:focus,
+.sbl-rounded-block input[type="text"]:focus,
+#quadroAcao textarea:focus,
+#emails:focus{
+  border-color:#1f1f1f !important;
+  outline:3px solid rgba(0,0,0,.12) !important;
+  outline-offset:0 !important;
+  box-shadow:0 3px 10px rgba(0,0,0,.07) !important;
+  background:#fff !important;
+}
+
+/* Legenda discreta abaixo dos botões + / − */
+.sbl-row-helper{
+  display:block !important;
+  width:auto !important;
+  max-width:360px !important;
+  margin:4px 0 0 auto !important;
+  text-align:right !important;
+  font-size:9.5px !important;
+  color:#666 !important;
+  line-height:1.18 !important;
+}
+.sbl-row-helper strong{
+  color:#333 !important;
+  font-weight:700 !important;
+}
+@media print{
+  .sbl-row-helper{
+    display:none !important;
+    visibility:hidden !important;
+  }
+}
+
+/* Toasts */
+.toast-message.sbl-toast-long,
+.ux-toast.sbl-toast-long{
+  bottom:34px !important;
+  min-width:340px !important;
+  max-width:720px !important;
+  white-space:normal !important;
+  line-height:1.35 !important;
+}
+
+/* Modo PDF: não levar exemplos/placeholders como conteúdo */
+body.guiao-pdf-mode input::placeholder,
+body.guiao-pdf-mode textarea::placeholder{
+  color:transparent !important;
+  opacity:0 !important;
+  -webkit-text-fill-color:transparent !important;
+}
+body.guiao-pdf-mode select:invalid{
+  color:transparent !important;
+  -webkit-text-fill-color:transparent !important;
+}
+
+/* Microajuste de leitura em A4, próximo ao CBL/RBL */
+@media print{
+  html, body{
+    font-size:9.25px !important;
+    line-height:1.18 !important;
+  }
+  label,
+  .section label,
+  .header-card label,
+  .sbl-meta-coupled-card label,
+  .sbl-rounded-block > label{
+    font-size:8.75px !important;
+    line-height:1.16 !important;
+  }
+  input,
+  textarea,
+  select,
+  .header-card select,
+  .sbl-meta-coupled-card input,
+  .sbl-meta-coupled-card textarea,
+  .sbl-rounded-block textarea,
+  .sbl-rounded-block input[type="text"],
+  #quadroAcao textarea{
+    font-size:8.55px !important;
+    line-height:1.15 !important;
+  }
+  th, td,
+  #quadroAcao th,
+  #quadroAcao td{
+    font-size:7.75px !important;
+    line-height:1.10 !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v3-ajustes-pontuais">
+/* ===== SBL V3 — ajustes pontuais: linha vermelha, email obrigatório e tooltip remover ===== */
+.sbl-section-divider-red{
+  width:100% !important;
+  height:2px !important;
+  background:#E31E24 !important;
+  border-radius:999px !important;
+  margin:16px 0 14px 0 !important;
+  clear:both !important;
+}
+
+#emails.sbl-email-error,
+textarea#emails.sbl-email-error{
+  border-color:#E31E24 !important;
+  outline:3px solid rgba(227,30,36,.16) !important;
+  background:#fffafa !important;
+}
+
+.btn-minus[data-sbl-tooltip],
+.btn-plus[data-sbl-tooltip]{
+  position:relative !important;
+}
+
+.btn-minus[data-sbl-tooltip]::after,
+.btn-plus[data-sbl-tooltip]::after{
+  content:attr(data-sbl-tooltip) !important;
+  position:absolute !important;
+  bottom:calc(100% + 7px) !important;
+  left:50% !important;
+  transform:translateX(-50%) !important;
+  background:#000 !important;
+  color:#fff !important;
+  padding:5px 9px !important;
+  border-radius:6px !important;
+  font-size:11px !important;
+  line-height:1.15 !important;
+  white-space:nowrap !important;
+  min-width:max-content !important;
+  max-width:none !important;
+  width:auto !important;
+  z-index:9999999 !important;
+  box-shadow:0 3px 8px rgba(0,0,0,.20) !important;
+  opacity:0 !important;
+  pointer-events:none !important;
+  visibility:hidden !important;
+}
+
+.btn-minus[data-sbl-tooltip]:hover::after,
+.btn-minus[data-sbl-tooltip]:focus::after,
+.btn-plus[data-sbl-tooltip]:hover::after,
+.btn-plus[data-sbl-tooltip]:focus::after{
+  opacity:1 !important;
+  visibility:visible !important;
+}
+
+@media print{
+  .sbl-section-divider-red{
+    display:block !important;
+    visibility:visible !important;
+  }
+  .btn-minus[data-sbl-tooltip]::after,
+  .btn-plus[data-sbl-tooltip]::after{
+    display:none !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v4-divisoes-tooltip">
+/* ===== SBL V4 — tooltip flutuante sem corte + divisões visuais ===== */
+
+/* Desativa tooltips por pseudo-elemento, que podiam ficar cortados dentro de tabelas/containers */
+.btn-minus[data-sbl-tooltip]::after,
+.btn-plus[data-sbl-tooltip]::after,
+.btn-minus:hover::after,
+.btn-plus:hover::after{
+  display:none !important;
+  content:none !important;
+}
+
+/* Tooltip real, solto no body, sem corte por overflow da tabela */
+.sbl-floating-tooltip{
+  position:fixed !important;
+  z-index:2147483647 !important;
+  background:#000 !important;
+  color:#fff !important;
+  padding:6px 10px !important;
+  border-radius:7px !important;
+  font-size:11px !important;
+  line-height:1.15 !important;
+  white-space:nowrap !important;
+  box-shadow:0 4px 10px rgba(0,0,0,.24) !important;
+  pointer-events:none !important;
+  transform:translate(-50%, -100%) !important;
+}
+
+/* Divisões institucionais para quebrar o bloco inicial */
+.sbl-divider-red{
+  width:100% !important;
+  height:2px !important;
+  background:#E31E24 !important;
+  border-radius:999px !important;
+  margin:16px 0 14px 0 !important;
+  clear:both !important;
+}
+
+.sbl-divider-red.sbl-divider-soft{
+  height:1.5px !important;
+  opacity:.95 !important;
+  margin:14px 0 12px 0 !important;
+}
+
+@media print{
+  .sbl-floating-tooltip{
+    display:none !important;
+  }
+  .sbl-divider-red{
+    display:block !important;
+    visibility:visible !important;
+    height:1.4px !important;
+    margin:8px 0 7px 0 !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v5-sem-linhas-foco-padrao">
+/* ===== SBL V5 — desfaz linhas extra e padroniza foco ===== */
+
+/* Remove/desativa as linhas vermelhas extra criadas nas versões anteriores */
+.sbl-section-divider-red,
+.sbl-divider-red,
+.sbl-divider-red.sbl-divider-soft{
+  display:none !important;
+  visibility:hidden !important;
+  height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  background:transparent !important;
+  border:0 !important;
+}
+
+/* Foco único e padronizado: borda preta + halo cinza, sem campos vermelhos */
+input:focus,
+textarea:focus,
+select:focus,
+.header-card select:focus,
+.sbl-meta-coupled-card input:focus,
+.sbl-meta-coupled-card textarea:focus,
+.sbl-rounded-block textarea:focus,
+.sbl-rounded-block input[type="text"]:focus,
+.sbl47-v53-card input:focus,
+.sbl47-v53-card textarea:focus,
+.sbl47-v53-card select:focus,
+#quadroAcao textarea:focus,
+#emails:focus,
+#curso:focus,
+#uc:focus,
+#professor:focus,
+#data:focus,
+#hora:focus,
+#n_estudantes:focus,
+#n_grupos:focus,
+#estado:focus,
+#autoria:focus,
+#objetivos:focus,
+#recursos:focus,
+#info_inicial:focus,
+#info_ator:focus{
+  border-color:#1f1f1f !important;
+  outline:3px solid rgba(0,0,0,.12) !important;
+  outline-offset:0 !important;
+  box-shadow:0 3px 10px rgba(0,0,0,.07) !important;
+  background:#fff !important;
+  color:#222 !important;
+  -webkit-text-fill-color:#222 !important;
+}
+
+/* Mantém erro de email em vermelho apenas quando o docente tentar enviar sem email */
+#emails.sbl-email-error{
+  border-color:#E31E24 !important;
+  outline:3px solid rgba(227,30,36,.16) !important;
+  box-shadow:0 3px 10px rgba(227,30,36,.08) !important;
+  background:#fffafa !important;
+}
+
+@media print{
+  .sbl-section-divider-red,
+  .sbl-divider-red,
+  .sbl-divider-red.sbl-divider-soft{
+    display:none !important;
+    visibility:hidden !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v6-compacto-web">
+/* ===== SBL V6 — compactação visual web, sem mexer na lógica/PDF profundo =====
+   Objetivo: reduzir cara de formulário no ecrã, diminuir campos/botões/blocos,
+   mantendo estrutura, conteúdo, Power Automate e funcionalidades. */
+
+/* Página e espaçamento geral */
+body{
+  padding:14px !important;
+}
+.page{
+  max-width:920px !important;
+  padding:18px 42px !important;
+  border-radius:16px !important;
+}
+.header{
+  margin-bottom:18px !important;
+}
+.header img{
+  height:34px !important;
+  margin-bottom:10px !important;
+}
+h1{
+  font-size:22px !important;
+  padding-bottom:10px !important;
+  margin-bottom:10px !important;
+}
+
+/* Estado/progresso mais discreto */
+.premium-status{
+  margin-bottom:16px !important;
+  padding:10px 14px !important;
+  border-radius:14px !important;
+}
+.progress-label,
+.autosave-status{
+  font-size:11.5px !important;
+}
+.progress-bar{
+  height:6px !important;
+}
+
+/* Topo institucional mais compacto */
+.header-grid{
+  gap:9px !important;
+  margin-bottom:10px !important;
+}
+.header-card{
+  padding:9px 10px !important;
+  border-radius:12px !important;
+}
+.header-card label{
+  font-size:12.2px !important;
+  margin-bottom:4px !important;
+}
+.header-card select{
+  min-height:34px !important;
+  padding:5px 8px !important;
+  font-size:12px !important;
+  border-radius:8px !important;
+}
+
+/* Cards de identificação mais baixos */
+.sbl47-v53-cards,
+.sbl-meta-coupled-grid{
+  gap:9px !important;
+  margin-bottom:14px !important;
+}
+.sbl47-v53-card,
+.sbl-meta-coupled-card{
+  padding:9px 10px !important;
+  border-radius:12px !important;
+}
+.sbl47-v53-card label,
+.sbl-meta-coupled-card label{
+  font-size:12.2px !important;
+  margin-bottom:4px !important;
+}
+.sbl47-v53-card input,
+.sbl47-v53-card textarea,
+.sbl-meta-coupled-card input,
+.sbl-meta-coupled-card textarea,
+.header-grid + table input,
+.header-grid + table textarea{
+  min-height:34px !important;
+  padding:6px 8px !important;
+  font-size:12px !important;
+  line-height:1.25 !important;
+  border-radius:8px !important;
+}
+.sbl47-v53-card textarea,
+.sbl-meta-coupled-card textarea{
+  min-height:40px !important;
+}
+#emails{
+  min-height:32px !important;
+  height:32px !important;
+}
+#autoria{
+  min-height:40px !important;
+}
+#professor{
+  min-height:40px !important;
+}
+
+/* Secções mais leves */
+.section{
+  margin:8px 0 !important;
+}
+.section h3{
+  font-size:15.5px !important;
+  margin:0 0 10px 0 !important;
+  padding-bottom:6px !important;
+}
+.section label,
+label{
+  font-size:12.2px !important;
+  margin:5px 0 3px 0 !important;
+}
+.section textarea,
+textarea,
+input[type="text"]{
+  font-size:12px !important;
+  line-height:1.28 !important;
+  padding:7px 8px !important;
+  border-radius:8px !important;
+}
+#objetivos,
+#recursos{
+  min-height:64px !important;
+}
+.sbl-rounded-block,
+.sbl-rounded-title-block{
+  margin:10px 0 !important;
+  padding:10px !important;
+  border-radius:12px !important;
+}
+.sbl-rounded-block > label,
+.sbl-rounded-title-block label{
+  font-size:12.2px !important;
+  margin-bottom:5px !important;
+}
+.sbl-rounded-block textarea,
+.sbl-rounded-block input[type="text"]{
+  min-height:62px !important;
+  padding:7px 8px !important;
+  font-size:12px !important;
+}
+
+/* Caixas explicativas menos pesadas */
+#hint_procedimentos,
+#hint_briefing,
+#hint_ator,
+#hint_info_ator{
+  padding:8px 10px !important;
+  margin:7px 0 9px 0 !important;
+  border-radius:8px !important;
+}
+#hint_procedimentos div,
+#hint_briefing div,
+#hint_ator div,
+#hint_info_ator div{
+  font-size:11.5px !important;
+  line-height:1.55 !important;
+}
+
+/* Botões "Saiba mais" menores */
+button[title="Saiba mais"],
+.sbl-info-i{
+  width:21px !important;
+  height:21px !important;
+  min-width:21px !important;
+  min-height:21px !important;
+  font-size:12px !important;
+  margin-left:5px !important;
+}
+
+/* Quadro de ação mais compacto */
+.sbl-quadro-instrucao{
+  margin:8px 0 10px 0 !important;
+  padding:8px 10px !important;
+  font-size:12px !important;
+  line-height:1.38 !important;
+  border-radius:9px !important;
+}
+#quadroAcao{
+  margin-top:6px !important;
+  border-radius:13px !important;
+}
+#quadroAcao th{
+  font-size:11.6px !important;
+  padding:7px 6px !important;
+}
+#quadroAcao td{
+  padding:6px !important;
+}
+#quadroAcao textarea{
+  min-height:62px !important;
+  padding:6px 7px !important;
+  font-size:11.6px !important;
+  line-height:1.28 !important;
+  border-radius:8px !important;
+}
+#quadroAcao .sbl-controls-row td,
+#quadroAcao tr:last-child td:has(.btn-plus),
+#quadroAcao tr:last-child td:has(.btn-minus){
+  padding:9px 10px !important;
+}
+.btn-plus,
+.btn-minus,
+#quadroAcao .btn-plus,
+#quadroAcao .btn-minus{
+  width:25px !important;
+  height:25px !important;
+  min-width:25px !important;
+  min-height:25px !important;
+  font-size:14px !important;
+}
+
+/* Legenda +/− mais discreta */
+.sbl-row-helper{
+  font-size:9.2px !important;
+  margin-top:3px !important;
+  max-width:330px !important;
+}
+
+/* Botões finais mais compactos */
+.ux-actions{
+  margin:20px auto 8px auto !important;
+  padding:9px 11px !important;
+  gap:6px !important;
+  border-radius:16px !important;
+}
+.ux-actions .ux-btn,
+.ux-actions .ux-btn-ai,
+.ux-actions .ux-btn-primary,
+.ux-actions .ux-btn-pdf,
+.ux-actions .ux-btn-more,
+.ux-btn,
+.ux-btn-primary,
+.ux-btn-ai,
+.ux-btn-pdf,
+.ux-btn-more{
+  min-height:32px !important;
+  height:32px !important;
+  padding:0 12px !important;
+  font-size:11.7px !important;
+  gap:4px !important;
+}
+.ux-btn-ai .ux-ai-icon{
+  width:18px !important;
+  height:18px !important;
+  margin-right:2px !important;
+}
+.ux-ai-guidance{
+  margin-top:5px !important;
+  font-size:11px !important;
+}
+.ux-info-panel{
+  margin-top:10px !important;
+  padding:9px 11px !important;
+  gap:8px !important;
+  border-radius:14px !important;
+}
+.ux-info-item{
+  font-size:11px !important;
+  line-height:1.25 !important;
+}
+.ux-info-item strong{
+  font-size:11.3px !important;
+}
+
+/* Menu Mais opções mais compacto */
+#uxMenuMaisOpcoes,
+.ux-menu{
+  min-width:230px !important;
+  border-radius:12px !important;
+}
+#uxMenuMaisOpcoes button,
+.ux-menu button{
+  padding:10px 13px !important;
+  font-size:12px !important;
+}
+
+/* Telemóvel mantém respiro mínimo */
+@media screen and (max-width:760px){
+  .page{
+    padding:10px 9px !important;
+  }
+  h1{
+    font-size:23px !important;
+  }
+  .sbl47-v53-card,
+  .sbl-meta-coupled-card,
+  .header-card,
+  .section,
+  .sbl-rounded-block,
+  .sbl-rounded-title-block{
+    padding:9px !important;
+  }
+}
+
+/* Não mexe no comportamento print/PDF profundo agora */
+@media print{
+  /* Mantém regras de impressão existentes das versões anteriores */
+}
+</style>
+
+
+<style id="sbl-v7-compacto-web-visivel">
+/* ===== SBL V7 — compactação visível, mais forte que V6 =====
+   A V6 tinha compactação leve. Esta versão força reduções mais perceptíveis,
+   sem mexer no conteúdo, envio, Assistente IA ou PDF profundo. */
+
+/* Página mais curta e menos espaçada */
+body{
+  padding:10px !important;
+}
+.page{
+  max-width:900px !important;
+  padding:14px 34px !important;
+  border-radius:14px !important;
+}
+.header{
+  margin-bottom:12px !important;
+}
+.header img{
+  height:30px !important;
+  margin-bottom:7px !important;
+}
+h1{
+  font-size:20px !important;
+  line-height:1.12 !important;
+  margin:0 0 8px 0 !important;
+  padding-bottom:8px !important;
+}
+
+/* Barra de progresso menor */
+.premium-status{
+  margin:0 0 12px 0 !important;
+  padding:8px 12px !important;
+  border-radius:12px !important;
+}
+.progress-label,
+.autosave-status{
+  font-size:11px !important;
+}
+.progress-bar{
+  height:5px !important;
+}
+
+/* Topo Unidade Orgânica / Modalidade */
+.header-grid{
+  gap:7px !important;
+  margin:0 0 8px 0 !important;
+}
+.header-card{
+  padding:7px 8px !important;
+  border-radius:10px !important;
+}
+.header-card label{
+  font-size:11.5px !important;
+  margin:0 0 3px 0 !important;
+}
+.header-card select{
+  min-height:29px !important;
+  height:29px !important;
+  padding:3px 6px !important;
+  font-size:11.3px !important;
+  line-height:1.15 !important;
+  border-radius:7px !important;
+}
+
+/* Bloco de identificação: força cards e campos menores */
+.sbl47-v53-cards,
+.sbl-meta-coupled-grid{
+  gap:7px !important;
+  margin:0 0 10px 0 !important;
+}
+
+.sbl47-v53-card,
+.sbl-meta-coupled-card,
+.header-grid + table th,
+.header-grid + table td{
+  padding:7px 8px !important;
+  border-radius:10px !important;
+}
+
+.sbl47-v53-card label,
+.sbl-meta-coupled-card label,
+.header-grid + table th,
+.header-grid + table label{
+  font-size:11.4px !important;
+  line-height:1.12 !important;
+  margin:0 0 3px 0 !important;
+}
+
+.sbl47-v53-card input,
+.sbl47-v53-card textarea,
+.sbl47-v53-card select,
+.sbl-meta-coupled-card input,
+.sbl-meta-coupled-card textarea,
+.sbl-meta-coupled-card select,
+.header-grid + table input,
+.header-grid + table textarea,
+.header-grid + table select,
+#curso,
+#uc,
+#professor,
+#emails,
+#data,
+#hora,
+#n_estudantes,
+#n_grupos,
+#estado,
+#autoria{
+  min-height:28px !important;
+  height:auto !important;
+  padding:4px 6px !important;
+  font-size:11.4px !important;
+  line-height:1.18 !important;
+  border-radius:7px !important;
+}
+
+/* Textareas do topo começam bem menores, mas continuam expansíveis */
+#professor,
+#emails,
+#autoria,
+.sbl47-v53-card textarea,
+.sbl-meta-coupled-card textarea{
+  min-height:32px !important;
+  height:32px !important;
+  max-height:120px !important;
+  resize:vertical !important;
+}
+
+/* Datas/números compactos */
+#data,
+#hora,
+#n_estudantes,
+#n_grupos{
+  min-height:28px !important;
+  height:28px !important;
+}
+
+/* Secções gerais mais enxutas */
+.section{
+  margin:6px 0 !important;
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+}
+.section h3{
+  font-size:14.5px !important;
+  line-height:1.15 !important;
+  margin:0 0 7px 0 !important;
+  padding-bottom:4px !important;
+}
+.section label,
+label{
+  font-size:11.6px !important;
+  line-height:1.14 !important;
+  margin:4px 0 2px 0 !important;
+}
+
+/* Campos grandes reduzidos */
+textarea,
+input[type="text"],
+.sbl-rounded-block textarea,
+.sbl-rounded-block input[type="text"],
+#quadroAcao textarea{
+  font-size:11.4px !important;
+  line-height:1.22 !important;
+  padding:5px 6px !important;
+  border-radius:7px !important;
+}
+#objetivos,
+#recursos{
+  min-height:50px !important;
+}
+#info_ator{
+  min-height:76px !important;
+}
+.sbl-rounded-block,
+.sbl-rounded-title-block{
+  margin:7px 0 !important;
+  padding:8px !important;
+  border-radius:10px !important;
+}
+.sbl-rounded-block textarea{
+  min-height:54px !important;
+}
+
+/* Caixas de ajuda mais discretas */
+#hint_procedimentos,
+#hint_briefing,
+#hint_ator,
+#hint_info_ator{
+  padding:6px 8px !important;
+  margin:5px 0 7px 0 !important;
+  border-radius:7px !important;
+}
+#hint_procedimentos div,
+#hint_briefing div,
+#hint_ator div,
+#hint_info_ator div{
+  font-size:11px !important;
+  line-height:1.38 !important;
+}
+
+/* Botões Saiba mais menores */
+button[title="Saiba mais"],
+.sbl-info-i{
+  width:19px !important;
+  height:19px !important;
+  min-width:19px !important;
+  min-height:19px !important;
+  padding:0 !important;
+  font-size:11px !important;
+  margin-left:4px !important;
+}
+
+/* Quadro ação menor */
+.sbl-quadro-instrucao{
+  margin:6px 0 8px 0 !important;
+  padding:7px 8px !important;
+  font-size:11.3px !important;
+  line-height:1.28 !important;
+  border-radius:8px !important;
+}
+#quadroAcao{
+  margin-top:5px !important;
+  border-radius:11px !important;
+}
+#quadroAcao th{
+  font-size:11px !important;
+  line-height:1.12 !important;
+  padding:5px !important;
+}
+#quadroAcao td{
+  padding:4px !important;
+}
+#quadroAcao textarea{
+  min-height:48px !important;
+  font-size:11px !important;
+  line-height:1.2 !important;
+  padding:5px !important;
+}
+.btn-plus,
+.btn-minus,
+#quadroAcao .btn-plus,
+#quadroAcao .btn-minus{
+  width:23px !important;
+  height:23px !important;
+  min-width:23px !important;
+  min-height:23px !important;
+  font-size:13px !important;
+}
+
+/* Ações finais menores */
+.ux-actions{
+  margin:15px auto 6px auto !important;
+  padding:7px 9px !important;
+  gap:5px !important;
+  border-radius:14px !important;
+}
+.ux-actions .ux-btn,
+.ux-actions .ux-btn-ai,
+.ux-actions .ux-btn-primary,
+.ux-actions .ux-btn-pdf,
+.ux-actions .ux-btn-more,
+.ux-btn,
+.ux-btn-primary,
+.ux-btn-ai,
+.ux-btn-pdf,
+.ux-btn-more{
+  min-height:29px !important;
+  height:29px !important;
+  padding:0 10px !important;
+  font-size:11px !important;
+  gap:3px !important;
+}
+.ux-btn-ai .ux-ai-icon{
+  width:16px !important;
+  height:16px !important;
+}
+.ux-ai-guidance{
+  margin-top:4px !important;
+  font-size:10.5px !important;
+}
+.ux-info-panel{
+  margin-top:7px !important;
+  padding:7px 9px !important;
+  gap:7px !important;
+}
+.ux-info-item{
+  font-size:10.5px !important;
+  line-height:1.2 !important;
+}
+.ux-info-item strong{
+  font-size:10.8px !important;
+}
+
+/* Menu compacto */
+#uxMenuMaisOpcoes,
+.ux-menu{
+  min-width:220px !important;
+}
+#uxMenuMaisOpcoes button,
+.ux-menu button{
+  padding:8px 11px !important;
+  font-size:11.5px !important;
+}
+
+/* Mobile */
+@media screen and (max-width:760px){
+  .page{
+    padding:10px 9px !important;
+  }
+  h1{
+    font-size:22px !important;
+  }
+}
+
+/* Não altera o PDF profundo nesta etapa */
+@media print{
+  /* A impressão fica para a próxima etapa documental. */
+}
+</style>
+
+
+<style id="sbl-v8-fontes-uniformes-traco-unico">
+/* ===== SBL V8 — fontes uniformes + um único traço vermelho =====
+   Corrige a diferença visual entre Curso/UC/Docente/Autoria e Objetivos/Recursos/
+   Informação Inicial/Informações para Ator/Personagem. */
+
+/* 1) Um único padrão para títulos/rótulos principais dos campos */
+.sbl47-v53-card label,
+.sbl-meta-coupled-card label,
+.header-card label,
+.section > label,
+.sbl-rounded-block > label,
+.sbl-rounded-title-block > label,
+label[for="objetivos"],
+label[for="recursos"],
+label[for="info_inicial"],
+label[for="info_ator"],
+label[style*="display:inline"]{
+  font-size:11.6px !important;
+  line-height:1.16 !important;
+  font-weight:700 !important;
+  color:#333 !important;
+  margin:4px 0 3px 0 !important;
+}
+
+/* 2) Mesmo tamanho visual para todos os campos de texto principais */
+#curso,
+#uc,
+#professor,
+#emails,
+#autoria,
+#objetivos,
+#recursos,
+#info_inicial,
+#info_ator,
+.sbl47-v53-card input,
+.sbl47-v53-card textarea,
+.sbl-meta-coupled-card input,
+.sbl-meta-coupled-card textarea,
+.sbl-rounded-block textarea,
+.sbl-rounded-title-block textarea{
+  font-size:11.4px !important;
+  line-height:1.22 !important;
+}
+
+/* 3) Alturas equilibradas: compactas, mas sem parecer que Objetivos/Recursos são menores */
+#objetivos,
+#recursos,
+#info_inicial{
+  min-height:58px !important;
+}
+
+#info_ator{
+  min-height:82px !important;
+}
+
+/* 4) Traço vermelho único antes da área pedagógica.
+   Em vez de inserir várias linhas, usamos só a borda superior da secção Objetivos. */
+#objetivos{
+  margin-top:0 !important;
+}
+
+.section:has(#objetivos),
+.sbl47-v68-red-print-card:has(#objetivos){
+  border-top:2px solid #E31E24 !important;
+  padding-top:12px !important;
+  margin-top:14px !important;
+}
+
+/* Garante que divisores dinâmicos antigos continuam removidos */
+.sbl-section-divider-red,
+.sbl-divider-red,
+.sbl-divider-red.sbl-divider-soft{
+  display:none !important;
+  visibility:hidden !important;
+  height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  background:transparent !important;
+  border:0 !important;
+}
+
+/* 5) Foco continua padronizado cinza/preto */
+input:focus,
+textarea:focus,
+select:focus,
+.header-card select:focus,
+.sbl-meta-coupled-card input:focus,
+.sbl-meta-coupled-card textarea:focus,
+.sbl-rounded-block textarea:focus,
+.sbl-rounded-title-block textarea:focus,
+.sbl47-v53-card input:focus,
+.sbl47-v53-card textarea:focus,
+.sbl47-v53-card select:focus,
+#quadroAcao textarea:focus,
+#emails:focus,
+#curso:focus,
+#uc:focus,
+#professor:focus,
+#data:focus,
+#hora:focus,
+#n_estudantes:focus,
+#n_grupos:focus,
+#estado:focus,
+#autoria:focus,
+#objetivos:focus,
+#recursos:focus,
+#info_inicial:focus,
+#info_ator:focus{
+  border-color:#1f1f1f !important;
+  outline:3px solid rgba(0,0,0,.12) !important;
+  outline-offset:0 !important;
+  box-shadow:0 3px 10px rgba(0,0,0,.07) !important;
+  background:#fff !important;
+  color:#222 !important;
+  -webkit-text-fill-color:#222 !important;
+}
+
+/* O vermelho fica só para erro real de validação */
+#emails.sbl-email-error{
+  border-color:#E31E24 !important;
+  outline:3px solid rgba(227,30,36,.16) !important;
+  box-shadow:0 3px 10px rgba(227,30,36,.08) !important;
+  background:#fffafa !important;
+}
+
+@media print{
+  .section:has(#objetivos),
+  .sbl47-v68-red-print-card:has(#objetivos){
+    border-top:1.4px solid #E31E24 !important;
+    padding-top:7px !important;
+    margin-top:8px !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v9-separadores-retos-menos-formulario">
+/* ===== SBL V9 — separadores retos e menos cara de formulário =====
+   Corrige o traço de Objetivos: deixa de contornar a secção.
+   Adiciona poucos separadores retos, como no padrão visual já aprovado. */
+
+/* Remove a borda que contornava Objetivos na V8 */
+.section:has(#objetivos),
+.sbl47-v68-red-print-card:has(#objetivos){
+  border-top:0 !important;
+  padding-top:0 !important;
+}
+
+/* Separadores retos institucionais */
+.sbl-doc-separator{
+  width:100% !important;
+  height:2px !important;
+  background:#E31E24 !important;
+  border-radius:999px !important;
+  margin:14px 0 12px 0 !important;
+  clear:both !important;
+  display:block !important;
+}
+
+/* Pequeno título opcional acima dos blocos, discreto e documental */
+.sbl-doc-block-title{
+  font-size:11.2px !important;
+  font-weight:700 !important;
+  letter-spacing:.015em !important;
+  text-transform:uppercase !important;
+  color:#555 !important;
+  margin:0 0 6px 0 !important;
+}
+
+/* Reduz sensação de caixa dentro de caixa nos blocos principais */
+.section,
+.sbl-rounded-block,
+.sbl-rounded-title-block,
+.sbl47-v53-card,
+.sbl-meta-coupled-card{
+  box-shadow:0 2px 7px rgba(0,0,0,.018) !important;
+}
+
+/* Blocos pedagógicos ficam mais documentais: borda mais suave e menos “formulário” */
+.section:has(#objetivos),
+.section:has(#recursos),
+.section:has(#info_ator),
+.sbl-rounded-block,
+.sbl-rounded-title-block{
+  border-color:rgba(0,0,0,.22) !important;
+  background:#fff !important;
+}
+
+/* Mantém fonte uniforme da V8 */
+.sbl47-v53-card label,
+.sbl-meta-coupled-card label,
+.header-card label,
+.section > label,
+.sbl-rounded-block > label,
+.sbl-rounded-title-block > label,
+label[for="objetivos"],
+label[for="recursos"],
+label[for="info_inicial"],
+label[for="info_ator"],
+label[style*="display:inline"]{
+  font-size:11.6px !important;
+  line-height:1.16 !important;
+  font-weight:700 !important;
+  color:#333 !important;
+}
+
+@media print{
+  .sbl-doc-separator{
+    height:1.4px !important;
+    margin:8px 0 7px 0 !important;
+  }
+  .sbl-doc-block-title{
+    font-size:8.2px !important;
+    margin:0 0 3px 0 !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v10-titulos-cbl-separadores-limpos">
+/* ===== SBL V10 — títulos/separadores no padrão CBL, sem linhas duplicadas ===== */
+
+/* Títulos dos blocos: maiores, negrito, com presença semelhante ao CBL/SBL */
+.sbl-doc-block-title{
+  font-size:14.5px !important;
+  line-height:1.16 !important;
+  font-weight:800 !important;
+  letter-spacing:0 !important;
+  text-transform:none !important;
+  color:#333 !important;
+  margin:0 0 7px 0 !important;
+  padding:0 !important;
+}
+
+/* Separador reto: único, limpo e sem contornar caixas */
+.sbl-doc-separator{
+  width:100% !important;
+  height:2px !important;
+  background:#E31E24 !important;
+  border-radius:999px !important;
+  margin:0 0 11px 0 !important;
+  clear:both !important;
+  display:block !important;
+}
+
+.sbl-doc-separator-wrap{
+  margin:16px 0 10px 0 !important;
+  padding:0 !important;
+  border:0 !important;
+  background:transparent !important;
+}
+
+/* Remove linhas internas imediatamente depois dos separadores para não criar “duas linhas” */
+.sbl-doc-separator-wrap + .section > div[style*="border-top"],
+.sbl-doc-separator-wrap + .sbl-rounded-block > div[style*="border-top"],
+.sbl-doc-separator-wrap + .sbl-rounded-title-block > div[style*="border-top"]{
+  display:none !important;
+  visibility:hidden !important;
+  height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+}
+
+/* Também evita que o bloco Objetivos volte a ganhar uma moldura/linha envolvente */
+.section:has(#objetivos),
+.sbl47-v68-red-print-card:has(#objetivos){
+  border-top:0 !important;
+  padding-top:0 !important;
+}
+
+/* Garante que o foco fica padronizado em cinza/preto */
+input:focus,
+textarea:focus,
+select:focus,
+.header-card select:focus,
+.sbl-meta-coupled-card input:focus,
+.sbl-meta-coupled-card textarea:focus,
+.sbl-rounded-block textarea:focus,
+.sbl-rounded-title-block textarea:focus,
+.sbl47-v53-card input:focus,
+.sbl47-v53-card textarea:focus,
+.sbl47-v53-card select:focus,
+#quadroAcao textarea:focus,
+#emails:focus,
+#curso:focus,
+#uc:focus,
+#professor:focus,
+#data:focus,
+#hora:focus,
+#n_estudantes:focus,
+#n_grupos:focus,
+#estado:focus,
+#autoria:focus,
+#objetivos:focus,
+#recursos:focus,
+#info_inicial:focus,
+#info_ator:focus{
+  border-color:#1f1f1f !important;
+  outline:3px solid rgba(0,0,0,.12) !important;
+  outline-offset:0 !important;
+  box-shadow:0 3px 10px rgba(0,0,0,.07) !important;
+  background:#fff !important;
+  color:#222 !important;
+  -webkit-text-fill-color:#222 !important;
+}
+
+/* Vermelho só para erro real */
+#emails.sbl-email-error{
+  border-color:#E31E24 !important;
+  outline:3px solid rgba(227,30,36,.16) !important;
+  box-shadow:0 3px 10px rgba(227,30,36,.08) !important;
+  background:#fffafa !important;
+}
+
+@media print{
+  .sbl-doc-block-title{
+    font-size:9.6px !important;
+    line-height:1.12 !important;
+    margin:0 0 3px 0 !important;
+  }
+  .sbl-doc-separator{
+    height:1.2px !important;
+    margin:0 0 5px 0 !important;
+  }
+  .sbl-doc-separator-wrap{
+    margin:7px 0 5px 0 !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v11-identificacao-do-guiao-final">
+/* ===== SBL V11 — topo no estilo CBL, com um único bloco: Identificação do guião ===== */
+
+/* Painel único do topo */
+.sbl-cbl-like-panel{
+  margin:12px 0 16px 0 !important;
+  padding:12px 14px !important;
+  border:1.5px solid rgba(0,0,0,.10) !important;
+  border-radius:16px !important;
+  background:#fff !important;
+  box-shadow:0 3px 10px rgba(0,0,0,.025) !important;
+}
+
+.sbl-cbl-like-title{
+  font-size:16px !important;
+  line-height:1.16 !important;
+  font-weight:800 !important;
+  color:#333 !important;
+  margin:0 0 12px 0 !important;
+  padding:0 0 7px 0 !important;
+  border-bottom:2px solid #E31E24 !important;
+}
+
+/* Grelhas internas dentro do único bloco */
+.sbl-session-grid,
+.sbl-identification-grid{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:8px 10px !important;
+  margin:0 !important;
+}
+
+.sbl-identification-grid{
+  margin-top:8px !important;
+}
+
+/* Cards deixam de parecer cartões soltos e passam a parecer campos do mesmo bloco */
+.sbl-session-grid .sbl47-v53-card,
+.sbl-identification-grid .sbl47-v53-card{
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  border-radius:0 !important;
+}
+
+.sbl-session-grid .sbl47-v53-card.wide,
+.sbl-identification-grid .sbl47-v53-card.wide,
+.sbl-identification-grid .sbl47-v53-card.span-2{
+  grid-column:1 / -1 !important;
+}
+
+/* Rótulos e campos uniformes */
+.sbl-cbl-like-panel label,
+.sbl-session-grid label,
+.sbl-identification-grid label{
+  font-size:12.2px !important;
+  line-height:1.16 !important;
+  font-weight:700 !important;
+  color:#333 !important;
+  margin:0 0 4px 0 !important;
+}
+
+.sbl-session-grid input,
+.sbl-session-grid textarea,
+.sbl-identification-grid input,
+.sbl-identification-grid textarea{
+  width:100% !important;
+  min-height:32px !important;
+  height:auto !important;
+  padding:6px 8px !important;
+  border:1px solid #d2d2d2 !important;
+  border-radius:9px !important;
+  background:#fff !important;
+  font-family:'Century Gothic','Segoe UI',sans-serif !important;
+  font-size:12px !important;
+  line-height:1.22 !important;
+  color:#222 !important;
+  -webkit-text-fill-color:#222 !important;
+  box-sizing:border-box !important;
+}
+
+/* Textareas compactos, mas expansíveis */
+.sbl-session-grid textarea,
+.sbl-identification-grid textarea,
+#emails,
+#professor,
+#autoria{
+  min-height:34px !important;
+  height:34px !important;
+  max-height:130px !important;
+  resize:vertical !important;
+  overflow:auto !important;
+}
+
+/* Data/hora/números compactos */
+#data,
+#hora,
+#n_estudantes,
+#n_grupos{
+  min-height:32px !important;
+  height:32px !important;
+}
+
+/* Container antigo passa a ser só suporte */
+.sbl47-v53-header-cards.sbl-v11-single-identification{
+  display:block !important;
+  margin:0 0 12px 0 !important;
+}
+
+/* Separadores seguintes mantidos no estilo CBL/SBL */
+.sbl-doc-block-title{
+  font-size:15px !important;
+  line-height:1.16 !important;
+  font-weight:800 !important;
+  color:#333 !important;
+  text-transform:none !important;
+  letter-spacing:0 !important;
+  margin:0 0 7px 0 !important;
+}
+
+.sbl-doc-separator{
+  height:2px !important;
+  background:#E31E24 !important;
+  margin:0 0 10px 0 !important;
+}
+
+/* Remove linhas duplicadas internas quando o separador vem antes de um bloco com linha própria */
+.sbl-doc-separator-wrap + .section > div[style*="border-top"],
+.sbl-doc-separator-wrap + .sbl-rounded-block > div[style*="border-top"],
+.sbl-doc-separator-wrap + .sbl-rounded-title-block > div[style*="border-top"]{
+  display:none !important;
+  visibility:hidden !important;
+  height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+}
+
+/* Foco sempre cinza/preto */
+.sbl-cbl-like-panel input:focus,
+.sbl-cbl-like-panel textarea:focus,
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:#1f1f1f !important;
+  outline:3px solid rgba(0,0,0,.12) !important;
+  outline-offset:0 !important;
+  box-shadow:0 3px 10px rgba(0,0,0,.07) !important;
+  background:#fff !important;
+  color:#222 !important;
+  -webkit-text-fill-color:#222 !important;
+}
+
+/* Vermelho só no erro de email obrigatório */
+#emails.sbl-email-error{
+  border-color:#E31E24 !important;
+  outline:3px solid rgba(227,30,36,.16) !important;
+  box-shadow:0 3px 10px rgba(227,30,36,.08) !important;
+  background:#fffafa !important;
+}
+
+/* Mobile */
+@media screen and (max-width:760px){
+  .sbl-session-grid,
+  .sbl-identification-grid{
+    grid-template-columns:1fr !important;
+  }
+  .sbl-cbl-like-panel{
+    padding:10px !important;
+    border-radius:14px !important;
+  }
+}
+
+/* Print: ainda sem mexer no PDF documental profundo, mas mantém compactação básica */
+@media print{
+  .sbl-cbl-like-panel{
+    margin:5px 0 !important;
+    padding:5px !important;
+    border:1px solid #777 !important;
+    border-radius:5px !important;
+    box-shadow:none !important;
+  }
+  .sbl-cbl-like-title{
+    font-size:9.8px !important;
+    line-height:1.12 !important;
+    margin:0 0 4px 0 !important;
+    padding-bottom:2px !important;
+    border-bottom:1.2px solid #E31E24 !important;
+  }
+  .sbl-session-grid,
+  .sbl-identification-grid{
+    gap:4px !important;
+  }
+  .sbl-cbl-like-panel label{
+    font-size:8.3px !important;
+    margin-bottom:1px !important;
+  }
+  .sbl-session-grid input,
+  .sbl-session-grid textarea,
+  .sbl-identification-grid input,
+  .sbl-identification-grid textarea{
+    min-height:17px !important;
+    height:auto !important;
+    padding:1px 2px !important;
+    font-size:8.1px !important;
+    line-height:1.1 !important;
+    border:0 !important;
+    border-radius:0 !important;
+    background:transparent !important;
+    overflow:visible !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v12-ajustes-topo-e-bordas">
+/* ===== SBL V12 — ajustes finos pedidos ===== */
+
+/* 1) Bloco Identificação do guião com contorno vermelho */
+.sbl-cbl-like-panel.sbl-identification-panel{
+  border:2px solid #E31E24 !important;
+  box-shadow:0 4px 14px rgba(227,30,36,.05) !important;
+}
+
+/* 2) Grelha do topo mais equilibrada */
+.sbl-session-grid{
+  grid-template-columns:1.25fr 1.25fr 0.70fr 0.70fr !important;
+  gap:8px 10px !important;
+}
+
+/* curso e UC mais largos */
+.sbl-session-grid .sbl47-v53-card:has(#curso),
+.sbl-session-grid .sbl47-v53-card:has(#uc){
+  grid-column:span 2 !important;
+}
+
+/* data e hora compactos */
+.sbl-session-grid .sbl47-v53-card:has(#data),
+.sbl-session-grid .sbl47-v53-card:has(#hora){
+  grid-column:span 1 !important;
+}
+
+/* docente acompanha até o espaço do e-mail: mais comprido */
+.sbl-session-grid .sbl47-v53-card:has(#professor){
+  grid-column:3 / 5 !important;
+}
+
+/* e-mail ocupa linha inteira para não sobrar "buraco" */
+.sbl-session-grid .sbl47-v53-card:has(#emails){
+  grid-column:1 / -1 !important;
+}
+
+/* fallback para browsers sem :has — por ids diretos */
+#curso, #uc, #data, #hora, #professor, #emails{
+  box-sizing:border-box !important;
+}
+#curso{min-height:34px !important;}
+#uc{min-height:34px !important;}
+#professor{min-height:34px !important;}
+#emails{min-height:38px !important;}
+
+/* 3) Objetivos com a mesma borda cinza arredondada dos demais campos/blocos */
+#objetivos,
+textarea[name="objetivos"],
+#objetivosAprendizagem,
+#objetivo,
+#objetivosPedagogicos{
+  border:1px solid #d2d2d2 !important;
+  border-radius:10px !important;
+  background:#fff !important;
+  box-sizing:border-box !important;
+}
+
+/* Se existir wrapper do bloco objetivos, também reforça o contorno */
+.sbl-rounded-block:has(#objetivos),
+.sbl-rounded-block:has(textarea[name="objetivos"]),
+.sbl47-v53-card:has(#objetivos),
+.sbl47-v53-card:has(textarea[name="objetivos"]){
+  border-radius:12px !important;
+}
+
+/* Impressão */
+@media print{
+  .sbl-cbl-like-panel.sbl-identification-panel{
+    border:1.2px solid #E31E24 !important;
+    box-shadow:none !important;
+  }
+  .sbl-session-grid{
+    grid-template-columns:1.2fr 1.2fr 0.65fr 0.65fr !important;
+    gap:4px 6px !important;
+  }
+  #emails{min-height:18px !important;}
+}
+
+/* Mobile */
+@media screen and (max-width:980px){
+  .sbl-session-grid{
+    grid-template-columns:1fr 1fr !important;
+  }
+  .sbl-session-grid .sbl47-v53-card:has(#curso),
+  .sbl-session-grid .sbl47-v53-card:has(#uc),
+  .sbl-session-grid .sbl47-v53-card:has(#emails),
+  .sbl-session-grid .sbl47-v53-card:has(#professor){
+    grid-column:1 / -1 !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v13-ajuste-contorno-fonte">
+/* ===== SBL V13 — ajustes pedidos ===== */
+
+/* 1) Identificação do guião:
+   usar um vermelho suave, próximo do visual leve dos outros blocos */
+.sbl-cbl-like-panel.sbl-identification-panel{
+  border:1.5px solid rgba(227, 30, 36, 0.26) !important;
+  border-radius:18px !important;
+  box-shadow:0 2px 8px rgba(227,30,36,.035) !important;
+  background:#fff !important;
+}
+
+/* 2) Contorno externo de Objetivos mais visível */
+.section:has(#objetivos),
+.sbl47-v68-red-print-card:has(#objetivos),
+.sbl-v13-objetivos-shell{
+  border:1.5px solid #cfcfcf !important;
+  border-radius:18px !important;
+  padding:16px 18px !important;
+  background:#fff !important;
+  box-shadow:none !important;
+}
+
+/* mantém o campo interno coerente */
+#objetivos,
+textarea[name="objetivos"],
+#recursos,
+textarea[name="recursos"]{
+  border:1px solid #cfcfcf !important;
+  border-radius:10px !important;
+  background:#fff !important;
+}
+
+/* 3) Aumentar fonte dos campos de resposta */
+.sbl47-v53-card input,
+.sbl47-v53-card textarea,
+.sbl47-v53-card select,
+.section textarea,
+.section input,
+.section select,
+.header-card input,
+.header-card textarea,
+.header-card select,
+#curso,
+#uc,
+#professor,
+#emails,
+#data,
+#hora,
+#n_estudantes,
+#n_grupos,
+#estado,
+#autoria,
+#objetivos,
+#recursos,
+#cenario,
+#oq_simulacao,
+#info_ator{
+  font-size:17px !important;
+  line-height:1.45 !important;
+  color:#222 !important;
+}
+
+/* placeholders também um pouco maiores */
+.sbl47-v53-card input::placeholder,
+.sbl47-v53-card textarea::placeholder,
+.section textarea::placeholder,
+.section input::placeholder,
+#curso::placeholder,
+#uc::placeholder,
+#professor::placeholder,
+#emails::placeholder,
+#objetivos::placeholder,
+#recursos::placeholder,
+#cenario::placeholder,
+#oq_simulacao::placeholder,
+#info_ator::placeholder{
+  font-size:16px !important;
+  color:#8a8a8a !important;
+  opacity:1 !important;
+}
+
+/* labels um toque mais legíveis, sem exagero */
+.sbl47-v53-card label,
+.section label,
+.header-card label{
+  font-size:15px !important;
+}
+
+/* impressão */
+@media print{
+  .sbl-cbl-like-panel.sbl-identification-panel{
+    border:1.1px solid rgba(227, 30, 36, 0.26) !important;
+    box-shadow:none !important;
+  }
+
+  .section:has(#objetivos),
+  .sbl47-v68-red-print-card:has(#objetivos),
+  .sbl-v13-objetivos-shell{
+    border:1.1px solid #cfcfcf !important;
+    border-radius:16px !important;
+    padding:12px 14px !important;
+  }
+
+  .sbl47-v53-card input,
+  .sbl47-v53-card textarea,
+  .sbl47-v53-card select,
+  .section textarea,
+  .section input,
+  .section select,
+  .header-card input,
+  .header-card textarea,
+  .header-card select,
+  #curso,
+  #uc,
+  #professor,
+  #emails,
+  #data,
+  #hora,
+  #n_estudantes,
+  #n_grupos,
+  #estado,
+  #autoria,
+  #objetivos,
+  #recursos,
+  #cenario,
+  #oq_simulacao,
+  #info_ator{
+    font-size:14.6px !important;
+    line-height:1.42 !important;
+  }
+
+  .sbl47-v53-card input::placeholder,
+  .sbl47-v53-card textarea::placeholder,
+  .section textarea::placeholder,
+  .section input::placeholder{
+    font-size:14px !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v14-blocos-cbl-fontes-equilibradas">
+/* ===== SBL V14 — organização à CBL + fontes equilibradas =====
+   Divide o topo em:
+   1) bloco sem título com Curso / UC / Data / Hora / Docente(s) / Email(s)
+   2) bloco "Identificação do guião" apenas com Autoria / Estado / Nº estudantes / Nº grupos
+*/
+
+/* Fonte: campo interno do mesmo tamanho do rótulo, mas sem negrito */
+.sbl-course-panel label,
+.sbl-identification-panel label,
+.sbl47-v53-card label,
+.section label,
+.header-card label{
+  font-size:15px !important;
+  line-height:1.22 !important;
+  font-weight:700 !important;
+}
+
+.sbl-course-panel input,
+.sbl-course-panel textarea,
+.sbl-course-panel select,
+.sbl-identification-panel input,
+.sbl-identification-panel textarea,
+.sbl-identification-panel select,
+.section textarea,
+.section input,
+#objetivos,
+#recursos,
+#cenario,
+#oq_simulacao,
+#info_ator{
+  font-size:15px !important;
+  line-height:1.28 !important;
+  font-weight:400 !important;
+  color:#222 !important;
+  -webkit-text-fill-color:#222 !important;
+}
+
+.sbl-course-panel input::placeholder,
+.sbl-course-panel textarea::placeholder,
+.sbl-identification-panel input::placeholder,
+.sbl-identification-panel textarea::placeholder,
+.section textarea::placeholder,
+.section input::placeholder{
+  font-size:15px !important;
+  font-weight:400 !important;
+  color:#8a8a8a !important;
+  opacity:1 !important;
+}
+
+/* Bloco superior: semelhante ao bloco de curso/UC do CBL, sem título */
+.sbl-course-panel{
+  margin:12px 0 14px 0 !important;
+  padding:0 !important;
+  border:1px solid #e2e2e2 !important;
+  border-radius:14px !important;
+  overflow:hidden !important;
+  background:#fff !important;
+  box-shadow:0 3px 10px rgba(0,0,0,.025) !important;
+}
+
+.sbl-course-grid{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:0 !important;
+}
+
+.sbl-course-grid .sbl47-v53-card{
+  margin:0 !important;
+  padding:9px 12px !important;
+  border:0 !important;
+  border-right:1px solid #e2e2e2 !important;
+  border-bottom:1px solid #e2e2e2 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  background:#fff !important;
+}
+
+.sbl-course-grid .sbl47-v53-card:nth-child(even){
+  border-right:0 !important;
+}
+
+.sbl-course-grid .sbl47-v53-card.sbl-full-row{
+  grid-column:1 / -1 !important;
+  border-right:0 !important;
+}
+
+.sbl-course-grid .sbl47-v53-card label{
+  margin:0 0 5px 0 !important;
+}
+
+.sbl-course-grid input,
+.sbl-course-grid textarea{
+  width:100% !important;
+  min-height:38px !important;
+  height:auto !important;
+  padding:7px 9px !important;
+  border:1px solid #cfcfcf !important;
+  border-radius:9px !important;
+  background:#fff !important;
+  box-sizing:border-box !important;
+}
+
+.sbl-course-grid textarea{
+  min-height:38px !important;
+  height:38px !important;
+  max-height:130px !important;
+  resize:vertical !important;
+}
+
+/* Bloco identificação do guião: menor, separado, com vermelho suave */
+.sbl-identification-panel{
+  margin:12px 0 16px 0 !important;
+  padding:12px 14px !important;
+  border:1.5px solid rgba(227,30,36,.26) !important;
+  border-radius:18px !important;
+  background:#fff !important;
+  box-shadow:0 2px 8px rgba(227,30,36,.035) !important;
+}
+
+.sbl-identification-panel .sbl-cbl-like-title{
+  font-size:18px !important;
+  line-height:1.18 !important;
+  font-weight:800 !important;
+  color:#333 !important;
+  margin:0 0 12px 0 !important;
+  padding:0 0 8px 0 !important;
+  border-bottom:2px solid #E31E24 !important;
+}
+
+.sbl-identification-grid{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:9px 10px !important;
+}
+
+.sbl-identification-grid .sbl47-v53-card{
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  background:transparent !important;
+}
+
+.sbl-identification-grid .sbl47-v53-card.sbl-full-row{
+  grid-column:1 / -1 !important;
+}
+
+.sbl-identification-grid input,
+.sbl-identification-grid textarea{
+  width:100% !important;
+  min-height:38px !important;
+  height:auto !important;
+  padding:7px 9px !important;
+  border:1px solid #cfcfcf !important;
+  border-radius:9px !important;
+  background:#fff !important;
+  box-sizing:border-box !important;
+}
+
+.sbl-identification-grid textarea{
+  min-height:38px !important;
+  height:38px !important;
+  max-height:130px !important;
+  resize:vertical !important;
+}
+
+/* Objetivos e Recursos com contorno externo real e visível */
+.sbl-v14-objetivos-shell,
+.sbl-v14-recursos-shell{
+  border:1.5px solid #cfcfcf !important;
+  border-radius:18px !important;
+  padding:14px 16px !important;
+  background:#fff !important;
+  box-shadow:none !important;
+}
+
+.sbl-v14-objetivos-shell textarea,
+.sbl-v14-recursos-shell textarea,
+#objetivos,
+#recursos{
+  border:1px solid #cfcfcf !important;
+  border-radius:10px !important;
+  min-height:72px !important;
+  padding:8px 10px !important;
+}
+
+/* Neutraliza o vermelho forte anterior do V12/V13 */
+.sbl-cbl-like-panel.sbl-identification-panel{
+  border-color:rgba(227,30,36,.26) !important;
+  box-shadow:0 2px 8px rgba(227,30,36,.035) !important;
+}
+
+/* Foco padronizado */
+.sbl-course-panel input:focus,
+.sbl-course-panel textarea:focus,
+.sbl-identification-panel input:focus,
+.sbl-identification-panel textarea:focus,
+.section textarea:focus,
+.section input:focus{
+  border-color:#1f1f1f !important;
+  outline:3px solid rgba(0,0,0,.12) !important;
+  outline-offset:0 !important;
+  box-shadow:0 3px 10px rgba(0,0,0,.07) !important;
+  background:#fff !important;
+}
+
+/* Mobile */
+@media screen and (max-width:760px){
+  .sbl-course-grid,
+  .sbl-identification-grid{
+    grid-template-columns:1fr !important;
+  }
+  .sbl-course-grid .sbl47-v53-card{
+    border-right:0 !important;
+  }
+}
+
+/* Print básico */
+@media print{
+  .sbl-course-panel{
+    border:1px solid #999 !important;
+    border-radius:5px !important;
+    box-shadow:none !important;
+    margin:5px 0 !important;
+  }
+  .sbl-course-grid .sbl47-v53-card{
+    padding:4px !important;
+  }
+  .sbl-identification-panel{
+    border:1.1px solid rgba(227,30,36,.26) !important;
+    border-radius:5px !important;
+    padding:5px !important;
+    margin:5px 0 !important;
+    box-shadow:none !important;
+  }
+  .sbl-identification-panel .sbl-cbl-like-title{
+    font-size:9.8px !important;
+    padding-bottom:2px !important;
+    margin-bottom:4px !important;
+  }
+  .sbl-course-panel label,
+  .sbl-identification-panel label{
+    font-size:8.3px !important;
+  }
+  .sbl-course-panel input,
+  .sbl-course-panel textarea,
+  .sbl-identification-panel input,
+  .sbl-identification-panel textarea,
+  .section textarea,
+  .section input{
+    font-size:8.2px !important;
+    line-height:1.1 !important;
+    min-height:17px !important;
+    padding:1px 2px !important;
+    border:0 !important;
+    background:transparent !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v15-topo-cbl-exato">
+/* ===== SBL V15 — topo reorganizado mais fiel ao CBL ===== */
+.sbl-v15-table-block{
+  margin:14px 0 16px 0 !important;
+  border:1px solid #d9d9d9 !important;
+  border-radius:16px !important;
+  overflow:hidden !important;
+  background:#fff !important;
+  box-shadow:0 3px 10px rgba(0,0,0,.025) !important;
+}
+.sbl-v15-table-grid{
+  display:grid !important;
+  grid-template-columns: 0.95fr 1.75fr 1fr 1.7fr !important;
+  gap:0 !important;
+}
+.sbl-v15-lcell,
+.sbl-v15-fcell{
+  padding:12px 14px !important;
+  border-right:1px solid #dfdfdf !important;
+  border-bottom:1px solid #dfdfdf !important;
+  background:#fff !important;
+  min-height:62px !important;
+  display:flex !important;
+  align-items:center !important;
+  box-sizing:border-box !important;
+}
+.sbl-v15-lcell{
+  font-size:15px !important;
+  line-height:1.2 !important;
+  font-weight:800 !important;
+  color:#2e2e2e !important;
+}
+.sbl-v15-fcell{
+  background:#fcfcfc !important;
+}
+.sbl-v15-table-grid > :nth-child(4n){ border-right:0 !important; }
+.sbl-v15-row-last{ border-bottom:0 !important; }
+.sbl-v15-email-field{
+  grid-column:2 / -1 !important;
+  border-right:0 !important;
+}
+.sbl-v15-table-block input,
+.sbl-v15-table-block textarea,
+.sbl-v15-table-block select,
+.sbl-v15-ident-block input,
+.sbl-v15-ident-block textarea,
+.sbl-v15-ident-block select{
+  width:100% !important;
+  min-height:40px !important;
+  height:auto !important;
+  padding:8px 10px !important;
+  border:1px solid #cfcfcf !important;
+  border-radius:10px !important;
+  background:#fff !important;
+  box-sizing:border-box !important;
+  font-size:15px !important;
+  line-height:1.28 !important;
+  font-weight:400 !important;
+  color:#222 !important;
+  -webkit-text-fill-color:#222 !important;
+}
+.sbl-v15-table-block textarea,
+.sbl-v15-ident-block textarea{
+  min-height:40px !important;
+  height:40px !important;
+  resize:vertical !important;
+}
+.sbl-v15-table-block input::placeholder,
+.sbl-v15-table-block textarea::placeholder,
+.sbl-v15-ident-block input::placeholder,
+.sbl-v15-ident-block textarea::placeholder{
+  font-size:15px !important;
+  color:#8d8d8d !important;
+  opacity:1 !important;
+}
+.sbl-v15-datehora-wrap{
+  width:100% !important;
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:8px !important;
+  align-items:center !important;
+}
+.sbl-v15-ident-block{
+  margin:12px 0 18px 0 !important;
+  padding:12px 14px 14px !important;
+  border:1.5px solid rgba(227,30,36,.18) !important;
+  border-radius:18px !important;
+  background:#fff !important;
+  box-shadow:0 2px 8px rgba(227,30,36,.03) !important;
+}
+.sbl-v15-ident-title{
+  margin:0 0 12px 0 !important;
+  padding:0 0 8px 0 !important;
+  font-size:18px !important;
+  line-height:1.15 !important;
+  font-weight:800 !important;
+  color:#333 !important;
+  border-bottom:2px solid #E31E24 !important;
+}
+.sbl-v15-ident-grid{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:10px 12px !important;
+}
+.sbl-v15-ident-item{
+  min-width:0 !important;
+}
+.sbl-v15-ident-item.full{ grid-column:1 / -1 !important; }
+.sbl-v15-ident-item label{
+  display:block !important;
+  margin:0 0 6px 0 !important;
+  font-size:15px !important;
+  line-height:1.2 !important;
+  font-weight:800 !important;
+  color:#2e2e2e !important;
+}
+/* neutraliza blocos antigos quando reorganizados */
+.sbl47-v53-header-cards[data-sbl-v15='1'] > .sbl47-v53-card{ display:none !important; }
+@media screen and (max-width: 860px){
+  .sbl-v15-table-grid{
+    grid-template-columns:1fr !important;
+  }
+  .sbl-v15-lcell,
+  .sbl-v15-fcell,
+  .sbl-v15-email-field{
+    grid-column:auto !important;
+    border-right:0 !important;
+  }
+  .sbl-v15-ident-grid{ grid-template-columns:1fr !important; }
+  .sbl-v15-datehora-wrap{ grid-template-columns:1fr !important; }
+}
+@media print{
+  .sbl-v15-table-block{
+    margin:5px 0 !important;
+    border-radius:6px !important;
+    box-shadow:none !important;
+  }
+  .sbl-v15-lcell,
+  .sbl-v15-fcell{
+    min-height:20px !important;
+    padding:4px 5px !important;
+  }
+  .sbl-v15-lcell{
+    font-size:8.4px !important;
+  }
+  .sbl-v15-table-block input,
+  .sbl-v15-table-block textarea,
+  .sbl-v15-ident-block input,
+  .sbl-v15-ident-block textarea{
+    min-height:15px !important;
+    height:auto !important;
+    padding:1px 2px !important;
+    border:0 !important;
+    background:transparent !important;
+    font-size:8.2px !important;
+    line-height:1.08 !important;
+  }
+  .sbl-v15-ident-block{
+    margin:5px 0 !important;
+    padding:5px !important;
+    border-radius:6px !important;
+    box-shadow:none !important;
+  }
+  .sbl-v15-ident-title{
+    font-size:9.8px !important;
+    margin-bottom:5px !important;
+    padding-bottom:3px !important;
+  }
+  .sbl-v15-ident-item label{ font-size:8.3px !important; margin-bottom:2px !important; }
+}
+</style>
+
+
+<style id="sbl-v16-ano-letivo-microajustes">
+/* ===== SBL V16 — Ano Letivo + microajustes do topo ===== */
+
+/* Ajuste do bloco superior para seguir o padrão CBL:
+   Curso | Unidades Curriculares
+   Ano Letivo | Docente(s)
+   Email(s) em largura total */
+.sbl-v15-table-grid.sbl-v16-grid{
+  grid-template-columns:0.95fr 1.75fr 1fr 1.7fr !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid{
+  grid-template-columns:1fr 1fr !important;
+  gap:10px 12px !important;
+}
+
+/* Autoria em largura total */
+.sbl-v15-ident-item.full{
+  grid-column:1 / -1 !important;
+}
+
+/* Campos com leitura equilibrada */
+.sbl-v15-table-block input,
+.sbl-v15-table-block textarea,
+.sbl-v15-ident-block input,
+.sbl-v15-ident-block textarea{
+  font-size:15px !important;
+  line-height:1.28 !important;
+  min-height:40px !important;
+  padding:8px 10px !important;
+}
+
+/* Rótulos no mesmo tamanho dos demais, mas em negrito */
+.sbl-v15-lcell,
+.sbl-v15-ident-item label{
+  font-size:15px !important;
+  line-height:1.22 !important;
+  font-weight:800 !important;
+}
+
+/* Data e Hora lado a lado dentro do campo */
+.sbl-v16-datahora-wrap{
+  width:100% !important;
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:8px !important;
+}
+
+/* Um pouco menos de peso visual no bloco Identificação */
+.sbl-v15-ident-block{
+  border:1.5px solid rgba(227,30,36,.20) !important;
+  box-shadow:0 2px 8px rgba(227,30,36,.03) !important;
+}
+
+/* Título claro, sem ficar demasiado grande */
+.sbl-v15-ident-title{
+  font-size:18px !important;
+  line-height:1.16 !important;
+  margin-bottom:12px !important;
+}
+
+/* Email ocupa bem a linha final */
+.sbl-v15-email-field textarea,
+#emails{
+  min-height:42px !important;
+  height:42px !important;
+}
+
+/* Mobile */
+@media screen and (max-width:860px){
+  .sbl-v15-table-grid.sbl-v16-grid,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid{
+    grid-template-columns:1fr !important;
+  }
+  .sbl-v16-datahora-wrap{
+    grid-template-columns:1fr !important;
+  }
+}
+
+/* Print básico */
+@media print{
+  .sbl-v15-table-block input,
+  .sbl-v15-table-block textarea,
+  .sbl-v15-ident-block input,
+  .sbl-v15-ident-block textarea{
+    font-size:8.2px !important;
+    min-height:15px !important;
+    padding:1px 2px !important;
+  }
+  .sbl-v15-lcell,
+  .sbl-v15-ident-item label{
+    font-size:8.3px !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v17-ajuste-milimetrico-alturas">
+/* ===== SBL V17 — ajustes milimétricos de altura/proporção =====
+   Foco: bloco superior e Identificação do guião.
+   Ainda sem mexer na impressão documental profunda. */
+
+/* BLOCO SUPERIOR — Curso / UC / Ano Letivo / Docente / Email */
+.sbl-v15-table-grid.sbl-v16-grid{
+  grid-template-columns:0.92fr 1.72fr 0.98fr 1.72fr !important;
+  align-items:stretch !important;
+}
+
+/* todas as células com a mesma altura visual */
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell,
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-fcell{
+  min-height:58px !important;
+  height:58px !important;
+  padding:8px 12px !important;
+  display:flex !important;
+  align-items:center !important;
+  box-sizing:border-box !important;
+}
+
+/* linha do email igual às demais, mas com campo a ocupar bem a largura */
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-row-last{
+  min-height:58px !important;
+  height:58px !important;
+}
+
+/* rótulos do bloco superior: consistentes */
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell{
+  font-size:14.2px !important;
+  line-height:1.16 !important;
+  font-weight:800 !important;
+  color:#2e2e2e !important;
+}
+
+/* campos: fonte menor e mais equilibrada */
+.sbl-v15-table-grid.sbl-v16-grid input,
+.sbl-v15-table-grid.sbl-v16-grid textarea{
+  min-height:36px !important;
+  height:36px !important;
+  max-height:92px !important;
+  padding:6px 9px !important;
+  font-size:13.6px !important;
+  line-height:1.22 !important;
+  font-weight:400 !important;
+  border-radius:9px !important;
+  box-sizing:border-box !important;
+}
+
+/* placeholders do topo: não ficam maiores que o rótulo */
+.sbl-v15-table-grid.sbl-v16-grid input::placeholder,
+.sbl-v15-table-grid.sbl-v16-grid textarea::placeholder{
+  font-size:13.6px !important;
+  line-height:1.22 !important;
+  font-weight:400 !important;
+}
+
+/* Docente(s): campo um pouco mais “gordinho”, sem aumentar a linha toda */
+.sbl-v15-table-grid.sbl-v16-grid #professor{
+  height:40px !important;
+  min-height:40px !important;
+  line-height:1.25 !important;
+}
+
+/* Email: fica alinhado e proporcional */
+.sbl-v15-table-grid.sbl-v16-grid #emails{
+  height:40px !important;
+  min-height:40px !important;
+}
+
+/* Data/Hora e Ano Letivo não devem parecer menores ou desalinhados */
+.sbl-v15-table-grid.sbl-v16-grid #ano_letivo,
+.sbl-v15-table-grid.sbl-v16-grid #data,
+.sbl-v15-table-grid.sbl-v16-grid #hora{
+  height:36px !important;
+  min-height:36px !important;
+}
+
+/* IDENTIFICAÇÃO DO GUIÃO — simetria entre Estado/DataHora e Estudantes/Grupos */
+.sbl-v15-ident-block{
+  padding:12px 14px !important;
+}
+
+.sbl-v15-ident-title{
+  font-size:17.2px !important;
+  line-height:1.16 !important;
+  margin:0 0 11px 0 !important;
+  padding-bottom:7px !important;
+}
+
+/* grelha alinhada e regular */
+.sbl-v15-ident-grid.sbl-v16-ident-grid{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:10px 12px !important;
+  align-items:stretch !important;
+}
+
+/* cada item com altura mínima igual */
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item{
+  min-height:68px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:flex-start !important;
+  box-sizing:border-box !important;
+}
+
+/* Autoria mantém largura total, mas sem ficar gigante */
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item.full{
+  min-height:68px !important;
+  grid-column:1 / -1 !important;
+}
+
+/* labels da identificação */
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item label{
+  font-size:14.2px !important;
+  line-height:1.16 !important;
+  font-weight:800 !important;
+  margin:0 0 5px 0 !important;
+}
+
+/* campos da identificação */
+.sbl-v15-ident-grid.sbl-v16-ident-grid input,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea{
+  min-height:38px !important;
+  height:38px !important;
+  max-height:96px !important;
+  padding:6px 9px !important;
+  font-size:13.6px !important;
+  line-height:1.22 !important;
+  font-weight:400 !important;
+  border-radius:9px !important;
+  box-sizing:border-box !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid input::placeholder,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea::placeholder{
+  font-size:13.6px !important;
+  line-height:1.22 !important;
+  font-weight:400 !important;
+}
+
+/* Data/Hora dentro do bloco: dois campos do mesmo tamanho */
+.sbl-v16-datahora-wrap{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:8px !important;
+  align-items:center !important;
+}
+
+.sbl-v16-datahora-wrap input{
+  width:100% !important;
+}
+
+/* Número de estudantes e grupos: mesma altura e largura */
+#n_estudantes,
+#n_grupos,
+#estado,
+#data,
+#hora{
+  box-sizing:border-box !important;
+}
+
+/* reduz ligeiramente o “peso” visual das bordas para ficar mais fino */
+.sbl-v15-table-block,
+.sbl-v15-ident-block{
+  border-color:#dedede !important;
+}
+
+.sbl-v15-ident-block{
+  border-color:rgba(227,30,36,.20) !important;
+}
+
+/* Mobile: mantém a leitura e evita colunas apertadas */
+@media screen and (max-width:860px){
+  .sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell,
+  .sbl-v15-table-grid.sbl-v16-grid .sbl-v15-fcell{
+    height:auto !important;
+    min-height:52px !important;
+  }
+
+  .sbl-v15-ident-grid.sbl-v16-ident-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  .sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item.full{
+    min-height:62px !important;
+  }
+
+  .sbl-v16-datahora-wrap{
+    grid-template-columns:1fr !important;
+  }
+}
+
+/* Print básico preservado */
+@media print{
+  .sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell,
+  .sbl-v15-table-grid.sbl-v16-grid .sbl-v15-fcell{
+    min-height:18px !important;
+    height:auto !important;
+    padding:3px 4px !important;
+  }
+
+  .sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item label{
+    font-size:8.2px !important;
+  }
+
+  .sbl-v15-table-grid.sbl-v16-grid input,
+  .sbl-v15-table-grid.sbl-v16-grid textarea,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid input,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid textarea{
+    min-height:14px !important;
+    height:auto !important;
+    padding:1px 2px !important;
+    font-size:8.1px !important;
+    line-height:1.08 !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v18-simetria-perfeita-identificacao">
+/* ===== SBL V18 — simetria fina do bloco "Identificação do guião" ===== */
+
+/* contêiner do bloco */
+.sbl-v15-ident-block{
+  padding:14px 14px 16px !important;
+}
+
+/* título e linha vermelha */
+.sbl-v15-ident-title{
+  margin:0 0 12px 0 !important;
+  padding:0 0 8px 0 !important;
+  font-size:16.8px !important;
+  line-height:1.18 !important;
+}
+
+/* grelha com duas colunas absolutamente equilibradas */
+.sbl-v15-ident-grid.sbl-v16-ident-grid{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+  gap:12px 12px !important;
+  align-items:start !important;
+}
+
+/* item base */
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item{
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:flex-start !important;
+  min-height:88px !important;
+  box-sizing:border-box !important;
+  margin:0 !important;
+}
+
+/* autoria ocupa a largura total */
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item.full{
+  grid-column:1 / -1 !important;
+  min-height:76px !important;
+}
+
+/* labels perfeitamente uniformes */
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item label{
+  display:block !important;
+  margin:0 0 6px 0 !important;
+  min-height:20px !important;
+  font-size:14px !important;
+  line-height:1.15 !important;
+  font-weight:800 !important;
+  color:#2f2f2f !important;
+}
+
+/* campos */
+.sbl-v15-ident-grid.sbl-v16-ident-grid input,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea,
+.sbl-v15-ident-grid.sbl-v16-ident-grid select{
+  width:100% !important;
+  box-sizing:border-box !important;
+  margin:0 !important;
+  padding:8px 10px !important;
+  font-size:13.6px !important;
+  line-height:1.22 !important;
+  font-weight:400 !important;
+  color:#333 !important;
+  border:1px solid #c9c9c9 !important;
+  border-radius:9px !important;
+  background:#fff !important;
+  box-shadow:none !important;
+}
+
+/* placeholders homogéneos */
+.sbl-v15-ident-grid.sbl-v16-ident-grid input::placeholder,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea::placeholder{
+  font-size:13.6px !important;
+  line-height:1.22 !important;
+  color:#9a9a9a !important;
+}
+
+/* AUTORIA — mais baixa para não parecer desproporcional */
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item.full textarea,
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item.full input{
+  min-height:40px !important;
+  height:40px !important;
+}
+
+/* Estado / Data-Hora / Estudantes / Grupos — todos com mesma lógica */
+#estado,
+#n_estudantes,
+#n_grupos{
+  min-height:40px !important;
+  height:40px !important;
+}
+
+/* quando algum destes campos for textarea, trava para uma linha visual */
+#estado,
+#n_estudantes,
+#n_grupos,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea{
+  resize:vertical !important;
+}
+
+/* wrapper data/hora totalmente simétrico */
+.sbl-v16-datahora-wrap{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+  gap:8px !important;
+  align-items:center !important;
+  width:100% !important;
+}
+
+.sbl-v16-datahora-wrap > *{
+  min-width:0 !important;
+}
+
+/* campos de data e hora com a mesma altura dos outros */
+#data,
+#hora,
+.sbl-v16-datahora-wrap input{
+  min-height:40px !important;
+  height:40px !important;
+}
+
+/* corrige qualquer campo do tipo time/date que venha com altura nativa diferente */
+input[type="date"],
+input[type="time"]{
+  min-height:40px !important;
+  height:40px !important;
+  padding-top:8px !important;
+  padding-bottom:8px !important;
+}
+
+/* evita que uma coluna pareça "cair" visualmente */
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item > *:last-child{
+  align-self:stretch !important;
+}
+
+/* harmoniza o bloco externo */
+.sbl-v15-ident-block{
+  border:1px solid rgba(227,30,36,.22) !important;
+  border-radius:16px !important;
+}
+
+/* responsivo */
+@media screen and (max-width:860px){
+  .sbl-v15-ident-grid.sbl-v16-ident-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  .sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item.full{
+    min-height:auto !important;
+  }
+
+  .sbl-v16-datahora-wrap{
+    grid-template-columns:1fr 1fr !important;
+  }
+}
+
+/* impressão: mantém proporção limpa */
+@media print{
+  .sbl-v15-ident-title{
+    font-size:12px !important;
+    padding-bottom:4px !important;
+    margin-bottom:7px !important;
+  }
+
+  .sbl-v15-ident-grid.sbl-v16-ident-grid{
+    gap:6px 7px !important;
+  }
+
+  .sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item{
+    min-height:auto !important;
+  }
+
+  .sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item label{
+    min-height:auto !important;
+    font-size:8.2px !important;
+    margin-bottom:2px !important;
+  }
+
+  .sbl-v15-ident-grid.sbl-v16-ident-grid input,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid textarea,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid select,
+  #estado,#n_estudantes,#n_grupos,#data,#hora{
+    min-height:16px !important;
+    height:auto !important;
+    font-size:8px !important;
+    line-height:1.08 !important;
+    padding:2px 3px !important;
+    border-radius:6px !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v19-datahora-separados-topo-ajustado">
+/* ===== SBL V19 — data/hora separados + topo mais amplo e fino ===== */
+
+/* topo: ligeiramente mais amplo e com tipografia mais contida */
+.sbl-v15-table-grid.sbl-v16-grid{
+  grid-template-columns:1.00fr 1.82fr 1.08fr 1.82fr !important;
+  align-items:stretch !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell,
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-fcell{
+  min-height:56px !important;
+  height:56px !important;
+  padding:7px 10px !important;
+  overflow:hidden !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell{
+  font-size:13.6px !important;
+  line-height:1.12 !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid input,
+.sbl-v15-table-grid.sbl-v16-grid textarea{
+  min-height:34px !important;
+  height:34px !important;
+  padding:5px 9px !important;
+  font-size:12.8px !important;
+  line-height:1.18 !important;
+  width:100% !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid input::placeholder,
+.sbl-v15-table-grid.sbl-v16-grid textarea::placeholder{
+  font-size:12.8px !important;
+  line-height:1.18 !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid textarea{
+  resize:none !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid #curso,
+.sbl-v15-table-grid.sbl-v16-grid #uc,
+.sbl-v15-table-grid.sbl-v16-grid #professor,
+.sbl-v15-table-grid.sbl-v16-grid #ano_letivo,
+.sbl-v15-table-grid.sbl-v16-grid #emails{
+  min-height:34px !important;
+  height:34px !important;
+}
+
+/* bloco identificação: ajustes finos */
+.sbl-v15-ident-grid.sbl-v16-ident-grid{
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+  gap:12px !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item{
+  min-height:84px !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item.full{
+  min-height:74px !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item label{
+  margin-bottom:6px !important;
+  min-height:20px !important;
+  font-size:14px !important;
+  line-height:1.12 !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid input,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea{
+  min-height:38px !important;
+  height:38px !important;
+  padding:7px 10px !important;
+  font-size:13px !important;
+  line-height:1.16 !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid input::placeholder,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea::placeholder{
+  font-size:13px !important;
+  line-height:1.16 !important;
+}
+
+/* novo item data/hora com dois subcampos independentes */
+.sbl-v19-datehora-item{
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:flex-start !important;
+}
+
+.sbl-v19-datehora-grid{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+  gap:8px !important;
+  width:100% !important;
+}
+
+.sbl-v19-subitem{
+  display:flex !important;
+  flex-direction:column !important;
+  min-width:0 !important;
+}
+
+.sbl-v19-subitem > label{
+  display:block !important;
+  margin:0 0 6px 0 !important;
+  min-height:20px !important;
+  font-size:14px !important;
+  line-height:1.12 !important;
+  font-weight:800 !important;
+  color:#2f2f2f !important;
+}
+
+.sbl-v19-subitem > input,
+.sbl-v19-subitem > textarea,
+.sbl-v19-subitem > select{
+  width:100% !important;
+  box-sizing:border-box !important;
+  min-height:38px !important;
+  height:38px !important;
+}
+
+/* impressão */
+@media print{
+  .sbl-v15-table-grid.sbl-v16-grid{
+    grid-template-columns:1.0fr 1.85fr 1.10fr 1.85fr !important;
+  }
+
+  .sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell,
+  .sbl-v15-table-grid.sbl-v16-grid .sbl-v15-fcell{
+    min-height:19px !important;
+    height:auto !important;
+    padding:3px 4px !important;
+  }
+
+  .sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell{
+    font-size:8px !important;
+  }
+
+  .sbl-v15-table-grid.sbl-v16-grid input,
+  .sbl-v15-table-grid.sbl-v16-grid textarea,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid input,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid textarea,
+  .sbl-v19-subitem > input,
+  .sbl-v19-subitem > textarea{
+    min-height:16px !important;
+    height:auto !important;
+    font-size:8px !important;
+    padding:2px 3px !important;
+  }
+
+  .sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item label,
+  .sbl-v19-subitem > label{
+    font-size:8.2px !important;
+    margin-bottom:2px !important;
+    min-height:auto !important;
+  }
+}
+
+@media screen and (max-width:860px){
+  .sbl-v19-datehora-grid{grid-template-columns:1fr !important;}
+}
+</style>
+
+
+<style id="sbl-v20-topo-amplo-ident-compacta">
+/* ===== SBL V20 — mais espaço no topo + identificação mais compacta ===== */
+
+/* Bloco curso / UC / ano letivo / docente: mais espaço útil e fonte interna menor */
+.sbl-v15-table-grid.sbl-v16-grid{
+  grid-template-columns:0.84fr 2.18fr 0.98fr 2.18fr !important;
+  gap:0 !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell,
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-fcell{
+  min-height:54px !important;
+  height:54px !important;
+  padding:6px 9px !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell{
+  font-size:13.3px !important;
+  line-height:1.08 !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid input,
+.sbl-v15-table-grid.sbl-v16-grid textarea,
+.sbl-v15-table-grid.sbl-v16-grid select{
+  min-height:33px !important;
+  height:33px !important;
+  padding:4px 8px !important;
+  font-size:12.2px !important;
+  line-height:1.14 !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid input::placeholder,
+.sbl-v15-table-grid.sbl-v16-grid textarea::placeholder,
+.sbl-v15-table-grid.sbl-v16-grid select::placeholder{
+  font-size:12.2px !important;
+  line-height:1.14 !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid #curso,
+.sbl-v15-table-grid.sbl-v16-grid #uc,
+.sbl-v15-table-grid.sbl-v16-grid #professor,
+.sbl-v15-table-grid.sbl-v16-grid #ano_letivo,
+.sbl-v15-table-grid.sbl-v16-grid #emails{
+  min-height:33px !important;
+  height:33px !important;
+}
+
+/* Identificação do guião: menos espaço entre blocos */
+.sbl-v15-ident-grid.sbl-v16-ident-grid{
+  gap:8px !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item{
+  min-height:74px !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item.full{
+  min-height:66px !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item label{
+  margin-bottom:4px !important;
+  min-height:18px !important;
+  font-size:13.4px !important;
+  line-height:1.08 !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid input,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea,
+.sbl-v15-ident-grid.sbl-v16-ident-grid select{
+  min-height:34px !important;
+  height:34px !important;
+  padding:5px 9px !important;
+  font-size:12.4px !important;
+  line-height:1.14 !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid input::placeholder,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea::placeholder{
+  font-size:12.4px !important;
+  line-height:1.14 !important;
+}
+
+/* Data e hora: menos altas e mais compactas */
+.sbl-v19-datehora-grid{
+  gap:6px !important;
+}
+
+.sbl-v19-subitem > label{
+  margin:0 0 4px 0 !important;
+  min-height:18px !important;
+  font-size:13.4px !important;
+  line-height:1.08 !important;
+}
+
+.sbl-v19-subitem > input,
+.sbl-v19-subitem > textarea,
+.sbl-v19-subitem > select{
+  min-height:34px !important;
+  height:34px !important;
+  padding:5px 9px !important;
+  font-size:12.4px !important;
+  line-height:1.14 !important;
+}
+
+/* impressão: manter equilíbrio */
+@media print{
+  .sbl-v15-table-grid.sbl-v16-grid{
+    grid-template-columns:0.86fr 2.10fr 1.00fr 2.10fr !important;
+  }
+
+  .sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell,
+  .sbl-v15-table-grid.sbl-v16-grid .sbl-v15-fcell{
+    min-height:18px !important;
+    padding:3px 4px !important;
+  }
+
+  .sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item label,
+  .sbl-v19-subitem > label{
+    font-size:8px !important;
+    line-height:1.05 !important;
+  }
+
+  .sbl-v15-table-grid.sbl-v16-grid input,
+  .sbl-v15-table-grid.sbl-v16-grid textarea,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid input,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid textarea,
+  .sbl-v19-subitem > input,
+  .sbl-v19-subitem > textarea{
+    font-size:7.8px !important;
+    line-height:1.08 !important;
+  }
+}
+</style>
+
+<style id="sbl-v22-ux-final-milimetrico">
+/* ===== SBL V22 — ajuste final milimétrico de UX ===== */
+
+/* 1) Bloco superior: alinhamento, respiro e consistência */
+.sbl-v15-table-grid.sbl-v16-grid{
+  grid-template-columns: 0.92fr 2.34fr 1.08fr 2.34fr !important;
+  gap: 0 !important;
+  align-items: stretch !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell,
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-fcell{
+  min-height: 56px !important;
+  height: 56px !important;
+  padding: 7px 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell{
+  font-size: 13.5px !important;
+  line-height: 1.12 !important;
+  font-weight: 800 !important;
+  color: #2f2f2f !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-fcell{
+  overflow: hidden !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid input,
+.sbl-v15-table-grid.sbl-v16-grid textarea,
+.sbl-v15-table-grid.sbl-v16-grid select,
+.sbl-v15-ident-grid.sbl-v16-ident-grid input,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea,
+.sbl-v15-ident-grid.sbl-v16-ident-grid select,
+.sbl-v19-subitem > input,
+.sbl-v19-subitem > textarea,
+.sbl-v19-subitem > select{
+  font-size: 13px !important;
+  line-height: 1.18 !important;
+  font-weight: 400 !important;
+  box-sizing: border-box !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid input::placeholder,
+.sbl-v15-table-grid.sbl-v16-grid textarea::placeholder,
+.sbl-v15-table-grid.sbl-v16-grid select::placeholder,
+.sbl-v15-ident-grid.sbl-v16-ident-grid input::placeholder,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea::placeholder,
+.sbl-v15-ident-grid.sbl-v16-ident-grid select::placeholder,
+.sbl-v19-subitem > input::placeholder,
+.sbl-v19-subitem > textarea::placeholder,
+.sbl-v19-subitem > select::placeholder{
+  font-size: 13px !important;
+  line-height: 1.18 !important;
+  font-weight: 400 !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid input,
+.sbl-v15-table-grid.sbl-v16-grid textarea,
+.sbl-v15-table-grid.sbl-v16-grid select{
+  min-height: 34px !important;
+  height: 34px !important;
+  padding: 5px 9px !important;
+  border-radius: 9px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Docente(s) ocupa até ao fim, com o mesmo acabamento do resto */
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-docente-field{
+  grid-column: 2 / 5 !important;
+  border-right: 0 !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-docente-field textarea,
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-docente-field input,
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-docente-field select{
+  min-height: 34px !important;
+  height: 34px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Email curto; Docente longo */
+.sbl-v15-table-grid.sbl-v16-grid #emails{
+  min-height: 34px !important;
+  height: 34px !important;
+}
+
+/* 2) Bloco Identificação do guião: mais compacto e consistente */
+.sbl-v15-ident-block{
+  padding: 11px 13px !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid{
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr) !important;
+  gap: 10px !important;
+  align-items: start !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item{
+  min-height: 80px !important;
+  padding: 8px 10px !important;
+  box-sizing: border-box !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item.full{
+  min-height: 86px !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item label{
+  font-size: 13.5px !important;
+  line-height: 1.12 !important;
+  font-weight: 800 !important;
+  margin-bottom: 5px !important;
+  color: #2f2f2f !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid input,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea,
+.sbl-v15-ident-grid.sbl-v16-ident-grid select{
+  min-height: 34px !important;
+  height: 34px !important;
+  padding: 5px 9px !important;
+  border-radius: 9px !important;
+}
+
+/* textareas dos campos maiores respiram melhor */
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item.full textarea,
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item.full input{
+  min-height: 36px !important;
+  height: 36px !important;
+}
+
+/* 3) Blocos gerais do formulário: uniformização visual fina */
+.sbl47-v53-card input,
+.sbl47-v53-card textarea,
+.sbl47-v53-card select{
+  font-size: 13px !important;
+  line-height: 1.18 !important;
+}
+
+.sbl47-v53-card input::placeholder,
+.sbl47-v53-card textarea::placeholder,
+.sbl47-v53-card select::placeholder{
+  font-size: 13px !important;
+  line-height: 1.18 !important;
+}
+
+/* 4) impressão preservada */
+@media print{
+  .sbl-v15-table-grid.sbl-v16-grid input,
+  .sbl-v15-table-grid.sbl-v16-grid textarea,
+  .sbl-v15-table-grid.sbl-v16-grid select,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid input,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid textarea,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid select,
+  .sbl-v19-subitem > input,
+  .sbl-v19-subitem > textarea,
+  .sbl-v19-subitem > select{
+    font-size: 8.1px !important;
+    line-height: 1.08 !important;
+  }
+
+  .sbl-v15-table-grid.sbl-v16-grid input::placeholder,
+  .sbl-v15-table-grid.sbl-v16-grid textarea::placeholder,
+  .sbl-v15-table-grid.sbl-v16-grid select::placeholder,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid input::placeholder,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid textarea::placeholder,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid select::placeholder,
+  .sbl-v19-subitem > input::placeholder,
+  .sbl-v19-subitem > textarea::placeholder,
+  .sbl-v19-subitem > select::placeholder{
+    font-size: 8.1px !important;
+    line-height: 1.08 !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v23-ajustes-finais-sem-resize">
+/* ===== SBL V23 — limpeza visual final ===== */
+
+/* 0) remove qualquer resíduo visual estranho */
+body{ overflow-wrap: break-word; }
+
+/* 1) Nunca mostrar o manipulador de redimensionamento */
+textarea,
+.sbl-v15-table-grid textarea,
+.sbl-v15-ident-grid textarea,
+.sbl-v19-subitem textarea,
+.sbl47-v53-card textarea,
+.sbl-rounded-block textarea,
+.sbl-rounded-title-block textarea{
+  resize:none !important;
+  overflow:auto !important;
+}
+textarea::-webkit-resizer{ display:none !important; }
+
+/* 2) Títulos de secção mais fortes, como pediste */
+.sbl-v15-ident-title{
+  font-size:18px !important;
+  line-height:1.12 !important;
+  font-weight:800 !important;
+  color:#2f2f2f !important;
+  margin:0 0 8px 0 !important;
+  padding:0 0 8px 0 !important;
+  border-bottom:2px solid #E31E24 !important;
+}
+
+.sbl-doc-block-title{
+  font-size:16px !important;
+  line-height:1.12 !important;
+  font-weight:800 !important;
+  color:#2f2f2f !important;
+  margin:0 0 6px 0 !important;
+}
+
+/* rótulos internos importantes um pouco mais presentes */
+.sbl47-v53-card label,
+.sbl-meta-coupled-card label,
+.header-card label,
+.section > label,
+.sbl-rounded-block > label,
+.sbl-rounded-title-block > label,
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item label,
+.sbl-v19-subitem > label,
+label[for="objetivos"],
+label[for="recursos"],
+label[for="info_inicial"],
+label[for="info_ator"]{
+  font-size:14px !important;
+  line-height:1.14 !important;
+  font-weight:800 !important;
+  color:#2f2f2f !important;
+}
+
+/* 3) Bloco superior mais equilibrado e com fontes uniformes */
+.sbl-v15-table-grid.sbl-v16-grid{
+  grid-template-columns:0.88fr 2.55fr 1fr 2.55fr !important;
+  gap:0 !important;
+  align-items:stretch !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell,
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-fcell{
+  min-height:54px !important;
+  height:54px !important;
+  padding:6px 10px !important;
+  box-sizing:border-box !important;
+  display:flex !important;
+  align-items:center !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell{
+  font-size:13.8px !important;
+  line-height:1.1 !important;
+  font-weight:800 !important;
+  color:#2f2f2f !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid input,
+.sbl-v15-table-grid.sbl-v16-grid textarea,
+.sbl-v15-table-grid.sbl-v16-grid select,
+.sbl-v15-ident-grid.sbl-v16-ident-grid input,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea,
+.sbl-v15-ident-grid.sbl-v16-ident-grid select,
+.sbl-v19-subitem > input,
+.sbl-v19-subitem > textarea,
+.sbl-v19-subitem > select,
+.sbl47-v53-card input,
+.sbl47-v53-card textarea,
+.sbl47-v53-card select{
+  font-size:13px !important;
+  line-height:1.16 !important;
+  font-weight:400 !important;
+  color:#303030 !important;
+  -webkit-text-fill-color:#303030 !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid input::placeholder,
+.sbl-v15-table-grid.sbl-v16-grid textarea::placeholder,
+.sbl-v15-table-grid.sbl-v16-grid select::placeholder,
+.sbl-v15-ident-grid.sbl-v16-ident-grid input::placeholder,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea::placeholder,
+.sbl-v15-ident-grid.sbl-v16-ident-grid select::placeholder,
+.sbl-v19-subitem > input::placeholder,
+.sbl-v19-subitem > textarea::placeholder,
+.sbl-v19-subitem > select::placeholder,
+.sbl47-v53-card input::placeholder,
+.sbl47-v53-card textarea::placeholder,
+.sbl47-v53-card select::placeholder{
+  font-size:13px !important;
+  line-height:1.16 !important;
+  font-weight:400 !important;
+  color:#6e6e6e !important;
+  -webkit-text-fill-color:#6e6e6e !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid input,
+.sbl-v15-table-grid.sbl-v16-grid textarea,
+.sbl-v15-table-grid.sbl-v16-grid select{
+  min-height:34px !important;
+  height:34px !important;
+  padding:5px 9px !important;
+  border-radius:9px !important;
+  width:100% !important;
+  max-width:100% !important;
+}
+
+/* docente até ao fim */
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-docente-field{
+  grid-column:2 / 5 !important;
+  border-right:0 !important;
+}
+
+/* 4) Identificação do guião mais junta e menos espaçada */
+.sbl-v15-ident-block{
+  padding:10px 12px !important;
+}
+.sbl-v15-ident-grid.sbl-v16-ident-grid{
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+  gap:8px !important;
+  align-items:start !important;
+}
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item{
+  min-height:72px !important;
+  padding:6px 8px !important;
+  box-sizing:border-box !important;
+}
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item.full{
+  min-height:76px !important;
+}
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item label{
+  margin-bottom:4px !important;
+}
+.sbl-v15-ident-grid.sbl-v16-ident-grid input,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea,
+.sbl-v15-ident-grid.sbl-v16-ident-grid select{
+  min-height:33px !important;
+  height:33px !important;
+  padding:5px 8px !important;
+  border-radius:9px !important;
+}
+
+.sbl-v19-datehora-grid{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:8px !important;
+  align-items:start !important;
+}
+.sbl-v19-subitem{
+  display:flex !important;
+  flex-direction:column !important;
+  gap:4px !important;
+}
+.sbl-v19-subitem > input,
+.sbl-v19-subitem > textarea,
+.sbl-v19-subitem > select{
+  min-height:33px !important;
+  height:33px !important;
+  padding:5px 8px !important;
+  border-radius:9px !important;
+}
+
+/* 5) impressão preservada */
+@media print{
+  .sbl-v15-ident-title{ font-size:16px !important; margin:0 0 6px 0 !important; padding:0 0 5px 0 !important; }
+  .sbl-doc-block-title{ font-size:13px !important; margin:0 0 4px 0 !important; }
+
+  .sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell,
+  .sbl-v15-table-grid.sbl-v16-grid .sbl-v15-fcell{
+    min-height:34px !important;
+    height:34px !important;
+    padding:4px 6px !important;
+  }
+
+  .sbl-v15-table-grid.sbl-v16-grid input,
+  .sbl-v15-table-grid.sbl-v16-grid textarea,
+  .sbl-v15-table-grid.sbl-v16-grid select,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid input,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid textarea,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid select,
+  .sbl-v19-subitem > input,
+  .sbl-v19-subitem > textarea,
+  .sbl-v19-subitem > select,
+  .sbl47-v53-card input,
+  .sbl47-v53-card textarea,
+  .sbl47-v53-card select{
+    font-size:8.1px !important;
+    line-height:1.08 !important;
+  }
+
+  .sbl-v15-table-grid.sbl-v16-grid input::placeholder,
+  .sbl-v15-table-grid.sbl-v16-grid textarea::placeholder,
+  .sbl-v15-table-grid.sbl-v16-grid select::placeholder,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid input::placeholder,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid textarea::placeholder,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid select::placeholder,
+  .sbl-v19-subitem > input::placeholder,
+  .sbl-v19-subitem > textarea::placeholder,
+  .sbl-v19-subitem > select::placeholder,
+  .sbl47-v53-card input::placeholder,
+  .sbl47-v53-card textarea::placeholder,
+  .sbl47-v53-card select::placeholder{
+    font-size:8.1px !important;
+    line-height:1.08 !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v24-compressao-ident-fontes-uniformes">
+/* ===== SBL V24 — compressão do bloco e uniformização fina ===== */
+
+/* 1) fontes internas e placeholders realmente uniformes */
+.sbl-v15-table-grid.sbl-v16-grid input,
+.sbl-v15-table-grid.sbl-v16-grid textarea,
+.sbl-v15-table-grid.sbl-v16-grid select,
+.sbl-v15-ident-grid.sbl-v16-ident-grid input,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea,
+.sbl-v15-ident-grid.sbl-v16-ident-grid select,
+.sbl-v19-subitem > input,
+.sbl-v19-subitem > textarea,
+.sbl-v19-subitem > select,
+.sbl47-v53-card input,
+.sbl47-v53-card textarea,
+.sbl47-v53-card select{
+  font-size:12.4px !important;
+  line-height:1.12 !important;
+  font-weight:400 !important;
+  color:#353535 !important;
+  -webkit-text-fill-color:#353535 !important;
+}
+
+.sbl-v15-table-grid.sbl-v16-grid input::placeholder,
+.sbl-v15-table-grid.sbl-v16-grid textarea::placeholder,
+.sbl-v15-table-grid.sbl-v16-grid select::placeholder,
+.sbl-v15-ident-grid.sbl-v16-ident-grid input::placeholder,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea::placeholder,
+.sbl-v15-ident-grid.sbl-v16-ident-grid select::placeholder,
+.sbl-v19-subitem > input::placeholder,
+.sbl-v19-subitem > textarea::placeholder,
+.sbl-v19-subitem > select::placeholder,
+.sbl47-v53-card input::placeholder,
+.sbl47-v53-card textarea::placeholder,
+.sbl47-v53-card select::placeholder{
+  font-size:12.4px !important;
+  line-height:1.12 !important;
+  font-weight:400 !important;
+  color:#6f6f6f !important;
+  -webkit-text-fill-color:#6f6f6f !important;
+  opacity:1 !important;
+}
+
+/* 2) bloco Identificação do guião mais comprimido */
+.sbl-v15-ident-block{
+  padding:8px 10px !important;
+}
+
+.sbl-v15-ident-title{
+  margin:0 0 6px 0 !important;
+  padding:0 0 6px 0 !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid{
+  gap:5px !important;
+  row-gap:5px !important;
+  column-gap:8px !important;
+  align-items:start !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item{
+  min-height:58px !important;
+  padding:4px 6px !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item.full{
+  min-height:62px !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item label,
+.sbl-v19-subitem > label{
+  margin-bottom:2px !important;
+}
+
+.sbl-v15-ident-grid.sbl-v16-ident-grid input,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea,
+.sbl-v15-ident-grid.sbl-v16-ident-grid select,
+.sbl-v19-subitem > input,
+.sbl-v19-subitem > textarea,
+.sbl-v19-subitem > select{
+  min-height:30px !important;
+  height:30px !important;
+  padding:4px 8px !important;
+  border-radius:9px !important;
+}
+
+.sbl-v19-datehora-grid{
+  gap:6px !important;
+}
+
+.sbl-v19-subitem{
+  gap:2px !important;
+}
+
+/* 3) impressão acompanha a compactação */
+@media print{
+  .sbl-v15-ident-block{ padding:6px 8px !important; }
+  .sbl-v15-ident-title{ margin:0 0 4px 0 !important; padding:0 0 4px 0 !important; }
+  .sbl-v15-ident-grid.sbl-v16-ident-grid{ gap:4px !important; row-gap:4px !important; column-gap:6px !important; }
+  .sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item{ min-height:42px !important; padding:3px 4px !important; }
+  .sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item.full{ min-height:45px !important; }
+  .sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item label,
+  .sbl-v19-subitem > label{ margin-bottom:1px !important; }
+  .sbl-v15-ident-grid.sbl-v16-ident-grid input,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid textarea,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid select,
+  .sbl-v19-subitem > input,
+  .sbl-v19-subitem > textarea,
+  .sbl-v19-subitem > select{
+    min-height:21px !important;
+    height:21px !important;
+    padding:2px 5px !important;
+  }
+  .sbl-v15-table-grid.sbl-v16-grid input,
+  .sbl-v15-table-grid.sbl-v16-grid textarea,
+  .sbl-v15-table-grid.sbl-v16-grid select,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid input,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid textarea,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid select,
+  .sbl-v19-subitem > input,
+  .sbl-v19-subitem > textarea,
+  .sbl-v19-subitem > select,
+  .sbl47-v53-card input,
+  .sbl47-v53-card textarea,
+  .sbl47-v53-card select,
+  .sbl-v15-table-grid.sbl-v16-grid input::placeholder,
+  .sbl-v15-table-grid.sbl-v16-grid textarea::placeholder,
+  .sbl-v15-table-grid.sbl-v16-grid select::placeholder,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid input::placeholder,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid textarea::placeholder,
+  .sbl-v15-ident-grid.sbl-v16-ident-grid select::placeholder,
+  .sbl-v19-subitem > input::placeholder,
+  .sbl-v19-subitem > textarea::placeholder,
+  .sbl-v19-subitem > select::placeholder,
+  .sbl47-v53-card input::placeholder,
+  .sbl47-v53-card textarea::placeholder,
+  .sbl47-v53-card select::placeholder{
+    font-size:7.9px !important;
+    line-height:1.05 !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v25-lapidacao-fontes-uniformes">
+/* ===== SBL V25 — lapidação visual fina: fontes e campos uniformes ===== */
+
+:root{
+  --sbl-v25-field-font: 11.8px;
+  --sbl-v25-label-font: 12.2px;
+  --sbl-v25-line: 1.12;
+}
+
+/* labels dos blocos principais mais uniformes */
+.sbl-v15-card label,
+.sbl-v15-cell-title,
+.sbl-v15-ident-title,
+.sbl-v15-ident-grid label,
+.sbl-v19-subitem > label,
+.sbl47-v53-card label{
+  font-size: var(--sbl-v25-label-font) !important;
+  line-height: 1.15 !important;
+}
+
+/* todos os campos com o mesmo corpo tipográfico */
+.sbl-v15-card input,
+.sbl-v15-card textarea,
+.sbl-v15-card select,
+.sbl-v15-table-grid input,
+.sbl-v15-table-grid textarea,
+.sbl-v15-table-grid select,
+.sbl-v15-ident-grid input,
+.sbl-v15-ident-grid textarea,
+.sbl-v15-ident-grid select,
+.sbl-v19-subitem > input,
+.sbl-v19-subitem > textarea,
+.sbl-v19-subitem > select,
+.sbl47-v53-card input,
+.sbl47-v53-card textarea,
+.sbl47-v53-card select{
+  font-family: 'Century Gothic', 'Segoe UI', sans-serif !important;
+  font-size: var(--sbl-v25-field-font) !important;
+  line-height: var(--sbl-v25-line) !important;
+  font-weight: 400 !important;
+  color: #4a4a4a !important;
+  -webkit-text-fill-color: #4a4a4a !important;
+}
+
+/* placeholders e valores de exemplo uniformes */
+.sbl-v15-card input::placeholder,
+.sbl-v15-card textarea::placeholder,
+.sbl-v15-card select::placeholder,
+.sbl-v15-table-grid input::placeholder,
+.sbl-v15-table-grid textarea::placeholder,
+.sbl-v15-table-grid select::placeholder,
+.sbl-v15-ident-grid input::placeholder,
+.sbl-v15-ident-grid textarea::placeholder,
+.sbl-v15-ident-grid select::placeholder,
+.sbl-v19-subitem > input::placeholder,
+.sbl-v19-subitem > textarea::placeholder,
+.sbl-v19-subitem > select::placeholder,
+.sbl47-v53-card input::placeholder,
+.sbl47-v53-card textarea::placeholder,
+.sbl47-v53-card select::placeholder{
+  font-family: 'Century Gothic', 'Segoe UI', sans-serif !important;
+  font-size: var(--sbl-v25-field-font) !important;
+  line-height: var(--sbl-v25-line) !important;
+  font-weight: 400 !important;
+  color: #7a7a7a !important;
+  -webkit-text-fill-color: #7a7a7a !important;
+  opacity: 1 !important;
+}
+
+/* inputs de data e hora também com o mesmo visual */
+input[type="date"],
+input[type="time"]{
+  font-size: var(--sbl-v25-field-font) !important;
+  line-height: var(--sbl-v25-line) !important;
+}
+
+input[type="date"]::-webkit-datetime-edit,
+input[type="time"]::-webkit-datetime-edit,
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="time"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field,
+input[type="time"]::-webkit-datetime-edit-hour-field,
+input[type="time"]::-webkit-datetime-edit-minute-field,
+input[type="time"]::-webkit-datetime-edit-ampm-field{
+  font-family: 'Century Gothic', 'Segoe UI', sans-serif !important;
+  font-size: var(--sbl-v25-field-font) !important;
+  line-height: var(--sbl-v25-line) !important;
+  font-weight: 400 !important;
+  color: #4a4a4a !important;
+}
+
+/* remove aspecto feio de scroll/resize nos campos */
+.sbl-v15-card textarea,
+.sbl-v15-table-grid textarea,
+.sbl-v15-ident-grid textarea,
+.sbl-v19-subitem > textarea,
+.sbl47-v53-card textarea{
+  resize: none !important;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  scrollbar-width: none !important;
+}
+
+.sbl-v15-card textarea::-webkit-scrollbar,
+.sbl-v15-table-grid textarea::-webkit-scrollbar,
+.sbl-v15-ident-grid textarea::-webkit-scrollbar,
+.sbl-v19-subitem > textarea::-webkit-scrollbar,
+.sbl47-v53-card textarea::-webkit-scrollbar{
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
+/* leve harmonização das alturas visíveis */
+.sbl-v15-table-grid input,
+.sbl-v15-table-grid textarea,
+.sbl-v15-table-grid select,
+.sbl-v15-ident-grid input,
+.sbl-v15-ident-grid textarea,
+.sbl-v15-ident-grid select,
+.sbl-v19-subitem > input,
+.sbl-v19-subitem > textarea,
+.sbl-v19-subitem > select{
+  min-height: 30px !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+}
+
+@media print{
+  .sbl-v15-card input,
+  .sbl-v15-card textarea,
+  .sbl-v15-card select,
+  .sbl-v15-table-grid input,
+  .sbl-v15-table-grid textarea,
+  .sbl-v15-table-grid select,
+  .sbl-v15-ident-grid input,
+  .sbl-v15-ident-grid textarea,
+  .sbl-v15-ident-grid select,
+  .sbl-v19-subitem > input,
+  .sbl-v19-subitem > textarea,
+  .sbl-v19-subitem > select,
+  .sbl47-v53-card input,
+  .sbl47-v53-card textarea,
+  .sbl47-v53-card select,
+  .sbl-v15-card input::placeholder,
+  .sbl-v15-card textarea::placeholder,
+  .sbl-v15-card select::placeholder,
+  .sbl-v15-table-grid input::placeholder,
+  .sbl-v15-table-grid textarea::placeholder,
+  .sbl-v15-table-grid select::placeholder,
+  .sbl-v15-ident-grid input::placeholder,
+  .sbl-v15-ident-grid textarea::placeholder,
+  .sbl-v15-ident-grid select::placeholder,
+  .sbl-v19-subitem > input::placeholder,
+  .sbl-v19-subitem > textarea::placeholder,
+  .sbl-v19-subitem > select::placeholder,
+  .sbl47-v53-card input::placeholder,
+  .sbl47-v53-card textarea::placeholder,
+  .sbl47-v53-card select::placeholder{
+    font-size: 7.8px !important;
+    line-height: 1.05 !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v26-normalizacao-campos-pequenos">
+/* ===== SBL V26 — normalização real dos campos que estavam pequenos =====
+   Corrige especialmente: Ano Letivo, Data, Hora, Número de Estudantes e Número de Grupos.
+   Mantém a lógica/estrutura existente e só uniformiza UX visual. */
+
+:root{
+  --sbl-v26-field-font:14px;
+  --sbl-v26-label-font:14px;
+  --sbl-v26-field-height:38px;
+  --sbl-v26-field-line:1.18;
+}
+
+/* Labels do topo e da identificação */
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-lcell,
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item label,
+.sbl-v19-subitem > label,
+.sbl47-v53-card label,
+.sbl-meta-coupled-card label,
+.header-card label,
+.section > label,
+.sbl-rounded-block > label,
+.sbl-rounded-title-block > label{
+  font-size:var(--sbl-v26-label-font) !important;
+  line-height:1.16 !important;
+  font-weight:800 !important;
+  color:#2f2f2f !important;
+}
+
+/* Todos os campos principais com o mesmo tamanho visual */
+.sbl-v15-table-grid.sbl-v16-grid input,
+.sbl-v15-table-grid.sbl-v16-grid textarea,
+.sbl-v15-table-grid.sbl-v16-grid select,
+.sbl-v15-ident-grid.sbl-v16-ident-grid input,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea,
+.sbl-v15-ident-grid.sbl-v16-ident-grid select,
+.sbl-v19-subitem > input,
+.sbl-v19-subitem > textarea,
+.sbl-v19-subitem > select,
+.sbl47-v53-card input,
+.sbl47-v53-card textarea,
+.sbl47-v53-card select,
+#curso,
+#uc,
+#ano_letivo,
+#emails,
+#professor,
+#autoria,
+#estado,
+#n_estudantes,
+#n_grupos,
+#data,
+#hora{
+  font-family:'Century Gothic','Segoe UI',sans-serif !important;
+  font-size:var(--sbl-v26-field-font) !important;
+  line-height:var(--sbl-v26-field-line) !important;
+  font-weight:400 !important;
+  color:#3f3f3f !important;
+  -webkit-text-fill-color:#3f3f3f !important;
+  min-height:var(--sbl-v26-field-height) !important;
+  height:var(--sbl-v26-field-height) !important;
+  padding:7px 10px !important;
+  border-radius:9px !important;
+  box-sizing:border-box !important;
+}
+
+/* Placeholders/exemplos com o mesmo tamanho em todos os campos */
+.sbl-v15-table-grid.sbl-v16-grid input::placeholder,
+.sbl-v15-table-grid.sbl-v16-grid textarea::placeholder,
+.sbl-v15-table-grid.sbl-v16-grid select::placeholder,
+.sbl-v15-ident-grid.sbl-v16-ident-grid input::placeholder,
+.sbl-v15-ident-grid.sbl-v16-ident-grid textarea::placeholder,
+.sbl-v15-ident-grid.sbl-v16-ident-grid select::placeholder,
+.sbl-v19-subitem > input::placeholder,
+.sbl-v19-subitem > textarea::placeholder,
+.sbl-v19-subitem > select::placeholder,
+.sbl47-v53-card input::placeholder,
+.sbl47-v53-card textarea::placeholder,
+.sbl47-v53-card select::placeholder,
+#curso::placeholder,
+#uc::placeholder,
+#ano_letivo::placeholder,
+#emails::placeholder,
+#professor::placeholder,
+#autoria::placeholder,
+#estado::placeholder,
+#n_estudantes::placeholder,
+#n_grupos::placeholder{
+  font-family:'Century Gothic','Segoe UI',sans-serif !important;
+  font-size:var(--sbl-v26-field-font) !important;
+  line-height:var(--sbl-v26-field-line) !important;
+  font-weight:400 !important;
+  color:#707070 !important;
+  -webkit-text-fill-color:#707070 !important;
+  opacity:1 !important;
+}
+
+/* Data/Hora: normalização específica do Chrome/Safari */
+input[type="date"],
+input[type="time"],
+#data,
+#hora{
+  font-family:'Century Gothic','Segoe UI',sans-serif !important;
+  font-size:var(--sbl-v26-field-font) !important;
+  line-height:var(--sbl-v26-field-line) !important;
+  color:#3f3f3f !important;
+  -webkit-text-fill-color:#3f3f3f !important;
+}
+
+input[type="date"]::-webkit-datetime-edit,
+input[type="time"]::-webkit-datetime-edit,
+input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+input[type="time"]::-webkit-datetime-edit-fields-wrapper,
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="time"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-year-field,
+input[type="time"]::-webkit-datetime-edit-hour-field,
+input[type="time"]::-webkit-datetime-edit-minute-field,
+input[type="time"]::-webkit-datetime-edit-ampm-field{
+  font-family:'Century Gothic','Segoe UI',sans-serif !important;
+  font-size:var(--sbl-v26-field-font) !important;
+  line-height:var(--sbl-v26-field-line) !important;
+  font-weight:400 !important;
+  color:#3f3f3f !important;
+  -webkit-text-fill-color:#3f3f3f !important;
+}
+
+/* Evita que o ícone de calendário/relógio faça o texto parecer menor */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator{
+  width:17px !important;
+  height:17px !important;
+  opacity:.9 !important;
+  cursor:pointer !important;
+}
+
+/* Textareas sem resize/scroll visual estranho */
+textarea,
+.sbl-v15-table-grid textarea,
+.sbl-v15-ident-grid textarea,
+.sbl-v19-subitem textarea,
+.sbl47-v53-card textarea{
+  resize:none !important;
+  overflow:hidden !important;
+  scrollbar-width:none !important;
+}
+textarea::-webkit-scrollbar{
+  width:0 !important;
+  height:0 !important;
+  display:none !important;
+}
+textarea::-webkit-resizer{
+  display:none !important;
+}
+
+/* Docente(s) continua a ir até ao fim */
+.sbl-v15-table-grid.sbl-v16-grid .sbl-v15-docente-field{
+  grid-column:2 / 5 !important;
+  border-right:0 !important;
+}
+
+/* Identificação do guião fica compacta, mas legível */
+.sbl-v15-ident-block{
+  padding:8px 10px !important;
+}
+.sbl-v15-ident-grid.sbl-v16-ident-grid{
+  gap:6px 8px !important;
+}
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item{
+  min-height:60px !important;
+  padding:4px 6px !important;
+}
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item.full{
+  min-height:64px !important;
+}
+.sbl-v15-ident-grid.sbl-v16-ident-grid .sbl-v15-ident-item label,
+.sbl-v19-subitem > label{
+  margin-bottom:3px !important;
+}
+.sbl-v19-datehora-grid{
+  gap:6px !important;
+}
+.sbl-v19-subitem{
+  gap:3px !important;
+}
+
+/* Print preservado e compacto */
+@media print{
+  :root{
+    --sbl-v26-field-font:8.1px;
+    --sbl-v26-label-font:8.3px;
+    --sbl-v26-field-height:18px;
+    --sbl-v26-field-line:1.08;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="time"]::-webkit-calendar-picker-indicator{
+    width:9px !important;
+    height:9px !important;
+  }
+}
+</style>
+
+
+<style id="sbl-v27-titulo-identificacao-uniforme">
+/* ===== SBL V27 — Identificação do guião no mesmo tamanho de Guião para ator/personagem ===== */
+
+.sbl-v15-ident-title{
+  font-size:16px !important;
+  line-height:1.12 !important;
+  font-weight:800 !important;
+  color:#2f2f2f !important;
+  margin:0 0 6px 0 !important;
+  padding:0 0 6px 0 !important;
+}
+
+/* Mantém os títulos de separador no mesmo padrão visual */
+.sbl-doc-block-title{
+  font-size:16px !important;
+  line-height:1.12 !important;
+  font-weight:800 !important;
+  color:#2f2f2f !important;
+}
+</style>
+
 </head>
 <body>
 <div class="page">
@@ -1740,7 +5697,7 @@ body.guiao-pdf-mode h1{
 </select>
 </div>
 </div>
-<div class="sbl47-v53-header-cards"><div class="sbl47-v53-card"><label for="curso">Curso</label><input id="curso" name="curso" placeholder="Nome do curso" type="text"/></div><div class="sbl47-v53-card"><label for="uc">Unidade(s) Curricular(es)</label><input id="uc" name="uc" placeholder="UCs envolvidas" type="text"/></div><div class="sbl47-v53-card"><label for="professor">Docente(s)</label><textarea id="professor" name="professor" placeholder="Nome do/a docente"></textarea></div><div class="sbl47-v53-card wide"><label for="emails">Email(s) docente(s)</label><textarea id="emails" name="emails" placeholder="email@universidade.pt"></textarea></div><div class="sbl47-v53-card"><label for="data">Data</label><input id="data" name="data" placeholder="AAAA-MM-DD" type="date"/></div><div class="sbl47-v53-card"><label for="hora">Hora</label><input id="hora" name="hora" placeholder="HH:MM" type="time"/></div><div class="sbl47-v53-card"><label for="n_estudantes">Número de Estudantes</label><input id="n_estudantes" name="n_estudantes" placeholder="Ex: 30" type="text"/></div><div class="sbl47-v53-card"><label for="n_grupos">Número de Grupos</label><input id="n_grupos" name="n_grupos" placeholder="Ex: 6" type="text"/></div><div class="sbl47-v53-card span-2"><label for="estado">Estado do Guião</label><input id="estado" name="estado" placeholder="Novo / Atualizado / Reutilizado" type="text"/></div><div class="sbl47-v53-card wide"><label for="autoria">Autoria</label><textarea id="autoria" name="autoria" placeholder="Nome do autor"></textarea></div></div>
+<div class="sbl47-v53-header-cards"><div class="sbl47-v53-card"><label for="curso">Curso</label><input id="curso" name="curso" placeholder="Nome do curso" type="text"/></div><div class="sbl47-v53-card"><label for="uc">Unidade Curricular</label><input id="uc" name="uc" placeholder="UCs envolvidas" type="text"/></div><div class="sbl47-v53-card"><label for="professor">Docente(s)</label><textarea id="professor" name="professor" placeholder="Nome do/a docente"></textarea></div><div class="sbl47-v53-card wide"><label for="emails">Email(s) docente(s)</label><textarea id="emails" name="emails" placeholder="email@universidade.pt"></textarea></div><div class="sbl47-v53-card"><label for="data">Data</label><input id="data" name="data" placeholder="AAAA-MM-DD" type="date"/></div><div class="sbl47-v53-card"><label for="hora">Hora</label><input id="hora" name="hora" placeholder="HH:MM" type="time"/></div><div class="sbl47-v53-card"><label for="n_estudantes">Número de Estudantes</label><input id="n_estudantes" name="n_estudantes" placeholder="Ex: 30" type="text"/></div><div class="sbl47-v53-card"><label for="n_grupos">Número de Grupos</label><input id="n_grupos" name="n_grupos" placeholder="Ex: 6" type="text"/></div><div class="sbl47-v53-card span-2"><label for="estado">Estado do Guião</label><input id="estado" name="estado" placeholder="Novo / Atualizado / Reutilizado" type="text"/></div><div class="sbl47-v53-card wide"><label for="autoria">Autoria</label><textarea id="autoria" name="autoria" placeholder="Nome do autor"></textarea></div></div>
 <div class="section sbl47-v68-red-print-card">
 <label>Objetivos:</label>
 <textarea id="objetivos" placeholder="Indique os objetivos de aprendizagem..."></textarea>
@@ -2429,7 +6386,7 @@ document.addEventListener('DOMContentLoaded', function(){
     document.querySelectorAll('.header-grid + table th').forEach(function(th){
       var t = (th.textContent || '').replace(/\s+/g,' ').trim().toLowerCase();
       if(t === 'unidade curricular:' || t === 'unidade curricular'){
-        th.textContent = 'Unidade(s) Curricular(es):';
+        th.textContent = 'Unidade Curricular:';
       }
     });
   }
@@ -2464,7 +6421,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     var labels = {
       curso:'Curso:',
-      uc:'Unidade(s) Curricular(es):',
+      uc:'Unidade Curricular:',
       estado:'Estado do Guião:',
       hora:'Hora:',
       data:'Data:',
@@ -2520,19 +6477,24 @@ document.addEventListener('DOMContentLoaded', function(){
   const HTML2PDF_CDN = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
   let activeSubmission = false;
 
-  function toast(message, type){
+  function toast(message, type, duration){
     try {
       const old = document.querySelector(".toast-message.powerautomate-toast");
       if (old) old.remove();
       const div = document.createElement("div");
-      div.className = "toast-message powerautomate-toast";
-      div.textContent = message;
+      const msgText = String(message || "");
+      const isLong = msgText.toLowerCase().includes("assistente") || msgText.toLowerCase().includes("teams") || msgText.length > 80;
+      div.className = "toast-message powerautomate-toast" + (isLong ? " sbl-toast-long" : "");
+      div.textContent = msgText;
       div.style.background = type === "error" ? "#7a1f1f" : (type === "ok" ? "#1f4d2b" : "#333");
       div.style.whiteSpace = "normal";
       document.body.appendChild(div);
-      setTimeout(() => div.remove(), type === "error" ? 8000 : 4500);
+      setTimeout(() => { if(div.parentNode) div.remove(); }, duration || (type === "error" ? 8000 : (isLong ? 9000 : 3200)));
     } catch(e) { alert(message); }
   }
+  window.toast = toast;
+  window.showToast = toast;
+  window.mostrarToast = toast;
 
   function normalizeText(value){
     return String(value || "")
@@ -2575,7 +6537,10 @@ document.addEventListener('DOMContentLoaded', function(){
     if (!el) return "";
     if (el.type === "checkbox") return el.checked ? "Sim" : "Não";
     if (el.type === "radio") return el.checked ? el.value : "";
-    if (el.tagName === "SELECT") return el.options[el.selectedIndex]?.text || el.value || "";
+    if (el.tagName === "SELECT") {
+      const txt = (el.options[el.selectedIndex]?.text || el.value || "").trim();
+      return /^Selecionar$/i.test(txt) ? "" : txt;
+    }
     return (el.value || "").trim();
   }
 
@@ -2709,6 +6674,26 @@ document.addEventListener('DOMContentLoaded', function(){
     const source = document.querySelector(".page") || document.body;
     document.body.classList.add("guiao-pdf-mode");
 
+    // No PDF final, placeholders/exemplos não devem aparecer como preenchimento.
+    const pdfCleanRestore = [];
+    Array.from(document.querySelectorAll("input, textarea")).forEach(el => {
+      try {
+        pdfCleanRestore.push([el, "placeholder", el.getAttribute("placeholder")]);
+        el.setAttribute("placeholder", "");
+      } catch(e) {}
+    });
+    Array.from(document.querySelectorAll("select")).forEach(el => {
+      try {
+        const txt = (el.options[el.selectedIndex]?.text || "").trim();
+        if(/^Selecionar$/i.test(txt)){
+          pdfCleanRestore.push([el, "color", el.style.color]);
+          pdfCleanRestore.push([el, "webkitTextFillColor", el.style.webkitTextFillColor]);
+          el.style.color = "transparent";
+          el.style.webkitTextFillColor = "transparent";
+        }
+      } catch(e) {}
+    });
+
     // Garante que os campos longos fiquem completos no PDF.
     Array.from(document.querySelectorAll("textarea")).forEach(ta => {
       try {
@@ -2759,6 +6744,16 @@ document.addEventListener('DOMContentLoaded', function(){
       restore: function(){
         document.body.classList.remove("guiao-pdf-mode");
         previousInline.reverse().forEach(([el, prop, value]) => { try { el.style[prop] = value; } catch(e) {} });
+        pdfCleanRestore.reverse().forEach(([el, prop, value]) => {
+          try {
+            if(prop === "placeholder"){
+              if(value === null || value === undefined) el.removeAttribute("placeholder");
+              else el.setAttribute("placeholder", value);
+            } else {
+              el.style[prop] = value || "";
+            }
+          } catch(e) {}
+        });
         try { window.scrollTo(oldScrollX, oldScrollY); } catch(e) {}
       }
     };
@@ -2811,6 +6806,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   async function downloadCurrentGuiesPdf(){
     try {
+      toast("A preparar o PDF...");
       const payload = collectFormData();
       payload.pdfFileName = `${TEMPLATE_TYPE}_${(payload.title || "guiao").replace(/[^a-z0-9_-]+/gi, "_").slice(0,60)}_${new Date().toISOString().slice(0,10)}.pdf`;
       const blob = await generatePdfBlob(payload);
@@ -2821,8 +6817,10 @@ document.addEventListener('DOMContentLoaded', function(){
       document.body.appendChild(a);
       a.click();
       setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 1000);
+      toast("PDF gerado com sucesso.", "ok");
     } catch(e) {
       console.error("[PDF] Erro ao gerar PDF:", e);
+      toast("Não foi possível gerar o PDF.", "error");
       alert("Não foi possível gerar o PDF.\n\nDetalhe técnico:\n" + (e.message || e));
     }
   }
@@ -2832,6 +6830,16 @@ document.addEventListener('DOMContentLoaded', function(){
 
   async function submitToPowerAutomate(button){
     if (activeSubmission) return;
+
+    const emailField = document.getElementById("emails") || document.querySelector('[name="emails"], [name="email"], #email');
+    if(emailField && !String(emailField.value || "").trim()){
+      emailField.classList.add("sbl-email-error");
+      try { emailField.scrollIntoView({behavior:"smooth", block:"center"}); emailField.focus({preventScroll:true}); } catch(e) { try { emailField.focus(); } catch(_) {} }
+      toast("Para enviar o guião para validação, indique pelo menos um e-mail no campo Email(s).", "error");
+      return;
+    }
+    if(emailField) emailField.classList.remove("sbl-email-error");
+
     activeSubmission = true;
     const originalText = button ? button.textContent : "";
     if (button) { button.disabled = true; button.textContent = "A enviar..."; }
@@ -2958,25 +6966,11 @@ document.addEventListener('DOMContentLoaded', function(){
 (function(){
   var BOT_URL = "https://teams.microsoft.com/l/app/?titleId=T_3563aa57-a2da-f9ec-f15e-40e313566c90";
   window.abrirAssistentePedagogico = function(){
-    window.open(BOT_URL, "_blank", "noopener,noreferrer");
+    if(typeof toast === 'function') toast('A abrir o Assistente IA no Teams...', 'ok', 2200);
+    window.setTimeout(function(){
+      window.open(BOT_URL, "_blank", "noopener,noreferrer");
+    }, 900);
   };
-  function bindBotaoAssistente(){
-    var btns = Array.from(document.querySelectorAll('button'))
-      .filter(function(b){ return (b.textContent || '').indexOf('Assistente IA') !== -1; });
-    btns.forEach(function(btn){
-      if(btn.dataset.assistentePedagogicoBound === '1') return;
-      btn.dataset.assistentePedagogicoBound = '1';
-      btn.addEventListener('click', function(ev){
-        ev.preventDefault();
-        ev.stopPropagation();
-        window.abrirAssistentePedagogico();
-        if(typeof toast === 'function') toast('A abrir o Assistente IA no Teams...');
-      }, true);
-    });
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindBotaoAssistente);
-  else bindBotaoAssistente();
-  setTimeout(bindBotaoAssistente, 500);
 })();
 </script>
 <script>
@@ -3262,120 +7256,8 @@ document.addEventListener('DOMContentLoaded', function(){
     visibility:hidden !important;
   }
 }
-</style><script id="sbl47-v49-cbl-buttons-bridge-script">
-(function(){
-  function showToast(msg){
-    var old = document.querySelector('.toast-message');
-    if(old) old.remove();
-
-    var d = document.createElement('div');
-    d.className = 'toast-message no-print';
-    d.innerText = msg;
-    document.body.appendChild(d);
-
-    setTimeout(function(){
-      if(d && d.parentNode) d.remove();
-    }, 3000);
-  }
-
-  function callExisting(names){
-    for(var i=0;i<names.length;i++){
-      var fn = window[names[i]];
-      if(typeof fn === 'function'){
-        try{
-          fn();
-          return true;
-        }catch(e){
-          console.warn('Erro ao chamar função existente:', names[i], e);
-        }
-      }
-    }
-    return false;
-  }
-
-  function bindCopiedCblButtons(){
-    var bar = document.querySelector('.sbl47-v49-cbl-buttons');
-    if(!bar) return;
-
-    var btnMore = bar.querySelector('#btnMaisOpcoes, .ux-btn-more');
-    var menu = bar.querySelector('#uxMenuMaisOpcoes, .ux-menu');
-
-    if(btnMore && menu && btnMore.dataset.sbl47v49Bound !== '1'){
-      btnMore.dataset.sbl47v49Bound = '1';
-      btnMore.addEventListener('click', function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        menu.classList.toggle('open');
-      });
-
-      document.addEventListener('click', function(e){
-        if(!bar.contains(e.target)){
-          menu.classList.remove('open');
-        }
-      });
-    }
-
-    var pdfBtn = bar.querySelector('#btnSalvarPDF, .ux-btn-pdf');
-    if(pdfBtn && pdfBtn.dataset.sbl47v49Bound !== '1'){
-      pdfBtn.dataset.sbl47v49Bound = '1';
-      pdfBtn.addEventListener('click', function(e){
-        var ok = callExisting(['salvarPDF','gerarPDF','imprimirPDF','downloadPDF']);
-        if(!ok){
-          e.preventDefault();
-          showToast('Para um PDF mais limpo, desative “Cabeçalhos e rodapés” nas opções de impressão.');
-          setTimeout(function(){ window.print(); }, 350);
-        }
-      }, true);
-    }
-
-    var aiBtn = bar.querySelector('#btnAssistenteIA, .ux-btn-ai');
-    if(aiBtn && aiBtn.dataset.sbl47v49Bound !== '1'){
-      aiBtn.dataset.sbl47v49Bound = '1';
-      aiBtn.addEventListener('click', function(e){
-        var ok = callExisting(['abrirAssistenteIA','openAssistenteIA','abrirCopilot','openCopilot','assistenteIA']);
-        if(!ok){
-          var link = document.querySelector('a[href*="copilot"], a[href*="teams"], a[href*="microsoft"]');
-          if(link && link.href){
-            e.preventDefault();
-            window.open(link.href, '_blank');
-          }else{
-            e.preventDefault();
-            showToast('Assistente IA disponível no ambiente institucional.');
-          }
-        }
-      }, true);
-    }
-
-    var validBtn = bar.querySelector('#btnEnviarValidacao, #btnValidacaoReal, .ux-btn-primary');
-    if(validBtn && validBtn.dataset.sbl47v49Bound !== '1'){
-      validBtn.dataset.sbl47v49Bound = '1';
-      validBtn.addEventListener('click', function(e){
-        var ok = callExisting(['enviarParaValidacao','enviarValidacao','submeterGuiao','submitGuiao','submitForm','enviarFormulario']);
-        if(!ok){
-          var candidates = Array.from(document.querySelectorAll('button, input[type="button"], input[type="submit"]'));
-          var target = candidates.find(function(b){
-            if(bar.contains(b)) return false;
-            var txt = (b.textContent || b.value || '').toLowerCase();
-            return txt.includes('validação') || txt.includes('validacao') || txt.includes('submeter') || txt.includes('enviar');
-          });
-          if(target){
-            e.preventDefault();
-            target.click();
-          }
-        }
-      }, true);
-    }
-  }
-
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', bindCopiedCblButtons);
-  }else{
-    bindCopiedCblButtons();
-  }
-
-  setTimeout(bindCopiedCblButtons, 300);
-})();
-</script><style id="sbl47-v53-header-cards-email-visible-style">
+</style>
+<style id="sbl47-v53-header-cards-email-visible-style">
 /* ===== SBL 47 v53 — cabeçalho em cards com email visível =====
    Substitui apenas a tabela antiga do cabeçalho por cards com os mesmos IDs.
    Não altera botões CBL, submissão, Power Automate, autosave ou restantes secções. */
@@ -3766,176 +7648,8 @@ button[data-sbl47-v66-rowbtn]::after,
     visibility:hidden !important;
   }
 }
-</style><script id="sbl47-v66-tooltips-print-simples-script">
-(function(){
-  function showPdfToast(msg){
-    document.querySelectorAll('.toast-message.sbl47-v66-pdf-toast').forEach(function(el){ el.remove(); });
-
-    var d = document.createElement('div');
-    d.className = 'toast-message sbl47-v66-pdf-toast no-print';
-    d.innerText = msg;
-    document.body.appendChild(d);
-
-    return d;
-  }
-
-  function getTooltip(){
-    var t = document.getElementById('sbl47V66Tooltip');
-    if(!t){
-      t = document.createElement('div');
-      t.id = 'sbl47V66Tooltip';
-      t.className = 'sbl47-v66-tooltip no-print';
-      document.body.appendChild(t);
-    }
-    return t;
-  }
-
-  function hideTooltip(){
-    var t = document.getElementById('sbl47V66Tooltip');
-    if(t) t.classList.remove('show');
-  }
-
-  function showTooltip(btn, text){
-    var t = getTooltip();
-    t.textContent = text;
-
-    var r = btn.getBoundingClientRect();
-    var top = Math.max(8, r.top - 36);
-    var left = r.left + (r.width / 2);
-
-    t.style.top = top + 'px';
-    t.style.left = left + 'px';
-    t.style.transform = 'translateX(-50%)';
-    t.classList.add('show');
-
-    requestAnimationFrame(function(){
-      var tr = t.getBoundingClientRect();
-      if(tr.right > window.innerWidth - 8){
-        t.style.left = (window.innerWidth - tr.width - 8) + 'px';
-        t.style.transform = 'translateX(0)';
-      }
-      if(tr.left < 8){
-        t.style.left = '8px';
-        t.style.transform = 'translateX(0)';
-      }
-    });
-  }
-
-  function classifyRowButton(btn){
-    var txt = (btn.textContent || '').trim();
-    var cls = (btn.className || '').toString().toLowerCase();
-    var title = (btn.getAttribute('title') || '').toLowerCase();
-    var aria = (btn.getAttribute('aria-label') || '').toLowerCase();
-
-    if(txt === '+' || cls.includes('plus') || title.includes('adicionar linha') || aria.includes('adicionar linha')){
-      return {kind:'add', label:'Adicionar linha'};
-    }
-
-    if(txt === '−' || txt === '-' || cls.includes('minus') || title.includes('remover linha') || aria.includes('remover linha')){
-      return {kind:'remove', label:'Remover linha'};
-    }
-
-    return null;
-  }
-
-  function cleanNativeTooltip(btn, label){
-    btn.removeAttribute('title');
-    btn.setAttribute('aria-label', label);
-    btn.setAttribute('data-sbl47-v66-rowbtn', '1');
-    btn.setAttribute('data-sbl47-v66-tooltip', label);
-  }
-
-  function bindRowTooltips(){
-    Array.from(document.querySelectorAll('button, .btn-plus, .btn-minus, [role="button"]')).forEach(function(btn){
-      var info = classifyRowButton(btn);
-      if(!info) return;
-
-      cleanNativeTooltip(btn, info.label);
-
-      if(btn.dataset.sbl47v66TooltipBound === '1') return;
-      btn.dataset.sbl47v66TooltipBound = '1';
-
-      btn.addEventListener('mouseenter', function(){ cleanNativeTooltip(btn, info.label); showTooltip(btn, info.label); });
-      btn.addEventListener('focus', function(){ cleanNativeTooltip(btn, info.label); showTooltip(btn, info.label); });
-      btn.addEventListener('mouseleave', hideTooltip);
-      btn.addEventListener('blur', hideTooltip);
-      btn.addEventListener('click', function(){
-        cleanNativeTooltip(btn, info.label);
-        showTooltip(btn, info.label);
-        setTimeout(hideTooltip, 650);
-      }, true);
-    });
-  }
-
-  function findPdfButton(){
-    return document.getElementById('btnSalvarPDF') ||
-           Array.from(document.querySelectorAll('button, .ux-btn, [role="button"], input[type="button"], input[type="submit"]')).find(function(btn){
-             var txt = (btn.textContent || btn.value || '').toLowerCase();
-             var id = (btn.id || '').toLowerCase();
-             var cls = (btn.className || '').toString().toLowerCase();
-             return txt.includes('salvar pdf') || txt === 'pdf' || id.includes('salvarpdf') || id.includes('pdf') || cls.includes('pdf');
-           });
-  }
-
-  function bindPdfButtonWithVisibleMessage(){
-    var btn = findPdfButton();
-    if(!btn || btn.dataset.sbl47v66PdfBound === '1') return;
-
-    var clone = btn.cloneNode(true);
-    clone.dataset.sbl47v66PdfBound = '1';
-    btn.parentNode.replaceChild(clone, btn);
-
-    clone.addEventListener('click', function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      if(e.stopImmediatePropagation) e.stopImmediatePropagation();
-
-      showPdfToast('Para um PDF mais limpo, desative “Cabeçalhos e rodapés” nas opções de impressão.');
-
-      setTimeout(function(){
-        window.print();
-      }, 2200);
-
-      return false;
-    }, true);
-  }
-
-  function init(){
-    bindRowTooltips();
-    bindPdfButtonWithVisibleMessage();
-  }
-
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', init);
-  }else{
-    init();
-  }
-
-  setTimeout(init, 300);
-  setTimeout(init, 800);
-
-  var observer = new MutationObserver(function(mutations){
-    mutations.forEach(function(m){
-      if(m.type === 'attributes' && m.attributeName === 'title'){
-        var info = classifyRowButton(m.target);
-        if(info) cleanNativeTooltip(m.target, info.label);
-      }
-    });
-  });
-
-  function startObserver(){
-    document.querySelectorAll('button, .btn-plus, .btn-minus, [role="button"]').forEach(function(btn){
-      observer.observe(btn, {attributes:true, attributeFilter:['title']});
-    });
-  }
-
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', startObserver);
-  }else{
-    startObserver();
-  }
-})();
-</script><style id="sbl47-v67-impressao-simples-profissional-style">
+</style>
+<style id="sbl47-v67-impressao-simples-profissional-style">
 /* ===== SBL 47 v67 — impressão simples profissional =====
    Ajustes leves para apresentação:
    - cabeçalho mais alinhado e com bordas vermelhas;
@@ -4513,5 +8227,1181 @@ button[data-sbl47-v66-rowbtn]::after,
     display:none !important;
   }
 }
-</style></body>
+</style>
+<script id="sbl-cbl-rbl-v2-fix-buttons-final">
+(function(){
+  "use strict";
+
+  var STORAGE_KEY = "template_autosave_SBL";
+
+  function toastSafe(msg, type, duration){
+    if(typeof window.toast === "function") return window.toast(msg, type, duration);
+    var old = document.querySelector(".toast-message");
+    if(old) old.remove();
+    var d = document.createElement("div");
+    d.className = "toast-message";
+    d.textContent = msg;
+    d.style.background = type === "error" ? "#7a1f1f" : (type === "ok" ? "#1f4d2b" : "#333");
+    document.body.appendChild(d);
+    setTimeout(function(){ if(d.parentNode) d.remove(); }, duration || 3200);
+  }
+
+  function fields(){
+    return Array.prototype.slice.call(document.querySelectorAll("input, textarea, select"))
+      .filter(function(el){ return !el.disabled && el.type !== "hidden"; });
+  }
+
+  function ownSaveDraft(){
+    var p = { timestamp: new Date().toLocaleTimeString("pt-PT"), data: {} };
+    fields().forEach(function(el){
+      var key = el.id || el.name;
+      if(key) p.data[key] = el.value;
+    });
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }catch(e){}
+    var st = document.getElementById("autosaveStatus");
+    if(st) st.textContent = "Última gravação automática: " + p.timestamp;
+    toastSafe("Rascunho guardado com sucesso.", "ok");
+  }
+
+  function ownRestoreDraft(){
+    var raw = null;
+    try{ raw = localStorage.getItem(STORAGE_KEY); }catch(e){}
+    if(!raw){ toastSafe("Não há rascunho guardado."); return; }
+    try{
+      var p = JSON.parse(raw);
+      fields().forEach(function(el){
+        var key = el.id || el.name;
+        if(key && p.data && p.data[key] !== undefined){
+          el.value = p.data[key];
+          el.dispatchEvent(new Event("input", {bubbles:true}));
+          el.dispatchEvent(new Event("change", {bubbles:true}));
+        }
+      });
+      toastSafe("Rascunho restaurado.", "ok");
+    }catch(e){
+      toastSafe("Não foi possível restaurar o rascunho.", "error");
+    }
+  }
+
+  function ownClear(){
+    fields().forEach(function(el){
+      if(el.tagName === "SELECT") el.selectedIndex = 0;
+      else el.value = "";
+      el.dispatchEvent(new Event("input", {bubbles:true}));
+      el.dispatchEvent(new Event("change", {bubbles:true}));
+    });
+    toastSafe("Formulário limpo.");
+  }
+
+  function ownDelete(){
+    try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+    var st = document.getElementById("autosaveStatus");
+    if(st) st.textContent = "Última gravação automática: --";
+    toastSafe("Rascunho local apagado.");
+  }
+
+  function replaceWithCleanClone(btn){
+    if(!btn || !btn.parentNode) return btn;
+    var clone = btn.cloneNode(true);
+    btn.parentNode.replaceChild(clone, btn);
+    return clone;
+  }
+
+  function bindMore(){
+    var btn = document.getElementById("btnMaisOpcoes") ||
+      Array.from(document.querySelectorAll("button")).find(function(b){
+        return (b.textContent || "").toLowerCase().includes("mais opções");
+      });
+    var menu = document.getElementById("uxMenuMaisOpcoes") || document.querySelector(".ux-menu");
+    if(!btn || !menu || btn.dataset.sblV2MoreBound === "1") return;
+
+    btn = replaceWithCleanClone(btn);
+    btn.dataset.sblV2MoreBound = "1";
+    menu.id = menu.id || "uxMenuMaisOpcoes";
+    menu.classList.add("ux-menu");
+    menu.innerHTML =
+      '<button type="button" id="draftBtn">💾 Guardar rascunho</button>' +
+      '<button type="button" id="restoreBtn">📂 Restaurar rascunho</button>' +
+      '<button type="button" id="clearBtn">🧹 Limpar formulário</button>' +
+      '<button type="button" id="deleteBtn">🗑️ Apagar rascunho</button>';
+
+    btn.addEventListener("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      menu.classList.toggle("open");
+    }, true);
+
+    document.addEventListener("click", function(e){
+      if(!menu.contains(e.target) && e.target !== btn) menu.classList.remove("open");
+    }, true);
+
+    menu.querySelector("#draftBtn").addEventListener("click", function(){ ownSaveDraft(); menu.classList.remove("open"); });
+    menu.querySelector("#restoreBtn").addEventListener("click", function(){ ownRestoreDraft(); menu.classList.remove("open"); });
+    menu.querySelector("#clearBtn").addEventListener("click", function(){ ownClear(); menu.classList.remove("open"); });
+    menu.querySelector("#deleteBtn").addEventListener("click", function(){ ownDelete(); menu.classList.remove("open"); });
+  }
+
+  function bindPdf(){
+    var btn = document.getElementById("btnPDF") || document.getElementById("btnSalvarPDF") ||
+      Array.from(document.querySelectorAll("button")).find(function(b){
+        return (b.textContent || "").toLowerCase().includes("salvar pdf");
+      });
+    if(!btn || btn.dataset.sblV2PdfBound === "1") return;
+    btn = replaceWithCleanClone(btn);
+    btn.dataset.sblV2PdfBound = "1";
+    btn.addEventListener("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+      if(window.downloadGuiesPdf) window.downloadGuiesPdf();
+      else toastSafe("Não foi possível encontrar o gerador de PDF.", "error");
+    }, true);
+  }
+
+  function bindAi(){
+    var btn = document.getElementById("btnAssistenteIA") ||
+      Array.from(document.querySelectorAll("button")).find(function(b){
+        return (b.textContent || "").includes("Assistente IA");
+      });
+    if(!btn || btn.dataset.sblV2AiBound === "1") return;
+    btn = replaceWithCleanClone(btn);
+    btn.dataset.sblV2AiBound = "1";
+    btn.addEventListener("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+      if(window.abrirAssistentePedagogico) window.abrirAssistentePedagogico();
+      else toastSafe("Assistente IA disponível no ambiente institucional.");
+    }, true);
+  }
+
+  function bindHints(){
+    document.querySelectorAll('button[title="Saiba mais"]').forEach(function(btn){
+      if(btn.dataset.sblV2HintBound === "1") return;
+      btn.dataset.sblV2HintBound = "1";
+      btn.addEventListener("click", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+
+        var targetId = "";
+        var on = btn.getAttribute("onclick") || "";
+        var m = on.match(/getElementById\(['"]([^'"]+)['"]\)/);
+        if(m) targetId = m[1];
+
+        var hint = targetId ? document.getElementById(targetId) : null;
+        if(!hint){
+          var next = btn.nextElementSibling;
+          if(next && next.id && next.id.indexOf("hint_") === 0) hint = next;
+        }
+        if(hint){
+          var isOpen = hint.style.display === "block";
+          hint.style.display = isOpen ? "none" : "block";
+        }
+        return false;
+      }, true);
+      btn.removeAttribute("onclick");
+    });
+  }
+
+  function addRowHelper(){
+    var table = document.getElementById("quadroAcao");
+    if(!table || table.querySelector(".sbl-row-helper")) return;
+    var plus = table.querySelector(".btn-plus");
+    var minus = table.querySelector(".btn-minus");
+    if(!plus || !minus) return;
+    var cell = plus.closest("td") || plus.parentNode;
+    if(!cell) return;
+    var helper = document.createElement("div");
+    helper.className = "sbl-row-helper no-print";
+    helper.innerHTML = 'Use <strong>+ Adicionar</strong> para incluir uma linha e <strong>− Remover</strong> para retirar a última.';
+    cell.appendChild(helper);
+  }
+
+  function bindEmailCleaner(){
+    var el = document.getElementById("emails") || document.querySelector('[name="emails"], [name="email"], #email');
+    if(!el || el.dataset.sblEmailCleanerBound === "1") return;
+    el.dataset.sblEmailCleanerBound = "1";
+    el.addEventListener("input", function(){
+      if(String(el.value || "").trim()) el.classList.remove("sbl-email-error");
+    });
+  }
+
+  function init(){
+    bindMore();
+    bindPdf();
+    bindAi();
+    bindHints();
+    addRowHelper();
+    bindEmailCleaner();
+  }
+
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+  setTimeout(init, 250);
+  setTimeout(init, 900);
+})();
+</script>
+
+
+<script id="sbl-v3-ajustes-pontuais-script">
+(function(){
+  "use strict";
+
+  function toastSafe(msg, type, duration){
+    if(typeof window.toast === "function") return window.toast(msg, type, duration);
+    var old = document.querySelector(".toast-message");
+    if(old) old.remove();
+    var d = document.createElement("div");
+    d.className = "toast-message";
+    d.textContent = msg;
+    d.style.background = type === "error" ? "#7a1f1f" : (type === "ok" ? "#1f4d2b" : "#333");
+    document.body.appendChild(d);
+    setTimeout(function(){ if(d.parentNode) d.remove(); }, duration || 3200);
+  }
+
+  function emailField(){
+    return document.getElementById("emails") ||
+           document.querySelector('[name="emails"], [name="email"], #email');
+  }
+
+  function validateEmailForSubmission(){
+    var el = emailField();
+    if(!el) return true;
+    if(String(el.value || "").trim()) {
+      el.classList.remove("sbl-email-error");
+      return true;
+    }
+    el.classList.add("sbl-email-error");
+    try {
+      el.scrollIntoView({behavior:"smooth", block:"center"});
+      setTimeout(function(){ try { el.focus({preventScroll:true}); } catch(e){ el.focus(); } }, 180);
+    } catch(e) {
+      try { el.focus(); } catch(_) {}
+    }
+    toastSafe("Para enviar o guião para validação, indique pelo menos um e-mail no campo Email(s).", "error");
+    return false;
+  }
+
+  function cleanEmailOnInput(){
+    var el = emailField();
+    if(!el || el.dataset.sblV3EmailCleaner === "1") return;
+    el.dataset.sblV3EmailCleaner = "1";
+    el.addEventListener("input", function(){
+      if(String(el.value || "").trim()) el.classList.remove("sbl-email-error");
+    });
+  }
+
+  function findValidationButton(){
+    return document.getElementById("btnEnviarValidacao") ||
+           document.getElementById("btnValidacaoReal") ||
+           Array.from(document.querySelectorAll('button, input[type="button"], input[type="submit"]')).find(function(btn){
+             var txt = (btn.textContent || btn.value || "").toLowerCase();
+             return txt.includes("enviar para valida") || txt.includes("submeter") || txt.includes("submiss");
+           });
+  }
+
+  function bindValidationButton(){
+    var btn = findValidationButton();
+    if(!btn || btn.dataset.sblV3ValidationBound === "1") return;
+
+    var clone = btn.cloneNode(true);
+    clone.dataset.sblV3ValidationBound = "1";
+    clone.type = "button";
+    btn.parentNode.replaceChild(clone, btn);
+
+    clone.addEventListener("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+
+      if(!validateEmailForSubmission()) return false;
+
+      if(typeof window.submitToGuiesPowerAutomate === "function"){
+        window.submitToGuiesPowerAutomate(clone);
+      }else{
+        toastSafe("Não foi possível encontrar a função de envio para validação.", "error");
+      }
+      return false;
+    }, true);
+  }
+
+  function setupTooltips(){
+    document.querySelectorAll(".btn-plus, .btn-minus").forEach(function(btn){
+      var isMinus = btn.classList.contains("btn-minus") || (btn.textContent || "").trim() === "-";
+      var isPlus = btn.classList.contains("btn-plus") || (btn.textContent || "").trim() === "+";
+      if(isMinus){
+        btn.removeAttribute("title");
+        btn.setAttribute("aria-label", "Remover linha");
+        btn.setAttribute("data-sbl-tooltip", "Remover linha");
+      }else if(isPlus){
+        btn.removeAttribute("title");
+        btn.setAttribute("aria-label", "Adicionar linha");
+        btn.setAttribute("data-sbl-tooltip", "Adicionar linha");
+      }
+    });
+  }
+
+  function insertDividerBeforeObjectives(){
+    var objetivos = document.getElementById("objetivos");
+    if(!objetivos) return;
+    var section = objetivos.closest(".section") || objetivos.parentElement;
+    if(!section || section.previousElementSibling?.classList?.contains("sbl-section-divider-red")) return;
+
+    var divider = document.createElement("div");
+    divider.className = "sbl-section-divider-red";
+    section.parentNode.insertBefore(divider, section);
+  }
+
+  function init(){
+    cleanEmailOnInput();
+    bindValidationButton();
+    setupTooltips();
+}
+
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+
+  setTimeout(init, 250);
+  setTimeout(init, 900);
+})();
+</script>
+
+
+<script id="sbl-v4-divisoes-tooltip-script">
+(function(){
+  "use strict";
+
+  var tooltipEl = null;
+
+  function getTooltipText(btn){
+    var txt = btn.getAttribute("data-sbl-tooltip") || btn.getAttribute("aria-label") || "";
+    if(!txt){
+      var raw = (btn.textContent || "").trim();
+      if(raw === "-") txt = "Remover linha";
+      else if(raw === "+") txt = "Adicionar linha";
+    }
+    return txt;
+  }
+
+  function showFloatingTooltip(btn){
+    var txt = getTooltipText(btn);
+    if(!txt) return;
+
+    hideFloatingTooltip();
+
+    tooltipEl = document.createElement("div");
+    tooltipEl.className = "sbl-floating-tooltip";
+    tooltipEl.textContent = txt;
+    document.body.appendChild(tooltipEl);
+
+    var rect = btn.getBoundingClientRect();
+    var x = rect.left + rect.width / 2;
+    var y = rect.top - 8;
+
+    tooltipEl.style.left = x + "px";
+    tooltipEl.style.top = y + "px";
+  }
+
+  function hideFloatingTooltip(){
+    if(tooltipEl && tooltipEl.parentNode) tooltipEl.parentNode.removeChild(tooltipEl);
+    tooltipEl = null;
+  }
+
+  function bindFloatingTooltips(){
+    document.querySelectorAll(".btn-plus, .btn-minus").forEach(function(btn){
+      var raw = (btn.textContent || "").trim();
+      var isMinus = btn.classList.contains("btn-minus") || raw === "-";
+      var isPlus = btn.classList.contains("btn-plus") || raw === "+";
+      if(isMinus){
+        btn.removeAttribute("title");
+        btn.setAttribute("aria-label", "Remover linha");
+        btn.setAttribute("data-sbl-tooltip", "Remover linha");
+      }else if(isPlus){
+        btn.removeAttribute("title");
+        btn.setAttribute("aria-label", "Adicionar linha");
+        btn.setAttribute("data-sbl-tooltip", "Adicionar linha");
+      }else{
+        return;
+      }
+
+      if(btn.dataset.sblV4TooltipBound === "1") return;
+      btn.dataset.sblV4TooltipBound = "1";
+
+      btn.addEventListener("mouseenter", function(){ showFloatingTooltip(btn); });
+      btn.addEventListener("focus", function(){ showFloatingTooltip(btn); });
+      btn.addEventListener("mouseleave", hideFloatingTooltip);
+      btn.addEventListener("blur", hideFloatingTooltip);
+      btn.addEventListener("click", function(){
+        showFloatingTooltip(btn);
+        setTimeout(hideFloatingTooltip, 650);
+      }, true);
+    });
+  }
+
+  function makeDivider(extraClass){
+    var d = document.createElement("div");
+    d.className = "sbl-divider-red" + (extraClass ? " " + extraClass : "");
+    return d;
+  }
+
+  function insertVisualDividers(){
+    /*
+      Quebra visual sugerida:
+      1) depois de Unidade Orgânica / Modalidade;
+      2) antes de Objetivos.
+      Isto separa o cabeçalho institucional dos dados do guião e evita o bloco único.
+    */
+
+    var headerGrid = document.querySelector(".header-grid");
+    if(headerGrid && !headerGrid.nextElementSibling?.classList?.contains("sbl-divider-red")){
+      headerGrid.parentNode.insertBefore(makeDivider("sbl-divider-soft"), headerGrid.nextSibling);
+    }
+
+    var objetivos = document.getElementById("objetivos");
+    if(objetivos){
+      var section = objetivos.closest(".section") || objetivos.parentElement;
+      if(section && !section.previousElementSibling?.classList?.contains("sbl-divider-red")){
+        section.parentNode.insertBefore(makeDivider("sbl-divider-soft"), section);
+      }
+    }
+  }
+
+  function init(){
+    bindFloatingTooltips();
+}
+
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+
+  setTimeout(init, 250);
+  setTimeout(init, 900);
+})();
+</script>
+
+
+<script id="sbl-v5-remover-divisores-runtime">
+(function(){
+  "use strict";
+
+  function removeDividers(){
+    document.querySelectorAll(".sbl-section-divider-red, .sbl-divider-red").forEach(function(el){
+      if(el && el.parentNode) el.parentNode.removeChild(el);
+    });
+  }
+
+  function neutralizeDividerInsertion(){
+    /* Impede que scripts anteriores voltem a inserir as linhas extra */
+    try {
+      window.insertVisualDividers = function(){};
+      window.insertDividerBeforeObjectives = function(){};
+    } catch(e) {}
+  }
+
+  function init(){
+    neutralizeDividerInsertion();
+    removeDividers();
+    setTimeout(removeDividers, 200);
+    setTimeout(removeDividers, 900);
+  }
+
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+
+  var observer = new MutationObserver(function(){ removeDividers(); });
+  function startObserver(){
+    try {
+      observer.observe(document.body, {childList:true, subtree:true});
+    } catch(e) {}
+  }
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", startObserver);
+  else startObserver();
+})();
+</script>
+
+
+<script id="sbl-v8-remover-divisores-extra">
+(function(){
+  function removeExtraDividers(){
+    document.querySelectorAll(".sbl-section-divider-red, .sbl-divider-red").forEach(function(el){
+      if(el && el.parentNode) el.parentNode.removeChild(el);
+    });
+  }
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", removeExtraDividers);
+  else removeExtraDividers();
+  setTimeout(removeExtraDividers, 250);
+  setTimeout(removeExtraDividers, 900);
+})();
+</script>
+
+
+<script id="sbl-v9-separadores-retos-script">
+(function(){
+  "use strict";
+
+  function makeSeparator(title){
+    var wrap = document.createElement("div");
+    wrap.className = "sbl-doc-separator-wrap";
+
+    if(title){
+      var t = document.createElement("div");
+      t.className = "sbl-doc-block-title";
+      t.textContent = title;
+      wrap.appendChild(t);
+    }
+
+    var line = document.createElement("div");
+    line.className = "sbl-doc-separator";
+    wrap.appendChild(line);
+    return wrap;
+  }
+
+  function alreadyHasSeparatorBefore(el){
+    var prev = el && el.previousElementSibling;
+    return !!(prev && prev.classList && prev.classList.contains("sbl-doc-separator-wrap"));
+  }
+
+  function sectionByControl(id){
+    var el = document.getElementById(id);
+    return el ? (el.closest(".section") || el.parentElement) : null;
+  }
+
+  function sectionByLabelText(txt){
+    txt = String(txt || "").toLowerCase();
+    return Array.from(document.querySelectorAll(".section, .sbl-rounded-block, .sbl-rounded-title-block")).find(function(sec){
+      return (sec.textContent || "").toLowerCase().includes(txt);
+    });
+  }
+
+  function removeOldDynamicLines(){
+    document.querySelectorAll(".sbl-section-divider-red, .sbl-divider-red").forEach(function(el){
+      if(el && el.parentNode) el.parentNode.removeChild(el);
+    });
+  }
+
+  function insertSeparators(){
+    removeOldDynamicLines();
+
+    /* 1) Antes de Objetivos/Recursos — separa identificação do enquadramento pedagógico */
+    var objetivosSec = sectionByControl("objetivos");
+    if(objetivosSec && !alreadyHasSeparatorBefore(objetivosSec)){
+      objetivosSec.parentNode.insertBefore(makeSeparator("Enquadramento pedagógico"), objetivosSec);
+    }
+
+    /* 2) Antes de Procedimentos/Briefing — separa preparação da simulação */
+    var procedimentos = document.getElementById("hint_procedimentos");
+    var procedimentosSec = procedimentos ? (procedimentos.closest(".section") || procedimentos.parentElement) : null;
+    if(procedimentosSec && !alreadyHasSeparatorBefore(procedimentosSec)){
+      procedimentosSec.parentNode.insertBefore(makeSeparator("Preparação da simulação"), procedimentosSec);
+    }
+
+    /* 3) Antes do Guião/Informações para Ator — separa bloco de personagem */
+    var atorSec = document.getElementById("hint_ator");
+    atorSec = atorSec ? (atorSec.closest(".section") || atorSec.parentElement) : sectionByLabelText("guião para ator");
+    if(atorSec && !alreadyHasSeparatorBefore(atorSec)){
+      atorSec.parentNode.insertBefore(makeSeparator("Guião para ator/personagem"), atorSec);
+    }
+  }
+
+  function init(){
+    insertSeparators();
+    setTimeout(insertSeparators, 250);
+    setTimeout(insertSeparators, 900);
+  }
+
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
+
+
+<script id="sbl-v10-renomear-titulos-limpar-linhas">
+(function(){
+  "use strict";
+
+  function normalizeTitle(txt){
+    txt = String(txt || "").trim().toLowerCase();
+    if(txt === "preparação da simulação" || txt === "preparacao da simulacao"){
+      return "Procedimentos e briefing";
+    }
+    if(txt === "guião para ator/personagem" || txt === "guiao para ator/personagem"){
+      return "Guião para ator/personagem";
+    }
+    if(txt === "enquadramento pedagógico" || txt === "enquadramento pedagogico"){
+      return "Enquadramento pedagógico";
+    }
+    return null;
+  }
+
+  function updateTitles(){
+    document.querySelectorAll(".sbl-doc-block-title").forEach(function(el){
+      var fixed = normalizeTitle(el.textContent);
+      if(fixed) el.textContent = fixed;
+    });
+  }
+
+  function removeInternalDuplicateLines(){
+    document.querySelectorAll(".sbl-doc-separator-wrap").forEach(function(wrap){
+      var next = wrap.nextElementSibling;
+      if(!next) return;
+      var line = next.querySelector(':scope > div[style*="border-top"]');
+      if(line){
+        line.style.display = "none";
+        line.style.visibility = "hidden";
+        line.style.height = "0";
+        line.style.margin = "0";
+        line.style.padding = "0";
+        line.style.border = "0";
+      }
+    });
+  }
+
+  function init(){
+    updateTitles();
+    removeInternalDuplicateLines();
+    setTimeout(updateTitles, 250);
+    setTimeout(removeInternalDuplicateLines, 250);
+    setTimeout(updateTitles, 900);
+    setTimeout(removeInternalDuplicateLines, 900);
+  }
+
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
+
+
+<script id="sbl-v11-identificacao-do-guiao-final-script">
+(function(){
+  "use strict";
+
+  function byId(id){ return document.getElementById(id); }
+
+  function cardOf(id){
+    var el = byId(id);
+    return el ? el.closest(".sbl47-v53-card") : null;
+  }
+
+  function makePanel(title){
+    var p = document.createElement("div");
+    p.className = "sbl-cbl-like-panel sbl-identification-panel";
+    var h = document.createElement("div");
+    h.className = "sbl-cbl-like-title";
+    h.textContent = title;
+    p.appendChild(h);
+    return p;
+  }
+
+  function moveCards(target, ids){
+    ids.forEach(function(id){
+      var card = cardOf(id);
+      if(card) target.appendChild(card);
+    });
+  }
+
+  function reorganizeTopAsSingleIdentification(){
+    var old = document.querySelector(".sbl47-v53-header-cards");
+    if(!old || old.dataset.sblV11SingleIdentification === "1") return;
+
+    old.dataset.sblV11SingleIdentification = "1";
+    old.classList.add("sbl-v11-single-identification");
+
+    var panel = makePanel("Identificação do guião");
+
+    var sessionGrid = document.createElement("div");
+    sessionGrid.className = "sbl-session-grid";
+    panel.appendChild(sessionGrid);
+
+    /* Primeira parte: dados da UC/sessão, mas sem título separado */
+    moveCards(sessionGrid, ["curso", "uc", "data", "hora", "professor", "emails"]);
+
+    var identGrid = document.createElement("div");
+    identGrid.className = "sbl-identification-grid";
+    panel.appendChild(identGrid);
+
+    /* Segunda parte: metadados do guião */
+    moveCards(identGrid, ["autoria", "estado", "n_estudantes", "n_grupos"]);
+
+    old.innerHTML = "";
+    old.appendChild(panel);
+  }
+
+  function renameSeparators(){
+    document.querySelectorAll(".sbl-doc-block-title").forEach(function(el){
+      var txt = (el.textContent || "").trim().toLowerCase();
+      if(txt === "preparação da simulação" || txt === "preparacao da simulacao"){
+        el.textContent = "Procedimentos e briefing";
+      }
+      if(txt === "guião para ator/personagem" || txt === "guiao para ator/personagem"){
+        el.textContent = "Guião para ator/personagem";
+      }
+      if(txt === "enquadramento pedagógico" || txt === "enquadramento pedagogico"){
+        el.textContent = "Enquadramento pedagógico";
+      }
+    });
+  }
+
+  function cleanDuplicateLines(){
+    document.querySelectorAll(".sbl-doc-separator-wrap").forEach(function(wrap){
+      var next = wrap.nextElementSibling;
+      if(!next) return;
+      var line = next.querySelector(':scope > div[style*="border-top"]');
+      if(line){
+        line.style.display = "none";
+        line.style.visibility = "hidden";
+        line.style.height = "0";
+        line.style.margin = "0";
+        line.style.padding = "0";
+        line.style.border = "0";
+      }
+    });
+  }
+
+  function init(){
+    reorganizeTopAsSingleIdentification();
+    renameSeparators();
+    cleanDuplicateLines();
+  }
+
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+
+  setTimeout(init, 250);
+  setTimeout(init, 900);
+})();
+</script>
+
+
+<script id="sbl-v12-grid-fallback">
+(function(){
+  function byId(id){ return document.getElementById(id); }
+  function cardOf(id){
+    var el = byId(id);
+    return el ? el.closest('.sbl47-v53-card') : null;
+  }
+  function apply(){
+    var curso = cardOf('curso');
+    var uc = cardOf('uc');
+    var data = cardOf('data');
+    var hora = cardOf('hora');
+    var prof = cardOf('professor');
+    var emails = cardOf('emails');
+
+    if(curso) curso.style.gridColumn = 'span 2';
+    if(uc) uc.style.gridColumn = 'span 2';
+    if(data) data.style.gridColumn = 'span 1';
+    if(hora) hora.style.gridColumn = 'span 1';
+    if(prof) prof.style.gridColumn = '3 / 5';
+    if(emails) emails.style.gridColumn = '1 / -1';
+
+    // tentar reforçar borda visual em objetivos, caso exista
+    ['objetivos','objetivosAprendizagem','objetivo','objetivosPedagogicos'].forEach(function(id){
+      var el = byId(id);
+      if(el){
+        el.style.border = '1px solid #d2d2d2';
+        el.style.borderRadius = '10px';
+        el.style.background = '#fff';
+      }
+    });
+    var byName = document.querySelector('textarea[name="objetivos"]');
+    if(byName){
+      byName.style.border = '1px solid #d2d2d2';
+      byName.style.borderRadius = '10px';
+      byName.style.background = '#fff';
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', apply);
+  else apply();
+  setTimeout(apply, 300);
+  setTimeout(apply, 1000);
+})();
+</script>
+
+
+<script id="sbl-v13-ajuste-shell-objetivos">
+(function(){
+  function apply(){
+    var objetivos = document.getElementById('objetivos');
+    if(objetivos){
+      var shell = objetivos.closest('.section') || objetivos.parentElement;
+      if(shell){
+        shell.classList.add('sbl-v13-objetivos-shell');
+      }
+    }
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', apply);
+  } else {
+    apply();
+  }
+  setTimeout(apply, 300);
+  setTimeout(apply, 1000);
+})();
+</script>
+
+
+<script id="sbl-v14-reorganizar-topo-cbl">
+(function(){
+  "use strict";
+
+  function byId(id){ return document.getElementById(id); }
+
+  function cardOf(id){
+    var el = byId(id);
+    return el ? el.closest(".sbl47-v53-card") : null;
+  }
+
+  function cleanCard(card, full){
+    if(!card) return null;
+    card.classList.remove("wide", "span-2");
+    if(full) card.classList.add("sbl-full-row");
+    return card;
+  }
+
+  function moveCards(target, ids, fullRows){
+    ids.forEach(function(id){
+      var card = cardOf(id);
+      if(card) target.appendChild(cleanCard(card, fullRows.indexOf(id) !== -1));
+    });
+  }
+
+  function makeIdentificationPanel(){
+    var panel = document.createElement("div");
+    panel.className = "sbl-identification-panel";
+
+    var title = document.createElement("div");
+    title.className = "sbl-cbl-like-title";
+    title.textContent = "Identificação do guião";
+    panel.appendChild(title);
+
+    var grid = document.createElement("div");
+    grid.className = "sbl-identification-grid";
+    panel.appendChild(grid);
+
+    return {panel: panel, grid: grid};
+  }
+
+  function reorganize(){
+    var old = document.querySelector(".sbl47-v53-header-cards");
+    if(!old) return;
+
+    // Garante idempotência: se já existir estrutura V14, não duplica.
+    if(old.dataset.sblV14Reorganized === "1") return;
+    old.dataset.sblV14Reorganized = "1";
+
+    // Painel superior sem título: Curso/UC/Data/Hora/Docente/Email
+    var coursePanel = document.createElement("div");
+    coursePanel.className = "sbl-course-panel";
+
+    var courseGrid = document.createElement("div");
+    courseGrid.className = "sbl-course-grid";
+    coursePanel.appendChild(courseGrid);
+
+    moveCards(courseGrid, ["curso", "uc", "data", "hora", "professor", "emails"], ["emails"]);
+
+    // Bloco Identificação do guião: menor e separado
+    var ident = makeIdentificationPanel();
+    moveCards(ident.grid, ["autoria", "estado", "n_estudantes", "n_grupos"], ["autoria"]);
+
+    old.innerHTML = "";
+    old.appendChild(coursePanel);
+    old.appendChild(ident.panel);
+  }
+
+  function markPedagogicalShells(){
+    var objetivos = byId("objetivos");
+    if(objetivos){
+      var sec = objetivos.closest(".section") || objetivos.parentElement;
+      if(sec) sec.classList.add("sbl-v14-objetivos-shell");
+    }
+    var recursos = byId("recursos");
+    if(recursos){
+      var sec2 = recursos.closest(".section") || recursos.parentElement;
+      if(sec2) sec2.classList.add("sbl-v14-recursos-shell");
+    }
+  }
+
+  function init(){
+    reorganize();
+    markPedagogicalShells();
+  }
+
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+
+  setTimeout(init, 250);
+  setTimeout(init, 900);
+})();
+</script>
+
+
+<script id="sbl-v15-topo-cbl-script">
+(function(){
+  'use strict';
+
+  function $(sel, root){ return (root || document).querySelector(sel); }
+  function byId(id){ return document.getElementById(id); }
+  function cardOf(id){
+    var el = byId(id);
+    return el ? el.closest('.sbl47-v53-card') : null;
+  }
+  function controlOf(id){
+    var card = cardOf(id);
+    if(!card) return null;
+    return card.querySelector('input, textarea, select');
+  }
+  function removeLabel(control){
+    if(!control) return;
+    var lbl = control.parentElement ? control.parentElement.querySelector('label') : null;
+    if(lbl) lbl.remove();
+  }
+  function labelCell(text, isLast){
+    var d = document.createElement('div');
+    d.className = 'sbl-v15-lcell' + (isLast ? ' sbl-v15-row-last' : '');
+    d.textContent = text;
+    return d;
+  }
+  function fieldCell(content, extraClass, isLast){
+    var d = document.createElement('div');
+    d.className = 'sbl-v15-fcell' + (extraClass ? ' ' + extraClass : '') + (isLast ? ' sbl-v15-row-last' : '');
+    if(content) d.appendChild(content);
+    return d;
+  }
+  function identItem(text, content, full){
+    var d = document.createElement('div');
+    d.className = 'sbl-v15-ident-item' + (full ? ' full' : '');
+    var l = document.createElement('label');
+    l.textContent = text;
+    d.appendChild(l);
+    if(content) d.appendChild(content);
+    return d;
+  }
+  function build(){
+    var root = $('.sbl47-v53-header-cards');
+    if(!root || root.dataset.sblV15 === '1') return;
+    root.dataset.sblV15 = '1';
+
+    var ids = ['curso','uc','professor','emails','data','hora','autoria','estado','n_estudantes','n_grupos'];
+    ids.forEach(function(id){
+      var c = controlOf(id);
+      if(c) removeLabel(c);
+    });
+
+    var curso = controlOf('curso');
+    var uc = controlOf('uc');
+    var professor = controlOf('professor');
+    var emails = controlOf('emails');
+    var data = controlOf('data');
+    var hora = controlOf('hora');
+    var autoria = controlOf('autoria');
+    var estado = controlOf('estado');
+    var nEst = controlOf('n_estudantes');
+    var nGrp = controlOf('n_grupos');
+
+    root.innerHTML = '';
+
+    // Bloco superior tipo CBL: 2x2 + email em baixo.
+    var top = document.createElement('div');
+    top.className = 'sbl-v15-table-block';
+    var grid = document.createElement('div');
+    grid.className = 'sbl-v15-table-grid';
+
+    grid.appendChild(labelCell('Curso:', false));
+    grid.appendChild(fieldCell(curso, '', false));
+    grid.appendChild(labelCell('Unidade Curricular:', false));
+    grid.appendChild(fieldCell(uc, '', false));
+
+    var dataHoraWrap = document.createElement('div');
+    dataHoraWrap.className = 'sbl-v15-datehora-wrap';
+    if(data) dataHoraWrap.appendChild(data);
+    if(hora) dataHoraWrap.appendChild(hora);
+
+    grid.appendChild(labelCell('Email(s):', false));
+    grid.appendChild(fieldCell(emails, '', false));
+    grid.appendChild(labelCell('Data / Hora:', false));
+    grid.appendChild(fieldCell(dataHoraWrap, '', false));
+
+    grid.appendChild(labelCell('Docente(s):', true));
+    grid.appendChild(fieldCell(professor, 'sbl-v15-docente-field', true));
+
+    top.appendChild(grid);
+    root.appendChild(top);
+
+    // Identificação do guião: mais enxuta.
+    var ident = document.createElement('div');
+    ident.className = 'sbl-v15-ident-block';
+    var title = document.createElement('div');
+    title.className = 'sbl-v15-ident-title';
+    title.textContent = 'Identificação do guião';
+    ident.appendChild(title);
+
+    var identGrid = document.createElement('div');
+    identGrid.className = 'sbl-v15-ident-grid';
+    identGrid.appendChild(identItem('Autoria:', autoria, true));
+    identGrid.appendChild(identItem('Estado do Guião:', estado, false));
+    identGrid.appendChild(identItem('Número de Estudantes:', nEst, false));
+    identGrid.appendChild(identItem('Número de Grupos:', nGrp, false));
+    ident.appendChild(identGrid);
+    root.appendChild(ident);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+  setTimeout(build, 250);
+  setTimeout(build, 900);
+})();
+</script>
+
+
+<script id="sbl-v16-ano-letivo-microajustes-script">
+(function(){
+  "use strict";
+
+  function byId(id){ return document.getElementById(id); }
+
+  function ensureAnoLetivo(){
+    var existing = byId("ano_letivo") || byId("anoLetivo") || byId("ano");
+    if(existing) return existing;
+
+    var input = document.createElement("input");
+    input.id = "ano_letivo";
+    input.name = "ano_letivo";
+    input.type = "text";
+    input.placeholder = "Ex.: 2026/2027";
+    return input;
+  }
+
+  function labelCell(text, isLast){
+    var d = document.createElement("div");
+    d.className = "sbl-v15-lcell" + (isLast ? " sbl-v15-row-last" : "");
+    d.textContent = text;
+    return d;
+  }
+
+  function fieldCell(content, extraClass, isLast){
+    var d = document.createElement("div");
+    d.className = "sbl-v15-fcell" + (extraClass ? " " + extraClass : "") + (isLast ? " sbl-v15-row-last" : "");
+    if(content) d.appendChild(content);
+    return d;
+  }
+
+  function identItem(text, content, full){
+    var d = document.createElement("div");
+    d.className = "sbl-v15-ident-item" + (full ? " full" : "");
+    var label = document.createElement("label");
+    label.textContent = text;
+    d.appendChild(label);
+    if(content) d.appendChild(content);
+    return d;
+  }
+
+  function detach(id){
+    var el = byId(id);
+    if(!el) return null;
+    return el;
+  }
+
+  function rebuild(){
+    var root = document.querySelector(".sbl47-v53-header-cards");
+    if(!root || root.dataset.sblV16 === "1") return;
+    root.dataset.sblV16 = "1";
+
+    var curso = detach("curso");
+    var uc = detach("uc");
+    var professor = detach("professor");
+    var emails = detach("emails");
+    var autoria = detach("autoria");
+    var estado = detach("estado");
+    var nEst = detach("n_estudantes");
+    var nGrp = detach("n_grupos");
+    var data = detach("data");
+    var hora = detach("hora");
+    var anoLetivo = ensureAnoLetivo();
+
+    root.innerHTML = "";
+
+    /* Bloco superior, igual à lógica visual do CBL */
+    var top = document.createElement("div");
+    top.className = "sbl-v15-table-block sbl-v16-course-block";
+
+    var grid = document.createElement("div");
+    grid.className = "sbl-v15-table-grid sbl-v16-grid";
+
+    grid.appendChild(labelCell("Curso:", false));
+    grid.appendChild(fieldCell(curso, "", false));
+    grid.appendChild(labelCell("Unidade Curricular:", false));
+    grid.appendChild(fieldCell(uc, "", false));
+
+    grid.appendChild(labelCell("Ano Letivo:", false));
+    grid.appendChild(fieldCell(anoLetivo, "", false));
+    grid.appendChild(labelCell("Email(s):", false));
+    grid.appendChild(fieldCell(emails, "", false));
+
+    grid.appendChild(labelCell("Docente(s):", true));
+    grid.appendChild(fieldCell(professor, "sbl-v15-docente-field", true));
+
+    top.appendChild(grid);
+    root.appendChild(top);
+
+    /* Identificação do guião, agora sem amontoar o bloco superior */
+    var ident = document.createElement("div");
+    ident.className = "sbl-v15-ident-block";
+
+    var title = document.createElement("div");
+    title.className = "sbl-v15-ident-title";
+    title.textContent = "Identificação do guião";
+    ident.appendChild(title);
+
+    var identGrid = document.createElement("div");
+    identGrid.className = "sbl-v15-ident-grid sbl-v16-ident-grid";
+
+    var dataHoraItem = document.createElement("div");
+    dataHoraItem.className = "sbl-v15-ident-item sbl-v19-datehora-item";
+
+    var dataHoraGrid = document.createElement("div");
+    dataHoraGrid.className = "sbl-v19-datehora-grid";
+
+    if(data){
+      var dataWrap = document.createElement("div");
+      dataWrap.className = "sbl-v19-subitem";
+      var dataLabel = document.createElement("label");
+      dataLabel.textContent = "Data:";
+      dataWrap.appendChild(dataLabel);
+      dataWrap.appendChild(data);
+      dataHoraGrid.appendChild(dataWrap);
+    }
+
+    if(hora){
+      var horaWrap = document.createElement("div");
+      horaWrap.className = "sbl-v19-subitem";
+      var horaLabel = document.createElement("label");
+      horaLabel.textContent = "Hora:";
+      horaWrap.appendChild(horaLabel);
+      horaWrap.appendChild(hora);
+      dataHoraGrid.appendChild(horaWrap);
+    }
+
+    dataHoraItem.appendChild(dataHoraGrid);
+
+    identGrid.appendChild(identItem("Autoria:", autoria, true));
+    identGrid.appendChild(identItem("Estado do Guião:", estado, false));
+    identGrid.appendChild(dataHoraItem);
+    identGrid.appendChild(identItem("Número de Estudantes:", nEst, false));
+    identGrid.appendChild(identItem("Número de Grupos:", nGrp, false));
+
+    ident.appendChild(identGrid);
+    root.appendChild(ident);
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", rebuild);
+  } else {
+    rebuild();
+  }
+
+  setTimeout(rebuild, 300);
+  setTimeout(rebuild, 1000);
+})();
+</script>
+
+</body>
 </html>
