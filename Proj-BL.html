@@ -2858,7 +2858,117 @@ table::before, table::after, .quadro-table::before, .quadro-table::after, td::be
   }
 }
 </style>
-</head>
+<style id="project-field-uniform-v14">
+/* ===== PROJECT v14 — uniformização visual dos campos dentro dos separadores =====
+   Só corrige proporções; não altera botões nem separadores. */
+@media screen{
+  /* Nas tabelas editoriais do Project, todos os campos da mesma linha passam a partir do mesmo tamanho. */
+  #descricao .quadro-table td input,
+  #descricao .quadro-table td textarea,
+  #metodologia .quadro-table td input,
+  #metodologia .quadro-table td textarea,
+  #entregaveis .quadro-table td input,
+  #entregaveis .quadro-table td textarea,
+  #ucs .quadro-table td input,
+  #ucs .quadro-table td textarea,
+  #contribuicoes .quadro-table td input,
+  #contribuicoes .quadro-table td textarea{
+    width:100% !important;
+    min-height:54px !important;
+    height:54px !important;
+    padding:8px 10px !important;
+    line-height:1.25 !important;
+    box-sizing:border-box !important;
+    resize:vertical !important;
+    overflow:auto !important;
+    vertical-align:top !important;
+  }
+  /* Campo curto ou longo: todos começam iguais; o docente pode expandir quando for textarea. */
+  #descricao .quadro-table .proj-short-field,
+  #descricao .quadro-table .proj-text-field,
+  #metodologia .quadro-table .proj-short-field,
+  #metodologia .quadro-table .proj-text-field,
+  #entregaveis .quadro-table .proj-short-field,
+  #entregaveis .quadro-table .proj-text-field,
+  #ucs .quadro-table .proj-short-field,
+  #ucs .quadro-table .proj-text-field,
+  #contribuicoes .quadro-table .proj-short-field,
+  #contribuicoes .quadro-table .proj-text-field,
+  #entregaveis .proj-fixed-size-field,
+  #entregaveis .proj-percent-field,
+  #entregaveis .proj-date-field,
+  #entregaveis .proj-number-field,
+  #ucs .proj-fixed-size-field,
+  #ucs .proj-percent-field,
+  #ucs .proj-number-field,
+  #ucs .proj-contrib-percent{
+    min-height:54px !important;
+    height:54px !important;
+    line-height:1.25 !important;
+    padding:8px 10px !important;
+    resize:vertical !important;
+    overflow:auto !important;
+    text-align:left !important;
+  }
+  #entregaveis .proj-percent-field,
+  #entregaveis .proj-date-field,
+  #entregaveis .proj-number-field,
+  #ucs .proj-percent-field,
+  #ucs .proj-number-field,
+  #ucs .proj-contrib-percent,
+  #ucs td:first-child input,
+  #ucs td:first-child textarea,
+  #ucs td:nth-child(3) input,
+  #ucs td:nth-child(3) textarea,
+  #ucs td:nth-child(6) input,
+  #ucs td:nth-child(6) textarea,
+  #entregaveis td:first-child input,
+  #entregaveis td:first-child textarea,
+  #entregaveis td:nth-child(4) input,
+  #entregaveis td:nth-child(4) textarea,
+  #entregaveis td:nth-child(5) input,
+  #entregaveis td:nth-child(5) textarea{
+    text-align:center !important;
+  }
+  /* Mantém avaliação fora desta uniformização, porque visualmente já estava ok. */
+}
+</style><style id="project-document-print-v14">
+/* ===== PROJECT v14 — impressão documental, sem títulos duplicados e sem folhas vazias ===== */
+#projectPrintHost{display:none;}
+@page{size:A4 portrait;margin:11mm 11mm 12mm 11mm;}
+@media print{
+  html,body{margin:0 !important;padding:0 !important;width:auto !important;min-height:auto !important;background:#fff !important;color:#111 !important;-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;}
+  body.project-print-mode > *:not(#projectPrintHost){display:none !important;visibility:hidden !important;}
+  body.project-print-mode #projectPrintHost{display:block !important;visibility:visible !important;position:static !important;margin:0 !important;padding:0 !important;width:100% !important;background:#fff !important;}
+  body.project-print-mode .project-print-document{display:block !important;visibility:visible !important;width:100% !important;max-width:none !important;margin:0 !important;padding:0 !important;border:0 !important;border-radius:0 !important;box-shadow:none !important;background:#fff !important;color:#111 !important;font-family:'Century Gothic','Aptos','Segoe UI',Arial,sans-serif !important;font-size:9.1pt !important;line-height:1.30 !important;overflow:visible !important;}
+  body.project-print-mode .project-print-document *,body.project-print-mode .project-print-document *::before,body.project-print-mode .project-print-document *::after{box-sizing:border-box !important;animation:none !important;transition:none !important;}
+  body.project-print-mode .project-print-document .tabs,body.project-print-mode .project-print-document .tab,body.project-print-mode .project-print-document .ux-actions,body.project-print-mode .project-print-document .ux-menu,body.project-print-mode .project-print-document .ux-info-panel,body.project-print-mode .project-print-document .premium-status,body.project-print-mode .project-print-document .autosave-status,body.project-print-mode .project-print-document .progress-bar,body.project-print-mode .project-print-document button,body.project-print-mode .project-print-document .btn,body.project-print-mode .project-print-document .btn-preto,body.project-print-mode .project-print-document .btn-plus,body.project-print-mode .project-print-document .btn-minus,body.project-print-mode .project-print-document .proj-row-controls,body.project-print-mode .project-print-document .proj-table-tools,body.project-print-mode .project-print-document .proj-control-btn,body.project-print-mode .project-print-document .proj-table-tool,body.project-print-mode .project-print-document .proj-criterion-add,body.project-print-mode .project-print-document .no-print{display:none !important;visibility:hidden !important;}
+  body.project-print-mode .project-print-document .logo{display:block !important;text-align:left !important;margin:0 0 5mm 0 !important;padding:0 !important;}
+  body.project-print-mode .project-print-document .logo img{height:13mm !important;width:auto !important;margin:0 !important;}
+  body.project-print-mode .project-print-document h1{display:block !important;margin:0 0 6mm 0 !important;padding:0 0 2.8mm 0 !important;border:0 !important;border-bottom:1.2pt solid #111 !important;text-align:left !important;color:#111 !important;font-size:16pt !important;line-height:1.1 !important;font-weight:900 !important;letter-spacing:0 !important;background:none !important;box-shadow:none !important;}
+  body.project-print-mode .project-print-document h1::before,body.project-print-mode .project-print-document h1::after,body.project-print-mode .project-print-document .page::before,body.project-print-mode .project-print-document .section::before,body.project-print-mode .project-print-document .header-card::before,body.project-print-mode .project-print-document th::before,body.project-print-mode .project-print-document th::after{display:none !important;content:none !important;background:none !important;box-shadow:none !important;}
+  body.project-print-mode .project-print-document .header-grid,body.project-print-mode .project-print-document .header-info,body.project-print-mode .project-print-document .header-row{display:grid !important;grid-template-columns:1fr 1fr !important;gap:2.6mm !important;margin:0 0 4mm 0 !important;padding:0 !important;}
+  body.project-print-mode .project-print-document .header-card,body.project-print-mode .project-print-document .header-info .section,body.project-print-mode .project-print-document .header-row .section{break-inside:avoid !important;page-break-inside:avoid !important;border:0.7pt solid #111 !important;border-radius:0 !important;background:#fff !important;box-shadow:none !important;padding:2mm !important;margin:0 !important;min-height:0 !important;height:auto !important;overflow:visible !important;}
+  body.project-print-mode .project-print-document .header-card label,body.project-print-mode .project-print-document label,body.project-print-mode .project-print-document .section label{display:block !important;margin:0 0 0.8mm 0 !important;padding:0 !important;color:#111 !important;font-size:8pt !important;line-height:1.12 !important;font-weight:900 !important;text-transform:none !important;letter-spacing:0 !important;background:none !important;}
+  body.project-print-mode .project-print-document .tab-content,body.project-print-mode .project-print-document .tab-content.active{display:block !important;visibility:visible !important;opacity:1 !important;height:auto !important;min-height:0 !important;margin:0 0 4.8mm 0 !important;padding:0 !important;break-before:auto !important;page-break-before:auto !important;break-after:auto !important;page-break-after:auto !important;break-inside:auto !important;page-break-inside:auto !important;background:#fff !important;box-shadow:none !important;}
+  body.project-print-mode .project-print-document .tab-content + .tab-content{border-top:0 !important;padding-top:0 !important;break-before:auto !important;page-break-before:auto !important;}
+  body.project-print-mode .project-print-document #descricao::before,body.project-print-mode .project-print-document #funcionamento::before,body.project-print-mode .project-print-document #objetivos::before,body.project-print-mode .project-print-document #metodologia::before,body.project-print-mode .project-print-document #entregaveis::before,body.project-print-mode .project-print-document #avaliacao::before,body.project-print-mode .project-print-document #ucs::before{display:block !important;margin:0 0 2.6mm 0 !important;padding:0 !important;border:0 !important;color:#111 !important;font-size:13.2pt !important;line-height:1.16 !important;font-weight:500 !important;letter-spacing:0 !important;text-transform:uppercase !important;background:#fff !important;}
+  body.project-print-mode .project-print-document #descricao::before{content:"1 | DESCRIÇÃO" !important;} body.project-print-mode .project-print-document #funcionamento::before{content:"2 | FUNCIONAMENTO E CONTEÚDOS" !important;} body.project-print-mode .project-print-document #objetivos::before{content:"3 | OBJETIVOS DE APRENDIZAGEM" !important;} body.project-print-mode .project-print-document #metodologia::before{content:"4 | METODOLOGIA" !important;} body.project-print-mode .project-print-document #entregaveis::before{content:"5 | ENTREGÁVEIS" !important;} body.project-print-mode .project-print-document #avaliacao::before{content:"6 | CRITÉRIOS DE AVALIAÇÃO" !important;} body.project-print-mode .project-print-document #ucs::before{content:"7 | CONTRIBUIÇÕES DAS UNIDADES CURRICULARES" !important;}
+  body.project-print-mode .project-print-document .project-duplicate-title{display:none !important;}
+  body.project-print-mode .project-print-document .section,body.project-print-mode .project-print-document .legend,body.project-print-mode .project-print-document .proj-avaliacao-uc,body.project-print-mode .project-print-document .proj-criteria-block,body.project-print-mode .project-print-document .proj-title-card,body.project-print-mode .project-print-document .proj-metodologia-card,body.project-print-mode .project-print-document .proj-field-card,body.project-print-mode .project-print-document .proj-entregavel-card,body.project-print-mode .project-print-document .proj-contribuicao-card{break-inside:auto !important;page-break-inside:auto !important;border:0 !important;border-radius:0 !important;background:#fff !important;box-shadow:none !important;padding:0 !important;margin:0 0 3.5mm 0 !important;overflow:visible !important;min-height:0 !important;height:auto !important;}
+  body.project-print-mode .project-print-document h3,body.project-print-mode .project-print-document .section h3{display:block !important;margin:0 0 1.6mm 0 !important;padding:0 !important;border:0 !important;color:#111 !important;font-size:9.5pt !important;line-height:1.15 !important;font-weight:900 !important;text-transform:uppercase !important;background:none !important;}
+  body.project-print-mode .project-print-value{display:block !important;width:100% !important;min-height:0 !important;height:auto !important;padding:0 !important;border:0 !important;border-radius:0 !important;background:none !important;color:#111 !important;white-space:pre-wrap !important;overflow-wrap:break-word !important;word-break:normal !important;font-size:9.1pt !important;line-height:1.32 !important;font-weight:400 !important;}
+  body.project-print-mode .project-print-value.is-empty{display:none !important;}
+  body.project-print-mode td .project-print-value{font-size:8pt !important;line-height:1.18 !important;text-align:inherit !important;}
+  body.project-print-mode th .project-print-value{font-size:8pt !important;line-height:1.12 !important;font-weight:900 !important;color:inherit !important;}
+  body.project-print-mode .project-print-document table,body.project-print-mode .project-print-document .quadro-table{width:100% !important;table-layout:fixed !important;border-collapse:collapse !important;border-spacing:0 !important;border:1pt solid #111 !important;border-radius:0 !important;overflow:visible !important;background:#fff !important;box-shadow:none !important;margin:1.2mm 0 4mm 0 !important;break-inside:auto !important;page-break-inside:auto !important;}
+  body.project-print-mode .project-print-document th,body.project-print-mode .project-print-document .quadro-table th{border:0.8pt solid #111 !important;color:#fff !important;background:#000 !important;background-image:none !important;box-shadow:none !important;font-size:7.8pt !important;line-height:1.14 !important;padding:1.5mm 1.2mm !important;vertical-align:middle !important;text-align:center !important;font-weight:900 !important;overflow:visible !important;word-break:normal !important;overflow-wrap:break-word !important;hyphens:none !important;}
+  body.project-print-mode .project-print-document td,body.project-print-mode .project-print-document .quadro-table td{border:0.6pt solid #111 !important;color:#111 !important;background:#fff !important;box-shadow:none !important;font-size:8pt !important;line-height:1.18 !important;padding:1.5mm 1.2mm !important;vertical-align:top !important;overflow:visible !important;word-break:normal !important;overflow-wrap:break-word !important;hyphens:none !important;}
+  body.project-print-mode .project-print-document tr{break-inside:avoid !important;page-break-inside:avoid !important;}
+  body.project-print-mode .project-print-document .proj-entregaveis-total,body.project-print-mode .project-print-document .proj-contrib-total{display:flex !important;justify-content:flex-end !important;align-items:center !important;gap:2mm !important;width:max-content !important;max-width:100% !important;margin:0 0 4mm auto !important;padding:1.6mm 2.2mm !important;border:0.8pt solid #111 !important;border-radius:0 !important;background:#fff !important;box-shadow:none !important;font-size:8pt !important;}
+  body.project-print-mode .project-print-document .project-empty-row,body.project-print-mode .project-print-document .project-empty-block,body.project-print-mode .project-print-document .project-empty-cell{display:none !important;}
+}
+</style></head>
 <body>
 <div class="page"><div class="premium-status no-print">
 <div class="progress-label" id="progressLabel">Guião preenchido: 0%</div>
@@ -2908,7 +3018,7 @@ table::before, table::after, .quadro-table::before, .quadro-table::after, td::be
 </table>
 <button onclick="addDocente()" style="padding:5px 10px; cursor:pointer; margin-top:5px;">+ Adicionar Docente</button>
 </div>
-<div class="section"><label>Ano letivo:</label><input/></div>
+<div class="section"><label>Ano letivo:</label><input placeholder="Ex.: 2025/2026"/></div>
 <div class="tabs">
 <button class="tab active" onclick="openTab('descricao')">1. Descrição</button>
 <button class="tab" onclick="openTab('funcionamento')">2. Funcionamento</button>
@@ -4212,7 +4322,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     var div = document.createElement('div');
     div.className = 'section proj-title-card';
-    div.innerHTML = '<label>Título do projeto <span style="font-weight:400;color:#666;">(se aplicável)</span>:</label><input id="tituloProjeto" placeholder="Ex.: Nome ou tema do projeto interdisciplinar">';
+    div.innerHTML = '<label>Título do projeto:</label><input id="tituloProjeto" placeholder="Ex.: Identidade Visual e Narrativa Digital para uma Marca Cultural Sustentável">';
     headerInfo.insertBefore(div, headerInfo.firstChild);
   }
 
@@ -4566,12 +4676,12 @@ document.addEventListener('DOMContentLoaded', function(){
     if(!titleSec){
       titleSec = document.createElement('div');
       titleSec.className = 'section proj-title-card';
-      titleSec.innerHTML = '<label>Título do projeto:</label><textarea id="tituloProjeto" class="proj-expand-preserved" placeholder="Ex.: Título ou tema do projeto interdisciplinar"></textarea>';
+      titleSec.innerHTML = '<label>Título do projeto:</label><textarea id="tituloProjeto" class="proj-expand-preserved" placeholder="Ex.: Identidade Visual e Narrativa Digital para uma Marca Cultural Sustentável"></textarea>';
       headerInfo.insertBefore(titleSec, headerInfo.firstChild);
     }else{
       titleSec.classList.add('proj-title-card');
       var titleField = titleSec.querySelector('input, textarea');
-      makeTextarea(titleField, 'proj-expand-preserved', 'Ex.: Título ou tema do projeto interdisciplinar', 58);
+      makeTextarea(titleField, 'proj-expand-preserved', 'Ex.: Identidade Visual e Narrativa Digital para uma Marca Cultural Sustentável', 58);
       if(headerInfo.firstElementChild !== titleSec){
         headerInfo.insertBefore(titleSec, headerInfo.firstChild);
       }
@@ -6545,5 +6655,2320 @@ document.addEventListener('DOMContentLoaded', function(){
   setTimeout(bindBotaoAssistente, 500);
 })();
 </script>
+<!-- ===== PROJECT V11 — PATCH FINAL PBL-LIKE: compacto forte + impressão nativa, sem alterar botões/separadores/HTML ===== -->
+<style id="project-pbl-like-compact-v11">
+/* Compactação visível inspirada no PBL: aplicada por último para vencer regras antigas do Project */
+html,body{margin:0 !important;}
+body{padding:12px !important;background:#f3f3f3 !important;}
+.page{max-width:940px !important;padding:14px 18px !important;border-radius:16px !important;}
+.logo{margin-bottom:10px !important;}
+.logo img{height:34px !important;}
+h1{font-size:22px !important;line-height:1.08 !important;margin:5px 0 12px 0 !important;padding:9px 0 11px 0 !important;}
+.premium-status{margin:0 0 14px 0 !important;padding:9px 12px !important;border-radius:13px !important;}
+.premium-status-grid{gap:10px !important;font-size:12px !important;}
+.progress-label{font-size:11px !important;margin-bottom:4px !important;}
+.progress-bar{height:7px !important;}
+.autosave-status{margin-top:6px !important;font-size:11px !important;}
+.header-grid,.header-info{gap:9px !important;margin-bottom:10px !important;}
+.header-card,.header-info .section,.section,.proj-title-card,.proj-avaliacao-uc,.proj-criteria-block,.proj-metodologia-card,.proj-field-card,.proj-entregavel-card,.proj-contribuicao-card{padding:9px 10px !important;margin:7px 0 !important;border-radius:12px !important;}
+.section::before,.header-info .section::before,.proj-metodologia-card::before,.proj-field-card::before,.proj-entregavel-card::before,.proj-contribuicao-card::before,.proj-avaliacao-uc::before,.proj-criteria-block::before,.proj-title-card::before{width:3px !important;}
+.section label,.header-card label,.header-info .section label,label{font-size:11.5px !important;line-height:1.12 !important;margin:0 0 4px 0 !important;letter-spacing:.01em !important;}
+.section h3{font-size:14px !important;line-height:1.12 !important;margin:0 0 8px 0 !important;padding-bottom:5px !important;}
+.tabs{margin-top:7px !important;gap:5px !important;}
+.tab{padding:7px 12px !important;font-size:11.5px !important;}
+.tab-content{padding:8px 0 !important;}
+input,textarea,select,.proj-expandable-field,.proj-expand-preserved,.proj-compact-preserved,.proj-fixed-size-field,.proj-percent-field,.proj-date-field,.proj-number-field,.proj-number-box,.proj-percent-box,.proj-criterion-field{font-size:11px !important;line-height:1.18 !important;padding:5px 7px !important;border-radius:8px !important;box-shadow:none !important;}
+input[type="text"],input:not([type]),input[type="number"],input[type="date"],select,.header-card select,.proj-compact-preserved,.proj-fixed-size-field,.proj-percent-field,.proj-date-field,.proj-number-field,.proj-number-box,.proj-percent-box{min-height:30px !important;height:30px !important;padding:4px 6px !important;line-height:1.15 !important;}
+textarea,.proj-expandable-field,.proj-expand-preserved,textarea.proj-expand-preserved,textarea.proj-expandable-field,.proj-criterion-field{min-height:38px !important;height:auto !important;max-height:none !important;resize:vertical !important;overflow:auto !important;padding:5px 7px !important;line-height:1.2 !important;}
+.header-info textarea.proj-expand-preserved{min-height:38px !important;}
+.quadro-table,table{margin:5px 0 !important;border-radius:12px !important;}
+th,.quadro-table th{font-size:9.2px !important;line-height:1.12 !important;padding:5px 4px !important;}
+td,.quadro-table td{font-size:9px !important;line-height:1.12 !important;padding:4px !important;}
+.quadro-table textarea,.quadro-table input,table textarea.proj-expand-preserved,table textarea.proj-expandable-field,#descricao table td textarea,#descricao table td input,#metodologia table td textarea,#metodologia table td input,#entregaveis table td textarea,#entregaveis table td input,#ucs table td textarea,#ucs table td input,#contribuicoes table td textarea,#contribuicoes table td input,#avaliacao .proj-uc-name-row input,#avaliacao .proj-uc-name-row textarea,#avaliacao input,#avaliacao textarea{font-size:9.5px !important;line-height:1.15 !important;padding:5px !important;border-radius:7px !important;}
+.quadro-table textarea,table textarea.proj-expand-preserved,table textarea.proj-expandable-field,#descricao table td textarea,#metodologia table td textarea,#entregaveis table td textarea,#ucs table td textarea,#contribuicoes table td textarea,#avaliacao textarea{min-height:36px !important;height:auto !important;resize:vertical !important;overflow:auto !important;}
+#entregaveis table input,#ucs table input,#contribuicoes table input,#entregaveis table .proj-short-field,#ucs table .proj-short-field,#contribuicoes table .proj-short-field,#entregaveis table input.proj-date-field,#entregaveis table input.proj-percent-field,#entregaveis table input.proj-number-field,#ucs table input.proj-number-field,#ucs table input.proj-percent-field,#contribuicoes table input.proj-number-field,#contribuicoes table input.proj-percent-field{min-height:34px !important;height:34px !important;line-height:1.1 !important;padding:4px 5px !important;}
+#entregaveis table textarea.proj-short-field,#ucs table textarea.proj-short-field,#contribuicoes table textarea.proj-short-field{min-height:34px !important;height:auto !important;line-height:1.15 !important;padding:5px !important;resize:vertical !important;overflow:auto !important;}
+#entregaveis .proj-entregaveis-total,#ucs .proj-contrib-total,#contribuicoes .proj-contrib-total{margin:6px 0 9px auto !important;padding:7px 9px !important;border-radius:10px !important;font-size:11px !important;}
+#entregaveis .proj-entregaveis-total-value,#ucs .proj-contrib-total-value,#contribuicoes .proj-contrib-total-value{min-height:24px !important;min-width:48px !important;padding:4px 6px !important;border-radius:7px !important;}
+.proj-row-controls,.proj-table-tools{margin:4px 0 8px 0 !important;gap:5px !important;}
+.proj-control-btn,.proj-table-tool,.btn-plus,.btn-minus{width:24px !important;height:24px !important;min-width:24px !important;min-height:24px !important;font-size:14px !important;padding:0 !important;}
+#avaliacao .proj-avaliacao-uc,#avaliacao .proj-criteria-block{padding:9px !important;margin:0 0 10px 0 !important;border-radius:11px !important;}
+#avaliacao .proj-criteria-list{gap:5px !important;}
+#avaliacao .proj-uc-name-row{margin-bottom:6px !important;}
+#avaliacao .proj-criterion-add{font-size:9.5px !important;padding:4px 8px !important;margin-top:2px !important;}
+.ux-actions{margin:18px auto 8px auto !important;padding:9px 11px !important;gap:7px !important;border-radius:15px !important;}
+.ux-actions .ux-btn,.ux-actions .ux-btn-ai,.ux-actions .ux-btn-primary,.ux-actions .ux-btn-pdf,.ux-actions .ux-btn-more{height:32px !important;min-height:32px !important;padding:0 11px !important;font-size:11.5px !important;}
+.ux-info-panel{margin-top:9px !important;padding:9px 11px !important;gap:8px !important;}
+.ux-info-item{font-size:11px !important;line-height:1.24 !important;}
+@media screen and (max-width:760px){.page{padding:12px 10px !important;}.header-grid,.header-info{grid-template-columns:1fr !important;}table,.quadro-table{display:block !important;overflow-x:auto !important;}}
+</style>
+
+
+<script id="project-document-print-engine-v14">
+(function(){
+  var printLock=false;
+  function byId(id){return document.getElementById(id);}
+  function norm(s){return String(s||'').replace(/\s+/g,' ').trim();}
+  function cleanTitle(s){return norm(s).replace(/[:：]+$/,'').toLowerCase();}
+  function isPlaceholderText(s){
+    s=norm(s).toLowerCase();
+    if(!s) return true;
+    return /^(selecionar|nome da uc|contexto e objetivos|contexto\/objetivos|contexto e objetivos principais da participação|objetivos|procedimentos|entregáveis|entregáveis esperados|tipo|dd\/mm|30%|descrição de critério|ex:|ex\.|email@universidade\.pt|nome docente|nome|email|inserir|links úteis|descrição geral do projeto)$/.test(s);
+  }
+  function currentText(el){
+    if(!el) return '';
+    var tag=(el.tagName||'').toUpperCase();
+    if(tag==='SELECT'){
+      var opt=el.options && el.options[el.selectedIndex];
+      var txt=opt ? opt.text : '';
+      return /^selecionar$/i.test(norm(txt)) ? '' : txt;
+    }
+    if(tag==='INPUT' || tag==='TEXTAREA') return el.value || '';
+    return el.textContent || '';
+  }
+  function makePrintValue(el){
+    var span=document.createElement('span');
+    span.className='project-print-value';
+    var raw=currentText(el);
+    if(!norm(raw)) span.classList.add('is-empty');
+    span.textContent=norm(raw) ? raw : '';
+    return span;
+  }
+  function removeJunk(clone){
+    clone.querySelectorAll('script,style,#projectPrintHost,.ux-actions,.ux-menu,.ux-info-panel,.premium-status,.autosave-status,.progress-bar,.tabs,.tab,button,.btn,.btn-preto,.btn-plus,.btn-minus,.proj-row-controls,.proj-table-tools,.proj-control-btn,.proj-table-tool,.proj-criterion-add,.no-print').forEach(function(el){el.remove();});
+    clone.querySelectorAll('[onclick]').forEach(function(el){el.removeAttribute('onclick');});
+    clone.querySelectorAll('[style]').forEach(function(el){el.removeAttribute('style');});
+  }
+  function showAllTabs(clone){
+    clone.querySelectorAll('.tab-content').forEach(function(el){el.classList.add('active');el.style.display='block';});
+  }
+  function convertFields(clone){
+    clone.querySelectorAll('input,textarea,select').forEach(function(el){if(el.parentNode) el.parentNode.replaceChild(makePrintValue(el),el);});
+  }
+  function markDuplicateTitles(clone){
+    var map={descricao:['descrição'],funcionamento:['funcionamento e conteúdos'],objetivos:['objetivos de aprendizagem'],metodologia:['metodologia'],entregaveis:['entregáveis'],avaliacao:['critérios de avaliação'],ucs:['contribuições das unidades curriculares']};
+    Object.keys(map).forEach(function(id){
+      var tab=clone.querySelector('#'+id); if(!tab) return;
+      tab.querySelectorAll('label,h2,h3,strong').forEach(function(el){
+        var t=cleanTitle(el.textContent);
+        if(map[id].indexOf(t)!==-1) el.classList.add('project-duplicate-title');
+      });
+    });
+  }
+  function pruneEmptyRows(clone){
+    clone.querySelectorAll('tr').forEach(function(tr){
+      if(tr.querySelector('th')) return;
+      var cells=[].slice.call(tr.children).filter(function(c){return /^(td)$/i.test(c.tagName);});
+      if(!cells.length) return;
+      var meaningful=cells.some(function(td){var txt=norm(td.textContent); return txt && !isPlaceholderText(txt);});
+      if(!meaningful) tr.classList.add('project-empty-row');
+    });
+  }
+  function pruneEmptyBlocks(clone){
+    clone.querySelectorAll('.proj-criterion-row,.proj-criteria-block,.proj-avaliacao-uc,.proj-metodologia-card,.proj-field-card,.proj-entregavel-card,.proj-contribuicao-card').forEach(function(el){var txt=norm(el.textContent); if(!txt || isPlaceholderText(txt)) el.classList.add('project-empty-block');});
+    clone.querySelectorAll('.section,.header-card').forEach(function(el){
+      if(el.querySelector('table')) return;
+      var txt=norm(el.textContent);
+      var label=el.querySelector('label,h3');
+      var labelText=label ? norm(label.textContent) : '';
+      var rest=norm(txt.replace(labelText,''));
+      if(!rest || isPlaceholderText(rest)){ if(!/bibliografia|recursos/i.test(labelText)) el.classList.add('project-empty-block'); }
+    });
+  }
+  function buildPrintClone(){
+    var old=byId('projectPrintHost'); if(old) old.remove();
+    var host=document.createElement('div'); host.id='projectPrintHost';
+    var source=document.querySelector('.page') || document.body;
+    var clone=source.cloneNode(true);
+    clone.classList.add('project-print-document');
+    removeJunk(clone); showAllTabs(clone); convertFields(clone); markDuplicateTitles(clone); pruneEmptyRows(clone); pruneEmptyBlocks(clone);
+    host.appendChild(clone); document.body.appendChild(host); return host;
+  }
+  function cleanupPrint(){document.body.classList.remove('project-print-mode'); var h=byId('projectPrintHost'); if(h) h.remove(); printLock=false;}
+  function salvarPDF(){
+    if(printLock) return;
+    printLock=true; buildPrintClone(); document.body.classList.add('project-print-mode');
+    if(window.showToast) window.showToast('A preparar impressão documental. Em “Mais definições”, desative Cabeçalhos e rodapés.');
+    setTimeout(function(){window.print(); setTimeout(cleanupPrint,900);},120);
+  }
+  window.salvarPDF=salvarPDF; window.downloadGuiesPdf=salvarPDF; window.projectSalvarPDFDocumental=salvarPDF;
+  window.addEventListener('afterprint',cleanupPrint);
+  function bind(){
+    var btn=byId('btnSalvarPDF');
+    if(btn && !btn.dataset.projectPrintV14){
+      var nb=btn.cloneNode(true); nb.dataset.projectPrintV14='1'; nb.removeAttribute('onclick');
+      nb.addEventListener('click',function(ev){ev.preventDefault(); ev.stopImmediatePropagation(); salvarPDF();},true);
+      btn.parentNode.replaceChild(nb,btn);
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bind); else bind();
+})();
+</script>
+<style id="project-v15-pontual-fixes">
+/* ===== V15 — ajustes pontuais sem reconstruir o template ===== */
+
+/* 1) Rótulo do título sem “interdisciplinar” */
+
+/* 2) Campos: mesma família, tamanho e alinhamento dentro dos separadores */
+#descricao input, #descricao textarea,
+#funcionamento textarea,
+#objetivos textarea,
+#metodologia input, #metodologia textarea,
+#entregaveis input, #entregaveis textarea,
+#ucs input, #ucs textarea,
+#avaliacao input, #avaliacao textarea{
+  font-family:'Century Gothic', sans-serif !important;
+  font-size:12px !important;
+  line-height:1.32 !important;
+  color:#222 !important;
+  box-sizing:border-box !important;
+}
+
+/* Descrição geral do projeto igual ao padrão dos campos UC */
+#descricao > .section:first-child textarea{
+  min-height:48px !important;
+  height:48px !important;
+  padding:8px 10px !important;
+  resize:vertical !important;
+  overflow:auto !important;
+}
+#descricao table input,
+#descricao table textarea,
+#metodologia table input,
+#metodologia table textarea,
+#entregaveis table input,
+#entregaveis table textarea,
+#ucs table input,
+#ucs table textarea{
+  min-height:48px !important;
+  height:48px !important;
+  padding:8px 10px !important;
+  border:1.15px solid #2F2F2F !important;
+  border-radius:9px !important;
+  background:#fff !important;
+  box-shadow:none !important;
+  font-size:12px !important;
+  line-height:1.28 !important;
+}
+
+/* Campos curtos: alinhamento vertical semelhante, sem “descer” a data/DD-MM */
+#entregaveis table td input,
+#ucs table td input{
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+  line-height:48px !important;
+  vertical-align:middle !important;
+}
+#entregaveis table td textarea,
+#ucs table td textarea{
+  padding-top:8px !important;
+  padding-bottom:8px !important;
+  line-height:1.28 !important;
+}
+#entregaveis table td:nth-child(1) input,
+#entregaveis table td:nth-child(3) input,
+#entregaveis table td:nth-child(4) input,
+#entregaveis table td:nth-child(5) input,
+#ucs table td:nth-child(1) input,
+#ucs table td:nth-child(3) input,
+#ucs table td:nth-child(6) input{
+  text-align:center !important;
+}
+
+/* Contribuições: retirar scroll/cursor lateral nos campos curtos, sobretudo Nome da UC */
+#ucs table td:nth-child(2) textarea,
+#ucs table td:nth-child(2) input{
+  overflow:hidden !important;
+  resize:none !important;
+}
+#ucs table td textarea{
+  scrollbar-width:none !important;
+}
+#ucs table td textarea::-webkit-scrollbar{
+  display:none !important;
+}
+
+/* Objetivos: área um pouco maior e com rolagem/resize para ler o exemplo */
+#objetivos textarea{
+  min-height:128px !important;
+  height:128px !important;
+  resize:vertical !important;
+  overflow:auto !important;
+  white-space:pre-wrap !important;
+}
+
+/* Bibliografia/Recursos no ecrã: rótulos com presença semelhante às secções maiores, mas sem numeração */
+#ucs .section > label{
+  font-size:13.5px !important;
+  line-height:1.18 !important;
+  font-weight:900 !important;
+  letter-spacing:.01em !important;
+}
+#ucs .section:nth-last-of-type(2) > label,
+#ucs .section:nth-last-of-type(1) > label{
+  font-size:15px !important;
+  line-height:1.18 !important;
+  font-weight:900 !important;
+  text-transform:uppercase !important;
+  margin-bottom:7px !important;
+}
+#ucs .section:nth-last-of-type(2) textarea,
+#ucs .section:nth-last-of-type(1) textarea{
+  min-height:48px !important;
+  height:48px !important;
+  resize:vertical !important;
+  overflow:auto !important;
+  font-size:12px !important;
+  line-height:1.32 !important;
+}
+
+/* Impressão — Bibliografia e Recursos como títulos de secção sem numeração */
+@media print{
+  body.project-print-mode .project-print-document #ucs .section:nth-last-of-type(2),
+  body.project-print-mode .project-print-document #ucs .section:nth-last-of-type(1){
+    margin-top:4mm !important;
+  }
+  body.project-print-mode .project-print-document #ucs .section:nth-last-of-type(2) > label,
+  body.project-print-mode .project-print-document #ucs .section:nth-last-of-type(1) > label{
+    display:block !important;
+    font-size:13.2pt !important;
+    line-height:1.16 !important;
+    font-weight:500 !important;
+    text-transform:uppercase !important;
+    margin:0 0 2.6mm 0 !important;
+    color:#111 !important;
+  }
+  body.project-print-mode .project-print-document .project-highlight-title{
+    display:block !important;
+    margin:0 0 6mm 0 !important;
+    padding:0 0 2.5mm 0 !important;
+    border-bottom:1.2pt solid #111 !important;
+    color:#111 !important;
+    font-size:20pt !important;
+    line-height:1.12 !important;
+    font-weight:900 !important;
+    text-align:left !important;
+    page-break-after:auto !important;
+    break-after:auto !important;
+  }
+  body.project-print-mode .project-print-document .project-highlight-title + h1{
+    margin-top:0 !important;
+  }
+}
+</style>
+
+
+<script id="project-v15-pontual-fixes-script">
+(function(){
+  'use strict';
+  function norm(s){ return String(s || '').replace(/\s+/g,' ').trim(); }
+  function showToast(msg){ if(window.showToast) window.showToast(msg); else console.log(msg); }
+  function bindCamposSafe(root){
+    try{
+      if(window.bindCampos) window.bindCampos(root || document);
+      if(window.atualizarSafe) window.atualizarSafe();
+      if(window.atualizarTotais) window.atualizarTotais();
+    }catch(e){}
+  }
+  function findSectionByLabel(regex){
+    var sections = Array.prototype.slice.call(document.querySelectorAll('.section'));
+    return sections.find(function(sec){
+      var lab = sec.querySelector(':scope > label, label');
+      return lab && regex.test(norm(lab.textContent));
+    });
+  }
+  function dataRows(table){
+    if(!table) return [];
+    return Array.prototype.slice.call(table.querySelectorAll('tr')).filter(function(tr){return tr.querySelector('td');});
+  }
+  function makeInput(ph, type){
+    var i=document.createElement('input');
+    if(type) i.type=type;
+    if(ph) i.placeholder=ph;
+    return i;
+  }
+  function addRow(table, cells){
+    if(!table) return null;
+    var tr=document.createElement('tr');
+    cells.forEach(function(cell){ var td=document.createElement('td'); td.appendChild(cell); tr.appendChild(td); });
+    table.appendChild(tr);
+    bindCamposSafe(tr);
+    return tr;
+  }
+
+  /* Corrige botão Docente(s): a versão anterior procurava “Docentes:” e falhava em alguns ficheiros. */
+  window.addDocente = function(){
+    var sec=findSectionByLabel(/^docente\(s\):?$/i) || findSectionByLabel(/^docente/i);
+    var table=sec ? sec.querySelector('table') : null;
+    if(!table){ showToast('Não encontrei a tabela de docentes.'); return; }
+    var nome=makeInput('Nome docente'); nome.className='docente-nome';
+    var email=makeInput('email@universidade.pt'); email.className='docente-email';
+    addRow(table,[nome,email]);
+    showToast('Docente adicionado.');
+  };
+  window.removeDocente = function(){
+    var sec=findSectionByLabel(/^docente\(s\):?$/i) || findSectionByLabel(/^docente/i);
+    var table=sec ? sec.querySelector('table') : null;
+    var rows=dataRows(table);
+    if(rows.length<=1){ showToast('Mantenha pelo menos uma linha de docente.'); return; }
+    rows[rows.length-1].remove(); bindCamposSafe(table); showToast('Docente removido.');
+  };
+
+  function applyTextTweaks(){
+    /* Título do projeto sem “interdisciplinar”. */
+    Array.prototype.slice.call(document.querySelectorAll('label')).forEach(function(lab){
+      if(/t[ií]tulo do projeto/i.test(lab.textContent)) lab.innerHTML='Título do projeto:';
+    });
+    var title=document.getElementById('tituloProjeto') || Array.prototype.slice.call(document.querySelectorAll('input,textarea')).find(function(el){
+      var lab=el.closest('.section,.header-card,.proj-title-card');
+      return lab && /t[ií]tulo/i.test(lab.textContent || '');
+    });
+    if(title){ title.placeholder='Ex.: Identidade Visual e Narrativa Digital para uma Marca Cultural Sustentável'; }
+
+    /* Ano letivo com exemplo. */
+    var anoSec=findSectionByLabel(/^ano letivo:?$/i);
+    var ano=anoSec ? anoSec.querySelector('input,textarea') : null;
+    if(ano && !ano.placeholder) ano.placeholder='Ex.: 2025/2026';
+
+    /* Se algum script antigo trocar botões, mantém o par +/− nos docentes também. */
+    var addBtn=document.querySelector('button[onclick="addDocente()"]');
+    if(addBtn){
+      addBtn.textContent='+'; addBtn.title='Adicionar'; addBtn.setAttribute('aria-label','Adicionar');
+      addBtn.className='proj-table-tool proj-add'; addBtn.type='button';
+      var wrap=addBtn.closest('.proj-table-tools,.proj-row-controls');
+      if(!wrap){ wrap=document.createElement('span'); wrap.className='proj-table-tools'; addBtn.parentNode.insertBefore(wrap,addBtn); wrap.appendChild(addBtn); }
+      var rem=Array.prototype.slice.call(wrap.querySelectorAll('button')).find(function(b){return (b.getAttribute('onclick')||'').trim()==='removeDocente()';});
+      if(!rem){ rem=document.createElement('button'); rem.type='button'; rem.setAttribute('onclick','removeDocente()'); wrap.appendChild(rem); }
+      rem.textContent='−'; rem.title='Remover'; rem.setAttribute('aria-label','Remover'); rem.className='proj-table-tool proj-remove';
+    }
+  }
+
+  /* Enriquecimento da cópia de impressão: título preenchido destacado no alto. */
+  function getTitleValue(){
+    var el=document.getElementById('tituloProjeto');
+    if(el && norm(el.value)) return norm(el.value);
+    var candidates=Array.prototype.slice.call(document.querySelectorAll('input,textarea'));
+    for(var i=0;i<candidates.length;i++){
+      var box=candidates[i].closest('.section,.header-card,.proj-title-card');
+      if(box && /t[ií]tulo|tema do projeto/i.test(box.textContent||'') && norm(candidates[i].value)) return norm(candidates[i].value);
+    }
+    return '';
+  }
+  var oldPrint=window.projectSalvarPDFDocumental || window.downloadGuiesPdf || window.salvarPDF;
+  function injectTitleWhenCloneExists(){
+    var title=getTitleValue(); if(!title) return;
+    var clone=document.querySelector('#projectPrintHost .project-print-document'); if(!clone) return;
+    if(clone.querySelector('.project-highlight-title')) return;
+    var h=document.createElement('div'); h.className='project-highlight-title'; h.textContent=title;
+    var h1=clone.querySelector('h1');
+    if(h1 && h1.parentNode) h1.parentNode.insertBefore(h,h1.nextSibling);
+    else clone.insertBefore(h, clone.firstChild);
+  }
+  function salvarPDFv15(){
+    if(typeof oldPrint === 'function'){
+      oldPrint();
+      setTimeout(injectTitleWhenCloneExists,30);
+      setTimeout(injectTitleWhenCloneExists,100);
+    }else{
+      window.print();
+    }
+  }
+
+  function bindPrintButton(){
+    var btn=document.getElementById('btnSalvarPDF');
+    if(btn && !btn.dataset.projectPrintV15){
+      var nb=btn.cloneNode(true);
+      nb.dataset.projectPrintV15='1'; nb.removeAttribute('onclick');
+      nb.addEventListener('click',function(ev){ ev.preventDefault(); ev.stopImmediatePropagation(); salvarPDFv15(); },true);
+      btn.parentNode.replaceChild(nb,btn);
+    }
+    window.downloadGuiesPdf=salvarPDFv15;
+    window.salvarPDF=salvarPDFv15;
+    window.projectSalvarPDFDocumental=salvarPDFv15;
+  }
+
+  function init(){ applyTextTweaks(); bindPrintButton(); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  window.addEventListener('load', function(){ setTimeout(init, 80); setTimeout(init, 350); });
+})();
+</script>
+
+
+
+<!-- ===== V16: ajustes pontuais finais sem reconstruir o template ===== -->
+<style id="project-v16-final-small-fixes">
+/* Título do projeto: rótulo correto, sem duplicação visual */
+.proj-title-card label{
+  font-family:'Century Gothic', sans-serif !important;
+  font-size:13.5px !important;
+  font-weight:900 !important;
+  letter-spacing:.03em !important;
+  text-transform:uppercase !important;
+}
+
+/* Objetivos: mantém o exemplo legível e com scroll vertical quando necessário */
+#objetivos textarea,
+#objetivos .proj-expand-preserved,
+#objetivos .proj-expandable-field{
+  min-height:190px !important;
+  max-height:280px !important;
+  overflow-y:auto !important;
+  resize:vertical !important;
+  font-family:'Century Gothic', sans-serif !important;
+  font-size:12.5px !important;
+  line-height:1.42 !important;
+}
+
+/* Uniformização fina dos campos — mesma família, mesmo alinhamento */
+#descricao table textarea,
+#descricao table input,
+#metodologia table textarea,
+#metodologia table input,
+#entregaveis table textarea,
+#entregaveis table input,
+#ucs table textarea,
+#ucs table input,
+#contribuicoes table textarea,
+#contribuicoes table input{
+  font-family:'Century Gothic', sans-serif !important;
+  font-size:11.2px !important;
+  line-height:1.28 !important;
+  box-sizing:border-box !important;
+}
+
+/* Campos curtos centrados verticalmente */
+#entregaveis table input,
+#entregaveis table .proj-short-field,
+#ucs table input,
+#ucs table .proj-short-field,
+#contribuicoes table input,
+#contribuicoes table .proj-short-field{
+  min-height:52px !important;
+  height:52px !important;
+  display:block !important;
+  padding:0 8px !important;
+  line-height:52px !important;
+  text-align:center !important;
+}
+
+#entregaveis table textarea.proj-short-field,
+#ucs table textarea.proj-short-field,
+#contribuicoes table textarea.proj-short-field{
+  min-height:52px !important;
+  height:52px !important;
+  padding:15px 8px 6px 8px !important;
+  line-height:1.15 !important;
+  text-align:center !important;
+}
+
+/* Evita cursor/scroll pequeno no campo Nome da UC de Contribuições quando está vazio */
+#ucs table td:nth-child(2) textarea,
+#contribuicoes table td:nth-child(2) textarea{
+  overflow-y:hidden !important;
+  min-height:52px !important;
+}
+#ucs table td:nth-child(2) textarea:focus,
+#contribuicoes table td:nth-child(2) textarea:focus{
+  overflow-y:auto !important;
+}
+
+@media print{
+  /* Unidade Orgânica e Modalidade sempre visíveis no bloco inicial de impressão */
+  body.project-print-mode .project-print-document .header-grid,
+  body.project-print-mode .project-print-document .header-card{
+    display:grid !important;
+    visibility:visible !important;
+  }
+  body.project-print-mode .project-print-document .header-card .project-print-value,
+  body.project-print-mode .project-print-document .header-info .project-print-value{
+    display:block !important;
+  }
+  body.project-print-mode .project-print-document .project-highlight-title{
+    margin:0 0 5mm 0 !important;
+    padding:0 !important;
+    border:0 !important;
+    font-size:18pt !important;
+    line-height:1.08 !important;
+    font-weight:900 !important;
+    text-align:left !important;
+  }
+}
+</style>
+
+<script id="project-v16-final-small-fixes-script">
+(function(){
+  'use strict';
+  function norm(s){ return String(s||'').replace(/\s+/g,' ').trim(); }
+  function lower(s){ return norm(s).toLowerCase(); }
+  function toast(msg){
+    if(typeof window.showToast==='function') window.showToast(msg);
+    else if(typeof window.toast==='function') window.toast(msg);
+  }
+
+  function normalizeProjectTitle(){
+    var candidates = Array.prototype.slice.call(document.querySelectorAll('.section,.header-card,.proj-title-card')).filter(function(sec){
+      var lab = sec.querySelector('label');
+      if(!lab) return false;
+      return /t[ií]tulo/i.test(lab.textContent||'') && /projeto/i.test(lab.textContent||'');
+    });
+    if(!candidates.length) return;
+
+    var keep = candidates.find(function(sec){
+      var f=sec.querySelector('input,textarea'); return f && norm(f.value);
+    }) || candidates[0];
+
+    var keepField = keep.querySelector('input,textarea');
+    candidates.forEach(function(sec){
+      if(sec===keep) return;
+      var f=sec.querySelector('input,textarea');
+      if(keepField && f && !norm(keepField.value) && norm(f.value)) keepField.value = f.value;
+      sec.remove();
+    });
+
+    var lab = keep.querySelector('label');
+    if(lab) lab.textContent = 'Título do projeto:';
+    if(keepField){
+      keepField.id = 'tituloProjeto';
+      keepField.placeholder = 'Ex.: Identidade Visual e Narrativa Digital para uma Marca Cultural Sustentável';
+      keepField.classList.add('proj-expand-preserved');
+    }
+  }
+
+  function onlyFirstRowExamples(){
+    var exampleRE = /^(nome da uc|contexto e objetivos principais da participa[cç][aã]o|contexto e objetivos|objetivos|procedimentos|entreg[aá]veis|tipo|dd\/mm|30%|\[3\/6\] n semanas x horas|contribui[cç][aã]o do projeto|\[nome do docente\] \[email\]|nome docente|email@universidade\.pt)$/i;
+    document.querySelectorAll('table').forEach(function(table){
+      var rows = Array.prototype.slice.call(table.querySelectorAll('tr'));
+      rows.forEach(function(row, idx){
+        if(idx <= 1) return; // cabeçalho + primeira linha podem manter exemplos
+        row.querySelectorAll('input,textarea').forEach(function(field){
+          var ph = norm(field.getAttribute('placeholder') || '');
+          if(ph && exampleRE.test(ph)) field.setAttribute('placeholder','');
+          var val = norm(field.value || '');
+          if(val && exampleRE.test(val)) field.value='';
+        });
+      });
+    });
+  }
+
+  function normalizeObjectives(){
+    var obj = document.getElementById('objetivos');
+    if(!obj) return;
+    obj.querySelectorAll('textarea').forEach(function(ta){
+      ta.style.minHeight='190px';
+      ta.style.maxHeight='280px';
+      ta.style.overflowY='auto';
+      ta.style.resize='vertical';
+    });
+  }
+
+  function normalizeOptionsMenu(){
+    var menu=document.getElementById('uxMenuMaisOpcoes');
+    if(!menu) return;
+    function ensure(id, html, handler){
+      var btn=document.getElementById(id);
+      if(!btn){
+        btn=document.createElement('button'); btn.type='button'; btn.id=id; btn.innerHTML=html; menu.appendChild(btn);
+      }
+      if(!btn.dataset.v16Bound){
+        btn.dataset.v16Bound='1';
+        btn.addEventListener('click',function(ev){ ev.preventDefault(); handler && handler(); }, false);
+      }
+    }
+    ensure('draftBtn','💾 Guardar rascunho',function(){
+      try{
+        var data={}; document.querySelectorAll('input,textarea,select').forEach(function(el){ if(el.id||el.name) data[el.id||el.name]=el.value; });
+        localStorage.setItem('project_bl_draft_v16',JSON.stringify(data)); toast('Rascunho guardado.');
+      }catch(e){}
+    });
+    ensure('restoreBtn','📂 Restaurar rascunho',function(){
+      try{ var raw=localStorage.getItem('project_bl_draft_v16'); if(!raw) return toast('Não há rascunho guardado.'); var data=JSON.parse(raw); Object.keys(data).forEach(function(k){ var el=document.getElementById(k)||document.querySelector('[name="'+CSS.escape(k)+'"]'); if(el) el.value=data[k]; }); toast('Rascunho restaurado.'); }catch(e){}
+    });
+    ensure('clearBtn','🧹 Limpar formulário',function(){
+      document.querySelectorAll('input,textarea').forEach(function(el){el.value='';}); toast('Formulário limpo.');
+    });
+    ensure('deleteBtn','🗑️ Apagar rascunho',function(){
+      try{ localStorage.removeItem('project_bl_draft_v16'); }catch(e){} toast('Rascunho apagado.');
+    });
+  }
+
+  function robustDocenteButtons(){
+    window.addDocente = function(){
+      var sec = Array.prototype.slice.call(document.querySelectorAll('.section')).find(function(s){
+        var lab=s.querySelector('label'); return lab && /^docente\(s\):?$/i.test(norm(lab.textContent));
+      });
+      var table = sec && sec.querySelector('table');
+      if(!table){ toast('Não encontrei a tabela de docentes.'); return; }
+      var tr=document.createElement('tr');
+      tr.innerHTML='<td><input class="docente-nome" placeholder=""></td><td><input class="docente-email" placeholder=""></td>';
+      table.appendChild(tr); toast('Docente adicionado.');
+    };
+    window.removeDocente = function(){
+      var sec = Array.prototype.slice.call(document.querySelectorAll('.section')).find(function(s){
+        var lab=s.querySelector('label'); return lab && /^docente\(s\):?$/i.test(norm(lab.textContent));
+      });
+      var table = sec && sec.querySelector('table');
+      if(!table) return;
+      var rows=Array.prototype.slice.call(table.querySelectorAll('tr')).filter(function(r){return r.querySelector('td');});
+      if(rows.length>1){ rows[rows.length-1].remove(); toast('Docente removido.'); }
+    };
+  }
+
+  function patchPrintClone(){
+    var old = window.projectSalvarPDFDocumental || window.downloadGuiesPdf || window.salvarPDF;
+    if(typeof old !== 'function' || old.datasetV16) return;
+    function beforePrintCleanup(){
+      setTimeout(function(){
+        var clone=document.querySelector('#projectPrintHost .project-print-document');
+        if(!clone) return;
+        // Título duplicado não entra no corpo; fica só como destaque quando preenchido.
+        var titleBlocks=Array.prototype.slice.call(clone.querySelectorAll('.section,.header-card,.proj-title-card')).filter(function(sec){
+          var lab=sec.querySelector('label'); return lab && /t[ií]tulo/i.test(lab.textContent||'') && /projeto/i.test(lab.textContent||'');
+        });
+        titleBlocks.forEach(function(sec){ sec.classList.add('project-empty-block'); });
+        // Remove placeholders/exemplos de linhas extra também na cópia de impressão.
+        onlyFirstRowExamples.call(clone);
+      },40);
+    }
+    function wrapped(){ beforePrintCleanup(); return old.apply(this,arguments); }
+    wrapped.datasetV16='1';
+    window.projectSalvarPDFDocumental=wrapped;
+    window.downloadGuiesPdf=wrapped;
+    window.salvarPDF=wrapped;
+    var btn=document.getElementById('btnSalvarPDF');
+    if(btn && !btn.dataset.v16PrintBound){
+      var nb=btn.cloneNode(true); nb.dataset.v16PrintBound='1'; nb.removeAttribute('onclick');
+      nb.addEventListener('click',function(ev){ev.preventDefault(); ev.stopImmediatePropagation(); wrapped();},true);
+      btn.parentNode.replaceChild(nb,btn);
+    }
+  }
+
+  function init(){
+    normalizeProjectTitle();
+    onlyFirstRowExamples();
+    normalizeObjectives();
+    normalizeOptionsMenu();
+    robustDocenteButtons();
+    patchPrintClone();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  window.addEventListener('load',function(){ setTimeout(init,80); setTimeout(init,350); });
+})();
+</script>
+
+
+
+<!-- ===== PROJECT v17 — correções pontuais: menu, título, exemplos, impressão profissional ===== -->
+<style id="project-v17-screen-and-print-fixes">
+/* Menu Mais opções: 4 itens visíveis, sem corte */
+#uxMenuMaisOpcoes.ux-menu,
+#uxMenuMaisOpcoes{
+  min-width: 270px !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding: 8px 0 !important;
+  z-index: 9999999 !important;
+}
+#uxMenuMaisOpcoes button{
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  min-height: 42px !important;
+  height: auto !important;
+  padding: 11px 16px !important;
+  font-size: 12.8px !important;
+  line-height: 1.25 !important;
+  white-space: nowrap !important;
+  text-align: left !important;
+  visibility: visible !important;
+}
+
+/* Título do projeto: único, centrado, com exemplo concreto */
+.proj-title-card,
+.section.project-title-v17{
+  text-align: center !important;
+}
+.proj-title-card label,
+.section.project-title-v17 label{
+  display: block !important;
+  text-align: center !important;
+  font-size: 13.5px !important;
+  font-weight: 900 !important;
+  letter-spacing: .02em !important;
+}
+#tituloProjeto,
+textarea#tituloProjeto,
+input#tituloProjeto{
+  text-align: center !important;
+  font-size: 12.6px !important;
+  min-height: 48px !important;
+  height: 48px !important;
+  resize: vertical !important;
+  overflow: auto !important;
+}
+
+/* Campos e tabelas: exemplos só na primeira linha de cada tabela; alinhamento uniforme */
+.tab-content table.quadro-table input,
+.tab-content table.quadro-table textarea{
+  font-family: 'Century Gothic', sans-serif !important;
+  font-size: 10.8px !important;
+  line-height: 1.25 !important;
+  min-height: 50px !important;
+  height: 50px !important;
+  padding: 8px 10px !important;
+  display: block !important;
+  text-align: center !important;
+  resize: none !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+.tab-content table.quadro-table td:nth-child(2) input,
+.tab-content table.quadro-table td:nth-child(2) textarea,
+.tab-content table.quadro-table td:nth-child(4) input,
+.tab-content table.quadro-table td:nth-child(4) textarea,
+.tab-content table.quadro-table td:nth-child(5) input,
+.tab-content table.quadro-table td:nth-child(5) textarea{
+  text-align: left !important;
+}
+#descricao table.quadro-table input,
+#descricao table.quadro-table textarea,
+#metodologia table.quadro-table input,
+#metodologia table.quadro-table textarea{
+  text-align: left !important;
+  resize: vertical !important;
+  overflow: auto !important;
+}
+#descricao textarea,
+#funcionamento textarea,
+#objetivos textarea,
+#metodologia > .section:first-child textarea,
+#ucs > .section textarea{
+  font-family: 'Century Gothic', sans-serif !important;
+  font-size: 12.4px !important;
+  line-height: 1.38 !important;
+}
+#objetivos textarea{
+  min-height: 230px !important;
+  max-height: 360px !important;
+  overflow-y: auto !important;
+  resize: vertical !important;
+}
+#entregaveis table.quadro-table input,
+#ucs table.quadro-table input{
+  vertical-align: middle !important;
+}
+
+/* Bibliografia e Recursos: título robusto, sem numeração, alinhado com as restantes secções */
+#ucs .section label{
+  font-size: 13.5px !important;
+  line-height: 1.2 !important;
+  font-weight: 900 !important;
+  letter-spacing: .02em !important;
+}
+
+/* Impressão v17: documento profissional; não imprimir o formulário bruto */
+#projectPrintHostV17{ display:none; }
+@media print{
+  body.project-print-v17-active > *:not(#projectPrintHostV17){
+    display:none !important;
+    visibility:hidden !important;
+  }
+  body.project-print-v17-active #projectPrintHostV17{
+    display:block !important;
+    visibility:visible !important;
+  }
+  @page{ size:A4 portrait; margin:11mm 12mm; }
+  html, body{
+    background:#fff !important;
+    padding:0 !important;
+    margin:0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .project-print-doc-v17{
+    font-family:'Century Gothic','Aptos','Segoe UI',Arial,sans-serif !important;
+    color:#111 !important;
+    font-size:10.3pt !important;
+    line-height:1.34 !important;
+    width:100% !important;
+    max-width:none !important;
+  }
+  .project-print-doc-v17 .pp-header{
+    border-bottom:2px solid #111 !important;
+    padding-bottom:9mm !important;
+    margin-bottom:7mm !important;
+  }
+  .project-print-doc-v17 .pp-logo-row{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    gap:8px !important;
+    margin-bottom:8mm !important;
+  }
+  .project-print-doc-v17 .pp-logo-row img{
+    max-height:24px !important;
+    max-width:150px !important;
+    object-fit:contain !important;
+  }
+  .project-print-doc-v17 h1{
+    font-size:23pt !important;
+    line-height:1.08 !important;
+    letter-spacing:.01em !important;
+    margin:0 0 7mm 0 !important;
+    padding:0 !important;
+    text-align:left !important;
+    border:0 !important;
+  }
+  .project-print-doc-v17 .pp-subtitle{
+    font-size:14pt !important;
+    font-weight:800 !important;
+    margin:0 0 5mm 0 !important;
+  }
+  .project-print-doc-v17 .pp-meta-grid{
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:3mm 6mm !important;
+    margin:0 0 3mm 0 !important;
+  }
+  .project-print-doc-v17 .pp-meta-item{
+    border:1px solid #111 !important;
+    padding:2.4mm 3mm !important;
+    min-height:9mm !important;
+  }
+  .project-print-doc-v17 .pp-label{
+    display:block !important;
+    font-size:8.2pt !important;
+    font-weight:900 !important;
+    text-transform:uppercase !important;
+    letter-spacing:.02em !important;
+    margin-bottom:1mm !important;
+  }
+  .project-print-doc-v17 .pp-value{
+    font-size:10pt !important;
+    white-space:pre-wrap !important;
+  }
+  .project-print-doc-v17 .pp-section{
+    margin:6.5mm 0 0 0 !important;
+    break-inside:auto !important;
+    page-break-inside:auto !important;
+  }
+  .project-print-doc-v17 h2{
+    font-size:15.5pt !important;
+    line-height:1.18 !important;
+    font-weight:500 !important;
+    margin:0 0 3.5mm 0 !important;
+    padding:0 !important;
+    letter-spacing:.01em !important;
+    break-after:avoid !important;
+    page-break-after:avoid !important;
+  }
+  .project-print-doc-v17 h2 .pp-number{
+    font-weight:500 !important;
+  }
+  .project-print-doc-v17 h2 .pp-title{
+    text-transform:uppercase !important;
+  }
+  .project-print-doc-v17 h3{
+    font-size:10.8pt !important;
+    font-weight:900 !important;
+    margin:3mm 0 2mm 0 !important;
+    break-after:avoid !important;
+  }
+  .project-print-doc-v17 .pp-text{
+    font-size:10.2pt !important;
+    line-height:1.36 !important;
+    white-space:pre-wrap !important;
+    margin:0 0 3mm 0 !important;
+  }
+  .project-print-doc-v17 table{
+    width:100% !important;
+    border-collapse:collapse !important;
+    table-layout:fixed !important;
+    margin:2.5mm 0 4.5mm 0 !important;
+    break-inside:auto !important;
+    page-break-inside:auto !important;
+  }
+  .project-print-doc-v17 tr{
+    break-inside:avoid !important;
+    page-break-inside:avoid !important;
+  }
+  .project-print-doc-v17 th{
+    background:#000 !important;
+    color:#fff !important;
+    border:1px solid #000 !important;
+    padding:3mm 2.2mm !important;
+    font-size:8.7pt !important;
+    line-height:1.18 !important;
+    font-weight:900 !important;
+    text-align:center !important;
+    vertical-align:middle !important;
+  }
+  .project-print-doc-v17 td{
+    border:1px solid #111 !important;
+    padding:3mm 2.4mm !important;
+    font-size:9.3pt !important;
+    line-height:1.25 !important;
+    vertical-align:top !important;
+    white-space:pre-wrap !important;
+  }
+  .project-print-doc-v17 .pp-small td{ font-size:8.7pt !important; }
+  .project-print-doc-v17 .pp-center{ text-align:center !important; vertical-align:middle !important; }
+  .project-print-doc-v17 .pp-muted{ color:#555 !important; }
+  .project-print-doc-v17 .pp-empty{ display:none !important; }
+  .project-print-doc-v17 ul{ margin:0 0 3mm 6mm !important; padding:0 !important; }
+  .project-print-doc-v17 li{ margin:0 0 1.2mm 0 !important; }
+}
+</style>
+<script id="project-v17-behavior-and-print">
+(function(){
+  'use strict';
+  function norm(s){ return String(s||'').replace(/\s+/g,' ').trim(); }
+  function low(s){ return norm(s).toLowerCase(); }
+  function toast(msg){ try{ if(window.showToast) return window.showToast(msg); }catch(e){} console.log(msg); }
+
+  function fieldValue(el){
+    if(!el) return '';
+    var v = norm(el.value || '');
+    if(!v) return '';
+    var ph = norm(el.getAttribute('placeholder') || '');
+    if(ph && v === ph) return '';
+    if(v === 'Selecionar') return '';
+    return v;
+  }
+  function byLabel(labelRegex){
+    var labels = Array.from(document.querySelectorAll('label'));
+    for(var i=0;i<labels.length;i++){
+      var lab=labels[i];
+      if(labelRegex.test(norm(lab.textContent))){
+        var box=lab.closest('.section,.header-card,.header-info > div,.header-grid > div') || lab.parentElement;
+        if(box){
+          var el=box.querySelector('input,textarea,select');
+          if(el) return el;
+        }
+      }
+    }
+    return null;
+  }
+  function getTitleField(){
+    return document.getElementById('tituloProjeto') || byLabel(/^t[ií]tulo(\s+do)?\s+projeto:?$/i) || byLabel(/t[ií]tulo/i);
+  }
+
+  function normalizeMenu(){
+    var menu=document.getElementById('uxMenuMaisOpcoes');
+    var btn=document.getElementById('btnMaisOpcoes');
+    if(!menu) return;
+    menu.innerHTML = ''+
+      '<button type="button" id="draftBtn">💾 <span>Guardar rascunho</span></button>'+
+      '<button type="button" id="restoreBtn">📂 <span>Restaurar rascunho</span></button>'+
+      '<button type="button" id="clearBtn">🧹 <span>Limpar formulário</span></button>'+
+      '<button type="button" id="deleteBtn">🗑️ <span>Apagar rascunho</span></button>';
+    if(btn && !btn.dataset.v17MenuBound){
+      btn.dataset.v17MenuBound='1';
+      btn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); menu.classList.toggle('open'); }, true);
+      document.addEventListener('click', function(e){ if(!menu.contains(e.target) && e.target !== btn) menu.classList.remove('open'); }, true);
+    }
+    function collect(){ var data={}; document.querySelectorAll('input,textarea,select').forEach(function(el,idx){ data[el.id || el.name || ('field_'+idx)] = el.value; }); return data; }
+    function bind(id,fn){ var b=document.getElementById(id); if(b && !b.dataset.v17Bound){ b.dataset.v17Bound='1'; b.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); fn(); menu.classList.remove('open'); }, true); } }
+    bind('draftBtn', function(){ try{ localStorage.setItem('project_bl_draft_v17', JSON.stringify(collect())); toast('Rascunho guardado.'); }catch(e){} });
+    bind('restoreBtn', function(){ try{ var raw=localStorage.getItem('project_bl_draft_v17') || localStorage.getItem('project_bl_draft_v16') || localStorage.getItem('project_bl_draft'); if(!raw) return toast('Não há rascunho guardado.'); var data=JSON.parse(raw); Object.keys(data).forEach(function(k){ var el=document.getElementById(k)||document.querySelector('[name="'+(window.CSS&&CSS.escape?CSS.escape(k):k)+'"]'); if(el) el.value=data[k]; }); toast('Rascunho restaurado.'); }catch(e){} });
+    bind('clearBtn', function(){ document.querySelectorAll('input,textarea').forEach(function(el){ el.value=''; }); toast('Formulário limpo.'); });
+    bind('deleteBtn', function(){ try{ localStorage.removeItem('project_bl_draft_v17'); localStorage.removeItem('project_bl_draft_v16'); localStorage.removeItem('project_bl_draft'); }catch(e){} toast('Rascunho apagado.'); });
+  }
+
+  function normalizeTitle(){
+    var candidates = Array.from(document.querySelectorAll('input,textarea')).filter(function(el){
+      var box=el.closest('.section,.header-card');
+      return (el.id==='tituloProjeto') || (box && /t[ií]tulo.*projeto/i.test(box.textContent || ''));
+    });
+    if(!candidates.length) return;
+    var keep = candidates.find(function(el){ return el.id==='tituloProjeto'; }) || candidates[0];
+    keep.id = 'tituloProjeto';
+    keep.placeholder = 'Ex.: Identidade Visual e Narrativa Digital para uma Marca Cultural Sustentável';
+    keep.style.textAlign = 'center';
+    var keepBox = keep.closest('.section,.header-card') || keep.parentElement;
+    if(keepBox){ keepBox.classList.add('project-title-v17'); var lab=keepBox.querySelector('label'); if(lab) lab.textContent='Título do projeto:'; }
+    candidates.forEach(function(el){
+      if(el===keep) return;
+      var box=el.closest('.section,.header-card');
+      if(box && /t[ií]tulo.*projeto/i.test(box.textContent||'')) box.remove();
+    });
+  }
+
+  function examplesOnlyFirstDataRow(){
+    var exampleRE = /^(ex\.?|ex:|ex\.:|nome da uc|contexto|objetivos|procedimentos|entreg[aá]veis|tipo|dd\/mm|\d+[ªa]? semana|\[|contribui|n semanas|nome do docente|email)/i;
+    document.querySelectorAll('.tab-content table').forEach(function(table){
+      var rows = Array.from(table.querySelectorAll('tr'));
+      rows.forEach(function(row, idx){
+        // idx 0 = cabeçalho; idx 1 = primeira linha com exemplo; restantes sem placeholder/exemplo
+        if(idx <= 1) return;
+        row.querySelectorAll('input,textarea').forEach(function(f){
+          var ph = norm(f.getAttribute('placeholder') || '');
+          if(ph && exampleRE.test(ph)) f.setAttribute('placeholder','');
+        });
+      });
+    });
+  }
+
+  function normalizeScreen(){
+    normalizeMenu();
+    normalizeTitle();
+    examplesOnlyFirstDataRow();
+    var obj=document.querySelector('#objetivos textarea');
+    if(obj){ obj.style.minHeight='230px'; obj.style.maxHeight='360px'; obj.style.overflowY='auto'; obj.style.resize='vertical'; }
+  }
+
+  function collectRows(table){
+    if(!table) return [];
+    var rows=Array.from(table.querySelectorAll('tr')).slice(1);
+    return rows.map(function(row){
+      return Array.from(row.children).map(function(cell){
+        var el=cell.querySelector('input,textarea,select');
+        return el ? fieldValue(el) : norm(cell.textContent);
+      });
+    }).filter(function(vals){ return vals.some(Boolean); });
+  }
+  function esc(s){ return String(s||'').replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); }
+  function nl(s){ return esc(s).replace(/\n/g,'<br>'); }
+  function tableHtml(headers, rows, cls){
+    if(!rows || !rows.length) return '';
+    return '<table class="'+(cls||'')+'"><thead><tr>'+headers.map(function(h){return '<th>'+esc(h)+'</th>';}).join('')+'</tr></thead><tbody>'+rows.map(function(r){return '<tr>'+headers.map(function(_,i){return '<td'+(/^(ECTS|Semana|Data|%|UCs)$/i.test(headers[i])?' class="pp-center"':'')+'>'+nl(r[i]||'')+'</td>';}).join('')+'</tr>';}).join('')+'</tbody></table>';
+  }
+  function section(num,title,body){
+    if(!body) return '';
+    return '<section class="pp-section"><h2><span class="pp-number">'+num+' | </span><span class="pp-title">'+esc(title)+'</span></h2>'+body+'</section>';
+  }
+  function sectionNoNum(title,body){
+    if(!body) return '';
+    return '<section class="pp-section"><h2><span class="pp-title">'+esc(title)+'</span></h2>'+body+'</section>';
+  }
+  function textBlock(s){ return s ? '<div class="pp-text">'+nl(s)+'</div>' : ''; }
+
+  function getSecText(id){
+    var sec=document.getElementById(id); if(!sec) return '';
+    var ta=sec.querySelector('.section textarea, textarea');
+    return fieldValue(ta);
+  }
+  function buildPrintDoc(){
+    normalizeScreen();
+    var logo = document.querySelector('.logo img, .header img');
+    var logoHtml = logo ? '<div class="pp-logo-row"><img src="'+esc(logo.src)+'"></div>' : '';
+    var title = fieldValue(getTitleField());
+    var unidade = fieldValue(document.getElementById('unidadeOrganica')) || fieldValue(byLabel(/^Unidade Orgânica/i));
+    var modalidade = fieldValue(document.getElementById('modalidade')) || fieldValue(byLabel(/^Modalidade/i));
+    var nomeUC = fieldValue(byLabel(/^Nome da UC de Projeto/i));
+    var curso = fieldValue(byLabel(/^Curso/i));
+    var ano = fieldValue(byLabel(/^Ano letivo/i));
+    var docentes = Array.from(document.querySelectorAll('.docente-nome')).map(function(n){
+      var row=n.closest('tr'); var e=row && row.querySelector('.docente-email'); return [fieldValue(n), fieldValue(e)];
+    }).filter(function(r){return r[0]||r[1];});
+
+    var meta = [
+      ['Unidade Orgânica', unidade], ['Modalidade', modalidade], ['Nome da UC de Projeto', nomeUC], ['Curso', curso], ['Ano letivo', ano]
+    ].filter(function(x){ return x[1]; });
+    var metaHtml = meta.length ? '<div class="pp-meta-grid">'+meta.map(function(m){return '<div class="pp-meta-item"><span class="pp-label">'+esc(m[0])+'</span><div class="pp-value">'+nl(m[1])+'</div></div>';}).join('')+'</div>' : '';
+    var docHtml = docentes.length ? '<h3>Docente(s):</h3>'+tableHtml(['Nome','Email'], docentes) : '';
+
+    var descText=getSecText('descricao');
+    var descTable=collectRows(document.querySelector('#descricao table'));
+    var descBody = textBlock(descText) + (descTable.length ? '<h3>Unidades Curriculares Participantes:</h3>'+tableHtml(['UC','Contexto/Objetivos principais da participação'], descTable) : '');
+
+    var funcBody = textBlock(getSecText('funcionamento'));
+    var objBody = textBlock(getSecText('objetivos'));
+    var metText = getSecText('metodologia');
+    var metRows = collectRows(document.querySelector('#metodologia table'));
+    var metBody = textBlock(metText) + (metRows.length ? '<h3>Metodologia por UC:</h3>'+tableHtml(['UC','Objetivos','Procedimentos','Entregáveis esperados'], metRows) : '');
+    var entRows = collectRows(document.querySelector('#entregaveis table'));
+    var entBody = tableHtml(['Semana','Entrega','Tipo de avaliação','Data','% da nota final'], entRows);
+
+    var avalBlocks=[];
+    var avalSec=document.getElementById('avaliacao');
+    if(avalSec){
+      Array.from(avalSec.querySelectorAll('.section > div')).forEach(function(block){
+        if(block.querySelector('button[onclick*="addUC_Aval"]')) return;
+        var uc=fieldValue(block.querySelector('input'));
+        var crits=Array.from(block.querySelectorAll('input')).slice(1).map(fieldValue).filter(Boolean);
+        if(uc || crits.length) avalBlocks.push([uc, crits.join('\n')]);
+      });
+    }
+    var avalBody = avalBlocks.length ? tableHtml(['Unidade Curricular','Critérios'], avalBlocks) : '';
+
+    var contribRows=collectRows(document.querySelector('#ucs table'));
+    var contribBody = tableHtml(['ECTS','Unidade Curricular','Horas de contato','Contribuição','Docente(s)/Email','% do projeto final'], contribRows, 'pp-small');
+    var bib = fieldValue(document.querySelector('#ucs .section:nth-of-type(2) textarea'));
+    var rec = fieldValue(document.querySelector('#ucs .section:nth-of-type(3) textarea'));
+
+    var html='';
+    html += '<div class="project-print-doc-v17">';
+    html += '<header class="pp-header">'+logoHtml+'<h1>Plano Project-based Learning</h1>'+(title?'<div class="pp-subtitle">'+esc(title)+'</div>':'')+metaHtml+docHtml+'</header>';
+    html += section(1,'Descrição',descBody);
+    html += section(2,'Funcionamento e Conteúdos',funcBody);
+    html += section(3,'Objetivos de Aprendizagem',objBody);
+    html += section(4,'Metodologia',metBody);
+    html += section(5,'Entregáveis',entBody);
+    html += section(6,'Critérios de Avaliação',avalBody);
+    html += section(7,'Contribuições das Unidades Curriculares',contribBody);
+    html += sectionNoNum('Bibliografia', textBlock(bib));
+    html += sectionNoNum('Recursos', textBlock(rec));
+    html += '</div>';
+    return html;
+  }
+
+  window.downloadGuiesPdf = function(){
+    normalizeScreen();
+    var host=document.getElementById('projectPrintHostV17');
+    if(!host){ host=document.createElement('div'); host.id='projectPrintHostV17'; document.body.appendChild(host); }
+    host.innerHTML=buildPrintDoc();
+    document.body.classList.add('project-print-v17-active');
+    setTimeout(function(){ window.print(); }, 80);
+    var cleanup=function(){ document.body.classList.remove('project-print-v17-active'); };
+    if('onafterprint' in window) window.onafterprint=cleanup;
+    setTimeout(cleanup, 1600);
+  };
+
+  function runAll(){ normalizeScreen(); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', runAll); else runAll();
+  setTimeout(runAll, 250); setTimeout(runAll, 800); setTimeout(runAll, 1600);
+  try{ new MutationObserver(function(){ clearTimeout(window.__projectV17Timer); window.__projectV17Timer=setTimeout(runAll,80); }).observe(document.body,{childList:true,subtree:true}); }catch(e){}
+})();
+</script>
+
+
+
+<!-- ===== PATCH ANA v18 — Proj-BL compacto + PDF com cara de projeto ===== -->
+<style id="ana-project-pdf-polish-v18">
+/* Objetivo: correção visual cirúrgica. Não altera lógica, SharePoint, Power Automate, autosave ou backend. */
+
+/* --- ECRÃ: microcompactação estrutural sem descaracterizar --- */
+.logo,
+.header .logo{
+  text-align:center !important;
+  display:flex !important;
+  justify-content:center !important;
+  align-items:center !important;
+}
+.logo img,
+.header .logo img{
+  display:block !important;
+  margin:0 auto !important;
+}
+h1{
+  text-align:center !important;
+}
+.header-info,
+.header-grid{
+  gap:10px !important;
+  margin-bottom:12px !important;
+}
+.section,
+.header-card,
+.proj-title-card,
+.proj-metodologia-card,
+.proj-field-card,
+.proj-entregavel-card,
+.proj-contribuicao-card,
+.proj-avaliacao-uc,
+.proj-criteria-block{
+  border-radius:15px !important;
+  padding:12px 13px !important;
+  margin-bottom:10px !important;
+}
+.section label,
+.header-card label,
+.proj-title-card label{
+  margin-bottom:6px !important;
+  line-height:1.18 !important;
+}
+input,
+select,
+textarea,
+.proj-expand-preserved,
+.proj-expandable-field{
+  padding:7px 9px !important;
+  border-radius:9px !important;
+}
+input[type="text"],
+input:not([type]),
+select,
+.header-card select{
+  min-height:36px !important;
+  height:auto !important;
+}
+textarea,
+.proj-expand-preserved,
+.proj-expandable-field,
+textarea.proj-expand-preserved,
+textarea.proj-expandable-field{
+  min-height:56px !important;
+  line-height:1.32 !important;
+  resize:vertical !important;
+  overflow:auto !important;
+}
+.header-info textarea.proj-expand-preserved,
+.header-info textarea,
+.proj-title-card textarea,
+.project-title-v17 textarea{
+  min-height:42px !important;
+  text-align:center !important;
+}
+.proj-title-card,
+.project-title-v17{
+  text-align:center !important;
+}
+.proj-title-card input,
+.proj-title-card textarea,
+.project-title-v17 input,
+.project-title-v17 textarea{
+  text-align:center !important;
+  font-weight:650 !important;
+}
+.quadro-table th,
+.quadro-table td,
+table th,
+table td{
+  padding:4px 5px !important;
+}
+.quadro-table textarea,
+table textarea.proj-expand-preserved,
+table textarea.proj-expandable-field,
+#entregaveis table textarea,
+#ucs table textarea,
+#contribuicoes table textarea{
+  min-height:46px !important;
+  height:auto !important;
+  padding:6px 7px !important;
+  line-height:1.25 !important;
+}
+#entregaveis table input,
+#ucs table input,
+#contribuicoes table input,
+.proj-fixed-size-field,
+.proj-percent-field,
+.proj-date-field,
+.proj-number-field,
+.proj-number-box,
+.proj-percent-box{
+  min-height:42px !important;
+  height:42px !important;
+  padding:5px 7px !important;
+  line-height:1.2 !important;
+}
+#avaliacao .section > label{
+  font-size:13.5px !important;
+}
+
+/* --- PDF antigo: mantém só o título grande da secção 6 e arredonda de forma consistente --- */
+@media print{
+  body.project-print-mode .project-print-document .logo,
+  body.project-print-mode .project-print-document .pp-logo-row{
+    display:flex !important;
+    justify-content:center !important;
+    text-align:center !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+  }
+  body.project-print-mode .project-print-document .logo img{
+    margin:0 auto !important;
+  }
+  body.project-print-mode .project-print-document h1,
+  body.project-print-mode .project-print-document .project-highlight-title{
+    text-align:center !important;
+  }
+  body.project-print-mode .project-print-document #avaliacao > .section > label:first-child,
+  body.project-print-mode .project-print-document #avaliacao .section > label:first-child{
+    display:none !important;
+    visibility:hidden !important;
+  }
+  body.project-print-mode .project-print-document .header-card,
+  body.project-print-mode .project-print-document .header-info .section,
+  body.project-print-mode .project-print-document .section,
+  body.project-print-mode .project-print-document .proj-avaliacao-uc,
+  body.project-print-mode .project-print-document .proj-criteria-block{
+    border:0.8pt solid #111 !important;
+    border-radius:7pt !important;
+    padding:2.2mm !important;
+    overflow:hidden !important;
+  }
+  body.project-print-mode .project-print-document table,
+  body.project-print-mode .project-print-document .quadro-table{
+    border-collapse:separate !important;
+    border-spacing:0 !important;
+    border:0.8pt solid #111 !important;
+    border-radius:7pt !important;
+    overflow:hidden !important;
+  }
+}
+
+/* --- PDF v17: capa/topo centralizado, título do projeto destacado e bordas coerentes --- */
+@media print{
+  .project-print-doc-v17 .pp-header{
+    text-align:center !important;
+    border-bottom:1.6pt solid #111 !important;
+    padding-bottom:7mm !important;
+    margin-bottom:6mm !important;
+  }
+  .project-print-doc-v17 .pp-logo-row{
+    justify-content:center !important;
+    align-items:center !important;
+    text-align:center !important;
+    margin:0 auto 6mm auto !important;
+    width:100% !important;
+  }
+  .project-print-doc-v17 .pp-logo-row img{
+    display:block !important;
+    margin:0 auto !important;
+    max-height:26px !important;
+  }
+  .project-print-doc-v17 h1{
+    text-align:center !important;
+    font-size:22pt !important;
+    margin:0 0 4mm 0 !important;
+    border:0 !important;
+  }
+  .project-print-doc-v17 .pp-subtitle{
+    text-align:center !important;
+    display:block !important;
+    width:100% !important;
+    max-width:160mm !important;
+    margin:0 auto 5mm auto !important;
+    padding:2.6mm 4mm !important;
+    border:0.9pt solid #111 !important;
+    border-radius:8pt !important;
+    font-size:13.2pt !important;
+    line-height:1.22 !important;
+    font-weight:800 !important;
+    background:#fff !important;
+  }
+  .project-print-doc-v17 .pp-meta-grid,
+  .project-print-doc-v17 .pp-docentes{
+    text-align:left !important;
+  }
+  .project-print-doc-v17 .pp-meta-item,
+  .project-print-doc-v17 .pp-docentes,
+  .project-print-doc-v17 .pp-card,
+  .project-print-doc-v17 .pp-box{
+    border-radius:8pt !important;
+    overflow:hidden !important;
+  }
+  .project-print-doc-v17 table{
+    border-collapse:separate !important;
+    border-spacing:0 !important;
+    border:1pt solid #111 !important;
+    border-radius:8pt !important;
+    overflow:hidden !important;
+    background:#fff !important;
+  }
+  .project-print-doc-v17 th,
+  .project-print-doc-v17 td{
+    border-top:0 !important;
+    border-left:0 !important;
+  }
+  .project-print-doc-v17 tr > *:not(:last-child){
+    border-right:0.8pt solid #111 !important;
+  }
+  .project-print-doc-v17 tbody tr:not(:last-child) td,
+  .project-print-doc-v17 thead tr th{
+    border-bottom:0.8pt solid #111 !important;
+  }
+  .project-print-doc-v17 .pp-section h2{
+    text-align:left !important;
+  }
+}
+</style>
+<script id="ana-project-pdf-polish-v18-js">
+(function(){
+  function norm(s){return String(s||'').replace(/\s+/g,' ').trim().toLowerCase();}
+  function polish(){
+    /* Garante logo e títulos centralizados no editor sem alterar backend. */
+    document.querySelectorAll('.logo').forEach(function(el){
+      el.style.textAlign='center';
+      el.style.display='flex';
+      el.style.justifyContent='center';
+      el.style.alignItems='center';
+    });
+    document.querySelectorAll('h1').forEach(function(h){h.style.textAlign='center';});
+
+    /* Remove visualmente o rótulo menor duplicado da secção 6, mantendo o título maior do PDF. */
+    var avaliacao=document.getElementById('avaliacao');
+    if(avaliacao){
+      var firstLabel=avaliacao.querySelector(':scope > .section > label, .section > label');
+      if(firstLabel && /crit[eé]rios de avalia[cç][aã]o/i.test(firstLabel.textContent||'')){
+        firstLabel.setAttribute('data-ana-duplicate-criteria','true');
+      }
+    }
+
+    /* Título do projeto centrado e único no topo. */
+    var title=document.getElementById('tituloProjeto');
+    if(title){
+      title.style.textAlign='center';
+      var box=title.closest('.section,.header-card,.proj-title-card');
+      if(box){ box.classList.add('project-title-v17'); box.style.textAlign='center'; }
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',polish); else polish();
+  setTimeout(polish,250); setTimeout(polish,900);
+})();
+</script>
+
+
+
+<!-- ===== PATCH ANA v19 — IADE: exemplo de projeto + logo realmente centrado ===== -->
+<style id="ana-project-iade-title-logo-v19">
+/* Mantém a lógica intacta: apenas visual/placeholder. */
+.header,
+.header[style],
+.pp-header{
+  text-align:center !important;
+}
+.header > img,
+.header img,
+.logo img,
+.project-print-doc-v17 .pp-logo-row img,
+.project-print-doc-v17 .pp-header img{
+  display:block !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+.logo,
+.header .logo,
+.project-print-doc-v17 .pp-logo-row,
+body.project-print-mode .project-print-document .logo,
+body.project-print-mode .project-print-document .pp-logo-row{
+  width:100% !important;
+  display:flex !important;
+  justify-content:center !important;
+  align-items:center !important;
+  text-align:center !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+.project-print-doc-v17 .pp-logo-row{
+  justify-content:center !important;
+}
+.project-print-doc-v17 h1,
+.project-print-doc-v17 .pp-subtitle,
+body.project-print-mode .project-print-document h1{
+  text-align:center !important;
+}
+#tituloProjeto,
+textarea#tituloProjeto,
+input#tituloProjeto{
+  text-align:center !important;
+  font-weight:700 !important;
+}
+#tituloProjeto::placeholder,
+textarea#tituloProjeto::placeholder,
+input#tituloProjeto::placeholder{
+  color:#777 !important;
+  opacity:1 !important;
+  font-weight:600 !important;
+}
+/* Remove o rótulo pequeno duplicado, mantendo o título principal maior da secção. */
+[data-ana-duplicate-criteria="true"]{
+  display:none !important;
+}
+@media print{
+  [data-ana-duplicate-criteria="true"]{
+    display:none !important;
+    visibility:hidden !important;
+  }
+  .project-print-doc-v17 .pp-logo-row,
+  .project-print-doc-v17 .pp-header{
+    text-align:center !important;
+  }
+  .project-print-doc-v17 .pp-logo-row{
+    display:flex !important;
+    justify-content:center !important;
+    width:100% !important;
+  }
+}
+</style>
+<script id="ana-project-iade-title-logo-v19-js">
+(function(){
+  var exemplosIADE = [
+    'Ex.: Identidade Visual e Narrativa Digital para uma Marca Cultural Sustentável',
+    'Ex.: Campanha Transmedia para Ativação de uma Marca Criativa',
+    'Ex.: Sistema de Sinalética e Experiência Espacial para um Evento Cultural',
+    'Ex.: Protótipo UX/UI para uma Plataforma de Portefólios Criativos',
+    'Ex.: Rebranding de uma Instituição Cultural com Estratégia Digital'
+  ];
+  function apply(){
+    var exemplo = exemplosIADE[0];
+    var title = document.getElementById('tituloProjeto');
+    if(title){
+      title.placeholder = exemplo;
+      title.style.textAlign = 'center';
+      title.style.fontWeight = '700';
+      var box = title.closest('.section,.header-card,.proj-title-card');
+      if(box){ box.classList.add('project-title-v17'); box.style.textAlign='center'; }
+      var lab = box ? box.querySelector('label') : null;
+      if(lab) lab.textContent = 'Título do projeto:';
+    }
+    document.querySelectorAll('.header > img, .header img, .logo img').forEach(function(img){
+      img.style.display='block';
+      img.style.marginLeft='auto';
+      img.style.marginRight='auto';
+    });
+    document.querySelectorAll('.header, .logo').forEach(function(el){
+      el.style.textAlign='center';
+    });
+    var avaliacao=document.getElementById('avaliacao');
+    if(avaliacao){
+      Array.prototype.slice.call(avaliacao.querySelectorAll('.section > label, label')).forEach(function(lab, idx){
+        if(idx < 3 && /crit[eé]rios de avalia[cç][aã]o/i.test(lab.textContent||'')){
+          lab.setAttribute('data-ana-duplicate-criteria','true');
+        }
+      });
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',apply); else apply();
+  setTimeout(apply,250); setTimeout(apply,900); setTimeout(apply,1800);
+})();
+</script>
+
+
+
+<!-- ===== PATCH ANA v20 — reparação segura completa: título, fontes, impressão ===== -->
+<style id="ana-v20-safe-repair-title-font-print">
+/* Última camada visual. Não altera backend, submit, autosave, SharePoint, Power Automate ou tabs. */
+:root{ --ana-field-font-size:12.4px; }
+
+/* 1) Campo “Título do projeto”: evita tremor por foco/outline/resize/transição e remove sensação de sobreposição. */
+.proj-title-card,
+.section.project-title-v17{
+  position:relative !important;
+  text-align:center !important;
+  overflow:hidden !important;
+  border-radius:14px !important;
+}
+.proj-title-card::before,
+.proj-title-card::after,
+.section.project-title-v17::before,
+.section.project-title-v17::after{
+  content:none !important;
+  display:none !important;
+}
+.proj-title-card label,
+.section.project-title-v17 label{
+  display:block !important;
+  width:100% !important;
+  text-align:center !important;
+  margin:0 0 6px 0 !important;
+  padding:0 !important;
+  line-height:1.15 !important;
+}
+#tituloProjeto,
+input#tituloProjeto,
+textarea#tituloProjeto{
+  display:block !important;
+  width:100% !important;
+  min-width:0 !important;
+  box-sizing:border-box !important;
+  text-align:center !important;
+  font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;
+  font-size:var(--ana-field-font-size) !important;
+  font-weight:650 !important;
+  line-height:1.25 !important;
+  min-height:44px !important;
+  height:44px !important;
+  max-height:44px !important;
+  padding:8px 10px !important;
+  margin:0 !important;
+  resize:none !important;
+  overflow:hidden !important;
+  border:1.15px solid #2F2F2F !important;
+  border-radius:9px !important;
+  background:#fff !important;
+  background-image:none !important;
+  color:#222 !important;
+  box-shadow:none !important;
+  outline:0 solid transparent !important;
+  transform:none !important;
+  transition:none !important;
+  appearance:none !important;
+  -webkit-appearance:none !important;
+}
+#tituloProjeto:hover,
+#tituloProjeto:focus,
+#tituloProjeto:focus-visible,
+input#tituloProjeto:hover,
+input#tituloProjeto:focus,
+textarea#tituloProjeto:hover,
+textarea#tituloProjeto:focus{
+  height:44px !important;
+  min-height:44px !important;
+  max-height:44px !important;
+  padding:8px 10px !important;
+  border:1.15px solid #2F2F2F !important;
+  border-radius:9px !important;
+  box-shadow:none !important;
+  outline:0 solid transparent !important;
+  transform:none !important;
+  transition:none !important;
+  background:#fff !important;
+}
+#tituloProjeto::placeholder{
+  color:#777 !important;
+  opacity:1 !important;
+  font-weight:600 !important;
+}
+
+/* 2) Fonte de preenchimento uniforme, equivalente à descrição geral, mantendo as alturas dos campos. */
+input,
+textarea,
+select,
+.proj-expand-preserved,
+.proj-expandable-field,
+.proj-compact-preserved,
+.proj-fixed-size-field,
+.proj-percent-field,
+.proj-date-field,
+.proj-number-field,
+.proj-number-box,
+.proj-percent-box,
+.proj-criterion-field,
+.quadro-table input,
+.quadro-table textarea,
+table input,
+table textarea{
+  font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;
+  font-size:var(--ana-field-font-size) !important;
+}
+.quadro-table textarea,
+.quadro-table input,
+table textarea,
+table input{
+  line-height:1.22 !important;
+}
+
+/* 3) Impressão: evita duplicação do título interno das contribuições quando o motor antigo de print for usado. */
+@media print{
+  .ana-print-toast,
+  #anaPrintToast{
+    display:none !important;
+    visibility:hidden !important;
+  }
+  body.project-print-mode .project-print-document #ucs > .section:first-of-type > label:first-child,
+  body.project-print-mode .project-print-document #ucs > .section:first-of-type > h3:first-child,
+  body.project-print-mode .project-print-document #ucs .project-duplicate-title{
+    display:none !important;
+    visibility:hidden !important;
+  }
+  .project-print-doc-v17 .pp-logo-row,
+  .project-print-doc-v17 .pp-header{
+    text-align:center !important;
+  }
+  .project-print-doc-v17 .pp-logo-row{
+    display:flex !important;
+    justify-content:center !important;
+    align-items:center !important;
+    width:100% !important;
+  }
+  .project-print-doc-v17 .pp-logo-row img{
+    display:block !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+  }
+}
+</style>
+<script id="ana-v20-safe-repair-js">
+(function(){
+  var IADE_PLACEHOLDER = 'Ex.: Identidade Visual e Narrativa Digital para uma Marca Cultural Sustentável';
+  function norm(s){ return String(s||'').replace(/\s+/g,' ').trim(); }
+  function isTitleBox(box){ return !!(box && /t[ií]tulo\s+do\s+projeto|t[ií]tulo.*projeto/i.test(box.textContent||'')); }
+
+  function normalizeProjectTitleFinal(){
+    var fields = Array.prototype.slice.call(document.querySelectorAll('input,textarea')).filter(function(el){
+      var box = el.closest('.section,.header-card,.proj-title-card');
+      return el.id === 'tituloProjeto' || isTitleBox(box);
+    });
+    if(!fields.length) return;
+
+    var keep = fields.find(function(el){ return el.id === 'tituloProjeto'; }) || fields[0];
+    keep.id = 'tituloProjeto';
+    keep.setAttribute('placeholder', IADE_PLACEHOLDER);
+    keep.classList.remove('proj-expand-preserved','proj-expandable-field');
+    keep.style.textAlign = 'center';
+    keep.style.resize = 'none';
+    keep.style.overflow = 'hidden';
+    keep.style.transition = 'none';
+
+    var keepBox = keep.closest('.section,.header-card,.proj-title-card') || keep.parentElement;
+    if(keepBox){
+      keepBox.classList.add('project-title-v17','proj-title-card');
+      keepBox.style.textAlign = 'center';
+      var lab = keepBox.querySelector('label');
+      if(lab) lab.textContent = 'Título do projeto:';
+    }
+
+    fields.forEach(function(el){
+      if(el === keep) return;
+      var box = el.closest('.section,.header-card,.proj-title-card');
+      if(box && isTitleBox(box)){
+        box.setAttribute('data-ana-title-duplicate','true');
+        box.style.display = 'none';
+        box.setAttribute('aria-hidden','true');
+      }
+    });
+  }
+
+  function showPrintToast(){
+    var old = document.getElementById('anaPrintToast');
+    if(old) old.remove();
+    var t = document.createElement('div');
+    t.id = 'anaPrintToast';
+    t.className = 'toast-message ana-print-toast no-print';
+    t.textContent = 'Para um PDF mais limpo, desative “Cabeçalhos e rodapés” nas opções de impressão.';
+    t.style.position = 'fixed';
+    t.style.left = '50%';
+    t.style.bottom = '32px';
+    t.style.transform = 'translateX(-50%)';
+    t.style.zIndex = '9999999';
+    t.style.background = '#333';
+    t.style.color = '#fff';
+    t.style.padding = '12px 18px';
+    t.style.borderRadius = '12px';
+    t.style.fontSize = '13px';
+    t.style.textAlign = 'center';
+    t.style.boxShadow = '0 4px 14px rgba(0,0,0,.2)';
+    document.body.appendChild(t);
+    setTimeout(function(){ if(t && t.parentNode) t.remove(); }, 3000);
+  }
+
+  function wrapPrintOnce(){
+    if(window.__anaV20PrintWrapped) return;
+    var original = window.downloadGuiesPdf || window.projectSalvarPDFDocumental || window.salvarPDF;
+    if(typeof original !== 'function') return;
+    window.__anaV20PrintWrapped = true;
+    window.downloadGuiesPdf = function(){
+      showPrintToast();
+      var args = arguments, ctx = this;
+      setTimeout(function(){ original.apply(ctx,args); }, 520);
+    };
+    window.salvarPDF = window.downloadGuiesPdf;
+    window.projectSalvarPDFDocumental = window.downloadGuiesPdf;
+  }
+
+  function run(){
+    normalizeProjectTitleFinal();
+    wrapPrintOnce();
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+  window.addEventListener('load', function(){ setTimeout(run,80); setTimeout(run,400); setTimeout(run,1200); setTimeout(run,2200); });
+  try{
+    new MutationObserver(function(){ clearTimeout(window.__anaV20TitleTimer); window.__anaV20TitleTimer = setTimeout(normalizeProjectTitleFinal, 60); }).observe(document.documentElement,{childList:true,subtree:true});
+  }catch(e){}
+})();
+</script>
+
+
+
+<!-- ===== PATCH ANA v21 — fontes uniformes + tabs cinza + toast impressão ===== -->
+<style id="ana-v21-fontes-tabs-print-toast">
+/* 1) Mantém todos os campos com leitura uniforme, usando a escala da Descrição geral do projeto, sem alterar a altura dos campos. */
+input,
+textarea,
+select,
+.proj-expand-preserved,
+.proj-expandable-field,
+.proj-compact-preserved,
+.proj-fixed-size-field,
+.proj-percent-field,
+.proj-date-field,
+.proj-number-field,
+.proj-number-box,
+.proj-percent-box,
+.quadro-table input,
+.quadro-table textarea,
+#descricao input,
+#descricao textarea,
+#metodologia input,
+#metodologia textarea,
+#entregaveis table input,
+#entregaveis table textarea,
+#ucs table input,
+#ucs table textarea,
+#contribuicoes table input,
+#contribuicoes table textarea,
+#avaliacao input,
+#avaliacao textarea{
+  font-size:12px !important;
+  line-height:1.34 !important;
+  font-family:'Century Gothic','Segoe UI',sans-serif !important;
+}
+
+input::placeholder,
+textarea::placeholder{
+  font-size:12px !important;
+  line-height:1.34 !important;
+}
+
+/* Campos curtos mantêm o mesmo tamanho físico e centralização, mas não ficam com “letrinhas” menores. */
+.proj-short-field,
+.proj-number-field,
+.proj-percent-field,
+.proj-date-field,
+.proj-number-box,
+.proj-percent-box,
+#entregaveis table .proj-short-field,
+#ucs table .proj-short-field,
+#contribuicoes table .proj-short-field{
+  font-size:12px !important;
+}
+
+/* 2) Restaura o contorno cinzento leve/elegante dos separadores no hover/focus, sem tocar na lógica das tabs. */
+.tab{
+  border:1.2px solid rgba(0,0,0,.24) !important;
+  border-bottom:0 !important;
+  box-shadow:0 1px 0 rgba(255,255,255,.85) inset !important;
+  transition:background-color .14s ease, border-color .14s ease, box-shadow .14s ease, color .14s ease !important;
+}
+.tab:hover{
+  background:#f8f8f8 !important;
+  background-image:linear-gradient(180deg,#ffffff 0%,#eeeeee 100%) !important;
+  border-color:rgba(0,0,0,.38) !important;
+  box-shadow:0 0 0 2px rgba(0,0,0,.08), 0 3px 8px rgba(0,0,0,.055) !important;
+  color:#111 !important;
+}
+.tab.active,
+.tab[aria-selected="true"]{
+  border-color:#343434 !important;
+  box-shadow:0 0 0 1px rgba(0,0,0,.10), 0 3px 8px rgba(0,0,0,.075) !important;
+}
+.tab.active:hover,
+.tab[aria-selected="true"]:hover{
+  background:#343434 !important;
+  color:#fff !important;
+  border-color:#343434 !important;
+  box-shadow:0 0 0 2px rgba(0,0,0,.10), 0 3px 8px rgba(0,0,0,.08) !important;
+}
+.tab:focus,
+.tab:focus-visible{
+  outline:none !important;
+  border-color:rgba(0,0,0,.45) !important;
+  box-shadow:0 0 0 3px rgba(0,0,0,.10), 0 3px 8px rgba(0,0,0,.06) !important;
+}
+
+/* 3) O toast é só para ecrã; nunca entra no PDF/impressão. */
+.no-print,
+.ana-print-toast,
+#anaPrintToast,
+#anaPrintToastV21{
+  print-color-adjust:exact;
+  -webkit-print-color-adjust:exact;
+}
+@media print{
+  .tab,
+  .tabs{
+    box-shadow:none !important;
+  }
+  .no-print,
+  .ana-print-toast,
+  #anaPrintToast,
+  #anaPrintToastV21{
+    display:none !important;
+    visibility:hidden !important;
+  }
+}
+</style>
+<script id="ana-v21-print-toast-wrapper">
+(function(){
+  function showHeaderFooterToastV21(){
+    var old=document.getElementById('anaPrintToastV21') || document.getElementById('anaPrintToast');
+    if(old) old.remove();
+    var t=document.createElement('div');
+    t.id='anaPrintToastV21';
+    t.className='toast-message ana-print-toast no-print';
+    t.textContent='Para um PDF mais limpo, desative “Cabeçalhos e rodapés” nas opções de impressão.';
+    t.setAttribute('role','status');
+    t.style.position='fixed';
+    t.style.left='50%';
+    t.style.bottom='32px';
+    t.style.transform='translateX(-50%)';
+    t.style.zIndex='9999999';
+    t.style.background='#333';
+    t.style.color='#fff';
+    t.style.padding='12px 18px';
+    t.style.borderRadius='12px';
+    t.style.fontSize='13px';
+    t.style.textAlign='center';
+    t.style.boxShadow='0 4px 14px rgba(0,0,0,.2)';
+    document.body.appendChild(t);
+    setTimeout(function(){ if(t && t.parentNode) t.remove(); }, 3200);
+  }
+  function wrap(){
+    if(window.__anaV21PrintToastWrapped) return;
+    var original=window.downloadGuiesPdf || window.projectSalvarPDFDocumental || window.salvarPDF;
+    if(typeof original!=='function') return;
+    window.__anaV21PrintToastWrapped=true;
+    var wrapped=function(){
+      showHeaderFooterToastV21();
+      var args=arguments, ctx=this;
+      setTimeout(function(){ original.apply(ctx,args); }, 650);
+    };
+    window.downloadGuiesPdf=wrapped;
+    window.salvarPDF=wrapped;
+    window.projectSalvarPDFDocumental=wrapped;
+    var btn=document.getElementById('btnSalvarPDF');
+    if(btn && !btn.__anaV21PrintToastClick){
+      btn.__anaV21PrintToastClick=true;
+      var clone=btn.cloneNode(true);
+      btn.parentNode.replaceChild(clone,btn);
+      clone.addEventListener('click',function(ev){
+        ev.preventDefault();
+        ev.stopImmediatePropagation();
+        wrapped();
+      },true);
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',wrap); else wrap();
+  window.addEventListener('load',function(){ setTimeout(wrap,100); setTimeout(wrap,700); setTimeout(wrap,1800); });
+})();
+</script>
+
+
+
+<!-- ===== PATCH ANA v22 — uniformização real das fontes + tabs cinza visíveis ===== -->
+<style id="ana-v22-fontes-uniformes-tabs-cinza">
+/* Camada final: só visual. Não altera submit, autosave, SharePoint, Power Automate, tabs nem fluxo de PDF. */
+:root{
+  --ana-field-font-size-final:13px;
+  --ana-field-line-final:1.32;
+}
+
+/* 1) Uniformiza a fonte de preenchimento em TODOS os campos, exceto o título do projeto. */
+input:not(#tituloProjeto),
+textarea:not(#tituloProjeto),
+select:not(#tituloProjeto),
+.proj-expand-preserved:not(#tituloProjeto),
+.proj-expandable-field:not(#tituloProjeto),
+.proj-compact-preserved:not(#tituloProjeto),
+.proj-fixed-size-field:not(#tituloProjeto),
+.proj-percent-field:not(#tituloProjeto),
+.proj-date-field:not(#tituloProjeto),
+.proj-number-field:not(#tituloProjeto),
+.proj-number-box:not(#tituloProjeto),
+.proj-percent-box:not(#tituloProjeto),
+.proj-criterion-field:not(#tituloProjeto),
+.quadro-table input:not(#tituloProjeto),
+.quadro-table textarea:not(#tituloProjeto),
+table input:not(#tituloProjeto),
+table textarea:not(#tituloProjeto){
+  font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;
+  font-size:var(--ana-field-font-size-final) !important;
+  line-height:var(--ana-field-line-final) !important;
+  letter-spacing:0 !important;
+}
+
+input:not(#tituloProjeto)::placeholder,
+textarea:not(#tituloProjeto)::placeholder{
+  font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;
+  font-size:var(--ana-field-font-size-final) !important;
+  line-height:var(--ana-field-line-final) !important;
+  opacity:1 !important;
+}
+
+/* 2) Tabelas: aumenta e uniformiza sem aumentar a caixa/campo. */
+#descricao table input:not(#tituloProjeto),
+#descricao table textarea:not(#tituloProjeto),
+#metodologia table input:not(#tituloProjeto),
+#metodologia table textarea:not(#tituloProjeto),
+#entregaveis table input:not(#tituloProjeto),
+#entregaveis table textarea:not(#tituloProjeto),
+#ucs table input:not(#tituloProjeto),
+#ucs table textarea:not(#tituloProjeto),
+#avaliacao table input:not(#tituloProjeto),
+#avaliacao table textarea:not(#tituloProjeto){
+  font-size:13px !important;
+  line-height:1.28 !important;
+  box-sizing:border-box !important;
+}
+
+/* Inputs curtos: o texto/placeholder fica no centro vertical do campo, sem mudar altura. */
+#entregaveis table input:not(#tituloProjeto),
+#ucs table input:not(#tituloProjeto),
+#descricao table input:not(#tituloProjeto),
+#metodologia table input:not(#tituloProjeto){
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+  line-height:normal !important;
+  display:block !important;
+}
+
+/* Textareas de linha curta nas tabelas: evita o placeholder “subir” e ficar fora do padrão visual. */
+#ucs table textarea:not(#tituloProjeto),
+#entregaveis table textarea.proj-short-field:not(#tituloProjeto),
+#descricao table textarea.proj-short-field:not(#tituloProjeto),
+#metodologia table textarea.proj-short-field:not(#tituloProjeto){
+  padding-top:14px !important;
+  padding-bottom:6px !important;
+  line-height:1.22 !important;
+}
+
+/* Linha-base da tabela de contribuições: todos os exemplos ficam com a mesma presença visual. */
+#ucs table tr:nth-child(2) input:not(#tituloProjeto),
+#ucs table tr:nth-child(2) textarea:not(#tituloProjeto){
+  font-size:13px !important;
+  font-weight:650 !important;
+  color:#333 !important;
+  text-align:center !important;
+  vertical-align:middle !important;
+}
+#ucs table tr:nth-child(2) input:not(#tituloProjeto)::placeholder,
+#ucs table tr:nth-child(2) textarea:not(#tituloProjeto)::placeholder{
+  font-size:13px !important;
+  font-weight:650 !important;
+  color:#777 !important;
+  text-align:center !important;
+}
+#ucs table tr:nth-child(2) td:nth-child(2) input:not(#tituloProjeto),
+#ucs table tr:nth-child(2) td:nth-child(2) textarea:not(#tituloProjeto){
+  text-align:center !important;
+  padding-left:10px !important;
+  padding-right:10px !important;
+}
+
+/* O título do projeto continua editorial, maior e separado dos restantes campos. */
+#tituloProjeto,
+input#tituloProjeto,
+textarea#tituloProjeto{
+  font-size:15px !important;
+  line-height:1.22 !important;
+  font-weight:700 !important;
+  letter-spacing:-0.01em !important;
+}
+#tituloProjeto::placeholder{
+  font-size:15px !important;
+  line-height:1.22 !important;
+  font-weight:650 !important;
+}
+
+/* 3) Tabs: recupera o contorno cinzento leve e perceptível no hover/focus/active. */
+.tabs{
+  gap:6px !important;
+  border-bottom:2px solid #2f2f2f !important;
+}
+.tab{
+  border:1.45px solid #bdbdbd !important;
+  border-bottom:0 !important;
+  background:linear-gradient(180deg,#ffffff 0%,#eeeeee 100%) !important;
+  color:#222 !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 1px 2px rgba(0,0,0,.035) !important;
+  transform:none !important;
+  transition:background-color .12s ease, border-color .12s ease, box-shadow .12s ease, color .12s ease !important;
+}
+.tab:hover,
+.tab:focus,
+.tab:focus-visible{
+  border-color:#9d9d9d !important;
+  background:linear-gradient(180deg,#ffffff 0%,#f3f3f3 100%) !important;
+  box-shadow:0 0 0 3px rgba(0,0,0,.085), inset 0 1px 0 rgba(255,255,255,.9), 0 3px 8px rgba(0,0,0,.06) !important;
+  outline:none !important;
+  color:#111 !important;
+  transform:none !important;
+}
+.tab.active,
+.tab[aria-selected="true"]{
+  background:#303030 !important;
+  color:#fff !important;
+  border-color:#303030 !important;
+  box-shadow:0 0 0 2px rgba(0,0,0,.12), 0 3px 9px rgba(0,0,0,.08) !important;
+}
+.tab.active:hover,
+.tab[aria-selected="true"]:hover,
+.tab.active:focus,
+.tab[aria-selected="true"]:focus{
+  background:#303030 !important;
+  color:#fff !important;
+  border-color:#303030 !important;
+  box-shadow:0 0 0 3px rgba(0,0,0,.16), 0 3px 9px rgba(0,0,0,.09) !important;
+}
+
+/* 4) O toast de impressão permanece fora do PDF. */
+@media print{
+  .toast-message,
+  .ana-print-toast,
+  #anaPrintToast,
+  #anaPrintToastV21{
+    display:none !important;
+    visibility:hidden !important;
+  }
+}
+</style>
+<script id="ana-v22-table-font-normalizer">
+(function(){
+  function normalizeTableFieldsV22(){
+    document.querySelectorAll('#ucs table tr:nth-child(2) input, #ucs table tr:nth-child(2) textarea').forEach(function(el){
+      el.classList.add('ana-v22-table-example-field');
+      el.style.fontSize='13px';
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',normalizeTableFieldsV22); else normalizeTableFieldsV22();
+  setTimeout(normalizeTableFieldsV22,300);
+  setTimeout(normalizeTableFieldsV22,1200);
+})();
+</script>
+
+
+
+<!-- ===== PATCH ANA v23 — tabs em uma linha + redução do espaço antes do título ===== -->
+<style id="ana-v23-tabs-title-gap-fix">
+/* Camada visual final. Não altera JS funcional, submit, autosave, SharePoint, Power Automate nem fluxo do PDF. */
+
+/* 1) Separadores: impede quebra do número em cima do texto, mantendo o contorno cinzento elegante. */
+.tabs{
+  display:flex !important;
+  flex-wrap:nowrap !important;
+  gap:5px !important;
+  align-items:flex-end !important;
+  width:100% !important;
+  margin:14px 0 16px 0 !important;
+  padding:0 !important;
+  border-bottom:2px solid #2f2f2f !important;
+  overflow:visible !important;
+}
+.tab,
+.tab.active,
+.tab[aria-selected="true"]{
+  flex:1 1 0 !important;
+  min-width:0 !important;
+  height:40px !important;
+  min-height:40px !important;
+  padding:0 7px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  white-space:nowrap !important;
+  text-align:center !important;
+  line-height:1 !important;
+  font-size:12px !important;
+  font-weight:800 !important;
+  letter-spacing:-0.01em !important;
+  overflow:hidden !important;
+  text-overflow:clip !important;
+  border-radius:10px 10px 0 0 !important;
+  transform:none !important;
+}
+.tab:hover,
+.tab:focus,
+.tab:focus-visible{
+  white-space:nowrap !important;
+  transform:none !important;
+}
+
+/* Em ecrãs estreitos, permite quebrar por botão inteiro — nunca entre “2.” e “Funcionamento”. */
+@media (max-width:760px){
+  .tabs{
+    flex-wrap:wrap !important;
+  }
+  .tab{
+    flex:1 1 calc(50% - 5px) !important;
+    white-space:nowrap !important;
+  }
+}
+
+/* 2) Remove o espaçador vazio herdado entre Unidade Orgânica/Modalidade e Título do projeto. */
+.header-grid{
+  margin-bottom:8px !important;
+  gap:12px !important;
+}
+.header-grid + div[style*="display:block"][style*="margin:20px"],
+.header-grid + div[style*="display: block"][style*="margin:20px"],
+.header-grid + div[style*="margin:20px 0 24px"],
+.header-grid + div:has(> div:empty){
+  display:none !important;
+  visibility:hidden !important;
+  height:0 !important;
+  min-height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+}
+.logo:empty{
+  display:none !important;
+  height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+}
+
+/* 3) Título do projeto mais perto dos campos superiores, sem perder o aspecto editorial. */
+.proj-title-card,
+.section.project-title-v17,
+.project-title-v17{
+  margin-top:10px !important;
+  margin-bottom:14px !important;
+  padding:14px 16px !important;
+}
+.proj-title-card label,
+.section.project-title-v17 label,
+.project-title-v17 label{
+  margin-bottom:8px !important;
+}
+#tituloProjeto,
+input#tituloProjeto,
+textarea#tituloProjeto{
+  font-size:15px !important;
+  line-height:1.18 !important;
+  min-height:44px !important;
+  height:44px !important;
+  max-height:44px !important;
+  padding:8px 12px !important;
+}
+
+@media print{
+  .tabs,
+  .tab{
+    display:none !important;
+  }
+  .header-grid{
+    margin-bottom:3mm !important;
+  }
+  .header-grid + div[style*="display:block"][style*="margin:20px"],
+  .header-grid + div[style*="display: block"][style*="margin:20px"],
+  .header-grid + div[style*="margin:20px 0 24px"],
+  .header-grid + div:has(> div:empty),
+  .logo:empty{
+    display:none !important;
+    visibility:hidden !important;
+    height:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+}
+</style>
+<script id="ana-v23-remove-empty-title-spacer-js">
+(function(){
+  function compactHeaderTitleGap(){
+    var grid=document.querySelector('.header-grid');
+    if(!grid) return;
+    grid.style.marginBottom='8px';
+    var n=grid.nextElementSibling;
+    while(n && n.nodeType===1){
+      var txt=(n.textContent||'').replace(/\s+/g,'').trim();
+      var hasControls=n.querySelector && n.querySelector('input,textarea,select,button,.section,.header-card,.proj-title-card,.tab-content');
+      if(!hasControls && txt===''){
+        n.setAttribute('data-ana-v23-empty-spacer','true');
+        n.style.display='none';
+        n.style.height='0';
+        n.style.margin='0';
+        n.style.padding='0';
+        n.style.overflow='hidden';
+        n=n.nextElementSibling;
+        continue;
+      }
+      break;
+    }
+    var logo=document.querySelector('.logo');
+    if(logo && !(logo.textContent||'').trim() && !logo.querySelector('img')){
+      logo.style.display='none';
+      logo.style.height='0';
+      logo.style.margin='0';
+      logo.style.padding='0';
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',compactHeaderTitleGap); else compactHeaderTitleGap();
+  window.addEventListener('load',function(){ setTimeout(compactHeaderTitleGap,80); setTimeout(compactHeaderTitleGap,500); setTimeout(compactHeaderTitleGap,1500); });
+})();
+</script>
+
 </body>
 </html>
