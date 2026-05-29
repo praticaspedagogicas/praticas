@@ -1719,6 +1719,31 @@ body.cbl-exporting #conteudos.cbl-expandable-field{ min-height:18px !important; 
 body.cbl-exporting #desafio,
 body.cbl-exporting #objetivos{ min-height:22px !important; height:24px !important; }
 </style>
+
+<style id="cbl-v11-email-required-ai">
+/* ===== V11 — Email expansível + validação obrigatória + mensagem IA mais legível ===== */
+#emails.cbl-expandable-field{
+  min-height:34px !important;
+  height:34px !important;
+  max-height:120px !important;
+  resize:vertical !important;
+  overflow:auto !important;
+  line-height:18px !important;
+}
+#emails.cbl-email-error{
+  border-color:#E31E24 !important;
+  outline:3px solid rgba(227,30,36,.14) !important;
+  background:#fffafa !important;
+}
+.toast-message.cbl-toast-long{
+  bottom:34px !important;
+  min-width:360px !important;
+  max-width:720px !important;
+  white-space:normal !important;
+  line-height:1.35 !important;
+}
+</style>
+
 </head>
 <body>
 <div class="page">
@@ -1769,7 +1794,7 @@ body.cbl-exporting #objetivos{ min-height:22px !important; height:24px !importan
 </tr>
 <tr>
 <th>Email(s):</th>
-<td colspan="3"><input id="emails" placeholder="email@universidade.pt" type="text"/></td>
+<td colspan="3"><textarea class="cbl-expandable-field" id="emails" placeholder="email@universidade.pt; outro.email@universidade.pt"></textarea></td>
 </tr>
 </table>
 <div class="cbl-meta-panel">
@@ -1870,6 +1895,7 @@ body.cbl-exporting #objetivos{ min-height:22px !important; height:24px !importan
   var STORAGE_KEY = 'template_autosave_CBL_v3';
   var FLOW_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e204529fc1f342fc87cd935dfa2a58f1/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=twiVi70IgSoNelyf9E_StjR8n6gtjcasJu3ULIuXErc';
   var HTML2PDF_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+  var JSPDF_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
   var BOT_URL = 'https://teams.microsoft.com/l/app/?titleId=T_3563aa57-a2da-f9ec-f15e-40e313566c90';
   var printLock = false;
   var submitLock = false;
@@ -1879,16 +1905,22 @@ body.cbl-exporting #objetivos{ min-height:22px !important; height:24px !importan
     return Array.prototype.slice.call(document.querySelectorAll('input, textarea, select'))
       .filter(function(el){ return !el.disabled && el.type !== 'hidden'; });
   }
-  function toast(message, type){
+  function toast(message, type, duration){
     var old = document.querySelector('.toast-message');
     if(old) old.remove();
+
+    // Mensagens do Assistente IA precisam ficar mais tempo para serem lidas.
+    var msgText = String(message || '');
+    var isAssistantMsg = msgText.toLowerCase().indexOf('assistente') >= 0 || msgText.toLowerCase().indexOf('teams') >= 0;
+    var tempo = duration || (isAssistantMsg ? 9000 : 2800);
+
     var div = document.createElement('div');
-    div.className = 'toast-message';
-    div.textContent = message;
+    div.className = 'toast-message' + (isAssistantMsg ? ' cbl-toast-long' : '');
+    div.textContent = msgText;
     div.style.background = type === 'error' ? '#7a1f1f' : (type === 'ok' ? '#1f4d2b' : '#333');
     div.style.whiteSpace = 'normal';
     document.body.appendChild(div);
-    window.setTimeout(function(){ if(div.parentNode) div.remove(); }, 2800);
+    window.setTimeout(function(){ if(div.parentNode) div.remove(); }, tempo);
   }
   window.toast = toast;
   window.showToast = toast;
@@ -2008,11 +2040,24 @@ body.cbl-exporting #objetivos{ min-height:22px !important; height:24px !importan
 
   function loadScript(src){
     return new Promise(function(resolve, reject){
+      var isJsPdf = src.indexOf('jspdf') !== -1;
+      var isHtml2Pdf = src.indexOf('html2pdf') !== -1;
+      if(isJsPdf && window.jspdf && window.jspdf.jsPDF) return resolve();
+      if(isHtml2Pdf && window.html2pdf) return resolve();
+
       var existing = document.querySelector('script[src="' + src + '"]');
-      if(window.html2pdf) return resolve();
-      if(existing){ existing.addEventListener('load', resolve, {once:true}); existing.addEventListener('error', reject, {once:true}); return; }
+      if(existing){
+        if(existing.dataset.loaded === '1') return resolve();
+        existing.addEventListener('load', function(){ existing.dataset.loaded = '1'; resolve(); }, {once:true});
+        existing.addEventListener('error', reject, {once:true});
+        return;
+      }
+
       var s = document.createElement('script');
-      s.src = src; s.onload = resolve; s.onerror = reject; document.head.appendChild(s);
+      s.src = src;
+      s.onload = function(){ s.dataset.loaded = '1'; resolve(); };
+      s.onerror = reject;
+      document.head.appendChild(s);
     });
   }
 
@@ -2087,32 +2132,287 @@ body.cbl-exporting #objetivos{ min-height:22px !important; height:24px !importan
   window.addEventListener('afterprint', function(){ window.setTimeout(function(){ removePrintHost(); printLock = false; }, 250); });
 
   async function renderPdfBlob(){
-    /* Mantido apenas para submissão ao Power Automate. O botão “Salvar PDF” usa impressão nativa,
-       que é mais estável e evita o PDF branco causado pelo html2canvas/html2pdf. */
-    await loadScript(HTML2PDF_CDN);
-    var host = document.createElement('div');
-    host.id = 'cblPdfExportHostV9';
-    host.className = 'cbl-pdf-export-host';
-    host.appendChild(createDocumentalClone());
-    document.body.appendChild(host);
-    try{ window.scrollTo(0,0); }catch(e){}
-    await new Promise(function(resolve){ setTimeout(resolve, 220); });
-    var target = host.querySelector('.cbl-print-document');
-    try{
-      return await window.html2pdf().set({
-        margin: [6, 7, 6, 7],
-        image: {type:'jpeg', quality:0.98},
-        html2canvas: {scale:2, useCORS:true, allowTaint:true, backgroundColor:'#ffffff', logging:false, scrollX:0, scrollY:0, windowWidth:794, windowHeight:1123},
-        jsPDF: {unit:'mm', format:'a4', orientation:'portrait'},
-        pagebreak: {mode:['css','legacy'], avoid:['.section','table','tr','.header-card']}
-      }).from(target).outputPdf('blob');
-    }finally{
-      if(host && host.parentNode) host.parentNode.removeChild(host);
+    /* PDF institucional gerado em vetor, dentro do próprio HTML. V4: bordas da tabela corrigidas.
+       Não usa html2canvas nem conversor de HTML: evita cortes laterais, páginas brancas
+       e problemas do OneDrive/Power Automate. */
+    await loadScript(JSPDF_CDN);
+    var jsPDF = window.jspdf && window.jspdf.jsPDF;
+    if(!jsPDF) throw new Error('jsPDF não carregou.');
+
+    var pdf = new jsPDF({unit:'mm', format:'a4', orientation:'portrait'});
+    var pageW = 210, pageH = 297;
+    var margin = 12.8;
+    var y = 12;
+    var red = [227,30,36];
+    var dark = [20,20,20];
+    var grey = [115,115,115];
+    var light = [248,248,248];
+    var labelFill = [245,245,245];
+    var border = [178,178,178];
+    var softBorder = [196,196,196];
+    var radius = 3.2;
+
+    function val(id, fallback){
+      var el = document.getElementById(id);
+      if(!el) return '';
+
+      // No PDF final, exemplos/placeholders não devem aparecer como preenchimento real.
+      // Se o campo estiver vazio, o PDF fica em branco.
+      if(el.tagName === 'SELECT'){
+        var opt = el.options && el.selectedIndex >= 0 ? el.options[el.selectedIndex] : null;
+        var t = (opt ? opt.text : el.value || '').trim();
+        return t === 'Selecionar' ? '' : t;
+      }
+
+      return String(el.value || '').trim();
     }
+    function split(text, width, size){
+      pdf.setFontSize(size || 9);
+      return pdf.splitTextToSize(String(text || '—'), width);
+    }
+    function ensure(h){
+      if(y + h > pageH - margin){
+        pdf.addPage();
+        y = margin;
+        footer();
+      }
+    }
+    function footer(){
+      var n = pdf.internal.getNumberOfPages();
+      pdf.setPage(n);
+      pdf.setFont('helvetica','normal');
+      pdf.setFontSize(7);
+      pdf.setTextColor(130,130,130);
+      pdf.text('Guião Challenge-Based Learning · Universidade Europeia | IADE | IPAM', margin, pageH - 7);
+      pdf.text(String(n), pageW - margin, pageH - 7, {align:'right'});
+      pdf.setTextColor(0,0,0);
+    }
+    function line(){
+      pdf.setDrawColor.apply(pdf, red);
+      pdf.setLineWidth(0.35);
+      pdf.line(margin, y, pageW - margin, y);
+      y += 4;
+    }
+    function textBlock(label, text, opts){
+      opts = opts || {};
+      var w = opts.w || (pageW - margin*2);
+      var minH = opts.minH || 12;
+      var lines = split(text || '—', w - 8, opts.size || 8.1);
+      var h = Math.max(minH, 7.2 + lines.length * 3.65);
+      ensure(h + 4);
+      pdf.setDrawColor.apply(pdf, softBorder);
+      pdf.setLineWidth(0.28);
+      pdf.setFillColor(255,255,255);
+      pdf.roundedRect(margin, y, w, h, radius, radius, 'S');
+      pdf.setFont('helvetica','bold');
+      pdf.setFontSize(8.0);
+      pdf.setTextColor.apply(pdf, dark);
+      pdf.text(label, margin + 4, y + 4.9);
+      pdf.setFont('helvetica','normal');
+      pdf.setFontSize(opts.size || 8.25);
+      pdf.setTextColor.apply(pdf, text ? dark : grey);
+      pdf.text(lines, margin + 4, y + 9.4);
+      y += h + 4.8;
+    }
+    function section(title){
+      ensure(14);
+      if(y > margin + 18) y += 1.6;
+      pdf.setFont('helvetica','bold');
+      pdf.setFontSize(11.5);
+      pdf.setTextColor.apply(pdf, dark);
+      pdf.text(title, margin, y);
+      y += 3.1;
+      line();
+      y += 1.0;
+    }
+    function pairRow(label1, text1, label2, text2){
+      var colGap=4.8, colW=(pageW - margin*2 - colGap)/2;
+      var l1=split(text1 || '—', colW-8, 8.15), l2=split(text2 || '—', colW-8, 8.15);
+      var h=Math.max(14.5, 8.7 + Math.max(l1.length,l2.length)*3.75);
+      ensure(h+4);
+      [[margin,label1,l1,text1],[margin+colW+colGap,label2,l2,text2]].forEach(function(c){
+        pdf.setDrawColor.apply(pdf, softBorder); pdf.setLineWidth(0.28); pdf.setFillColor(255,255,255);
+        pdf.roundedRect(c[0], y, colW, h, radius, radius, 'S');
+        pdf.setFont('helvetica','bold'); pdf.setFontSize(8.0); pdf.setTextColor.apply(pdf,dark);
+        pdf.text(c[1], c[0]+4, y+5.0);
+        pdf.setFont('helvetica','normal'); pdf.setFontSize(8.15); pdf.setTextColor.apply(pdf,c[3]?dark:grey);
+        pdf.text(c[2], c[0]+4, y+9.8);
+      });
+      y += h + 4.7;
+    }
+    function simpleTable(rows){
+      /* Tabela institucional mais suave: mantém organização, mas com canto arredondado
+         e respiro interno para não parecer formulário bruto.
+         Suporta também linha final com valor alargado (ex.: Email), como no original. */
+      var w1=38, w2=55, w3=38, w4=pageW-margin*2-w1-w2-w3;
+      var tableX = margin;
+      var tableW = pageW - margin*2;
+      var rowHs = [];
+      rows.forEach(function(r){
+        var merged = !r[2] && !r[3];
+        var a = split(r[1] || '—', (merged ? (w2+w3+w4) : w2) - 6, 8.05);
+        var b = merged ? [] : split(r[3] || '—', w4-6, 8.05);
+        rowHs.push(Math.max(11.5, 5.8 + Math.max(a.length, b.length || 1)*3.7));
+      });
+      var totalH = rowHs.reduce(function(a,b){return a+b;}, 0);
+      ensure(totalH + 8);
+      var y0 = y;
+      // Fundo branco da tabela primeiro; o contorno arredondado é desenhado no fim.
+      // Isto evita que os fundos cinza dos rótulos cubram/cortem a borda esquerda.
+      pdf.setFillColor(255,255,255);
+      pdf.rect(tableX, y0, tableW, totalH, 'F');
+      var yy = y0;
+      rows.forEach(function(r, idx){
+        var h=rowHs[idx];
+        var merged = !r[2] && !r[3];
+        var x=tableX;
+        var valueW = merged ? (w2+w3+w4) : w2;
+        var a=split(r[1] || '—', valueW-6, 8.05), b=merged ? [] : split(r[3] || '—', w4-6, 8.05);
+        if(idx > 0){ pdf.setDrawColor.apply(pdf, softBorder); pdf.line(tableX, yy, tableX + tableW, yy); }
+        // fundos dos rótulos exatamente no espírito do guião original: cinza suave + valores em branco
+        pdf.setFillColor.apply(pdf, labelFill);
+        pdf.rect(tableX, yy, w1, h, 'F');
+        if(!merged){ pdf.rect(tableX+w1+w2, yy, w3, h, 'F'); }
+        // linhas verticais internas leves
+        pdf.setDrawColor.apply(pdf, softBorder);
+        pdf.line(tableX+w1, yy, tableX+w1, yy+h);
+        if(!merged){
+          pdf.line(tableX+w1+w2, yy, tableX+w1+w2, yy+h);
+          pdf.line(tableX+w1+w2+w3, yy, tableX+w1+w2+w3, yy+h);
+        }
+        pdf.setTextColor.apply(pdf,dark);
+        pdf.setFont('helvetica','bold'); pdf.setFontSize(8.05); pdf.text(r[0],x+3.2,yy+6.75);
+        x+=w1;
+        pdf.setFont('helvetica','normal'); pdf.setFontSize(8.05); pdf.setTextColor.apply(pdf,r[1]?dark:grey); pdf.text(a,x+3.2,yy+6.75);
+        if(!merged){
+          x+=w2;
+          pdf.setFont('helvetica','bold'); pdf.setFontSize(8.05); pdf.setTextColor.apply(pdf,dark); pdf.text(r[2],x+3.2,yy+6.75);
+          x+=w3;
+          pdf.setFont('helvetica','normal'); pdf.setFontSize(8.05); pdf.setTextColor.apply(pdf,r[3]?dark:grey); pdf.text(b,x+3.2,yy+6.75);
+        }
+        yy += h;
+      });
+      // Contorno final por cima de todos os preenchimentos internos.
+      pdf.setDrawColor.apply(pdf, softBorder);
+      pdf.setLineWidth(0.30);
+      pdf.roundedRect(tableX, y0, tableW, totalH, radius, radius, 'S');
+      y = y0 + totalH + 5.6;
+    }
+
+    function assessmentOriginalStyle(items){
+      /* Avaliação no estilo original, mas com a mesma borda cinza suave dos demais campos.
+         Mantém rótulo em negrito + valor em linha própria, sem transformar em tabela. */
+      var w = pageW - margin*2;
+      var padX = 4;
+      var labelSize = 8.05;
+      var valueSize = 8.25;
+      var gap = 3.4;
+      items.forEach(function(it){
+        var label = it[0] || '';
+        var value = it[1] || '—';
+        var lines = split(value, w - padX*2, valueSize);
+        var h = Math.max(12.5, 8.2 + Math.max(1, lines.length) * 3.8);
+        ensure(h + gap + 1);
+        pdf.setDrawColor.apply(pdf, softBorder);
+        pdf.setLineWidth(0.28);
+        pdf.setFillColor(255,255,255);
+        pdf.roundedRect(margin, y, w, h, radius, radius, 'S');
+
+        pdf.setFont('helvetica','bold');
+        pdf.setFontSize(labelSize);
+        pdf.setTextColor.apply(pdf, dark);
+        pdf.text(label + ':', margin + padX, y + 5.0);
+
+        pdf.setFont('helvetica','normal');
+        pdf.setFontSize(valueSize);
+        pdf.setTextColor.apply(pdf, value ? dark : grey);
+        pdf.text(lines, margin + padX, y + 9.4);
+
+        y += h + gap;
+      });
+      y += 1.0;
+    }
+
+    // Cabeçalho
+    try{
+      var img = document.querySelector('.header img');
+      if(img && img.src && img.src.indexOf('data:image') === 0){ pdf.addImage(img.src, 'PNG', pageW/2 - 18, y, 36, 11); y += 15; }
+    }catch(e){ y += 2; }
+    pdf.setFont('helvetica','bold');
+    pdf.setFontSize(14.7);
+    pdf.setTextColor.apply(pdf, dark);
+    pdf.text('Guião Challenge-Based Learning', pageW/2, y, {align:'center'});
+    y += 5; line();
+    y += 1.2;
+
+    pairRow('Unidade Orgânica', val('unidadeOrganica'), 'Modalidade', val('modalidade'));
+    simpleTable([
+      ['Curso:', val('curso'), 'Unidades Curriculares:', val('uc')],
+      ['Ano Letivo:', val('ano'), 'Docente(s):', val('professor')],
+      ['Email(s):', val('emails'), '', '']
+    ]);
+
+    section('Identificação do guião');
+    textBlock('Autoria', val('autoria'), {minH:12});
+    pairRow('Estado do Guião', val('estado'), 'Número de Estudantes', val('n_estudantes'));
+    textBlock('Organização(ões) / contacto', val('organizacao'), {minH:13});
+    textBlock('Conteúdo(s) alinhados com os Conteúdos Programáticos da FUC', val('conteudos'), {minH:16});
+
+    section('Desafio');
+    textBlock('Descrição do desafio', val('desafio'), {minH:22});
+    textBlock('Objetivos de aprendizagem', val('objetivos'), {minH:18});
+
+    section('Entregas');
+    textBlock('Documento escrito', val('doc_escrito'), {minH:13});
+    textBlock('Apresentação', val('apresentacao'), {minH:13});
+
+    section('Avaliação');
+    assessmentOriginalStyle([
+      ['Ponderação do CBL na Avaliação Contínua', val('pond_total')],
+      ['Ponderação - Documento Escrito', val('pond_doc')],
+      ['Ponderação - Apresentação Final', val('pond_apres')]
+    ]);
+
+    section('Calendarização');
+    textBlock('Data / hora', val('calendarizacao'), {minH:12});
+
+    footer();
+    return pdf.output('blob');
   }
 
-  function downloadPdf(){
-    safePrint();
+  function makePdfFileName(){
+    var values = collectValues();
+    var base = 'CBL_' + (values.curso || values.uc || 'guiao');
+    return base.replace(/[^a-z0-9_-]+/gi, '_').replace(/^_+|_+$/g, '').slice(0,70) + '_' + new Date().toISOString().slice(0,10) + '.pdf';
+  }
+
+  function blobToBase64(blob){
+    return new Promise(function(resolve, reject){
+      var r = new FileReader();
+      r.onloadend = function(){ resolve(String(r.result || '').split(',')[1] || ''); };
+      r.onerror = reject;
+      r.readAsDataURL(blob);
+    });
+  }
+
+  async function downloadPdf(){
+    try{
+      toast('A preparar o PDF...');
+      var blob = await renderPdfBlob();
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = makePdfFileName();
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.setTimeout(function(){ URL.revokeObjectURL(url); }, 1200);
+      toast('PDF gerado com sucesso.', 'ok');
+    }catch(e){
+      console.error(e);
+      toast('Não foi possível gerar o PDF. Vou abrir a impressão do navegador.', 'error');
+      safePrint();
+    }
   }
   window.downloadGuiesPdf = downloadPdf;
   window.salvarPDF = downloadPdf;
@@ -2159,16 +2459,25 @@ body.cbl-exporting #objetivos{ min-height:22px !important; height:24px !importan
   async function generatePdfBase64(){
     try{
       var blob = await renderPdfBlob();
-      return await new Promise(function(resolve, reject){
-        var r = new FileReader();
-        r.onloadend = function(){ resolve(String(r.result || '').split(',')[1] || ''); };
-        r.onerror = reject;
-        r.readAsDataURL(blob);
-      });
+      return await blobToBase64(blob);
     }catch(e){ console.error(e); return ''; }
   }
   async function submitValidation(button){
-    if(submitLock) return;
+    
+      var emailEl = document.getElementById('emails');
+      var emailValue = emailEl ? String(emailEl.value || '').trim() : '';
+      if(!emailValue){
+        if(emailEl){
+          emailEl.classList.add('cbl-email-error');
+          try{ emailEl.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){}
+          try{ emailEl.focus(); }catch(e){}
+        }
+        showToast('Para enviar o guião para validação, indique pelo menos um e-mail no campo Email(s).', 'error', 7500);
+        return;
+      }
+      if(emailEl){ emailEl.classList.remove('cbl-email-error'); }
+
+if(submitLock) return;
     if(!window.validarCamposNumericosGuiao()) return;
     submitLock = true;
     var original = button ? button.textContent : '';
@@ -2176,11 +2485,9 @@ body.cbl-exporting #objetivos{ min-height:22px !important; height:24px !importan
     toast('A enviar para validação...');
     try{
       var payload = collectPayload();
-      payload.pdfFileName = 'CBL_' + (payload.title || 'guiao').replace(/[^a-z0-9_-]+/gi, '_').slice(0,60) + '_' + new Date().toISOString().slice(0,10) + '.pdf';
-      // PDF final será gerado pelo Power Automate a partir do HTML preenchido.
-      // Não gerar pdfBase64 aqui: evita o bug/corte do html2pdf no browser.
-      payload.pdfBase64 = '';
-      payload.html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      payload.pdfFileName = makePdfFileName();
+      payload.pdfBase64 = await generatePdfBase64();
+      payload.html = ''; // PDF final é gerado no próprio HTML via jsPDF; não enviar HTML para conversão.
       var res = await fetch(FLOW_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
       var txt = await res.text();
       if(!res.ok) throw new Error('Power Automate respondeu ' + res.status + '. ' + txt);
@@ -2225,7 +2532,20 @@ body.cbl-exporting #objetivos{ min-height:22px !important; height:24px !importan
     var ai = $('btnAssistenteIA');
     if(ai && ai.dataset.bound !== '1'){
       ai.dataset.bound = '1';
-      ai.addEventListener('click', function(ev){ ev.preventDefault(); window.open(BOT_URL, '_blank', 'noopener,noreferrer'); toast('A abrir o Assistente IA no Teams...'); });
+      ai.addEventListener('click', function(ev){
+        ev.preventDefault();
+
+        // Opção A: mensagem curta e controlada antes de abrir o Assistente.
+        // Dá tempo real para o docente ler antes de o Teams/nova aba assumir o foco.
+        toast('A abrir o Assistente IA no Teams...', 'ok', 2200);
+
+        setTimeout(function(){
+          var win = window.open(BOT_URL, '_blank', 'noopener,noreferrer');
+          if(!win){
+            toast('O navegador bloqueou a abertura do Assistente IA. Autorize pop-ups para este site.', 'error', 6500);
+          }
+        }, 900);
+      });
     }
     var pdf = $('btnSalvarPDF');
     if(pdf && pdf.dataset.bound !== '1'){
@@ -2236,6 +2556,15 @@ body.cbl-exporting #objetivos{ min-height:22px !important; height:24px !importan
     if(enviar && enviar.dataset.bound !== '1'){
       enviar.dataset.bound = '1';
       enviar.addEventListener('click', function(ev){ ev.preventDefault(); submitValidation(enviar); });
+    }
+
+    var emailObrigatorio = document.getElementById('emails');
+    if(emailObrigatorio){
+      emailObrigatorio.addEventListener('input', function(){
+        if(String(emailObrigatorio.value || '').trim()){
+          emailObrigatorio.classList.remove('cbl-email-error');
+        }
+      });
     }
   }
   function bindFields(){
