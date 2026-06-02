@@ -1982,6 +1982,549 @@ body:not(.cbl-exporting) .cbl-expandable-field::-webkit-resizer{
   display: none !important;
 }
 </style>
+
+<style id="cbl-multi-course-fix">
+/* ===== FIX CURSO(S) MULTI-SELEÇÃO — CBL ===== */
+.cbl-course-picker{
+  width:100% !important;
+  display:block !important;
+}
+.cbl-course-search-row{
+  display:flex !important;
+  gap:8px !important;
+  align-items:stretch !important;
+  width:100% !important;
+}
+#cursoBusca{
+  flex:1 1 auto !important;
+  width:100% !important;
+  min-width:0 !important;
+  min-height:42px !important;
+  border:1px solid #d2d2d2 !important;
+  border-radius:10px !important;
+  background:#fff !important;
+  padding:9px 10px !important;
+  font-family:'Century Gothic','Segoe UI',sans-serif !important;
+  font-size:13px !important;
+  line-height:1.35 !important;
+  box-sizing:border-box !important;
+}
+#cursoBusca:focus{
+  outline:3px solid rgba(247,147,30,.14) !important;
+  border-color:rgba(247,147,30,.62) !important;
+}
+.cbl-course-chips{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:6px !important;
+  margin-top:8px !important;
+  min-height:0 !important;
+}
+.cbl-course-chip{
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:6px !important;
+  max-width:100% !important;
+  padding:5px 8px 5px 10px !important;
+  border:1px solid rgba(0,0,0,.16) !important;
+  border-radius:999px !important;
+  background:#fafafa !important;
+  color:#333 !important;
+  font-size:11.5px !important;
+  line-height:1.2 !important;
+}
+.cbl-course-chip span{
+  overflow-wrap:anywhere !important;
+}
+.cbl-course-chip button{
+  width:18px !important;
+  height:18px !important;
+  min-width:18px !important;
+  min-height:18px !important;
+  padding:0 !important;
+  border-radius:50% !important;
+  border:1px solid rgba(0,0,0,.28) !important;
+  background:#fff !important;
+  color:#333 !important;
+  font-size:12px !important;
+  line-height:1 !important;
+  font-weight:700 !important;
+  cursor:pointer !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+.cbl-course-chip button:hover{
+  background:#E31E24 !important;
+  border-color:#E31E24 !important;
+  color:#fff !important;
+}
+.cbl-course-helper{
+  margin-top:4px !important;
+  color:#666 !important;
+  font-size:10.5px !important;
+  line-height:1.22 !important;
+}
+@media print{
+  .cbl-course-search-row,
+  .cbl-course-helper{
+    display:none !important;
+    visibility:hidden !important;
+  }
+  .cbl-course-chips{
+    margin-top:0 !important;
+    display:block !important;
+  }
+  .cbl-course-chip{
+    border:0 !important;
+    background:transparent !important;
+    padding:0 !important;
+    display:block !important;
+    font-size:8.5px !important;
+  }
+  .cbl-course-chip button{
+    display:none !important;
+  }
+}
+</style>
+
+<style id="cbl-repository-authorization-compact-final">
+/* Autorização compacta, no tamanho PBL e no estilo cromático CBL */
+body:not(.cbl-exporting) .cbl-repository-authorization{
+  margin:16px 0 12px 0 !important;
+  padding:12px 14px !important;
+  border:1.2px solid rgba(247,147,30,.42) !important;
+  border-radius:13px !important;
+  background:linear-gradient(180deg,#fffaf4 0%,#ffffff 100%) !important;
+  box-shadow:0 2px 8px rgba(247,147,30,.035) !important;
+}
+body:not(.cbl-exporting) .cbl-repository-title{
+  font-size:13px !important;
+  line-height:1.2 !important;
+  padding-bottom:7px !important;
+  margin:0 0 8px 0 !important;
+  border-bottom:2px solid #E31E24 !important;
+  color:#333 !important;
+}
+body:not(.cbl-exporting) .cbl-repository-text{
+  font-size:12.2px !important;
+  line-height:1.38 !important;
+  color:#444 !important;
+  margin:0 0 8px 0 !important;
+}
+body:not(.cbl-exporting) .cbl-repository-options{
+  display:flex !important;
+  flex-direction:column !important;
+  gap:0 !important;
+  margin:0 0 6px 0 !important;
+  padding:0 !important;
+}
+body:not(.cbl-exporting) .cbl-repository-option{
+  display:flex !important;
+  align-items:center !important;
+  gap:8px !important;
+  min-height:30px !important;
+  padding:6px 9px !important;
+  margin:5px 0 !important;
+  border:1px solid rgba(247,147,30,.28) !important;
+  border-radius:9px !important;
+  background:#fff !important;
+  color:#333 !important;
+  font-weight:normal !important;
+  font-size:12px !important;
+  line-height:1.26 !important;
+}
+body:not(.cbl-exporting) .cbl-repository-option input[type="radio"]{
+  -webkit-appearance:none !important;
+  appearance:none !important;
+  width:14px !important;
+  min-width:14px !important;
+  max-width:14px !important;
+  height:14px !important;
+  min-height:14px !important;
+  max-height:14px !important;
+  border:1.5px solid #E31E24 !important;
+  border-radius:50% !important;
+  background:#fff !important;
+  position:relative !important;
+  flex:0 0 14px !important;
+  margin:0 !important;
+  padding:0 !important;
+}
+body:not(.cbl-exporting) .cbl-repository-option input[type="radio"]:checked{
+  background:radial-gradient(circle at center, #E31E24 0 42%, transparent 46%) !important;
+}
+body:not(.cbl-exporting) .cbl-repository-option:has(input:checked){
+  border-color:#E31E24 !important;
+  box-shadow:inset 0 0 0 1px rgba(227,30,36,.65) !important;
+}
+body:not(.cbl-exporting) .cbl-repository-note{
+  margin-top:7px !important;
+  color:#777 !important;
+  font-size:11px !important;
+  line-height:1.3 !important;
+}
+@media print{
+  .cbl-repository-authorization{display:none !important; visibility:hidden !important;}
+}
+</style>
+
+<style id="cbl-final-focus-uniforme">
+/* ===== CBL — padronização final dos estados de foco/hover =====
+   Objetivo: todos os campos usam exatamente o mesmo laranja CBL ao tocar/selecionar. */
+:root{
+  --cbl-focus-orange:#F7931E;
+  --cbl-focus-orange-border:rgba(247,147,30,.62);
+  --cbl-focus-orange-outline:rgba(247,147,30,.14);
+  --cbl-focus-orange-shadow:rgba(247,147,30,.075);
+  --cbl-focus-orange-soft:#fff7ef;
+}
+
+/* Campos de formulário: um único comportamento visual para todos */
+input:focus,
+textarea:focus,
+select:focus,
+.header-card select:focus,
+.header-card input:focus,
+.header-card textarea:focus,
+.cbl-meta-field input:focus,
+.cbl-meta-field textarea:focus,
+.section input:focus,
+.section textarea:focus,
+.cbl-ident-table input:focus,
+.cbl-ident-table textarea:focus,
+#cursoBusca:focus,
+.cbl-course-search-input:focus,
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus{
+  border-color:var(--cbl-focus-orange-border) !important;
+  outline:3px solid var(--cbl-focus-orange-outline) !important;
+  outline-offset:0 !important;
+  box-shadow:0 3px 10px var(--cbl-focus-orange-shadow) !important;
+  background:#fff !important;
+}
+
+/* Cartões que recebem foco por conterem campos: mesmo laranja, mesma intensidade */
+.header-card:hover,
+.header-card:focus-within,
+.cbl-meta-panel:hover,
+.cbl-meta-panel:focus-within,
+.cbl-course-picker:hover,
+.cbl-course-picker:focus-within,
+.section:hover,
+.section:focus-within{
+  border-color:var(--cbl-focus-orange-border) !important;
+  box-shadow:0 4px 14px var(--cbl-focus-orange-shadow) !important;
+}
+
+/* Lista/etiquetas de Curso(s): mesma família cromática, sem variações mais escuras */
+.cbl-course-chip,
+.cbl-course-option:hover,
+.cbl-course-option.active,
+.cbl-course-suggestion:hover,
+.cbl-course-suggestion.active{
+  border-color:var(--cbl-focus-orange-border) !important;
+  background:var(--cbl-focus-orange-soft) !important;
+}
+.cbl-course-chip button:focus,
+.cbl-course-chip button:hover{
+  color:#B81D22 !important;
+  border-color:var(--cbl-focus-orange-border) !important;
+  background:#fff !important;
+  outline:2px solid var(--cbl-focus-orange-outline) !important;
+}
+
+/* Botões/menu: hover discreto e igual, sem alternar entre laranjas diferentes */
+.ux-actions .ux-btn-ai:hover,
+.ux-actions .ux-btn-pdf:not(#btnAdicionarAula):hover,
+.ux-actions .ux-btn-more:hover,
+#uxMenuMaisOpcoes button:hover,
+.ux-menu button:hover{
+  background:var(--cbl-focus-orange-soft) !important;
+  border-color:var(--cbl-focus-orange-border) !important;
+  box-shadow:0 3px 10px var(--cbl-focus-orange-shadow) !important;
+}
+
+/* Seleção de texto mantém preto institucional, sem outro laranja acidental */
+::selection{ background:rgba(31,31,31,.92) !important; color:#fff !important; }
+::-moz-selection{ background:rgba(31,31,31,.92) !important; color:#fff !important; }
+</style>
+
+<style id="cbl-ajuste-final-autorizacao-identificacao">
+/* ===== AJUSTE FINAL — autorização discreta + coerência visual ===== */
+body:not(.cbl-exporting) .cbl-repository-authorization{
+  border:1.2px solid #e2e2e2 !important;
+  background:#fff !important;
+  box-shadow:0 2px 8px rgba(0,0,0,.025) !important;
+  border-radius:14px !important;
+}
+body:not(.cbl-exporting) .cbl-repository-title{
+  font-size:13px !important;
+  line-height:1.2 !important;
+  border-bottom:2px solid #E31E24 !important;
+}
+body:not(.cbl-exporting) .cbl-repository-option{
+  border:1px solid #dddddd !important;
+  background:#fff !important;
+  box-shadow:none !important;
+  border-radius:11px !important;
+}
+body:not(.cbl-exporting) .cbl-repository-option:hover,
+body:not(.cbl-exporting) .cbl-repository-option:focus-within{
+  border-color:#d8d8d8 !important;
+  background:#fafafa !important;
+  box-shadow:none !important;
+}
+body:not(.cbl-exporting) .cbl-repository-option:has(input:checked){
+  border-color:#dddddd !important;
+  background:#fff !important;
+  box-shadow:none !important;
+}
+body:not(.cbl-exporting) .cbl-repository-option input[type="radio"]{
+  border:1.5px solid #cfcfcf !important;
+  background:#fff !important;
+  box-shadow:none !important;
+  accent-color:#E31E24 !important;
+}
+body:not(.cbl-exporting) .cbl-repository-option input[type="radio"]:checked{
+  border-color:#E31E24 !important;
+  background:radial-gradient(circle at center, #E31E24 0 42%, transparent 46%) !important;
+}
+/* Quadros gerais que ainda apareciam quadrados: manter arredondamento consistente */
+body:not(.cbl-exporting) table,
+body:not(.cbl-exporting) .cbl-ident-table,
+body:not(.cbl-exporting) .cbl-meta-panel,
+body:not(.cbl-exporting) .section,
+body:not(.cbl-exporting) .header-card{
+  border-radius:16px !important;
+}
+</style>
+
+
+<style id="cbl-refino-final-visual-pdf-data-autorizacao">
+/* Data/hora: os três campos mantêm a mesma altura, largura e alinhamento */
+.cbl-calendar-grid{ align-items:stretch !important; }
+.cbl-calendar-field{ min-width:0 !important; display:flex !important; flex:1 1 0 !important; flex-direction:column !important; }
+.cbl-calendar-field input[type="date"],
+.cbl-calendar-field input[type="time"],
+#calendarizacao,
+#hora_inicio,
+#hora_fim{
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  display:block !important;
+  -webkit-appearance:none !important;
+  appearance:none !important;
+  min-height:40px !important;
+  height:40px !important;
+  padding:8px 10px !important;
+  box-sizing:border-box !important;
+  border-radius:10px !important;
+  line-height:1.25 !important;
+}
+
+/* Autorização: neutra; vermelho só na bolinha selecionada */
+body:not(.cbl-exporting) .cbl-repository-authorization{
+  border:1.2px solid #dddddd !important;
+  background:#fff !important;
+  box-shadow:0 2px 8px rgba(0,0,0,.02) !important;
+}
+body:not(.cbl-exporting) .cbl-repository-option,
+body:not(.cbl-exporting) .cbl-repository-option:hover,
+body:not(.cbl-exporting) .cbl-repository-option:focus-within,
+body:not(.cbl-exporting) .cbl-repository-option:has(input:checked){
+  border:1px solid #dcdcdc !important;
+  background:#fff !important;
+  box-shadow:none !important;
+  outline:none !important;
+}
+body:not(.cbl-exporting) .cbl-repository-option input[type="radio"]{
+  border:1.4px solid #cfcfcf !important;
+  background:#fff !important;
+  box-shadow:none !important;
+}
+body:not(.cbl-exporting) .cbl-repository-option input[type="radio"]:checked{
+  border-color:#E31E24 !important;
+  background:radial-gradient(circle at center, #E31E24 0 42%, transparent 46%) !important;
+}
+
+/* Organização/contacto: label mais claro no formulário */
+label[for="organizacao"], .cbl-meta-field label:has(+ #organizacao){
+  font-weight:700 !important;
+}
+</style>
+
+
+<style id="cbl-identificacao-hover-final">
+/* ===== Ajuste final — identificação do guião com hover laranja, sem ficar estática ===== */
+body:not(.cbl-exporting) .cbl-ident-table{
+  border:1.4px solid #d8d8d8 !important;
+  border-radius:16px !important;
+  overflow:hidden !important;
+  transition:border-color .12s ease, box-shadow .12s ease, background .12s ease !important;
+}
+body:not(.cbl-exporting) .cbl-ident-table:hover,
+body:not(.cbl-exporting) .cbl-ident-table:focus-within{
+  border-color:var(--cbl-focus-orange-border) !important;
+  box-shadow:0 4px 14px var(--cbl-focus-orange-shadow) !important;
+}
+body:not(.cbl-exporting) .cbl-ident-table th,
+body:not(.cbl-exporting) .cbl-ident-table td{
+  transition:border-color .12s ease, background .12s ease, box-shadow .12s ease !important;
+  border-color:#dddddd !important;
+}
+body:not(.cbl-exporting) .cbl-ident-table th{
+  background:#fafafa !important;
+}
+body:not(.cbl-exporting) .cbl-ident-table td{
+  background:#fff !important;
+}
+body:not(.cbl-exporting) .cbl-ident-table th:hover,
+body:not(.cbl-exporting) .cbl-ident-table th:focus-within,
+body:not(.cbl-exporting) .cbl-ident-table td:hover,
+body:not(.cbl-exporting) .cbl-ident-table td:focus-within{
+  border-color:var(--cbl-focus-orange-border) !important;
+  background:var(--cbl-focus-orange-soft) !important;
+  box-shadow:inset 0 0 0 1px rgba(247,147,30,.34) !important;
+}
+body:not(.cbl-exporting) .cbl-ident-table input,
+body:not(.cbl-exporting) .cbl-ident-table textarea,
+body:not(.cbl-exporting) #cursoBusca,
+body:not(.cbl-exporting) .cbl-course-picker,
+body:not(.cbl-exporting) .cbl-course-chips{
+  transition:border-color .12s ease, box-shadow .12s ease, background .12s ease !important;
+}
+body:not(.cbl-exporting) .cbl-ident-table input:hover,
+body:not(.cbl-exporting) .cbl-ident-table textarea:hover,
+body:not(.cbl-exporting) #cursoBusca:hover,
+body:not(.cbl-exporting) .cbl-course-picker:hover,
+body:not(.cbl-exporting) .cbl-course-chips:hover{
+  border-color:var(--cbl-focus-orange-border) !important;
+  box-shadow:0 3px 10px var(--cbl-focus-orange-shadow) !important;
+}
+body:not(.cbl-exporting) .cbl-course-helper{
+  color:#666 !important;
+}
+</style>
+
+
+<style id="cbl-identificacao-acabamento-final">
+/* ===== ACABAMENTO FINAL — bloco Curso(s)/UC(s) com o mesmo padrão visual da identificação superior ===== */
+/* Mantém a estrutura da tabela, mas dá acabamento de cartão institucional arredondado e menos grosseiro. */
+body:not(.cbl-exporting) .cbl-ident-table{
+  border-collapse:separate !important;
+  border-spacing:0 !important;
+  width:100% !important;
+  overflow:hidden !important;
+  border:1.45px solid rgba(0,0,0,.22) !important;
+  border-radius:16px !important;
+  background:#fff !important;
+  box-shadow:0 3px 10px rgba(0,0,0,.03) !important;
+  transition:border-color .12s ease, box-shadow .12s ease, background .12s ease !important;
+}
+
+/* Mesmo comportamento visual dos cartões superiores ao passar o rato/focar */
+body:not(.cbl-exporting) .cbl-ident-table:hover,
+body:not(.cbl-exporting) .cbl-ident-table:focus-within{
+  border-color:var(--cbl-focus-orange-border) !important;
+  box-shadow:0 4px 14px var(--cbl-focus-orange-shadow) !important;
+}
+
+/* Células com acabamento mais suave e coerente com os restantes blocos */
+body:not(.cbl-exporting) .cbl-ident-table th,
+body:not(.cbl-exporting) .cbl-ident-table td{
+  border:0 !important;
+  border-bottom:1px solid #e7e7e7 !important;
+  background:#fff !important;
+  vertical-align:middle !important;
+  transition:background .12s ease, box-shadow .12s ease, border-color .12s ease !important;
+}
+
+body:not(.cbl-exporting) .cbl-ident-table tr:last-child th,
+body:not(.cbl-exporting) .cbl-ident-table tr:last-child td{
+  border-bottom:0 !important;
+}
+
+body:not(.cbl-exporting) .cbl-ident-table th{
+  width:22% !important;
+  color:#333 !important;
+  font-weight:800 !important;
+  background:#fafafa !important;
+  padding:12px 12px !important;
+}
+
+body:not(.cbl-exporting) .cbl-ident-table td{
+  padding:10px 10px !important;
+}
+
+/* Separação vertical discreta entre rótulo e campo, sem parecer grelha pesada */
+body:not(.cbl-exporting) .cbl-ident-table th + td,
+body:not(.cbl-exporting) .cbl-ident-table td + th{
+  border-left:1px solid #e7e7e7 !important;
+}
+
+/* Ao passar o rato, o conjunto ganha o mesmo acabamento laranja dos outros cartões */
+body:not(.cbl-exporting) .cbl-ident-table th:hover,
+body:not(.cbl-exporting) .cbl-ident-table td:hover,
+body:not(.cbl-exporting) .cbl-ident-table th:focus-within,
+body:not(.cbl-exporting) .cbl-ident-table td:focus-within{
+  background:var(--cbl-focus-orange-soft) !important;
+  box-shadow:inset 0 0 0 1px rgba(247,147,30,.30) !important;
+}
+
+/* Campos internos mais arredondados, para deixar de parecer tabela crua */
+body:not(.cbl-exporting) .cbl-ident-table input,
+body:not(.cbl-exporting) .cbl-ident-table textarea,
+body:not(.cbl-exporting) #cursoBusca,
+body:not(.cbl-exporting) .cbl-course-picker{
+  border:1.15px solid #d2d2d2 !important;
+  border-radius:10px !important;
+  background:#fff !important;
+  box-shadow:none !important;
+  transition:border-color .12s ease, box-shadow .12s ease, background .12s ease !important;
+}
+
+body:not(.cbl-exporting) .cbl-ident-table input:hover,
+body:not(.cbl-exporting) .cbl-ident-table textarea:hover,
+body:not(.cbl-exporting) #cursoBusca:hover,
+body:not(.cbl-exporting) .cbl-course-picker:hover,
+body:not(.cbl-exporting) .cbl-course-picker:focus-within{
+  border-color:var(--cbl-focus-orange-border) !important;
+  box-shadow:0 3px 10px var(--cbl-focus-orange-shadow) !important;
+}
+
+/* Curso(s): mantém a lógica própria, mas com acabamento visual do mesmo sistema */
+body:not(.cbl-exporting) .cbl-course-picker{
+  padding:8px !important;
+  border:1.15px solid #d2d2d2 !important;
+  border-radius:12px !important;
+  background:#fff !important;
+}
+
+body:not(.cbl-exporting) .cbl-course-picker:hover,
+body:not(.cbl-exporting) .cbl-course-picker:focus-within{
+  background:#fff !important;
+  border-color:var(--cbl-focus-orange-border) !important;
+}
+
+body:not(.cbl-exporting) .cbl-course-chips{
+  margin-top:8px !important;
+}
+
+body:not(.cbl-exporting) .cbl-course-chip{
+  border-radius:999px !important;
+}
+
+/* O texto de ajuda fica discreto, sem pesar visualmente */
+body:not(.cbl-exporting) .cbl-course-helper{
+  margin-top:6px !important;
+  font-size:11px !important;
+  color:#666 !important;
+}
+</style>
+
 </head>
 <body>
 <div class="page">
@@ -2033,7 +2576,14 @@ body:not(.cbl-exporting) .cbl-expandable-field::-webkit-resizer{
 <div class="cbl-red-divider"></div><table class="cbl-ident-table">
 <tr>
 <th class="cbl-course-label">Curso(s):</th>
-<td class="cbl-course-cell" colspan="3"><input autocomplete="off" id="curso" list="cblCursosList" placeholder="Digite para procurar; se houver mais de um curso, separe por ;" type="text"/></td>
+<td class="cbl-course-cell" colspan="3"><div class="cbl-course-picker" data-multicourse="true">
+<input id="curso" type="hidden"/>
+<div class="cbl-course-search-row">
+<input autocomplete="off" id="cursoBusca" list="cblCursosList" placeholder="Digite para procurar e selecione um curso" type="text"/>
+</div>
+<div aria-live="polite" class="cbl-course-chips" id="cblCursosSelecionados"></div>
+<div class="cbl-course-helper">Selecione um curso na lista. Para adicionar mais cursos, repita a seleção.</div>
+</div></td>
 </tr>
 <tr>
 <th class="cbl-uc-label">Unidade(s) Curricular(es):</th>
@@ -2066,8 +2616,8 @@ body:not(.cbl-exporting) .cbl-expandable-field::-webkit-resizer{
 <input id="n_estudantes" placeholder="Ex: 30" type="text"/>
 </div>
 <div class="cbl-meta-field cbl-meta-org">
-<label>Organização(ões) / contacto:</label>
-<textarea class="cbl-expandable-field" id="organizacao" placeholder="Empresa, organização parceira, contacto ou informação relevante"></textarea>
+<label>Organização(ões), parceiro(s) ou contexto do desafio:</label>
+<textarea class="cbl-expandable-field" id="organizacao" placeholder="Ex.: Município de Lisboa — Divisão de Comunicação Digital e Participação Cidadã; contacto institucional real ou fictício. Se não aplicável, indique o contexto do desafio ou escreva Sem organização externa."></textarea>
 </div>
 <div class="cbl-meta-field cbl-meta-wide">
 <label>Conteúdo(s) alinhados com os Conteúdos Programáticos da FUC:</label>
@@ -2117,26 +2667,26 @@ body:not(.cbl-exporting) .cbl-expandable-field::-webkit-resizer{
 </div>
 </div>
 
-<div class="section no-print" id="partilhaRepositorio" style="border:1.5px solid rgba(247,147,30,.35) !important; background:linear-gradient(180deg,#fffaf4 0%,#ffffff 100%) !important;">
-  <h3>Autorização para integração no repositório</h3>
-  <p style="font-size:13px; line-height:1.55; color:#444; margin-bottom:12px;">
+<div class="section no-print cbl-repository-authorization" id="partilhaRepositorio">
+  <h3 class="cbl-repository-title">Autorização para integração no repositório</h3>
+  <p class="cbl-repository-text">
     Caso este guião seja validado, autoriza a sua integração no
     <strong>Repositório Institucional de Práticas Pedagógicas</strong>, para consulta interna e possível
     reutilização/adaptação por outros docentes?
   </p>
 
-  <div role="radiogroup" aria-label="Autorização para integração no repositório" style="display:flex !important; flex-direction:column !important; gap:4px !important; margin:0 0 6px 0 !important; padding:0 !important;">
-    <label for="autorizaRepositorioSim" style="display:flex !important; align-items:center !important; gap:8px !important; font-weight:normal !important; font-size:13px !important; line-height:1.25 !important; color:#333 !important; margin:0 !important; padding:0 !important; min-height:0 !important; height:auto !important;">
-      <input type="radio" id="autorizaRepositorioSim" name="autorizaRepositorio" value="Sim" style="width:16px !important; min-width:16px !important; max-width:16px !important; height:16px !important; min-height:16px !important; margin:0 !important; padding:0 !important; flex:0 0 16px !important;" />
-      <span style="display:inline !important; margin:0 !important; padding:0 !important; line-height:1.25 !important;">Sim, autorizo a integração deste guião no repositório após validação.</span>
+  <div class="cbl-repository-options" role="radiogroup" aria-label="Autorização para integração no repositório">
+    <label class="cbl-repository-option" for="autorizaRepositorioSim">
+      <input type="radio" id="autorizaRepositorioSim" name="autorizaRepositorio" value="Sim" />
+      <span>Sim, autorizo a integração deste guião no repositório após validação.</span>
     </label>
-    <label for="autorizaRepositorioNao" style="display:flex !important; align-items:center !important; gap:8px !important; font-weight:normal !important; font-size:13px !important; line-height:1.25 !important; color:#333 !important; margin:0 !important; padding:0 !important; min-height:0 !important; height:auto !important;">
-      <input type="radio" id="autorizaRepositorioNao" name="autorizaRepositorio" value="Não" style="width:16px !important; min-width:16px !important; max-width:16px !important; height:16px !important; min-height:16px !important; margin:0 !important; padding:0 !important; flex:0 0 16px !important;" / checked>
-      <span style="display:inline !important; margin:0 !important; padding:0 !important; line-height:1.25 !important;">Não autorizo a integração deste guião no repositório.</span>
+    <label class="cbl-repository-option" for="autorizaRepositorioNao">
+      <input type="radio" id="autorizaRepositorioNao" name="autorizaRepositorio" value="Não" checked />
+      <span>Não autorizo a integração deste guião no repositório.</span>
     </label>
   </div>
 
-  <p style="font-size:12px; color:#777; margin-top:8px; line-height:1.45;">
+  <p class="cbl-repository-note">
     A integração no repositório não é automática e depende sempre de validação prévia.
   </p>
 </div>
@@ -2649,45 +3199,121 @@ body:not(.cbl-exporting) .cbl-expandable-field::-webkit-resizer{
     }
 
     function compactCell(x, yy, w, h, label, text){
+      // Mantida por compatibilidade com versões anteriores do PDF.
       setDraw(border);
-      pdf.setLineWidth(0.24);
+      pdf.setLineWidth(0.18);
       setFill([255,255,255]);
-      pdf.roundedRect(x, yy, w, h, 1.8, 1.8, 'S');
-
+      pdf.roundedRect(x, yy, w, h, 1.4, 1.4, 'S');
       pdf.setFont('helvetica','bold');
-      pdf.setFontSize(7.05);
+      pdf.setFontSize(6.9);
       setText(dark);
-      pdf.text(label, x + 2.4, yy + 4.3);
-
+      pdf.text(label, x + 2.2, yy + 4.1);
       pdf.setFont('helvetica','normal');
-      pdf.setFontSize(7.45);
+      pdf.setFontSize(7.25);
       setText(text ? grey : [160,160,160]);
-      var lines = split(text || ' ', w - 4.8, 7.45);
-      drawLinkedLines(lines.slice(0,3), x + 2.4, yy + 8.2, 3.35, 7.45);
+      var lines = split(text || ' ', w - 4.4, 7.25);
+      drawLinkedLines(lines.slice(0,3), x + 2.2, yy + 7.8, 3.2, 7.25);
+    }
+
+    function metaRowsConfig(){
+      return [
+        [
+          ['Unidade Orgânica', val('unidadeOrganica')],
+          ['Modalidade', val('modalidade')],
+          ['Semestre', val('semestre')],
+          ['Turma/Edição', val('turmaEdicao')]
+        ],
+        [
+          ['Curso(s)', val('curso')],
+          ['UC(s)', val('uc')]
+        ],
+        [
+          ['Ano Letivo', val('ano')],
+          ['N.º de estudantes', val('n_estudantes')],
+          ['Estado do guião', val('estado')]
+        ],
+        [
+          ['Docente(s)', val('professor')],
+          ['Email(s)', val('emails')]
+        ]
+      ];
+    }
+
+    function drawMetaItem(x, yy, w, label, text, maxLines){
+      var clean = String(text || '').trim();
+      var lines = split(clean || '—', w, 8.05).slice(0, maxLines || 2);
+      pdf.setFont('helvetica','bold');
+      pdf.setFontSize(7.75);
+      setText(dark);
+      pdf.text(label + ':', x, yy + 4.0);
+      pdf.setFont('helvetica','normal');
+      pdf.setFontSize(8.05);
+      setText(clean ? [36,36,36] : [155,155,155]);
+      drawLinkedLines(lines, x, yy + 8.2, 3.55, 8.05);
     }
 
     function identification(){
-      sectionTitle('Identificação do guião', 56);
-      var rows = [
-        [['Unidade Orgânica:', val('unidadeOrganica')], ['Modalidade:', val('modalidade')]],
-        [['Semestre:', val('semestre')], ['Turma/Edição:', val('turmaEdicao')]],
-        [['Curso(s):', val('curso')], ['UC(s):', val('uc')]],
-        [['Ano Letivo:', val('ano')], ['N.º de estudantes:', val('n_estudantes')]],
-        [['Docente(s):', val('professor')], ['Email(s):', val('emails')]],
-        [['Estado do guião:', val('estado')], ['Organização(ões) / contacto:', val('organizacao')]]
-      ];
-      var gap = 5.5;
-      var col = (usable - gap) / 2;
+      sectionTitle('Identificação do guião', 30);
+
+      var rows = metaRowsConfig();
+      var padX = 5.2;
+      var padY = 4.6;
+      var rowGap = 3.2;
+      var rowInfo = [];
+
       rows.forEach(function(row){
-        var l1 = split(row[0][1] || ' ', col - 4.8, 7.45);
-        var l2 = split(row[1][1] || ' ', col - 4.8, 7.45);
-        var h = Math.max(14.2, 8.7 + Math.max(l1.length, l2.length, 1) * 3.35);
-        ensure(h + 4.2);
-        compactCell(m, y, col, h, row[0][0], row[0][1]);
-        compactCell(m + col + gap, y, col, h, row[1][0], row[1][1]);
-        y += h + 4.1;
+        var available = usable - (padX * 2);
+        var gap = row.length > 1 ? 5.6 : 0;
+        var colW = (available - gap * (row.length - 1)) / row.length;
+        var maxLineCount = 1;
+        row.forEach(function(item){
+          var maxLines = row.length === 1 ? 3 : (row.length >= 3 ? 2 : 2);
+          var lines = split(String(item[1] || '—'), colW, 8.05).slice(0, maxLines);
+          maxLineCount = Math.max(maxLineCount, lines.length || 1);
+        });
+        var h = 9.1 + (maxLineCount * 3.55) + 1.8;
+        rowInfo.push({h:h, colW:colW, gap:gap});
       });
-      y += 1;
+
+      var totalH = padY * 2 + rowInfo.reduce(function(sum, r){ return sum + r.h; }, 0) + rowGap * (rows.length - 1);
+      ensure(totalH + 10);
+
+      var top = y;
+      setDraw([82,82,82]);
+      pdf.setLineWidth(0.28);
+      setFill([255,255,255]);
+      pdf.roundedRect(m, top, usable, totalH, 2.8, 2.8, 'S');
+
+      var yy = top + padY;
+      rows.forEach(function(row, rIdx){
+        var info = rowInfo[rIdx];
+        var x = m + padX;
+        row.forEach(function(item, cIdx){
+          var maxLines = row.length === 1 ? 3 : (row.length >= 3 ? 2 : 2);
+          drawMetaItem(x, yy, info.colW, item[0], item[1], maxLines);
+          if(cIdx < row.length - 1){
+            setDraw([115,115,115]);
+            pdf.setLineWidth(0.18);
+            pdf.line(x + info.colW + info.gap/2, yy + 1.0, x + info.colW + info.gap/2, yy + info.h - 1.2);
+          }
+          x += info.colW + info.gap;
+        });
+        yy += info.h;
+        if(rIdx < rows.length - 1){
+          setDraw([115,115,115]);
+          pdf.setLineWidth(0.18);
+          pdf.line(m + padX, yy + 0.6, W - m - padX, yy + 0.6);
+          yy += rowGap;
+        }
+      });
+
+      y = top + totalH + 6.4;
+
+      var org = val('organizacao');
+      if(org){
+        sectionTitle('Organização(ões), parceiro(s) ou contexto do desafio', 16);
+        valueBox(org, 13.5);
+      }
     }
 
     function labelAbove(label){
@@ -2797,32 +3423,44 @@ body:not(.cbl-exporting) .cbl-expandable-field::-webkit-resizer{
         ['Documento escrito', doc],
         ['Apresentação final', apres]
       ];
-      ensure((rowH * 2) + 19);
+
+      var tableH = rowH * rows.length;
+      ensure(tableH + 19);
+      var tableTop = y;
+
+      setDraw(border);
+      pdf.setLineWidth(0.24);
+      setFill([255,255,255]);
+      pdf.roundedRect(m, tableTop, usable, tableH, 2.2, 2.2, 'S');
+
       rows.forEach(function(r, idx){
-        var yy = y + idx * rowH;
+        var yy = tableTop + idx * rowH;
+        if(idx > 0){
+          setDraw(border);
+          pdf.setLineWidth(0.18);
+          pdf.line(m, yy, W - m, yy);
+        }
         setDraw(border);
-        pdf.setLineWidth(0.24);
-        setFill(softGrey);
-        pdf.rect(m, yy, labelW, rowH, 'FD');
-        setFill([255,255,255]);
-        pdf.rect(m + labelW, yy, valW, rowH, 'FD');
+        pdf.setLineWidth(0.18);
+        pdf.line(m + labelW, yy, m + labelW, yy + rowH);
+
         pdf.setFont('helvetica','bold');
         pdf.setFontSize(7.5);
         setText(dark);
-        pdf.text(r[0], m + 2.5, yy + 6.5);
+        pdf.text(r[0], m + 2.8, yy + 6.5);
         pdf.setFont('helvetica','normal');
         pdf.setFontSize(8);
         setText(r[1] ? grey : [160,160,160]);
-        pdf.text(r[1] || ' ', m + labelW + 2.5, yy + 6.5);
+        pdf.text(r[1] || ' ', m + labelW + 2.8, yy + 6.5);
       });
-      y += rowH * rows.length + 4.2;
+      y += tableH + 4.2;
 
       var summaryH = 12.5;
       ensure(summaryH + 4);
       setDraw(red);
       pdf.setLineWidth(0.35);
       setFill([255,255,255]);
-      pdf.roundedRect(m, y, usable, summaryH, 2, 2, 'S');
+      pdf.roundedRect(m, y, usable, summaryH, 2.2, 2.2, 'S');
       pdf.setFont('helvetica','bold');
       pdf.setFontSize(8.2);
       setText(dark);
@@ -3790,5 +4428,110 @@ body.cbl-exporting .cbl-meta-panel .cbl-meta-field,
 })();
 </script>
 
+
+<script id="cbl-multi-course-fix-js">
+(function(){
+  function norm(v){ return (v || '').replace(/\s+/g,' ').trim(); }
+  function splitCourses(v){ return (v || '').split(';').map(norm).filter(Boolean); }
+  function uniq(list){
+    var out=[], seen={};
+    list.forEach(function(item){
+      var k=item.toLowerCase();
+      if(!seen[k]){ seen[k]=true; out.push(item); }
+    });
+    return out;
+  }
+  function getCourseOptions(){
+    var list=document.getElementById('cblCursosList');
+    if(!list) return [];
+    return Array.prototype.slice.call(list.querySelectorAll('option')).map(function(o){ return norm(o.value); }).filter(Boolean);
+  }
+  function initMultiCourse(){
+    var hidden=document.getElementById('curso');
+    var search=document.getElementById('cursoBusca');
+    var chips=document.getElementById('cblCursosSelecionados');
+    if(!hidden || !search || !chips || hidden.dataset.multiCourseReady === '1') return;
+    hidden.dataset.multiCourseReady='1';
+
+    function render(){
+      var cursos=uniq(splitCourses(hidden.value));
+      hidden.value=cursos.join('; ');
+      chips.innerHTML='';
+      if(cursos.length === 0){
+        chips.innerHTML='<span class="cbl-course-helper">Nenhum curso selecionado ainda.</span>';
+        return;
+      }
+      cursos.forEach(function(curso, idx){
+        var chip=document.createElement('span');
+        chip.className='cbl-course-chip';
+        var text=document.createElement('span');
+        text.textContent=curso;
+        var rm=document.createElement('button');
+        rm.type='button';
+        rm.setAttribute('aria-label','Remover curso');
+        rm.title='Remover curso';
+        rm.textContent='×';
+        rm.addEventListener('click', function(){
+          var atual=splitCourses(hidden.value);
+          atual.splice(idx,1);
+          hidden.value=atual.join('; ');
+          hidden.dispatchEvent(new Event('input', {bubbles:true}));
+          hidden.dispatchEvent(new Event('change', {bubbles:true}));
+          render();
+        });
+        chip.appendChild(text);
+        chip.appendChild(rm);
+        chips.appendChild(chip);
+      });
+    }
+
+    function addCourse(value){
+      var typed=norm(value || search.value);
+      if(!typed) return false;
+      var current=splitCourses(hidden.value);
+      typed.split(';').map(norm).filter(Boolean).forEach(function(item){ current.push(item); });
+      hidden.value=uniq(current).join('; ');
+      search.value='';
+      hidden.dispatchEvent(new Event('input', {bubbles:true}));
+      hidden.dispatchEvent(new Event('change', {bubbles:true}));
+      render();
+      return true;
+    }
+
+    var autoTimer=null;
+    search.addEventListener('input', function(){
+      clearTimeout(autoTimer);
+      autoTimer=setTimeout(function(){
+        var typed=norm(search.value);
+        if(!typed) return;
+        var opts=getCourseOptions();
+        var exact=opts.find(function(o){ return o.toLowerCase() === typed.toLowerCase(); });
+        if(exact) addCourse(exact);
+      }, 120);
+    });
+    search.addEventListener('change', function(){
+      if(norm(search.value)) addCourse(search.value);
+    });
+    search.addEventListener('keydown', function(ev){
+      if(ev.key === 'Enter'){
+        ev.preventDefault();
+        addCourse(search.value);
+      }
+      if(ev.key === ';'){
+        setTimeout(function(){ addCourse(search.value); }, 0);
+      }
+    });
+
+    hidden.addEventListener('input', render);
+    hidden.addEventListener('change', render);
+    render();
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initMultiCourse);
+  } else {
+    initMultiCourse();
+  }
+})();
+</script>
 </body>
 </html>
