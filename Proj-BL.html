@@ -3773,17 +3773,18 @@ html body .page #contribuicoes .proj-v74-total-box {
 <div class="header-card">
 <label style=" text-transform:none !important;">Unidade Orgânica</label>
 <select id="unidadeOrganica">
-<option value="">Selecionar</option>
+<option selected="selected" value="">Selecionar</option>
 <option>FCST</option>
 <option>FCS</option>
 <option>IADE</option>
-<option>IPAM</option>
+<option>IPAM Porto</option>
+<option>IPAM Lisboa</option>
 </select>
 </div>
 <div class="header-card">
 <label style=" text-transform:none !important;">Modalidade</label>
 <select id="modalidade">
-<option value="">Selecionar</option>
+<option selected="selected" value="">Selecionar</option>
 <option>Presencial</option>
 <option>EaD</option>
 </select>
@@ -3795,7 +3796,103 @@ html body .page #contribuicoes .proj-v74-total-box {
 </div>
 <div class="header-info" style="display:grid !important;grid-template-columns:1fr 1fr !important;gap:14px !important;margin:0 0 12px 0 !important;padding:0 !important;clear:none !important;">
 <div class="section header-card proj-top-field-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;"><label style="text-transform:none !important;letter-spacing:.01em !important;font-size:13px !important;line-height:1.2 !important;margin-bottom:6px !important;color:#222 !important;font-weight:800 !important;">Nome da UC de Projeto:</label><input placeholder="Ex: Projeto I" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.25px solid rgba(0,0,0,.35) !important;border-radius:11px !important;min-height:38px !important;height:auto !important;padding:8px 10px !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:13px !important;line-height:1.25 !important;font-weight:500 !important;color:#222 !important;text-transform:none !important;box-shadow:none !important;box-sizing:border-box !important;"/></div>
-<div class="section header-card proj-top-field-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;"><label style="text-transform:none !important;letter-spacing:.01em !important;font-size:13px !important;line-height:1.2 !important;margin-bottom:6px !important;color:#222 !important;font-weight:800 !important;">Curso(s):</label><input placeholder="Ex.: Licenciatura em Marketing" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.25px solid rgba(0,0,0,.35) !important;border-radius:11px !important;min-height:38px !important;height:auto !important;padding:8px 10px !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:13px !important;line-height:1.25 !important;font-weight:500 !important;color:#222 !important;text-transform:none !important;box-shadow:none !important;box-sizing:border-box !important;"/></div>
+<div class="section header-card proj-top-field-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;"><label for="curso" style="text-transform:none !important;letter-spacing:.01em !important;font-size:13px !important;line-height:1.2 !important;margin-bottom:6px !important;color:#222 !important;font-weight:800 !important;">Curso(s):</label><div class="proj-curso-combobox-wrap" style="position:relative;width:100%;"><input autocomplete="off" id="curso" list="projCursosList" placeholder="Ex.: Licenciatura em Marketing" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.25px solid rgba(0,0,0,.35) !important;border-radius:11px !important;min-height:38px !important;height:auto !important;padding:8px 10px !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:13px !important;line-height:1.25 !important;font-weight:500 !important;color:#222 !important;text-transform:none !important;box-shadow:none !important;box-sizing:border-box !important;" type="text"/><div aria-label="Sugestões de cursos" class="proj-cursos-sugestoes" id="projCursosSugestoes"></div></div><datalist id="projCursosList">
+<option value="Licenciatura em Animação e Criação Visual"></option>
+<option value="Licenciatura em Animação Global"></option>
+<option value="Licenciatura em Fotografia e Cultura Visual"></option>
+<option value="Mestrado em Animação e Criação Visual"></option>
+<option value="Mestrado em Design e Produção de Jogos"></option>
+<option value="Mestrado em Comunicação Audiovisual e Multimédia"></option>
+<option value="Licenciatura em Ciências da Comunicação"></option>
+<option value="Licenciatura em Marketing e Publicidade"></option>
+<option value="Mestrado em Marketing e Inovação"></option>
+<option value="Mestrado em Branding e Estratégia"></option>
+<option value="Mestrado em Comunicação Estratégica"></option>
+<option value="Doutoramento em Comunicação, Media e Ambientes Digitais"></option>
+<option value="Licenciatura em Design"></option>
+<option value="Licenciatura em Design Global"></option>
+<option value="Mestrado em Design e Cultura Visual"></option>
+<option value="Mestrado em Design &amp; Publicidade"></option>
+<option value="Mestrado em Design Management"></option>
+<option value="Mestrado em Design de Produto, Espaço e Interações"></option>
+<option value="Mestrado em Branding e Design de Moda"></option>
+<option value="Mestrado em Design para a Sustentabilidade"></option>
+<option value="Doutoramento em Design"></option>
+<option value="Licenciatura em Desenvolvimento de Jogos"></option>
+<option value="Licenciatura em Creative Tech"></option>
+<option value="Licenciatura em Engenharia Informática"></option>
+<option value="Licenciatura em Informática de Gestão"></option>
+<option value="Mestrado em Computação Criativa e Inteligência Artificial"></option>
+<option value="Doutoramento em Jogos Digitais"></option>
+<option value="Mestrado em Direção de Arte EaD"></option>
+<option value="Mestrado em Comunicação Multimedia EaD"></option>
+<option value="Licenciatura em Ciências da Comunicação EaD"></option>
+<option value="Licenciatura em Design Visual EaD"></option>
+<option value="Licenciatura em Engenharia Informática EaD"></option>
+<option value="Licenciatura em Psicologia"></option>
+<option value="Mestrado em Psicologia Clínica e da Saúde"></option>
+<option value="Licenciatura em Ciências da Nutrição"></option>
+<option value="Licenciatura em Psicologia EaD"></option>
+<option value="Mestrado em Gestão da Saúde EaD"></option>
+<option value="Mestrado em Neuropsicologia EaD"></option>
+<option value="Licenciatura em Gestão Recursos Humanos"></option>
+<option value="Mestrado em Gestão Recursos Humanos"></option>
+<option value="Mestrado em Psicologia Social e das Organizações"></option>
+<option value="Licenciatura em Gestão de Recursos Humanos EaD"></option>
+<option value="Mestrado em Gestão de Recursos Humanos EaD"></option>
+<option value="Licenciatura em Marketing EAD"></option>
+<option value="Licenciatura em Ciências Sociais EaD"></option>
+<option value="Licenciatura em Contabilidade EaD"></option>
+<option value="Licenciatura em Gestão de Empresas EaD"></option>
+<option value="Mestrado em Cibersegurança EaD"></option>
+<option value="M-Ciências de Dados e Análise de Negócios EaD"></option>
+<option value="Mestrado em Direito e Segurança da Informação EaD"></option>
+<option value="Mestrado em Gestão de Empresas EaD"></option>
+<option value="Mestrado em Marketing estratégico EaD"></option>
+<option value="Mestrado em Psicologia Social e de Organizações EaD"></option>
+<option value="Licenciatura em Gestão"></option>
+<option value="Licenciatura em Management"></option>
+<option value="Mestrado I Management"></option>
+<option value="Mestrado em Gestão"></option>
+<option value="L-Direito"></option>
+<option value="M-Direito Judiciário"></option>
+<option value="L-Ciência Dados Gestão"></option>
+<option value="L-Gestão do Desporto"></option>
+<option value="L- Gestão Hoteleira"></option>
+<option value="L-Tourism"></option>
+<option value="L-Turismo"></option>
+<option value="L- Gestão de Marketing"></option>
+<option value="L-Marketing Global"></option>
+<option value="Licenciatura em Gestão de Negócios"></option>
+<option value="Licenciatura em Negócios Global"></option>
+<option value="Mestrado em Global Business"></option>
+<option value="Mestrado em Marketing"></option>
+<option value="Mestrado em Gestão de Marketing"></option>
+<option value="Mestrado em Gestão de Negócios"></option>
+<option value="Mestrado em Marketing e Tecnologia"></option>
+<option value="Marketing Digital"></option>
+<option value="Gestão de Negócios Internacionais"></option>
+<option value="M-Gestão de Marketing EaD"></option>
+<option value="L.Gestão de Marketing online antiga"></option>
+<option value="L-Gestão de Marketing EaD"></option>
+<option value="M-Gestão de Negócios EaD"></option>
+<option value="L-Gestão de Marketing"></option>
+<option value="L-Gestão de Negócios"></option>
+<option value="Licenciatura em Marketing Global"></option>
+<option value="Licenciatura em Global Business"></option>
+<option value="Gestão Comercial e Vendas"></option>
+</datalist>
+</div>
+</div>
+<div class="header-info proj-header-extra-info" style="display:grid !important;grid-template-columns:1fr 1fr !important;gap:14px !important;margin:0 0 12px 0 !important;padding:0 !important;clear:none !important;">
+<div class="section header-card proj-top-field-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;">
+<label for="anoLetivoProjeto" style="text-transform:none !important;letter-spacing:.01em !important;font-size:13px !important;line-height:1.2 !important;margin-bottom:6px !important;color:#222 !important;font-weight:800 !important;">Ano letivo:</label>
+<input id="anoLetivoProjeto" placeholder="Ex.: 2025/2026" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.25px solid rgba(0,0,0,.35) !important;border-radius:11px !important;min-height:38px !important;height:auto !important;padding:8px 10px !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:13px !important;line-height:1.25 !important;font-weight:500 !important;color:#222 !important;text-transform:none !important;box-shadow:none !important;box-sizing:border-box !important;" type="text"/>
+</div>
+<div class="section header-card proj-top-field-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;">
+<label for="numeroEstudantes" style="text-transform:none !important;letter-spacing:.01em !important;font-size:13px !important;line-height:1.2 !important;margin-bottom:6px !important;color:#222 !important;font-weight:800 !important;">N.º de estudantes:</label>
+<input id="numeroEstudantes" inputmode="numeric" min="0" placeholder="Ex.: 30" step="1" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.25px solid rgba(0,0,0,.35) !important;border-radius:11px !important;min-height:38px !important;height:auto !important;padding:8px 10px !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:13px !important;line-height:1.25 !important;font-weight:500 !important;color:#222 !important;text-transform:none !important;box-shadow:none !important;box-sizing:border-box !important;" type="number"/>
+</div>
 </div>
 <div class="section" style=" margin-top:6px !important; margin-top:0 !important;margin-bottom:12px !important; margin-top:0 !important;margin-bottom:12px !important;"><label>Docente(s):</label>
 <table class="quadro-table proj-radical-table proj-premium-table" id="docentesTable" style="width:100% !important; max-width:100% !important; table-layout:fixed !important; border-collapse:separate !important; border-spacing:0 !important; overflow:hidden !important; margin:13px 0 12px 0 !important; background:#ffffff !important; border:1.7px solid #242424 !important; border-radius:16px !important; box-shadow:0 2px 10px rgba(0,0,0,.035) !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;"><colgroup><col style="width:50% !important;"/><col style="width:50% !important;"/></colgroup>
@@ -3806,7 +3903,7 @@ html body .page #contribuicoes .proj-v74-total-box {
 </table>
 <button onclick="addDocente()" style="padding:5px 10px; cursor:pointer; margin-top:5px;">+ Adicionar Docente</button>
 </div>
-<div class="section" style=" margin-top:0 !important;margin-bottom:12px !important;"><label>Ano letivo:</label><input placeholder="Ex.: 2025/2026"/></div>
+<div class="section" style=" margin-top:0 !important;margin-bottom:12px !important;"><label for="autoria">Autoria:</label><input id="autoria" placeholder="Ex.: Nome(s) da autoria/equipa" type="text"/></div>
 <div class="tabs">
 <button class="tab active" onclick="openTab('descricao')">1. Descrição</button>
 <button class="tab" onclick="openTab('funcionamento')">2. Funcionamento</button>
@@ -3923,7 +4020,7 @@ html body .page #contribuicoes .proj-v74-total-box {
 (function(){
 'use strict';
 
-var STORAGE_KEY = 'template_autosave_PROJ';
+var STORAGE_KEY = 'template_autosave_PROJ_FINAL_NORMAL_SEM_LAG_V5';
 var aulaCount = 1;
 
 /* ── TOAST ── */
@@ -3968,6 +4065,11 @@ function saveDraft(){
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }catch(e){}
   renderProgress();
   renderAutosave('Última gravação automática: ' + p.timestamp);
+}
+var saveDraftDebounceTimer = null;
+function saveDraftDebounced(){
+  clearTimeout(saveDraftDebounceTimer);
+  saveDraftDebounceTimer = setTimeout(saveDraft, 450);
 }
 
 /* ── RESTAURAR RASCUNHO ── */
@@ -4022,8 +4124,10 @@ function bindFields(){
   fields().forEach(function(el){
     el.removeEventListener('input', saveDraft);
     el.removeEventListener('change', saveDraft);
-    el.addEventListener('input', saveDraft);
-    el.addEventListener('change', saveDraft);
+    el.removeEventListener('input', saveDraftDebounced);
+    el.removeEventListener('change', saveDraftDebounced);
+    el.addEventListener('input', saveDraftDebounced);
+    el.addEventListener('change', saveDraftDebounced);
   });
 }
 
@@ -4097,7 +4201,10 @@ function initButtons(){
 
 /* ── INIT ── */
 document.addEventListener('DOMContentLoaded', function(){
-  restoreDraft();
+  try{ localStorage.removeItem('template_autosave_PROJ_DEMO_COMPLETO'); }catch(e){}
+  try{ localStorage.removeItem('template_autosave_PROJ_DEMO_COMPLETO_EAD'); }catch(e){}
+  renderProgress();
+  renderAutosave('Pronto para preenchimento.');
   bindFields();
   initMenu();
   initButtons();
@@ -4131,9 +4238,17 @@ document.addEventListener('DOMContentLoaded', function(){
     if(label) label.innerText = 'Guião preenchido: ' + pct + '%';
   }
 
+  var atualizarSafeDebounceTimer = null;
+  function atualizarSafeDebounced(){
+    clearTimeout(atualizarSafeDebounceTimer);
+    atualizarSafeDebounceTimer = setTimeout(atualizarSafe, 250);
+  }
+
   function bindCampos(root){
     (root || document).querySelectorAll('input, textarea, select').forEach(function(el){
-      el.addEventListener('input', atualizarSafe);
+      el.removeEventListener('input', atualizarSafe);
+      el.removeEventListener('input', atualizarSafeDebounced);
+      el.addEventListener('input', atualizarSafeDebounced);
       el.addEventListener('change', atualizarSafe);
     });
   }
@@ -4326,7 +4441,11 @@ document.addEventListener('DOMContentLoaded', function(){
 
   function bindCampos(root){
     (root || document).querySelectorAll('input, textarea, select').forEach(function(el){
-      el.addEventListener('input', atualizarSafe);
+      el.removeEventListener('input', atualizarSafe);
+      el.addEventListener('input', function(){
+        clearTimeout(window.__projAtualizarSafeTimer);
+        window.__projAtualizarSafeTimer = setTimeout(atualizarSafe, 250);
+      });
       el.addEventListener('change', atualizarSafe);
     });
   }
@@ -4687,7 +4806,11 @@ document.addEventListener('DOMContentLoaded', function(){
 
   function bindCampos(root){
     (root || document).querySelectorAll('input, textarea, select').forEach(function(el){
-      el.addEventListener('input', atualizarSafe);
+      el.removeEventListener('input', atualizarSafe);
+      el.addEventListener('input', function(){
+        clearTimeout(window.__projAtualizarSafeTimer);
+        window.__projAtualizarSafeTimer = setTimeout(atualizarSafe, 250);
+      });
       el.addEventListener('change', atualizarSafe);
     });
   }
@@ -7669,8 +7792,9 @@ textarea#tituloProjeto{
       unidade: textOf(byId("unidadeOrganica")),
       modalidade: textOf(byId("modalidade")),
       uc: textOf(byId("nomeUCProjeto")) || byLabel(["nome da uc","nome(s) da(s) uc"]),
-      curso: textOf(byId("cursoProjeto")) || byLabel(["curso","ciclo de estudos"]),
+      curso: textOf(byId("curso")) || textOf(byId("cursoProjeto")) || byLabel(["curso","ciclo de estudos"]),
       ano: textOf(byId("anoLetivoProjeto")) || byLabel(["ano letivo","ano"]),
+      autoria: textOf(byId("autoria")) || byLabel(["autoria do guião","autoria","conceção do guião","concecao do guiao"]),
       docentes: doc.names.join("\n"),
       emails: doc.emails.join("\n"),
       docentePairs: doc.pairs,
@@ -7809,6 +7933,7 @@ textarea#tituloProjeto{
       var metaY=160;
       metaY=coverBlock("UC(s):",d.uc,metaY);
       metaY=coverBlock("Curso(s):",d.curso,metaY);
+      if(has(d.autoria)){ metaY=coverBlock("Autoria do guião:",d.autoria,metaY); }
       var pairs=d.docentePairs && d.docentePairs.length ? d.docentePairs : [];
       if(!pairs.length) pairs=[{name:d.docentes||"",email:d.emails||""}];
       var yd=metaY;
@@ -7840,8 +7965,21 @@ textarea#tituloProjeto{
       docentesDividerY = Math.max(metaY+18.8, yd+0.25);
       pdf.setDrawColor(165,165,165); pdf.setLineWidth(.18); pdf.line(left,docentesDividerY,lineRight,docentesDividerY);
 
+      // Autoria do guião: aparece de forma discreta apenas quando preenchida, para reconhecer a conceção sem poluir a capa.
+      var autoriaDividerY = docentesDividerY;
+      if(has(d.autoria)){
+        var autoriaY = Math.min(docentesDividerY + 6.4, 232);
+        pdf.setTextColor(45,45,45); pdf.setFont("helvetica","bold"); pdf.setFontSize(9.0);
+        pdf.text("Autoria do guião:", left, autoriaY);
+        pdf.setFont("helvetica","normal"); pdf.setFontSize(9.4); pdf.setTextColor(45,45,45);
+        var autoriaLines = split(d.autoria, 88, 9.4, "normal");
+        pdf.text(autoriaLines, left, autoriaY + 5.2);
+        autoriaDividerY = autoriaY + 7.8 + Math.max(0, (autoriaLines.length-1)*3.6);
+        pdf.setDrawColor(190,190,190); pdf.setLineWidth(.14); pdf.line(left, autoriaDividerY, lineRight, autoriaDividerY);
+      }
+
       // Ano Letivo deve aparecer sempre na capa.
-      var ay=Math.min(docentesDividerY+coverGapAfterLine,237);
+      var ay=Math.min(autoriaDividerY+coverGapAfterLine,240);
       pdf.setTextColor(0,0,0); pdf.setFont("helvetica","bold"); pdf.setFontSize(9.3); pdf.text("Ano Letivo:",left,ay);
       var rowY=ay+coverLabelToValue;
         var calX=left, calW=3.3, calH=4.4;
@@ -7875,6 +8013,7 @@ textarea#tituloProjeto{
       pdf.setFont("helvetica","normal"); pdf.setFontSize(8.6); pdf.setTextColor(45,45,45); pdf.text(split(value,cw-42,8.6,"normal"),m+42,y);
       y+=7;
     }
+    infoLine("Autoria do guião:",d.autoria);
     infoLine("Unidade Orgânica:",d.unidade);
     infoLine("Modalidade:",d.modalidade);
     y+=5;
@@ -7913,7 +8052,7 @@ textarea#tituloProjeto{
     var blob=pdf.output("blob");
     var url=URL.createObjectURL(blob);
     var a=document.createElement("a");
-    a.href=url; a.download="proj_bl_pdf_espelho_institucional.pdf";
+    a.href=url; a.download="guiao_project_based_learning.pdf";
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(function(){URL.revokeObjectURL(url);},1200);
   }
@@ -9064,6 +9203,7 @@ textarea.calculated,
       ev.stopPropagation();
       if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
 
+      if(window.validarCamposObrigatoriosProjBL && !window.validarCamposObrigatoriosProjBL(true)) return false;
       if(!window.validarEmailsDocentesProjBL(true)) return false;
 
       if(typeof window.submitToGuiesPowerAutomate === "function"){
@@ -10196,11 +10336,11 @@ html body .page .proj-v9-example-field::placeholder {
 (function(){
   "use strict";
   var examples = {
-    entregaveis: ["1ª semana", "Lançamento do Projeto - Briefing", "Tipo", "DD/MM", "30%"],
-    ucs: ["[3/6]", "Nome da UC", "Ex.: 5 semanas / 50 horas", "Contribuição do projeto", "[Nome do docente] [email]", "30%"],
-    contribuicoes: ["[3/6]", "Nome da UC", "Ex.: 5 semanas / 50 horas", "Contribuição do projeto", "[Nome do docente] [email]", "30%"]
+    entregaveis: ["1ª semana", "Lançamento do Projeto - Briefing", "Tipo", "DD/MM", "%"],
+    ucs: ["[3/6]", "Nome da UC", "Ex.: 5 semanas / 50 horas", "Contribuição do projeto", "[Nome do docente] [email]", "%"],
+    contribuicoes: ["[3/6]", "Nome da UC", "Ex.: 5 semanas / 50 horas", "Contribuição do projeto", "[Nome do docente] [email]", "%"]
   };
-  var exampleSet = ["1ª semana", "3 6", "30%", "contribuicao do projeto", "dd mm", "dd mm aaaa", "ex 5 semanas 50 horas", "lancamento do projeto briefing", "nome da uc", "nome do docente email", "tipo"];
+  var exampleSet = ["1ª semana", "3 6", "contribuicao do projeto", "dd mm", "dd mm aaaa", "ex 5 semanas 50 horas", "lancamento do projeto briefing", "nome da uc", "nome do docente email", "tipo"];
   function norm(s){
     return String(s || "").toLowerCase()
       .replace(/[ãáàâ]/g,"a").replace(/[éê]/g,"e").replace(/[í]/g,"i")
@@ -10511,7 +10651,11 @@ html body .page .proj-v9-example-field::placeholder {
     if(!el) return "";
     var v = (el.value || el.textContent || "").trim();
     var ph = (el.getAttribute && (el.getAttribute("placeholder") || "") || "").trim();
-    if(v && ph && v === ph) return "";
+    if(v && ph && v === ph){
+      // Percentagens como 30% podem ser valor real no teste/demo; não limpar como placeholder.
+      if(/%/.test(v) || (el.classList && (el.classList.contains("proj-percent-field") || el.classList.contains("proj-contrib-percent")))) return v;
+      return "";
+    }
     return v;
   }
 
@@ -10546,6 +10690,15 @@ html body .page .proj-v9-example-field::placeholder {
       ano = val(f);
     }
 
+    var autoria = firstVal(["#autoria", "input[name='autoria']", "textarea[name='autoria']"]);
+    if(!autoria){
+      var autSec = sectionByText(/Autoria|Conceção do guião|Concecao do guiao/i);
+      if(autSec){
+        var af = autSec.querySelector("input,textarea,select");
+        autoria = val(af);
+      }
+    }
+
     var docentes = [];
     var docSec = sectionByText(/Docente\(s\)|Docentes/i);
     if(docSec){
@@ -10563,6 +10716,7 @@ html body .page .proj-v9-example-field::placeholder {
       uc: uc || "Projeto Interdisciplinar",
       curso: curso || "Licenciatura em Marketing e Publicidade; Licenciatura em Design Global",
       ano: ano || "2025/2026",
+      autoria: autoria || "",
       docentes: docentes.length ? docentes : [{nome:"Ana Marques", email:"analuizamrques@gmail.com"}]
     };
   }
@@ -10756,6 +10910,19 @@ html body .page .proj-v9-example-field::placeholder {
         y += 5.2;
       });
       y += 2;
+    }
+
+
+
+    function plainBibliografia(txt){
+      if(!has(txt)) return;
+      var lines = String(txt).split(/\n+/).map(function(x){
+        return x.replace(/^\s*[-•]\s*/, "").trim();
+      }).filter(Boolean);
+      lines.forEach(function(item){
+        paragraph(item, {after:1.2});
+      });
+      y += 1.5;
     }
 
     // Evita título isolado no fundo da página.
@@ -10989,6 +11156,7 @@ html body .page .proj-v9-example-field::placeholder {
 
       meta("UC(s):", data.top.uc);
       meta("Curso(s):", data.top.curso);
+      meta("Autoria do guião:", data.top.autoria);
 
       pdf.setFont("helvetica","bold"); pdf.setFontSize(9.3); pdf.setTextColor(0,0,0); pdf.text("Docente(s):", left, yy);
       yy += 7.2;
@@ -11101,7 +11269,7 @@ html body .page .proj-v9-example-field::placeholder {
     bullets(data.recursos || "- Briefing institucional do desafio.\n- Modelos de persona, jornada do utilizador e mapa de stakeholders.\n- Ferramentas digitais de prototipagem e apresentação.\n- Grelhas de feedback e rubricas de avaliação.");
 
     section("9. Bibliografia", 55);
-    bullets(data.bibliografia || "- Bell, S. (2010). Project-Based Learning for the 21st Century.\n- Thomas, J. W. (2000). A Review of Research on Project-Based Learning.\n- Stickdorn, M., Hormess, M., Lawrence, A., & Schneider, J. (2018). This is Service Design Doing.\n- Brown, T. (2009). Change by Design.");
+    plainBibliografia(data.bibliografia || "Bell, S. (2010). Project-Based Learning for the 21st Century.\nThomas, J. W. (2000). A Review of Research on Project-Based Learning.\nStickdorn, M., Hormess, M., Lawrence, A., & Schneider, J. (2018). This is Service Design Doing.\nBrown, T. (2009). Change by Design.");
 
     footer();
     fillIndex();
@@ -11114,7 +11282,7 @@ html body .page .proj-v9-example-field::placeholder {
     var url = URL.createObjectURL(blob);
     var a = document.createElement("a");
     a.href = url;
-    a.download = "proj_bl_guiao_docente_premium.pdf";
+    a.download = "guiao_project_based_learning.pdf";
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -12018,11 +12186,6 @@ html body .page .proj-v9-example-field::placeholder {
   window.PROJ_normalizarCamposTabelas = normalizeAll;
 })();
 </script>
-
-
-
-
-
 <!-- PATCH FINAL ANA — borda preta normal, foco cinza só no campo ativo; tabelas 5 e 7 estáveis -->
 <style id="ana-final-borda-preta-foco-cinza-sem-bug-tabelas">
   /* Normal: borda preta, interior branco. */
@@ -12182,7 +12345,7 @@ html body .page .proj-v9-example-field::placeholder {
   document.addEventListener('focusout', function(ev){ if(isField(ev.target)) setTimeout(function(){ setBlack(ev.target); }, 0); }, true);
   document.addEventListener('mousedown', function(ev){ if(isField(ev.target)) applySoon(ev.target); }, true);
   document.addEventListener('click', function(ev){ if(isField(ev.target)) applySoon(ev.target); }, true);
-  document.addEventListener('input', function(ev){ if(isField(ev.target)) applySoon(ev.target); }, true);
+  /* Performance: não reforçar bordas a cada tecla; foco/click já mantém o estilo. */
 
   function start(){ stabilise(document); setTimeout(function(){ stabilise(document); }, 200); setTimeout(function(){ stabilise(document); }, 800); }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
@@ -12199,7 +12362,6 @@ html body .page .proj-v9-example-field::placeholder {
   }catch(e){}
 })();
 </script>
-
 <style id="proj-avaliacao-fonte-exemplo-criterio-final">
 /* Ajuste cirúrgico final: o exemplo do Nome da UC na Avaliação deve ter
    a mesma escala visual do campo "Descrição do critério". */
@@ -12229,8 +12391,6 @@ html body .page #avaliacao textarea.proj-criterion-field::placeholder {
   opacity: 1 !important;
 }
 </style>
-
-
 <script id="proj-cbl-parametrizacao-final-botoes-validacao">
 (function(){
   "use strict";
@@ -12455,6 +12615,356 @@ html body .page #avaliacao textarea.proj-criterion-field::placeholder {
   setTimeout(bindAll, 250);
   setTimeout(bindAll, 900);
   setTimeout(bindAll, 1800);
+})();
+</script>
+<script id="proj-required-header-validation-final">
+(function(){
+  "use strict";
+
+  function toastRequired(message, type, duration){
+    if(typeof window.projFinalToast === "function") return window.projFinalToast(message, type || "error", duration || 6500);
+    if(typeof window.toast === "function") return window.toast(message, type || "error", duration || 6500);
+    alert(message);
+  }
+
+  function valueOf(selector){
+    var el = document.querySelector(selector);
+    return el ? String(el.value || "").trim() : "";
+  }
+
+  function markRequired(el, valid){
+    if(!el) return;
+    el.classList.remove("proj-required-invalid");
+    el.setAttribute("aria-invalid", valid ? "false" : "true");
+    if(!valid) el.classList.add("proj-required-invalid");
+  }
+
+  window.validarCamposObrigatoriosProjBL = function(showMessage){
+    var checks = [
+      {selector:"#unidadeOrganica", label:"Unidade Orgânica"},
+      {selector:"#modalidade", label:"Modalidade"},
+      {selector:"#curso", label:"Curso(s)"}
+    ];
+
+    var missing = [];
+    checks.forEach(function(item){
+      var el = document.querySelector(item.selector);
+      var ok = !!(el && String(el.value || "").trim());
+      markRequired(el, ok);
+      if(!ok) missing.push({el:el, label:item.label});
+    });
+
+    if(missing.length){
+      var msg = "Para enviar o guião para validação, preencha: " + missing.map(function(x){ return x.label; }).join(", ") + ".";
+      if(showMessage) toastRequired(msg, "error", 7500);
+      var first = missing[0].el;
+      setTimeout(function(){
+        try{
+          if(first){
+            first.focus();
+            first.scrollIntoView({behavior:"smooth", block:"center"});
+          }
+        }catch(e){}
+      }, 80);
+      return false;
+    }
+    return true;
+  };
+
+  function bindVisualCleanup(){
+    ["#unidadeOrganica","#modalidade","#curso"].forEach(function(selector){
+      var el = document.querySelector(selector);
+      if(!el || el.dataset.projRequiredBound === "1") return;
+      el.dataset.projRequiredBound = "1";
+      el.addEventListener("input", function(){ markRequired(el, !!String(el.value || "").trim()); });
+      el.addEventListener("change", function(){ markRequired(el, !!String(el.value || "").trim()); });
+    });
+  }
+
+  function wrapSubmit(){
+    if(typeof window.submitToGuiesPowerAutomate !== "function") return;
+    if(window.submitToGuiesPowerAutomate.__projRequiredWrapped === true) return;
+
+    var originalSubmit = window.submitToGuiesPowerAutomate;
+    var wrapped = async function(button){
+      if(!window.validarCamposObrigatoriosProjBL(true)) return false;
+      if(typeof window.validarEmailsDocentesProjBL === "function" && !window.validarEmailsDocentesProjBL(true)) return false;
+      return originalSubmit.call(this, button);
+    };
+    wrapped.__projRequiredWrapped = true;
+    window.submitToGuiesPowerAutomate = wrapped;
+  }
+
+  function init(){
+    bindVisualCleanup();
+    wrapSubmit();
+  }
+
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+
+  setTimeout(init, 120);
+  setTimeout(init, 700);
+  setTimeout(init, 1500);
+})();
+</script>
+<style id="proj-required-header-validation-style">
+.proj-required-invalid{
+  border-color:#E31E24 !important;
+  outline:3px solid rgba(227,30,36,.16) !important;
+  box-shadow:0 0 0 1px rgba(227,30,36,.18) !important;
+}
+</style>
+<!-- PROJ CURSOS COMPACT DROPDOWN FIX START -->
+<style id="projCursosCompactDropdownStyle">
+  .proj-curso-combobox-wrap {
+    position: relative !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+  #projCursosSugestoes {
+    display: none !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: calc(100% + 5px) !important;
+    max-height: 245px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    background: #fff !important;
+    border: 1.3px solid rgba(0,0,0,.38) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 9px 22px rgba(0,0,0,.16) !important;
+    z-index: 9999999 !important;
+    padding: 5px !important;
+    box-sizing: border-box !important;
+    font-family: 'Century Gothic','Segoe UI',Arial,sans-serif !important;
+  }
+  #projCursosSugestoes.open {
+    display: block !important;
+  }
+  #projCursosSugestoes button {
+    width: 100% !important;
+    display: block !important;
+    text-align: left !important;
+    border: 0 !important;
+    background: #fff !important;
+    color: #222 !important;
+    padding: 7px 10px !important;
+    margin: 0 !important;
+    border-radius: 8px !important;
+    font-family: 'Century Gothic','Segoe UI',Arial,sans-serif !important;
+    font-size: 12.2px !important;
+    line-height: 1.22 !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    min-height: 30px !important;
+    height: auto !important;
+    white-space: normal !important;
+  }
+  #projCursosSugestoes button:hover,
+  #projCursosSugestoes button:focus,
+  #projCursosSugestoes button.active {
+    background: #f2f2f2 !important;
+    outline: none !important;
+  }
+  #projCursosSugestoes .proj-curso-empty {
+    color: #777 !important;
+    cursor: default !important;
+  }
+</style>
+<script id="projCursosCompactDropdownScript">
+(function(){
+  function normalizar(txt){
+    return String(txt || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+  function htmlEscape(txt){
+    return String(txt || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function iniciarCursosCompactos(){
+    var input = document.getElementById('curso');
+    if(!input) return;
+
+    input.setAttribute('type','text');
+    input.setAttribute('list','projCursosList');
+    input.setAttribute('autocomplete','off');
+
+    var datalist = document.getElementById('projCursosList');
+    var cursos = [];
+    if(datalist){
+      cursos = Array.prototype.slice.call(datalist.querySelectorAll('option'))
+        .map(function(opt){ return opt.getAttribute('value') || opt.value || ''; })
+        .filter(Boolean);
+    }
+    if(!cursos.length){
+      cursos = [
+        'Licenciatura em Animação e Criação Visual','Licenciatura em Animação Global','Licenciatura em Fotografia e Cultura Visual','Mestrado em Animação e Criação Visual','Mestrado em Design e Produção de Jogos','Mestrado em Comunicação Audiovisual e Multimédia','Licenciatura em Ciências da Comunicação','Licenciatura em Marketing e Publicidade','Mestrado em Marketing e Inovação','Mestrado em Branding e Estratégia','Mestrado em Comunicação Estratégica','Doutoramento em Comunicação, Media e Ambientes Digitais','Licenciatura em Design','Licenciatura em Design Global','Mestrado em Design e Cultura Visual','Mestrado em Design & Publicidade','Mestrado em Design Management','Mestrado em Design de Produto, Espaço e Interações','Mestrado em Branding e Design de Moda','Mestrado em Design para a Sustentabilidade','Doutoramento em Design','Licenciatura em Desenvolvimento de Jogos','Licenciatura em Creative Tech','Licenciatura em Engenharia Informática','Licenciatura em Informática de Gestão','Mestrado em Computação Criativa e Inteligência Artificial','Doutoramento em Jogos Digitais','Mestrado em Direção de Arte EaD','Mestrado em Comunicação Multimedia EaD','Licenciatura em Ciências da Comunicação EaD','Licenciatura em Design Visual EaD','Licenciatura em Engenharia Informática EaD','Licenciatura em Psicologia','Mestrado em Psicologia Clínica e da Saúde','Licenciatura em Ciências da Nutrição','Licenciatura em Psicologia EaD','Mestrado em Gestão da Saúde EaD','Mestrado em Neuropsicologia EaD','Licenciatura em Gestão Recursos Humanos','Mestrado em Gestão Recursos Humanos','Mestrado em Psicologia Social e das Organizações','Licenciatura em Gestão de Recursos Humanos EaD','Mestrado em Gestão de Recursos Humanos EaD','Licenciatura em Marketing EAD','Licenciatura em Ciências Sociais EaD','Licenciatura em Contabilidade EaD','Licenciatura em Gestão de Empresas EaD','Mestrado em Cibersegurança EaD','M-Ciências de Dados e Análise de Negócios EaD','Mestrado em Direito e Segurança da Informação EaD','Mestrado em Gestão de Empresas EaD','Mestrado em Marketing estratégico EaD','Mestrado em Psicologia Social e de Organizações EaD','Licenciatura em Gestão','Licenciatura em Management','Mestrado I Management','Mestrado em Gestão','L-Direito','M-Direito Judiciário','L-Ciência Dados Gestão','L-Gestão do Desporto','L- Gestão Hoteleira','L-Tourism','L-Turismo','L- Gestão de Marketing','L-Marketing Global','Licenciatura em Gestão de Negócios','Licenciatura em Negócios Global','Mestrado em Global Business','Mestrado em Marketing','Mestrado em Gestão de Marketing','Mestrado em Gestão de Negócios','Mestrado em Marketing e Tecnologia','Marketing Digital','Gestão de Negócios Internacionais','M-Gestão de Marketing EaD','L.Gestão de Marketing online antiga','L-Gestão de Marketing EaD','M-Gestão de Negócios EaD','L-Gestão de Marketing','L-Gestão de Negócios','Licenciatura em Marketing Global','Licenciatura em Global Business','Gestão Comercial e Vendas'
+      ];
+    }
+    cursos = cursos.filter(function(curso, idx, arr){ return curso && arr.indexOf(curso) === idx; });
+
+    var wrap = input.closest('.proj-curso-combobox-wrap') || input.parentElement;
+    if(!wrap){
+      wrap = document.createElement('div');
+      wrap.className = 'proj-curso-combobox-wrap';
+      input.parentNode.insertBefore(wrap, input);
+      wrap.appendChild(input);
+    }
+    wrap.classList.add('proj-curso-combobox-wrap');
+    wrap.style.position = 'relative';
+    wrap.style.overflow = 'visible';
+
+    var box = document.getElementById('projCursosSugestoes');
+    if(!box){
+      box = document.createElement('div');
+      box.id = 'projCursosSugestoes';
+      box.className = 'proj-cursos-sugestoes';
+    }
+    if(box.parentElement !== wrap){ wrap.appendChild(box); }
+    box.setAttribute('role','listbox');
+    box.setAttribute('aria-label','Sugestões de cursos');
+
+    function obterResultados(){
+      var q = normalizar(input.value.trim());
+      if(!q) return cursos.slice(0, 8);
+      return cursos.filter(function(curso){ return normalizar(curso).indexOf(q) !== -1; }).slice(0, 8);
+    }
+    function abrir(){ box.classList.add('open'); box.style.display = 'block'; }
+    function fechar(){ box.classList.remove('open'); box.style.display = 'none'; }
+    function renderizar(){
+      var encontrados = obterResultados();
+      if(!encontrados.length){
+        box.innerHTML = '<button type="button" class="proj-curso-empty" disabled>Nenhum curso encontrado</button>';
+        abrir();
+        return;
+      }
+      box.innerHTML = encontrados.map(function(curso){
+        return '<button type="button" class="proj-curso-opcao" data-curso="' + htmlEscape(curso) + '">' + htmlEscape(curso) + '</button>';
+      }).join('');
+      abrir();
+    }
+
+    input.addEventListener('focus', renderizar);
+    input.addEventListener('click', renderizar);
+    input.addEventListener('input', renderizar);
+    input.addEventListener('keydown', function(ev){
+      if(ev.key === 'Escape') fechar();
+    });
+    box.addEventListener('mousedown', function(ev){ ev.preventDefault(); });
+    box.addEventListener('click', function(ev){
+      var btn = ev.target.closest('button[data-curso]');
+      if(!btn) return;
+      input.value = btn.getAttribute('data-curso') || '';
+      input.dispatchEvent(new Event('input', {bubbles:true}));
+      input.dispatchEvent(new Event('change', {bubbles:true}));
+      fechar();
+      input.focus();
+    });
+    document.addEventListener('mousedown', function(ev){
+      if(ev.target === input || box.contains(ev.target) || wrap.contains(ev.target)) return;
+      fechar();
+    });
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', iniciarCursosCompactos);
+  } else {
+    iniciarCursosCompactos();
+  }
+})();
+</script>
+<!-- PROJ CURSOS COMPACT DROPDOWN FIX END -->
+<!-- PERF PATCH: autosave/progresso com debounce e estabilização visual sem input global. -->
+
+
+
+<!-- CORREÇÃO FINAL: remover tooltips duplicadas dos botões +/− -->
+<style id="proj-tooltip-duplicada-final-fix">
+/* Remove a tooltip visual antiga baseada em data-proj-tooltip.
+   Mantém os botões, onclicks, legendas de apoio e acessibilidade. */
+html body .page .proj-control-btn[data-proj-tooltip]::before,
+html body .page .proj-control-btn[data-proj-tooltip]::after,
+html body .page .proj-table-tool[data-proj-tooltip]::before,
+html body .page .proj-table-tool[data-proj-tooltip]::after,
+html body .page .proj-criterion-add[data-proj-tooltip]::before,
+html body .page .proj-criterion-add[data-proj-tooltip]::after,
+html body .page button[data-proj-tooltip]::before,
+html body .page button[data-proj-tooltip]::after {
+  content: none !important;
+  display: none !important;
+  visibility: hidden !important;
+}
+</style>
+<script id="proj-tooltip-duplicada-final-fix-js">
+(function(){
+  function isToolButton(btn){
+    if(!btn || btn.nodeType !== 1) return false;
+    var txt = (btn.textContent || '').trim();
+    var onclick = (btn.getAttribute('onclick') || '').toLowerCase();
+    return btn.classList.contains('proj-control-btn') ||
+           btn.classList.contains('proj-table-tool') ||
+           btn.classList.contains('proj-criterion-add') ||
+           btn.closest('.proj-row-controls, .proj-table-tools') ||
+           onclick.indexOf('add') !== -1 ||
+           onclick.indexOf('remove') !== -1 ||
+           txt === '+' || txt === '−' || txt === '-';
+  }
+
+  function limparTooltipsDuplicadas(root){
+    (root || document).querySelectorAll('button').forEach(function(btn){
+      if(!isToolButton(btn)) return;
+
+      /* Remove a tooltip nativa do navegador, que era a caixa preta. */
+      btn.removeAttribute('title');
+
+      /* Remove a tooltip visual antiga, que era a caixa cinza/preta duplicada. */
+      btn.removeAttribute('data-proj-tooltip');
+
+      /* Mantém acessibilidade sem mostrar tooltip duplicada no ecrã. */
+      var txt = (btn.textContent || '').trim();
+      var onclick = (btn.getAttribute('onclick') || '').toLowerCase();
+      if(txt === '+' || onclick.indexOf('add') !== -1 || btn.classList.contains('proj-add')){
+        btn.setAttribute('aria-label', 'Adicionar linha');
+      }
+      if(txt === '−' || txt === '-' || onclick.indexOf('remove') !== -1 || btn.classList.contains('proj-remove')){
+        btn.setAttribute('aria-label', 'Remover linha');
+      }
+    });
+  }
+
+  function iniciar(){
+    limparTooltipsDuplicadas(document);
+
+    /* Alguns scripts antigos reaplicavam title/data-proj-tooltip depois de adicionar/remover linhas.
+       Este observador limpa apenas esses atributos nos botões afetados, sem mexer em campos nem tabelas. */
+    var obs = new MutationObserver(function(mutations){
+      var precisaLimpar = false;
+      mutations.forEach(function(m){
+        if(m.type === 'attributes' && (m.attributeName === 'title' || m.attributeName === 'data-proj-tooltip')){
+          if(isToolButton(m.target)) precisaLimpar = true;
+        }
+        if(m.type === 'childList' && m.addedNodes && m.addedNodes.length){
+          precisaLimpar = true;
+        }
+      });
+      if(precisaLimpar){
+        window.requestAnimationFrame(function(){ limparTooltipsDuplicadas(document); });
+      }
+    });
+    obs.observe(document.body, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      attributeFilter: ['title','data-proj-tooltip']
+    });
+
+    document.addEventListener('click', function(){
+      setTimeout(function(){ limparTooltipsDuplicadas(document); }, 0);
+      setTimeout(function(){ limparTooltipsDuplicadas(document); }, 120);
+    }, true);
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);
+  else iniciar();
 })();
 </script>
 
