@@ -2126,7 +2126,7 @@ Os estudantes deverão investigar necessidades reais, formular oportunidades de 
   </p>
 <div aria-label="Autorização para integração no repositório" role="radiogroup" style="display:flex !important; flex-direction:column !important; gap:4px !important; margin:0 0 6px 0 !important; padding:0 !important;">
 <label for="autorizaRepositorioSim" style="display:flex !important; align-items:center !important; gap:8px !important; font-weight:normal !important; font-size:13px !important; line-height:1.25 !important; color:#333 !important; margin:0 !important; padding:0 !important; min-height:0 !important; height:auto !important;">
-<input checked="checked" id="autorizaRepositorioSim" name="autorizaRepositorio" style="width:16px !important; min-width:16px !important; max-width:16px !important; height:16px !important; min-height:16px !important; margin:0 !important; padding:0 !important; flex:0 0 16px !important;" type="radio" value="Sim"/>
+<input id="autorizaRepositorioSim" name="autorizaRepositorio" style="width:16px !important; min-width:16px !important; max-width:16px !important; height:16px !important; min-height:16px !important; margin:0 !important; padding:0 !important; flex:0 0 16px !important;" type="radio" value="Sim"/ checked>
 <span style="display:inline !important; margin:0 !important; padding:0 !important; line-height:1.25 !important;">Sim, autorizo a integração deste guião no repositório após validação.</span>
 </label>
 <label for="autorizaRepositorioNao" style="display:flex !important; align-items:center !important; gap:8px !important; font-weight:normal !important; font-size:13px !important; line-height:1.25 !important; color:#333 !important; margin:0 !important; padding:0 !important; min-height:0 !important; height:auto !important;">
@@ -3660,6 +3660,131 @@ body.cbl-exporting .cbl-meta-panel .cbl-meta-field,
   }
 }
 </style>
+
+
+<style id="cbl-mobile-final-seguro">
+/* ===== CBL — mobile seguro, sem alterar estrutura da calendarização no desktop ===== */
+@media screen and (max-width: 760px){
+
+  .ux-actions{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 9px !important;
+    padding: 12px !important;
+  }
+
+  .ux-actions .ux-btn,
+  .ux-actions .ux-btn-ai,
+  .ux-actions .ux-btn-primary,
+  .ux-actions .ux-btn-pdf,
+  .ux-actions .ux-btn-more,
+  .ux-actions .ux-more,
+  .ux-actions .ux-more .ux-btn{
+    width: 100% !important;
+    min-height: 44px !important;
+    height: auto !important;
+    font-size: 13.2px !important;
+    justify-content: center !important;
+  }
+
+  #uxMenuMaisOpcoes,
+  .ux-menu{
+    position: static !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin-top: 8px !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+  }
+
+  /* Autorização mais legível no telemóvel */
+  #autorizacaoRepositorio,
+  #partilhaRepositorio,
+  .repositorio-autorizacao,
+  .cbl-repository-consent,
+  .cbl-repository-authorization{
+    font-size: 14px !important;
+    line-height: 1.45 !important;
+  }
+
+  #autorizacaoRepositorio p,
+  #partilhaRepositorio p,
+  .repositorio-autorizacao p,
+  .cbl-repository-consent p,
+  .cbl-repository-authorization p{
+    font-size: 14px !important;
+    line-height: 1.45 !important;
+  }
+
+  #autorizacaoRepositorio label,
+  #partilhaRepositorio label,
+  .repositorio-autorizacao label,
+  .cbl-repository-consent label,
+  .cbl-repository-authorization label{
+    font-size: 13.4px !important;
+    line-height: 1.38 !important;
+  }
+
+  input[type="radio"],
+  input[type="checkbox"]{
+    width: 18px !important;
+    height: 18px !important;
+    min-height: 18px !important;
+  }
+
+  /* Painel institucional final em coluna */
+  .ux-info-panel{
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    padding: 12px !important;
+  }
+
+  .ux-info-item,
+  .ux-info-item strong{
+    font-size: 12.5px !important;
+    line-height: 1.35 !important;
+  }
+
+  /* Tracinho de expansão um pouco mais visível no mobile */
+  .cblx-grip{
+    width: 46px !important;
+    height: 16px !important;
+    opacity: .68 !important;
+  }
+
+  .cblx-grip::before{
+    width: 34px !important;
+    height: 2px !important;
+    background: #8d8d8d !important;
+  }
+
+  html,
+  body{
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+}
+</style>
+
+
+<script id="cbl-default-autorizacao-repositorio-final">
+(function(){
+  function setDefaultAutorizacao(){
+    var sim = document.querySelector('input[name="autorizaRepositorio"][value="Sim"], input[name="autorizaPartilhaInterna"][value="Sim"], #autorizaRepositorioSim');
+    var nao = document.querySelector('input[name="autorizaRepositorio"][value="Não"], input[name="autorizaRepositorio"][value="Nao"], input[name="autorizaPartilhaInterna"][value="Não"], input[name="autorizaPartilhaInterna"][value="Nao"], #autorizaRepositorioNao');
+    if(sim && nao){
+      sim.checked = true;
+      nao.checked = false;
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setDefaultAutorizacao);
+  else setDefaultAutorizacao();
+  setTimeout(setDefaultAutorizacao, 300);
+})();
+</script>
 
 </body>
 </html>
