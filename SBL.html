@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Plano SBL - Práticas Pedagógicas</title>
+ <style>
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+ @media print {
+   .no-print { display: none !important; }
+   .btn-plus, .btn-minus { display: none !important; }
+   button[title="Saiba mais"] { display: none !important; }
+ }
+ body {
+ font-family: 'Century Gothic', 'Segoe UI', sans-serif;
+ background: #f5f5f5;
+ color: #333;
+ line-height: 1.6;
+ padding: 20px;
+ }
+ .page {
+ max-width: 950px;
+ margin: 0 auto;
+ background: white;
+ padding: 20px 50px;
+
+ box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+ }
+ h1 {
+ font-family: 'Century Gothic', sans-serif;
+ font-size: 24px;
+ font-weight: bold;
+ text-align: center;
+ margin: 0 0 8px 0;
+ color: #333;
+
+ padding-bottom: 15px;
+ border-bottom: 2px solid #E31E24;
+ }
+ .header {
+ text-align: center;
+ margin-bottom: 30px;
+ }
+ .header img {
+ display: block;
+ margin: 0 auto 15px;
+ height: 40px;
+ }
+
+ table {
+ width: 100%;
+ border-collapse: collapse;
+ margin-bottom: 25px;
+ }
+ th, td {
+ border: 1px solid #333; font-size: 14px;
+ padding: 10px;
+ text-align: left;
+ }
+ th {
+ background: #f5f5f5;
+ font-weight: bold;
+ font-size: 14px;
+ }
+ input[type="text"], textarea {
+ width: 100%;
+ padding: 10px;
+ border: 1px solid #333; font-size: 14px;
+
+ font-family: inherit;
+ font-size: 14px;
+ }
+ td input:focus, td textarea:focus, td select:focus {
+ outline: none;
+ border-color: #999;
+ background: white;
+ }
+ textarea {
+ min-height: 120px;
+ resize: vertical;
+ }
+
+ .section {
+ background: white;
+ padding: 0;
+
+ margin: 10px 0;
+
+
+ }
+ .section h3 {
+ margin: 0 0 20px 0;
+
+ padding-bottom: 10px; border-bottom: 2px solid #E31E24;
+ font-size: 18px;
+ }
+
+ label {
+ display: block;
+ font-weight: bold;
+ margin: 6px 0 3px 0;
+ color: #333;
+ font-size: 14px;
+ }
+ label:first-child {
+ margin-top: 0;
+ }
+
+ /* .hint {
+ font-size: 11px;
+ color: #888;
+ font-weight: normal;
+ }
+
+ .btn-remove { border: 2px solid #E31E24; border-radius: 50%; width: 24px; height: 24px; line-height: 20px; text-align: center; cursor: pointer; color: #E31E24; font-weight: bold; display: inline-block; float: right; margin-left: 10px; }
+ .btn-remove:hover { background: #E31E24; color: white; }
+ .btn-group {
+ margin-top: 15px;
+ display: flex;
+ gap: 15px;
+ }
+ .btn {
+ padding: 14px 28px;
+ border: none;
+ border-radius: 10px;
+ font-size: 15px;
+ font-weight: bold;
+ cursor: pointer;
+ }
+ .btn-primary {
+ background: #333;
+ color: white;
+ }
+ .btn-secondary {
+ background: white; border: 1px solid #333;
+ color: #333;
+ }
+ .btn:hover {
+ opacity: 0.9;
+ }
+
+ @media print {
+ .no-print { display: none; }
+ .page { box-shadow: none; }
+ }
+  .btn-add { background: white; border: 2px solid #E31E24; color: #E31E24; }
+ .btn-add:hover { background: #E31E24; color: white; }
+
+ /* .hint-toggle {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid #666;
+  color: #666;
+  font-size: 12px;
+  cursor: pointer;
+  margin-left: 5px;
+ }
+ /* .hint-content {
+  display: none;
+  font-size: 12px;
+  line-height:1.6;
+  margin: 5px 0 10px 0;
+  padding: 10px;
+  background: #f5f5f5;
+  border-left: 3px solid #E31E24;
+ }
+ .hint-toggle:hover + /* .hint-content {
+  display: block;
+ }
+.quadro-header { background: #E31E24; color: #fff; font-weight: bold; padding: 12px; text-align: left; font-size: 14px; }
+.quadro-row:nth-child(odd) { background: #fafafa; }
+.quadro-row:nth-child(even) { background: #fff; }
+.quadro-btn { background: #E31E24; color: #fff; border: 1px solid #000; border-radius: 3px; padding: 4px 10px; cursor: pointer; font-size: 11px; font-weight: bold; margin-left: 5px; }
+.quadro-btn:hover { background: #c41820; }
+.quadro-textarea:focus { border-color: #E31E24; box-shadow: 0 0 5px rgba(227,30,36,0.3); }
+</style><style>
+.btn-plus, .btn-minus { position: relative; cursor: pointer; }
+.btn-plus:hover::after { content: "Adicionar linha"; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #000; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px; white-space: nowrap; }
+.btn-minus:hover::after { content: "Remover linha"; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #000; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px; white-space: nowrap; }
+</style>
+
+</head>
+<body>
+
+<div class="page">
+ <div class="header">
+ <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAABKqADAAQAAAABAAAAXgAAAAD/7QA4UGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAAA4QklNBCUAAAAAABDUHYzZjwCyBOmACZjs+EJ+/8AAEQgAXgEqAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/bAEMAAQEBAQEBAgEBAgMCAgIDBAMDAwMEBgQEBAQEBgcGBgYGBgYHBwcHBwcHBwgICAgICAkJCQkJCwsLCwsLCwsLC//bAEMBAgICAwMDBQMDBQsIBggLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLC//dAAQAE//aAAwDAQACEQMRAD8A/v4ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA/9D+yz9uT9r6z/Yr+Eun/FS+0T+3kv8AVotLFv8AaTa7TLDNNv3iKbOPJxjaOuc8YP5R/wDEQD4e/wCia/8AlZb/AOQa91/4Lz/8mf8Ah7/sb7T/ANIr6v5Gq/OuJc/x2Exro0J2jZPZP80z+uvBvwr4Zz7hyGYZphnOq5zV+epHRPTSMkvwP6cP+IgHw9/0TX/yst/8g0f8RAPh7/omv/lZb/5Br+Y+ivA/1tzT/n7/AOSx/wAj9V/4gNwR/wBAL/8ABtX/AOTP6cP+IgHw9/0TX/yst/8AINH/ABEA+Hv+ia/+Vlv/AJBr+Y+ij/W3NP8An7/5LH/IP+IDcEf9AL/8G1f/AJM/rp/4KIf8FrPhh/wTm/ZW+GH7UnxH8Fan4gtPiZDbyQWOmXMQe1ae2jucM8wQOAH25CqTjOB0r8U/+I2H9kz/AKIt4u/8DbP/ABrwH/g6I/5RD/sof9e2n/8Aprt6/gQr9gwsnOjCct2k/wAD+AM5oQw+PxFCkrRjOSS8lJpfgf6Nv/EbD+yZ/wBEW8Xf+Btn/jR/xGw/smf9EW8Xf+Btn/jX+clRW9kebzM/0bf+I2H9kz/oi3i7/wADbP8Axo/4jYf2TP8Aoi3i7/wNs/8AGv8AOSoosg5mf6Nv/EbD+yZ/0Rbxd/4G2f8AjR/xGw/smf8ARFvF3/gbZ/41/nJUUWQczP8ARt/4jYf2TP8Aoi3i7/wNs/8AGj/iNh/ZM/6It4u/8DbP/Gv4D/2WP2d/GP7W37R3gr9mX4e3VpZa3451e10azuL9nS1ilunCB5TGjuEXOTtRj6Cvv3/gsf8A8EwNH/4JP/tReFP2YpfGEviyfUvCWn6/qmpm0FvGlzd3V1BIkEId2MaLbgrufcxJJ25ABZBdn9ef/EbD+yZ/0Rbxd/4G2f8AjR/xGw/smf8ARFvF3/gbZ/415n8A/wDg0H/4J8LF4Wj+OX7ROseJr/xdZpf6Ra6ELDRG1GFovP320d19ullj8sFyVAOwEnbg4+nfi/8A8Gkn/BGz4e+EY73xj8SfGHgj7bOllZ6jqmvabDFJeShjHEBcWSpI7BWIjUhmAOOmaWg9Ty7/AIjYf2TP+iLeLv8AwNs/8aP+I2H9kz/oi3i7/wADbP8Axr8K/wDgqp/wa0ftV/sJeDr346/s5aq3xh+H2nQvc6k1rafZtY0yCNd7yzWyvIs0CKCWlhYlQCzxqoLVf/4IBf8ABCr9lX/gq58AfiH8YP2iPGPiXwtL4L1qLT4/7Fns4bc27WwnaSU3NtMQVJPIYKF6jvRoGp+4v/EbD+yZ/wBEW8Xf+Btn/jR/xGw/smf9EW8Xf+Btn/jXkf8AxDL/APBBX/o62/8A/Cp8O/8AyNX+flKqpKyocgEgGiyB3R/o0/8AEbD+yZ/0Rbxd/wCBtn/jR/xGw/smf9EW8Xf+Btn/AI1/nJUU7IXMz/SB0T/g9H/Zk8S6zaeHPDvwM8Z32oahNHbWttb3VpJLNNKwVERFJLMzEBVAyScCv7FPh14g8S+LPAWjeKPGOjP4c1XUbOG5utKlmWeSyllUM0DyIAjPGTtcrldwO0kYJ/gE/wCDSn/gj6PHPicf8FRP2hdJb+yNDnktvANndwgx3d7GSk+pjd1W2YGK3IBBm3uCGiXP9lH/AAUF/bM8UfsceDNB13wp4fj1qfWruSBpLlmW3gWJQxDbOS75+UZHCsecVxZhjqODoTxNd2hHVvV/kerkuT4rNcbSy/BR5qtR2irpdL7uy2V/+CfoNRXl/wAE/iNN8XfhH4c+J9xp0ukvr2nwXrWk33ojMobGeMrzlWwMrg4GcV6hW9OpGcVOOzV18zhr0Z0akqVRWlFtP1Wj2CiiirMgooooAKKKKACiiigAooooA//R/pF/4Lz/APJn/h7/ALG+0/8ASK+r8L/2Cv2IvD37Yej/ABC1PXdeuNEPgqwgvYlghWUTmZZyVbcRtA8kcjPWv3Q/4Lz/APJn/h7/ALG+0/8ASK+r4L/4IX3NpquofGH4c28qrqmt6DbNaxscbliM8Tn6K08YP1r84zXD0q/EEKVZXi47f9uu342P7B4EzbGZZ4U18fgJ8lWFS6kknZOrTUtGmvhbvpotT8KvDGkpr/iXTtClcxre3MMBcDJUSOFyB7Zr9v8AxV/wRT18ftO2/wAG/BPieQ+FrTQ7fWtY1++t1X7Mbie4iWGONXxI7CAsMsoAyWIwA35SfCH4N/E7Wv2kdC+Ddrot0viWPWYLaaweNllheKUeYZBj5VjALOx4VQSeK/ts+Omi+GP2l/B/j/8AZd8KeJf7D182Nlb6tcW8YlntrW+YuFK7lz5sKSJgsAA+e/Pm8O5RRxVKrKvC7i1ZXtdpSbj87K/Zdj7Dxe4/zHJMdgaeWYhQp1ITdSXKpqnGU6cY1mkm2o80uXpKWlpbH4PWn/BMz/gnp8Z728+FP7MvxqnvvHtnE7JFdywXNrcPECW2CKGEuvHLRSybF5IbFfhv8WPhb40+CfxH1j4U/EO1+x6zodw1tcxZyuRyrKeNyOpDo38SkHvX7w+G/wBoL4Rfs6+Lo/2TP+CWng5/EXj3VJv7P1DxbqsDSzLIG2yEK6KdkR+ZyVjt027tjjJr8wf+Ch/wf+J/wZ/aRvtD+M/jaHx34m1C2hv7y/jL70EuVjjkVgBGwRVKxoSqxlcYGBWGcYbDvDqrRppSi7ScL8muyu3rJdWtPwPV8Ps3zWOazweYYmcqNWnz0YV1H6w+VpSqOMIpU6TvaMaj5r2stzmP+Doj/lEP+yh/17af/wCmu3r+BCv77/8Ag6I/5RD/ALKH/Xtp/wD6a7ev4EK/W8F/u9P/AAr8j+DuIv8Aka4v/r5P/wBKYUUUV0njBRRRQAUUUUAfqR/wRJ/5S4fs7/8AY86V/wCjRX7Cf8HlX/KVbwx/2TbSf/Thqdfj3/wRJ/5S4fs7/wDY86V/6NFf33ftk/8ABIT/AIeG/wDBfnwx+0B8Z9PE3wj+FfgLQrm/jlxs1XV1v9SltrHBBDRLgTXI6eXtjOPNBCe5aWh8B/8ABET9lj4ef8EbP+CeXi3/AILO/wDBQFZovGOvaGq6Fp9+f9NtdHbAsrSASZZbrU5BHgf8s4fLzsHmiut/4OHf2gfEn7V//BuP8Hv2mPGFnb6dqnjzWvC+uXNpabvIgkvbG8lMce8liqbtoJOTjNfpX/wU40b/AIIg/wDBVDRPDngP9pz9rHw1pej+Ebme5h0vQfHuhWUEl3KAnm3CTeezyRqGSPkBA74GWNfnv/wcmfDr4L/CL/g3u+Fnwu/Zz1tfEngPw/4g8M2Ggaql3FfreafBZXaQzC5gAim3oAd8YCt1HFSV0Pw8/wCDbP8A4Le/F79lr9o/wv8AsSfH/XbnXvhJ49v4dGsEv5TKdA1G7by7d4GkPyWssrKk8WQiBvNUAhg/9q/wd/4J3+Gf2EvC/wC1xH8H7GOz8H/FNLnxRpGn2qKsdncXGmyxXdpHGgG1FnQyRKqhVjlRFztOP8sH/gmt+zx8Q/2qf28/hP8AA/4YW0lxqereJdPkd41JFtaWsqz3Nw+ASEggR5GPovrX+z58QPjh4X8J6B47m0OSPU9Y8BaM2r31ir7dm+GaaGN3AOxpFhJxgsFKtjDLkkKL0P8ADe8RfC34m+ENP/tfxZ4c1TS7TcE867s5YI9zdBudQMnHAzXCV/TF/wAFbP8Ag5F8df8ABVz9leD9l/xJ8KLDwZbwa5Z62NQttWkvXLWkc0Yj8treIYYTE53cY6V/M7VIh26BX6u/8Ebf+CY/jb/gqh+2fovwLsFns/B+l7dU8XarDhTZaVEw3KjEEefcNiGEYOGbeQURsfmh4B8B+Mfil450f4afDzTptX17xBewadp1jbLvmuLq5cRxRoO7O7AD61/sO/8ABFH/AIJZeEf+CU37G+n/AAhc2+oeO/ELJq3i/VYkH7/UGXC28b43Nb2qkxxbjyS8mFMjKBsaR+ofww+GXgH4L/DrQ/hJ8LNKg0Pw34bsodO02wtl2xW9tbqEjRRyeFA5JJJ5JJOa/K3/AILJ/wDBTvwR/wAEyfhD4U8Z+Pvh2vxHsfFmqvp/2GS6S2SF4IzMJD5kE6vyOBgYPOa/Yyv48v8Ag8T/AOTWvhD/ANjVd/8ApI1SlfQq7WqP1o/bX/4LEaJ+xn/wTq+Fn/BQG98Aza/a/Ez+wgmiR6its9l/bWmzagMzmBxJ5Qi8s/u03Z3cYxX4rePv+Dxz4dafDpP/AAq/4G6hq8strHLqn9oa4lklvcNy0UBjtLgzIo4811iOcgRkYY83/wAFxf8AlW7/AGVPr4D/APUavK/W3/g3B+Cv7KXhj/gmL4R8cfBWz02/17xTDOvjDUFVZbyXUVkYSWtyTllSFCqxwnC+WRJgmQszshH0V/wS8/4LQfssf8FRtIvNH+HYuPC/jjSIFn1DwzqjobgRE4M1tIpxcwq2AzhVZCRvRdy51/8Agp//AMFif2XP+CW3hqwj+KhuPEXjHW4nm0vw1pbJ9rkiQ7fOnZzi3gLfKJGBLkMER9jY/kn8T+CvhP8As/8A/B1V4X8I/sYJDpulL4q06O+sNIQJa2Ut7ZhdUt4lT5VjCPKZEX5YyzoAoTA7T41+Efh/8e/+DsY/Df8AbSt7e68Ltq1raWenakA1lcrFoyyaZAytlWS4ufKJjIYSSOUI+Y0WC59ceAP+Dxz4e6jdamvxR+Bl/o0CWdxNpz6friXxmukQmGGUPZ2/lxyOArTL5hTOfLOK/bX/AIJ5f8FgNG/b8/Yv+JP7Yem+A5vDEHw7n1GFtLk1Fbtrv+z7GO9JEogjEe8SbPuNjGeeg5X/AIL8fBP9lTxN/wAEsviDq/xr0/TNPbwhpJm8KXhhRJ7PVV2raQWpADKJ5AkLonymNjkYXI/Gj/g3J/5Qk/tL/wDX94k/9MVvR0uBq3n/AAeN/DH/AIQq5vtM+BupSeIhcrHb2L65GLVoMHfI9wLQsrA4CxrC27kl1wM+4/Bv/g7p/Y78T/CHXvFfxt8C654U8X6UoNjoNhIuqRamXO1RFdlLdYip5kEyLtXlDI3y18y/8GdXwy8CXPhz40/F660yCbxHbXmlaXb37oGmgtHSeSSONjygkbaZMfe2Ln7or4++I/7OnwW8R/8AB2m3wY1Tw7ZSeFrnxJZ6tNpZhX7LLc/2FHqbl48bWEl1mR1Iw2TkEE0aC1P0R+AP/B4B8F/HHxYsvCf7QPwkvfAvhi/lWI63Z6t/azWoc4V5rf7JbMYx1cxszqPuo5r+xTTtR0/WNPg1bSZ0ubW6jWaGaJg6SRuMqysMggg5BHBFfx3f8HhngDwcf2avhN8Sxptuuu2viSfS470RgTizmtZJWh3jnZvjVgp4B5GMmv6W/wDgnneXWofsCfA+/vXMs03gHw27u3JZm0+Akn6mkxo+wqKKKQz/0v6Rf+C8/wDyZ/4e/wCxvtP/AEivq/ls+DHxn+I/7P8A8RdP+Knwq1F9M1nTWJjkUBkdGGGjkQ8OjjhlP8wDX9Sf/Bef/kz/AMPf9jfaf+kV9X8jVfknF85QzTng7NKNmf3v4AYaliOClQrwUoSnVTTV003Zpp6NPsfuff8A/Bd347TaHJLpvgfw5aeI5oRC+qhZmGPURF93B5AaVlB6g9/zZ+Gf7af7Rvwq+PF5+0f4e8Qy3HifVXZtSkux5sN8jkExzR8Ax8AKq7dgA2FcDHytRXiV84xtaUZVKrbjquln306+Z+kZX4fcOZdSr0cJgYRjVXLNNc3NH+V8zfu/3VZeR+5viH/gu78fL3QJ4fCngzw9o+t3UeyXUlWWYg4wGWNmHK/w72cDuCK/Frxt428WfEfxZqHjvx1qE2qaxqszXF3dTtuklkbqT6egAwAAAAAAK5eioxmZ4rF2WIqOSW3b7kdXD3BmSZE5yynCxpOe7V22l0vJt28r28j6/wD+Doj/AJRD/sof9e2n/wDprt6/gQr+/r/g590+/wBQ/wCCRf7KMdhBJOwttPJEalj/AMgu39K/gh/4RjxL/wBA65/79N/hX7ngv93p/wCFfkf5l8Rf8jXF/wDXyf8A6UzDorc/4RjxL/0Drn/v03+FH/CMeJf+gdc/9+m/wrqPGMOitz/hGPEv/QOuf+/Tf4Uf8Ix4l/6B1z/36b/CgDDorc/4RjxL/wBA65/79N/hR/wjHiX/AKB1z/36b/CgD9LP+CJP/KXD9nf/ALHnSv8A0aK/uj/4Onv+CwC/se/s/N+w18DNR8r4lfE+wcapcwMRJpHh+UtHIwYH5Z7wq0MfdYxI/wAreWT/AJouiWvxA8M6tb6/4bj1DT7+0cSQXNsJIponHRkdcMpHqDmrniif4oeONZk8R+NX1TWNRmCrJdXpluJmCDaoLyZY4AAGTwKVtSk7I4Kv9RPUP+CanjX/AIKsf8G7f7Mf7L/gjxPZeEZotI8Ka1cajfQyXCrbWtjLG4SKMqXkJmBUF0U4OWFf5hH/AAjHiX/oHXP/AH6b/Cvsqy/bv/4KQaX8MbD4K6R8W/iFY+ENLtY7K00a11nUILGG2hAVIlhjkVBGoAATG0elDQJ2P7yvDGif8Ejf+DUT4O6zqmoa+/xL+PviSyeJYf3X9s3aYDxQiBC66Zp7OEZ3kZnkxkGYoiLe/wCDbL46fF7/AIKPfAn9rz4wfGHUIx4o+J/ih45ZAGa3sxdaZ5EMUSsxYQW8eyONSxIRAMk81/m1ajpXjXWL+XVNWtr66urhi8s0ySPI7HqWZgSSfUmu78E+Pv2g/hpZTab8Oda8Q+H7e4fzZYtNubm0SRwMbmWJlBOOMnnFKw1I/sX/AOIJX9on/ouvhz/wU3X/AMdr+Iu6gNrcyWxOTGxXPrg4r6S/4aH/AGyP+h58Z/8Agzvv/jlfo5/wQ5/4JMeMv+CoX7aGn+BfGFjd2nw38KGLV/GN9hoT9jDHy7SN8A+ddupjXHKoJJBnZgv1E7PY/pH/AODSf/gj1PpNun/BU39oXS9s11HNafD+yuU5WJ8x3GqFTyC43Q2xP8Jkkxho2r+8ysPwx4Z8PeCvDWneDfCNlDpuk6TbQ2VlaWyCOG3t4ECRxxoMBURAFUDgAYrcqCgr8Ov+C5P/AASv+KX/AAVT+D/gn4cfCzxLpXhq58L6xNqU8uqrMySJLAYgqeSjnIJzyAMV+4tFAH8c/wDwcg/CPV/2f/8Aghf8CPgP4guob6/8E6/4U0G5ubfcIZptN0K/t3dNwDbWZCVyAcHmvzN/Yx/4IG/8FMfGf7NXg79ob9h3492ng7RviVottqWo2LapquhSqZl+aJxYR3CXCryAzlMjsK/qB/4OAP2B/wBoH/gov+xj4e+B37N8FjPruneMbLWpl1C5FrELSCyvoGIcg5bfOmF9MntXpfwl/Zc/ax+DP/BJ/wCH/wCzB4EvE0j4l+GNJ02xuJbG8EaI0Djzgk/AIK5+tZ4ms6VGdSMXJpN2W7t0Xm+h1YDCwxGKpUKlRQjKSTlL4Ypu3M/JbvyPlj/gjz/wQH+H/wDwTk8W3P7RXxp16L4gfFq7SaODUEjdLPS47gYm+z+aS8k8oLB7hwrbGKKqguX6D/gsj/wQh+H/APwU11XTvjf8NdfTwJ8VtHgS0XUniaWz1G2iJaOO5VGDpJEzHy50DMF+RlcBNnI/8Myf8Fjv+h0vv/B2P/iqP+GZP+Cx3/Q6X3/g7H/xVfKf60Yv/oW1vuX+Z+kf8Q7yz/ofYb75/wDyJ+OOrf8ABsZ/wVe+O1kvhT9qf9o3TdZ0LR4JW0e3n1XV9cSOdY2EKiG7ihSBC2Fdoy5RSSFbGD+5v/BLf/gkb8XP2C/2Afiz+yH478UaRrer/EG41Wa0vrBZhbQC/wBOis0EgkRX+V0LHap+U8c8VwH/AAzJ/wAFjv8AodL7/wAHY/8AiqP+GZP+Cx3/AEOl9/4Ox/8AFUf60Yv/AKFtb7l/mH/EO8s/6H2G++f/AMierf8ABDH/AIJPfFf/AIJU+AfiB4Q+KnibSfEsvi/ULK8t5NKWZViW1jkRg/nIhyS4xjNeV6x/wRg+M2pf8F0V/wCCrMXi3RV8Ki7guP7GKz/2hti0VdMIzs8rJkXf977vvxTf+GZP+Cx3/Q6X3/g7H/xVH/DMn/BY7/odL7/wdj/4qj/WjF/9C2t9y/zD/iHmWf8AQ+w33z/yPoH/AILif8Evfif/AMFT/gP4Q+E3wt8R6X4au/DmvHVpp9VWVo5IzbyQ7V8lHO7Lg8jGBX6efst/CjVvgN+zN8O/gdr1zDe33g3wzpOh3Fxb7hFLLp9rHA7puAbazISuQDg81+IX/DMn/BY7/odL7/wdj/4qv2m/ZL8MfGPwb+z74f8ADf7QF6+o+Lrb7X9vuJJ/tLPvuZWizJzuxEUHtjHavRyvOa+LqunVwlSkkr3la2600e+t/keBxFwrg8sw0a+HzOjiJOSjy03LmSs3zO6Witb1aPo2iiivePjD/9P+8Lx78NPhx8VNHj8PfE/w/pviTT4ZhcR22qWkV5CsyqyhwkqsocKzAMBnDEdCa8i/4Yz/AGP/APolPg7/AMEVl/8AGa+k6Kxnh6U3ecE35pHoYbNsdh4ezoV5wj2jKSX3JnzZ/wAMZ/sf/wDRKfB3/gisv/jNH/DGf7H/AP0Snwd/4IrL/wCM19J0VP1Oh/z7j9y/yN/9YM0/6C6n/gcv8z5s/wCGM/2P/wDolPg7/wAEVl/8Zo/4Yz/Y/wD+iU+Dv/BFZf8AxmvpOij6nQ/59x+5f5B/rBmn/QXU/wDA5f5nKr4F8Erodl4YXRrEaZpsSQWloLePyLeKNQqJHHt2oqqAqhQAAMDiqX/Cs/hv/wBC/pv/AICRf/E129FbpW0R5MpOTcpO7ZxH/Cs/hv8A9C/pv/gJF/8AE0f8Kz+G/wD0L+m/+AkX/wATXb0UxHEf8Kz+G/8A0L+m/wDgJF/8TR/wrP4b/wDQv6b/AOAkX/xNdvRQBxH/AArP4b/9C/pv/gJF/wDE0f8ACs/hv/0L+m/+AkX/AMTXb0UAcR/wrP4b/wDQv6b/AOAkX/xNH/Cs/hv/ANC/pv8A4CRf/E129FAHEf8ACs/hv/0L+m/+AkX/AMTR/wAKz+G//Qv6b/4CRf8AxNdvRQBxH/Cs/hv/ANC/pv8A4CRf/E0f8Kz+G/8A0L+m/wDgJF/8TXb0UAcR/wAKz+G//Qv6b/4CRf8AxNbWjeF/DXh0yN4f061sTLgObeFIt2OmdoGcZOM1u0UAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQB//9T+/iiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/2Q==">
+ <h1>PLANO DE CENÁRIO DE SIMULAÇÃO COMPLEXA</h1>
+ </div>
+
+ <table>
+ <tr>
+ <th>Curso:</th>
+ <td><input type="text" id="curso" placeholder="Nome do curso"></td>
+ <th>Unidade Curricular:</th>
+ <td><input type="text" id="uc" placeholder="UCs envolvidas"></td>
+ <th>Estado do Guião:</th>
+ <td><input type="text" id="estado" placeholder="Novo / Atualizado / Reutilizado"></td>
+ </tr>
+ <tr>
+ <th>Hora:</th>
+ <td><input type="text" id="hora" placeholder="HH:MM"></td>
+ <th>Data:</th>
+ <td><input type="text" id="data" placeholder="DD/MM/AAAA"></td>
+ <th>Professor/a:
+ <td><input type="text" id="professor" placeholder="Nome do professor"></td>
+ </tr>
+ <tr>
+ <th>Nº Estudantes:</th>
+ <td><input type="text" id="n_estudantes" placeholder="Ex: 30"></td>
+ <th>Nº Grupos:
+ <td><input type="text" id="n_grupos" placeholder="Ex: 6"></td>
+ <th>Autoria:</th>
+ <td><input type="text" id="autoria" placeholder="Nome do autor"></td>
+ </tr>
+ </table>
+ <div class="section">
+  <label>Objetivos:</label>
+ <textarea id="objetivos" placeholder="Indique os objetivos de aprendizagem..."></textarea>
+ </div>
+
+ <div class="section">
+  <label>Recursos:</label>
+ <textarea id="recursos" placeholder="Indique os recursos necessários..."></textarea>
+ </div>
+
+ <div class="section">
+ <div style="border-top:2px solid #E31E24;margin:15px 0;"></div>
+ <label style="display:inline;">Procedimentos</label><button type="button" onclick="var d=document.getElementById('hint_procedimentos');d.style.display=d.style.display=='block'?'none':'block'" style="background:#E31E24;color:#fff;font-weight:bold;border:1px solid #000;border-radius:3px;padding:2px 8px;margin-left:5px;font-size:11px;cursor:pointer;font-weight:bold;" title="Saiba mais">+</button><div id="hint_procedimentos" style="display:none;margin:10px 0;padding:10px;background:#f5f5f5;border-left:3px solid #E31E24;border-radius:4px;">
+<div style="font-size:12px;line-height:1.8;text-align:justify;">
+<b>1.</b> Calendarizar Simulação, indicando data, hora e perfil ator. Enviar para o/a Coordenador/a do Modelo Académico, com validação do/a Diretor/a de Curso até final da 1ª semana do semestre.<br>
+<b>2.</b> Elaborar e enviar para o Guião Simulação, até 3 semanas antes da data da Simulação, bem como o link da sessão (no caso do Ensino à Distância) para o/a Coordenador/a do Modelo Académico.<br>
+ *Para o <b>Ensino à Distância</b> é necessário o preenchimento do termo de responsabilidade assinado pelos estudantes, o qual inclui a garantia de confidencialidade, compromisso de respeito e de conduta ética, assim como o compromisso de não gravação dos cenários de simulação (apenas é permitido gravar o briefing e o debriefing), por respeito a direitos de autor e direitos de imagem. Para poder participar nas aulas de SBL é condição obrigatória a assinatura do termo de responsabilidade. O termo deverá ser enviado para o/a coordenador/a do Modelo Académico, o termo de responsabilidade assinado pelos estudantes até 1 semana antes da Simulação.
+</div>
+</div>
+</div>
+
+<div class="section">
+ <label style="display:inline;">Briefing para estudantes (máximo 5')</label><button type="button" onclick="var d=document.getElementById('hint_briefing');d.style.display=d.style.display=='block'?'none':'block'" style="background:#E31E24;color:#fff;font-weight:bold;border:1px solid #000;border-radius:3px;padding:2px 8px;margin-left:5px;font-size:11px;cursor:pointer;font-weight:bold;" title="Saiba mais">+</button><div id="hint_briefing" style="display:none;margin:10px 0;padding:10px;background:#f5f5f5;border-left:3px solid #E31E24;border-radius:4px;">
+<div style="font-size:12px;line-height:1.8;text-align:justify;">
+• O que é simulação: metodologia de ensino que possibilita aos estudantes realizar, de forma segura e controlada, uma prática semelhante à que realizará na prática profissional.<br>
+• Explicar papel de todos: um estudante como profissional; todos devem ser 'inteligentes' e 'competentes': não criticar, não juzgar e querer aprender, erros são bem-vindos, fazem-nos evoluir; professor passa a ser moderador/facilitador.<br>
+• Clarificar os objetivos de aprendizagem.<br>
+• Selecionar voluntário(s) para ser(em) 'técnico(s)/profissional(is)'.<br>
+• Fornecer aos estudantes Informação Inicial do cenário, igual para todos.<br>
+• Duração do Cenário de Simulação 10'-12', após o qual seguir-se-á a sua análise e discussão (Debriefing).<br>
+• Estudantes instalam-se na sala de observação, podendo apenas levar papel e caneta, e 'Técnico/Profissional', voluntário, ocupa o lugar na sala do cenário de simulação.<br>
+• 'Técnico/Proficional' ocupa o seu lugar e prepara-se para a sessão de simulação.<br>
+• Sessão de simulação (10'-12'): 'Ator/Personagem' bate à porta e 'Técnico/Profissional' recebe-o.<br>
+• Debriefing: no final estudantes voltam à sala Debriefing, sentam-se em U, com Professor/Moderador e 'Ator/Personagem' entre eles.<br>
+*No Ensino à Distância, as sessões acontecem em formato online, com os mesmos procedimentos de briefing e debriefing. No entanto, no momento que a simulação inicia, todos desligam vídeo e som, exceto estudante/voluntário (neste momento a gravação é desativada) e o ator/atriz. Ao finalizar o cenário, todos ligam o vídeo e a gravação é ativada.
+</div>
+</div>
+
+<div style="border-top:2px solid #E31E24;margin:15px 0;"></div>
+<div class="section">
+ <label>Caso:</label>
+ <textarea id="cenario" placeholder="Descreva o cenário de simulação..."></textarea>
+ </div>
+
+ <div class="section">
+ <label>Informação Inicial:</label>
+ <textarea id="oq_simulacao" placeholder="Informação inicial sobre o caso que o ator deve saber para a simulação (contexto, situação, personagens envolvidos, etc.)"></textarea>
+ </div>
+
+ 
+
+ <div class="section">
+ 
+
+ <div class="section">
+ 
+
+ <div class="section">
+ 
+
+ <div class="section">
+ <div style="border-top:2px solid #E31E24;margin:15px 0;"></div><label style="display:inline;">Guião para Ator</label><button type="button" onclick="var d=document.getElementById('hint_ator');d.style.display=d.style.display=='block'?'none':'block'" style="background:#E31E24;color:#fff;font-weight:bold;border:1px solid #000;border-radius:3px;padding:2px 8px;margin-left:5px;font-size:11px;cursor:pointer;font-weight:bold;" title="Saiba mais">+</button><div id="hint_ator" style="display:none;margin:10px 0;padding:10px;background:#f5f5f5;border-left:3px solid #E31E24;border-radius:4px;"><div style="font-size:12px;line-height:1.8;text-align:justify;">O objetivo é apresentar diferentes elementos da história, indicando como começa e termina o cenário, descrevendo os estados emocionais da personagem ao longo da mesma; indicar informação prévia necessária; comportamento na sessão; comportamento no debriefing.</div></div>
+ 
+ </div>
+
+ <div class="section">
+ <div style="font-size:14px;font-weight:500;margin-bottom:10px;">O quadro seguinte deve ser preenchido para completar o guião para ator, indicando ações que o Técnico/Profissional possa adotar durante o cenário e reações respetivas que o Ator/Personagem deve seguir. Ou o inverso, ações que o Ator/Personagem possa adotar durante o cenário e reações respetivas que o Técnico/Profissional deve seguir. Especificar no cabeçalho a situação.</div>
+ <div style="background:#fff;border:2px solid #E31E24;border-radius:12px;padding:15px;margin:15px 0;box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+
+<table id="quadroAcao" style="width:100%;border-collapse:collapse;font-size:13px;">
+<tr style="background:#E31E24;color:#000;font-weight:bold;"><th style="padding:12px;text-align:left;width:50%;">AÇÃO – Ator/Personagem</th><th style="padding:12px;text-align:left;width:50%;">REAÇÃO – Técnico/Profissional</th></tr>
+<tr style="background:#f8f8f8;"><td style="padding:10px;border-bottom:1px solid #ddd;"><textarea rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;" placeholder="Ex.: Negociação - pede desconto"></textarea></td><td style="padding:10px;border-bottom:1px solid #ddd;border-left:1px solid #ddd;"><textarea rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;" placeholder="Ex.: Oferece alternativas"></textarea></td></tr>
+<tr style="background:#fff;"><td style="padding:10px;border-bottom:1px solid #ddd;"><textarea rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;" placeholder="Ex.: Objeções ao preço"></textarea></td><td style="padding:10px;border-bottom:1px solid #ddd;border-left:1px solid #ddd;"><textarea rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;" placeholder="Ex.: Responde às objeções técnica"></textarea></td></tr>
+<tr style="background:#f8f8f8;"><td style="padding:10px;border-bottom:1px solid #ddd;"><textarea rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;" placeholder="Ex.: Negociação - pede desconto"></textarea></td><td style="padding:10px;border-bottom:1px solid #ddd;border-left:1px solid #ddd;"><textarea rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;" placeholder="Ex.: Oferece alternativas"></textarea></td></tr>
+<tr style="background:#fff;"><td style="padding:10px;border-bottom:1px solid #ddd;"><textarea rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;" placeholder="Ex.: Objeções ao preço"></textarea></td><td style="padding:10px;border-bottom:1px solid #ddd;border-left:1px solid #ddd;"><textarea rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;" placeholder="Ex.: Responde às objeções técnica"></textarea></td></tr>
+<tr style="background:#f8f8f8;"><td style="padding:10px;"><textarea rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;" placeholder="Ex.: Compra mais. Mostra-se satisfeita."></textarea></td><td style="padding:10px;border-left:1px solid #ddd;"><textarea rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;" placeholder="Ex.: Fecho da venda."></textarea></td></tr>
+<tr><td colspan="2" style="padding:15px;text-align:center;">
+<button type="button" onclick="addRow()" class="btn-plus" title="Adicionar linha" style="background:#E31E24;color:#fff;border:1px solid #000;border-radius:50%;width:30px;height:30px;font-size:14px;font-weight:bold;">+</button> <button type="button" onclick="removeRow()" class="btn-minus" title="Remover linha" style="background:#E31E24;color:#fff;border:1px solid #000;border-radius:50%;width:30px;height:30px;font-size:14px;font-weight:bold;">-</button>
+</td></tr>
+</table>
+</div>
+ </div>
+
+ <div class="btn-group">
+
+
+ <div class="section">
+ <label style="display:inline;">Informações para Ator/Personagem:</label><button type="button" onclick="var d=document.getElementById('hint_info_ator');d.style.display=d.style.display=='block'?'none':'block'" title="Saiba mais" style="background:#E31E24;color:#fff;font-weight:bold;border:1px solid #000;border-radius:3px;padding:2px 8px;margin-left:5px;font-size:11px;cursor:pointer;">+</button><div id="hint_info_ator" style="display:none;margin:10px 0;padding:10px;background:#f5f5f5;border-left:3px solid #E31E24;border-radius:4px;"><div style="font-size:12px;line-height:1.8;text-align:justify;">Para o ator é importante saber as respostas a todas as possíveis perguntas que os alunos possam fazer na simulação ou no debriefing para saber como responder/reagir às mesmas.<br><br><b>Como se caracteriza a personagem:</b><br>• Que tipo de personalidade tem?<br>• Como se sente consigo?<br>• Como se sente com os outros?<br>• Quais as relações com as pessoas à sua volta?<br>• Quais as suas principais preocupações?<br>• Qual a sua rotina? (p.ex.: um dia típico)<br>• Qual o motivo de estar ali?<br>• O discurso interior corresponde ao discurso exterior?<br>• Qual o estado emocional mais vigente? (p.ex.: alegria, indiferença, medo)<br>• Quais os seus comportamentos? (p.ex.: o que despoleta o quê?)<br>• Informações relevantes em relação à imagem geral (roupa, cabelo, higiene, estrato social).<br>• Informações relevantes em relação à cronologia de vida.<br><br><b>Consoante a disciplina e os objetivos da sessão de SBL, poderá ser importante fornecer:</b><br>• informações sobre trabalho<br>• informações sobre a família<br>• informações sobre alguém específico<br>• informações sobre um tema específico<br>• informações médicas<br>Estas informações podem ser facultadas através de documentos ou links.</div></div>
+ <textarea id="info_ator" placeholder="Informação que o ator/personagem necessita saber..."></textarea>
+ </div>
+
+ <div class="btn-group" style="margin-top:20px;text-align:center;">
+ <button onclick="gerarGuiao()" class="no-print" style="background:#E31E24;color:#fff;padding:10px 20px;border:1px solid #000;border-radius:5px;cursor:pointer;font-size:14px;font-weight:bold;margin:5px;">Gerar Guião</button>
+ 
+ <button onclick="guardar()" class="no-print" style="background:#333;color:#fff;padding:10px 20px;border:1px solid #000;border-radius:5px;cursor:pointer;font-size:14px;font-weight:bold;margin:5px;">Guardar</button>
+ 
+ <button onclick="window.print()" class="no-print" style="background:#FF6B00;color:#fff;padding:10px 20px;border:1px solid #000;border-radius:5px;cursor:pointer;font-size:14px;font-weight:bold;margin:5px;">Salvar PDF</button>
+ </div>
+
+
+<script>
+
+function addRow() {
+  var table = document.getElementById("quadroAcao");
+  if (!table) return;
+  var row = table.insertRow(table.rows.length - 1);
+  row.style.background = table.rows.length % 2 === 0 ? "#f8f8f8" : "#fff";
+  row.innerHTML = "<td style=\"padding:10px;border-bottom:1px solid #ddd;\"><textarea rows=\"3\" style=\"width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;\"></textarea></td><td style=\"padding:10px;border-bottom:1px solid #ddd;border-left:1px solid #ddd;\"><textarea rows=\"3\" style=\"width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;\"></textarea></td>";
+}
+function removeRow(){var table=document.getElementById("quadroAcao");if(table.rows.length>3){table.deleteRow(table.rows.length-2);}}</script>
+<script>
+function guardar() {
+  var d={}, e=document.querySelectorAll("input,textarea,select");
+  for(var i=0;i<e.length;i++){if(e[i].id&&e[i].value)d[e[i].id]=e[i].value;}
+  localStorage.setItem("sbl_plano",JSON.stringify(d));
+  alert("Plano guardado!");
+}
+function gerarGuiao() {
+  alert("Guião criado! Use Salvar PDF para exportar.");
+}
+</script>
+
+<script>
+function lerParametros() {
+  var u=new URLSearchParams(window.location.search);
+  for(var p of u.entries()){
+    var el=document.getElementById(p[0]);
+    if(el)el.value=decodeURIComponent(p[1]);
+  }
+}
+window.onload=lerParametros;
+</script>
