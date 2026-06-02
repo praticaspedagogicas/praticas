@@ -2626,7 +2626,7 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 </div>
 <div class="cbl-meta-field">
 <label>Número de Estudantes:</label>
-<input id="n_estudantes" placeholder="Ex: 30" type="text" value="32"/>
+<input id="n_estudantes" placeholder="Ex: 30" type="text" value="32" inputmode="numeric" pattern="[0-9]*" autocomplete="off">
 </div>
 <div class="cbl-meta-field cbl-meta-org">
 <label>Organização(ões), parceiro(s) ou contexto do desafio:</label>
@@ -4772,5 +4772,102 @@ body.cbl-exporting .section:has(#calendarizacao),
   }
 })();
 </script>
+
+<script id="cbl-numeric-only-final-fix">
+/* ===== FIX FINAL CBL — Nº de estudantes apenas numérico =====
+   Intervenção cirúrgica: não altera PDF, Power Automate, payload,
+   autosave, campos expansíveis ou estilo visual dos textareas. */
+(function(){
+  function cleanDigits(value){
+    return String(value || '').replace(/[^0-9]/g, '');
+  }
+
+  function showNumericToast(){
+    if(typeof window.toast === 'function'){
+      window.toast('O campo “Número de Estudantes” aceita apenas números.', 'error', 4500);
+    }
+  }
+
+  function bindNumericOnly(id){
+    var el = document.getElementById(id);
+    if(!el || el.dataset.cblNumericOnly === '1') return;
+    el.dataset.cblNumericOnly = '1';
+    el.setAttribute('inputmode', 'numeric');
+    el.setAttribute('pattern', '[0-9]*');
+    el.setAttribute('autocomplete', 'off');
+    el.setAttribute('aria-label', 'Número de estudantes');
+
+    el.addEventListener('beforeinput', function(ev){
+      if(ev.data && /[^0-9]/.test(ev.data)){
+        ev.preventDefault();
+        showNumericToast();
+      }
+    });
+
+    el.addEventListener('paste', function(ev){
+      ev.preventDefault();
+      var txt = '';
+      try{ txt = (ev.clipboardData || window.clipboardData).getData('text') || ''; }catch(e){}
+      var clean = cleanDigits(txt);
+      var start = el.selectionStart == null ? el.value.length : el.selectionStart;
+      var end = el.selectionEnd == null ? el.value.length : el.selectionEnd;
+      var next = String(el.value || '').slice(0, start) + clean + String(el.value || '').slice(end);
+      el.value = cleanDigits(next);
+      try{
+        var pos = start + clean.length;
+        el.setSelectionRange(pos, pos);
+      }catch(e){}
+      el.dispatchEvent(new Event('input', {bubbles:true}));
+      if(txt !== clean) showNumericToast();
+    });
+
+    el.addEventListener('drop', function(ev){
+      ev.preventDefault();
+      var txt = '';
+      try{ txt = ev.dataTransfer.getData('text') || ''; }catch(e){}
+      el.value = cleanDigits(String(el.value || '') + txt);
+      el.dispatchEvent(new Event('input', {bubbles:true}));
+      if(txt !== cleanDigits(txt)) showNumericToast();
+    });
+
+    el.addEventListener('input', function(){
+      var clean = cleanDigits(el.value);
+      if(el.value !== clean){
+        el.value = clean;
+        showNumericToast();
+      }
+    });
+
+    el.addEventListener('blur', function(){
+      el.value = cleanDigits(el.value);
+    });
+  }
+
+  function initNumericOnly(){
+    bindNumericOnly('n_estudantes');
+  }
+
+  // Reforça a validação final antes da submissão, mantendo o mesmo nome usado pelo template.
+  window.validarCamposNumericosGuiao = function(){
+    var el = document.getElementById('n_estudantes') || document.querySelector('[name="n_estudantes"]');
+    if(el){
+      el.value = cleanDigits(el.value);
+      if(String(el.value || '').trim() && !/^[0-9]+$/.test(String(el.value).trim())){
+        try{ el.focus(); }catch(e){}
+        showNumericToast();
+        return false;
+      }
+    }
+    return true;
+  };
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initNumericOnly);
+  }else{
+    initNumericOnly();
+  }
+})();
+</script>
+
 </body>
 </html>
