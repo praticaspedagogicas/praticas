@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano Proj-BL</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Century Gothic', sans-serif; background: #f5f5f5; padding: 15px; }
+.page { max-width: 900px; margin: 0 auto; background: white; padding: 15px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.logo { text-align: center; margin-bottom: 15px; }
+.logo img { height: 40px; }
+h1 { text-align: center; border-bottom: 2px solid #E31E24; padding-bottom: 15px; margin-bottom: 20px; }
+.section { margin: 12px 0; padding: 10px; border: 1px solid #333; }
+.section label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 12px; }
+input, textarea, select { width: 100%; padding: 6px; border: 1px solid #333; border-radius: 3px; font-size: 12px; box-sizing: border-box; }
+textarea { min-height: 60px; }
+.tabs { display: flex; border-bottom: 2px solid #E31E24; }
+.tab { padding: 8px 15px; cursor: pointer; background: #eee; border: none; font-size: 12px; }
+.tab.active { background: #E31E24; color: white; }
+.tab-content { display: none; padding: 12px 0; }
+.tab-content.active { display: block; }
+.quadro-table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 9px; table-layout: fixed; word-wrap: break-word; }
+.quadro-table th, .quadro-table td { padding: 4px; border: 1px solid #333; vertical-align: top; }
+.quadro-table th { background: #fff; font-size: 10px; text-align: left; }
+.quadro-table input { border: none; background: transparent; width: 100%; font-size: 9px; }
+.btn-preto { background: #333; color: #fff; border: 1px solid #000; padding: 8px 20px; border-radius: 4px; font-size: 12px; cursor: pointer; }
+.btn { background: #FF6B00; color: white; border: none; padding: 8px 20px; border-radius: 4px; font-size: 12px; cursor: pointer; }
+.legend { background: #f0f0f0; padding: 10px; border: 1px solid #ccc; margin: 10px 0; font-size: 10px; }
+.legend div { margin-bottom: 3px; }
+.calculated { background: #ffcccc; color: #cc0000; font-weight: bold; }
+.header-info { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.header-info .section { margin: 5px 0; }
+@media print {
+  .no-print, button, .btn, .btn-preto { display: none !important; }
+  .tab { display: none !important; }
+  .tab-content { display: block !important; margin-bottom: 20px; page-break-before: always; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  @page { margin: 1cm; size: A4; }
+}
+@media print {
+  .no-print, button, .btn, .btn-preto { display: none !important; }
+  .tab { display: none !important; }
+  .tab-content { display: block !important; margin-bottom: 20px; page-break-before: always; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  @page { margin: 1cm; size: A4; }
+}
+@media print {
+  .no-print, button, .btn, .btn-preto { display: none !important; }
+  .tab { display: none !important; }
+  .tab-content { display: block !important; margin-bottom: 20px; page-break-before: always; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  @page { margin: 1cm; size: A4; }
+}
+  @media print {
+    .no-print, button, .btn, .btn-preto, .btn-plus, .btn-minus,
+    button[title="Saiba mais"] { display: none !important; }
+    .page, .logo { box-shadow: none !important; }
+    .tab { display: none !important; }
+    .tab-content { display: block !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+<div class="logo"><img src="data:image/png;base64,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" alt="Universidade Europeia"></div>
+<h1>Project-Based Learning - Plano de Projeto</h1>
+
+<div class="header-info">
+<div class="section"><label>Nome da UC de Projeto:</label><input placeholder="Ex: Projeto I"></div>
+<div class="section"><label>Ciclo de Estudos:</label><input placeholder="Ex: Mestrado"></div>
+</div>
+
+<div class="section"><label>Docentes:</label>
+<table class="quadro-table">
+<tr><th>Nome</th><th>Email</th></tr>
+<tr><td><input placeholder="Nome docente"></td><td><input placeholder="email@universidade.pt"></td></tr>
+<tr><td><input placeholder="Nome docente"></td><td><input placeholder="email@universidade.pt"></td></tr>
+<tr><td><input placeholder="Nome docente"></td><td><input placeholder="email@universidade.pt"></td></tr>
+</table>
+<button onclick="addDocente()" style="padding:5px 10px; cursor:pointer; margin-top:5px;">+ Adicionar Docente</button>
+</div>
+
+<div class="section"><label>Ano letivo:</label><input></div>
+
+<div class="tabs">
+<button class="tab active" onclick="openTab('descricao')">1. Descrição</button>
+<button class="tab" onclick="openTab('funcionamento')">2. Funcionamento</button>
+<button class="tab" onclick="openTab('objetivos')">3. Objetivos</button>
+<button class="tab" onclick="openTab('metodologia')">4. Metodologia</button>
+<button class="tab" onclick="openTab('entregaveis')">5. Entregáveis</button>
+<button class="tab" onclick="openTab('avaliacao')">6. Avaliação</button>
+<button class="tab" onclick="openTab('ucs')">7. Contribuições</button>
+</div>
+
+<div id="descricao" class="tab-content active">
+<div class="section"><label>DESCRIÇÃO:</label><textarea placeholder="Descrição geral do projeto"></textarea></div>
+<div class="section"><label>Unidades Curriculares Participantes:</label>
+<table class="quadro-table">
+<tr><th>UC</th><th>Contexto/Objetivos principais da participação</th></tr>
+<tr><td><input placeholder="Nome da UC"></td><td><input placeholder="Contexto e objetivos"></td></tr>
+<tr><td><input placeholder="Nome da UC"></td><td><input placeholder="Contexto e objetivos"></td></tr>
+<tr><td><input placeholder="Nome da UC"></td><td><input placeholder="Contexto e objetivos"></td></tr>
+</table>
+<button onclick="addUC()" style="padding:5px 10px; cursor:pointer; margin-top:5px;">+ Adicionar UC</button>
+</div>
+</div>
+
+<div id="funcionamento" class="tab-content">
+<div class="section"><label>FUNCIONAMENTO E CONTEÚDOS:</label><textarea placeholder="O projeto decorre no [X] semestre. Introdução e descrição de conteúdos."></textarea></div>
+</div>
+
+<div id="objetivos" class="tab-content">
+<div class="section"><label>OBJETIVOS DE APRENDIZAGEM:</label><textarea placeholder="Ao final deste projeto, espera-se que os estudantes estejam/aptos a:
+
+- Criar e desenvolver um projeto original e inovador;
+- Explorar uma variedade de soluções no desenvolvimento de projeto;
+- Demonstrar a correta aplicação dos conhecimentos e competências adquiridos;
+- Reconhecer a ligação entre todas as unidades curriculares;
+- Usar diferentes ferramentas e técnicas para produzir conteúdo e funcionalidade;
+..."></textarea></div>
+</div>
+
+<div id="metodologia" class="tab-content">
+<div class="section"><label>METODOLOGIA:</label><textarea placeholder="As aulas decorrem em regime de mentoria, para orientar e apoiar o desenvolvimento do projeto, bem como para discutir e/ou encontrar soluções para os problemas que possam surgir."></textarea></div>
+<div class="section"><label>Metodologia por UC:</label>
+<table class="quadro-table">
+<tr><th>UC</th><th>Objetivos</th><th>Procedimentos</th><th>Entregáveis esperados</th></tr>
+<tr><td><input placeholder="Nome da UC"></td><td><input placeholder="Objetivos"></td><td><input placeholder="Procedimentos"></td><td><input placeholder="Entregáveis"></td></tr>
+<tr><td><input placeholder="Nome da UC"></td><td><input placeholder="Objetivos"></td><td><input placeholder="Procedimentos"></td><td><input placeholder="Entregáveis"></td></tr>
+<tr><td><input placeholder="Nome da UC"></td><td><input placeholder="Objetivos"></td><td><input placeholder="Procedimentos"></td><td><input placeholder="Entregáveis"></td></tr>
+<tr><td><input placeholder="Nome da UC"></td><td><input placeholder="Objetivos"></td><td><input placeholder="Procedimentos"></td><td><input placeholder="Entregáveis"></td></tr>
+</table>
+<button onclick="addMetodologiaUC()" style="padding:5px 10px; cursor:pointer; margin-top:5px;">+ Adicionar UC</button>
+</div>
+</div>
+
+<div id="entregaveis" class="tab-content">
+<div class="section"><label>ENTREGÁVEIS:</label>
+<table class="quadro-table">
+<tr><th>Semana</th><th>Entrega</th><th>Tipo de avaliação</th><th>Data</th><th>% da nota final</th></tr>
+<tr><td><input placeholder="1ª semana"></td><td><input placeholder="Lançamento do Projeto - Briefing"></td><td><input placeholder="Tipo"></td><td><input placeholder="DD/MM"></td><td><input type="number"></td></tr>
+<tr><td><input placeholder="2ª semana"></td><td><input placeholder="Entrega"></td><td><input placeholder="Tipo"></td><td><input placeholder="DD/MM"></td><td><input type="number"></td></tr>
+<tr><td><input placeholder="3ª semana"></td><td><input placeholder="Entrega"></td><td><input placeholder="Tipo"></td><td><input placeholder="DD/MM"></td><td><input type="number"></td></tr>
+</table>
+<button onclick="addSemana()" style="padding:5px 10px; cursor:pointer; margin-top:5px;">+ Adicionar Semana</button>
+</div>
+</div>
+
+<div id="avaliacao" class="tab-content">
+<div class="section"><label>CRITÉRIOS DE AVALIAÇÃO:</label>
+<div style="margin-bottom:15px;">
+<div><label>Nome da UC:</label><input placeholder="Ex: Gestão de Projetos" style="margin-bottom:8px;"></div>
+<div style="padding-left:10px;">
+<div>• <input placeholder="Descrição de critério" style="border:none; background:transparent; width:90%;"></div>
+<div>• <input placeholder="Descrição de critério" style="border:none; background:transparent; width:90%;"></div>
+<div>• <input placeholder="Descrição de critèreio" style="border:none; background:transparent; width:90%;"></div>
+<button onclick="addCriterio(this)" style="padding:3px 8px; cursor:pointer; margin-top:3px; font-size:10px;">+ Adicionar critério</button>
+</div>
+</div>
+<div style="margin-bottom:15px;">
+<div><label>Nome da UC:</label><input placeholder="Ex: Marketing" style="margin-bottom:8px;"></div>
+<div style="padding-left:10px;">
+<div>• <input placeholder="Descrição de critério" style="border:none; background:transparent; width:90%;"></div>
+<div>• <input placeholder="Descrição de critério" style="border:none; background:transparent; width:90%;"></div>
+<div>• <input placeholder="Descrição de critèreio" style="border:none; background:transparent; width:90%;"></div>
+<button onclick="addCriterio(this)" style="padding:3px 8px; cursor:pointer; margin-top:3px; font-size:10px;">+ Adicionar critério</button>
+</div>
+</div>
+<button onclick="addUC_Aval()" style="padding:5px 10px; cursor:pointer;">+ Adicionar UC</button>
+</div>
+</div>
+
+<div id="ucs" class="tab-content">
+<div class="section"><label>CONTRIBUIÇÕES DAS UNIDADES CURRICULARES:</label>
+<table class="quadro-table">
+<tr><th>ECTS</th><th>UNIDADE CURRICULAR</th><th>HORAS DE CONTATO</th><th>CONTRIBUIÇÃO</th><th>Professor/Email</th><th>% DO PROJETO FINAL</th></tr>
+<tr><td><input type="number" placeholder="[3/6]"></td><td><input placeholder="Nome da UC"></td><td><input placeholder="n semanas x horas"></td><td><input placeholder="Contribuição do projeto"></td><td><input placeholder="[Nome do docente] [email]"></td><td><input placeholder="30%"></td></tr>
+<tr><td><input type="number"></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td><input type="number"></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+</table>
+<button onclick="addContrib()" style="padding:5px 10px; cursor:pointer; margin-top:5px;">+ Adicionar UC</button>
+</div>
+<div class="section"><label>BIBLIOGRAFIA:</label><textarea placeholder="Inserir a bibliografia de acordo com as FUC's de cada unidade curricular"></textarea></div>
+<div class="section"><label>RECURSOS:</label><textarea placeholder="Links úteis, repositórios, etc."></textarea></div>
+</div>
+
+<div class="no-print" style="padding:12px; margin-top:20px;">
+<button class="btn-preto" onclick="gerarPlano()">Gerar Plano</button>
+<button class="btn btn-preto no-print" onclick="guardar()">Guardar</button>
+<button class="btn" onclick="window.print()">Salvar PDF</button>
+</div>
+</div>
+
+<script>
+function openTab(id) {
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); c.style.display='none'; });
+  event.target.classList.add('active');
+  var el = document.getElementById(id);
+  if (el) { el.classList.add('active'); el.style.display='block'; }
+}
+function addDocente() {
+  var t = document.querySelector('.section table');
+  if (t) { var r=t.insertRow(-1); r.innerHTML='<td><input></td><td><input></td>'; }
+}
+function addUC() {
+  document.querySelectorAll('.quadro-table').forEach(function(t) {
+    if (t.rows[0] && t.rows[0].cells[0].textContent.trim()==='UC') {
+      var r=t.insertRow(-1); r.innerHTML='<td><input></td><td><input></td>';
+    }
+  });
+}
+function addMetodologiaUC() {
+  document.querySelectorAll('.quadro-table').forEach(function(t) {
+    var h=t.rows[0];
+    if (h && h.cells.length===4 && h.cells[0].textContent.includes('UC')) {
+      var r=t.insertRow(-1); r.innerHTML='<td><input></td><td><input></td><td><input></td><td><input></td>';
+    }
+  });
+}
+function addSemana() {
+  document.querySelectorAll('.quadro-table').forEach(function(t) {
+    var h=t.rows[0];
+    if (h && h.cells.length===5 && h.cells[0].textContent.includes('Semana')) {
+      var n=t.rows.length; var r=t.insertRow(-1);
+      r.innerHTML='<td><input placeholder="'+n+'ª semana"></td><td><input></td><td><input></td><td><input placeholder="DD/MM"></td><td><input type="number"></td>';
+    }
+  });
+}
+function addContrib() {
+  document.querySelectorAll('.quadro-table').forEach(function(t) {
+    var h=t.rows[0];
+    if (h && h.cells.length===6 && h.cells[1].textContent.includes('UNIDADE')) {
+      var r=t.insertRow(-1); r.innerHTML='<td><input type="number"></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td>';
+    }
+  });
+}
+function addCriterio(btn) {
+  var d=btn.parentNode, l=document.createElement('div');
+  l.innerHTML='• <input placeholder="Descrição de critério" style="border:none;background:transparent;width:90%;">';
+  d.insertBefore(l,btn);
+}
+function addUC_Aval() {
+  var c=document.querySelector('#avaliacao .section');
+  if (!c) return;
+  var d=document.createElement('div'); d.style.marginBottom='15px';
+  d.innerHTML='<div><label>Nome da UC:</label><input placeholder="Ex: Gestão de Projetos" style="margin-bottom:8px;"></div>'
+    +'<div style="padding-left:10px;">'
+    +'<div>• <input placeholder="Critério" style="border:none;background:transparent;width:90%;"></div>'
+    +'<button onclick="addCriterio(this)" style="padding:3px 8px;cursor:pointer;margin-top:3px;font-size:10px;">+ Adicionar critério</button>'
+    +'</div>';
+  c.appendChild(d);
+}
+</script>
+
+<script>
+function guardar() {
+  var d={}, e=document.querySelectorAll("input,textarea,select");
+  for(var i=0;i<e.length;i++){if(e[i].id&&e[i].value)d[e[i].id]=e[i].value;}
+  localStorage.setItem("projbl_plano",JSON.stringify(d));
+  alert("Plano guardado!");
+}
+</script>
+<script>
+function lerParametros() {
+  var u=new URLSearchParams(window.location.search);
+  for(var p of u.entries()){
+    var el=document.getElementById(p[0]);
+    if(el)el.value=decodeURIComponent(p[1]);
+  }
+}
+window.onload=lerParametros;
+</script>
+</body>
+</html>
+
+<script>
+function gerarPlano() {
+  alert("Guião criado! Use Salvar PDF para exportar.");
+}
+</script>
