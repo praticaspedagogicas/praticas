@@ -2525,6 +2525,24 @@ body:not(.cbl-exporting) .cbl-course-helper{
 }
 </style>
 
+
+<style id="cbl-submit-required-final-css">
+/* ===== Validação de submissão — campos obrigatórios essenciais ===== */
+body:not(.cbl-exporting) .cbl-required-error,
+body:not(.cbl-exporting) .cbl-required-error input,
+body:not(.cbl-exporting) .cbl-required-error textarea,
+body:not(.cbl-exporting) .cbl-required-error select{
+  border-color:#E31E24 !important;
+  outline:3px solid rgba(227,30,36,.12) !important;
+  background:#fffafa !important;
+}
+body:not(.cbl-exporting) .cbl-course-picker.cbl-required-error,
+body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
+  border-color:#E31E24 !important;
+  box-shadow:0 4px 14px rgba(227,30,36,.08) !important;
+}
+</style>
+
 </head>
 <body>
 <div class="page">
@@ -2613,7 +2631,7 @@ body:not(.cbl-exporting) .cbl-course-helper{
 </div>
 <div class="cbl-meta-field">
 <label>Número de Estudantes:</label>
-<input id="n_estudantes" placeholder="Ex: 30" type="text"/>
+<input id="n_estudantes" placeholder="Ex: 30" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off">
 </div>
 <div class="cbl-meta-field cbl-meta-org">
 <label>Organização(ões), parceiro(s) ou contexto do desafio:</label>
@@ -2681,7 +2699,7 @@ body:not(.cbl-exporting) .cbl-course-helper{
       <span>Sim, autorizo a integração deste guião no repositório após validação.</span>
     </label>
     <label class="cbl-repository-option" for="autorizaRepositorioNao">
-      <input type="radio" id="autorizaRepositorioNao" name="autorizaRepositorio" value="Não" checked />
+      <input type="radio" id="autorizaRepositorioNao" name="autorizaRepositorio" value="Não" />
       <span>Não autorizo a integração deste guião no repositório.</span>
     </label>
   </div>
@@ -2799,14 +2817,50 @@ body:not(.cbl-exporting) .cbl-course-helper{
       window.setTimeout(function(){ if(String(ta.value || '').trim()) autoGrow(ta); }, 0);
     });
   }
+  function isProgressField(el){
+    if(!el) return false;
+    var id = el.id || '';
+    var name = el.name || '';
+
+    // Ignorar campos técnicos/auxiliares que não representam preenchimento real do guião.
+    if(el.type === 'hidden') return false;
+    if(id === 'cursoBusca') return false; // campo de pesquisa: o valor real está em #curso/chips
+    if(el.closest && el.closest('.no-print') && name !== 'autorizaRepositorio') return false;
+
+    return true;
+  }
+
   function renderProgress(){
-    var f = allFields();
-    if(!f.length) return;
-    var filled = f.filter(function(el){
-      if(el.type === 'checkbox' || el.type === 'radio') return !!el.checked;
-      return String(el.value || '').trim() !== '';
-    }).length;
-    var pct = Math.round((filled / f.length) * 100);
+    var fields = allFields().filter(isProgressField);
+    if(!fields.length) return;
+
+    var total = 0;
+    var filled = 0;
+    var radioGroups = {};
+
+    fields.forEach(function(el){
+      if(el.type === 'radio'){
+        var key = el.name || el.id;
+        if(!key) return;
+        radioGroups[key] = radioGroups[key] || [];
+        radioGroups[key].push(el);
+        return;
+      }
+
+      total++;
+      if(el.type === 'checkbox'){
+        if(el.checked) filled++;
+      } else {
+        if(String(el.value || '').trim() !== '') filled++;
+      }
+    });
+
+    Object.keys(radioGroups).forEach(function(key){
+      total++;
+      if(radioGroups[key].some(function(radio){ return radio.checked; })) filled++;
+    });
+
+    var pct = total ? Math.round((filled / total) * 100) : 0;
     if($('progressFill')) $('progressFill').style.width = pct + '%';
     if($('progressLabel')) $('progressLabel').textContent = 'Guião preenchido: ' + pct + '%';
   }
@@ -3581,21 +3635,69 @@ body:not(.cbl-exporting) .cbl-course-helper{
       return await blobToBase64(blob);
     }catch(e){ console.error(e); return ''; }
   }
-  async function submitValidation(button){
-    
-      var emailEl = document.getElementById('emails');
-      var emailValue = emailEl ? String(emailEl.value || '').trim() : '';
-      if(!emailValue){
-        if(emailEl){
-          emailEl.classList.add('cbl-email-error');
-          try{ emailEl.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){}
-          try{ emailEl.focus(); }catch(e){}
-        }
-        showToast('Para enviar o guião para validação, indique pelo menos um e-mail no campo Email(s).', 'error', 7500);
-        return;
-      }
-      if(emailEl){ emailEl.classList.remove('cbl-email-error'); }
 
+  function clearRequiredError(el){
+    if(!el) return;
+    el.classList.remove('cbl-required-error');
+    var wrap = el.closest && (el.closest('.cbl-course-picker') || el.closest('.cbl-repository-authorization') || el.closest('td') || el.closest('.cbl-meta-field') || el.closest('.section'));
+    if(wrap) wrap.classList.remove('cbl-required-error');
+  }
+
+  function markRequiredError(el){
+    if(!el) return;
+    el.classList.add('cbl-required-error');
+    var wrap = el.closest && (el.closest('.cbl-course-picker') || el.closest('.cbl-repository-authorization') || el.closest('td') || el.closest('.cbl-meta-field') || el.closest('.section'));
+    if(wrap) wrap.classList.add('cbl-required-error');
+    try{ (wrap || el).scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){}
+    try{ el.focus(); }catch(e){}
+  }
+
+  function validateRequiredBeforeSubmit(){
+    var curso = $('curso');
+    var cursoBusca = $('cursoBusca') || curso;
+    var uc = $('uc');
+    var emailEl = $('emails');
+    var repoChecked = document.querySelector('input[type="radio"][name="autorizaRepositorio"]:checked');
+    var repoPanel = $('partilhaRepositorio');
+
+    [cursoBusca, uc, emailEl].forEach(clearRequiredError);
+    if(repoPanel) repoPanel.classList.remove('cbl-required-error');
+
+    if(!String(curso && curso.value || '').trim()){
+      markRequiredError(cursoBusca);
+      toast('Para enviar para validação, selecione pelo menos um Curso.', 'error', 7500);
+      return false;
+    }
+
+    if(!String(uc && uc.value || '').trim()){
+      markRequiredError(uc);
+      toast('Para enviar para validação, preencha a Unidade Curricular.', 'error', 7500);
+      return false;
+    }
+
+    if(!String(emailEl && emailEl.value || '').trim()){
+      markRequiredError(emailEl);
+      if(emailEl) emailEl.classList.add('cbl-email-error');
+      toast('Para enviar para validação, indique pelo menos um e-mail no campo Email(s).', 'error', 7500);
+      return false;
+    }
+
+    if(emailEl) emailEl.classList.remove('cbl-email-error');
+
+    if(!repoChecked){
+      if(repoPanel){
+        repoPanel.classList.add('cbl-required-error');
+        try{ repoPanel.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){}
+      }
+      toast('Para enviar para validação, indique se autoriza ou não a integração no repositório.', 'error', 7500);
+      return false;
+    }
+
+    return true;
+  }
+
+  async function submitValidation(button){
+    if(!validateRequiredBeforeSubmit()) return;
 if(submitLock) return;
     if(!window.validarCamposNumericosGuiao()) return;
     submitLock = true;
@@ -3703,7 +3805,26 @@ if(submitLock) return;
       el.addEventListener('change', function(){ schedule(el); });
     });
   }
-  function init(){ bindAutoGrow(); bindFields(); initMenu(); bindButtons(); renderProgress(); }
+
+  function bindRequiredClear(){
+    ['cursoBusca','uc','emails'].forEach(function(id){
+      var el = $(id);
+      if(!el || el.dataset.cblRequiredClearBound === '1') return;
+      el.dataset.cblRequiredClearBound = '1';
+      el.addEventListener('input', function(){ clearRequiredError(el); });
+      el.addEventListener('change', function(){ clearRequiredError(el); });
+    });
+    document.querySelectorAll('input[type="radio"][name="autorizaRepositorio"]').forEach(function(radio){
+      if(radio.dataset.cblRequiredClearBound === '1') return;
+      radio.dataset.cblRequiredClearBound = '1';
+      radio.addEventListener('change', function(){
+        var panel = $('partilhaRepositorio');
+        if(panel) panel.classList.remove('cbl-required-error');
+      });
+    });
+  }
+
+  function init(){ bindAutoGrow(); bindFields(); bindRequiredClear(); initMenu(); bindButtons(); renderProgress(); }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script><datalist id="cblCursosList">
@@ -4533,5 +4654,102 @@ body.cbl-exporting .cbl-meta-panel .cbl-meta-field,
   }
 })();
 </script>
+
+<script id="cbl-numeric-only-final-fix">
+/* ===== FIX FINAL CBL — Nº de estudantes apenas numérico =====
+   Intervenção cirúrgica: não altera PDF, Power Automate, payload,
+   autosave, campos expansíveis ou estilo visual dos textareas. */
+(function(){
+  function cleanDigits(value){
+    return String(value || '').replace(/[^0-9]/g, '');
+  }
+
+  function showNumericToast(){
+    if(typeof window.toast === 'function'){
+      window.toast('O campo “Número de Estudantes” aceita apenas números.', 'error', 4500);
+    }
+  }
+
+  function bindNumericOnly(id){
+    var el = document.getElementById(id);
+    if(!el || el.dataset.cblNumericOnly === '1') return;
+    el.dataset.cblNumericOnly = '1';
+    el.setAttribute('inputmode', 'numeric');
+    el.setAttribute('pattern', '[0-9]*');
+    el.setAttribute('autocomplete', 'off');
+    el.setAttribute('aria-label', 'Número de estudantes');
+
+    el.addEventListener('beforeinput', function(ev){
+      if(ev.data && /[^0-9]/.test(ev.data)){
+        ev.preventDefault();
+        showNumericToast();
+      }
+    });
+
+    el.addEventListener('paste', function(ev){
+      ev.preventDefault();
+      var txt = '';
+      try{ txt = (ev.clipboardData || window.clipboardData).getData('text') || ''; }catch(e){}
+      var clean = cleanDigits(txt);
+      var start = el.selectionStart == null ? el.value.length : el.selectionStart;
+      var end = el.selectionEnd == null ? el.value.length : el.selectionEnd;
+      var next = String(el.value || '').slice(0, start) + clean + String(el.value || '').slice(end);
+      el.value = cleanDigits(next);
+      try{
+        var pos = start + clean.length;
+        el.setSelectionRange(pos, pos);
+      }catch(e){}
+      el.dispatchEvent(new Event('input', {bubbles:true}));
+      if(txt !== clean) showNumericToast();
+    });
+
+    el.addEventListener('drop', function(ev){
+      ev.preventDefault();
+      var txt = '';
+      try{ txt = ev.dataTransfer.getData('text') || ''; }catch(e){}
+      el.value = cleanDigits(String(el.value || '') + txt);
+      el.dispatchEvent(new Event('input', {bubbles:true}));
+      if(txt !== cleanDigits(txt)) showNumericToast();
+    });
+
+    el.addEventListener('input', function(){
+      var clean = cleanDigits(el.value);
+      if(el.value !== clean){
+        el.value = clean;
+        showNumericToast();
+      }
+    });
+
+    el.addEventListener('blur', function(){
+      el.value = cleanDigits(el.value);
+    });
+  }
+
+  function initNumericOnly(){
+    bindNumericOnly('n_estudantes');
+  }
+
+  // Reforça a validação final antes da submissão, mantendo o mesmo nome usado pelo template.
+  window.validarCamposNumericosGuiao = function(){
+    var el = document.getElementById('n_estudantes') || document.querySelector('[name="n_estudantes"]');
+    if(el){
+      el.value = cleanDigits(el.value);
+      if(String(el.value || '').trim() && !/^[0-9]+$/.test(String(el.value).trim())){
+        try{ el.focus(); }catch(e){}
+        showNumericToast();
+        return false;
+      }
+    }
+    return true;
+  };
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initNumericOnly);
+  }else{
+    initNumericOnly();
+  }
+})();
+</script>
+
 </body>
 </html>
