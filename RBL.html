@@ -2264,6 +2264,17 @@ function deleteDraft(){
 async function submitValidacao(){
   var dados = { titulo: (document.querySelector('h1')||{}).innerText || document.title };
   fields().forEach(function(el){ if(el.id) dados[el.id] = el.value; });
+  // PATCH institucional: o seletor pesquisável de Curso(s) pode guardar o valor em #curso.
+  // Garante compatibilidade com o Power Automate, que espera o campo top-level "cursos".
+  try {
+    var _cursoEl = document.getElementById('curso') || document.querySelector('[name="curso"]');
+    var _cursoVal = String((_cursoEl && _cursoEl.value) || dados.curso || dados.cursos || '').trim();
+    if (_cursoVal) {
+      dados.curso = _cursoVal;
+      dados.cursos = _cursoVal;
+    }
+  } catch(e) {}
+
   try{
     var r = await fetch('https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e204529fc1f342fc87cd935dfa2a58f1/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=twiVi70IgSoNelyf9E_StjR8n6gtjcasJu3ULIuXErc', {
       method: 'POST',
@@ -2860,7 +2871,11 @@ document.addEventListener('DOMContentLoaded', function(){
 
     const docentes = firstById(["docente","docentes","professor","professor_responsavel","autoria","autorias"]) ||
                      firstByLabel(["Docente(s)", "Docente", "Docente(s)", "Docente(s)", "Autoria(s)", "Autoria"]);
-    const cursos = firstById(["curso","cursos"]) || firstByLabel(["Curso(s)", "Curso"]);
+    const cursoElDireto = document.getElementById("curso") || document.querySelector('[name="curso"]');
+    const cursoDireto = cursoElDireto ? readValue(cursoElDireto) : "";
+    const cursos = firstById(["curso","cursos"]) || cursoDireto || firstByLabel(["Curso(s)", "Curso"]);
+    if (cursos && !values.curso) values.curso = cursos;
+    if (cursos && !values.cursos) values.cursos = cursos;
     const ucs = firstById(["uc","ucs","unidade_curricular"]) || firstByLabel(["UC(s)", "Unidade Curricular", "UC"]);
     const nEstudantes = firstById(["n_estudantes","numero_estudantes","estudantes"]) || firstByLabel(["Nº de estudantes", "N.º de estudantes", "Número de estudantes"]);
     const estadoGuiaoFormulario = firstById(["estado_guiao","estadoGuiaoFormulario","estado_formulario"]) || firstByLabel(["Estado do guião", "Estado do guia"]);
