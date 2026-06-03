@@ -1837,7 +1837,6 @@ body.cbl-exporting #objetivos{ min-height:22px !important; height:24px !importan
   }
 }
 </style>
-
 <style id="cbl-v53-calendario-hora-percent-expansao-final">
 /* ===== CBL v53 — calendário/hora, ponderações numéricas e expansão real dos campos ===== */
 .cbl-calendar-grid{
@@ -1903,8 +1902,6 @@ textarea.cbl-expandable-field,
   .cbl-calendar-grid{ grid-template-columns:1fr !important; }
 }
 </style>
-
-
 <style id="cbl-fix-expand-percent-clean-final">
 /* Correção final: expansão dos campos só cresce, sem inverter/encolher; ponderação sem desenho de %. */
 .cbl-percent-wrap{ display:block !important; position:static !important; }
@@ -1925,7 +1922,6 @@ textarea.cbl-expandable-field,
 #desafio,#objetivos,#conteudos{ min-height:88px !important; }
 #doc_escrito,#apresentacao,#organizacao,#uc,#professor,#emails{ min-height:62px !important; }
 </style>
-
 <style id="cbl-expansao-definitiva-sem-inversao">
 /* ===== CORREÇÃO DEFINITIVA DA EXPANSÃO =====
    O problema era a combinação de muitas regras antigas de altura + JS que escrevia
@@ -1967,7 +1963,6 @@ body:not(.cbl-exporting) #emails{
 .cbl-percent-wrap::after{content:none !important; display:none !important;}
 #pond_total,#pond_doc,#pond_apres{padding-right:10px !important; text-align:left !important;}
 </style>
-
 <style id="cbl-semestre-turma-sem-resize-final">
 /* ===== Ajuste CBL — Semestre/Turma e campos expansíveis sem puxador ===== */
 body:not(.cbl-exporting) textarea,
@@ -2561,21 +2556,21 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 <div class="header-grid">
 <div class="header-card">
 <label>Unidade Orgânica</label>
-<select id="unidadeOrganica"><option value="">Selecionar</option><option>FCST</option><option>FCS</option><option>IADE</option><option>IPAM Porto</option><option>IPAM Lisboa</option></select>
+<select id="unidadeOrganica"><option value="">Selecionar</option><option>FCST</option><option>FCS</option><option selected="selected">IADE</option><option>IPAM Porto</option><option>IPAM Lisboa</option></select>
 </div>
 <div class="header-card">
 <label>Modalidade</label>
 <select id="modalidade">
 <option value="">Selecionar</option>
 <option>Presencial</option>
-<option>EaD</option>
+<option selected="selected">EaD</option>
 </select>
 </div>
 <div class="header-card">
 <label>Semestre</label>
 <select id="semestre">
 <option value="">Selecionar</option>
-<option>1.º semestre</option>
+<option selected="selected">1.º semestre</option>
 <option>2.º semestre</option>
 <option>Anual</option>
 </select>
@@ -2584,7 +2579,7 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 <label>Turma/Edição</label>
 <select id="turmaEdicao">
 <option value="">Selecionar</option>
-<option>Turma 1</option>
+<option selected="selected">Turma 1</option>
 <option>Turma 2</option>
 <option>Turma 3</option>
 <option>Turma 4</option>
@@ -2595,7 +2590,7 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 <tr>
 <th class="cbl-course-label">Curso(s):</th>
 <td class="cbl-course-cell" colspan="3"><div class="cbl-course-picker" data-multicourse="true">
-<input id="curso" type="hidden"/>
+<input id="curso" type="hidden" value="Licenciatura em Design Visual EaD"/>
 <div class="cbl-course-search-row">
 <input autocomplete="off" id="cursoBusca" list="cblCursosList" placeholder="Digite para procurar e selecione um curso" type="text"/>
 </div>
@@ -2605,17 +2600,17 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 </tr>
 <tr>
 <th class="cbl-uc-label">Unidade(s) Curricular(es):</th>
-<td class="cbl-uc-cell" colspan="3"><textarea class="cbl-expandable-field" id="uc" placeholder="Unidade(s) Curricular(es) envolvida(s)"></textarea></td>
+<td class="cbl-uc-cell" colspan="3"><textarea class="cbl-expandable-field" id="uc" placeholder="Unidade(s) Curricular(es) envolvida(s)">Design de Interfaces Digitais; Projeto de Comunicação Visual; Experiência do Utilizador</textarea></td>
 </tr>
 <tr>
 <th>Ano Letivo:</th>
-<td><input id="ano" placeholder="Ex: 2026/2027" type="text"/></td>
+<td><input id="ano" placeholder="Ex: 2026/2027" type="text" value="2026/2027"/></td>
 <th>Docente(s):</th>
-<td><textarea class="cbl-expandable-field" id="professor" placeholder="Docente(s)"></textarea></td>
+<td><textarea class="cbl-expandable-field" id="professor" placeholder="Docente(s)">Prof.ª Ana Luiza Marques; Prof. Miguel Santos</textarea></td>
 </tr>
 <tr>
 <th>Email(s):</th>
-<td colspan="3"><textarea class="cbl-expandable-field" id="emails" placeholder="email@universidade.pt; outro.email@universidade.pt"></textarea></td>
+<td colspan="3"><textarea class="cbl-expandable-field" id="emails" placeholder="email@universidade.pt; outro.email@universidade.pt">ana.luiza@universidade.pt; miguel.santos@universidade.pt</textarea></td>
 </tr>
 </table>
 <div class="cbl-meta-panel">
@@ -2623,68 +2618,73 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 <div class="cbl-meta-grid">
 <div class="cbl-meta-field">
 <label>Autoria:</label>
-<input id="autoria" placeholder="Autor/a ou equipa autora do guião" type="text"/>
+<input id="autoria" placeholder="Autor/a ou equipa autora do guião" type="text" value="Ana Luiza Marques"/>
 </div>
 <div class="cbl-meta-field">
 <label>Estado do Guião:</label>
-<input id="estado" placeholder="Novo / Atualizado / Reutilizado" type="text"/>
+<input id="estado" placeholder="Novo / Atualizado / Reutilizado" type="text" value="Novo — versão de teste preenchida"/>
 </div>
 <div class="cbl-meta-field">
 <label>Número de Estudantes:</label>
-<input id="n_estudantes" placeholder="Ex: 30" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off">
+<input id="n_estudantes" placeholder="Ex: 30" type="text" value="32" inputmode="numeric" pattern="[0-9]*" autocomplete="off">
 </div>
 <div class="cbl-meta-field cbl-meta-org">
 <label>Organização(ões), parceiro(s) ou contexto do desafio:</label>
-<textarea class="cbl-expandable-field" id="organizacao" placeholder="Ex.: Município de Lisboa — Divisão de Comunicação Digital e Participação Cidadã; contacto institucional real ou fictício. Se não aplicável, indique o contexto do desafio ou escreva Sem organização externa."></textarea>
+<textarea class="cbl-expandable-field" id="organizacao" placeholder="Ex.: Município de Lisboa — Divisão de Comunicação Digital e Participação Cidadã; contacto institucional real ou fictício. Se não aplicável, indique o contexto do desafio ou escreva Sem organização externa.">Município de Lisboa — Divisão de Comunicação Digital e Participação Cidadã. Contacto institucional fictício para simulação pedagógica.</textarea>
 </div>
 <div class="cbl-meta-field cbl-meta-wide">
 <label>Conteúdo(s) alinhados com os Conteúdos Programáticos da FUC:</label>
-<textarea class="cbl-expandable-field" id="conteudos" placeholder="Liste os conteúdos programáticos alinhados com o desafio..."></textarea>
+<textarea class="cbl-expandable-field" id="conteudos" placeholder="Liste os conteúdos programáticos alinhados com o desafio...">Design centrado no utilizador; investigação com utilizadores; acessibilidade digital; prototipagem de interfaces; comunicação visual para serviços públicos; testes de usabilidade; apresentação e defesa de soluções.</textarea>
 </div>
 </div>
 </div>
 <div class="section">
 <h3>Desafio</h3>
 <label>Desafio:</label>
-<textarea id="desafio" class="cbl-expandable-field" placeholder="Descreva o problema real que os estudantes vão resolver..."></textarea>
+<textarea class="cbl-expandable-field" id="desafio" placeholder="Descreva o problema real que os estudantes vão resolver...">Como podemos redesenhar a experiência digital de acesso a serviços municipais para tornar a comunicação mais clara, inclusiva e acessível a estudantes, famílias e cidadãos com diferentes níveis de literacia digital?
+
+Os estudantes deverão investigar necessidades reais, formular oportunidades de intervenção, desenvolver protótipos de baixa e média fidelidade e apresentar uma solução fundamentada para melhoria da experiência do utilizador.</textarea>
 <label>Objetivos de Aprendizagem (ponderações) alinhados com os Objetivos da FUC:</label>
-<textarea id="objetivos" class="cbl-expandable-field" placeholder="• Objetivo 1 (XX%) - verbo
-• Objetivo 2 (XX%) - verbo"></textarea>
+<textarea class="cbl-expandable-field" id="objetivos" placeholder="• Objetivo 1 (XX%) - verbo
+• Objetivo 2 (XX%) - verbo">• Identificar necessidades de utilizadores a partir de métodos simples de investigação e análise contextual.
+• Aplicar princípios de design visual, acessibilidade e usabilidade na criação de uma solução digital.
+• Desenvolver protótipos coerentes com o desafio e com os requisitos definidos.
+• Testar, justificar e iterar a proposta com base em feedback.
+• Comunicar a solução de forma clara, profissional e fundamentada.</textarea>
 </div>
 <div class="section">
 <h3>Entregas</h3>
 <label>Documento Escrito:</label>
-<textarea class="cbl-expandable-field" id="doc_escrito" placeholder="Descrição do documento"></textarea>
+<textarea class="cbl-expandable-field" id="doc_escrito" placeholder="Descrição do documento">Relatório síntese com diagnóstico do problema, personas ou perfis de utilizador, mapa de necessidades, proposta de solução, fundamentos de design, evidências de teste e reflexão crítica do processo.</textarea>
 <label>Apresentação Final:</label>
-<textarea class="cbl-expandable-field" id="apresentacao" placeholder="Descrição da apresentação"></textarea>
+<textarea class="cbl-expandable-field" id="apresentacao" placeholder="Descrição da apresentação">Pitch final com demonstração do protótipo, explicação do processo de investigação, principais decisões de design, resultados esperados e recomendações para implementação.</textarea>
 </div>
 <div class="section">
 <h3>Avaliação</h3>
 <label>Ponderação do CBL na Avaliação Contínua:</label>
-<input id="pond_total" inputmode="numeric" max="100" min="0" step="1" type="number"/ placeholder="0 a 100">
+<input id="pond_total" inputmode="numeric" max="100" min="0" placeholder="0 a 100" step="1" type="number" value="100"/>
 <label>Ponderação - Documento Escrito:</label>
-<input id="pond_doc" inputmode="numeric" max="100" min="0" step="1" type="number"/ placeholder="0 a 100">
+<input id="pond_doc" inputmode="numeric" max="100" min="0" placeholder="0 a 100" step="1" type="number" value="60"/>
 <label>Ponderação - Apresentação Final:</label>
-<input id="pond_apres" inputmode="numeric" max="100" min="0" step="1" type="number"/ placeholder="0 a 100">
+<input id="pond_apres" inputmode="numeric" max="100" min="0" placeholder="0 a 100" step="1" type="number" value="40"/>
 </div>
 <div class="section">
 <h3>Calendarização</h3>
 <div class="cbl-calendar-grid">
 <div class="cbl-calendar-field">
 <label for="calendarizacao">Data:</label>
-<input id="calendarizacao" type="date"/>
-</div>
+<input id="calendarizacao" type="date" value="2026-10-15">
+</input></div>
 <div class="cbl-calendar-field">
 <label for="hora_inicio">Hora de início:</label>
-<input id="hora_inicio" type="time"/>
-</div>
+<input id="hora_inicio" type="time" value="14:00">
+</input></div>
 <div class="cbl-calendar-field">
 <label for="hora_fim">Hora de fim:</label>
-<input id="hora_fim" type="time"/>
+<input id="hora_fim" type="time" value="17:00">
+</input></div>
 </div>
 </div>
-</div>
-
 <div class="section no-print cbl-repository-authorization" id="partilhaRepositorio">
   <h3 class="cbl-repository-title">Autorização para integração no repositório</h3>
   <p class="cbl-repository-text">
@@ -2695,7 +2695,7 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 
   <div class="cbl-repository-options" role="radiogroup" aria-label="Autorização para integração no repositório">
     <label class="cbl-repository-option" for="autorizaRepositorioSim">
-      <input type="radio" id="autorizaRepositorioSim" name="autorizaRepositorio" value="Sim" />
+      <input type="radio" id="autorizaRepositorioSim" name="autorizaRepositorio" value="Sim" checked />
       <span>Sim, autorizo a integração deste guião no repositório após validação.</span>
     </label>
     <label class="cbl-repository-option" for="autorizaRepositorioNao">
@@ -3953,8 +3953,6 @@ if(submitLock) return;
   setTimeout(bindFinal, 1200);
 })();
 </script>
-
-
 <!-- EXPANSAO CBL FINAL: tracinho discreto, sem defeito diagonal -->
 <style id="cbl-expansao-definitiva-v4">
 /* Campos expansíveis reais, sem o resizer diagonal nativo */
@@ -4548,8 +4546,8 @@ body.cbl-exporting .cbl-meta-panel .cbl-meta-field,
     var sim = document.querySelector('input[name="autorizaRepositorio"][value="Sim"], input[name="autorizaPartilhaInterna"][value="Sim"], #autorizaRepositorioSim');
     var nao = document.querySelector('input[name="autorizaRepositorio"][value="Não"], input[name="autorizaRepositorio"][value="Nao"], input[name="autorizaPartilhaInterna"][value="Não"], input[name="autorizaPartilhaInterna"][value="Nao"], #autorizaRepositorioNao');
     if(sim && nao){
-      sim.checked = false;
-      nao.checked = true;
+      sim.checked = true;
+      nao.checked = false;
     }
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setDefaultAutorizacao);
@@ -4557,6 +4555,126 @@ body.cbl-exporting .cbl-meta-panel .cbl-meta-field,
   setTimeout(setDefaultAutorizacao, 300);
 })();
 </script>
+
+
+
+<style id="cbl-calendarizacao-alinhamento-cirurgico-final">
+/* ===== CBL — correção cirúrgica da Calendarização =====
+   Diagnóstico: o campo da data tem id="calendarizacao" (não id="data").
+   A regra anterior mirava #data, por isso não corrigia o campo certo.
+   Aqui só se ajusta a grelha da Calendarização e os 3 inputs reais. */
+
+.cbl-calendar-grid{
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 1fr !important;
+  gap: 12px !important;
+  align-items: start !important;
+}
+
+.cbl-calendar-field{
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.cbl-calendar-field label{
+  display: block !important;
+  height: 18px !important;
+  min-height: 18px !important;
+  line-height: 18px !important;
+  margin: 0 0 6px 0 !important;
+  padding: 0 !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+#calendarizacao,
+#hora_inicio,
+#hora_fim,
+.cbl-calendar-field input[type="date"],
+.cbl-calendar-field input[type="time"]{
+  display: block !important;
+  width: 100% !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  margin: 0 !important;
+  padding: 8px 12px !important;
+  line-height: 24px !important;
+  box-sizing: border-box !important;
+  vertical-align: top !important;
+  font-size: 13px !important;
+}
+
+#calendarizacao::-webkit-datetime-edit,
+#hora_inicio::-webkit-datetime-edit,
+#hora_fim::-webkit-datetime-edit{
+  padding: 0 !important;
+  line-height: 24px !important;
+}
+
+#calendarizacao::-webkit-calendar-picker-indicator,
+#hora_inicio::-webkit-calendar-picker-indicator,
+#hora_fim::-webkit-calendar-picker-indicator{
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+@media screen and (max-width: 760px){
+  .cbl-calendar-grid{
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .cbl-calendar-field label{
+    height: auto !important;
+    min-height: 0 !important;
+    line-height: 1.25 !important;
+    margin-bottom: 6px !important;
+    font-size: 13.5px !important;
+  }
+
+  #calendarizacao,
+  #hora_inicio,
+  #hora_fim,
+  .cbl-calendar-field input[type="date"],
+  .cbl-calendar-field input[type="time"]{
+    height: 44px !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
+    font-size: 14px !important;
+    line-height: 26px !important;
+  }
+}
+</style>
+
+
+<style id="cbl-respiro-calendarizacao-medido-final">
+/* ===== CBL — respiro medido e padronizado =====
+   Medição no CSS atual:
+   - .section final estava com margin: 9px 0
+   - .ux-actions final estava com margin-top: 20px
+   Logo, o espaço visual entre Autorização e Botões é 20px.
+   Aplicamos o mesmo espaço antes da Calendarização, entre Avaliação e Data. */
+.section:has(#calendarizacao){
+  margin-top: 20px !important;
+}
+
+/* Mantém o comportamento compacto no PDF/exportação. */
+body.cbl-exporting .section:has(#calendarizacao),
+.cbl-print-document .section:has(#calendarizacao){
+  margin-top: 4px !important;
+}
+
+@media print{
+  .section:has(#calendarizacao){
+    margin-top: 4px !important;
+  }
+}
+</style>
 
 
 <script id="cbl-multi-course-fix-js">
