@@ -2879,6 +2879,13 @@ Os estudantes deverão investigar necessidades reais, formular oportunidades de 
         data[key] = el.value || '';
       }
     });
+
+    // FIX CBL: o seletor pesquisável de Curso(s) guarda o valor real num input hidden (#curso).
+    // Como allFields() exclui inputs hidden, o campo "cursos" chegava vazio ao Power Automate.
+    // Mantém o design atual e apenas garante que o payload/autosave recebem o(s) curso(s).
+    var cursoHidden = document.getElementById('curso');
+    if(cursoHidden) data.curso = String(cursoHidden.value || '').trim();
+
     if(!data.autorizaRepositorio) data.autorizaRepositorio = 'Não';
     return data;
   }
@@ -3596,20 +3603,22 @@ Os estudantes deverão investigar necessidades reais, formular oportunidades de 
   }
   function collectPayload(){
     var values = collectValues();
+    var cursosPayload = String(values.curso || (document.getElementById('curso') && document.getElementById('curso').value) || '').trim();
     var lines = allFields().map(function(el){
       if((el.type === 'checkbox' || el.type === 'radio') && !el.checked) return '';
       var v = String(el.value || '').trim();
       return v ? (fieldLabel(el) + ': ' + v) : '';
     }).filter(Boolean);
+    if(cursosPayload) lines.unshift('Curso(s): ' + cursosPayload);
     return {
-      title: 'CBL - ' + (values.curso || values.uc || 'Guião'),
+      title: 'CBL - ' + (cursosPayload || values.uc || 'Guião'),
       pageTitle: (document.querySelector('h1') || {}).textContent || 'Guião CBL',
       templateType: TEMPLATE_TYPE,
       cenarioAprendizagem: TEMPLATE_SCENARIO,
       estadoGuiao: 'Submetido',
       docentes: values.professor || '',
       docenteTexto: values.professor || '',
-      cursos: values.curso || '',
+      cursos: cursosPayload || '',
       ucs: values.uc || '',
       nEstudantes: values.n_estudantes || '',
       autorias: values.autoria || '',
