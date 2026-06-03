@@ -4118,6 +4118,17 @@ function deleteDraft(){
 async function submitValidacao(){
   var dados = { titulo: (document.querySelector('h1')||{}).innerText || document.title };
   fields().forEach(function(el){ if(el.id) dados[el.id] = el.value; });
+  // PATCH institucional: o seletor pesquisável de Curso(s) pode guardar o valor em #curso.
+  // Garante compatibilidade com o Power Automate, que espera o campo top-level "cursos".
+  try {
+    var _cursoEl = document.getElementById('curso') || document.querySelector('[name="curso"]');
+    var _cursoVal = String((_cursoEl && _cursoEl.value) || dados.curso || dados.cursos || '').trim();
+    if (_cursoVal) {
+      dados.curso = _cursoVal;
+      dados.cursos = _cursoVal;
+    }
+  } catch(e) {}
+
   try{
     var r = await fetch('https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e204529fc1f342fc87cd935dfa2a58f1/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=twiVi70IgSoNelyf9E_StjR8n6gtjcasJu3ULIuXErc', {
       method: 'POST',
@@ -8239,16 +8250,48 @@ textarea#tituloProjeto{
       values[key] = val;
       if(val) linhas.push(labelFor(el) + ": " + val);
     });
+
+    // PATCH institucional: normaliza Curso(s) para o payload do Power Automate.
+    // O Flow espera "cursos"; o formulário usa o campo #curso no seletor pesquisável.
+    var cursoEl = document.getElementById("curso") || document.querySelector('[name="curso"]');
+    var cursosPayload = String(values.cursos || values.curso || (cursoEl && cursoEl.value) || "").trim();
+    if(cursosPayload){
+      values.curso = values.curso || cursosPayload;
+      values.cursos = values.cursos || cursosPayload;
+    }
+
+    var ucsPayload = String(values.ucs || values.uc || "").trim();
+    var docentesPayload = String(values.docentes || values.professor || values.docente || values.autoria || "").trim();
+    var emailsPayload = String(values.emails || values.email || "").trim();
+    var nEstudantesPayload = String(values.nEstudantes || values.n_estudantes || values.numero_estudantes || "").trim();
+    var unidadeOrganicaPayload = String(values.unidadeOrganica || values.unidade_organica || "").trim();
+    var modalidadePayload = String(values.modalidade || "").trim();
+
     return {
       templateType: "PROJ-BL",
       scenario: "PROJ-BL",
-      title: "PROJ-BL - " + ((document.title || "Guião").trim()),
+      cenarioAprendizagem: "PROJ-BL",
+      title: "PROJ-BL - " + (cursosPayload || ucsPayload || ((document.title || "Guião").trim())),
       pageTitle: (document.querySelector("h1") || {}).textContent || "Plano Project-Based Learning",
+      estadoGuiao: "Submetido",
+      cursos: cursosPayload,
+      curso: cursosPayload,
+      ucs: ucsPayload,
+      docentes: docentesPayload,
+      docenteTexto: docentesPayload,
+      emails: emailsPayload,
+      nEstudantes: nEstudantesPayload,
+      unidadeOrganica: unidadeOrganicaPayload,
+      modalidade: modalidadePayload,
       submittedAt: new Date().toISOString(),
       source: window.location.href,
+      sourceUrl: window.location.href,
+      formData: values,
       values: values,
       linhas: linhas,
+      resumoCampos: linhas.join("\n"),
       plainText: linhas.join("\n"),
+      estruturaPedagogica: JSON.stringify({templateType:"PROJ-BL", cenarioAprendizagem:"PROJ-BL", values:values, linhas:linhas}, null, 2),
       pdfFileName: makeFileName()
     };
   }
