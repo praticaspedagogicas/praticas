@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práticas Pedagógicas</title>
+    <style>
+        /* ===== RESET ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; background: #f5f5f5; color: #333; line-height: 1.6; }
+
+        /* ===== CABEÇALHO ===== */
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #b20d24 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2.2em; margin-bottom: 8px; font-weight: 700; }
+        .header .subtitle { font-size: 1.1em; opacity: 0.95; margin-bottom: 8px; }
+        .header .description { font-size: 0.95em; opacity: 0.85; max-width: 700px; margin: 0 auto; }
+
+        /* ===== CONTAINER ===== */
+        .container { max-width: 1100px; margin: 0 auto; padding: 30px 20px; }
+
+        /* ===== TÍTULOS ===== */
+        .section-title {
+            font-size: 1.4em;
+            margin: 35px 0 18px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #b20d24;
+            color: #1a1a2e;
+        }
+
+        /* ===== GRID ===== */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        /* ===== CARD ===== */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+        .card h3 { color: #b20d24; font-size: 1.05em; margin-bottom: 6px; }
+        .card p { color: #666; font-size: 0.88em; }
+
+        /* ===== LISTA DE GUIÕES ===== */
+        .guiões-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .guião-link {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 16px 12px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .guião-link:hover { background: #b20d24; color: white; border-color: #b20d24; }
+        .guião-link .tag { display: block; font-size: 0.7em; color: #888; margin-top: 4px; font-weight: 400; }
+        .guião-link:hover .tag { color: rgba(255,255,255,0.8); }
+        .guião-link.test { background: #f8f8f8; border-style: dashed; }
+        
+        /* ===== FOOTER ===== */
+        .footer { text-align: center; padding: 30px 20px; color: #888; font-size: 0.85em; margin-top: 40px; border-top: 1px solid #ddd; }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.6em; }
+            .header .subtitle { font-size: 1em; }
+            .grid { grid-template-columns: 1fr; }
+            .guiões-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== CABEÇALHO ===== -->
+    <header class="header">
+        <h1>🏫 Práticas Pedagógicas</h1>
+        <p class="subtitle">Modelo Académico | Guiões Digitais | Repositório de Práticas</p>
+        <p class="description">Espaço de apoio à implementação do Modelo Académico, submissão e validação de guiões pedagógicos, recursos institucionais e preparação do Assistente Pedagógico IA.</p>
+    </header>
+
+    <div class="container">
+        <!-- ===== 1. ACESSO RÁPIDO ===== -->
+        <h2 class="section-title">1. Acesso Rápido</h2>
+        <div class="grid">
+            <a href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas" class="card">
+                <h3>📱 Guiões Digitais</h3>
+                <p>Access to digital learning guides</p>
+            </a>
+            <a href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas" class="card">
+                <h3>🧪 Templates Teste</h3>
+                <p>Test templates for validation</p>
+            </a>
+            <a href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas" class="card">
+                <h3>🎓 Modelo Académico</h3>
+                <p>Academic model information</p>
+            </a>
+            <a href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas" class="card">
+                <h3>📚 Formação Docente</h3>
+                <p>Teacher training resources</p>
+            </a>
+            <a href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas" class="card">
+                <h3>🤖 Assistente Pedagógico IA</h3>
+                <p>AI teaching assistant</p>
+            </a>
+            <a href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas" class="card">
+                <h3>📊 Relatórios</h3>
+                <p>Reports and analytics</p>
+            </a>
+        </div>
+
+        <!-- ===== 2. LISTAS INSTITUCIONAIS ===== -->
+        <h2 class="section-title">2. Listas Institucionais</h2>
+        <div class="grid">
+            <a href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas" class="card">
+                <h3>📋 Lista Guiões</h3>
+                <p>Registered learning guides</p>
+            </a>
+            <a href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas" class="card">
+                <h3>👥 Coordenadores MA</h3>
+                <p>Academic model coordinators</p>
+            </a>
+            <a href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas" class="card">
+                <h3>📚 Repositório de Práticas</h3>
+                <p>Practices repository</p>
+            </a>
+            <a href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas" class="card">
+                <h3>📞 Contactos Académicos</h3>
+                <p>Academic contacts list</p>
+            </a>
+        </div>
+
+        <!-- ===== 3. MATERIAIS E CONHECIMENTO ===== -->
+        <h2 class="section-title">3. Materiais e Conhecimento</h2>
+        <div class="grid">
+            <a href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas" class="card">
+                <h3>🌍 Jornadas Ibéricas</h3>
+                <p>Iberian conferences</p>
+            </a>
+            <a href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas" class="card">
+                <h3>📅 Outros Eventos</h3>
+                <p>Other events</p>
+            </a>
+            <a href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas" class="card">
+                <h3>📚 Formação Docente</h3>
+                <p>Teacher training</p>
+            </a>
+            <a href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas" class="card">
+                <h3>🤖 Assistente Pedagógico IA</h3>
+                <p>AI assistant docs</p>
+            </a>
+        </div>
+
+        <!-- ===== 4. GUIÕES PEDAGÓGICOS ===== -->
+        <h2 class="section-title">4. Guiões Pedagógicos</h2>
+        <div class="guiões-grid">
+            <a href="https://praticaspedagogicas.github.io/praticas/CBL.html" class="guião-link" target="_blank">
+                CBL
+                <span class="tag">Challenge-Based</span>
+            </a>
+            <a href="https://praticaspedagogicas.github.io/praticas/PBL.html" class="guião-link" target="_blank">
+                PBL
+                <span class="tag">Problem-Based</span>
+            </a>
+            <a href="https://praticaspedagogicas.github.io/praticas/RBL.html" class="guião-link" target="_blank">
+                RBL
+                <span class="tag">Research-Based</span>
+            </a>
+            <a href="https://praticaspedagogicas.github.io/praticas/SBL.html" class="guião-link" target="_blank">
+                SBL
+                <span class="tag">Simulation-Based</span>
+            </a>
+            <a href="https://praticaspedagogicas.github.io/praticas/Proj-BL.html" class="guião-link" target="_blank">
+                PROJ-BL
+                <span class="tag">Project-Based</span>
+            </a>
+        </div>
+
+        <!-- VERSÔES TESTE -->
+        <h2 class="section-title" style="margin-top:30px;">Versões Teste</h2>
+        <div class="guiões-grid">
+            <a href="https://praticaspedagogicas.github.io/praticas/CBL_Teste.html" class="guião-link test" target="_blank">
+                CBL
+                <span class="tag">Teste</span>
+            </a>
+            <a href="https://praticaspedagogicas.github.io/praticas/PBL_Teste.html" class="guião-link test" target="_blank">
+                PBL
+                <span class="tag">Teste</span>
+            </a>
+            <a href="https://praticaspedagogicas.github.io/praticas/RBL_Teste.html" class="guião-link test" target="_blank">
+                RBL
+                <span class="tag">Teste</span>
+            </a>
+            <a href="https://praticaspedagogicas.github.io/praticas/SBL_Teste.html" class="guião-link test" target="_blank">
+                SBL
+                <span class="tag">Teste</span>
+            </a>
+            <a href="https://praticaspedagogicas.github.io/praticas/Proj-BL_Teste.html" class="guião-link test" target="_blank">
+                PROJ-BL
+                <span class="tag">Teste</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- ===== RODAPÉ ===== -->
+    <footer class="footer">
+        <p>© 2026 Universidade Europeia - Práticas Pedagógicas</p>
+        <p style="font-size:0.8em;margin-top:5px;">Página criada para teste - Aguarda validação</p>
+    </footer>
+
+    <!-- NOTAS PARA A ANA:
+    1. Links dos templates - JA FUNCIONAM (vá para GitHub Pages)
+    2. Outros cartões têm # - precisa COLOCAR OS LINKS REAIS das pastas SharePoint
+    3. Esta página NÃO substitui a Home Page
+    4. Estrutura simples, sem carrousel, sem news automáticas
+    5. Pode guardar como HTML e importar para SharePoint OU usar como referência
+    -->
+</body>
+</html>
