@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Validação dos Guiões Pedagógicos</title>
+<style>
+
+:root{
+  --ue-red:#b20d24;
+  --ue-red-dark:#8f0a1d;
+  --ink:#1f1f1f;
+  --muted:#636363;
+  --soft:#f7f7f7;
+  --soft-2:#fbfbfb;
+  --line:#e2e2e2;
+  --line-dark:#d1d1d1;
+  --ok:#217346;
+  --teal:#007f83;
+  --warn:#bf6b00;
+  --white:#fff;
+  --shadow:0 10px 28px rgba(0,0,0,.055);
+  --shadow-soft:0 2px 10px rgba(0,0,0,.045);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:#f7f7f7}
+body{margin:0;font-family:Segoe UI,Arial,sans-serif;color:var(--ink);background:linear-gradient(180deg,#fff 0,#fff 128px,#f7f7f7 128px);line-height:1.55;font-size:15px}
+a{color:var(--ue-red);text-decoration:none}a:hover{text-decoration:underline}
+header{background:#fff;border-bottom:3px solid var(--ue-red);padding:18px 18px 16px;text-align:center}
+.header-inner{max-width:820px;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center}
+.logo{width:88px;max-height:42px;object-fit:contain;display:block;margin:0 auto 2px}
+h1{font-size:1.34rem;line-height:1.2;margin:0;font-weight:760;letter-spacing:.01em}.subtitle{margin:0 auto;color:var(--muted);font-size:.9rem;max-width:720px}
+.topnav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.97);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(0,0,0,.025)}
+.topnav-inner{max-width:920px;margin:0 auto;padding:9px 18px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.topnav a{border:1px solid #e6e6e6;border-radius:999px;padding:6px 10px;color:#343434;background:#fff;font-size:.78rem;font-weight:650;line-height:1.1;white-space:nowrap}.topnav a:hover{background:#f5f5f5;text-decoration:none;border-color:#d8d8d8}
+.progress-wrap{margin-left:auto;min-width:190px;max-width:240px;flex:0 1 220px}.progress-line{height:7px;background:#eeeeee;border-radius:999px;overflow:hidden}.progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--ue-red),#7a3c96,var(--teal));transition:.2s}.progress-text{font-size:.74rem;color:var(--muted);margin-top:3px;text-align:right}
+main{max-width:920px;margin:0 auto;padding:24px 18px 70px}.notice,.note,.warning,.okbox{border-radius:11px;padding:12px 14px;font-size:.91rem}.notice{background:#fff7f7;border:1px solid #efd0d4;border-left:4px solid var(--ue-red);margin:0 0 16px}.note{background:#f7fbfb;border:1px solid #d5e8e9;border-left:4px solid var(--teal);margin:10px 0 14px;color:#333}.warning{background:#fff8ed;border-left:4px solid var(--warn);margin:10px 0}.okbox{background:#f4fbf6;border-left:4px solid var(--ok);margin:10px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin:16px 0;box-shadow:var(--shadow-soft)}.card h2{font-size:1.14rem;margin:0 0 7px;font-weight:760}.card h3{font-size:.98rem;margin:18px 0 8px}.intro{color:var(--muted);margin:0 0 13px;font-size:.92rem}.section-label{text-transform:uppercase;letter-spacing:.08em;color:#777;font-size:.71rem;font-weight:800;margin:26px 0 8px}
+.resources{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0 18px}a.res{display:flex;flex-direction:column;justify-content:center;min-height:68px;border:1px solid var(--line);border-radius:11px;padding:12px 13px;text-decoration:none;color:var(--ink);background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.025)}a.res:hover{border-color:#cfcfcf;background:#fbfbfb;text-decoration:none}a.res strong{display:block;font-size:.9rem;font-weight:740}a.res span{display:block;color:var(--muted);font-size:.76rem;margin-top:3px;word-break:break-word}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 14px}.field{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}label{font-weight:650;font-size:.84rem}input,select,textarea{width:100%;font:inherit;font-size:.91rem;border:1px solid var(--line-dark);border-radius:9px;padding:8px 10px;background:#fff;outline:none;transition:border-color .15s,box-shadow .15s}input:focus,select:focus,textarea:focus{border-color:#9e9e9e;box-shadow:0 0 0 3px rgba(178,13,36,.08)}textarea{min-height:82px;resize:vertical}
+.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 12px;margin:12px 0}.check{border:1px solid var(--line);border-radius:10px;padding:9px 11px;display:flex;gap:8px;align-items:flex-start;background:#fff;cursor:pointer;font-size:.88rem;min-height:42px}.check:hover{background:#fbfbfb;border-color:#d3d3d3}.check input{margin-top:3px;accent-color:var(--ue-red)}.check.done{border-color:#a9d2b8;background:#f3fbf6}.yesno{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px}.pill{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;cursor:pointer;font-weight:650;color:#333;font-size:.84rem}.pill[data-selected="true"]{background:#eef8f1;border-color:#82bf98;color:#126b34}
+.steps-list{padding-left:20px;margin:8px 0 12px}.steps-list li{margin:5px 0}.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}.flow .node{border:1px solid var(--line);border-radius:11px;padding:10px 8px;background:#fafafa;text-align:center;font-size:.84rem;font-weight:740;min-height:68px;display:flex;flex-direction:column;align-items:center;justify-content:center}.flow .node span{display:block;color:var(--muted);font-size:.73rem;font-weight:500;margin-top:3px;line-height:1.35}
+.template-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.tpl{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fff;display:flex;flex-direction:column;gap:10px;min-height:96px;box-shadow:0 1px 4px rgba(0,0,0,.025)}.tpl b{font-size:.91rem;line-height:1.25;font-weight:760}.tpl small{color:var(--muted)}.tpl .btns{margin-top:auto;display:flex;gap:7px;flex-wrap:wrap}.tpl .btn{padding:6px 10px;border-radius:999px;font-size:.76rem;line-height:1.1;font-weight:740;box-shadow:none}
+.btns{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}button,.btn{border:0;border-radius:9px;padding:9px 13px;font-weight:730;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;line-height:1.15;font-size:.87rem}.primary{background:var(--ue-red);color:#fff}.primary:hover{background:var(--ue-red-dark);text-decoration:none}.secondary{background:#f1f1f1;color:#222;border:1px solid var(--line)}.secondary:hover{background:#e9e9e9;text-decoration:none}.ghost{background:#fff;border:1px solid var(--line);color:#222}.ghost:hover{background:#f8f8f8;text-decoration:none}
+.template-checks{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:6px}.template-choice{border:1px solid var(--line);border-radius:999px;padding:7px 10px;background:#fff;display:flex;gap:7px;align-items:center;justify-content:center;font-size:.84rem;cursor:pointer;min-height:36px}.template-choice:hover{background:#fafafa;border-color:#d0d0d0}.template-choice input{width:auto;margin:0;accent-color:var(--ue-red)}.template-choice:has(input:checked){border-color:#a4d0b5;background:#f2fbf5;color:#155f32}
+.muted{color:var(--muted);font-size:.87rem}.tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:3px 8px;font-size:.74rem;color:#555;margin-right:4px;background:#f9f9f9}.summary{white-space:pre-wrap;background:#fbfbfb;border:1px solid var(--line);border-radius:11px;padding:14px;font-family:Consolas,monospace;font-size:.82rem;max-height:330px;overflow:auto}footer{border-top:1px solid var(--line);padding:24px;text-align:center;color:var(--muted);font-size:.8rem;margin-top:38px;background:#fff}
+@media(max-width:900px){.resources,.template-grid,.grid,.checks{grid-template-columns:1fr}.flow{grid-template-columns:repeat(2,minmax(0,1fr))}.template-checks{grid-template-columns:repeat(3,minmax(0,1fr))}.progress-wrap{min-width:100%;max-width:100%;flex:1 1 100%;margin-left:0}.progress-text{text-align:left}}
+@media(max-width:760px){body{font-size:14px;background:#fff}header{padding:17px 14px 15px}.logo{width:82px;max-height:40px}h1{font-size:1.18rem}.subtitle{font-size:.84rem}.topnav{position:static}.topnav-inner{padding:9px 12px}.topnav a{font-size:.76rem;padding:6px 9px}main{padding:16px 12px 60px}.card{padding:15px 14px;margin:13px 0;border-radius:12px}.flow{grid-template-columns:1fr 1fr}.btns button,.btns .btn{width:100%;text-align:center}.tpl .btns .btn{width:auto;flex:1 1 auto}.template-checks{grid-template-columns:repeat(2,minmax(0,1fr))}.notice{font-size:.88rem}}
+@media(max-width:480px){.flow{grid-template-columns:1fr}.template-checks{grid-template-columns:1fr}.card h2{font-size:1.06rem}.resources a.res{min-height:auto}}
+
+
+
+/* ===== Revisão premium v27: alinhamento real dos checkboxes, botões e grelhas ===== */
+main{max-width:860px;}
+.topnav-inner{max-width:860px;}
+.card{padding:22px 24px;margin:18px 0;border-radius:16px;}
+
+/* O bug vinha daqui: a regra global input{width:100%} estava a afetar checkboxes.
+   Isto força os quadrados a terem tamanho profissional e impede desalinhamentos. */
+input[type="checkbox"], input[type="radio"]{
+  width:18px !important;
+  height:18px !important;
+  min-width:18px !important;
+  flex:0 0 18px !important;
+  padding:0 !important;
+  margin:0 !important;
+  accent-color:var(--ue-red);
+  cursor:pointer;
+}
+
+.checks{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.check{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:11px;
+  min-height:52px;
+  padding:12px 14px;
+  border-radius:12px;
+  font-size:.88rem;
+  line-height:1.35;
+  font-weight:650;
+  text-align:left;
+}
+.check input{margin:0 !important;}
+
+.template-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.tpl{
+  min-height:88px;
+  padding:15px 16px;
+  border-radius:14px;
+  box-shadow:0 2px 8px rgba(0,0,0,.035);
+}
+.tpl b{font-size:.92rem;}
+.tpl .btns{gap:8px;margin-top:8px;}
+.tpl .btn{
+  padding:7px 12px;
+  border-radius:999px;
+  font-size:.78rem;
+  min-width:auto;
+}
+
+.template-checks{
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:9px;
+  margin-top:8px;
+}
+.template-choice{
+  min-height:42px;
+  padding:9px 12px;
+  justify-content:center;
+  gap:9px;
+  border-radius:12px;
+  font-size:.86rem;
+  font-weight:720;
+  line-height:1.2;
+}
+.template-choice input{margin:0 !important;}
+
+.resources{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+a.res{border-radius:13px;min-height:72px;padding:13px 15px;}
+.flow{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;}
+.flow .node{min-height:76px;border-radius:13px;padding:12px 9px;}
+
+button,.btn{box-shadow:none;}
+.btn.primary,.primary{box-shadow:0 1px 0 rgba(0,0,0,.06);}
+
+@media(max-width:900px){
+  main,.topnav-inner{max-width:100%;}
+  .checks,.template-grid,.resources{grid-template-columns:1fr;}
+  .flow{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .template-checks{grid-template-columns:repeat(3,minmax(0,1fr));}
+}
+@media(max-width:620px){
+  .card{padding:16px 14px;}
+  .checks{grid-template-columns:1fr;}
+  .template-checks{grid-template-columns:1fr 1fr;}
+  .template-choice{justify-content:flex-start;}
+  .tpl .btns{display:grid;grid-template-columns:1fr 1fr;}
+  .tpl .btn{width:100%;}
+}
+@media(max-width:420px){
+  .flow{grid-template-columns:1fr;}
+  .template-checks{grid-template-columns:1fr;}
+  .tpl .btns{grid-template-columns:1fr;}
+}
+
+
+
+/* ===== v28 — camada premium revista: sem buracos, com seleção de cursos e fluxo com setas ===== */
+body{background:linear-gradient(180deg,#fff 0,#fff 118px,#f6f6f6 118px);}
+main,.topnav-inner{max-width:900px;}
+.card{border-color:#dedede;box-shadow:0 8px 24px rgba(0,0,0,.045);}
+.card h2{letter-spacing:-.01em;}
+.btn,.tpl .btn{border-radius:10px;}
+.btn.primary,.primary{background:linear-gradient(180deg,#bc1029,#a20b20);box-shadow:0 3px 10px rgba(178,13,36,.18);}
+.btn.primary:hover,.primary:hover{background:linear-gradient(180deg,#a90d22,#85081a);}
+.btn.secondary{background:#f7f7f7;border-color:#dddddd;color:#242424;}
+.btn.compact{padding:8px 13px;font-size:.86rem;}
+
+/* Dados */
+.data-grid{align-items:start;gap:14px 18px;}
+.data-grid .field{margin-bottom:4px;}
+.data-grid input,.data-grid select{height:42px;border-radius:10px;}
+.course-picker{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;}
+.course-picker input{min-width:0;}
+.small-action{height:42px;border-radius:10px;padding:0 13px;font-size:.84rem;white-space:nowrap;border:0;}
+.course-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;min-height:30px;}
+.course-tag{display:inline-flex;align-items:center;gap:7px;border:1px solid #ead6d9;background:#fff7f7;color:#4b1b22;border-radius:999px;padding:5px 8px 5px 10px;font-size:.78rem;font-weight:650;max-width:100%;}
+.course-tag span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:330px;}
+.course-tag button{border:0;background:transparent;color:#9b0b20;font-weight:800;font-size:1rem;line-height:1;padding:0 2px;cursor:pointer;}
+.hint{margin:5px 0 0;color:var(--muted);font-size:.75rem;}
+
+/* Checklists: quadrados visíveis, texto alinhado */
+.checks{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+.check{padding:12px 13px;align-items:flex-start;background:#fff;border-color:#e0e0e0;box-shadow:0 1px 4px rgba(0,0,0,.02);}
+.check input{margin-top:1px!important;}
+input[type="checkbox"],input[type="radio"]{width:19px!important;height:19px!important;min-width:19px!important;}
+
+/* Fluxo: linha limpa com setas, sem blocos largados */
+.flow-premium{display:flex;gap:0;margin:16px 0 4px;align-items:stretch;justify-content:center;}
+.flow-premium .node{position:relative;flex:1 1 0;min-width:0;border:1px solid #ddd;background:#fff;border-radius:12px;padding:12px 8px 11px;min-height:82px;box-shadow:0 2px 8px rgba(0,0,0,.035);}
+.flow-premium .node:not(:last-child){margin-right:17px;}
+.flow-premium .node:not(:last-child)::after{content:"›";position:absolute;right:-15px;top:50%;transform:translateY(-52%);font-size:1.65rem;line-height:1;color:#b20d24;font-weight:800;}
+.flow-premium .node strong{font-size:.84rem;font-weight:800;display:block;}
+.flow-premium .node span{font-size:.71rem;line-height:1.3;margin-top:4px;}
+.flow-premium .muted-node{background:#fbfbfb;border-style:dashed;}
+
+/* Templates: lista editorial, sem buracos brancos */
+.template-grid{display:flex!important;flex-direction:column;gap:10px;margin-top:14px;}
+.tpl{min-height:auto!important;display:grid!important;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;padding:13px 15px!important;border-radius:13px;background:#fff;}
+.tpl b{font-size:.93rem;}
+.tpl .btns{margin:0!important;justify-content:flex-end;gap:7px;}
+.tpl .btn{padding:7px 10px!important;font-size:.76rem!important;min-width:0;}
+.template-checks{grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;}
+.template-choice{border-radius:10px;justify-content:center;padding:8px 10px;min-height:40px;background:#fff;}
+.template-choice input{width:18px!important;height:18px!important;min-width:18px!important;}
+
+.resources{grid-template-columns:repeat(3,minmax(0,1fr));}
+a.res{border-radius:12px;min-height:78px;}
+
+@media(max-width:900px){
+  main,.topnav-inner{max-width:100%;}
+  .resources{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .flow-premium{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+  .flow-premium .node{margin-right:0!important;}
+  .flow-premium .node:not(:last-child)::after{display:none;}
+  .tpl{grid-template-columns:1fr;}
+  .tpl .btns{justify-content:flex-start;}
+}
+@media(max-width:620px){
+  .grid,.data-grid,.checks,.resources{grid-template-columns:1fr!important;}
+  .course-picker{grid-template-columns:1fr;}
+  .small-action{width:100%;}
+  .flow-premium{grid-template-columns:1fr;}
+  .template-checks{grid-template-columns:1fr 1fr;}
+  .tpl .btns .btn{flex:1 1 130px;}
+  .course-tag span{max-width:240px;}
+}
+
+
+
+/* ===== v29: camada visual premium / fluxo com cor, setas e composição mais institucional ===== */
+:root{
+  --premium-red:#b20d24;
+  --premium-red-2:#8f0a1d;
+  --premium-plum:#6f2c7f;
+  --premium-gold:#b98328;
+  --premium-teal:#087d80;
+  --premium-bg:#fbfaf9;
+}
+body{background:linear-gradient(180deg,#ffffff 0,#ffffff 118px,#f6f3f2 118px,#f8f7f6 100%) !important;}
+header{border-bottom:0!important;box-shadow:0 1px 0 rgba(0,0,0,.05);position:relative;}
+header:after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:linear-gradient(90deg,var(--premium-red),var(--premium-plum),var(--premium-teal));}
+main{max-width:920px!important;}
+.card{border:1px solid #e8e1df!important;border-radius:18px!important;box-shadow:0 12px 34px rgba(40,20,20,.065)!important;background:rgba(255,255,255,.94)!important;}
+.card h2{letter-spacing:-.015em;}
+.notice{border-left:4px solid var(--premium-red)!important;background:linear-gradient(90deg,#fff6f7,#fffafa)!important;border-color:#f1d7dc!important;border-radius:13px!important;}
+.topnav{border-bottom:1px solid #e9e4e1!important;box-shadow:0 2px 12px rgba(0,0,0,.035);}
+.topnav a{border-color:#e0d8d5!important;background:#fff!important;}
+.topnav a:hover{background:#fff4f5!important;border-color:#d8b8be!important;text-decoration:none;color:var(--premium-red)!important;}
+.progress-bar{background:linear-gradient(90deg,var(--premium-red),var(--premium-plum),var(--premium-teal))!important;}
+
+.flow-showcase{
+  display:grid;
+  grid-template-columns:repeat(7,minmax(0,1fr));
+  gap:14px;
+  margin:22px 0 6px;
+  align-items:stretch;
+  position:relative;
+}
+.flow-step{
+  position:relative;
+  min-height:108px;
+  padding:17px 10px 13px;
+  border-radius:18px;
+  background:linear-gradient(180deg,#ffffff 0%,#fbf8f7 100%);
+  border:1px solid #eadfde;
+  box-shadow:0 8px 22px rgba(48,24,24,.07);
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  overflow:visible;
+}
+.flow-step:before{
+  content:"";
+  position:absolute;
+  top:0;left:0;right:0;height:5px;
+  border-radius:18px 18px 0 0;
+  background:linear-gradient(90deg,var(--premium-red),var(--premium-plum));
+}
+.flow-step:not(:last-child):after{
+  content:"";
+  position:absolute;
+  right:-13px;
+  top:50%;
+  width:25px;
+  height:25px;
+  transform:translateY(-50%);
+  background:#fff;
+  border-top:2px solid var(--premium-red);
+  border-right:2px solid var(--premium-red);
+  rotate:45deg;
+  z-index:3;
+  box-shadow:3px -3px 8px rgba(178,13,36,.06);
+}
+.flow-step strong{font-size:.85rem;font-weight:850;line-height:1.18;margin-top:5px;color:#221f20;}
+.flow-step span:not(.step-number){font-size:.72rem;color:#5d5455;line-height:1.32;margin-top:6px;max-width:110px;}
+.step-number{
+  width:26px;height:26px;border-radius:999px;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:.74rem;font-weight:850;
+  color:#fff;
+  background:linear-gradient(180deg,var(--premium-red),var(--premium-red-2));
+  box-shadow:0 4px 10px rgba(178,13,36,.25);
+}
+.flow-step.is-active{background:linear-gradient(180deg,#fff8f9,#ffffff);border-color:#dfb6bd;}
+.flow-step.is-future{background:linear-gradient(180deg,#f9f7fb,#ffffff);border-style:dashed;border-color:#cfc0d7;}
+.flow-step.is-future:before{background:linear-gradient(90deg,var(--premium-plum),var(--premium-teal));}
+.flow-step.is-future .step-number{background:linear-gradient(180deg,var(--premium-plum),#4f1f5b);}
+
+.resources{gap:12px!important;}
+a.res{border-radius:15px!important;border-color:#e7dedb!important;min-height:76px!important;box-shadow:0 4px 15px rgba(0,0,0,.035)!important;position:relative;overflow:hidden;}
+a.res:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--premium-red),var(--premium-plum));}
+a.res:hover{transform:translateY(-1px);border-color:#d9c5c4!important;background:#fffafa!important;box-shadow:0 8px 20px rgba(0,0,0,.055)!important;}
+.btn.primary,.primary{background:linear-gradient(180deg,#be112c,#9f0a20)!important;color:#fff!important;border:0!important;box-shadow:0 6px 16px rgba(178,13,36,.18)!important;}
+.btn.secondary{background:#fff!important;border:1px solid #e2d8d5!important;color:#2b2525!important;}
+.btn.secondary:hover{background:#fff4f5!important;border-color:#d8b8be!important;color:var(--premium-red)!important;}
+.check,.template-choice{border-color:#e7dedb!important;background:linear-gradient(180deg,#fff,#fdfbfa)!important;border-radius:14px!important;}
+.check:hover,.template-choice:hover{border-color:#d8b8be!important;background:#fff8f9!important;}
+.check.done,.template-choice:has(input:checked){border-color:#d9a8b2!important;background:linear-gradient(180deg,#fff5f6,#ffffff)!important;color:#4b2028!important;}
+input[type=checkbox]{accent-color:var(--premium-red)!important;}
+.tpl{border-color:#e7dedb!important;border-radius:16px!important;background:linear-gradient(180deg,#fff,#fdfbfa)!important;box-shadow:0 7px 22px rgba(0,0,0,.045)!important;}
+.tpl:hover{border-color:#d8b8be!important;transform:translateY(-1px);}
+.course-picker{align-items:stretch;}
+.small-action{border-radius:10px!important;}
+@media(max-width:980px){
+  .flow-showcase{grid-template-columns:repeat(4,minmax(0,1fr));}
+  .flow-step:nth-child(4):after{display:none;}
+}
+@media(max-width:720px){
+  main{max-width:100%!important;}
+  .flow-showcase{grid-template-columns:1fr;gap:11px;}
+  .flow-step{min-height:auto;padding:15px 14px;text-align:left;align-items:flex-start;}
+  .flow-step span:not(.step-number){max-width:none;}
+  .flow-step:not(:last-child):after{
+    display:block;right:auto;left:28px;top:auto;bottom:-12px;
+    width:20px;height:20px;transform:none;rotate:135deg;
+  }
+}
+
+
+
+/* ===== v30 — revisão profissional final: curso sem botão, blocos alinhados, repositório no fluxo ===== */
+main,.topnav-inner{max-width:880px;}
+.card{border-radius:18px;}
+.course-picker{display:block!important;}
+.course-picker .small-action{display:none!important;}
+.course-field{grid-column:span 1;}
+.course-tags{padding-top:2px;}
+.course-tag{background:linear-gradient(180deg,#fff9fa,#fff);border-color:#e5c6cc;box-shadow:0 1px 4px rgba(178,13,36,.06);}
+.data-grid input,.data-grid select,.data-grid textarea{min-height:43px;}
+.message-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch;gap:14px;}
+.message-grid .field{height:100%;margin-bottom:0;}
+.message-grid textarea{min-height:112px;height:112px;}
+#teams .field textarea,#validacao .field textarea{min-height:108px;}
+.flow-showcase{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 20px;}
+.flow-step{background:linear-gradient(180deg,#ffffff,#fbfbfb);border-color:#dedede;}
+.flow-step:before{height:4px;}
+.flow-step:not(:last-child):after{right:-18px;color:#b20d24;background:#fff;border:1px solid #ecd0d5;border-radius:999px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(178,13,36,.12);}
+.flow-step:nth-child(4):after{display:flex;}
+.flow-step:nth-child(4){margin-right:0;}
+.flow-step:nth-child(4)::after{content:'›';}
+.flow-step:nth-child(4n)::after{display:none;}
+.flow-step:nth-child(8)::after{display:none;}
+.flow-step strong{color:#221f20;}
+.checks{align-items:stretch;}
+.check{min-height:56px;}
+.template-grid{gap:9px;}
+.tpl{grid-template-columns:1fr auto;}
+.tpl .btn{letter-spacing:.01em;}
+.resources{gap:10px;}
+@media(max-width:900px){
+  .message-grid{grid-template-columns:1fr;}
+  .message-grid textarea{height:auto;min-height:96px;}
+  .flow-showcase{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+  .flow-step:not(:last-child):after{display:none!important;}
+}
+@media(max-width:620px){
+  .tpl{grid-template-columns:1fr;}
+  .flow-showcase{grid-template-columns:1fr;}
+}
+
+
+.action-strip{display:flex;align-items:center;justify-content:space-between;gap:18px;border:1px solid #ead5da;background:linear-gradient(135deg,#fff8fa,#ffffff);border-radius:16px;padding:16px 18px;margin:16px 0;box-shadow:var(--shadow-soft)}
+.action-strip strong{display:block;font-weight:760;margin-bottom:3px}.action-strip span{display:block;color:var(--muted);font-size:.92rem}
+@media(max-width:720px){.action-strip{flex-direction:column;align-items:flex-start}.action-strip .btn{width:100%;justify-content:center}}
+
+
+/* ===== v32 — retoques finais premium: setas reais, alinhamento e grelhas sem buracos ===== */
+.flow-showcase{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:16px 24px!important;
+  margin-top:20px!important;
+}
+.flow-step{
+  min-height:108px!important;
+  padding:15px 11px 13px!important;
+  border-radius:16px!important;
+  background:linear-gradient(180deg,#ffffff 0%,#fffafa 100%)!important;
+  border-color:#ead9d8!important;
+}
+.flow-step:not(:last-child):after{
+  content:"→"!important;
+  position:absolute!important;
+  right:-20px!important;
+  top:50%!important;
+  transform:translateY(-50%)!important;
+  width:auto!important;
+  height:auto!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  rotate:0deg!important;
+  color:var(--premium-red)!important;
+  font-size:1.35rem!important;
+  line-height:1!important;
+  font-weight:900!important;
+}
+.flow-step:nth-child(4n)::after,
+.flow-step:nth-child(8)::after{display:none!important;}
+.step-number{
+  width:auto!important;
+  height:auto!important;
+  min-width:30px!important;
+  padding:2px 8px!important;
+  border-radius:999px!important;
+  font-size:.68rem!important;
+  letter-spacing:.04em!important;
+}
+.flow-step strong{font-size:.86rem!important;}
+.flow-step span:not(.step-number){max-width:125px!important;}
+.checks{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px 12px!important;}
+.check{min-height:50px!important;align-items:flex-start!important;}
+.check input[type=checkbox], .template-choice input[type=checkbox]{width:18px!important;height:18px!important;min-width:18px!important;margin:2px 3px 0 0!important;flex:0 0 18px!important;}
+.message-grid{align-items:start!important;}
+.message-grid .field{display:flex!important;flex-direction:column!important;height:100%!important;}
+.message-grid .field label{min-height:42px!important;display:flex!important;align-items:flex-start!important;line-height:1.25!important;}
+.message-grid textarea{height:118px!important;min-height:118px!important;}
+.course-tags:empty{display:none!important;}
+.course-field .hint{font-size:.78rem!important;margin-top:4px!important;line-height:1.35!important;}
+#submissao .checks, #validacao .checks{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+@media(max-width:900px){
+  .flow-showcase{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:13px!important;}
+  .flow-step:not(:last-child):after{display:none!important;}
+  .checks,#submissao .checks,#validacao .checks{grid-template-columns:1fr!important;}
+  .message-grid .field label{min-height:auto!important;}
+  .message-grid textarea{height:auto!important;min-height:96px!important;}
+}
+@media(max-width:620px){
+  .flow-showcase{grid-template-columns:1fr!important;}
+  .flow-step:not(:last-child):after{display:block!important;content:"↓"!important;left:50%!important;right:auto!important;bottom:-17px!important;top:auto!important;transform:translateX(-50%)!important;font-size:1.2rem!important;}
+  .flow-step:nth-child(4n)::after{display:block!important;}
+  .flow-step:nth-child(8)::after{display:none!important;}
+}
+
+</style>
+</head>
+<body>
+<header>
+<div class="header-inner">
+<img alt="Universidade Europeia" class="logo" src="data:image/png;base64,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"/>
+<div>
+<h1>Validação dos Guiões Pedagógicos</h1>
+<p class="subtitle">Testes orientados para Coordenadores de Modelo Académico</p>
+</div>
+</div>
+</header>
+<nav class="topnav"><div class="topnav-inner">
+<a href="#recursos">Recursos</a><a href="#dados">Dados</a><a href="#templates">Templates</a><a href="#interface">Interface</a><a href="#pdf">PDF</a><a href="#submissao">Submissão</a><a href="#validacao">Validação</a><a href="#julho">Continuação do projeto</a><a href="#feedback">Feedback</a>
+<div class="progress-wrap"><div class="progress-line"><div class="progress-bar" id="progressBar" style="width:0%"></div></div><div class="progress-text" id="progressText">0% percorrido</div></div>
+</div></nav>
+<main>
+<div class="notice">
+<strong>Objetivo do teste:</strong> seguir a ordem do fluxo real — confirmar dados de coordenação, abrir template, gerar PDF, submeter, acompanhar a lista Guiões, verificar Teams/e-mails e validar o item. Enquanto estes testes decorrem em junho, a área de Práticas Pedagógicas continuará a preparar a etapa seguinte: consolidação do Repositório de Práticas Pedagógicas e desenvolvimento/alimentação do Assistente IA, prevista para julho.
+  </div>
+<section class="card" id="fluxo">
+<h2>Como o fluxo deve funcionar</h2>
+<p class="intro">Use este esquema como referência durante os testes de junho. Nesta fase, o foco é confirmar o percurso da submissão até à validação, ao e-mail automático ao docente e ao registo na lista Repositório de Práticas Pedagógicas, quando autorizado.</p>
+<div class="flow-showcase" aria-label="Fluxo de teste dos guiões">
+  <div class="flow-step is-active"><span class="step-number">01</span><strong>Docente</strong><span>preenche o template</span></div>
+  <div class="flow-step"><span class="step-number">02</span><strong>PDF</strong><span>gera cópia do guião</span></div>
+  <div class="flow-step"><span class="step-number">03</span><strong>SharePoint</strong><span>cria item na lista Guiões</span></div>
+  <div class="flow-step"><span class="step-number">04</span><strong>Teams</strong><span>notifica em Fluxos de trabalho</span></div>
+  <div class="flow-step"><span class="step-number">05</span><strong>Coordenação</strong><span>altera Validado = Sim</span></div>
+  <div class="flow-step"><span class="step-number">06</span><strong>E-mail</strong><span>docente recebe validação</span></div>
+  <div class="flow-step"><span class="step-number">07</span><strong>Lista Repositório</strong><span>cria registo, se autorizado</span></div>
+  <div class="flow-step is-future"><span class="step-number">08</span><strong>Julho</strong><span>continuidade do projeto</span></div>
+</div>
+</section>
+<section class="card" id="recursos">
+<h2>Recursos úteis</h2>
+<p class="intro">Abra estes recursos à medida que for testando. O primeiro passo é confirmar os dados na lista de Coordenadores MA. Durante o teste de fluxo, mantenha também a lista Guiões aberta para acompanhar a criação e atualização do item, sem ter de procurar a lista manualmente no SharePoint.</p>
+<div class="resources">
+<a class="res" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas" target="_blank"><strong>Página Práticas Pedagógicas</strong><span>Site principal do projeto</span></a>
+<a class="res" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Coordenadores%20de%20Modelo%20Acadmico/AllItems.aspx" target="_blank"><strong>Coordenadores de Modelo Académico</strong><span>Confirmar curso(s), nome e e-mail</span></a>
+<a class="res" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Guies/AllItems.aspx" target="_blank"><strong>Lista Guiões</strong><span>Ver submissões e validar guiões</span></a>
+<a class="res" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Repositrio%20de%20Prticas%20Pedaggicas/AllItems.aspx" target="_blank"><strong>Lista Repositório de Práticas Pedagógicas</strong><span>Confirmar se o registo foi criado quando autorizado</span></a>
+<a class="res" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Contactos%20Acadmicos/AllItems.aspx" target="_blank"><strong>Contactos Académicos</strong><span>Docentes, diretores e coordenações</span></a>
+<a class="res" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Documentos%20Partilhados/Forms/AllItems.aspx" target="_blank"><strong>Documentos institucionais</strong><span>Espaço para materiais que poderão alimentar o Assistente IA</span></a>
+</div>
+</section>
+<section class="card" id="dados">
+<h2>1. Confirmar dados de coordenação</h2>
+<ol class="steps-list"><li>Abra a lista <strong>Coordenadores de Modelo Académico</strong>.</li><li>Confirme se o seu nome e e-mail estão corretos.</li><li>Confirme se está associado/a ao(s) curso(s) certo(s).</li><li>Nos cursos com mais de um coordenador, confirme se todos estão identificados.</li></ol>
+<p><a class="btn primary compact" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Coordenadores%20de%20Modelo%20Acadmico/AllItems.aspx" target="_blank">Abrir lista Coordenadores MA</a></p>
+<div class="checks">
+<label class="check"><input data-k="coordDados" type="checkbox"/> Dados de coordenação corretos.</label>
+<label class="check"><input data-k="coordCursos" type="checkbox"/> Curso(s) sob minha responsabilidade corretos.</label>
+<label class="check"><input data-k="coordEmails" type="checkbox"/> E-mail(s) corretos.</label>
+<label class="check"><input data-k="coordMulti" type="checkbox"/> Nos cursos com vários coordenadores, todos estão listados.</label>
+</div>
+<div class="grid data-grid">
+<div class="field"><label>Nome</label><input data-k="nome" placeholder="O seu nome" type="text"/></div>
+<div class="field"><label>E-mail</label><input data-k="email" placeholder="O seu e-mail institucional" type="email"/></div>
+<div class="field"><label>Unidade Orgânica</label><select data-k="uo"><option></option><option>FCS</option><option>FCST</option><option>IADE</option><option>IPAM Lisboa</option><option>IPAM Porto</option></select></div>
+<div class="field course-field"><label>Curso(s) associado(s) ao teste</label>
+  <input data-k="curso" id="cursoHidden" type="hidden"/>
+  <div class="course-picker">
+    <input id="cursoSearch" list="listaCursosPortal" placeholder="Pesquisar e selecionar curso" type="text" autocomplete="off" aria-label="Pesquisar e selecionar curso"/>
+  </div>
+  <datalist id="listaCursosPortal"><option value="Licenciatura em Animação e Criação Visual"></option>
+<option value="Licenciatura em Animação Global"></option>
+<option value="Licenciatura em Fotografia e Cultura Visual"></option>
+<option value="Mestrado em Animação e Criação Visual"></option>
+<option value="Mestrado em Design e Produção de Jogos"></option>
+<option value="Mestrado em Comunicação Audiovisual e Multimédia"></option>
+<option value="Licenciatura em Ciências da Comunicação"></option>
+<option value="Licenciatura em Marketing e Publicidade"></option>
+<option value="Mestrado em Marketing e Inovação"></option>
+<option value="Mestrado em Branding e Estratégia"></option>
+<option value="Mestrado em Comunicação Estratégica"></option>
+<option value="Doutoramento em Comunicação, Media e Ambientes Digitais"></option>
+<option value="Licenciatura em Design"></option>
+<option value="Licenciatura em Design Global"></option>
+<option value="Mestrado em Design e Cultura Visual"></option>
+<option value="Mestrado em Design &amp; Publicidade"></option>
+<option value="Mestrado em Design Management"></option>
+<option value="Mestrado em Design de Produto, Espaço e Interações"></option>
+<option value="Mestrado em Branding e Design de Moda"></option>
+<option value="Mestrado em Design para a Sustentabilidade"></option>
+<option value="Doutoramento em Design"></option>
+<option value="Licenciatura em Desenvolvimento de Jogos"></option>
+<option value="Licenciatura em Creative Tech"></option>
+<option value="Licenciatura em Engenharia Informática"></option>
+<option value="Licenciatura em Informática de Gestão"></option>
+<option value="Mestrado em Computação Criativa e Inteligência Artificial"></option>
+<option value="Doutoramento em Jogos Digitais"></option>
+<option value="Mestrado em Direção de Arte EaD"></option>
+<option value="Mestrado em Comunicação Multimedia EaD"></option>
+<option value="Licenciatura em Ciências da Comunicação EaD"></option>
+<option value="Licenciatura em Design Visual EaD"></option>
+<option value="Licenciatura em Engenharia Informática EaD"></option>
+<option value="Licenciatura em Psicologia"></option>
+<option value="Mestrado em Psicologia Clínica e da Saúde"></option>
+<option value="Licenciatura em Ciências da Nutrição"></option>
+<option value="Licenciatura em Psicologia EaD"></option>
+<option value="Mestrado em Gestão da Saúde EaD"></option>
+<option value="Mestrado em Neuropsicologia EaD"></option>
+<option value="Licenciatura em Gestão Recursos Humanos"></option>
+<option value="Mestrado em Gestão Recursos Humanos"></option>
+<option value="Mestrado em Psicologia Social e das Organizações"></option>
+<option value="Licenciatura em Gestão de Recursos Humanos EaD"></option>
+<option value="Mestrado em Gestão de Recursos Humanos EaD"></option>
+<option value="Licenciatura em Marketing EAD"></option>
+<option value="Licenciatura em Ciências Sociais EaD"></option>
+<option value="Licenciatura em Contabilidade EaD"></option>
+<option value="Licenciatura em Gestão de Empresas EaD"></option>
+<option value="Mestrado em Cibersegurança EaD"></option>
+<option value="Mestrado em Direito e Segurança da Informação EaD"></option>
+<option value="Mestrado em Gestão de Empresas EaD"></option>
+<option value="Mestrado em Marketing estratégico EaD"></option>
+<option value="Mestrado em Psicologia Social e de Organizações EaD"></option>
+<option value="Licenciatura em Gestão"></option>
+<option value="Licenciatura em Management"></option>
+<option value="Mestrado I Management"></option>
+<option value="Mestrado em Gestão"></option>
+<option value="Licenciatura em Gestão de Negócios"></option>
+<option value="Licenciatura em Negócios Global"></option>
+<option value="Mestrado em Global Business"></option>
+<option value="Mestrado em Marketing"></option>
+<option value="Mestrado em Gestão de Marketing"></option>
+<option value="Mestrado em Gestão de Negócios"></option>
+<option value="Mestrado em Marketing e Tecnologia"></option>
+<option value="Licenciatura em Marketing Global"></option>
+<option value="Licenciatura em Global Business"></option></datalist>
+  <div class="course-tags" id="cursoTags" aria-live="polite"></div>
+  <p class="hint">Pesquise e selecione os cursos sob a sua responsabilidade. Ao escolher um curso, ele fica automaticamente registado como etiqueta.</p>
+</div>
+</div>
+<div class="field"><label>Observações sobre os dados de coordenação</label><textarea data-k="obsCoord" placeholder="Indique correções necessárias, se existirem."></textarea></div>
+</section>
+<section class="card" id="templates">
+<h2>2. Abrir templates</h2>
+<p class="intro">Cada coordenador deve verificar a versão institucional e a versão de teste. A versão institucional permite observar o guião como será disponibilizado aos docentes. A versão de teste deve ser usada para simular submissão, e-mail e notificação.</p>
+<div class="note"><strong>Orientação de teste:</strong> sempre que possível, teste pelo menos uma versão institucional e uma versão de teste. Se não for possível testar todos os guiões, indique no feedback quais foram efetivamente testados.</div>
+<div class="warning"><strong>Para testar o fluxo:</strong> use a <strong>versão de teste</strong> do template. Antes de submeter, altere o campo <strong>E-mail(s)</strong> para o seu próprio e-mail e selecione apenas curso(s) pelos quais é responsável. Este ponto é essencial para confirmar se os e-mails e as notificações estão a chegar às pessoas certas.</div>
+<div class="note"><strong>Nota:</strong> utilize esta secção para aceder às versões institucionais e às versões de teste dos guiões pedagógicos.</div>
+<div class="template-grid">
+<div class="tpl"><b>CBL — Challenge-Based Learning</b><div class="btns"><a class="btn secondary" href="https://praticaspedagogicas.github.io/praticas/CBL.html" target="_blank" rel="noopener">Versão institucional</a><a class="btn primary" href="https://praticaspedagogicas.github.io/praticas/CBL_Teste.html" target="_blank" rel="noopener">Versão de teste</a></div></div>
+<div class="tpl"><b>PBL — Problem-Based Learning</b><div class="btns"><a class="btn secondary" href="https://praticaspedagogicas.github.io/praticas/PBL.html" target="_blank" rel="noopener">Versão institucional</a><a class="btn primary" href="https://praticaspedagogicas.github.io/praticas/PBL_Teste.html" target="_blank" rel="noopener">Versão de teste</a></div></div>
+<div class="tpl"><b>PROJ-BL — Project-Based Learning</b><div class="btns"><a class="btn secondary" href="https://praticaspedagogicas.github.io/praticas/Proj-BL.html" target="_blank" rel="noopener">Versão institucional</a><a class="btn primary" href="https://praticaspedagogicas.github.io/praticas/Proj-BL_Teste.html" target="_blank" rel="noopener">Versão de teste</a></div></div>
+<div class="tpl"><b>RBL — Research-Based Learning</b><div class="btns"><a class="btn secondary" href="https://praticaspedagogicas.github.io/praticas/RBL.html" target="_blank" rel="noopener">Versão institucional</a><a class="btn primary" href="https://praticaspedagogicas.github.io/praticas/RBL_Teste.html" target="_blank" rel="noopener">Versão de teste</a></div></div>
+<div class="tpl"><b>SBL — Simulation-Based Learning</b><div class="btns"><a class="btn secondary" href="https://praticaspedagogicas.github.io/praticas/SBL.html" target="_blank" rel="noopener">Versão institucional</a><a class="btn primary" href="https://praticaspedagogicas.github.io/praticas/SBL_Teste.html" target="_blank" rel="noopener">Versão de teste</a></div></div>
+</div>
+<div class="field"><label>Template(s) testado(s)</label>
+<input data-k="templates" id="templatesHidden" type="hidden"/>
+<div class="template-checks" role="group" aria-label="Template(s) testado(s)">
+<label class="template-choice"><input class="template-check" type="checkbox" value="CBL"/> CBL</label>
+<label class="template-choice"><input class="template-check" type="checkbox" value="PBL"/> PBL</label>
+<label class="template-choice"><input class="template-check" type="checkbox" value="PROJ-BL"/> PROJ-BL</label>
+<label class="template-choice"><input class="template-check" type="checkbox" value="RBL"/> RBL</label>
+<label class="template-choice"><input class="template-check" type="checkbox" value="SBL"/> SBL</label>
+</div>
+<p class="muted">Selecione apenas os templates efetivamente testados.</p></div>
+</section>
+<section class="card" id="interface">
+<h2>3. Interface, preenchimento e campos</h2>
+<ol class="steps-list"><li>Preencha um exemplo simples.</li><li>Teste os separadores, campos expansíveis, seletores e botões +/–.</li><li>Observe se fontes, espaçamentos e instruções estão adequados.</li></ol>
+<div class="checks">
+<label class="check"><input data-k="intFonte" type="checkbox"/> Fontes e tamanhos adequados.</label>
+<label class="check"><input data-k="intCampos" type="checkbox"/> Campos claros e fáceis de preencher.</label>
+<label class="check"><input data-k="intTabs" type="checkbox"/> Separadores funcionam corretamente.</label>
+<label class="check"><input data-k="intExpand" type="checkbox"/> Campos expansíveis funcionam.</label>
+<label class="check"><input data-k="intBotoes" type="checkbox"/> Botões + e – funcionam.</label>
+<label class="check"><input data-k="intMobile" type="checkbox"/> Testado em telemóvel/tablet, quando possível.</label>
+</div>
+<h3>Ajustes indispensáveis aos campos do guião</h3>
+<p class="intro">Os templates seguem a estrutura institucional definida para cada cenário de aprendizagem. Nesta fase, o objetivo não é redesenhar o guião, mas identificar apenas ajustes indispensáveis à clareza, ao preenchimento ou ao funcionamento.</p>
+<div class="checks">
+<label class="check"><input data-k="campoOk" type="checkbox"/> Não, manteria os campos como estão.</label>
+<label class="check"><input data-k="campoFaltaIndispensavel" type="checkbox"/> Sim, falta um campo indispensável.</label>
+<label class="check"><input data-k="campoRetirarSimplificar" type="checkbox"/> Sim, retiraria ou simplificaria um campo.</label>
+<label class="check"><input data-k="campoProblemaUso" type="checkbox"/> Sim, há um campo que dificulta o preenchimento.</label>
+</div>
+<div class="field"><label>Indique apenas ajustes indispensáveis para a utilização do guião, explicando brevemente o motivo.</label><textarea data-k="campoAjusteTxt" placeholder="Ex.: falta um campo essencial para identificar X; o campo Y gera confusão; o campo Z poderia ser simplificado. Evite sugestões estruturais extensas."></textarea></div>
+<div class="field"><label>Observações sobre interface e preenchimento</label><textarea data-k="obsInterface"></textarea></div>
+</section>
+<section class="card" id="pdf">
+<h2>4. Gerar PDF</h2>
+<ol class="steps-list"><li>Clique em <strong>Gerar Guião em PDF</strong>.</li><li>Confira se o PDF abre corretamente.</li><li>Verifique se o documento está legível e sem cortes.</li></ol>
+<div class="note"><strong>Nota sobre o PDF:</strong> o PDF funciona como um espelho institucional e sintético do guião. Por isso, pode não apresentar todos os campos preenchidos no template, para evitar um documento demasiado extenso ou carregado. Ainda assim, todos os dados submetidos ficam guardados na lista <strong>Guiões</strong>, onde a coordenação pode consultar a informação completa.</div>
+<div class="checks"><label class="check"><input data-k="pdfGerou" type="checkbox"/> Consegui gerar PDF.</label><label class="check"><input data-k="pdfLegivel" type="checkbox"/> PDF legível e institucional.</label><label class="check"><input data-k="pdfDados" type="checkbox"/> Dados essenciais aparecem corretamente no PDF.</label><label class="check"><input data-k="pdfSemCortes" type="checkbox"/> Sem cortes/desalinhamentos relevantes.</label></div>
+<div class="field"><label>Observações sobre o PDF</label><textarea data-k="obsPDF"></textarea></div>
+</section>
+<section class="card" id="submissao">
+<h2>5. Submissão e e-mail ao docente</h2>
+<div class="warning"><strong>Atenção:</strong> para testar o fluxo, use a <strong>versão de teste</strong> do template. Antes de submeter, altere o campo <strong>E-mail(s)</strong> para o seu próprio e-mail e selecione apenas curso(s) pelos quais é responsável.</div>
+<div class="note"><strong>Remetente temporário:</strong> durante estes testes iniciais, os e-mails automáticos podem chegar pela caixa de Ana Luiza Marques. Já foi solicitado ao IT a ativação/configuração do endereço <strong>praticas_pedagogicas@universidadeeuropeia.pt</strong>; após a ativação, os fluxos serão ajustados para usar esse remetente institucional.</div>
+<p><a class="btn secondary" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Guies/AllItems.aspx" target="_blank">Abrir lista Guiões em paralelo</a></p>
+<ol class="steps-list"><li>Abra a lista <strong>Guiões</strong> em paralelo, para acompanhar se o item aparece após a submissão.</li><li>Na versão de teste do template, confirme se o curso selecionado corresponde a um curso sob sua coordenação.</li><li>Submeta o guião para validação.</li><li>Confirme se aparece mensagem de sucesso no template.</li><li>Verifique se recebeu o e-mail automático com cópia do PDF.</li><li>Na lista Guiões, confirme se foi criado um novo item com curso, UC, docente/e-mail, ano letivo, data, hora e estado preenchidos.</li><li>Se encontrar erro, guarde prints ou PDFs de apoio. Ao enviar o feedback, anexe-os manualmente na janela de e-mail que será aberta.</li></ol>
+<div class="checks"><label class="check"><input data-k="subOk" type="checkbox"/> Submissão concluída.</label><label class="check"><input data-k="subEmail" type="checkbox"/> Recebi o e-mail automático.</label><label class="check"><input data-k="subPDF" type="checkbox"/> PDF chegou/anexo corretamente.</label><label class="check"><input data-k="subSharepoint" type="checkbox"/> Item apareceu na lista Guiões.</label><label class="check"><input data-k="subCurso" type="checkbox"/> Curso submetido corresponde à minha coordenação.</label><label class="check"><input data-k="subMsgSucesso" type="checkbox"/> Mensagem de sucesso apareceu no template.</label></div>
+<h3>Mensagem automática recebida nesta etapa</h3>
+<p class="intro">Ao submeter, o docente recebe o primeiro e-mail automático com a confirmação da submissão e uma cópia do PDF. Avalie a mensagem no momento em que ela chega.</p>
+<div class="checks">
+<label class="check"><input data-k="msgSubmissaoOk" type="checkbox"/> Concordo com a mensagem de submissão.</label>
+<label class="check"><input data-k="msgSubmissaoCamposOk" type="checkbox"/> A mensagem contém a informação necessária.</label>
+<label class="check"><input data-k="msgSubmissaoTomOk" type="checkbox"/> O tom institucional está adequado.</label>
+<label class="check"><input data-k="msgSubmissaoAssinaturaOk" type="checkbox"/> Assinatura e indicação de mensagem automática adequadas.</label>
+</div>
+<div class="grid message-grid">
+<div class="field"><label>Ajuste pontual indispensável na mensagem de submissão, se houver</label><textarea data-k="msgSubmissaoAlteracoes" placeholder="Indique apenas ajustes essenciais: clareza, termo inadequado ou informação em falta."></textarea></div>
+<div class="field"><label>Observações sobre submissão/e-mail inicial</label><textarea data-k="obsSub" placeholder="Registe apenas problemas ou dúvidas relevantes."></textarea></div>
+</div>
+</section>
+<section class="card" id="teams">
+<h2>6. Notificação Teams</h2>
+<ol class="steps-list"><li>Após a submissão, abra o Teams.</li><li>Procure a notificação na área/chamada <strong>Fluxos de trabalho</strong>.</li><li>Confirme se o cartão apresenta cenário, docente, e-mail e link para abrir o guião.</li><li>Clique em <strong>Abrir guião no SharePoint</strong> e confirme se abre o item correto.</li><li>Nos cursos com mais de um coordenador, confirme se todos receberam notificação separada.</li></ol>
+<div class="checks"><label class="check"><input data-k="teamsRecebi" type="checkbox"/> Recebi notificação em Fluxos de trabalho.</label><label class="check"><input data-k="teamsLink" type="checkbox"/> Link abriu o item correto da lista Guiões.</label><label class="check"><input data-k="teamsDados" type="checkbox"/> Dados da notificação estavam corretos.</label><label class="check"><input data-k="teamsMulti" type="checkbox"/> Cursos com múltiplos coordenadores receberam notificação separada.</label></div>
+<div class="field"><label>Observações sobre a notificação Teams</label><textarea data-k="obsTeams" placeholder="Indique apenas se houve falha, atraso, erro no link ou problema em cursos com vários coordenadores."></textarea></div>
+</section>
+<section class="card" id="validacao">
+<h2>7. Validação do guião na lista Guiões</h2>
+<p class="intro">Este passo confirma se o fluxo de validação realmente dispara o e-mail automático ao docente.</p>
+<p><a class="btn secondary" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Guies/AllItems.aspx" target="_blank">Abrir lista Guiões</a></p>
+<ol class="steps-list"><li>Abra a lista <strong>Guiões</strong>.</li><li>Abra o item submetido no teste.</li><li>Altere apenas o campo <strong>Validado</strong> para <strong>Sim</strong>.</li><li><strong>Não</strong> marque manualmente <strong>E-mail Validação Enviado</strong>. O fluxo deve marcar isto sozinho.</li><li>Guarde o item.</li><li>Verifique se o docente recebeu o e-mail automático de validação.</li><li>Volte à lista Guiões e confirme se <strong>E-mail Validação Enviado</strong> ficou marcado automaticamente e se <strong>Status de Validação</strong> ficou como <strong>Validado</strong>.</li></ol>
+<div class="checks"><label class="check"><input data-k="valMarquei" type="checkbox"/> Marquei Validado = Sim.</label><label class="check"><input data-k="valNaoMarqueiEmail" type="checkbox"/> Não marquei manualmente E-mail Validação Enviado.</label><label class="check"><input data-k="valEmailDocente" type="checkbox"/> Docente recebeu e-mail de validação.</label><label class="check"><input data-k="valEmailFlag" type="checkbox"/> E-mail Validação Enviado ficou marcado automaticamente.</label><label class="check"><input data-k="valStatus" type="checkbox"/> Status de Validação ficou como Validado.</label><label class="check"><input data-k="valItemGuardado" type="checkbox"/> Item guardado sem erro na lista Guiões.</label></div>
+<h3>Registo na lista Repositório de Práticas Pedagógicas, quando autorizado</h3>
+<p class="intro">Se o item tiver <strong>Autoriza Repositório = Sim</strong>, confirme se o fluxo atualiza a lista <strong>Guiões</strong> e cria um novo item na lista <strong>Repositório de Práticas Pedagógicas</strong>.</p>
+<p><a class="btn secondary" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Repositrio%20de%20Prticas%20Pedaggicas/AllItems.aspx" target="_blank">Abrir lista Repositório de Práticas Pedagógicas</a></p>
+<div class="checks"><label class="check"><input data-k="repoAutorizado" type="checkbox"/> Autoriza Repositório estava marcado como Sim.</label><label class="check"><input data-k="repoPublicado" type="checkbox"/> Na lista Guiões, Publicado no Repositório ficou como Sim.</label><label class="check"><input data-k="repoEstado" type="checkbox"/> Na lista Guiões, Estado Repositório ficou como Disponível.</label><label class="check"><input data-k="repoItem" type="checkbox"/> Foi criado item na lista Repositório de Práticas Pedagógicas.</label></div>
+<div class="field"><label>Observações sobre validação e lista Repositório</label><textarea data-k="obsVal" placeholder="Indique falhas de validação, e-mail, atualização na lista Guiões ou criação do item na lista Repositório."></textarea></div>
+<h3>Mensagem automática recebida após validação</h3>
+<p class="intro">Quando o campo <strong>Validado</strong> é alterado para <strong>Sim</strong>, o fluxo envia o segundo e-mail automático ao docente. Avalie a mensagem neste momento do teste.</p>
+<ol class="steps-list"><li>Leia o e-mail automático de validação recebido pelo docente.</li><li>Confirme se o cenário, curso e unidade curricular aparecem corretamente.</li><li>Confirme se a assinatura e a indicação de mensagem automática estão adequadas.</li><li>Indique se falta alguma informação para o docente.</li></ol>
+<div class="checks">
+<label class="check"><input data-k="msgValidacaoOk" type="checkbox"/> Concordo com a mensagem de validação.</label>
+<label class="check"><input data-k="msgCamposOk" type="checkbox"/> Os campos apresentados são suficientes.</label>
+<label class="check"><input data-k="msgTomOk" type="checkbox"/> O tom institucional está adequado.</label>
+<label class="check"><input data-k="msgAssinaturaOk" type="checkbox"/> Assinatura e indicação de mensagem automática adequadas.</label>
+</div>
+<div class="grid message-grid">
+<div class="field"><label>Ajuste pontual indispensável na mensagem de validação, se houver</label><textarea data-k="msgValidacaoAlteracoes" placeholder="Indique apenas ajustes essenciais: clareza, termo inadequado ou informação em falta."></textarea></div>
+<div class="field"><label>Alguma comunicação automática essencial em falta?</label><textarea data-k="msgNovas" placeholder="Use apenas se considerar indispensável para o fluxo de junho."></textarea></div>
+</div>
+</section>
+<section class="card future-card" id="julho">
+<h2>8. Continuação do projeto — desenvolvimento em julho</h2>
+<p class="intro">Esta etapa fica apenas como enquadramento. Em junho, o teste centra-se nos templates, PDF, submissão, Teams, e-mails, validação na lista Guiões e registo na lista Repositório de Práticas Pedagógicas quando autorizado.</p>
+<div class="note-box">
+<strong>Não é necessário testar agora:</strong> a consulta/reutilização dos guiões validados e a alimentação do Assistente IA serão trabalhadas na continuidade do projeto, em julho.
+    </div>
+<div class="action-strip">
+  <div>
+    <strong>Materiais para o Assistente IA</strong>
+    <span>Quando fizer sentido, os coordenadores poderão colocar documentos institucionais neste espaço para apoiar a fase seguinte.</span>
+  </div>
+  <a class="btn secondary compact" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Documentos%20Partilhados/Forms/AllItems.aspx" target="_blank">Abrir documentos institucionais</a>
+</div>
+<div class="note"><strong>Comunicações gerais futuras:</strong> foi criada a lista <strong>Contactos Académicos</strong> para apoiar, numa fase seguinte, comunicações a docentes, diretores de curso e coordenações. A intenção é que mensagens institucionais, como divulgações de formações ou eventos académicos institucionais, possam ser enviadas de forma uniforme pelo endereço <strong>praticas_pedagogicas@universidadeeuropeia.pt</strong>, sem depender sempre de pedidos ao Suporte Académico.</div>
+</section>
+<section class="card" id="feedback">
+<h2>9. Feedback final</h2>
+<div class="grid"><div class="field"><label>O sistema está pronto para avançar?</label><select data-k="pronto"><option></option><option>Sim</option><option>Sim, com pequenos ajustes</option><option>Não</option></select></div><div class="field"><label>Prioridade dos ajustes</label><select data-k="prioridade"><option></option><option>Baixa</option><option>Média</option><option>Alta</option></select></div></div>
+<div class="grid"><div class="field"><label>O que manteria?</label><textarea data-k="manteria"></textarea></div><div class="field"><label>O que melhoraria primeiro?</label><textarea data-k="melhoraria"></textarea></div></div>
+<div class="field"><label>Outras observações</label><textarea data-k="obsFinal"></textarea></div>
+<h3>Espelho do feedback</h3><p class="muted">O resumo abaixo é atualizado automaticamente. Ao clicar em <strong>Preparar e-mail de feedback</strong>, será aberto um e-mail já preenchido. Confirme depois o envio no Outlook/Mail. Se estiver no telemóvel ou no Safari e o e-mail não abrir, use <strong>Copiar resumo</strong> e cole o conteúdo manualmente.</p>
+<div class="note"><strong>Envio de evidências:</strong> caso identifique algum erro ou comportamento inesperado, descreva-o no e-mail de feedback e, sempre que possível, anexe prints, PDFs ou outros documentos diretamente na janela de e-mail antes de enviar.</div>
+<div class="summary" id="summary">Esta versão está preenchida para teste. O espelho será atualizado automaticamente ao abrir a página.</div>
+<div class="btns"><button class="primary" onclick="sendFeedback()" type="button">Preparar e-mail de feedback</button><button class="secondary" onclick="copySummary()" type="button">Copiar resumo</button><button class="ghost" onclick="clearAll()" type="button">Limpar respostas</button></div><div class="note" id="sendStatus" style="display:none;margin-top:12px;"></div>
+</section>
+</main>
+<footer>Práticas Pedagógicas — Universidade Europeia, IADE e IPAM</footer>
+<script>
+const STORE='portal_testes_guioes_coordenadores_v30_final_profissional';
+const labels={
+coordDados:'Dados de coordenação corretos',coordCursos:'Curso(s) corretos',coordEmails:'E-mail(s) corretos',coordMulti:'Todos os coordenadores listados',intFonte:'Fontes adequadas',intCampos:'Campos claros',intTabs:'Separadores funcionam',intExpand:'Campos expansíveis funcionam',intBotoes:'Botões +/– funcionam',intMobile:'Testado em mobile/tablet',campoOk:'Manteria os campos como estão',campoFaltaIndispensavel:'Falta um campo indispensável',campoRetirarSimplificar:'Retiraria ou simplificaria um campo',campoProblemaUso:'Campo dificulta o preenchimento',pdfGerou:'Gerou PDF',pdfLegivel:'PDF legível',pdfDados:'Dados no PDF corretos',pdfSemCortes:'PDF sem cortes',subOk:'Submissão concluída',subEmail:'Recebeu e-mail inicial',subPDF:'PDF/anexo correto',subSharepoint:'Item apareceu em Guiões',subCurso:'Curso corresponde à coordenação',teamsRecebi:'Recebeu Teams/Fluxos de trabalho',teamsLink:'Link abriu item correto',teamsDados:'Dados Teams corretos',teamsMulti:'Múltiplos coordenadores notificados',valMarquei:'Marcou Validado = Sim',valNaoMarqueiEmail:'Não marcou e-mail manualmente',valEmailDocente:'Docente recebeu e-mail de validação',valEmailFlag:'E-mail Validação Enviado marcado automaticamente',valStatus:'Status = Validado',repoAutorizado:'Autoriza Repositório = Sim',repoPublicado:'Publicado no Repositório = Sim',repoEstado:'Estado Repositório = Disponível',repoItem:'Item criado no Repositório',msgSubmissaoOk:'Concorda com a mensagem de submissão',msgSubmissaoCamposOk:'Mensagem de submissão com informação necessária',msgSubmissaoTomOk:'Tom da mensagem de submissão adequado',msgValidacaoOk:'Concorda com a mensagem de validação',msgTomOk:'Tom da mensagem de validação adequado',msgCamposOk:'Campos da mensagem de validação suficientes'
+};
+
+const CURSOS_PORTAL=[
+'Licenciatura em Animação e Criação Visual',
+'Licenciatura em Animação Global',
+'Licenciatura em Fotografia e Cultura Visual',
+'Mestrado em Animação e Criação Visual',
+'Mestrado em Design e Produção de Jogos',
+'Mestrado em Comunicação Audiovisual e Multimédia',
+'Licenciatura em Ciências da Comunicação',
+'Licenciatura em Marketing e Publicidade',
+'Mestrado em Marketing e Inovação',
+'Mestrado em Branding e Estratégia',
+'Mestrado em Comunicação Estratégica',
+'Doutoramento em Comunicação, Media e Ambientes Digitais',
+'Licenciatura em Design',
+'Licenciatura em Design Global',
+'Mestrado em Design e Cultura Visual',
+'Mestrado em Design & Publicidade',
+'Mestrado em Design Management',
+'Mestrado em Design de Produto, Espaço e Interações',
+'Mestrado em Branding e Design de Moda',
+'Mestrado em Design para a Sustentabilidade',
+'Doutoramento em Design',
+'Licenciatura em Desenvolvimento de Jogos',
+'Licenciatura em Creative Tech',
+'Licenciatura em Engenharia Informática',
+'Licenciatura em Informática de Gestão',
+'Mestrado em Computação Criativa e Inteligência Artificial',
+'Doutoramento em Jogos Digitais',
+'Mestrado em Direção de Arte EaD',
+'Mestrado em Comunicação Multimedia EaD',
+'Licenciatura em Ciências da Comunicação EaD',
+'Licenciatura em Design Visual EaD',
+'Licenciatura em Engenharia Informática EaD',
+'Licenciatura em Psicologia',
+'Mestrado em Psicologia Clínica e da Saúde',
+'Licenciatura em Ciências da Nutrição',
+'Licenciatura em Psicologia EaD',
+'Mestrado em Gestão da Saúde EaD',
+'Mestrado em Neuropsicologia EaD',
+'Licenciatura em Gestão Recursos Humanos',
+'Mestrado em Gestão Recursos Humanos',
+'Mestrado em Psicologia Social e das Organizações',
+'Licenciatura em Gestão de Recursos Humanos EaD',
+'Mestrado em Gestão de Recursos Humanos EaD',
+'Licenciatura em Marketing EAD',
+'Licenciatura em Ciências Sociais EaD',
+'Licenciatura em Contabilidade EaD',
+'Licenciatura em Gestão de Empresas EaD',
+'Mestrado em Cibersegurança EaD',
+'Mestrado em Direito e Segurança da Informação EaD',
+'Mestrado em Gestão de Empresas EaD',
+'Mestrado em Marketing estratégico EaD',
+'Mestrado em Psicologia Social e de Organizações EaD',
+'Licenciatura em Gestão',
+'Licenciatura em Management',
+'Mestrado I Management',
+'Mestrado em Gestão',
+'Licenciatura em Gestão de Negócios',
+'Licenciatura em Negócios Global',
+'Mestrado em Global Business',
+'Mestrado em Marketing',
+'Mestrado em Gestão de Marketing',
+'Mestrado em Gestão de Negócios',
+'Mestrado em Marketing e Tecnologia',
+'Licenciatura em Marketing Global',
+'Licenciatura em Global Business'
+];
+function selectedCursos(){
+  const h=document.getElementById('cursoHidden');
+  return (h&&h.value?h.value:'').split(';').map(s=>s.trim()).filter(Boolean);
+}
+function writeCursos(vals){
+  const unique=[];
+  vals.forEach(v=>{v=(v||'').trim(); if(v && !unique.includes(v)) unique.push(v);});
+  const h=document.getElementById('cursoHidden'); if(h) h.value=unique.join('; ');
+  renderCursoTags();
+}
+function renderCursoTags(){
+  const box=document.getElementById('cursoTags'); if(!box) return;
+  const vals=selectedCursos();
+  box.innerHTML=vals.length?vals.map((v,i)=>`<span class="course-tag"><span>${escapeHtml(v)}</span><button type="button" aria-label="Remover curso" onclick="removeCurso(${i})">×</button></span>`).join(''):'';
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function addCurso(){
+  const input=document.getElementById('cursoSearch'); if(!input) return;
+  const value=(input.value||'').trim();
+  if(!value) return;
+  const match=CURSOS_PORTAL.find(c=>c.toLowerCase()===value.toLowerCase()) || value;
+  writeCursos([...selectedCursos(), match]);
+  input.value='';
+  save();
+}
+function removeCurso(i){
+  const vals=selectedCursos(); vals.splice(i,1); writeCursos(vals); save();
+}
+
+function maybeAddCursoFromInput(){
+  const input=document.getElementById('cursoSearch'); if(!input) return;
+  const value=(input.value||'').trim(); if(!value) return;
+  const exact=CURSOS_PORTAL.find(c=>c.toLowerCase()===value.toLowerCase());
+  if(exact){ addCurso(); }
+}
+document.addEventListener('keydown',function(e){if(e.target&&e.target.id==='cursoSearch'&&e.key==='Enter'){e.preventDefault();addCurso();}});
+document.addEventListener('change',function(e){if(e.target&&e.target.id==='cursoSearch'){maybeAddCursoFromInput();}});
+document.addEventListener('blur',function(e){if(e.target&&e.target.id==='cursoSearch'){maybeAddCursoFromInput();}},true);
+
+
+function syncTemplateChecks(){const h=document.getElementById('templatesHidden');if(!h)return;h.value=[...document.querySelectorAll('.template-check:checked')].map(x=>x.value).join(', ');}
+function applyTemplateChecks(value){const vals=(value||'').split(',').map(s=>s.trim()).filter(Boolean);document.querySelectorAll('.template-check').forEach(cb=>{cb.checked=vals.includes(cb.value);});const h=document.getElementById('templatesHidden');if(h)h.value=vals.join(', ');}
+function getData(){syncTemplateChecks();const d={};document.querySelectorAll('[data-k]').forEach(el=>{const k=el.dataset.k;if(el.type==='checkbox')d[k]=el.checked;else d[k]=el.value||'';});return d;}
+function setData(d){document.querySelectorAll('[data-k]').forEach(el=>{const k=el.dataset.k;if(!(k in d))return;if(el.type==='checkbox')el.checked=!!d[k];else el.value=d[k];});applyTemplateChecks(d.templates||'');renderCursoTags();updateUI();}
+function save(){syncTemplateChecks();localStorage.setItem(STORE,JSON.stringify(getData()));updateUI();}
+function pct(){
+  // Nesta página o progresso não mede preenchimento obrigatório.
+  // Mede apenas o avanço de leitura/rolagem, porque o coordenador pode
+  // legitimamente não assinalar todos os itens ou deixar observações em branco.
+  const doc=document.documentElement;
+  const max=Math.max(1, doc.scrollHeight - window.innerHeight);
+  const current=Math.max(0, window.scrollY || doc.scrollTop || document.body.scrollTop || 0);
+  return Math.max(0, Math.min(100, Math.round((current/max)*100)));
+}
+function summaryText(){const d=getData();const checked=Object.keys(labels).filter(k=>d[k]).map(k=>'• '+labels[k]).join('\n')||'—';return `Feedback de Testes dos Guiões Pedagógicos
+
+Nome: ${d.nome||''}
+E-mail: ${d.email||''}
+Unidade Orgânica: ${d.uo||''}
+Curso(s): ${d.curso||''}
+Template(s) testado(s): ${d.templates||''}
+
+Itens assinalados no teste:
+${checked}
+
+Observações — Dados de coordenação:
+${d.obsCoord||'—'}
+
+Ajustes indispensáveis nos campos:
+${d.campoAjusteTxt||'—'}
+
+Interface/preenchimento:
+${d.obsInterface||'—'}
+
+PDF:
+${d.obsPDF||'—'}
+
+Submissão/e-mail inicial:
+${d.obsSub||'—'}
+
+Notificação Teams:
+${d.obsTeams||'—'}
+
+Validação e repositório:
+${d.obsVal||'—'}
+
+Mensagem de submissão — ajuste pontual indispensável, se houver:
+${d.msgSubmissaoAlteracoes||'—'}
+
+Mensagem de validação — ajuste pontual indispensável, se houver:
+${d.msgValidacaoAlteracoes||'—'}
+
+Comunicação automática essencial em falta, se houver:
+${d.msgNovas||'—'}
+
+Pronto para avançar?: ${d.pronto||'—'}
+Prioridade dos ajustes: ${d.prioridade||'—'}
+
+O que manteria:
+${d.manteria||'—'}
+
+O que melhoraria primeiro:
+${d.melhoraria||'—'}
+
+Outras observações:
+${d.obsFinal||'—'}`;}
+function updateUI(){renderCursoTags();document.querySelectorAll('.check').forEach(l=>{const cb=l.querySelector('input');l.classList.toggle('done',cb&&cb.checked);});const p=pct();document.getElementById('progressBar').style.width=p+'%';document.getElementById('progressText').textContent=p+'% percorrido';document.getElementById('summary').textContent=summaryText();}
+function sendFeedback(){
+  const d=getData();
+  const summary=summaryText()+"\n\nNota: anexar prints/documentos manualmente antes de enviar, se aplicável.";
+  const subject='[Testes Guiões] Feedback - '+(d.templates||'templates')+' - '+(d.nome||'Coordenador/a');
+  const mailto='mailto:luiza.marques@universidadeeuropeia.pt?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(summary);
+  const status=document.getElementById('sendStatus');
+  if(status){
+    status.style.display='block';
+    status.innerHTML='✅ O e-mail de feedback foi preparado. Confirme o envio no Outlook/Mail. Se a aplicação de e-mail não abrir automaticamente, use <strong>Copiar resumo</strong> e cole o conteúdo num novo e-mail para <strong>luiza.marques@universidadeeuropeia.pt</strong>. Pode anexar prints antes de enviar.';
+    status.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+  // Em alguns telemóveis/navegadores, mailto pode ser bloqueado. A mensagem acima aparece sempre como confirmação.
+  setTimeout(function(){
+    try{ window.location.href=mailto; }
+    catch(e){ alert('Não foi possível abrir automaticamente o e-mail. Use Copiar resumo.'); }
+  }, 250);
+}
+function copySummary(){
+  const txt=summaryText();
+  const status=document.getElementById('sendStatus');
+  function showCopied(){ if(status){status.style.display='block'; status.innerHTML='✅ Resumo copiado. Abra um novo e-mail para <strong>luiza.marques@universidadeeuropeia.pt</strong>, cole o resumo e anexe prints, se necessário.'; status.scrollIntoView({behavior:'smooth', block:'center'});} else {alert('Resumo copiado.');}}
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(showCopied).catch(function(){ fallbackCopy(txt); showCopied(); }); }
+  else { fallbackCopy(txt); showCopied(); }
+}
+function fallbackCopy(txt){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); }
+
+function clearAll(){if(confirm('Limpar respostas guardadas neste navegador?')){localStorage.removeItem(STORE);document.querySelectorAll('[data-k]').forEach(el=>{if(el.type==='checkbox')el.checked=false;else el.value='';});document.querySelectorAll('.template-check').forEach(cb=>cb.checked=false);syncTemplateChecks();renderCursoTags();updateUI();}}
+document.addEventListener('input',save);document.addEventListener('change',save);
+window.addEventListener('scroll',updateUI,{passive:true});
+window.addEventListener('resize',updateUI);
+document.querySelectorAll('.pill').forEach(b=>b.addEventListener('click',()=>{const group=b.dataset.group;document.querySelectorAll('.pill[data-group="'+group+'"]').forEach(x=>x.dataset.selected='false');b.dataset.selected='true';save();}));
+try{const d=JSON.parse(localStorage.getItem(STORE)||'{}');setData(d);}catch(e){updateUI();}
+</script>
+</body>
+</html>
