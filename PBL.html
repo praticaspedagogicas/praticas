@@ -5227,7 +5227,7 @@ body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-remove{
   }
   function abrirAssistente(){window.open(BOT_URL,'_blank','noopener,noreferrer'); toast('A abrir o Assistente IA institucional...');} window.abrirAssistentePedagogico=abrirAssistente;
   function validarCamposNumericosGuiao(){var bad=null; document.querySelectorAll('input[type="number"]').forEach(function(el){if(bad)return; var v=String(el.value||'').trim().replace(',','.'); if(v && !/^-?\d+(\.\d+)?$/.test(v)) bad=el;}); if(bad){bad.focus(); toast('Indique apenas números nos campos numéricos.','error'); return false;} return true;} window.validarCamposNumericosGuiao=validarCamposNumericosGuiao;
-  async function enviarValidacao(){if(submitLock)return; if(!validarCamposNumericosGuiao())return; submitLock=true; toast('A enviar guião para validação...'); var payload=collect(); payload.templateType='PBL'; payload.templateScenario='Problem Based Learning'; payload.cenarioAprendizagem='PBL'; payload.cenario='Problem Based Learning'; payload.scenario='Problem Based Learning'; payload.estadoGuiao='Submetido'; payload.Data=null; payload.data=null; payload.date=null; payload.Date=null; payload.dataSubmissao=null; payload.DataSubmissao=null; payload.submittedAt=null; payload.Hora=null; payload.hora=null; payload.horaInicio=null; payload.HoraInicio=null; payload.horaFim=null; payload.HoraFim=null; payload.sourceUrl=window.location.href; payload.title='PBL - '+(payload.curso||payload.uc||payload.unidadeCurricular||'Guião'); payload.pageTitle=(document.querySelector('h1')||{}).textContent||'Guião PBL'; payload.formData=Object.assign({},payload); payload.pdfFileName=guiaoPdfFileName('PBL','Guiao'); payload.pdfBase64=await generatePdfBase64(); payload.html='<!DOCTYPE html>\n'+document.documentElement.outerHTML; try{var r=await fetch(FLOW_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); if(!r.ok)throw new Error('HTTP '+r.status); toast('Guião submetido com sucesso. O seu guião foi enviado para validação.'); showSubmissionConfirmation();}catch(e){console.error(e); toast('Não foi possível submeter agora. O rascunho local foi mantido.','error');}finally{submitLock=false;}}
+  async function enviarValidacao(){if(submitLock)return; if(!validarCamposNumericosGuiao())return; submitLock=true; toast('A enviar guião para validação...'); var payload=collect(); payload.templateType='PBL'; payload.templateScenario='Problem Based Learning'; payload.cenarioAprendizagem='PBL'; payload.cenario='Problem Based Learning'; payload.scenario='Problem Based Learning'; payload.estadoGuiao='Submetido'; payload.Data=''; payload.data=''; payload.date=''; payload.Date=''; payload.dataSubmissao=''; payload.DataSubmissao=''; payload.submittedAt=''; payload.Hora=''; payload.hora=''; payload.horaInicio=''; payload.HoraInicio=''; payload.horaFim=''; payload.HoraFim=''; payload.sourceUrl=window.location.href; payload.title='PBL - '+(payload.curso||payload.uc||payload.unidadeCurricular||'Guião'); payload.pageTitle=(document.querySelector('h1')||{}).textContent||'Guião PBL'; payload.formData=Object.assign({},payload); payload.pdfFileName=guiaoPdfFileName('PBL','Guiao'); payload.pdfBase64=await generatePdfBase64(); payload.html='<!DOCTYPE html>\n'+document.documentElement.outerHTML; try{var r=await fetch(FLOW_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); if(!r.ok)throw new Error('HTTP '+r.status); toast('Guião submetido com sucesso. O seu guião foi enviado para validação.'); showSubmissionConfirmation();}catch(e){console.error(e); toast('Não foi possível submeter agora. O rascunho local foi mantido.','error');}finally{submitLock=false;}}
   function showSubmissionConfirmation(result){
     try {
       let panel = document.getElementById("powerAutomateSubmissionConfirmation");
@@ -5393,7 +5393,7 @@ body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-remove{
       emails: values.emails || '',
       autorizaRepositorio: repo,
       autorizaPartilhaInterna: repo,
-      submittedAt: new Date().toISOString(),
+      submittedAt: '',
       sourceUrl: window.location.href,
       formData: values,
       estruturaPedagogica: JSON.stringify({templateType:TEMPLATE_TYPE, cenarioAprendizagem:TEMPLATE_TYPE, values:values, resumoCampos:lines}, null, 2),
@@ -7777,10 +7777,10 @@ function makePdfFileName(){
     // Para a lista Guiões ficar realmente vazia, enviamos null de forma explícita
     // e limpamos formData/values para evitar placeholder como "/1/" ou "—".
     var camposDataHora = ['data','Data','date','Date','dataSubmissao','DataSubmissao','submittedAt','Hora','hora','horaInicio','HoraInicio','horaFim','HoraFim'];
-    camposDataHora.forEach(function(k){ payload[k] = null; });
+    camposDataHora.forEach(function(k){ payload[k] = ''; });
     ['formData','values'].forEach(function(container){
       if(payload[container] && typeof payload[container] === 'object'){
-        camposDataHora.forEach(function(k){ payload[container][k] = null; });
+        camposDataHora.forEach(function(k){ payload[container][k] = ''; });
       }
     });
     return payload;
