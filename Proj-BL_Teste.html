@@ -12615,43 +12615,6 @@ function makeFileName(){
     }
 
     var ucsPayload = String(values.ucs || values.uc || "").trim();
-    function projReadHeaderUc(){
-      var selectors = [
-        ".projbl-nome-uc-projeto-field",
-        "#uc", "#ucs", "#unidade_curricular", "#unidades_curriculares",
-        "[name='uc']", "[name='ucs']", "[name='unidade_curricular']", "[name='unidades_curriculares']"
-      ];
-      for(var i=0;i<selectors.length;i++){
-        try{
-          var el = document.querySelector(selectors[i]);
-          var v = el ? String(el.value || el.textContent || "").trim() : "";
-          if(v) return v;
-        }catch(e){}
-      }
-      return "";
-    }
-    function projReadContribUcList(){
-      try{
-        return Array.prototype.slice.call(document.querySelectorAll("#ucs .projblz7g-data-row")).map(function(row){
-          var cells = row.querySelectorAll(".projblz7g-cell");
-          var field = cells && cells[1] ? cells[1].querySelector("input,textarea,select") : null;
-          return field ? String(field.value || field.textContent || "").trim() : "";
-        }).filter(Boolean).join("; ");
-      }catch(e){ return ""; }
-    }
-    var ucsHeaderPayload = projReadHeaderUc();
-    var ucsContribPayload = projReadContribUcList();
-    ucsPayload = String(ucsPayload || ucsHeaderPayload || ucsContribPayload || "").trim();
-    if(ucsPayload){
-      values.uc = values.uc || ucsPayload;
-      values.ucs = values.ucs || ucsPayload;
-      values.UC = values.UC || ucsPayload;
-      values.UCs = values.UCs || ucsPayload;
-      values["UC(s)"] = values["UC(s)"] || ucsPayload;
-      values.unidadeCurricular = values.unidadeCurricular || ucsPayload;
-      values.unidadesCurriculares = values.unidadesCurriculares || ucsPayload;
-      values["Unidade(s) Curricular(es)"] = values["Unidade(s) Curricular(es)"] || ucsPayload;
-    }
 
     /* PROJ-BL EMAIL PAYLOAD FIX 2026-06-08 */
     // A tabela Docente(s) do Proj-BL usa campos sem id/name. Por isso, o allFields()
@@ -12695,14 +12658,7 @@ function makeFileName(){
     if(autoriaPayload){ values.autoria = values.autoria || autoriaPayload; values.Autoria = values.Autoria || autoriaPayload; values.autor = values.autor || autoriaPayload; values.Autor = values.Autor || autoriaPayload; }
     if(estadoGuiaoPayload){ values.estadoGuiao = values.estadoGuiao || estadoGuiaoPayload; values.EstadoGuiao = values.EstadoGuiao || estadoGuiaoPayload; values.estado = values.estado || estadoGuiaoPayload; }
     if(anoLetivoPayload){ values.anoLetivo = values.anoLetivo || anoLetivoPayload; values.AnoLetivo = values.AnoLetivo || anoLetivoPayload; values.ano = values.ano || anoLetivoPayload; }
-    var submissionIso = new Date().toISOString();
-    var submissionHora = new Date().toLocaleTimeString('pt-PT',{hour:'2-digit',minute:'2-digit'});
-    values.submittedAt = submissionIso;
-    values.Data = submissionIso;
-    values.data = submissionIso;
-    values.date = submissionIso;
-    values.DataSubmissao = submissionIso;
-    values.Hora = submissionHora;
+    values.submittedAt = new Date().toISOString();
 
     return {
       templateType: "PROJ-BL",
@@ -12714,15 +12670,6 @@ function makeFileName(){
       cursos: cursosPayload,
       curso: cursosPayload,
       ucs: ucsPayload,
-      uc: ucsPayload,
-      UC: ucsPayload,
-      UCs: ucsPayload,
-      "UC(s)": ucsPayload,
-      unidadeCurricular: ucsPayload,
-      unidadesCurriculares: ucsPayload,
-      UnidadeCurricular: ucsPayload,
-      UnidadesCurriculares: ucsPayload,
-      "Unidade(s) Curricular(es)": ucsPayload,
       docentes: docentesPayload,
       Docentes: docentesPayload,
       docente: docentesPayload,
@@ -12764,12 +12711,7 @@ function makeFileName(){
       anoLetivo: anoLetivoPayload,
       Ano: anoLetivoPayload,
       ano: anoLetivoPayload,
-      submittedAt: submissionIso,
-      Data: submissionIso,
-      data: submissionIso,
-      date: submissionIso,
-      DataSubmissao: submissionIso,
-      Hora: submissionHora,
+      submittedAt: new Date().toISOString(),
       source: window.location.href,
       sourceUrl: window.location.href,
       formData: values,
