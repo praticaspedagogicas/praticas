@@ -12704,12 +12704,14 @@ function makeFileName(){
     var modalidadePayload = String(values.modalidade || "").trim();
     var semestrePayload = String(values.semestre || values.Semestre || "").trim();
     var turmaPayload = String(values.turmaEdicao || values.turma || values.Turma || values.TurmaEdicao || values["Turma/Edição"] || "").trim();
-    var autoriaPayload = String(values.autoria || values.Autoria || values.autor || values.Autor || values.nomeAutor || values.NomeAutor || values.nome_autor || values.Nome_Autor || values.author || values.Author || values.autores || values.Autores || values.autoriaGuiao || values.AutoriaGuiao || values.autoria_do_guiao || values.autoria_do_guião || values.docenteResponsavel || values.DocenteResponsavel || values.responsavel || values.Responsavel || values["Autoria do guião"] || values["Autoria do guiao"] || values["Nome do autor"] || values["Nome do Autor"] || values["Autor(es)"] || autoriaFromVisual || "").trim();
+    var autoriaPayload = String(values.autorias || values.Autorias || values.autoria || values.Autoria || values.autor || values.Autor || values.nomeAutor || values.NomeAutor || values.nome_autor || values.Nome_Autor || values.author || values.Author || values.autores || values.Autores || values.autoriaGuiao || values.AutoriaGuiao || values.autoria_do_guiao || values.autoria_do_guião || values.docenteResponsavel || values.DocenteResponsavel || values.responsavel || values.Responsavel || values["Autoria do guião"] || values["Autoria do guiao"] || values["Nome do autor"] || values["Nome do Autor"] || values["Autor(es)"] || autoriaFromVisual || "").trim();
     var estadoGuiaoPayload = String(values.estadoGuiao || values.estado || values.EstadoGuiao || values.Estado || "").trim();
     var anoLetivoPayload = String(values.anoLetivoProjeto || values.ano || values.anoLetivo || values.AnoLetivo || "").trim();
     if(semestrePayload){ values.semestre = values.semestre || semestrePayload; values.Semestre = values.Semestre || semestrePayload; }
     if(turmaPayload){ values.turma = values.turma || turmaPayload; values.Turma = values.Turma || turmaPayload; values.turmaEdicao = values.turmaEdicao || turmaPayload; values.TurmaEdicao = values.TurmaEdicao || turmaPayload; values["Turma/Edição"] = values["Turma/Edição"] || turmaPayload; }
     if(autoriaPayload){
+      values.autorias = autoriaPayload;
+      values.Autorias = values.Autorias || autoriaPayload;
       values.autoria = autoriaPayload;
       values.Autoria = values.Autoria || autoriaPayload;
       values.autor = values.autor || autoriaPayload;
