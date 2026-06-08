@@ -3605,6 +3605,116 @@ input#n_estudantes:focus,
   color:#ffffff !important;
 }
 </style>
+
+<style id="rbl-mobile-final-campos-identificacao-numericos-ok">
+/* Ajuste final RBL mobile — identificação compacta e segura.
+   Não altera IDs, payload, PDF, botões, Curso(s), validações ou Power Automate. */
+@media screen and (max-width:680px){
+  html, body{
+    max-width:100% !important;
+    overflow-x:hidden !important;
+  }
+  .page{
+    width:100% !important;
+    max-width:100% !important;
+    padding-left:14px !important;
+    padding-right:14px !important;
+    box-sizing:border-box !important;
+    overflow-x:hidden !important;
+  }
+  .rbl-ident-modern{
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    padding:0 !important;
+    margin:0 0 16px 0 !important;
+    box-sizing:border-box !important;
+    overflow:visible !important;
+  }
+  .rbl-ident-modern .rbl-ident-card,
+  .rbl-ident-modern .rbl-ident-wide,
+  .rbl-ident-modern .rbl-uc-card,
+  .rbl-ident-modern .rbl-numeric-pair-card{
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    margin:0 0 12px 0 !important;
+    padding:12px !important;
+    border:1.5px solid rgba(0,0,0,.72) !important;
+    border-radius:16px !important;
+    background:#fff !important;
+    box-sizing:border-box !important;
+    overflow:visible !important;
+  }
+  .rbl-ident-modern .rbl-ident-card label,
+  .rbl-ident-modern .rbl-numeric-pair-field label{
+    display:block !important;
+    width:100% !important;
+    margin:0 0 8px 0 !important;
+    padding:0 !important;
+    color:#333 !important;
+    font-size:14px !important;
+    font-weight:800 !important;
+    line-height:1.25 !important;
+    white-space:normal !important;
+  }
+  .rbl-ident-modern .rbl-ident-card input,
+  .rbl-ident-modern .rbl-ident-card select,
+  .rbl-ident-modern .rbl-ident-card textarea,
+  .rbl-ident-modern .rbl-numeric-pair-field input{
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    box-sizing:border-box !important;
+    margin:0 !important;
+    font-size:15px !important;
+  }
+  .rbl-ident-modern .rbl-ident-card textarea{
+    min-height:72px !important;
+    resize:vertical !important;
+  }
+  .rbl-ident-modern .rbl-numeric-pair-card{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:12px !important;
+  }
+  .rbl-ident-modern .rbl-numeric-pair-field{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    box-sizing:border-box !important;
+  }
+  #n_estudantes,
+  #n_grupos{
+    min-height:44px !important;
+    height:44px !important;
+    padding:8px 12px !important;
+    border:1.4px solid #bfbfbf !important;
+    border-radius:12px !important;
+    text-align:left !important;
+    appearance:auto !important;
+    -webkit-appearance:auto !important;
+  }
+}
+/* Devolve o comportamento nativo de input numérico ao Nº de estudantes, que estava sem seletor nativo. */
+#n_estudantes,
+input#n_estudantes{
+  appearance:auto !important;
+  -webkit-appearance:auto !important;
+}
+#n_estudantes::-webkit-outer-spin-button,
+#n_estudantes::-webkit-inner-spin-button{
+  -webkit-appearance:inner-spin-button !important;
+  opacity:1 !important;
+  display:block !important;
+  margin:0 !important;
+}
+</style>
+
 </head>
 <body>
 <div class="page">
@@ -6587,7 +6697,7 @@ input:focus, textarea:focus, select:focus,
   box-shadow:0 3px 10px rgba(227,30,36,.10) !important;
   background:#fff !important;
 }
-#curso, #n_estudantes, input[id$="_data"], input[id$="_duracao"]{
+#curso, input[id$="_data"], input[id$="_duracao"]{
   -webkit-appearance:none !important;
   appearance:none !important;
 }
@@ -6617,7 +6727,9 @@ input:focus, textarea:focus, select:focus,
   function cleanStudents(){
     var el=$("n_estudantes");
     if(!el) return;
-    el.setAttribute("type","text");
+    el.setAttribute("type","number");
+    el.setAttribute("min","0");
+    el.setAttribute("step","1");
     el.setAttribute("inputmode","numeric");
     el.setAttribute("pattern","[0-9]*");
     el.setAttribute("autocomplete","off");
@@ -9459,5 +9571,137 @@ html body:not(.guiao-pdf-mode) .rbl-ident-modern + .section {
 <style id="guiao-required-submit-validation-v1-style">
 .guiao-required-missing{ outline:3px solid rgba(227,30,36,.28) !important; outline-offset:2px !important; }
 </style>
+
+<script id="rbl-teste-100-final-ajuste-js">
+(function(){
+  "use strict";
+  function byId(id){ return document.getElementById(id); }
+  function setVal(id, value){
+    var el = byId(id);
+    if(!el) return;
+    el.value = value;
+    try{
+      el.dispatchEvent(new Event("input", {bubbles:true}));
+      el.dispatchEvent(new Event("change", {bubbles:true}));
+    }catch(e){}
+  }
+  function selectByTextOrValue(id, desired){
+    var el = byId(id);
+    if(!el || !el.options) return;
+    var found = -1;
+    for(var i=0;i<el.options.length;i++){
+      var opt = el.options[i];
+      var txt = (opt.text || "").trim();
+      var val = (opt.value || txt).trim();
+      if(txt === desired || val === desired){ found = i; break; }
+    }
+    if(found >= 0){
+      el.selectedIndex = found;
+      try{ el.dispatchEvent(new Event("change", {bubbles:true})); }catch(e){}
+    }
+  }
+  function run(){
+    selectByTextOrValue("unidadeOrganica", "IADE");
+    selectByTextOrValue("modalidade", "EaD");
+    selectByTextOrValue("semestre", "1.º Semestre");
+    selectByTextOrValue("turmaEdicao", "Turma 1");
+    selectByTextOrValue("estado_guiao", "Atualizado");
+    setVal("curso", "Mestrado em Comunicação Multimédia EaD");
+    setVal("uc", "Laboratório de Investigação Aplicada");
+    setVal("ano", "2026/2027");
+    setVal("n_estudantes", "32");
+    setVal("n_grupos", "6");
+    setVal("professor", "Ana Silva; João Pereira");
+    setVal("emails", "ana.silva@universidade.pt; joao.pereira@universidade.pt");
+    setVal("autoria", "Ana Silva");
+    var sim = byId("autorizaRepositorioSim");
+    if(sim){
+      sim.checked = true;
+      try{ sim.dispatchEvent(new Event("change", {bubbles:true})); }catch(e){}
+    }
+    if(typeof renderProgress === "function"){
+      try{ renderProgress(); }catch(e){}
+    }
+    var fill = byId("progressFill"), label = byId("progressLabel");
+    if(fill) fill.style.width = "100%";
+    if(label) label.innerText = "Guião preenchido: 100%";
+  }
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", function(){ setTimeout(run, 400); setTimeout(run, 1600); setTimeout(run, 3200); });
+  else { setTimeout(run, 400); setTimeout(run, 1600); setTimeout(run, 3200); }
+})();
+</script>
+
+
+<!-- RBL FIX DEFINITIVO: n_estudantes e n_grupos como number nativo -->
+<style id="rbl-fix-definitivo-numericos-nativos">
+/* Correção definitiva e cirúrgica: Número de estudantes e Número de grupos com o mesmo comportamento nativo.
+   Não altera payload, PDF, botões, Curso(s), Power Automate ou estrutura pedagógica. */
+input#n_estudantes,
+input#n_grupos,
+.rbl-ident-modern input#n_estudantes,
+.rbl-ident-modern input#n_grupos,
+.rbl-numeric-pair-card input#n_estudantes,
+.rbl-numeric-pair-card input#n_grupos{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  box-sizing:border-box !important;
+  -webkit-appearance:auto !important;
+  appearance:auto !important;
+}
+input#n_estudantes::-webkit-outer-spin-button,
+input#n_estudantes::-webkit-inner-spin-button,
+input#n_grupos::-webkit-outer-spin-button,
+input#n_grupos::-webkit-inner-spin-button{
+  -webkit-appearance:auto !important;
+  appearance:auto !important;
+  opacity:1 !important;
+  display:block !important;
+  margin:0 !important;
+}
+@media screen and (max-width:680px){
+  .rbl-ident-modern .rbl-numeric-pair-card{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:12px !important;
+    overflow:visible !important;
+  }
+  .rbl-ident-modern .rbl-numeric-pair-field{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+  }
+  input#n_estudantes,
+  input#n_grupos{
+    height:44px !important;
+    min-height:44px !important;
+    padding:8px 12px !important;
+    font-size:15px !important;
+  }
+}
+</style>
+<script id="rbl-fix-definitivo-numericos-nativos-js">
+(function(){
+  function normalizeNumeric(id){
+    var el=document.getElementById(id);
+    if(!el) return;
+    try{ el.type='number'; }catch(e){ el.setAttribute('type','number'); }
+    el.setAttribute('min','0');
+    el.setAttribute('step','1');
+    el.setAttribute('inputmode','numeric');
+    el.setAttribute('pattern','[0-9]*');
+    el.setAttribute('autocomplete','off');
+    el.addEventListener('input', function(){
+      var cleaned=String(el.value||'').replace(/[^0-9]/g,'');
+      if(String(el.value||'')!==cleaned) el.value=cleaned;
+    });
+  }
+  function run(){ normalizeNumeric('n_estudantes'); normalizeNumeric('n_grupos'); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', run); else run();
+  setTimeout(run, 300);
+  setTimeout(run, 1200);
+})();
+</script>
+
 </body>
 </html>
