@@ -2808,41 +2808,59 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 </style>
 
 <style id="cbl-mobile-numeric-compact-final">
-/* ===== CBL — compactação mobile dos campos Nº de estudantes / Nº de grupos =====
-   Ajuste restrito a telemóvel. Mantém o desktop e a lógica dos campos intactos. */
+/* ===== CBL — ajuste mobile seguro dos campos Nº de estudantes / Nº de grupos =====
+   Mantém os campos em coluna no telemóvel para evitar corte lateral, mas reduz altura e espaços. */
 @media screen and (max-width: 760px){
+  .cbl-email-numeric-row,
+  .cbl-email-numeric-row th,
+  .cbl-email-numeric-row td{
+    display:block !important;
+    width:100% !important;
+    box-sizing:border-box !important;
+  }
   .cbl-numeric-pair-cell{
-    padding: 6px !important;
+    padding: 8px !important;
+    border-left: 1px solid #e4e4e4 !important;
+    overflow: visible !important;
   }
   .cbl-numeric-pair{
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    display:grid !important;
+    grid-template-columns: 1fr !important;
     gap: 0 !important;
+    width:100% !important;
+    max-width:100% !important;
     border-radius: 12px !important;
+    overflow:hidden !important;
   }
   .cbl-numeric-mini{
-    padding: 6px !important;
-    min-width: 0 !important;
+    width:100% !important;
+    min-width:0 !important;
+    padding: 7px 8px !important;
+    box-sizing:border-box !important;
   }
   .cbl-numeric-mini + .cbl-numeric-mini{
-    border-top: 0 !important;
-    border-left: 1px solid #e4e4e4 !important;
+    border-left: 0 !important;
+    border-top: 1px solid #e4e4e4 !important;
   }
   .cbl-numeric-mini label{
-    font-size: 11.2px !important;
-    line-height: 1.15 !important;
-    margin: -6px -6px 6px -6px !important;
-    padding: 6px 7px !important;
-    min-height: 30px !important;
-    display: flex !important;
-    align-items: center !important;
+    font-size: 13px !important;
+    line-height: 1.2 !important;
+    margin: -7px -8px 7px -8px !important;
+    padding: 8px 10px !important;
+    min-height: 34px !important;
+    display:flex !important;
+    align-items:center !important;
   }
   .cbl-numeric-mini input{
-    min-height: 36px !important;
-    height: 36px !important;
-    padding: 7px 8px !important;
-    font-size: 12.2px !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-height: 40px !important;
+    height: 40px !important;
+    padding: 8px 10px !important;
+    font-size: 13.5px !important;
     line-height: 1.2 !important;
-    border-radius: 9px !important;
+    border-radius: 10px !important;
+    box-sizing:border-box !important;
   }
 }
 </style>
