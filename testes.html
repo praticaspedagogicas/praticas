@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testes dos Guiões Pedagógicos — Universidade Europeia</title>
+  <style>
+    :root {
+      --red: #C8102E;
+      --red-dark: #9B0D20;
+      --orange: #D96B1A;
+      --dark: #1A1A1A;
+      --gray-dark: #333;
+      --gray: #555;
+      --gray-light: #F2F2F2;
+      --white: #FFFFFF;
+      --border: #DCDCDC;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--white);
+      border-bottom: 4px solid var(--red);
+      padding: 28px 24px 24px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    header p {
+      margin-top: 8px;
+      color: var(--gray);
+      font-size: 0.9rem;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 32px 20px 64px;
+    }
+
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 10px;
+    }
+
+    .box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 22px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      margin-bottom: 14px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 9px 18px;
+      border-radius: 5px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.15s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary { background: var(--red); color: var(--white); }
+    .btn-primary:hover { background: var(--red-dark); }
+    .btn-secondary { background: var(--gray-light); color: var(--dark); border: 1px solid var(--border); }
+    .btn-secondary:hover { background: #e8e8e8; }
+    .btn-block { display: block; width: 100%; }
+
+    .tpl-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 18px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+    .tpl-card .icon { font-size: 1.6rem; line-height: 1; padding-top: 2px; }
+    .tpl-card .content { flex: 1; }
+    .tpl-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+    .tpl-card .subtitle { font-size: 0.8rem; color: var(--gray); margin-bottom: 10px; }
+    .tpl-card .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tpl-card .btn-row .btn { flex: 1; min-width: 130px; }
+
+    .checklist {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 20px;
+    }
+    .checklist li {
+      font-size: 0.88rem;
+      color: var(--gray-dark);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .checklist li::before { content: '☐'; font-size: 1rem; color: var(--red); flex-shrink: 0; }
+
+    .note-box {
+      margin-top: 14px;
+      padding: 12px 14px;
+      background: #FFF8F0;
+      border-radius: 6px;
+      border-left: 3px solid var(--orange);
+      font-size: 0.83rem;
+      color: #444;
+    }
+
+    /* Feedback form */
+    .feedback-form { display: flex; flex-direction: column; gap: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-group label { font-size: 0.83rem; font-weight: 600; color: var(--gray-dark); }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 8px 11px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-size: 0.88rem;
+      font-family: inherit;
+      background: var(--white);
+      color: var(--dark);
+    }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .yn-group { display: flex; gap: 10px; align-items: center; }
+    .yn-group label { font-weight: 400; font-size: 0.85rem; }
+    .yn-btn {
+      padding: 5px 16px;
+      border-radius: 5px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: var(--gray-light);
+      color: var(--gray-dark);
+      transition: all 0.15s;
+    }
+    .yn-btn.selected-yes { background: #E8F5E9; color: #2E7D32; border-color: #2E7D32; }
+    .yn-btn.selected-no { background: #FFEBEE; color: var(--red); border-color: var(--red); }
+
+    .success-msg {
+      display: none;
+      padding: 16px 20px;
+      background: #E8F5E9;
+      border: 1px solid #2E7D32;
+      border-radius: 7px;
+      color: #2E7D32;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* Timeline */
+    .timeline-bar {
+      margin-bottom: 28px;
+    }
+    .timeline-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 8px;
+    }
+    .timeline-track {
+      display: flex;
+      gap: 0;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .timeline-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      position: relative;
+    }
+    .timeline-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 11px;
+      left: 60%;
+      width: 80%;
+      height: 2px;
+      background: var(--border);
+    }
+    .timeline-item.done:not(:last-child)::after { background: var(--red); }
+    .tl-dot { display: none; }
+    .tl-date { font-size: 0.75rem; font-weight: 700; color: var(--gray); }
+    .timeline-item.done .tl-date { color: var(--red); }
+    .tl-text { font-size: 0.72rem; color: var(--gray); text-align: center; }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--gray);
+      font-size: 0.78rem;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.3rem; }
+      .checklist { grid-template-columns: 1fr; }
+      .tpl-card .btn-row { flex-direction: column; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Testes dos Guiões Pedagógicos</h1>
+  <p>Secção reservada aos Coordenadores de Modelo Académico para validação de dados e teste de templates.</p>
+</header>
+
+<main>
+
+  <!-- TIMELINE -->
+  <div class="timeline-bar">
+    <div class="timeline-label">⏱ Prazo até setembro</div>
+    <div class="timeline-track">
+      <div class="timeline-item done">
+        <div class="tl-date">Jun</div>
+        <div class="tl-text">Testes disponíveis</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">Jul</div>
+        <div class="tl-text">Testar templates</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">Ago</div>
+        <div class="tl-text">Feedback & ajustes</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">Set</div>
+        <div class="tl-text">Disponibilização</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. VALIDAR DADOS -->
+  <p class="section-label">1 — Confirmar Dados de Coordenação</p>
+  <div class="box">
+    <p style="font-size:0.9rem; color:var(--gray-dark); margin-bottom:12px;">
+      Antes de testar os guiões, confirme se o seu <strong>nome, e-mail, unidade orgânica e curso(s)</strong> estão corretos na Lista de Coordenadores.
+    </p>
+    <a href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Coordenadores%20de%20Modelo%20Acadmico/AllItems.aspx"
+       class="btn btn-primary" target="_blank">
+      🔍 Validar dados de coordenação
+    </a>
+  </div>
+
+  <!-- 2. TESTAR TEMPLATES -->
+  <p class="section-label" style="margin-top:28px;">2 — Testar Templates</p>
+  <div class="box">
+    <p style="font-size:0.9rem; color:var(--gray-dark); margin-bottom:16px;">
+      Escolha um dos templates abaixo, preferencialmente associado ao seu curso. Preencha um exemplo simples, gere o PDF e submeta para validação.
+    </p>
+
+    <div class="tpl-card">
+      <div class="icon">🎯</div>
+      <div class="content">
+        <h3>CBL — Challenge-Based Learning</h3>
+        <p class="subtitle">Metodologia ativa centrada em desafios reais</p>
+        <div class="btn-row">
+          <a href="CBL_Teste.html" class="btn btn-primary" target="_blank">📄 Abrir template de teste</a>
+          <a href="#feedback" class="btn btn-secondary">💬 Registar feedback</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tpl-card">
+      <div class="icon">❓</div>
+      <div class="content">
+        <h3>PBL — Problem-Based Learning</h3>
+        <p class="subtitle">Aprendizagem baseada em problemas</p>
+        <div class="btn-row">
+          <a href="PBL_Teste.html" class="btn btn-primary" target="_blank">📄 Abrir template de teste</a>
+          <a href="#feedback" class="btn btn-secondary">💬 Registar feedback</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tpl-card">
+      <div class="icon">🛠️</div>
+      <div class="content">
+        <h3>PROJ-BL — Project-Based Learning</h3>
+        <p class="subtitle">Aprendizagem baseada em projetos</p>
+        <div class="btn-row">
+          <a href="Proj-BL_Teste.html" class="btn btn-primary" target="_blank">📄 Abrir template de teste</a>
+          <a href="#feedback" class="btn btn-secondary">💬 Registar feedback</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tpl-card">
+      <div class="icon">🔬</div>
+      <div class="content">
+        <h3>RBL — Research-Based Learning</h3>
+        <p class="subtitle">Aprendizagem baseada em investigação</p>
+        <div class="btn-row">
+          <a href="RBL_teste.html" class="btn btn-primary" target="_blank">📄 Abrir template de teste</a>
+          <a href="#feedback" class="btn btn-secondary">💬 Registar feedback</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tpl-card">
+      <div class="icon">🎮</div>
+      <div class="content">
+        <h3>SBL — Simulation-Based Learning</h3>
+        <p class="subtitle">Aprendizagem por simulação</p>
+        <div class="btn-row">
+          <a href="SBL_teste.html" class="btn btn-primary" target="_blank">📄 Abrir template de teste</a>
+          <a href="#feedback" class="btn btn-secondary">💬 Registar feedback</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. CHECKLIST -->
+  <p class="section-label" style="margin-top:28px;">3 — Checklist Rápido</p>
+  <div class="box">
+    <ul class="checklist">
+      <li>O template abriu corretamente.</li>
+      <li>Consegui preencher os campos principais.</li>
+      <li>O meu curso aparece corretamente.</li>
+      <li>Os campos obrigatórios fazem sentido.</li>
+      <li>Consegui gerar o PDF.</li>
+      <li>O PDF ficou legível e institucional.</li>
+      <li>Consegui submeter para validação.</li>
+      <li>O guião apareceu na lista SharePoint.</li>
+      <li>Recebi ou visualizei a notificação/e-mail esperado.</li>
+      <li>Encontrei algum erro e descrevi abaixo.</li>
+    </ul>
+  </div>
+
+  <!-- 4. FEEDBACK DIRETO -->
+  <p class="section-label" style="margin-top:28px;" id="feedback">4 — Registo de Feedback</p>
+  <div class="box">
+    <p style="font-size:0.9rem; color:var(--gray-dark); margin-bottom:16px;">
+      Preencha após testar. Pode testar um ou mais templates e enviar um único feedback.
+    </p>
+
+    <div class="feedback-form" id="feedbackForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" placeholder="O seu nome">
+        </div>
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" placeholder="O seu e-mail institucional">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="curso">Curso</label>
+          <input type="text" id="curso" placeholder="Curso que coordena">
+        </div>
+        <div class="form-group">
+          <label for="template">Template testado</label>
+          <select id="template">
+            <option value="">Selecione...</option>
+            <option value="CBL">CBL — Challenge-Based Learning</option>
+            <option value="PBL">PBL — Problem-Based Learning</option>
+            <option value="PROJ-BL">PROJ-BL — Project-Based Learning</option>
+            <option value="RBL">RBL — Research-Based Learning</option>
+            <option value="SBL">SBL — Simulation-Based Learning</option>
+            <option value="Vários">Vários</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:12px;">
+        <div class="form-group">
+          <label>Template abriu?</label>
+          <div class="yn-group">
+            <button type="button" class="yn-btn" data-field="abrir" data-val="sim">Sim</button>
+            <button type="button" class="yn-btn" data-field="abrir" data-val="não">Não</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Preencheu campos?</label>
+          <div class="yn-group">
+            <button type="button" class="yn-btn" data-field="preencheu" data-val="sim">Sim</button>
+            <button type="button" class="yn-btn" data-field="preencheu" data-val="não">Não</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Gerou PDF?</label>
+          <div class="yn-group">
+            <button type="button" class="yn-btn" data-field="pdf" data-val="sim">Sim</button>
+            <button type="button" class="yn-btn" data-field="pdf" data-val="não">Não</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Submeteu?</label>
+          <div class="yn-group">
+            <button type="button" class="yn-btn" data-field="submeteu" data-val="sim">Sim</button>
+            <button type="button" class="yn-btn" data-field="submeteu" data-val="não">Não</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>PDF ficou adequado?</label>
+          <div class="yn-group">
+            <button type="button" class="yn-btn" data-field="pdfok" data-val="sim">Sim</button>
+            <button type="button" class="yn-btn" data-field="pdfok" data-val="não">Não</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Encontrou problema?</label>
+          <div class="yn-group">
+            <button type="button" class="yn-btn" data-field="problema" data-val="sim">Sim</button>
+            <button type="button" class="yn-btn" data-field="problema" data-val="não">Não</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="descricao">Descrição do problema (se aplicável)</label>
+        <textarea id="descricao" placeholder="Descreva o que correu mal, o que esperava vs. o que aconteceu, ou outra observação..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="print">Upload de print/evidência (opcional)</label>
+        <input type="file" id="print" accept="image/*,.pdf" style="font-size:0.85rem; padding:6px 0;">
+      </div>
+
+      <button type="button" class="btn btn-primary btn-block" onclick="enviarFeedback()">
+        📩 Enviar feedback
+      </button>
+
+      <div class="success-msg" id="successMsg">
+        ✅ Feedback enviado com sucesso. Obrigada!
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. ORIENTAÇÃO -->
+  <p class="section-label" style="margin-top:28px;">5 — Como Proceder</p>
+  <div class="box">
+    <p style="font-size:0.88rem; color:var(--gray-dark); line-height:1.7;">
+      Não é necessário testar todos os templates. Cada coordenador pode testar <strong>pelo menos um guião</strong>, preferencialmente relacionado com o seu curso. O objetivo é identificar problemas de preenchimento, PDF, submissão ou dados incorretos <strong>antes</strong> da disponibilização aos docentes.
+    </p>
+  </div>
+
+</main>
+
+<footer>
+  Práticas Pedagógicas — Universidade Europeia, IADE e IPAM &nbsp;·&nbsp; Hub Interno
+</footer>
+
+<script>
+  // YN button toggle
+  document.querySelectorAll('.yn-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var field = btn.getAttribute('data-field');
+      document.querySelectorAll('.yn-btn[data-field="' + field + '"]').forEach(function(b) {
+        b.classList.remove('selected-yes', 'selected-no');
+      });
+      btn.classList.add(btn.getAttribute('data-val') === 'sim' ? 'selected-yes' : 'selected-no');
+    });
+  });
+
+  function enviarFeedback() {
+    var nome = document.getElementById('nome').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var curso = document.getElementById('curso').value.trim();
+    var template = document.getElementById('template').value;
+    var descricao = document.getElementById('descricao').value.trim();
+
+    if (!nome || !email || !curso || !template) {
+      alert('Por favor, preencha o nome, e-mail, curso e template testado.');
+      return;
+    }
+
+    // Collect YN answers
+    var respostas = {};
+    ['abrir', 'preencheu', 'pdf', 'submeteu', 'pdfok', 'problema'].forEach(function(f) {
+      var sel = document.querySelector('.yn-btn[data-field="' + f + '"].selected-yes, .yn-btn[data-field="' + f + '"].selected-no');
+      respostas[f] = sel ? sel.getAttribute('data-val') : '-';
+    });
+
+    var body = 'Feedback de Teste de Guião Pedagógico\n\n';
+    body += 'Nome: ' + nome + '\n';
+    body += 'E-mail: ' + email + '\n';
+    body += 'Curso: ' + curso + '\n';
+    body += 'Template: ' + template + '\n\n';
+    body += 'Respostas:\n';
+    body += '- Template abriu? ' + respostas.abrir + '\n';
+    body += '- Preencheu campos? ' + respostas.preencheu + '\n';
+    body += '- Gerou PDF? ' + respostas.pdf + '\n';
+    body += '- Submeteu? ' + respostas.submeteu + '\n';
+    body += '- PDF adequado? ' + respostas.pdfok + '\n';
+    body += '- Problema encontrado? ' + respostas.problema + '\n';
+    if (descricao) {
+      body += '\nDescrição:\n' + descricao + '\n';
+    }
+
+    var subject = encodeURIComponent('[Teste] Feedback - ' + template + ' - ' + nome);
+    var mailto = 'mailto:praticaspedagogicas@univeuropeia.pt?subject=' + subject + '&body=' + encodeURIComponent(body);
+    window.location.href = mailto;
+
+    document.getElementById('successMsg').style.display = 'block';
+    document.getElementById('feedbackForm').reset();
+    document.querySelectorAll('.yn-btn').forEach(function(b) {
+      b.classList.remove('selected-yes', 'selected-no');
+    });
+  }
+</script>
+
+</body>
+</html>

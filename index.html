@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Práticas Pedagógicas</title>
+<style>
+:root {
+  --ue-red:#E6462D;
+  --ue-red-dark:#C93722;
+  --ue-soft:#FFF6F3;
+  --ink:#20242C;
+  --muted:#66707E;
+  --line:#E7E8EC;
+  --card:#FFFFFF;
+  --shadow:0 10px 24px rgba(26,34,44,.06);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:var(--ink);font-family:"Segoe UI",Arial,sans-serif}
+body{overflow-x:hidden}
+.pp-wrap{width:100%;max-width:1180px;margin:0 auto;padding:24px 20px 36px;background:#fff}
+.pp-hero{position:relative;overflow:hidden;border:1px solid var(--line);border-top:5px solid var(--ue-red);border-radius:20px;background:linear-gradient(135deg,rgba(230,70,45,.06) 0%,rgba(230,70,45,0) 36%),linear-gradient(180deg,#fff 0%,#fffdfc 100%);box-shadow:var(--shadow);padding:26px 28px 28px}
+.pp-hero::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(230,70,45,.08) 0%,rgba(230,70,45,0) 72%);pointer-events:none}
+.pp-top{display:flex;align-items:center;justify-content:flex-start;gap:18px;margin-bottom:20px;position:relative;z-index:1}
+.pp-logo{display:block;max-height:44px;max-width:360px;width:auto;object-fit:contain}
+.pp-logo-fallback{font-size:13px;font-weight:700;color:var(--ue-red-dark);letter-spacing:.02em}
+h1{position:relative;z-index:1;margin:0 0 9px;font-size:clamp(32px,4.3vw,46px);line-height:1.03;letter-spacing:-.04em;font-weight:780;color:var(--ink)}
+.pp-subtitle{position:relative;z-index:1;margin:0;color:var(--ue-red-dark);font-size:clamp(15px,2vw,18px);line-height:1.35;font-weight:700}
+.pp-section{margin-top:28px}
+.pp-section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:14px}
+h2{margin:0;font-size:21px;font-weight:740;line-height:1.2;letter-spacing:-.02em;color:var(--ink)}
+.pp-section-note{margin:0;color:var(--muted);font-size:13.5px;line-height:1.4;text-align:right}
+.pp-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.pp-grid-three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.pp-grid-five{grid-template-columns:repeat(5,minmax(0,1fr))}
+.pp-card{display:block;min-height:132px;padding:17px 17px 16px;border-radius:var(--radius);border:1px solid var(--line);background:var(--card);box-shadow:0 2px 8px rgba(26,34,44,.02);text-decoration:none;color:inherit;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease,background .15s ease}
+.pp-card:hover{transform:translateY(-2px);box-shadow:0 12px 20px rgba(26,34,44,.07);border-color:rgba(230,70,45,.28);background:#fffefd}
+.pp-card-small{min-height:124px}
+.pp-card-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.pp-card-kicker{color:var(--ue-red-dark);font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.pp-icon{width:36px;height:36px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#FFF7F4 0%,#FFF2ED 100%);color:var(--ue-red);border:1px solid rgba(230,70,45,.14);flex:0 0 auto}
+.pp-icon svg{width:18px;height:18px}
+.pp-icon-bot{background:linear-gradient(180deg,#FFF5F1 0%,#FFECE5 100%);position:relative}
+.pp-bot-face{width:19px;height:14px;border:1.8px solid currentColor;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;gap:4px;position:relative}
+.pp-bot-face::before{content:"";position:absolute;top:-5px;left:50%;width:1.8px;height:4px;background:currentColor;transform:translateX(-50%);border-radius:999px}
+.pp-eye{width:3px;height:3px;background:currentColor;border-radius:50%;display:inline-block}
+.pp-dot{width:10px;height:10px;border-radius:50%;background:var(--ue-red);box-shadow:0 0 0 4px rgba(230,70,45,.10);flex:0 0 auto}
+.pp-card strong{display:block;margin-bottom:8px;color:var(--ink);font-size:18px;line-height:1.2;font-weight:740;letter-spacing:-.02em}
+.pp-card small{display:block;color:var(--muted);font-size:13.5px;line-height:1.5}
+@media(max-width:960px){.pp-grid,.pp-grid-three,.pp-grid-five{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.pp-wrap{padding:16px 12px 28px}.pp-hero{padding:20px 18px 22px;border-radius:16px}.pp-logo{max-height:38px;max-width:100%}.pp-section-head{display:block}.pp-section-note{margin-top:5px;text-align:left}.pp-grid,.pp-grid-three,.pp-grid-five{grid-template-columns:1fr}.pp-card{min-height:auto}}
+</style>
+</head>
+<body>
+<main class="pp-wrap">
+  <section class="pp-hero" aria-label="Cabeçalho">
+    <div class="pp-top"><img class="pp-logo" src="data:image/png;base64,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" alt="Universidade Europeia, IADE e IPAM"></div>
+    <h1>Práticas Pedagógicas</h1>
+    <p class="pp-subtitle">Modelo Académico | Guiões Digitais | Repositório de Práticas</p>
+  </section>
+
+  <section class="pp-section" aria-label="Acesso rápido">
+    <div class="pp-section-head">
+      <h2>Acesso rápido</h2>
+      <p class="pp-section-note">Pastas principais da biblioteca de documentos</p>
+    </div>
+    <div class="pp-grid">
+      
+        <a class="pp-card" href="https://univeuropeiapt.sharepoint.com/:f:/s/praticas_pedagogicas/IgDVcZG7jA0CRYNNo6VRQL_bAStxutaV-n3Zl7ZPieIlwzE?e=rS8Rm1" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            
+        <span class="pp-icon pp-icon-bot" aria-hidden="true">
+          <span class="pp-bot-face"><span class="pp-eye"></span><span class="pp-eye"></span></span>
+        </span>
+        
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>Assistente Pedagógico IA</strong>
+          <small>Base de conhecimento e documentos validados.</small>
+        </a>
+        
+
+        <a class="pp-card" href="https://univeuropeiapt.sharepoint.com/:f:/s/praticas_pedagogicas/IgA-O-KkPZblTKz_uHlfDYxDASk-HNdRlknNDKk-RAPZAPU?e=0bgDBg" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            
+    <span class="pp-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.5 13.5l3-3"></path>
+        <path d="M8.8 16.2l-1.1 1.1a4.2 4.2 0 0 1-5.9-5.9l3.1-3.1a4.2 4.2 0 0 1 5.9 0"></path>
+        <path d="M15.2 7.8l1.1-1.1a4.2 4.2 0 0 1 5.9 5.9l-3.1 3.1a4.2 4.2 0 0 1-5.9 0"></path>
+      </svg>
+    </span>
+    
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>Formação Docente</strong>
+          <small>Materiais de apoio e formação.</small>
+        </a>
+        
+
+        <a class="pp-card" href="https://univeuropeiapt.sharepoint.com/:f:/s/praticas_pedagogicas/IgB8Vq6R5m-QRKY3mpFityYpAfu2wQSGHEnDA-Z_2FUsTEo?e=dq5Ms8" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            
+    <span class="pp-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.5 13.5l3-3"></path>
+        <path d="M8.8 16.2l-1.1 1.1a4.2 4.2 0 0 1-5.9-5.9l3.1-3.1a4.2 4.2 0 0 1 5.9 0"></path>
+        <path d="M15.2 7.8l1.1-1.1a4.2 4.2 0 0 1 5.9 5.9l-3.1 3.1a4.2 4.2 0 0 1-5.9 0"></path>
+      </svg>
+    </span>
+    
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>Guiões Digitais</strong>
+          <small>Templates institucionais dos guiões pedagógicos.</small>
+        </a>
+        
+
+        <a class="pp-card" href="https://univeuropeiapt.sharepoint.com/:f:/s/praticas_pedagogicas/IgAEviJiYc51SqweCOB1_g9cAWrAH--m87FQTPzmzcfulcU?e=bg9QGL" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            
+    <span class="pp-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.5 13.5l3-3"></path>
+        <path d="M8.8 16.2l-1.1 1.1a4.2 4.2 0 0 1-5.9-5.9l3.1-3.1a4.2 4.2 0 0 1 5.9 0"></path>
+        <path d="M15.2 7.8l1.1-1.1a4.2 4.2 0 0 1 5.9 5.9l-3.1 3.1a4.2 4.2 0 0 1-5.9 0"></path>
+      </svg>
+    </span>
+    
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>Templates Teste</strong>
+          <small>Versões para validação do fluxo.</small>
+        </a>
+        
+
+        <a class="pp-card" href="https://univeuropeiapt.sharepoint.com/:f:/s/praticas_pedagogicas/IgBlPVgxgIg7Q6IjjEdm6n95ASiFvhfGPlhbpbGATlHRmR8?e=mmUpwE" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            
+    <span class="pp-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.5 13.5l3-3"></path>
+        <path d="M8.8 16.2l-1.1 1.1a4.2 4.2 0 0 1-5.9-5.9l3.1-3.1a4.2 4.2 0 0 1 5.9 0"></path>
+        <path d="M15.2 7.8l1.1-1.1a4.2 4.2 0 0 1 5.9 5.9l-3.1 3.1a4.2 4.2 0 0 1-5.9 0"></path>
+      </svg>
+    </span>
+    
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>Modelo Académico</strong>
+          <small>Manual e documentos de referência.</small>
+        </a>
+        
+
+        <a class="pp-card" href="https://univeuropeiapt.sharepoint.com/:f:/s/praticas_pedagogicas/IgCCuTtwE4PITJeHk5y1HKs3AQNLwGxZBZjtQD93qMx2qwA?e=buC6KJ" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            
+    <span class="pp-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.5 13.5l3-3"></path>
+        <path d="M8.8 16.2l-1.1 1.1a4.2 4.2 0 0 1-5.9-5.9l3.1-3.1a4.2 4.2 0 0 1 5.9 0"></path>
+        <path d="M15.2 7.8l1.1-1.1a4.2 4.2 0 0 1 5.9 5.9l-3.1 3.1a4.2 4.2 0 0 1-5.9 0"></path>
+      </svg>
+    </span>
+    
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>Relatórios</strong>
+          <small>Documentos de acompanhamento e análise.</small>
+        </a>
+        
+
+        <a class="pp-card" href="https://univeuropeiapt.sharepoint.com/:f:/s/praticas_pedagogicas/IgDaEu8DqfTXSrVynF9nXKTbAZhIVfBY7O-UXJfYgql467E?e=SSw0nK" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            
+    <span class="pp-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.5 13.5l3-3"></path>
+        <path d="M8.8 16.2l-1.1 1.1a4.2 4.2 0 0 1-5.9-5.9l3.1-3.1a4.2 4.2 0 0 1 5.9 0"></path>
+        <path d="M15.2 7.8l1.1-1.1a4.2 4.2 0 0 1 5.9 5.9l-3.1 3.1a4.2 4.2 0 0 1-5.9 0"></path>
+      </svg>
+    </span>
+    
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>Jornadas Ibéricas</strong>
+          <small>Materiais e registos associados às jornadas.</small>
+        </a>
+        
+
+        <a class="pp-card" href="https://univeuropeiapt.sharepoint.com/:f:/s/praticas_pedagogicas/IgAaLHey7Oq0S53SdTaCF565AXsM4E3vCo7KtGo_VA0sOqI?e=YbiWAC" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            
+    <span class="pp-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.5 13.5l3-3"></path>
+        <path d="M8.8 16.2l-1.1 1.1a4.2 4.2 0 0 1-5.9-5.9l3.1-3.1a4.2 4.2 0 0 1 5.9 0"></path>
+        <path d="M15.2 7.8l1.1-1.1a4.2 4.2 0 0 1 5.9 5.9l-3.1 3.1a4.2 4.2 0 0 1-5.9 0"></path>
+      </svg>
+    </span>
+    
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>Outros eventos</strong>
+          <small>Documentação de iniciativas e eventos complementares.</small>
+        </a>
+        
+    </div>
+  </section>
+
+  <section class="pp-section" aria-label="Validação dos Guiões Pedagógicos">
+    <div class="pp-section-head">
+      <h2>Validação dos Guiões Pedagógicos</h2>
+      <p class="pp-section-note">Página única para orientação dos testes e recolha de feedback</p>
+    </div>
+    <div class="pp-grid pp-grid-three">
+      
+        <a class="pp-card pp-card-small" href="https://praticaspedagogicas.github.io/praticas/validacao-guioes-pedagogicos.html" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            <span class="pp-dot"></span>
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>Validação dos Guiões</strong>
+          <small>Acesso à página de validação orientada dos guiões pedagógicos.</small>
+        </a>
+        
+    </div>
+  </section>
+
+  <section class="pp-section" aria-label="Templates institucionais">
+    <div class="pp-section-head">
+      <h2>Templates institucionais</h2>
+      <p class="pp-section-note">Versões docentes dos 5 cenários de aprendizagem</p>
+    </div>
+    <div class="pp-grid pp-grid-five">
+      
+        <a class="pp-card pp-card-small" href="https://praticaspedagogicas.github.io/praticas/CBL.html" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            <span class="pp-dot"></span>
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>CBL</strong>
+          <small>Challenge-Based Learning</small>
+        </a>
+        
+
+        <a class="pp-card pp-card-small" href="https://praticaspedagogicas.github.io/praticas/PBL.html" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            <span class="pp-dot"></span>
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>PBL</strong>
+          <small>Problem-Based Learning</small>
+        </a>
+        
+
+        <a class="pp-card pp-card-small" href="https://praticaspedagogicas.github.io/praticas/Proj-BL.html" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            <span class="pp-dot"></span>
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>Proj-BL</strong>
+          <small>Project-Based Learning</small>
+        </a>
+        
+
+        <a class="pp-card pp-card-small" href="https://praticaspedagogicas.github.io/praticas/RBL.html" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            <span class="pp-dot"></span>
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>RBL</strong>
+          <small>Research-Based Learning</small>
+        </a>
+        
+
+        <a class="pp-card pp-card-small" href="https://praticaspedagogicas.github.io/praticas/SBL.html" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            <span class="pp-dot"></span>
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>SBL</strong>
+          <small>Simulation-Based Learning</small>
+        </a>
+        
+    </div>
+  </section>
+
+  <section class="pp-section" aria-label="Templates de teste">
+    <div class="pp-section-head">
+      <h2>Templates de teste</h2>
+      <p class="pp-section-note">Versões para validação técnica e funcional</p>
+    </div>
+    <div class="pp-grid pp-grid-five">
+      
+        <a class="pp-card pp-card-small" href="https://praticaspedagogicas.github.io/praticas/CBL_Teste.html" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            <span class="pp-dot"></span>
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>CBL Teste</strong>
+          <small>Versão de teste do template CBL.</small>
+        </a>
+        
+
+        <a class="pp-card pp-card-small" href="https://praticaspedagogicas.github.io/praticas/PBL_Teste.html" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            <span class="pp-dot"></span>
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>PBL Teste</strong>
+          <small>Versão de teste do template PBL.</small>
+        </a>
+        
+
+        <a class="pp-card pp-card-small" href="https://praticaspedagogicas.github.io/praticas/Proj-BL_Teste.html" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            <span class="pp-dot"></span>
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>Proj-BL Teste</strong>
+          <small>Versão de teste do template Proj-BL.</small>
+        </a>
+        
+
+        <a class="pp-card pp-card-small" href="https://praticaspedagogicas.github.io/praticas/RBL_Teste.html" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            <span class="pp-dot"></span>
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>RBL Teste</strong>
+          <small>Versão de teste do template RBL.</small>
+        </a>
+        
+
+        <a class="pp-card pp-card-small" href="https://praticaspedagogicas.github.io/praticas/SBL_Teste.html" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            <span class="pp-dot"></span>
+            <span class="pp-card-kicker">Abrir</span>
+          </div>
+          <strong>SBL Teste</strong>
+          <small>Versão de teste do template SBL.</small>
+        </a>
+        
+    </div>
+  </section>
+
+  <section class="pp-section" aria-label="Listas institucionais">
+    <div class="pp-section-head">
+      <h2>Listas institucionais</h2>
+      <p class="pp-section-note">Acompanhamento, validação e consulta</p>
+    </div>
+    <div class="pp-grid">
+      
+        <a class="pp-card pp-card-small" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Guies/AllItems.aspx" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            <span class="pp-dot"></span>
+            <span class="pp-card-kicker">Lista</span>
+          </div>
+          <strong>Lista Guiões</strong>
+          <small>Submissões, validação e acompanhamento dos guiões.</small>
+        </a>
+        
+
+        <a class="pp-card pp-card-small" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Coordenadores%20de%20Modelo%20Acadmico/AllItems.aspx" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            <span class="pp-dot"></span>
+            <span class="pp-card-kicker">Lista</span>
+          </div>
+          <strong>Coordenadores MA</strong>
+          <small>Coordenadores de Modelo Académico por curso.</small>
+        </a>
+        
+
+        <a class="pp-card pp-card-small" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Contactos%20Acadmicos/AllItems.aspx" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            <span class="pp-dot"></span>
+            <span class="pp-card-kicker">Lista</span>
+          </div>
+          <strong>Contactos Académicos</strong>
+          <small>Contactos de apoio à comunicação institucional.</small>
+        </a>
+        
+
+        <a class="pp-card pp-card-small" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Repositrio%20de%20Prticas%20Pedaggicas/AllItems.aspx" target="_blank" rel="noopener">
+          <div class="pp-card-head">
+            <span class="pp-dot"></span>
+            <span class="pp-card-kicker">Lista</span>
+          </div>
+          <strong>Repositório</strong>
+          <small>Práticas pedagógicas validadas para consulta e reutilização.</small>
+        </a>
+        
+    </div>
+  </section>
+</main>
+</body>
+</html>
