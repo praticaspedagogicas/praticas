@@ -4455,7 +4455,6 @@ html body .page #btnSalvarPDF{
   font-size:13px !important;
   font-weight:800 !important;
   color:#222 !important;
-  text-align:left !important;
 }
 .pbl-head-title{grid-column:1 / -1 !important;}
 .pbl-head-card input,
@@ -4785,8 +4784,88 @@ html body .page .pbl-numeric-cell{
 }
 </style>
 
-<style id="pbl-mobile-botoes-add-remove-final-20260608-safe">
-/* PBL — correção mobile final dos botões +/−, sem tocar no payload, PDF ou tabelas. */
+
+<style id="pbl-mobile-botoes-add-remove-final-20260608">
+/* Correção mobile cirúrgica — apenas PBL: botões +/− legíveis e alinhados em todas as secções. */
+body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-table-tools,
+body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-tools{
+  width:100% !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-end !important;
+  gap:7px !important;
+  margin:8px 0 14px 0 !important;
+  padding:0 2px !important;
+  overflow:visible !important;
+  box-sizing:border-box !important;
+}
+body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-table-tool,
+body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-tool{
+  appearance:none !important;
+  -webkit-appearance:none !important;
+  width:30px !important;
+  height:30px !important;
+  min-width:30px !important;
+  min-height:30px !important;
+  max-width:30px !important;
+  max-height:30px !important;
+  flex:0 0 30px !important;
+  padding:0 !important;
+  margin:0 !important;
+  border-radius:999px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  text-align:center !important;
+  line-height:1 !important;
+  font-size:17px !important;
+  font-weight:800 !important;
+  font-family:'Century Gothic', sans-serif !important;
+  box-sizing:border-box !important;
+  overflow:visible !important;
+}
+body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-tool-add,
+body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-add{
+  background:#333 !important;
+  color:#fff !important;
+  border:1px solid #333 !important;
+}
+body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-tool-remove,
+body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-remove{
+  background:#fff !important;
+  color:#333 !important;
+  border:1px solid #777 !important;
+}
+@media (max-width:760px){
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-table-tools,
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-tools{
+    gap:8px !important;
+    margin:10px 0 16px 0 !important;
+    padding:0 4px !important;
+  }
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-table-tools::before,
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-tools::before{
+    display:none !important;
+    content:none !important;
+  }
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-table-tool,
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-tool{
+    width:34px !important;
+    height:34px !important;
+    min-width:34px !important;
+    min-height:34px !important;
+    max-width:34px !important;
+    max-height:34px !important;
+    flex:0 0 34px !important;
+    font-size:18px !important;
+  }
+}
+</style>
+
+
+<style id="pbl-final-data-empty-mobile-buttons-fix">
+/* FIX FINAL PBL — Data/Hora vazias + botões mobile legíveis
+   CSS-only para mobile: não altera payload, PDF, cálculos nem estrutura das tabelas. */
 @media screen and (max-width:760px){
   body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-table-tools,
   body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-tools{
@@ -4832,6 +4911,12 @@ html body .page .pbl-numeric-cell{
     font-size:12.5px !important;
     font-weight:800 !important;
     line-height:1 !important;
+  }
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-row-help{
+    text-align:left !important;
+    font-size:12px !important;
+    line-height:1.35 !important;
+    margin:0 0 16px 0 !important;
   }
 }
 </style>
@@ -5142,7 +5227,7 @@ html body .page .pbl-numeric-cell{
   }
   function abrirAssistente(){window.open(BOT_URL,'_blank','noopener,noreferrer'); toast('A abrir o Assistente IA institucional...');} window.abrirAssistentePedagogico=abrirAssistente;
   function validarCamposNumericosGuiao(){var bad=null; document.querySelectorAll('input[type="number"]').forEach(function(el){if(bad)return; var v=String(el.value||'').trim().replace(',','.'); if(v && !/^-?\d+(\.\d+)?$/.test(v)) bad=el;}); if(bad){bad.focus(); toast('Indique apenas números nos campos numéricos.','error'); return false;} return true;} window.validarCamposNumericosGuiao=validarCamposNumericosGuiao;
-  async function enviarValidacao(){if(submitLock)return; if(!validarCamposNumericosGuiao())return; submitLock=true; toast('A enviar guião para validação...'); var payload=collect(); payload.templateType='PBL'; payload.templateScenario='Problem Based Learning'; payload.cenarioAprendizagem='PBL'; payload.cenario='Problem Based Learning'; payload.scenario='Problem Based Learning'; payload.estadoGuiao='Submetido'; payload.submittedAt=new Date().toISOString(); payload.sourceUrl=window.location.href; payload.title='PBL - '+(payload.curso||payload.uc||payload.unidadeCurricular||'Guião'); payload.pageTitle=(document.querySelector('h1')||{}).textContent||'Guião PBL'; payload.formData=Object.assign({},payload); payload.pdfFileName=guiaoPdfFileName('PBL','Guiao'); payload.pdfBase64=await generatePdfBase64(); payload.html=''; try{var r=await fetch(FLOW_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); if(!r.ok)throw new Error('HTTP '+r.status); toast('Guião submetido com sucesso. O seu guião foi enviado para validação.'); showSubmissionConfirmation();}catch(e){console.error(e); toast('Não foi possível submeter agora. O rascunho local foi mantido.','error');}finally{submitLock=false;}}
+  async function enviarValidacao(){if(submitLock)return; if(!validarCamposNumericosGuiao())return; submitLock=true; toast('A enviar guião para validação...'); var payload=collect(); payload.templateType='PBL'; payload.templateScenario='Problem Based Learning'; payload.cenarioAprendizagem='PBL'; payload.cenario='Problem Based Learning'; payload.scenario='Problem Based Learning'; payload.estadoGuiao='Submetido'; payload.Data=''; payload.data=''; payload.date=''; payload.Date=''; payload.dataSubmissao=''; payload.DataSubmissao=''; payload.submittedAt=''; payload.Hora=''; payload.hora=''; payload.horaInicio=''; payload.HoraInicio=''; payload.horaFim=''; payload.HoraFim=''; payload.sourceUrl=window.location.href; payload.title='PBL - '+(payload.curso||payload.uc||payload.unidadeCurricular||'Guião'); payload.pageTitle=(document.querySelector('h1')||{}).textContent||'Guião PBL'; payload.formData=Object.assign({},payload); payload.pdfFileName=guiaoPdfFileName('PBL','Guiao'); payload.pdfBase64=await generatePdfBase64(); payload.html='<!DOCTYPE html>\n'+document.documentElement.outerHTML; try{var r=await fetch(FLOW_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); if(!r.ok)throw new Error('HTTP '+r.status); toast('Guião submetido com sucesso. O seu guião foi enviado para validação.'); showSubmissionConfirmation();}catch(e){console.error(e); toast('Não foi possível submeter agora. O rascunho local foi mantido.','error');}finally{submitLock=false;}}
   function showSubmissionConfirmation(result){
     try {
       let panel = document.getElementById("powerAutomateSubmissionConfirmation");
@@ -5308,7 +5393,7 @@ html body .page .pbl-numeric-cell{
       emails: values.emails || '',
       autorizaRepositorio: repo,
       autorizaPartilhaInterna: repo,
-      submittedAt: new Date().toISOString(),
+      submittedAt: '',
       sourceUrl: window.location.href,
       formData: values,
       estruturaPedagogica: JSON.stringify({templateType:TEMPLATE_TYPE, cenarioAprendizagem:TEMPLATE_TYPE, values:values, resumoCampos:lines}, null, 2),
@@ -7688,14 +7773,16 @@ function makePdfFileName(){
 
   function normalizePayloadDates(payload){
     if(!isPBLPayload(payload)) return payload;
-    // O PBL não tem campo de data próprio no template.
-    // A coluna Data da lista Guiões deve ficar vazia para PBL.
-    // A data real de validação/publicação deve ser gerada no fluxo do repositório com utcNow().
-    var nowIso = new Date().toISOString();
-    payload.submittedAt = payload.submittedAt || nowIso;
-    if(payload.formData && typeof payload.formData === 'object'){
-      payload.formData.submittedAt = payload.formData.submittedAt || nowIso;
-    }
+    // PBL não tem campo próprio de Data/Hora no cabeçalho.
+    // Para a lista Guiões ficar realmente vazia, enviamos null de forma explícita
+    // e limpamos formData/values para evitar placeholder como "/1/" ou "—".
+    var camposDataHora = ['data','Data','date','Date','dataSubmissao','DataSubmissao','submittedAt','Hora','hora','horaInicio','HoraInicio','horaFim','HoraFim'];
+    camposDataHora.forEach(function(k){ payload[k] = ''; });
+    ['formData','values'].forEach(function(container){
+      if(payload[container] && typeof payload[container] === 'object'){
+        camposDataHora.forEach(function(k){ payload[container][k] = ''; });
+      }
+    });
     return payload;
   }
 
