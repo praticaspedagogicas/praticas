@@ -18691,6 +18691,119 @@ html body:not(.guiao-pdf-mode) .page #uxMenuMaisOpcoes button {
 <style id="guiao-required-submit-validation-v1-style">
 .guiao-required-missing{ outline:3px solid rgba(227,30,36,.28) !important; outline-offset:2px !important; }
 </style>
+<script id="pbl-projbl-final-date-uc-payload-guard">
+(function(){
+  if (window.__pblProjblFinalDateUcPayloadGuard) return;
+  window.__pblProjblFinalDateUcPayloadGuard = true;
+
+  var TOP_DATE_KEYS = ['Data','data','date','Date','DataSubmissao','dataSubmissao','Hora','hora','HoraInicio','horaInicio','HoraFim','horaFim'];
+
+  function cleanText(v){
+    return String(v == null ? '' : v).replace(/\s+/g,' ').trim();
+  }
+
+  function firstValue(selectors){
+    for(var i=0;i<selectors.length;i++){
+      var el = document.querySelector(selectors[i]);
+      if(!el) continue;
+      var v = cleanText(el.value || el.textContent || '');
+      if(v && !/^selecionar$/i.test(v)) return v;
+    }
+    return '';
+  }
+
+  function readProjBLUcs(){
+    var fromDirect = firstValue([
+      '#ucs','#uc','#unidadesCurriculares','#unidades_curriculares',
+      '[name="ucs"]','[name="uc"]','[name="unidadesCurriculares"]','[name="unidades_curriculares"]',
+      '.projbl-nome-uc-projeto-field','.projbl-campo-igual-curso','.projbl-native-header'
+    ]);
+    return fromDirect;
+  }
+
+  function stringifyNulls(value){
+    if(value === null || value === undefined) return '';
+    if(Array.isArray(value)) return value.map(stringifyNulls);
+    if(typeof value === 'object'){
+      Object.keys(value).forEach(function(k){ value[k] = stringifyNulls(value[k]); });
+    }
+    return value;
+  }
+
+  function removeTopDateKeys(payload){
+    TOP_DATE_KEYS.forEach(function(k){
+      if(Object.prototype.hasOwnProperty.call(payload, k)) delete payload[k];
+    });
+  }
+
+  function removeEmptyNestedDateKeys(obj){
+    if(!obj || typeof obj !== 'object' || Array.isArray(obj)) return;
+    TOP_DATE_KEYS.forEach(function(k){
+      if(Object.prototype.hasOwnProperty.call(obj, k) && cleanText(obj[k]) === '') delete obj[k];
+    });
+  }
+
+  function fixPayload(payload){
+    if(!payload || typeof payload !== 'object' || Array.isArray(payload)) return payload;
+
+    // Igual aos templates sem data própria: não enviar Data/Hora artificiais no topo.
+    // O fluxo/SharePoint trata a data operacional; o HTML mantém apenas submittedAt real.
+    removeTopDateKeys(payload);
+    payload.submittedAt = cleanText(payload.submittedAt) || new Date().toISOString();
+
+    // Evita rejeição do trigger por null/undefined em campos string.
+    stringifyNulls(payload);
+
+    // Não deixar chaves de Data/Hora vazias escondidas em formData/values.
+    removeEmptyNestedDateKeys(payload.formData);
+    removeEmptyNestedDateKeys(payload.values);
+    if(payload.formData && typeof payload.formData === 'object') payload.formData.submittedAt = cleanText(payload.formData.submittedAt) || payload.submittedAt;
+    if(payload.values && typeof payload.values === 'object') payload.values.submittedAt = cleanText(payload.values.submittedAt) || payload.submittedAt;
+
+    // Proj-BL: garantir que a coluna UC(s), mapeada no Power Automate como "ucs", recebe texto.
+    var ucs = cleanText(payload.ucs || payload.uc || payload.UC || payload.UCs || payload.unidadesCurriculares || payload.unidadeCurricular || readProjBLUcs());
+    if(ucs){
+      payload.ucs = ucs;
+      payload.uc = payload.uc || ucs;
+      payload.UC = payload.UC || ucs;
+      payload.UCs = payload.UCs || ucs;
+      payload['UC(s)'] = payload['UC(s)'] || ucs;
+      payload.unidadeCurricular = payload.unidadeCurricular || ucs;
+      payload.unidadesCurriculares = payload.unidadesCurriculares || ucs;
+      payload['Unidade(s) Curricular(es)'] = payload['Unidade(s) Curricular(es)'] || ucs;
+      if(payload.formData && typeof payload.formData === 'object'){
+        payload.formData.ucs = payload.formData.ucs || ucs;
+        payload.formData.uc = payload.formData.uc || ucs;
+      }
+      if(payload.values && typeof payload.values === 'object'){
+        payload.values.ucs = payload.values.ucs || ucs;
+        payload.values.uc = payload.values.uc || ucs;
+      }
+    }
+    return payload;
+  }
+
+  if(typeof window.fetch === 'function'){
+    var originalFetch = window.fetch;
+    window.fetch = function(input, init){
+      try{
+        var url = String((input && input.url) || input || '');
+        var isPowerAutomate = /workflows|triggers|manual|powerautomate|logic\.azure/i.test(url);
+        if(isPowerAutomate && init && typeof init.body === 'string'){
+          var body = JSON.parse(init.body);
+          body = fixPayload(body);
+          init = Object.assign({}, init, { body: JSON.stringify(body) });
+          return originalFetch.call(this, input, init);
+        }
+      }catch(e){}
+      return originalFetch.apply(this, arguments);
+    };
+  }
+
+  // Também expõe a correção para funções internas que queiram chamar antes do fetch.
+  window.__pblProjblFixPayloadAntesDoEnvio = fixPayload;
+})();
+</script>
 </body>
 </html>
 <!-- projbl-camada15-curso-autosave-progress-selects -->
