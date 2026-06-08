@@ -9876,6 +9876,188 @@ body:not(.guiao-pdf-mode) .projbl-autoria-estado-heading{
   .projbl-autoria-estado-heading{page-break-after:avoid !important;}
 }
 </style>
+
+<style id="projbl-mobile-uc7-definitivo-css">
+/* FIX Proj-BL mobile — cabeçalho e separador 7 legíveis em telemóvel.
+   Não altera desktop, PDF, payload, botões, Curso(s) nem Power Automate. */
+@media screen and (max-width: 760px){
+  html body:not(.guiao-pdf-mode){
+    overflow-x:hidden !important;
+  }
+  html body:not(.guiao-pdf-mode) .page{
+    width:100% !important;
+    max-width:100% !important;
+    padding-left:14px !important;
+    padding-right:14px !important;
+    overflow-x:hidden !important;
+    box-sizing:border-box !important;
+  }
+  html body:not(.guiao-pdf-mode) .header-grid,
+  html body:not(.guiao-pdf-mode) .header-info,
+  html body:not(.guiao-pdf-mode) .proj-header-extra-info{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:12px !important;
+    width:100% !important;
+    max-width:100% !important;
+    box-sizing:border-box !important;
+  }
+  html body:not(.guiao-pdf-mode) .header-card,
+  html body:not(.guiao-pdf-mode) .section,
+  html body:not(.guiao-pdf-mode) .proj-top-field-card,
+  html body:not(.guiao-pdf-mode) .proj-title-card{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    box-sizing:border-box !important;
+    overflow:hidden !important;
+  }
+  html body:not(.guiao-pdf-mode) input,
+  html body:not(.guiao-pdf-mode) textarea,
+  html body:not(.guiao-pdf-mode) select{
+    max-width:100% !important;
+    box-sizing:border-box !important;
+  }
+
+  /* Docentes: evita cortes em emails longos sem mudar a estrutura funcional. */
+  html body:not(.guiao-pdf-mode) #docentesTable{
+    width:100% !important;
+    max-width:100% !important;
+    table-layout:fixed !important;
+  }
+  html body:not(.guiao-pdf-mode) #docentesTable td,
+  html body:not(.guiao-pdf-mode) #docentesTable th{
+    padding:7px !important;
+  }
+  html body:not(.guiao-pdf-mode) #docentesTable textarea,
+  html body:not(.guiao-pdf-mode) #docentesTable input{
+    overflow-wrap:anywhere !important;
+    word-break:break-word !important;
+    font-size:11.5px !important;
+    line-height:1.28 !important;
+  }
+
+  /* Separador 7 — em mobile deixa de ser grelha estreita e passa a cartões empilhados. */
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-section{
+    padding:12px !important;
+    overflow:hidden !important;
+  }
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-title{
+    font-size:18px !important;
+    line-height:1.25 !important;
+    letter-spacing:.04em !important;
+    margin-bottom:12px !important;
+  }
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-grid{
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    border:1.35px solid rgba(0,0,0,.55) !important;
+    border-radius:16px !important;
+    overflow:hidden !important;
+    background:#fff !important;
+  }
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-header-row{
+    display:none !important;
+  }
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row{
+    display:block !important;
+    padding:10px !important;
+    border-bottom:1px solid #dddddd !important;
+    background:#fff !important;
+  }
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row:last-of-type{
+    border-bottom:0 !important;
+  }
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell{
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    border:0 !important;
+    border-bottom:1px solid #eeeeee !important;
+    padding:8px 0 !important;
+    background:#fff !important;
+    box-sizing:border-box !important;
+    text-align:left !important;
+  }
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:last-child{
+    border-bottom:0 !important;
+  }
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell::before{
+    display:block !important;
+    margin:0 0 6px 0 !important;
+    font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;
+    font-size:12px !important;
+    line-height:1.2 !important;
+    font-weight:800 !important;
+    color:#333 !important;
+    letter-spacing:.01em !important;
+  }
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(1)::before{content:'ECTS';}
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(2)::before{content:'Unidade Curricular';}
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(3)::before{content:'Horas de contacto';}
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(4)::before{content:'Contribuição';}
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(5)::before{content:'Docente(s)/Email';}
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(6)::before{content:'% do projeto final';}
+
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-field,
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-input,
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-textarea{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    height:auto !important;
+    min-height:44px !important;
+    max-height:none !important;
+    padding:9px 10px !important;
+    font-size:13px !important;
+    line-height:1.32 !important;
+    text-align:left !important;
+    white-space:pre-wrap !important;
+    overflow-wrap:anywhere !important;
+    word-break:normal !important;
+    overflow:auto !important;
+    resize:vertical !important;
+    box-sizing:border-box !important;
+  }
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-cell:nth-child(1) .projblz7g-field,
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-cell:nth-child(3) .projblz7g-field,
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-cell:nth-child(6) .projblz7g-field{
+    text-align:center !important;
+  }
+  html body:not(.guiao-pdf-mode) #ucs .projbl-light-resize-wrap{
+    width:100% !important;
+    max-width:100% !important;
+  }
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-total-row{
+    display:grid !important;
+    grid-template-columns:1fr auto !important;
+    width:100% !important;
+    border-top:1.35px solid #d8d8d8 !important;
+    background:#f7f7f7 !important;
+  }
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-total-label,
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-total-value{
+    display:flex !important;
+    align-items:center !important;
+    border:0 !important;
+    padding:10px !important;
+    background:#f7f7f7 !important;
+    font-size:13px !important;
+    line-height:1.2 !important;
+  }
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-total-label{
+    justify-content:flex-end !important;
+    text-align:right !important;
+  }
+  html body:not(.guiao-pdf-mode) #ucs .projblz7g-total-value{
+    justify-content:center !important;
+    min-width:62px !important;
+    font-weight:800 !important;
+  }
+}
+</style>
 </head>
 <body>
 <div class="page"><div class="premium-status no-print">
@@ -12168,7 +12350,8 @@ function makeFileName(){
     var ucsPayload = String(values.ucs || values.uc || "").trim();
     var docentesPayload = String(values.docentes || values.professor || values.docente || values.autoria || "").trim();
     var emailsPayload = String(values.emails || values.email || "").trim();
-    var nEstudantesPayload = String(values.nEstudantes || values.n_estudantes || values.numero_estudantes || "").trim();
+    var nEstudantesPayload = String(values.nEstudantes || values.numeroEstudantes || values.numEstudantes || values.n_estudantes || values.numero_estudantes || "").trim();
+    var nGruposPayload = String(values.nGrupos || values.numeroGrupos || values.numGrupos || values.n_grupos || values.numero_grupos || "").trim();
     var unidadeOrganicaPayload = String(values.unidadeOrganica || values.unidade_organica || "").trim();
     var modalidadePayload = String(values.modalidade || "").trim();
 
@@ -12186,6 +12369,13 @@ function makeFileName(){
       docenteTexto: docentesPayload,
       emails: emailsPayload,
       nEstudantes: nEstudantesPayload,
+      n_estudantes: nEstudantesPayload,
+      numeroEstudantes: nEstudantesPayload,
+      numero_estudantes: nEstudantesPayload,
+      nGrupos: nGruposPayload,
+      n_grupos: nGruposPayload,
+      numeroGrupos: nGruposPayload,
+      numero_grupos: nGruposPayload,
       unidadeOrganica: unidadeOrganicaPayload,
       modalidade: modalidadePayload,
       submittedAt: new Date().toISOString(),
@@ -15445,7 +15635,9 @@ html body .page .proj-v9-example-field::placeholder {
     var checks = [
       {selector:"#unidadeOrganica", label:"Unidade Orgânica"},
       {selector:"#modalidade", label:"Modalidade"},
-      {selector:"#curso", label:"Curso(s)"}
+      {selector:"#curso", label:"Curso(s)"},
+      {selector:"#numeroEstudantes", label:"Nº de estudantes"},
+      {selector:"#numeroGrupos", label:"Nº de grupos"}
     ];
 
     var missing = [];
@@ -15474,7 +15666,7 @@ html body .page .proj-v9-example-field::placeholder {
   };
 
   function bindVisualCleanup(){
-    ["#unidadeOrganica","#modalidade","#curso"].forEach(function(selector){
+    ["#unidadeOrganica","#modalidade","#curso","#numeroEstudantes","#numeroGrupos"].forEach(function(selector){
       var el = document.querySelector(selector);
       if(!el || el.dataset.projRequiredBound === "1") return;
       el.dataset.projRequiredBound = "1";

@@ -492,7 +492,7 @@ label:first-child {
   resize: vertical !important;
   overflow: auto !important;
 }
-#hora, #data, #n_estudantes, #n_grupos {
+#hora, #hora_fim, #data, #n_estudantes, #n_grupos {
   min-height: 44px !important;
 }
 button[title="Saiba mais"], .sbl-info-i {
@@ -1994,6 +1994,7 @@ select:focus,
 #professor:focus,
 #data:focus,
 #hora:focus,
+#hora_fim:focus,
 #n_estudantes:focus,
 #n_grupos:focus,
 #estado:focus,
@@ -2437,6 +2438,7 @@ h1{
 #emails,
 #data,
 #hora,
+#hora_fim,
 #n_estudantes,
 #n_grupos,
 #estado,
@@ -2464,6 +2466,7 @@ h1{
 /* Datas/números compactos */
 #data,
 #hora,
+#hora_fim,
 #n_estudantes,
 #n_grupos{
   min-height:28px !important;
@@ -2751,6 +2754,7 @@ select:focus,
 #professor:focus,
 #data:focus,
 #hora:focus,
+#hora_fim:focus,
 #n_estudantes:focus,
 #n_grupos:focus,
 #estado:focus,
@@ -2937,6 +2941,7 @@ select:focus,
 #professor:focus,
 #data:focus,
 #hora:focus,
+#hora_fim:focus,
 #n_estudantes:focus,
 #n_grupos:focus,
 #estado:focus,
@@ -3015,7 +3020,7 @@ select:focus,
 }
 
 /* fallback para browsers sem :has — por ids diretos */
-#curso, #uc, #data, #hora, #professor, #emails{
+#curso, #uc, #data, #hora, #hora_fim, #professor, #emails{
   box-sizing:border-box !important;
 }
 #curso{min-height:34px !important;}
@@ -3118,6 +3123,7 @@ textarea[name="recursos"]{
 #emails,
 #data,
 #hora,
+#hora_fim,
 #n_estudantes,
 #n_grupos,
 #estado,
@@ -3896,7 +3902,8 @@ textarea[name="recursos"]{
 #n_grupos,
 #estado,
 #data,
-#hora{
+#hora,
+#hora_fim{
   box-sizing:border-box !important;
 }
 
@@ -4140,7 +4147,7 @@ input[type="time"]{
   .sbl-v15-ident-grid.sbl-v16-ident-grid input,
   .sbl-v15-ident-grid.sbl-v16-ident-grid textarea,
   .sbl-v15-ident-grid.sbl-v16-ident-grid select,
-  #estado,#n_estudantes,#n_grupos,#data,#hora{
+  #estado,#n_estudantes,#n_grupos,#data,#hora,#hora_fim{
     min-height:16px !important;
     height:auto !important;
     font-size:8.8px !important;
@@ -5224,7 +5231,8 @@ input[type="time"]::-webkit-datetime-edit-ampm-field{
 #n_estudantes,
 #n_grupos,
 #data,
-#hora{
+#hora,
+#hora_fim{
   font-family:'Century Gothic','Segoe UI',sans-serif !important;
   font-size:var(--sbl-v26-field-font) !important;
   line-height:var(--sbl-v26-field-line) !important;
@@ -5273,7 +5281,8 @@ input[type="time"]::-webkit-datetime-edit-ampm-field{
 input[type="date"],
 input[type="time"],
 #data,
-#hora{
+#hora,
+#hora_fim{
   font-family:'Century Gothic','Segoe UI',sans-serif !important;
   font-size:var(--sbl-v26-field-font) !important;
   line-height:var(--sbl-v26-field-line) !important;
@@ -10203,6 +10212,180 @@ html body:not(.guiao-pdf-mode) .sbl-estado-card select#estado:focus{
   box-shadow:0 0 0 3px rgba(227,30,36,.14) !important;
 }
 </style>
+
+<style id="sbl-auditoria-final-mobile-safe-css">
+/* SBL — correção cirúrgica mobile: evita cortes laterais nos campos do cabeçalho sem alterar payload, PDF ou botões. */
+@media screen and (max-width: 700px){
+  body:not(.guiao-pdf-mode){
+    overflow-x:hidden !important;
+  }
+  body:not(.guiao-pdf-mode) .page{
+    width:100% !important;
+    max-width:100% !important;
+    padding-left:14px !important;
+    padding-right:14px !important;
+    overflow-x:hidden !important;
+    box-sizing:border-box !important;
+  }
+  body:not(.guiao-pdf-mode) .header-grid,
+  body:not(.guiao-pdf-mode) .sbl47-v53-header-cards,
+  body:not(.guiao-pdf-mode) .sbl47-v53-grid,
+  body:not(.guiao-pdf-mode) .sbl-autoria-estado-grid{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:12px !important;
+    width:100% !important;
+    max-width:100% !important;
+    overflow:visible !important;
+    box-sizing:border-box !important;
+  }
+  body:not(.guiao-pdf-mode) .header-card,
+  body:not(.guiao-pdf-mode) .sbl47-v53-card,
+  body:not(.guiao-pdf-mode) .sbl47-v53-card.wide,
+  body:not(.guiao-pdf-mode) .sbl-course-cbl-card,
+  body:not(.guiao-pdf-mode) .sbl-autoria-card,
+  body:not(.guiao-pdf-mode) .sbl-estado-card{
+    grid-column:1 / -1 !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+    box-sizing:border-box !important;
+    overflow:visible !important;
+  }
+  body:not(.guiao-pdf-mode) .header-card select,
+  body:not(.guiao-pdf-mode) .sbl47-v53-card input,
+  body:not(.guiao-pdf-mode) .sbl47-v53-card textarea,
+  body:not(.guiao-pdf-mode) .sbl47-v53-card select,
+  body:not(.guiao-pdf-mode) .cbl-course-picker,
+  body:not(.guiao-pdf-mode) #cursoBusca,
+  body:not(.guiao-pdf-mode) #cblCursosSelecionados{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    box-sizing:border-box !important;
+  }
+  body:not(.guiao-pdf-mode) .sbl47-v53-card label,
+  body:not(.guiao-pdf-mode) .header-card label{
+    white-space:normal !important;
+    overflow:visible !important;
+    text-overflow:clip !important;
+  }
+}
+</style>
+
+<style id="sbl-simulacao-datahora-layout-final-css">
+/* SBL — layout final dos dados da oferta: Docente(s) + números compactos; data/hora em linha própria. */
+body:not(.guiao-pdf-mode) .sbl-oferta-section.sbl-oferta-simulacao-section{
+  width:100% !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+}
+body:not(.guiao-pdf-mode) .sbl-oferta-section.sbl-oferta-simulacao-section .sbl-oferta-grid{
+  display:grid !important;
+  grid-template-columns:minmax(0,1.25fr) minmax(0,1.25fr) minmax(110px,.55fr) minmax(110px,.55fr) !important;
+  gap:12px 14px !important;
+  align-items:start !important;
+  width:100% !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+}
+body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-span-2{ grid-column:span 2 !important; }
+body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field{ grid-column:span 1 !important; }
+body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-date-field{ grid-column:span 2 !important; }
+body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-time-field{ grid-column:span 1 !important; }
+body:not(.guiao-pdf-mode) .sbl-oferta-section #data,
+body:not(.guiao-pdf-mode) .sbl-oferta-section #hora,
+body:not(.guiao-pdf-mode) .sbl-oferta-section #hora_fim,
+body:not(.guiao-pdf-mode) .sbl-oferta-section #n_estudantes,
+body:not(.guiao-pdf-mode) .sbl-oferta-section #n_grupos{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  height:42px !important;
+  min-height:42px !important;
+  padding:9px 10px !important;
+  border:1px solid var(--sbl-border-inner, #b8b8b8) !important;
+  border-radius:13px !important;
+  background:#fff !important;
+  font-family:'Century Gothic','Segoe UI',sans-serif !important;
+  font-size:13px !important;
+  line-height:1.35 !important;
+  box-sizing:border-box !important;
+}
+body:not(.guiao-pdf-mode) .sbl-oferta-section #professor,
+body:not(.guiao-pdf-mode) .sbl-oferta-section #emails,
+body:not(.guiao-pdf-mode) .sbl-oferta-section #uc{
+  min-height:42px !important;
+}
+@media screen and (max-width:760px){
+  body:not(.guiao-pdf-mode) .sbl-oferta-section.sbl-oferta-simulacao-section .sbl-oferta-grid{
+    grid-template-columns:1fr !important;
+    gap:12px !important;
+  }
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-span-2,
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field,
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-date-field,
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-time-field{
+    grid-column:1 / -1 !important;
+  }
+}
+</style>
+
+<style id="sbl-datahora-layout-alinhamento-final-fix-css">
+/* SBL — correção final de alinhamento: números com largura padrão e sem rótulo quebrado.
+   Mantém a estrutura aprovada: Curso/UC; Docente+números; Email/Ano; Data/Hora início/Hora fim. */
+body:not(.guiao-pdf-mode) .sbl-oferta-section.sbl-oferta-simulacao-section .sbl-oferta-grid{
+  grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
+  gap:12px 16px !important;
+  align-items:start !important;
+}
+body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-span-2{
+  grid-column:span 2 !important;
+}
+body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field,
+body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-time-field{
+  grid-column:span 1 !important;
+  min-width:0 !important;
+}
+body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field label{
+  white-space:nowrap !important;
+  font-size:13.2px !important;
+  line-height:1.25 !important;
+}
+body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field input[type="number"]{
+  height:42px !important;
+  min-height:42px !important;
+}
+@media screen and (max-width:980px){
+  body:not(.guiao-pdf-mode) .sbl-oferta-section.sbl-oferta-simulacao-section .sbl-oferta-grid{
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+  }
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-span-2{
+    grid-column:1 / -1 !important;
+  }
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field,
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-time-field{
+    grid-column:span 1 !important;
+  }
+}
+@media screen and (max-width:760px){
+  body:not(.guiao-pdf-mode) .sbl-oferta-section.sbl-oferta-simulacao-section .sbl-oferta-grid{
+    grid-template-columns:1fr !important;
+    gap:12px !important;
+  }
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-span-2,
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field,
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-date-field,
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-time-field{
+    grid-column:1 / -1 !important;
+  }
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field label{
+    white-space:normal !important;
+  }
+}
+</style>
 </head>
 <body>
 <div class="page">
@@ -10243,8 +10426,8 @@ html body:not(.guiao-pdf-mode) .sbl-estado-card select#estado:focus{
 <label>Semestre</label>
 <select id="semestre">
 <option value="">Selecionar</option>
-<option>1.º semestre</option>
-<option>2.º semestre</option>
+<option>1.º Semestre</option>
+<option>2.º Semestre</option>
 <option>Anual</option>
 </select>
 </div>
@@ -10252,10 +10435,10 @@ html body:not(.guiao-pdf-mode) .sbl-estado-card select#estado:focus{
 <label>Turma/Edição</label>
 <select id="turmaEdicao">
 <option value="">Selecionar</option>
-<option>Turma A</option>
-<option>Turma B</option>
-<option>Turma C</option>
-<option>Turma D</option>
+<option>Turma 1</option>
+<option>Turma 2</option>
+<option>Turma 3</option>
+<option>Turma 4</option>
 </select>
 </div>
 </div>
@@ -10266,7 +10449,7 @@ html body:not(.guiao-pdf-mode) .sbl-estado-card select#estado:focus{
 </div>
 <div aria-live="polite" class="cbl-course-chips" id="cblCursosSelecionados"></div>
 <div class="cbl-course-helper">Selecione um curso na lista. Para adicionar mais cursos, repita a seleção.</div>
-</div></div><div class="sbl47-v53-card"><label for="uc">Unidade(s) Curricular(es)</label><textarea id="uc" name="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado"></textarea></div><div class="sbl47-v53-card"><label for="professor">Docente(s)</label><textarea id="professor" name="professor" placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva"></textarea></div><div class="sbl47-v53-card wide"><label for="emails">Email(s)</label><textarea id="emails" name="emails" placeholder="Ex.: docente@universidadeeuropeia.pt"></textarea></div><div class="sbl47-v53-card"><label for="ano_letivo">Ano letivo</label><input id="ano_letivo" name="ano_letivo" placeholder="Ex.: 2026/2027" type="text"/></div><div class="sbl47-v53-card"><label for="data">Data</label><input id="data" name="data" placeholder="AAAA-MM-DD" type="date"/></div><div class="sbl47-v53-card"><label for="hora">Hora</label><input id="hora" name="hora" placeholder="HH:MM" type="time"/></div><div class="sbl47-v53-card"><label for="n_estudantes">Nº de estudantes</label><input id="n_estudantes" inputmode="numeric" min="0" name="n_estudantes" placeholder="Ex.: 32" step="1" type="number"/></div><div class="sbl47-v53-card"><label for="n_grupos">Nº de grupos</label><input id="n_grupos" inputmode="numeric" min="0" name="n_grupos" placeholder="Ex.: 6" step="1" type="number"/></div></div><div class="sbl-autoria-estado-panel"><div class="sbl-autoria-estado-title">Autoria e estado do guião</div><div class="sbl-autoria-estado-grid"><div class="sbl47-v53-card sbl-autoria-card"><label for="autoria">Autoria</label><textarea id="autoria" name="autoria" placeholder="Ex.: Ana Luiza Marques"></textarea></div><div class="sbl47-v53-card sbl-estado-card"><label for="estado">Estado do guião</label><select id="estado" name="estado"><option selected="selected" value="">Selecionar</option><option value="Novo">Novo</option><option value="Atualizado">Atualizado</option><option value="Reutilizado">Reutilizado</option></select></div></div></div>
+</div></div><div class="sbl47-v53-card"><label for="uc">Unidade(s) Curricular(es)</label><textarea id="uc" name="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado"></textarea></div><div class="sbl47-v53-card"><label for="professor">Docente(s)</label><textarea id="professor" name="professor" placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva"></textarea></div><div class="sbl47-v53-card wide"><label for="emails">Email(s)</label><textarea id="emails" name="emails" placeholder="Ex.: docente@universidadeeuropeia.pt"></textarea></div><div class="sbl47-v53-card"><label for="ano_letivo">Ano letivo</label><input id="ano_letivo" name="ano_letivo" placeholder="Ex.: 2026/2027" type="text"/></div><div class="sbl47-v53-card"><label for="data">Data da simulação</label><input id="data" name="data" placeholder="AAAA-MM-DD" type="date"/></div><div class="sbl47-v53-card"><label for="hora">Hora de início</label><input id="hora" name="hora" placeholder="HH:MM" type="time"/></div><div class="sbl47-v53-card"><label for="hora_fim">Hora de fim</label><input id="hora_fim" name="hora_fim" placeholder="HH:MM" type="time"/></div><div class="sbl47-v53-card"><label for="n_estudantes">Nº de estudantes</label><input id="n_estudantes" inputmode="numeric" min="0" name="n_estudantes" placeholder="Ex.: 32" step="1" type="number"/></div><div class="sbl47-v53-card"><label for="n_grupos">Nº de grupos</label><input id="n_grupos" inputmode="numeric" min="0" name="n_grupos" placeholder="Ex.: 6" step="1" type="number"/></div></div><div class="sbl-autoria-estado-panel"><div class="sbl-autoria-estado-title">Autoria e estado do guião</div><div class="sbl-autoria-estado-grid"><div class="sbl47-v53-card sbl-autoria-card"><label for="autoria">Autoria</label><textarea id="autoria" name="autoria" placeholder="Ex.: Ana Luiza Marques"></textarea></div><div class="sbl47-v53-card sbl-estado-card"><label for="estado">Estado do guião</label><select id="estado" name="estado"><option selected="selected" value="">Selecionar</option><option value="Novo">Novo</option><option value="Atualizado">Atualizado</option><option value="Reutilizado">Reutilizado</option></select></div></div></div>
 <div class="section sbl47-v68-red-print-card">
 <label>Objetivos:</label>
 <textarea id="objetivos" placeholder="Indique os objetivos de aprendizagem..."></textarea>
@@ -11176,8 +11359,12 @@ document.addEventListener('DOMContentLoaded', function(){
     const nGrupos = firstById(["n_grupos","numero_grupos","grupos"]) || firstByLabel(["Nº de Grupos", "N.º de grupos", "Número de grupos"]);
     const unidadeOrganica = firstById(["unidade_organica","unidadeOrganica"]) || firstByLabel(["Unidade Orgânica", "Unidade Organica"]);
     const modalidade = firstById(["modalidade"]) || firstByLabel(["Modalidade"]);
-    const data = firstById(["data","date"]) || firstByLabel(["Data"]);
-    const hora = firstById(["hora","time"]) || firstByLabel(["Hora"]);
+    const semestre = firstById(["semestre"]) || firstByLabel(["Semestre"]);
+    const turmaEdicao = firstById(["turmaEdicao","turma_edicao","turma"]) || firstByLabel(["Turma/Edição", "Turma", "Edição"]);
+    const data = firstById(["data","data_simulacao","dataSimulacao","date"]) || firstByLabel(["Data da simulação", "Data"]);
+    const horaInicio = firstById(["hora","hora_inicio","horaInicio","time"]) || firstByLabel(["Hora de início", "Hora"]);
+    const horaFim = firstById(["hora_fim","horaFim","hora_final","horaFinal"]) || firstByLabel(["Hora de fim", "Hora final"]);
+    const hora = [horaInicio, horaFim].filter(Boolean).join(" - ");
     const emails = firstById(["emails","email"]) ||
                    collectTableColumnBySectionLabel("Docentes", 1) ||
                    firstByLabel(["Email(s)", "Email", "E-mail", "E-mail(s)"]);
@@ -11205,8 +11392,15 @@ document.addEventListener('DOMContentLoaded', function(){
       autorias: firstById(["autoria","autorias"]) || firstByLabel(["Autoria(s)", "Autoria"]),
       unidadeOrganica,
       modalidade,
+      semestre,
+      turmaEdicao,
+      turma: turmaEdicao,
       data,
+      dataSimulacao: data,
       hora,
+      horaInicio,
+      horaFim,
+      hora_fim: horaFim,
       emails,
       organizacoesContacto,
       tituloProjeto,
@@ -11625,10 +11819,18 @@ document.addEventListener('DOMContentLoaded', function(){
         ],
         [
           ['Unidade(s) Curricular(es)', val('uc')],
-          ['Número de estudantes', val('n_estudantes')]
+          ['Ano letivo', val('ano_letivo') || val('ano')]
+        ],
+        [
+          ['Número de estudantes', val('n_estudantes')],
+          ['Número de grupos', val('n_grupos')]
+        ],
+        [
+          ['Data da simulação', val('data')],
+          ['Hora de início', val('hora')]
         ]
       ];
-      const singleRow = ['Ano letivo', val('ano_letivo') || val('ano')];
+      const singleRow = ['Hora de fim', val('hora_fim') || val('horaFim') || val('hora_final')];
 
       const rowHeights = pairRows.map(function(pair){
         return Math.max.apply(null, pair.map(function(item, idx){
@@ -12124,7 +12326,7 @@ async function downloadCurrentGuiesPdf(){
 })();
 </script>
 <script>
-/* ===== Validação SBL — Data e Hora da simulação ===== */
+/* ===== Validação SBL — Data e hora da simulação ===== */
 (function(){
   function toastSBL(message){
     if(typeof showToast === "function") showToast(message);
@@ -12135,16 +12337,19 @@ async function downloadCurrentGuiesPdf(){
 
   window.validarDataHoraSBL = function(){
     const data = document.getElementById("data");
-    const hora = document.getElementById("hora");
-    if(!data || !hora) return true;
+    const horaInicio = document.getElementById("hora");
+    const horaFim = document.getElementById("hora_fim");
+    if(!data || !horaInicio || !horaFim) return true;
 
-    const dataValue = String(data.value || "").trim();
-    const horaValue = String(hora.value || "").trim();
+    const missing = [];
+    if(!String(data.value || "").trim()) missing.push("Data da simulação");
+    if(!String(horaInicio.value || "").trim()) missing.push("Hora de início");
+    if(!String(horaFim.value || "").trim()) missing.push("Hora de fim");
 
-    if((dataValue && !horaValue) || (!dataValue && horaValue)){
-      const target = !dataValue ? data : hora;
-      target.focus();
-      toastSBL("No SBL, indique a Data e a Hora da simulação.");
+    if(missing.length){
+      const target = !String(data.value || "").trim() ? data : (!String(horaInicio.value || "").trim() ? horaInicio : horaFim);
+      try { target.focus(); } catch(e) {}
+      toastSBL("No SBL, indique Data da simulação, Hora de início e Hora de fim.");
       return false;
     }
     return true;
@@ -14265,7 +14470,10 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
 
   function makeField(labelText, contentEl, opts){
     var field = document.createElement('div');
-    field.className = 'sbl-oferta-field' + (opts && opts.wide ? ' sbl-oferta-wide' : '');
+    var cls = 'sbl-oferta-field';
+    if(opts && opts.wide) cls += ' sbl-oferta-wide';
+    if(opts && opts.cls) cls += ' ' + opts.cls;
+    field.className = cls;
 
     var label = document.createElement('label');
     label.textContent = labelText;
@@ -14276,6 +14484,29 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
     return field;
   }
 
+  function ensureHoraFim(){
+    var existing = byId('hora_fim');
+    if(existing) return existing;
+    var hora = byId('hora');
+    var input = document.createElement('input');
+    input.id = 'hora_fim';
+    input.name = 'hora_fim';
+    input.type = 'time';
+    input.placeholder = 'HH:MM';
+    if(hora && hora.parentNode){
+      var card = document.createElement('div');
+      card.className = 'sbl47-v53-card';
+      var lab = document.createElement('label');
+      lab.setAttribute('for','hora_fim');
+      lab.textContent = 'Hora de fim';
+      card.appendChild(lab);
+      card.appendChild(input);
+      var horaCard = findCardContaining(hora);
+      if(horaCard && horaCard.parentNode) horaCard.parentNode.insertBefore(card, horaCard.nextSibling);
+    }
+    return input;
+  }
+
   function getCoursePicker(){
     var picker = document.querySelector('.cbl-course-picker');
     if(picker) return picker;
@@ -14283,7 +14514,6 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
     var curso = byId('curso');
     if(!curso) return null;
 
-    // Fallback: se ainda houver input simples, cria estrutura CBL na mesma posição.
     var oldValue = curso.value || curso.getAttribute('value') || '';
     var card = findCardContaining(curso);
     if(!card) return null;
@@ -14307,8 +14537,7 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
   function markOldContainersHidden(containers){
     containers.forEach(function(c){
       if(!c) return;
-      // Só esconde quando o container ficou sem campos relevantes.
-      var hasRelevant = c.querySelector && c.querySelector('#curso,#cursoBusca,#uc,#ano_letivo,#emails,#professor');
+      var hasRelevant = c.querySelector && c.querySelector('#curso,#cursoBusca,#uc,#ano_letivo,#emails,#professor,#data,#hora,#hora_fim,#n_estudantes,#n_grupos');
       if(!hasRelevant){
         c.classList.add('sbl-oferta-original-hidden');
       }
@@ -14320,11 +14549,14 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
 
     var coursePicker = getCoursePicker();
     var uc = byId('uc');
-    var ano = byId('ano_letivo') || byId('ano');
-    var emails = byId('emails');
     var professor = byId('professor');
     var nEstudantes = byId('n_estudantes');
     var nGrupos = byId('n_grupos');
+    var emails = byId('emails');
+    var ano = byId('ano_letivo') || byId('ano');
+    var data = byId('data');
+    var hora = byId('hora');
+    var horaFim = ensureHoraFim();
 
     if(!coursePicker || !uc || !ano || !emails || !professor) return;
 
@@ -14336,38 +14568,49 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
       el.setAttribute('step','1');
     });
 
+    if(data) data.setAttribute('type','date');
+    if(hora) hora.setAttribute('type','time');
+    if(horaFim) horaFim.setAttribute('type','time');
+
     var oldContainers = [
       findCardContaining(coursePicker),
       findCardContaining(uc),
-      findCardContaining(ano),
-      findCardContaining(emails),
       findCardContaining(professor),
       findCardContaining(nEstudantes),
-      findCardContaining(nGrupos)
+      findCardContaining(nGrupos),
+      findCardContaining(emails),
+      findCardContaining(ano),
+      findCardContaining(data),
+      findCardContaining(hora),
+      findCardContaining(horaFim)
     ];
 
     var section = document.createElement('div');
-    section.className = 'section sbl-oferta-section';
+    section.className = 'section sbl-oferta-section sbl-oferta-simulacao-section';
     section.innerHTML = '<h3>Dados da oferta</h3><div class="sbl-oferta-grid"></div>';
 
     var grid = section.querySelector('.sbl-oferta-grid');
 
-    grid.appendChild(makeField('Curso(s):', coursePicker, {forId:'cursoBusca'}));
-    grid.appendChild(makeField('Unidade(s) Curricular(es):', uc, {forId:'uc'}));
-    grid.appendChild(makeField('Ano letivo:', ano, {forId:ano.id}));
-    grid.appendChild(makeField('Email(s):', emails, {forId:'emails'}));
-    grid.appendChild(makeField('Docente(s):', professor, {forId:'professor', wide:true}));
+    grid.appendChild(makeField('Curso(s):', coursePicker, {forId:'cursoBusca', cls:'sbl-oferta-span-2'}));
+    grid.appendChild(makeField('Unidade(s) Curricular(es):', uc, {forId:'uc', cls:'sbl-oferta-span-2'}));
+    grid.appendChild(makeField('Docente(s):', professor, {forId:'professor', cls:'sbl-oferta-span-2'}));
 
-    if(nEstudantes && nGrupos){
-      var estudantesField = makeField('Número de estudantes', nEstudantes, {forId:'n_estudantes'});
-      var gruposField = makeField('Número de grupos', nGrupos, {forId:'n_grupos'});
-      estudantesField.classList.add('sbl-oferta-numeric-field');
-      gruposField.classList.add('sbl-oferta-numeric-field');
+    if(nEstudantes){
+      var estudantesField = makeField('Número de estudantes', nEstudantes, {forId:'n_estudantes', cls:'sbl-oferta-numeric-field'});
       grid.appendChild(estudantesField);
+    }
+    if(nGrupos){
+      var gruposField = makeField('Número de grupos', nGrupos, {forId:'n_grupos', cls:'sbl-oferta-numeric-field'});
       grid.appendChild(gruposField);
     }
 
-    // Inserir no mesmo local do bloco antigo, antes da tabela/card original.
+    grid.appendChild(makeField('Email(s):', emails, {forId:'emails', cls:'sbl-oferta-span-2'}));
+    grid.appendChild(makeField('Ano letivo:', ano, {forId:ano.id, cls:'sbl-oferta-span-2'}));
+
+    if(data) grid.appendChild(makeField('Data da simulação', data, {forId:'data', cls:'sbl-oferta-date-field sbl-oferta-span-2'}));
+    if(hora) grid.appendChild(makeField('Hora de início', hora, {forId:'hora', cls:'sbl-oferta-time-field'}));
+    if(horaFim) grid.appendChild(makeField('Hora de fim', horaFim, {forId:'hora_fim', cls:'sbl-oferta-time-field'}));
+
     var anchor = oldContainers.find(Boolean);
     var block = anchor ? (anchor.closest('.sbl47-v53-header-cards') || anchor.closest('table') || anchor) : null;
 
@@ -14381,21 +14624,16 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
 
     markOldContainersHidden(oldContainers);
 
-    // Se a tabela antiga inteira perdeu os campos do bloco, escondê-la.
     var oldTable = anchor ? anchor.closest('table') : null;
-    if(oldTable && !oldTable.querySelector('#curso,#cursoBusca,#uc,#ano_letivo,#ano,#emails,#professor')){
+    if(oldTable && !oldTable.querySelector('#curso,#cursoBusca,#uc,#ano_letivo,#ano,#emails,#professor,#data,#hora,#hora_fim,#n_estudantes,#n_grupos')){
       oldTable.classList.add('sbl-oferta-original-hidden');
     }
 
     var oldCards = document.querySelector('.sbl47-v53-header-cards');
-    if(oldCards && !oldCards.querySelector('#curso,#cursoBusca,#uc,#ano_letivo,#ano,#emails,#professor')){
+    if(oldCards && !oldCards.querySelector('#curso,#cursoBusca,#uc,#ano_letivo,#ano,#emails,#professor,#data,#hora,#hora_fim,#n_estudantes,#n_grupos')){
       oldCards.classList.add('sbl-oferta-original-hidden');
     }
 
-    // Reexecuta inicializadores já existentes, se estiverem expostos.
-    if(typeof window.SBL_TESTAR_PUXADORES_CABECALHO === 'function'){
-      // a função é teste, não inicializador, mas os scripts de puxador repassam sozinhos nos timeouts.
-    }
     if(typeof window.SBL_TESTAR_CURSO_CBL === 'function'){
       window.SBL_TESTAR_CURSO_CBL();
     }
@@ -14407,9 +14645,7 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
     apply();
   }
 
-  [100, 300, 800, 1500].forEach(function(ms){
-    setTimeout(apply, ms);
-  });
+  [100, 300, 800, 1500].forEach(function(ms){ setTimeout(apply, ms); });
 })();
 </script>
 <script id="sbl62-oferta-section-refino-js">
@@ -14575,8 +14811,8 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
     if(!semestre){
       grid.appendChild(makeCard('semestre', 'Semestre', [
         {value:'', text:'Selecionar'},
-        '1.º semestre',
-        '2.º semestre',
+        '1.º Semestre',
+        '2.º Semestre',
         'Anual'
       ]));
     }
