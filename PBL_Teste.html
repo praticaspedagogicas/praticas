@@ -7820,5 +7820,81 @@ function makePdfFileName(){
 <style id="guiao-required-submit-validation-v1-style">
 .guiao-required-missing{ outline:3px solid rgba(227,30,36,.28) !important; outline-offset:2px !important; }
 </style>
+
+<script id="pbl-auditoria-final-data-confirmacao-v1">
+(function(){
+  'use strict';
+  if(window.__pblAuditoriaFinalDataConfirmacaoV1) return;
+  window.__pblAuditoriaFinalDataConfirmacaoV1 = true;
+
+  function isPBLPayload(payload){
+    if(!payload || typeof payload !== 'object') return false;
+    var marker = [payload.templateType, payload.cenarioAprendizagem, payload.cenario, payload.scenario, payload.templateScenario, payload.pageTitle].join(' ');
+    return /\bPBL\b|Problem[- ]Based/i.test(marker) || !!document.querySelector('title, h1') && /PBL|Problem[- ]Based/i.test((document.title || '') + ' ' + ((document.querySelector('h1') || {}).textContent || ''));
+  }
+
+  function normalizePayloadDates(payload){
+    if(!isPBLPayload(payload)) return payload;
+    var now = new Date().toISOString();
+    // Envia uma data válida e completa para evitar valores parciais como “/1/” na lista Guiões.
+    payload.submittedAt = payload.submittedAt || now;
+    payload.dataSubmissao = payload.dataSubmissao || payload.submittedAt;
+    payload.DataSubmissao = payload.DataSubmissao || payload.submittedAt;
+    payload.data = payload.submittedAt;
+    payload.Data = payload.submittedAt;
+    if(!payload.formData || typeof payload.formData !== 'object') payload.formData = {};
+    payload.formData.submittedAt = payload.formData.submittedAt || payload.submittedAt;
+    payload.formData.dataSubmissao = payload.formData.dataSubmissao || payload.submittedAt;
+    payload.formData.DataSubmissao = payload.formData.DataSubmissao || payload.submittedAt;
+    payload.formData.data = payload.submittedAt;
+    payload.formData.Data = payload.submittedAt;
+    return payload;
+  }
+
+  window.pblNormalizarDatasSubmissao = normalizePayloadDates;
+
+  function installFetchPatch(){
+    if(window.__pblAuditoriaFinalFetchDatePatchV1) return;
+    var nativeFetch = window.fetch;
+    if(typeof nativeFetch !== 'function') return;
+    window.__pblAuditoriaFinalFetchDatePatchV1 = true;
+    window.fetch = function(input, init){
+      try{
+        if(init && typeof init.body === 'string' && init.body.trim().charAt(0) === '{'){
+          init.body = JSON.stringify(normalizePayloadDates(JSON.parse(init.body)));
+        }
+      }catch(e){}
+      return nativeFetch.apply(this, arguments);
+    };
+  }
+
+  window.showSubmissionConfirmation = window.showSubmissionConfirmation || function(result){
+    try{
+      var panel = document.getElementById('powerAutomateSubmissionConfirmation');
+      if(!panel){
+        panel = document.createElement('div');
+        panel.id = 'powerAutomateSubmissionConfirmation';
+        panel.className = 'no-print';
+        panel.style.margin = '18px 0';
+        panel.style.padding = '16px 18px';
+        panel.style.border = '1.5px solid #1f4d2b';
+        panel.style.borderRadius = '14px';
+        panel.style.background = '#f3fff6';
+        panel.style.color = '#1f4d2b';
+        panel.style.fontSize = '13px';
+        panel.style.lineHeight = '1.45';
+        var actions = document.querySelector('.ux-actions');
+        if(actions && actions.parentNode) actions.parentNode.insertBefore(panel, actions);
+        else document.body.appendChild(panel);
+      }
+      var itemInfo = result && (result.itemId || result.ID || result.id) ? ' — ID ' + (result.itemId || result.ID || result.id) : '';
+      panel.innerHTML = '<strong>✅ Guião submetido com sucesso.</strong><br>O seu guião foi enviado para validação' + itemInfo + '.<br>Pode fechar esta página.';
+      try{ panel.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){}
+    }catch(e){}
+  };
+
+  installFetchPatch();
+})();
+</script>
 </body>
 </html>
