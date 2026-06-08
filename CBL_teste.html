@@ -3,7 +3,7 @@
 <html lang="pt">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <style id="template-clean-style">
 /* ===== TEMPLATE LIMPO - CSS consolidado ===== */
 @page{ size: A4; margin: 12mm; }
@@ -146,11 +146,11 @@ label:first-child {
   gap: 8px !important;
   flex-wrap: wrap;
   padding: 12px 14px !important;
-  border: 1.5px solid rgba(255,138,0,.18) !important;
+  border: 1.5px solid rgba(233,93,48,.18) !important;
   border-radius: 18px !important;
   background: #fff !important;
-  box-shadow: 0 4px 14px rgba(247,147,30,.045) !important;
-  border-color: rgba(247,147,30,.22) !important;
+  box-shadow: 0 4px 14px rgba(233,93,48,.045) !important;
+  border-color: rgba(233,93,48,.22) !important;
 }
 .ux-btn {
   border: 1px solid #333;
@@ -278,9 +278,9 @@ label:first-child {
   padding: 14px 18px;
   border: 1.5px solid var(--cbl-orange-border) !important;
   border-radius: 16px !important;
-  background: linear-gradient(180deg, #fff8f0 0%, #ffffff 100%) !important;
-  box-shadow: 0 4px 14px rgba(247,147,30,.065) !important;
-  border-color: rgba(247,147,30,.45) !important;
+  background: linear-gradient(180deg, #FFF4EF 0%, #ffffff 100%) !important;
+  box-shadow: 0 4px 14px rgba(233,93,48,.065) !important;
+  border-color: rgba(233,93,48,.45) !important;
 }
 .progress-label {
   font-size: 12px;
@@ -299,7 +299,7 @@ label:first-child {
   height: 100%;
   background: linear-gradient(90deg, var(--cbl-red) 0%, var(--cbl-orange-vivo) 70%, var(--cbl-orange-vivo-2) 100%) !important;
   transition: width .25s ease;
-  box-shadow: 0 0 8px rgba(247,147,30,.22) !important;
+  box-shadow: 0 0 8px rgba(233,93,48,.22) !important;
 }
 .autosave-status {
   margin-top: 8px;
@@ -355,13 +355,13 @@ label:first-child {
   width: 100% !important;
   margin: 14px auto 0 auto !important;
   padding: 12px 14px !important;
-  border: 1.5px solid rgba(247,147,30,.45) !important;
+  border: 1.5px solid rgba(233,93,48,.45) !important;
   border-radius: 16px !important;
-  background: linear-gradient(180deg, #fff8f0 0%, #ffffff 100%) !important;
+  background: linear-gradient(180deg, #FFF4EF 0%, #ffffff 100%) !important;
   display: grid !important;
   grid-template-columns: 1fr 1fr !important;
   gap: 10px !important;
-  box-shadow: 0 4px 14px rgba(247,147,30,.06) !important;
+  box-shadow: 0 4px 14px rgba(233,93,48,.06) !important;
   clear: both !important;
 }
 .ux-info-item {
@@ -378,9 +378,9 @@ label:first-child {
   min-width: 7px !important;
   margin-top: 5px !important;
   border-radius: 999px !important;
-  background: linear-gradient(135deg, #E31E24 0%, #F7931E 65%, #F58220 100%) !important;
+  background: linear-gradient(135deg, #E31E24 0%, #E95D30 65%, #D94F26 100%) !important;
   display: inline-block !important;
-  box-shadow: 0 0 0 2px rgba(247,147,30,.08) !important;
+  box-shadow: 0 0 0 2px rgba(233,93,48,.08) !important;
 }
 .ux-info-item strong {
   display: block !important;
@@ -546,7 +546,7 @@ label:first-child {
   padding-right: 0 !important;
   box-sizing: border-box !important;
 }
-.cbl-meta-field input, .cbl-meta-field textarea, #autoria, #estado, #n_estudantes, #organizacao, #conteudos {
+.cbl-meta-field input, .cbl-meta-field textarea, #autoria, #estado, #n_estudantes, #n_grupos, #organizacao, #conteudos {
   width: 100% !important;
   max-width: none !important;
   margin-left: 0 !important;
@@ -609,11 +609,11 @@ label:first-child {
   outline-offset: 2px !important;
 }
 #uxMenuMaisOpcoes, .ux-menu {
-  border: 1px solid rgba(255,138,0,.26) !important;
+  border: 1px solid rgba(233,93,48,.26) !important;
   border-radius: 14px !important;
   box-shadow: 0 8px 22px rgba(0,0,0,.10) !important;
   background: #fff !important;
-  border-color: rgba(247,147,30,.30) !important;
+  border-color: rgba(233,93,48,.30) !important;
 }
 #uxMenuMaisOpcoes button, .ux-menu button {
   font-size: 12.5px !important;
@@ -621,15 +621,15 @@ label:first-child {
   background: #fff !important;
 }
 #uxMenuMaisOpcoes button:hover, .ux-menu button:hover {
-  background: #fff4e8 !important;
+  background: #FFF4EF !important;
 }
 :root {
   --cbl-red: #E31E24;
-  --cbl-orange: #FF8A00;
-  --cbl-orange-soft: #fff3e6;
-  --cbl-orange-border: rgba(247,147,30,.45);
-  --cbl-orange-vivo: #F7931E;
-  --cbl-orange-vivo-2: #F58220;
+  --cbl-orange: #E95D30;
+  --cbl-orange-soft: #FFF4EF;
+  --cbl-orange-border: rgba(233,93,48,.45);
+  --cbl-orange-vivo: #E95D30;
+  --cbl-orange-vivo-2: #D94F26;
 }
 h1::after {
   content: "" !important;
@@ -638,7 +638,7 @@ h1::after {
   height: 3px !important;
   margin: 14px auto 0 auto !important;
   border-radius: 999px !important;
-  background: linear-gradient(90deg, #E31E24 0%, #F7931E 72%, #F58220 100%) !important;
+  background: linear-gradient(90deg, #E31E24 0%, #E95D30 72%, #D94F26 100%) !important;
 }
 .header-card select:focus {
   outline: 3px solid rgba(227,30,36,.10) !important;
@@ -650,8 +650,8 @@ input[type="text"], textarea, select, .cbl-meta-field input, .cbl-meta-field tex
   background: #fff !important;
 }
 input[type="text"]:focus, textarea:focus, select:focus, .cbl-meta-field input:focus, .cbl-meta-field textarea:focus, .section input:focus, .section textarea:focus {
-  outline: 3px solid rgba(255,138,0,.13) !important;
-  border-color: rgba(255,138,0,.60) !important;
+  outline: 3px solid rgba(233,93,48,.13) !important;
+  border-color: rgba(233,93,48,.60) !important;
 }
 table:not(.cbl-ident-table) {
   border-collapse: separate !important;
@@ -661,31 +661,31 @@ table:not(.cbl-ident-table) {
   border: 1px solid rgba(0,0,0,.12) !important;
 }
 table:not(.cbl-ident-table) th {
-  background: #fff4e8 !important;
+  background: #FFF4EF !important;
   border-color: #e4e4e4 !important;
 }
 table:not(.cbl-ident-table) td {
   border-color: #e4e4e4 !important;
 }
 .ux-actions .ux-btn-ai:hover, .ux-actions .ux-btn-pdf:not(#btnAdicionarAula):hover, .ux-actions .ux-btn-more:hover {
-  border-color: rgba(247,147,30,.52) !important;
-  background: #fff4e8 !important;
+  border-color: rgba(233,93,48,.52) !important;
+  background: #FFF4EF !important;
 }
 .premium-status, .header-card, .cbl-meta-panel, .ux-info-panel {
   border-color: var(--cbl-orange-border) !important;
-  background: linear-gradient(180deg, #fff8f0 0%, #ffffff 100%) !important;
-  box-shadow: 0 4px 14px rgba(247,147,30,.065) !important;
+  background: linear-gradient(180deg, #FFF4EF 0%, #ffffff 100%) !important;
+  box-shadow: 0 4px 14px rgba(233,93,48,.065) !important;
 }
 .cbl-meta-title, .section h3 {
-  border-image: linear-gradient(90deg, #E31E24, #F7931E, #F58220) 1 !important;
+  border-image: linear-gradient(90deg, #E31E24, #E95D30, #D94F26) 1 !important;
 }
 input[type="text"]:focus, textarea:focus, select:focus, .cbl-meta-field input:focus, .cbl-meta-field textarea:focus, .section input:focus, .section textarea:focus, .header-card select:focus {
-  outline: 3px solid rgba(247,147,30,.18) !important;
-  border-color: rgba(247,147,30,.72) !important;
+  outline: 3px solid rgba(233,93,48,.18) !important;
+  border-color: rgba(233,93,48,.72) !important;
 }
 .premium-status, .ux-info-panel {
-  border: 1.5px solid #F7931E !important;
-  box-shadow: 0 4px 14px rgba(247,147,30,.07) !important;
+  border: 1.5px solid #E95D30 !important;
+  box-shadow: 0 4px 14px rgba(233,93,48,.07) !important;
 }
 .header-grid + .cbl-red-divider {
   display: none !important;
@@ -756,8 +756,8 @@ input[type="text"]:focus, textarea:focus, select:focus, .cbl-meta-field input:fo
 .header-card:focus-within,
 .cbl-meta-panel:focus-within,
 .ux-info-panel:hover{
-  border-color:rgba(247,147,30,.48) !important;
-  box-shadow:0 4px 14px rgba(247,147,30,.075) !important;
+  border-color:rgba(233,93,48,.48) !important;
+  box-shadow:0 4px 14px rgba(233,93,48,.075) !important;
 }
 
 .header-card select,
@@ -780,8 +780,8 @@ textarea:focus,
 select:focus,
 .section input:focus,
 .section textarea:focus{
-  outline:3px solid rgba(247,147,30,.14) !important;
-  border-color:rgba(247,147,30,.62) !important;
+  outline:3px solid rgba(233,93,48,.14) !important;
+  border-color:rgba(233,93,48,.62) !important;
   background:#fff !important;
 }
 
@@ -810,13 +810,13 @@ table:not(.cbl-ident-table){
 .ux-actions .ux-btn-ai:hover,
 .ux-actions .ux-btn-pdf:not(#btnAdicionarAula):hover,
 .ux-actions .ux-btn-more:hover{
-  background:#fff7ef !important;
-  border-color:rgba(247,147,30,.45) !important;
+  background:#FFF4EF !important;
+  border-color:rgba(233,93,48,.45) !important;
 }
 
 /* O progresso continua com destaque laranja, como indicação de preenchimento. */
 .progress-fill{
-  background:linear-gradient(90deg, #E31E24 0%, #F7931E 72%, #F58220 100%) !important;
+  background:linear-gradient(90deg, #E31E24 0%, #E95D30 72%, #D94F26 100%) !important;
 }
 
 
@@ -824,19 +824,19 @@ table:not(.cbl-ident-table){
    Mantém destaque laranja no Guião preenchido e no painel institucional final;
    mantém Unidade Orgânica/Modalidade e Identificação do guião mais neutros. */
 .premium-status{
-  border:1.5px solid #F7931E !important;
-  background:linear-gradient(180deg, #fff8f0 0%, #ffffff 100%) !important;
-  box-shadow:0 4px 14px rgba(247,147,30,.07) !important;
+  border:1.5px solid #E95D30 !important;
+  background:linear-gradient(180deg, #FFF4EF 0%, #ffffff 100%) !important;
+  box-shadow:0 4px 14px rgba(233,93,48,.07) !important;
 }
 
 .ux-info-panel{
-  border:1.5px solid #F7931E !important;
-  background:linear-gradient(180deg, #fff8f0 0%, #ffffff 100%) !important;
-  box-shadow:0 4px 14px rgba(247,147,30,.07) !important;
+  border:1.5px solid #E95D30 !important;
+  background:linear-gradient(180deg, #FFF4EF 0%, #ffffff 100%) !important;
+  box-shadow:0 4px 14px rgba(233,93,48,.07) !important;
 }
 
 .ux-info-dot{
-  background:#F7931E !important;
+  background:#E95D30 !important;
 }
 
 .header-card,
@@ -849,8 +849,8 @@ table:not(.cbl-ident-table){
 .header-card:hover,
 .header-card:focus-within,
 .cbl-meta-panel:focus-within{
-  border-color:rgba(247,147,30,.48) !important;
-  box-shadow:0 4px 14px rgba(247,147,30,.075) !important;
+  border-color:rgba(233,93,48,.48) !important;
+  box-shadow:0 4px 14px rgba(233,93,48,.075) !important;
 }
 
 
@@ -1234,6 +1234,7 @@ h1::after{
 #autoria,
 #estado,
 #n_estudantes,
+#n_grupos,
 #organizacao,
 #conteudos{
   min-height:30px !important;
@@ -1704,7 +1705,7 @@ input[type="text"], textarea{
 .cbl-meta-panel{ padding:9px 10px !important; margin:10px 0 14px 0 !important; }
 .cbl-meta-field{ margin:0 0 7px 0 !important; }
 .cbl-meta-field label,.section label{ margin-bottom:3px !important; line-height:1.18 !important; }
-#autoria,#estado,#n_estudantes,#organizacao.cbl-expandable-field{
+#autoria,#estado,#n_estudantes,#n_grupos,#organizacao.cbl-expandable-field{
   min-height:32px !important;
   height:32px !important;
   padding:6px 8px !important;
@@ -1978,7 +1979,6 @@ body:not(.cbl-exporting) .cbl-expandable-field::-webkit-resizer{
   display: none !important;
 }
 </style>
-
 <style id="cbl-multi-course-fix">
 /* ===== FIX CURSO(S) MULTI-SELEÇÃO — CBL ===== */
 .cbl-course-picker{
@@ -2006,8 +2006,8 @@ body:not(.cbl-exporting) .cbl-expandable-field::-webkit-resizer{
   box-sizing:border-box !important;
 }
 #cursoBusca:focus{
-  outline:3px solid rgba(247,147,30,.14) !important;
-  border-color:rgba(247,147,30,.62) !important;
+  outline:3px solid rgba(233,93,48,.14) !important;
+  border-color:rgba(233,93,48,.62) !important;
 }
 .cbl-course-chips{
   display:flex !important;
@@ -2083,16 +2083,15 @@ body:not(.cbl-exporting) .cbl-expandable-field::-webkit-resizer{
   }
 }
 </style>
-
 <style id="cbl-repository-authorization-compact-final">
 /* Autorização compacta, no tamanho PBL e no estilo cromático CBL */
 body:not(.cbl-exporting) .cbl-repository-authorization{
   margin:16px 0 12px 0 !important;
   padding:12px 14px !important;
-  border:1.2px solid rgba(247,147,30,.42) !important;
+  border:1.2px solid rgba(233,93,48,.42) !important;
   border-radius:13px !important;
-  background:linear-gradient(180deg,#fffaf4 0%,#ffffff 100%) !important;
-  box-shadow:0 2px 8px rgba(247,147,30,.035) !important;
+  background:linear-gradient(180deg,#FFF4EF 0%,#ffffff 100%) !important;
+  box-shadow:0 2px 8px rgba(233,93,48,.035) !important;
 }
 body:not(.cbl-exporting) .cbl-repository-title{
   font-size:13px !important;
@@ -2122,7 +2121,7 @@ body:not(.cbl-exporting) .cbl-repository-option{
   min-height:30px !important;
   padding:6px 9px !important;
   margin:5px 0 !important;
-  border:1px solid rgba(247,147,30,.28) !important;
+  border:1px solid rgba(233,93,48,.28) !important;
   border-radius:9px !important;
   background:#fff !important;
   color:#333 !important;
@@ -2164,16 +2163,15 @@ body:not(.cbl-exporting) .cbl-repository-note{
   .cbl-repository-authorization{display:none !important; visibility:hidden !important;}
 }
 </style>
-
 <style id="cbl-final-focus-uniforme">
 /* ===== CBL — padronização final dos estados de foco/hover =====
    Objetivo: todos os campos usam exatamente o mesmo laranja CBL ao tocar/selecionar. */
 :root{
-  --cbl-focus-orange:#F7931E;
-  --cbl-focus-orange-border:rgba(247,147,30,.62);
-  --cbl-focus-orange-outline:rgba(247,147,30,.14);
-  --cbl-focus-orange-shadow:rgba(247,147,30,.075);
-  --cbl-focus-orange-soft:#fff7ef;
+  --cbl-focus-orange:#E95D30;
+  --cbl-focus-orange-border:rgba(233,93,48,.62);
+  --cbl-focus-orange-outline:rgba(233,93,48,.14);
+  --cbl-focus-orange-shadow:rgba(233,93,48,.075);
+  --cbl-focus-orange-soft:#FFF4EF;
 }
 
 /* Campos de formulário: um único comportamento visual para todos */
@@ -2246,7 +2244,6 @@ input[type="email"]:focus{
 ::selection{ background:rgba(31,31,31,.92) !important; color:#fff !important; }
 ::-moz-selection{ background:rgba(31,31,31,.92) !important; color:#fff !important; }
 </style>
-
 <style id="cbl-ajuste-final-autorizacao-identificacao">
 /* ===== AJUSTE FINAL — autorização discreta + coerência visual ===== */
 body:not(.cbl-exporting) .cbl-repository-authorization{
@@ -2296,8 +2293,6 @@ body:not(.cbl-exporting) .header-card{
   border-radius:16px !important;
 }
 </style>
-
-
 <style id="cbl-refino-final-visual-pdf-data-autorizacao">
 /* Data/hora: os três campos mantêm a mesma altura, largura e alinhamento */
 .cbl-calendar-grid{ align-items:stretch !important; }
@@ -2351,8 +2346,6 @@ label[for="organizacao"], .cbl-meta-field label:has(+ #organizacao){
   font-weight:700 !important;
 }
 </style>
-
-
 <style id="cbl-identificacao-hover-final">
 /* ===== Ajuste final — identificação do guião com hover laranja, sem ficar estática ===== */
 body:not(.cbl-exporting) .cbl-ident-table{
@@ -2383,7 +2376,7 @@ body:not(.cbl-exporting) .cbl-ident-table td:hover,
 body:not(.cbl-exporting) .cbl-ident-table td:focus-within{
   border-color:var(--cbl-focus-orange-border) !important;
   background:var(--cbl-focus-orange-soft) !important;
-  box-shadow:inset 0 0 0 1px rgba(247,147,30,.34) !important;
+  box-shadow:inset 0 0 0 1px rgba(233,93,48,.34) !important;
 }
 body:not(.cbl-exporting) .cbl-ident-table input,
 body:not(.cbl-exporting) .cbl-ident-table textarea,
@@ -2404,8 +2397,6 @@ body:not(.cbl-exporting) .cbl-course-helper{
   color:#666 !important;
 }
 </style>
-
-
 <style id="cbl-identificacao-acabamento-final">
 /* ===== ACABAMENTO FINAL — bloco Curso(s)/UC(s) com o mesmo padrão visual da identificação superior ===== */
 /* Mantém a estrutura da tabela, mas dá acabamento de cartão institucional arredondado e menos grosseiro. */
@@ -2467,7 +2458,7 @@ body:not(.cbl-exporting) .cbl-ident-table td:hover,
 body:not(.cbl-exporting) .cbl-ident-table th:focus-within,
 body:not(.cbl-exporting) .cbl-ident-table td:focus-within{
   background:var(--cbl-focus-orange-soft) !important;
-  box-shadow:inset 0 0 0 1px rgba(247,147,30,.30) !important;
+  box-shadow:inset 0 0 0 1px rgba(233,93,48,.30) !important;
 }
 
 /* Campos internos mais arredondados, para deixar de parecer tabela crua */
@@ -2520,8 +2511,6 @@ body:not(.cbl-exporting) .cbl-course-helper{
   color:#666 !important;
 }
 </style>
-
-
 <style id="cbl-submit-required-final-css">
 /* ===== Validação de submissão — campos obrigatórios essenciais ===== */
 body:not(.cbl-exporting) .cbl-required-error,
@@ -2538,8 +2527,6 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
   box-shadow:0 4px 14px rgba(227,30,36,.08) !important;
 }
 </style>
-
-
 <style id="cbl-mobile-final-polish">
 /* ===== AJUSTE FINAL MOBILE — CBL =====
    Mantém o layout desktop intacto e melhora apenas a leitura em telemóvel. */
@@ -2736,8 +2723,89 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
     box-sizing:border-box !important;
   }
 }
-</style>
 
+
+/* ===== MICROCAMADA CBL — Email(s) + campos numéricos compactos no cabeçalho ===== */
+.cbl-email-numeric-row > td{
+  vertical-align: top !important;
+}
+.cbl-email-cell textarea{
+  min-height: 62px !important;
+  resize: vertical !important;
+}
+.cbl-numeric-pair-cell{
+  padding: 8px !important;
+  background: #fff !important;
+  border-left: 1px solid #e4e4e4 !important;
+}
+.cbl-numeric-pair{
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 0 !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  border: 1px solid #e4e4e4 !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  background: #fff !important;
+  box-shadow: 0 2px 7px rgba(0,0,0,.025) !important;
+}
+.cbl-numeric-mini{
+  min-width: 0 !important;
+  padding: 8px !important;
+  background: #fff !important;
+  box-sizing: border-box !important;
+}
+.cbl-numeric-mini + .cbl-numeric-mini{
+  border-left: 1px solid #e4e4e4 !important;
+}
+.cbl-numeric-mini label{
+  display: block !important;
+  font-size: 12.6px !important;
+  font-weight: 700 !important;
+  color: #333 !important;
+  margin: -8px -8px 8px -8px !important;
+  padding: 8px 10px !important;
+  line-height: 1.25 !important;
+  background: #fafafa !important;
+  border-bottom: 1px solid #e4e4e4 !important;
+}
+.cbl-numeric-mini input{
+  width: 100% !important;
+  min-height: 42px !important;
+  border: 1px solid #d2d2d2 !important;
+  border-radius: 10px !important;
+  padding: 9px 10px !important;
+  font-family: 'Century Gothic','Segoe UI',sans-serif !important;
+  font-size: 13px !important;
+  background: #fff !important;
+  box-sizing: border-box !important;
+}
+.cbl-numeric-mini input:focus{
+  outline: 3px solid rgba(233,93,48,.14) !important;
+  border-color: rgba(233,93,48,.62) !important;
+}
+@media screen and (max-width:760px){
+  .cbl-email-numeric-row,
+  .cbl-email-numeric-row th,
+  .cbl-email-numeric-row td{
+    display:block !important;
+    width:100% !important;
+    box-sizing:border-box !important;
+  }
+  .cbl-numeric-pair-cell{
+    border-left: 1px solid #e4e4e4 !important;
+  }
+  .cbl-numeric-pair{
+    grid-template-columns:1fr !important;
+  }
+  .cbl-numeric-mini + .cbl-numeric-mini{
+    border-left:0 !important;
+    border-top:1px solid #e4e4e4 !important;
+  }
+}
+
+</style>
 </head>
 <body>
 <div class="page">
@@ -2777,7 +2845,7 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 </div>
 <div class="header-card">
 <label>Turma/Edição</label>
-<select id="turmaEdicao">
+<select id="turmaEdicao" placeholder="Ex.: Turma A">
 <option value="">Selecionar</option>
 <option selected="selected">Turma 1</option>
 <option>Turma 2</option>
@@ -2800,33 +2868,46 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 </tr>
 <tr>
 <th class="cbl-uc-label">Unidade(s) Curricular(es):</th>
-<td class="cbl-uc-cell" colspan="3"><textarea class="cbl-expandable-field" id="uc" placeholder="Unidade(s) Curricular(es) envolvida(s)">Design de Interfaces Digitais; Projeto de Comunicação Visual; Experiência do Utilizador</textarea></td>
+<td class="cbl-uc-cell" colspan="3"><textarea class="cbl-expandable-field" id="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado">Design de Interfaces Digitais; Projeto de Comunicação Visual; Experiência do Utilizador</textarea></td>
 </tr>
 <tr>
-<th>Ano Letivo:</th>
-<td><input id="ano" placeholder="Ex: 2026/2027" type="text" value="2026/2027"/></td>
+<th>Ano letivo:</th>
+<td><input id="ano" placeholder="Ex.: 2026/2027" type="text" value="2026/2027"/></td>
 <th>Docente(s):</th>
-<td><textarea class="cbl-expandable-field" id="professor" placeholder="Docente(s)">Prof.ª Ana Luiza Marques; Prof. Miguel Santos</textarea></td>
+<td><textarea class="cbl-expandable-field" id="professor" placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva">Prof.ª Ana Luiza Marques; Prof. Miguel Santos</textarea></td>
 </tr>
-<tr>
+<tr class="cbl-email-numeric-row">
 <th>Email(s):</th>
-<td colspan="3"><textarea class="cbl-expandable-field" id="emails" placeholder="email@universidade.pt; outro.email@universidade.pt">ana.luiza@universidade.pt; miguel.santos@universidade.pt</textarea></td>
+<td class="cbl-email-cell"><textarea class="cbl-expandable-field" id="emails" placeholder="Ex.: docente@universidadeeuropeia.pt">ana.luiza@universidade.pt; miguel.santos@universidade.pt</textarea></td>
+<td class="cbl-numeric-pair-cell" colspan="2">
+<div aria-label="Dados numéricos da turma" class="cbl-numeric-pair">
+<div class="cbl-numeric-mini">
+<label for="n_estudantes">Nº de estudantes</label>
+<input autocomplete="off" id="n_estudantes" inputmode="numeric" min="0" name="n_estudantes" pattern="[0-9]*" placeholder="Ex.: 32" step="1" type="number" value="32"/>
+</div>
+<div class="cbl-numeric-mini">
+<label for="n_grupos">Nº de grupos</label>
+<input autocomplete="off" id="n_grupos" inputmode="numeric" min="0" name="n_grupos" pattern="[0-9]*" placeholder="Ex.: 6" step="1" type="number" value="6"/>
+</div>
+</div>
+</td>
 </tr>
 </table>
 <div class="cbl-meta-panel">
-<div class="cbl-meta-title">Identificação do guião</div>
+<div class="cbl-meta-title">Autoria, estado e contexto</div>
 <div class="cbl-meta-grid">
 <div class="cbl-meta-field">
 <label>Autoria:</label>
-<input id="autoria" placeholder="Autor/a ou equipa autora do guião" type="text" value="Ana Luiza Marques"/>
+<input id="autoria" placeholder="Ex.: Ana Luiza Marques" type="text" value="Ana Luiza Marques"/>
 </div>
 <div class="cbl-meta-field">
-<label>Estado do Guião:</label>
-<input id="estado" placeholder="Novo / Atualizado / Reutilizado" type="text" value="Novo — versão de teste preenchida"/>
-</div>
-<div class="cbl-meta-field">
-<label>Número de Estudantes:</label>
-<input id="n_estudantes" placeholder="Ex: 30" type="text" value="32" inputmode="numeric" pattern="[0-9]*" autocomplete="off">
+<label>Estado do guião:</label>
+<select id="estado">
+<option value="">Selecionar</option>
+<option selected="">Novo</option>
+<option>Atualizado</option>
+<option>Reutilizado</option>
+</select>
 </div>
 <div class="cbl-meta-field cbl-meta-org">
 <label>Organização(ões), parceiro(s) ou contexto do desafio:</label>
@@ -2873,38 +2954,36 @@ Os estudantes deverão investigar necessidades reais, formular oportunidades de 
 <div class="cbl-calendar-grid">
 <div class="cbl-calendar-field">
 <label for="calendarizacao">Data:</label>
-<input id="calendarizacao" type="date" value="2026-10-15">
-</input></div>
+<input id="calendarizacao" type="date" value="2026-10-15"/>
+</div>
 <div class="cbl-calendar-field">
 <label for="hora_inicio">Hora de início:</label>
-<input id="hora_inicio" type="time" value="14:00">
-</input></div>
+<input id="hora_inicio" type="time" value="14:00"/>
+</div>
 <div class="cbl-calendar-field">
 <label for="hora_fim">Hora de fim:</label>
-<input id="hora_fim" type="time" value="17:00">
-</input></div>
+<input id="hora_fim" type="time" value="17:00"/>
+</div>
 </div>
 </div>
 <div class="section no-print cbl-repository-authorization" id="partilhaRepositorio">
-  <h3 class="cbl-repository-title">Autorização para integração no repositório</h3>
-  <p class="cbl-repository-text">
+<h3 class="cbl-repository-title">Autorização para integração no repositório</h3>
+<p class="cbl-repository-text">
     Caso este guião seja validado, autoriza a sua integração no
     <strong>Repositório Institucional de Práticas Pedagógicas</strong>, para consulta interna e possível
     reutilização/adaptação por outros docentes?
   </p>
-
-  <div class="cbl-repository-options" role="radiogroup" aria-label="Autorização para integração no repositório">
-    <label class="cbl-repository-option" for="autorizaRepositorioSim">
-      <input type="radio" id="autorizaRepositorioSim" name="autorizaRepositorio" value="Sim" checked />
-      <span>Sim, autorizo a integração deste guião no repositório após validação.</span>
-    </label>
-    <label class="cbl-repository-option" for="autorizaRepositorioNao">
-      <input type="radio" id="autorizaRepositorioNao" name="autorizaRepositorio" value="Não" />
-      <span>Não autorizo a integração deste guião no repositório.</span>
-    </label>
-  </div>
-
-  <p class="cbl-repository-note">
+<div aria-label="Autorização para integração no repositório" class="cbl-repository-options" role="radiogroup">
+<label class="cbl-repository-option" for="autorizaRepositorioSim">
+<input checked="" id="autorizaRepositorioSim" name="autorizaRepositorio" type="radio" value="Sim"/>
+<span>Sim, autorizo a integração deste guião no repositório após validação.</span>
+</label>
+<label class="cbl-repository-option" for="autorizaRepositorioNao">
+<input id="autorizaRepositorioNao" name="autorizaRepositorio" type="radio" value="Não"/>
+<span>Não autorizo a integração deste guião no repositório.</span>
+</label>
+</div>
+<p class="cbl-repository-note">
     A integração no repositório não é automática e depende sempre de validação prévia.
   </p>
 </div>
@@ -3086,7 +3165,6 @@ Os estudantes deverão investigar necessidades reais, formular oportunidades de 
     var cursoHidden = document.getElementById('curso');
     if(cursoHidden) data.curso = String(cursoHidden.value || '').trim();
 
-    if(!data.autorizaRepositorio) data.autorizaRepositorio = 'Não';
     return data;
   }
   function applyValues(data){
@@ -3129,7 +3207,7 @@ Os estudantes deverão investigar necessidades reais, formular oportunidades de 
     if(!confirm('Limpar todos os campos deste guião?')) return;
     allFields().forEach(function(el){
       if(el.type === 'checkbox' || el.type === 'radio') {
-        el.checked = (el.id === 'autorizaRepositorioNao');
+        el.checked = false;
       } else {
         el.value = '';
       }
@@ -3150,14 +3228,48 @@ Os estudantes deverão investigar necessidades reais, formular oportunidades de 
     return v === '' || /^[0-9]+(\.[0-9]+)?$/.test(v);
   }
   window.validarCamposNumericosGuiao = function(){
-    var el = $('n_estudantes') || document.querySelector('[name="n_estudantes"]');
-    if(el && !validNumber(el.value)){
-      el.focus();
-      toast('Indique apenas o número em “Número de Estudantes”. Exemplo: 30', 'error');
-      return false;
+    var checks = [
+      {id:'n_estudantes', label:'Número de estudantes', exemplo:'30'},
+      {id:'n_grupos', label:'Número de grupos', exemplo:'6'}
+    ];
+    for(var i=0; i<checks.length; i++){
+      var cfg = checks[i];
+      var el = $(cfg.id) || document.querySelector('[name="' + cfg.id + '"]');
+      if(el && !validNumber(el.value)){
+        el.focus();
+        toast('Indique apenas o número em “' + cfg.label + '”. Exemplo: ' + cfg.exemplo, 'error');
+        return false;
+      }
     }
     return true;
   };
+
+  function reuseHeaderFromDraft(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw){ toast('Não existe rascunho guardado neste navegador.'); return; }
+      var saved = JSON.parse(raw);
+      var data = saved.data || {};
+      var headerKeys = [
+        'unidadeOrganica','modalidade','semestre','turmaEdicao',
+        'curso','uc','ano','professor','emails','n_estudantes','n_grupos','autoria','estado','organizacao'
+      ];
+      var parcial = {};
+      headerKeys.forEach(function(key){
+        if(Object.prototype.hasOwnProperty.call(data, key)) parcial[key] = data[key];
+      });
+      applyValues(parcial);
+      var cursoHidden = document.getElementById('curso');
+      if(cursoHidden){
+        cursoHidden.dispatchEvent(new Event('input', {bubbles:true}));
+        cursoHidden.dispatchEvent(new Event('change', {bubbles:true}));
+      }
+      toast('Cabeçalho reutilizado a partir do rascunho.', 'ok');
+    }catch(e){
+      console.error(e);
+      toast('Não foi possível reutilizar o cabeçalho.', 'error');
+    }
+  }
 
   function initMenu(){
     var btn = $('btnMaisOpcoes');
@@ -3166,8 +3278,9 @@ Os estudantes deverão investigar necessidades reais, formular oportunidades de 
     menu.innerHTML = '' +
       '<button type="button" id="draftBtn">💾 Guardar rascunho</button>' +
       '<button type="button" id="restoreBtn">📂 Restaurar rascunho</button>' +
-      '<button type="button" id="clearBtn">🧹 Limpar formulário</button>' +
-      '<button type="button" id="deleteBtn">🗑️ Apagar rascunho</button>';
+      '<button type="button" id="deleteBtn">🗑️ Apagar rascunho</button>' +
+      '<button type="button" id="reuseHeaderBtn">↩️ Reutilizar cabeçalho</button>' +
+      '<button type="button" id="clearBtn">🧹 Limpar formulário</button>';
     if(btn.dataset.cblMenuBound !== '1'){
       btn.dataset.cblMenuBound = '1';
       btn.addEventListener('click', function(ev){
@@ -3180,8 +3293,9 @@ Os estudantes deverão investigar necessidades reais, formular oportunidades de 
     }
     $('draftBtn').addEventListener('click', function(){ saveDraft(false); menu.classList.remove('open'); });
     $('restoreBtn').addEventListener('click', function(){ restoreDraft(); menu.classList.remove('open'); });
-    $('clearBtn').addEventListener('click', function(){ clearForm(); menu.classList.remove('open'); });
     $('deleteBtn').addEventListener('click', function(){ deleteDraft(); menu.classList.remove('open'); });
+    $('reuseHeaderBtn').addEventListener('click', function(){ reuseHeaderFromDraft(); menu.classList.remove('open'); });
+    $('clearBtn').addEventListener('click', function(){ clearForm(); menu.classList.remove('open'); });
   }
 
   function loadScript(src){
@@ -3277,17 +3391,23 @@ Os estudantes deverão investigar necessidades reais, formular oportunidades de 
   window.addEventListener('afterprint', function(){ window.setTimeout(function(){ removePrintHost(); printLock = false; }, 250); });
 
   async function renderPdfBlob(){
-    /* CBL — PDF espelho institucional.
-       Intervenção limitada à impressão/PDF: preserva autosave, expansão, botões,
-       validações e payload do Power Automate. */
+    /* CBL — PDF espelho institucional aprovado.
+       Apenas este bloco constrói o PDF; não altera formulário, payload, validações ou automações. */
     await loadScript(JSPDF_CDN);
     var jsPDF = window.jspdf && window.jspdf.jsPDF;
     if(!jsPDF) throw new Error('jsPDF não carregou.');
 
     var pdf = new jsPDF({unit:'mm', format:'a4', orientation:'portrait'});
     var W = 210, H = 297, m = 13, usable = W - (m * 2);
-    var y = 12;
-    var red = [227,30,36], dark = [28,28,28], grey = [88,88,88], softGrey = [246,246,246], border = [92,92,92], lightBorder = [188,188,188];
+    var y = 14;
+    var red = [227,30,36];
+    var orange = [233,93,48];
+    var dark = [30,30,30];
+    var grey = [88,88,88];
+    var line = [32,32,32];
+    var innerLine = [145,145,145];
+    var peach = [255,250,246];
+    var white = [255,255,255];
 
     function setText(c){ pdf.setTextColor(c[0], c[1], c[2]); }
     function setDraw(c){ pdf.setDrawColor(c[0], c[1], c[2]); }
@@ -3306,7 +3426,6 @@ Os estudantes deverão investigar necessidades reais, formular oportunidades de 
 
     function safeAutoria(){
       var autor = val('autoria');
-      // Segurança herdada do RBL: não aceitar estados como autoria por contaminação de rascunhos antigos.
       if(/^(Novo|Atualizado|Reutilizado)$/i.test(String(autor || '').trim())) return '';
       return autor;
     }
@@ -3345,71 +3464,29 @@ Os estudantes deverão investigar necessidades reais, formular oportunidades de 
       return /^https?:\/\//i.test(url) ? url : 'https://' + url;
     }
 
-    function drawLinkedLine(line, x, yy, fontSize){
-      line = String(line || '');
+    function drawLinkedLine(text, x, yy, fontSize){
+      var lineText = String(text || '');
       var re = /\b((?:https?:\/\/|www\.)[^\s]+)/gi;
-      var last = 0, cursor = x, mUrl;
-
-      pdf.setFontSize(fontSize || 8.05);
-
-      while((mUrl = re.exec(line)) !== null){
-        var before = line.slice(last, mUrl.index);
-        if(before){
-          pdf.text(before, cursor, yy);
-          cursor += pdf.getTextWidth(before);
-        }
-
-        var shown = mUrl[0];
-        var cleanUrl = normaliseUrlForPdf(shown);
+      var last = 0, cursor = x, match;
+      pdf.setFontSize(fontSize || 8.2);
+      while((match = re.exec(lineText)) !== null){
+        var before = lineText.slice(last, match.index);
+        if(before){ pdf.text(before, cursor, yy); cursor += pdf.getTextWidth(before); }
+        var shown = match[0];
+        var url = normaliseUrlForPdf(shown);
         var w = pdf.getTextWidth(shown);
-
         pdf.text(shown, cursor, yy);
-        try{
-          pdf.link(cursor, yy - ((fontSize || 8.05) * 0.34), Math.max(w, 2), (fontSize || 8.05) * 0.45, {url: cleanUrl});
-        }catch(e){}
-
+        try{ pdf.link(cursor, yy - ((fontSize || 8.2) * 0.34), Math.max(w, 2), (fontSize || 8.2) * 0.45, {url:url}); }catch(e){}
         cursor += w;
-        last = mUrl.index + shown.length;
+        last = match.index + shown.length;
       }
-
-      var rest = line.slice(last);
+      var rest = lineText.slice(last);
       if(rest) pdf.text(rest, cursor, yy);
     }
 
-    function drawLinkedLines(lines, x, yy, lineH, fontSize){
+    function drawLines(lines, x, yy, lh, size){
       lines = Array.isArray(lines) ? lines : [String(lines || '')];
-      lines.forEach(function(line, idx){
-        drawLinkedLine(line, x, yy + (idx * lineH), fontSize || 8.05);
-      });
-    }
-
-
-    function footer(){
-      var n = pdf.internal.getNumberOfPages();
-      pdf.setPage(n);
-      pdf.setFont('helvetica','normal');
-      pdf.setFontSize(7);
-      setText([125,125,125]);
-      pdf.text('Guião Challenge-Based Learning · Universidade Europeia | IADE | IPAM', m, H - 7);
-      pdf.text('Página ' + n, W - m, H - 7, {align:'right'});
-      setText(dark);
-    }
-
-    function newPage(){
-      footer();
-      pdf.addPage();
-      y = 12;
-    }
-
-    function ensure(h){
-      if(y + h > H - 16) newPage();
-    }
-
-    function redLine(after){
-      setDraw(red);
-      pdf.setLineWidth(0.45);
-      pdf.line(m, y, W - m, y);
-      y += after || 5;
+      lines.forEach(function(lineText, idx){ drawLinkedLine(lineText, x, yy + idx * lh, size || 8.2); });
     }
 
     function detectFormat(src){
@@ -3418,204 +3495,142 @@ Os estudantes deverão investigar necessidades reais, formular oportunidades de 
       return 'PNG';
     }
 
+    function footer(){
+      var n = pdf.internal.getNumberOfPages();
+      pdf.setPage(n);
+      pdf.setFont('helvetica','normal');
+      pdf.setFontSize(7.4);
+      setText([120,120,120]);
+      pdf.text('Guião Challenge-Based Learning · Universidade Europeia | IADE | IPAM', m, H - 7.5);
+      pdf.text('Página ' + n, W - m, H - 7.5, {align:'right'});
+      setText(dark);
+    }
+
+    function newPage(){ footer(); pdf.addPage(); y = 14; }
+    function ensure(h){ if(y + h > H - 17) newPage(); }
+    function remaining(){ return H - 17 - y; }
+
     function header(){
+      var hx = 15, hy = 14, hw = 180, hh = 38;
+      setDraw(line); pdf.setLineWidth(0.35); setFill(white);
+      pdf.roundedRect(hx, hy, hw, hh, 2.8, 2.8, 'S');
+
       var img = document.querySelector('.header img, .logo img, img');
       if(img && img.src){
         try{
-          var logoW = 32;
-          var logoH = 7.7;
-          pdf.addImage(img.src, detectFormat(img.src), W/2 - logoW/2, y, logoW, logoH);
+          var logoW = 21, logoH = 5.2;
+          pdf.addImage(img.src, detectFormat(img.src), W/2 - logoW/2, hy + 7.2, logoW, logoH);
         }catch(e){}
       }
 
-      y += 14;
-      pdf.setFont('helvetica','bold');
-      pdf.setFontSize(14.2);
-      setText(dark);
-      pdf.text('Guião Challenge-Based Learning', W/2, y, {align:'center'});
-      y += 4.2;
-      redLine(4.8);
+      pdf.setFont('helvetica','bold'); pdf.setFontSize(14.2); setText(dark);
+      pdf.text('Guião Challenge-Based Learning', W/2, hy + 22.2, {align:'center'});
 
-      var autor = safeAutoria();
-      if(autor){
-        pdf.setFont('helvetica','normal');
-        pdf.setFontSize(8.2);
-        setText(grey);
-        var lines = split('Autoria do guião: ' + autor, usable, 8.2);
-        pdf.text(lines, W/2, y, {align:'center'});
-        y += Math.max(5.1, lines.length * 3.55 + 2);
+      setDraw(orange); pdf.setLineWidth(0.38);
+      pdf.line(hx + 12, hy + 27.1, hx + hw - 12, hy + 27.1);
+
+      var autoria = safeAutoria();
+      if(autoria){
+        pdf.setFont('helvetica','normal'); pdf.setFontSize(8.2); setText(grey);
+        pdf.text('Autoria: ' + autoria, hx + hw - 6, hy + 35.0, {align:'right'});
       }
-      y += 1;
+      y = hy + hh + 11;
     }
 
-    function sectionTitle(title, minAfter){
-      ensure(11 + (minAfter || 0));
-      y += 2;
-      pdf.setFont('helvetica','bold');
-      pdf.setFontSize(10.2);
-      setText(dark);
+    function sectionTitle(title, keep){
+      /* Regra de espaçamento e quebra: nunca deixar título de secção órfão no fim da página.
+         O parâmetro keep reserva espaço para o primeiro bloco real da secção. */
+      var topGap = (y > 18) ? 6.0 : 0;
+      var need = topGap + 10.5 + (keep || 0);
+      if(y + need > H - 17){
+        newPage();
+        topGap = 0;
+      }
+      y += topGap;
+      pdf.setFont('helvetica','bold'); pdf.setFontSize(10.8); setText(dark);
       pdf.text(title, m, y);
-      y += 3.6;
-      redLine(4.2);
+      y += 5.0;
+      setDraw(line); pdf.setLineWidth(0.42);
+      pdf.line(m, y, W - m, y);
+      y += 5.4;
     }
 
-    function compactCell(x, yy, w, h, label, text){
-      // Mantida por compatibilidade com versões anteriores do PDF.
-      setDraw(border);
-      pdf.setLineWidth(0.18);
-      setFill([255,255,255]);
-      pdf.roundedRect(x, yy, w, h, 1.4, 1.4, 'S');
-      pdf.setFont('helvetica','bold');
-      pdf.setFontSize(6.9);
-      setText(dark);
-      pdf.text(label, x + 2.2, yy + 4.1);
-      pdf.setFont('helvetica','normal');
-      pdf.setFontSize(7.25);
-      setText(text ? grey : [160,160,160]);
-      var lines = split(text || ' ', w - 4.4, 7.25);
-      drawLinkedLines(lines.slice(0,3), x + 2.2, yy + 7.8, 3.2, 7.25);
-    }
-
-    function metaRowsConfig(){
-      return [
-        [
-          ['Unidade Orgânica', val('unidadeOrganica')],
-          ['Modalidade', val('modalidade')],
-          ['Semestre', val('semestre')],
-          ['Turma/Edição', val('turmaEdicao')]
-        ],
-        [
-          ['Curso(s)', val('curso')],
-          ['UC(s)', val('uc')]
-        ],
-        [
-          ['Ano Letivo', val('ano')],
-          ['N.º de estudantes', val('n_estudantes')],
-          ['Estado do guião', val('estado')]
-        ],
-        [
-          ['Docente(s)', val('professor')],
-          ['Email(s)', val('emails')]
-        ]
-      ];
-    }
-
-    function drawMetaItem(x, yy, w, label, text, maxLines){
+    function drawMetaText(x, yy, w, label, text, maxLines, centered){
       var clean = String(text || '').trim();
-      var lines = split(clean || '—', w, 8.05).slice(0, maxLines || 2);
-      pdf.setFont('helvetica','bold');
-      pdf.setFontSize(7.75);
-      setText(dark);
-      pdf.text(label + ':', x, yy + 4.0);
-      pdf.setFont('helvetica','normal');
-      pdf.setFontSize(8.05);
-      setText(clean ? [36,36,36] : [155,155,155]);
-      drawLinkedLines(lines, x, yy + 8.2, 3.55, 8.05);
+      var lines = split(clean || '—', w - (centered ? 8 : 0), 8.15).slice(0, maxLines || 2);
+      pdf.setFont('helvetica','bold'); pdf.setFontSize(7.9); setText(dark);
+      if(centered){ pdf.text(label + ':', x + w/2, yy, {align:'center'}); }
+      else { pdf.text(label + ':', x, yy); }
+      pdf.setFont('helvetica','normal'); pdf.setFontSize(8.15); setText(clean ? [38,38,38] : [155,155,155]);
+      if(centered){
+        lines.forEach(function(lineText, idx){ pdf.text(String(lineText || ''), x + w/2, yy + 4.2 + idx * 3.8, {align:'center'}); });
+      }else{
+        drawLines(lines, x, yy + 4.2, 3.8, 8.15);
+      }
     }
 
     function identification(){
-      sectionTitle('Identificação do guião', 30);
-
-      var rows = metaRowsConfig();
-      var padX = 5.2;
-      var padY = 4.6;
-      var rowGap = 3.2;
-      var rowInfo = [];
-
-      rows.forEach(function(row){
-        var available = usable - (padX * 2);
-        var gap = row.length > 1 ? 5.6 : 0;
-        var colW = (available - gap * (row.length - 1)) / row.length;
-        var maxLineCount = 1;
-        row.forEach(function(item){
-          var maxLines = row.length === 1 ? 3 : (row.length >= 3 ? 2 : 2);
-          var lines = split(String(item[1] || '—'), colW, 8.05).slice(0, maxLines);
-          maxLineCount = Math.max(maxLineCount, lines.length || 1);
-        });
-        var h = 9.1 + (maxLineCount * 3.55) + 1.8;
-        rowInfo.push({h:h, colW:colW, gap:gap});
-      });
-
-      var totalH = padY * 2 + rowInfo.reduce(function(sum, r){ return sum + r.h; }, 0) + rowGap * (rows.length - 1);
-      ensure(totalH + 10);
-
+      sectionTitle('Identificação do guião', 72);
       var top = y;
-      setDraw([82,82,82]);
-      pdf.setLineWidth(0.28);
-      setFill([255,255,255]);
-      pdf.roundedRect(m, top, usable, totalH, 2.8, 2.8, 'S');
+      var padX = 5.4;
+      var colGap = 0;
+      var colW = usable / 2;
+      var rowH = [22, 22, 26, 21];
+      var h = rowH[0] + rowH[1] + rowH[2] + rowH[3];
 
-      var yy = top + padY;
-      rows.forEach(function(row, rIdx){
-        var info = rowInfo[rIdx];
-        var x = m + padX;
-        row.forEach(function(item, cIdx){
-          var maxLines = row.length === 1 ? 3 : (row.length >= 3 ? 2 : 2);
-          drawMetaItem(x, yy, info.colW, item[0], item[1], maxLines);
-          if(cIdx < row.length - 1){
-            setDraw([115,115,115]);
-            pdf.setLineWidth(0.18);
-            pdf.line(x + info.colW + info.gap/2, yy + 1.0, x + info.colW + info.gap/2, yy + info.h - 1.2);
-          }
-          x += info.colW + info.gap;
-        });
-        yy += info.h;
-        if(rIdx < rows.length - 1){
-          setDraw([115,115,115]);
-          pdf.setLineWidth(0.18);
-          pdf.line(m + padX, yy + 0.6, W - m - padX, yy + 0.6);
-          yy += rowGap;
-        }
-      });
+      // Quadro de identificação com bordas IPAM, coerente com os restantes blocos do PDF.
+      setDraw(orange); pdf.setLineWidth(0.32); setFill(white);
+      pdf.roundedRect(m, top, usable, h, 2.8, 2.8, 'S');
 
-      y = top + totalH + 6.4;
-
-      var org = val('organizacao');
-      if(org){
-        sectionTitle('Organização(ões), parceiro(s) ou contexto do desafio', 16);
-        valueBox(org, 13.5);
+      var acc = top;
+      for(var i=0;i<rowH.length-1;i++){
+        acc += rowH[i];
+        setDraw(orange); pdf.setLineWidth(0.16);
+        pdf.line(m + 5.2, acc, W - m - 5.2, acc);
       }
+      setDraw(orange); pdf.setLineWidth(0.16);
+      pdf.line(m + colW, top + 2.5, m + colW, top + rowH[0] + rowH[1] + rowH[2] - 2.5);
+
+      var yy = top + 8.1;
+      // Prévia pedida: identificação com rótulos e valores centralizados em todas as células.
+      drawMetaText(m + padX, yy, colW - (padX * 2), 'Unidade Orgânica', val('unidadeOrganica'), 2, true);
+      drawMetaText(m + colW + padX, yy, colW - (padX * 2), 'Curso(s)', val('curso'), 2, true);
+      yy += rowH[0];
+      drawMetaText(m + padX, yy, colW - (padX * 2), 'Docente(s)', val('professor'), 2, true);
+      drawMetaText(m + colW + padX, yy, colW - (padX * 2), 'Email(s)', val('emails'), 2, true);
+      yy += rowH[1];
+      drawMetaText(m + padX, yy, colW - (padX * 2), 'Unidade(s) Curricular(es)', val('uc'), 3, true);
+      drawMetaText(m + colW + padX, yy, colW - (padX * 2), 'Número de estudantes', val('n_estudantes'), 2, true);
+      yy = top + rowH[0] + rowH[1] + rowH[2] + 7.1;
+      drawMetaText(m, yy, usable, 'Ano letivo', val('ano'), 2, true);
+      y = top + h + 7.3;
     }
 
     function labelAbove(label){
-      ensure(7);
-      pdf.setFont('helvetica','bold');
-      pdf.setFontSize(8.1);
-      setText(dark);
+      ensure(8);
+      pdf.setFont('helvetica','bold'); pdf.setFontSize(8.2); setText(dark);
       pdf.text(label, m, y);
-      y += 4.2;
+      y += 4.6;
     }
 
     function valueBox(text, minH){
       var clean = String(text || '').trim();
-      var lines = split(clean || ' ', usable - 6, 8.05);
-      var baseH = Math.max(minH || 13, 6.7 + Math.max(1, lines.length) * 3.85);
+      var lines = split(clean || ' ', usable - 6, 8.25);
       var i = 0;
-      if(!clean){
-        ensure(baseH + 3);
-        setDraw(lightBorder);
-        pdf.setLineWidth(0.22);
-        setFill([255,255,255]);
-        pdf.roundedRect(m, y, usable, baseH, 1.8, 1.8, 'S');
-        y += baseH + 4;
-        return;
-      }
+      if(!clean){ lines = [' ']; }
       while(i < lines.length){
         var remaining = H - 17 - y;
-        var maxLines = Math.max(3, Math.floor((remaining - 7) / 3.85));
+        var maxLines = Math.max(3, Math.floor((remaining - 7.5) / 4.05));
         var chunk = lines.slice(i, i + maxLines);
-        var h = Math.max(minH || 13, 6.7 + chunk.length * 3.85);
-        ensure(h + 3);
-        setDraw(border);
-        pdf.setLineWidth(0.22);
-        setFill([255,255,255]);
-        pdf.roundedRect(m, y, usable, h, 1.8, 1.8, 'S');
-        pdf.setFont('helvetica','normal');
-        pdf.setFontSize(8.05);
-        setText([45,45,45]);
-        drawLinkedLines(chunk, m + 3, y + 5.8, 3.85, 8.05);
-        y += h + 4;
+        var h = Math.max(minH || 13, 7.2 + chunk.length * 4.05);
+        ensure(h + 4.5);
+        setDraw(orange); pdf.setLineWidth(0.32); setFill(peach);
+        pdf.roundedRect(m, y, usable, h, 1.7, 1.7, 'FD');
+        pdf.setFont('helvetica','normal'); pdf.setFontSize(8.25); setText([43,43,43]);
+        drawLines(chunk, m + 3, y + 6.0, 4.05, 8.25);
+        y += h + 5.6;
         i += chunk.length;
+        if(!clean) break;
       }
     }
 
@@ -3632,45 +3647,41 @@ Os estudantes deverão investigar necessidades reais, formular oportunidades de 
       if(!items.length){ valueBox('', minH || 14); return; }
       var rows = [];
       items.forEach(function(item){
-        var wrapped = split(item, usable - 12, 8.05);
+        var wrapped = split(item, usable - 14, 8.25);
         if(wrapped.length){
           rows.push({bullet:true, text:wrapped[0]});
-          wrapped.slice(1).forEach(function(line){ rows.push({bullet:false, text:line}); });
+          wrapped.slice(1).forEach(function(lineText){ rows.push({bullet:false, text:lineText}); });
         }
       });
       var i = 0;
       while(i < rows.length){
         var remaining = H - 17 - y;
-        var maxLines = Math.max(3, Math.floor((remaining - 7) / 4));
+        var maxLines = Math.max(4, Math.floor((remaining - 7.5) / 4.1));
         var chunk = rows.slice(i, i + maxLines);
-        var h = Math.max(minH || 14, 6.8 + chunk.length * 4);
-        ensure(h + 3);
-        setDraw(border);
-        pdf.setLineWidth(0.22);
-        setFill([255,255,255]);
-        pdf.roundedRect(m, y, usable, h, 1.8, 1.8, 'S');
-        pdf.setFont('helvetica','normal');
-        pdf.setFontSize(8.05);
-        setText([45,45,45]);
-        var yy = y + 5.9;
+        var h = Math.max(minH || 14, 7.4 + chunk.length * 4.1);
+        ensure(h + 4.5);
+        setDraw(orange); pdf.setLineWidth(0.32); setFill(peach);
+        pdf.roundedRect(m, y, usable, h, 1.7, 1.7, 'FD');
+        pdf.setFont('helvetica','normal'); pdf.setFontSize(8.25); setText([43,43,43]);
+        var yy = y + 6.1;
         chunk.forEach(function(row){
-          if(row.bullet){
-            pdf.text('•', m + 3, yy);
-            drawLinkedLine(row.text, m + 7.5, yy, 8.05);
-          }else{
-            drawLinkedLine(row.text, m + 7.5, yy, 8.05);
-          }
-          yy += 4;
+          if(row.bullet) pdf.text('•', m + 3, yy);
+          drawLinkedLine(row.text, m + 7.5, yy, 8.25);
+          yy += 4.1;
         });
-        y += h + 4;
+        y += h + 5.6;
         i += chunk.length;
       }
     }
 
     function labeledBlock(label, text, minH, bullets){
+      /* Regra de quebra: mantém o rótulo colado ao respetivo quadro e aproveita o espaço útil.
+         Remove o limiar fixo antigo que empurrava blocos pequenos para a página seguinte e criava buracos. */
+      var first = Math.max(minH || 14, bullets ? 20 : 15);
+      var neededForFirstBlock = 4.8 + first + 5.8;
+      if(remaining() < neededForFirstBlock) newPage();
       labelAbove(label);
-      if(bullets) bulletBox(text, minH);
-      else valueBox(text, minH);
+      if(bullets) bulletBox(text, minH); else valueBox(text, minH);
     }
 
     function assessmentPanel(){
@@ -3678,86 +3689,108 @@ Os estudantes deverão investigar necessidades reais, formular oportunidades de 
       var doc = percentVal('pond_doc');
       var apres = percentVal('pond_apres');
       var labelW = 119;
-      var valW = usable - labelW;
-      var rowH = 10.6;
-      var rows = [
-        ['Documento escrito', doc],
-        ['Apresentação final', apres]
-      ];
+      var rowH = 10.7;
+      ensure(rowH * 2 + 26);
+      var top = y;
+      setDraw(orange); pdf.setLineWidth(0.32); setFill(peach);
+      pdf.roundedRect(m, top, usable, rowH * 2, 1.8, 1.8, 'FD');
+      setDraw(orange); pdf.setLineWidth(0.22);
+      pdf.line(m, top + rowH, W - m, top + rowH);
+      pdf.line(m + labelW, top, m + labelW, top + rowH * 2);
+      pdf.setFont('helvetica','bold'); pdf.setFontSize(7.8); setText(dark);
+      pdf.text('Documento escrito', m + 3, top + 6.8);
+      pdf.text('Apresentação final', m + 3, top + rowH + 6.8);
+      pdf.setFont('helvetica','normal'); pdf.setFontSize(8.2); setText([45,45,45]);
+      pdf.text(doc || ' ', m + labelW + (usable - labelW)/2, top + 6.8, {align:'center'});
+      pdf.text(apres || ' ', m + labelW + (usable - labelW)/2, top + rowH + 6.8, {align:'center'});
+      y = top + rowH * 2 + 5.8;
 
-      var tableH = rowH * rows.length;
-      ensure(tableH + 19);
-      var tableTop = y;
-
-      setDraw(border);
-      pdf.setLineWidth(0.24);
-      setFill([255,255,255]);
-      pdf.roundedRect(m, tableTop, usable, tableH, 2.2, 2.2, 'S');
-
-      rows.forEach(function(r, idx){
-        var yy = tableTop + idx * rowH;
-        if(idx > 0){
-          setDraw(border);
-          pdf.setLineWidth(0.18);
-          pdf.line(m, yy, W - m, yy);
-        }
-        setDraw(border);
-        pdf.setLineWidth(0.18);
-        pdf.line(m + labelW, yy, m + labelW, yy + rowH);
-
-        pdf.setFont('helvetica','bold');
-        pdf.setFontSize(7.5);
-        setText(dark);
-        pdf.text(r[0], m + 2.8, yy + 6.5);
-        pdf.setFont('helvetica','normal');
-        pdf.setFontSize(8);
-        setText(r[1] ? grey : [160,160,160]);
-        pdf.text(r[1] || ' ', m + labelW + 2.8, yy + 6.5);
-      });
-      y += tableH + 4.2;
-
-      var summaryH = 12.5;
-      ensure(summaryH + 4);
-      setDraw(red);
-      pdf.setLineWidth(0.35);
-      setFill([255,255,255]);
-      pdf.roundedRect(m, y, usable, summaryH, 2.2, 2.2, 'S');
-      pdf.setFont('helvetica','bold');
-      pdf.setFontSize(8.2);
-      setText(dark);
-      pdf.text('Peso total do CBL na avaliação contínua:', m + 3, y + 7.7);
-      pdf.setFontSize(10);
-      setText(total ? red : [160,160,160]);
-      pdf.text(total || ' ', W - m - 3, y + 7.7, {align:'right'});
-      y += summaryH + 4;
+      var h = 12.9;
+      ensure(h + 4.8);
+      setDraw(orange); pdf.setLineWidth(0.32); setFill(peach);
+      pdf.roundedRect(m, y, usable, h, 1.8, 1.8, 'FD');
+      pdf.setFont('helvetica','bold'); pdf.setFontSize(8.2); setText(dark);
+      pdf.text('Peso total do CBL na avaliação contínua:', m + 3, y + 8.1);
+      pdf.setFontSize(10.2);
+      pdf.text(total || ' ', W - m - 30, y + 8.1, {align:'center'});
+      y += h + 6.0;
     }
 
     header();
     identification();
 
-    sectionTitle('Conteúdos programáticos da FUC', 18);
-    valueBox(val('conteudos'), 18);
+    sectionTitle('Contexto do desafio', 42);
+    var org = val('organizacao');
+    if(org) labeledBlock('Organização(ões), parceiro(s) ou contexto do desafio', org, 13.3, false);
+    labeledBlock('Conteúdos programáticos da FUC', val('conteudos'), 17.2, false);
 
-    sectionTitle('Desafio', 35);
-    labeledBlock('Descrição do desafio', val('desafio'), 23, false);
+    sectionTitle('Desafio', 54);
+    labeledBlock('Descrição do desafio', val('desafio'), 24, false);
     labeledBlock('Objetivos de aprendizagem alinhados com a FUC', val('objetivos'), 18, true);
 
-    sectionTitle('Entregas', 30);
-    labeledBlock('Documento escrito', val('doc_escrito'), 14, false);
-    labeledBlock('Apresentação final', val('apresentacao'), 14, false);
+    sectionTitle('Entregas', 38);
+    labeledBlock('Documento escrito', val('doc_escrito'), 13.5, false);
+    labeledBlock('Apresentação final', val('apresentacao'), 13.5, false);
 
-    sectionTitle('Avaliação', 30);
+    sectionTitle('Avaliação', 38);
     assessmentPanel();
 
-    sectionTitle('Calendarização', 13);
+    sectionTitle('Calendarização', 24);
     valueBox(calendarText(), 12);
 
     footer();
     return pdf.output('blob');
   }
 
-    function makePdfFileName(){
-    return 'guiao_challenge_based_learning.pdf';
+
+    
+function guiaoPdfNormalizeFilePart(value){
+  var text = String(value || '').trim();
+  text = text.split(/\n|;|\||,/).map(function(x){ return x.trim(); }).filter(Boolean)[0] || text;
+  try { text = text.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); } catch(e) {}
+  text = text.replace(/[^A-Za-z0-9]+/g, ' ').trim();
+  if(!text) return '';
+  text = text.split(/\s+/).map(function(part){
+    return part ? part.charAt(0).toUpperCase() + part.slice(1) : '';
+  }).join('');
+  return text.slice(0, 50);
+}
+function guiaoPdfReadFirstUc(){
+  var selectors = [
+    '#uc','#unidade_curricular','[name="uc"]','[name="ucs"]','[name="unidade_curricular"]',
+    '#ucProjeto','#nomeUCProjeto','#nomeUcProjeto','#nome_uc_projeto','#nomeProjetoUC','.projbl-nome-uc-projeto-field'
+  ];
+  for(var i=0;i<selectors.length;i++){
+    var el = document.querySelector(selectors[i]);
+    if(el && /^(INPUT|TEXTAREA|SELECT)$/i.test(el.tagName || '')){
+      var v = String(el.value || '').trim();
+      if(v) return v;
+    }
+  }
+  var labels = Array.prototype.slice.call(document.querySelectorAll('label,th,strong,b'));
+  for(var j=0;j<labels.length;j++){
+    var t = String(labels[j].textContent || '').toLowerCase();
+    if(t.indexOf('unidade') !== -1 && (t.indexOf('curricular') !== -1 || t.indexOf('uc') !== -1)){
+      var root = labels[j].closest('tr, .section, .header-card, div') || labels[j].parentElement;
+      if(root){
+        var field = root.querySelector('textarea,input,select');
+        if(field){
+          var val = String(field.value || '').trim();
+          if(val) return val;
+        }
+      }
+    }
+  }
+  return '';
+}
+function guiaoPdfFileName(cenario, fallback){
+  var uc = guiaoPdfNormalizeFilePart(guiaoPdfReadFirstUc());
+  return String(cenario || 'Guiao') + '_' + (uc || fallback || 'Guiao') + '.pdf';
+}
+try { window.guiaoPdfFileName = guiaoPdfFileName; } catch(e) {}
+
+function makePdfFileName(){
+    return guiaoPdfFileName('CBL', 'Guiao');
   }
 
   function blobToBase64(blob){
@@ -3821,6 +3854,8 @@ Os estudantes deverão investigar necessidades reais, formular oportunidades de 
       cursos: cursosPayload || '',
       ucs: values.uc || '',
       nEstudantes: values.n_estudantes || '',
+      nGrupos: values.n_grupos || '',
+      numeroGrupos: values.n_grupos || '',
       autorias: values.autoria || '',
       unidadeOrganica: values.unidadeOrganica || '',
       modalidade: values.modalidade || '',
@@ -3828,8 +3863,10 @@ Os estudantes deverão investigar necessidades reais, formular oportunidades de 
       turmaEdicao: values.turmaEdicao || '',
       turma: values.turmaEdicao || '',
       emails: values.emails || '',
-      autorizaRepositorio: values.autorizaRepositorio || 'Não',
-      autorizaPartilhaInterna: values.autorizaRepositorio || 'Não',
+      estadoGuiaoFormulario: values.estado || '',
+      autorizaRepositorio: values.autorizaRepositorio || '',
+      partilhaRepositorio: values.autorizaRepositorio || '',
+      autorizaPartilhaInterna: values.autorizaRepositorio || '',
       organizacoesContacto: values.organizacao || '',
       submittedAt: new Date().toISOString(),
       sourceUrl: window.location.href,
@@ -4234,7 +4271,6 @@ body:not(.cbl-exporting) .cblx-grip.dragging {
   .cblx-grip { display: none !important; }
 }
 </style>
-
 <script id="cbl-expansao-definitiva-v4-js">
 (function(){
   'use strict';
@@ -4371,7 +4407,6 @@ body:not(.cbl-exporting) .cblx-grip.dragging {
   window.cblAutoExpandAll = init;
 })();
 </script>
-
 <style id="cbl-mobile-url-final">
 /* ===== CBL — reforço mobile sem alterar desktop ===== */
 @media screen and (max-width: 760px){
@@ -4519,8 +4554,6 @@ body:not(.cbl-exporting) .cblx-grip.dragging {
   overflow-wrap: anywhere !important;
 }
 </style>
-
-
 <script id="cbl-preservar-links-final">
 (function(){
   'use strict';
@@ -4581,8 +4614,6 @@ body:not(.cbl-exporting) .cblx-grip.dragging {
   }
 })();
 </script>
-
-
 <style id="cbl-respiro-identificacao-final">
 /* ===== CBL — respiro padronizado na Identificação do Guião =====
    Ajusta apenas espaçamento visual dos campos de identificação,
@@ -4630,8 +4661,6 @@ body.cbl-exporting .cbl-meta-panel .cbl-meta-field,
   }
 }
 </style>
-
-
 <style id="cbl-mobile-final-seguro">
 /* ===== CBL — mobile seguro, sem alterar estrutura da calendarização no desktop ===== */
 @media screen and (max-width: 760px){
@@ -4738,26 +4767,6 @@ body.cbl-exporting .cbl-meta-panel .cbl-meta-field,
   }
 }
 </style>
-
-
-<script id="cbl-default-autorizacao-repositorio-final">
-(function(){
-  function setDefaultAutorizacao(){
-    var sim = document.querySelector('input[name="autorizaRepositorio"][value="Sim"], input[name="autorizaPartilhaInterna"][value="Sim"], #autorizaRepositorioSim');
-    var nao = document.querySelector('input[name="autorizaRepositorio"][value="Não"], input[name="autorizaRepositorio"][value="Nao"], input[name="autorizaPartilhaInterna"][value="Não"], input[name="autorizaPartilhaInterna"][value="Nao"], #autorizaRepositorioNao');
-    if(sim && nao){
-      sim.checked = true;
-      nao.checked = false;
-    }
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setDefaultAutorizacao);
-  else setDefaultAutorizacao();
-  setTimeout(setDefaultAutorizacao, 300);
-})();
-</script>
-
-
-
 <style id="cbl-calendarizacao-alinhamento-cirurgico-final">
 /* ===== CBL — correção cirúrgica da Calendarização =====
    Diagnóstico: o campo da data tem id="calendarizacao" (não id="data").
@@ -4850,8 +4859,6 @@ body.cbl-exporting .cbl-meta-panel .cbl-meta-field,
   }
 }
 </style>
-
-
 <style id="cbl-respiro-calendarizacao-medido-final">
 /* ===== CBL — respiro medido e padronizado =====
    Medição no CSS atual:
@@ -4875,8 +4882,6 @@ body.cbl-exporting .section:has(#calendarizacao),
   }
 }
 </style>
-
-
 <script id="cbl-multi-course-fix-js">
 (function(){
   function norm(v){ return (v || '').replace(/\s+/g,' ').trim(); }
@@ -4981,9 +4986,8 @@ body.cbl-exporting .section:has(#calendarizacao),
   }
 })();
 </script>
-
 <script id="cbl-numeric-only-final-fix">
-/* ===== FIX FINAL CBL — Nº de estudantes apenas numérico =====
+/* ===== FIX FINAL CBL — campos numéricos apenas com números =====
    Intervenção cirúrgica: não altera PDF, Power Automate, payload,
    autosave, campos expansíveis ou estilo visual dos textareas. */
 (function(){
@@ -4993,7 +4997,7 @@ body.cbl-exporting .section:has(#calendarizacao),
 
   function showNumericToast(){
     if(typeof window.toast === 'function'){
-      window.toast('O campo “Número de Estudantes” aceita apenas números.', 'error', 4500);
+      window.toast('Este campo aceita apenas números.', 'error', 4500);
     }
   }
 
@@ -5004,7 +5008,7 @@ body.cbl-exporting .section:has(#calendarizacao),
     el.setAttribute('inputmode', 'numeric');
     el.setAttribute('pattern', '[0-9]*');
     el.setAttribute('autocomplete', 'off');
-    el.setAttribute('aria-label', 'Número de estudantes');
+    el.setAttribute('aria-label', id === 'n_grupos' ? 'Número de grupos' : 'Número de estudantes');
 
     el.addEventListener('beforeinput', function(ev){
       if(ev.data && /[^0-9]/.test(ev.data)){
@@ -5054,17 +5058,21 @@ body.cbl-exporting .section:has(#calendarizacao),
 
   function initNumericOnly(){
     bindNumericOnly('n_estudantes');
+    bindNumericOnly('n_grupos');
   }
 
   // Reforça a validação final antes da submissão, mantendo o mesmo nome usado pelo template.
   window.validarCamposNumericosGuiao = function(){
-    var el = document.getElementById('n_estudantes') || document.querySelector('[name="n_estudantes"]');
-    if(el){
-      el.value = cleanDigits(el.value);
-      if(String(el.value || '').trim() && !/^[0-9]+$/.test(String(el.value).trim())){
-        try{ el.focus(); }catch(e){}
-        showNumericToast();
-        return false;
+    var ids = ['n_estudantes','n_grupos'];
+    for(var i=0; i<ids.length; i++){
+      var el = document.getElementById(ids[i]) || document.querySelector('[name="' + ids[i] + '"]');
+      if(el){
+        el.value = cleanDigits(el.value);
+        if(String(el.value || '').trim() && !/^[0-9]+$/.test(String(el.value).trim())){
+          try{ el.focus(); }catch(e){}
+          showNumericToast();
+          return false;
+        }
       }
     }
     return true;
@@ -5077,6 +5085,124 @@ body.cbl-exporting .section:has(#calendarizacao),
   }
 })();
 </script>
-
+<script id="guiao-required-submit-validation-v1">
+/* ===== Auditoria transversal — campos obrigatórios antes da submissão =====
+   Camada cirúrgica: não altera IDs, payloads, botões, Curso(s), PDF, Power Automate ou estrutura pedagógica.
+   Apenas bloqueia o clique em “Enviar para Validação” quando faltam dados mínimos institucionais. */
+(function(){
+  if(window.__guiaoRequiredSubmitValidationV1) return;
+  window.__guiaoRequiredSubmitValidationV1 = true;
+  function norm(s){ return String(s || '').replace(/\s+/g,' ').trim(); }
+  function val(el){
+    if(!el) return '';
+    if(el.tagName === 'SELECT'){
+      var v = norm(el.value);
+      if(v && !/^sele/i.test(v)) return v;
+      var opt = el.options && el.selectedIndex >= 0 ? el.options[el.selectedIndex] : null;
+      return opt ? norm(opt.value || opt.textContent) : '';
+    }
+    return norm(el.value || el.textContent || '');
+  }
+  function first(selectors){
+    for(var i=0;i<selectors.length;i++){
+      var el = document.querySelector(selectors[i]);
+      if(!el) continue;
+      if(!/^(INPUT|TEXTAREA|SELECT)$/i.test(el.tagName || '')) continue;
+      var v = val(el);
+      if(v) return {value:v, element:el};
+    }
+    return {value:'', element:null};
+  }
+  function courseValue(){
+    var direct = first(['#curso','[name="curso"]']);
+    if(direct.value) return direct;
+    var chips = Array.from(document.querySelectorAll('#cblCursosSelecionados .cbl-course-chip, .cbl-course-chip, [data-course-chip]')).map(function(x){ return norm(x.textContent).replace(/[×x]$/i,'').trim(); }).filter(Boolean).join('; ');
+    if(chips) return {value:chips, element:document.querySelector('#cursoBusca') || document.querySelector('#cblCursosSelecionados')};
+    return {value:'', element:document.querySelector('#cursoBusca') || document.querySelector('#curso')};
+  }
+  function ucValue(){
+    return first(['#uc','#ucs','[name="uc"]','[name="ucs"]','#unidade_curricular','[name="unidade_curricular"]','.projbl-nome-uc-projeto-field','#ucProjeto','#nomeUCProjeto','#nomeUcProjeto','#nome_uc_projeto']);
+  }
+  function docenteValue(){
+    return first(['#professor','#docentes','#docente','[name="professor"]','[name="docentes"]','[name="docente"]','.docente-nome','.proj-docente-field']);
+  }
+  function emailValue(){
+    return first(['#emails','#email','[name="emails"]','[name="email"]','.docente-email']);
+  }
+  function unidadeValue(){
+    return first(['#unidadeOrganica','#unidade_organica','#unidade-organica','[name="unidadeOrganica"]','[name="unidade_organica"]']);
+  }
+  function estadoValue(){
+    return first(['#estado','#estadoGuiao','#estado_guiao','[name="estado"]','[name="estadoGuiao"]','[name="estado_guiao"]']);
+  }
+  function autorizacaoValue(){
+    var checked = document.querySelector('input[name="autorizaRepositorio"]:checked, input[name="autorizaRepositorioOpcao"]:checked, input[name="autorizacaoRepositorio"]:checked');
+    if(checked) return {value:norm(checked.value), element:checked};
+    var ids = ['#autorizaRepositorio','#autorizacaoRepositorio'];
+    for(var i=0;i<ids.length;i++){
+      var el = document.querySelector(ids[i]);
+      if(el && String(el.type || '').toLowerCase() !== 'radio'){
+        var v = val(el);
+        if(v) return {value:v, element:el};
+      }
+    }
+    return {value:'', element:document.querySelector('input[name="autorizaRepositorio"], input[name="autorizaRepositorioOpcao"], input[name="autorizacaoRepositorio"]')};
+  }
+  function mark(el){
+    try{
+      if(!el) return;
+      el.classList.add('guiao-required-missing');
+      setTimeout(function(){ try{ el.classList.remove('guiao-required-missing'); }catch(e){} }, 4500);
+    }catch(e){}
+  }
+  function notify(msg){
+    if(typeof toast === 'function') return toast(msg, 'error', 6500);
+    if(typeof showToast === 'function') return showToast(msg);
+    if(typeof mostrarToast === 'function') return mostrarToast(msg);
+    alert(msg);
+  }
+  window.guiaoValidarCamposObrigatoriosSubmissaoV1 = function(options){
+    var checks = [
+      ['Unidade Orgânica', unidadeValue()],
+      ['Curso(s)', courseValue()],
+      ['Unidade(s) Curricular(es)', ucValue()],
+      ['Docente(s)', docenteValue()],
+      ['Email(s)', emailValue()],
+      ['Estado do guião', estadoValue()],
+      ['Autorização para integração no repositório', autorizacaoValue()]
+    ];
+    var missing = checks.filter(function(c){ return !c[1].value; });
+    if(missing.length){
+      if(!options || !options.silent){
+        var msg = 'Antes de enviar para validação, preencha: ' + missing.map(function(c){return c[0];}).join(', ') + '.';
+        notify(msg);
+        mark(missing[0][1].element);
+        try{ missing[0][1].element && missing[0][1].element.focus && missing[0][1].element.focus(); }catch(e){}
+      }
+      return {ok:false, missing:missing.map(function(c){return c[0];})};
+    }
+    return {ok:true, missing:[]};
+  };
+  function isSubmitControl(el){
+    if(!el) return false;
+    var txt = norm(el.textContent || el.value).toLowerCase();
+    return el.id === 'btnEnviarValidacao' || el.id === 'btnValidacaoReal' || txt.indexOf('enviar para valida') !== -1 || txt.indexOf('submeter') !== -1 || txt.indexOf('submiss') !== -1;
+  }
+  document.addEventListener('click', function(ev){
+    var btn = ev.target && ev.target.closest ? ev.target.closest('button,input[type="button"],input[type="submit"]') : null;
+    if(!isSubmitControl(btn)) return;
+    var result = window.guiaoValidarCamposObrigatoriosSubmissaoV1();
+    if(!result.ok){
+      ev.preventDefault();
+      ev.stopPropagation();
+      if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+      return false;
+    }
+  }, true);
+})();
+</script>
+<style id="guiao-required-submit-validation-v1-style">
+.guiao-required-missing{ outline:3px solid rgba(227,30,36,.28) !important; outline-offset:2px !important; }
+</style>
 </body>
 </html>

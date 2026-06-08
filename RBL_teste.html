@@ -1,5 +1,6 @@
 <html lang="pt">
 <head>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta charset="utf-8"/>
 <style id="template-clean-style">
 /* ===== TEMPLATE LIMPO - CSS consolidado ===== */
@@ -3566,6 +3567,44 @@ input#n_estudantes:focus,
   margin:0 !important;
 }
 </style>
+<style id="rbl-campos-numericos-lado-a-lado-css">
+/* Microcamada — campos numéricos lado a lado no cabeçalho.
+   Não altera PDF, menu, autorização, Curso(s) ou payload. */
+.rbl-numeric-pair-card{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:10px !important;
+  align-items:start !important;
+}
+.rbl-numeric-pair-field label{
+  display:block !important;
+  font-size:13px !important;
+  font-weight:700 !important;
+  margin:0 0 6px 0 !important;
+  color:#333 !important;
+}
+.rbl-numeric-pair-field input{
+  width:100% !important;
+  min-height:40px !important;
+  border:1px solid #bbb !important;
+  border-radius:10px !important;
+  background:#fff !important;
+  padding:9px 10px !important;
+  font-family:'Century Gothic', sans-serif !important;
+  font-size:13px !important;
+  line-height:1.35 !important;
+  box-sizing:border-box !important;
+}
+@media (max-width:640px){
+  .rbl-numeric-pair-card{grid-template-columns:1fr !important;}
+}
+</style>
+<style id="rbl-toast-pdf-preto-final">
+.toast-message, .toast-message.ok, .toast-message.success, .toast-message.powerautomate-toast, .toast-message.rbl-final-toast{
+  background:#333333 !important;
+  color:#ffffff !important;
+}
+</style>
 </head>
 <body>
 <div class="page">
@@ -3612,18 +3651,18 @@ input#n_estudantes:focus,
 </div>
 <div class="rbl-ident-card">
 <label for="turmaEdicao">Turma/Edição</label>
-<select class="rbl-compact-field" id="turmaEdicao"><option value="">Selecionar</option><option selected="selected" value="Turma 1">Turma 1</option><option value="Turma 2">Turma 2</option><option value="Turma 3">Turma 3</option><option value="Turma 4">Turma 4</option><option value="Edição 2026">Edição 2026</option><option value="Edição 2026/2027">Edição 2026/2027</option><option value="Pós-laboral">Pós-laboral</option><option value="Diurno">Diurno</option></select>
+<select class="rbl-compact-field" id="turmaEdicao" placeholder="Ex.: Turma A"><option value="">Selecionar</option><option selected="selected" value="Turma 1">Turma 1</option><option value="Turma 2">Turma 2</option><option value="Turma 3">Turma 3</option><option value="Turma 4">Turma 4</option><option value="Edição 2026">Edição 2026</option><option value="Edição 2026/2027">Edição 2026/2027</option><option value="Pós-laboral">Pós-laboral</option><option value="Diurno">Diurno</option></select>
 </div>
 <div class="rbl-ident-card">
 <label for="curso">Curso(s)</label>
-<input autocomplete="off" id="curso" list="rblCursosList" placeholder="Digite para procurar; se houver mais de um curso, separe por ;" type="text" value="Mestrado em Comunicação Multimedia EaD"/>
+<input autocomplete="off" id="curso" list="rblCursosList" placeholder="Digite para procurar e selecione um curso" type="text" value="Mestrado em Comunicação Multimedia EaD"/>
 </div>
 <div class="rbl-ident-card rbl-uc-card">
 <label for="uc">Unidade(s) Curricular(es)</label>
-<textarea class="rbl-expand-field rbl-uc-expand-field rbl-header-expand-clean" id="uc" name="uc" placeholder="Unidade(s) Curricular(es) envolvida(s)">Laboratório de Investigação Aplicada</textarea>
+<textarea class="rbl-expand-field rbl-uc-expand-field rbl-header-expand-clean" id="uc" name="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado">Laboratório de Investigação Aplicada</textarea>
 </div>
 <div class="rbl-ident-card">
-<label for="ano">Ano Letivo</label>
+<label for="ano">Ano letivo</label>
 <input id="ano" placeholder="Ex.: 2026/2027" type="text" value="2026/2027"/>
 </div>
 <div class="rbl-ident-card">
@@ -3637,19 +3676,25 @@ input#n_estudantes:focus,
 </div>
 <div class="rbl-ident-card">
 <label for="professor">Docente(s)</label>
-<textarea class="rbl-expand-field rbl-header-expand-clean" id="professor" name="professor" placeholder="Nome do/a docente">Ana Silva; João Pereira</textarea>
+<textarea class="rbl-expand-field rbl-header-expand-clean" id="professor" name="professor" placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva">Ana Silva; João Pereira</textarea>
 </div>
-<div class="rbl-ident-card">
-<label for="n_estudantes">Número de Estudantes</label>
-<input autocomplete="off" id="n_estudantes" inputmode="numeric" pattern="[0-9]*" placeholder="Ex: 30" type="text" value="32"/>
+<div class="rbl-ident-card rbl-numeric-pair-card">
+<div class="rbl-numeric-pair-field">
+<label for="n_estudantes">Nº de estudantes</label>
+<input autocomplete="off" id="n_estudantes" inputmode="numeric" min="0" name="n_estudantes" pattern="[0-9]*" placeholder="Ex.: 32" step="1" type="number" value="32"/>
+</div>
+<div class="rbl-numeric-pair-field">
+<label for="n_grupos">Nº de grupos</label>
+<input autocomplete="off" id="n_grupos" inputmode="numeric" min="0" name="n_grupos" pattern="[0-9]*" placeholder="Ex.: 6" step="1" type="number" value="6"/>
+</div>
 </div>
 <div class="rbl-ident-card rbl-ident-wide">
 <label for="emails">Email(s)</label>
-<textarea class="rbl-expand-field rbl-v38-email-expand rbl-header-expand-clean" id="emails" name="emails" placeholder="email@universidade.pt">ana.silva@universidade.pt; joao.pereira@universidade.pt</textarea>
+<textarea class="rbl-expand-field rbl-v38-email-expand rbl-header-expand-clean" id="emails" name="emails" placeholder="Ex.: docente@universidadeeuropeia.pt">ana.silva@universidade.pt; joao.pereira@universidade.pt</textarea>
 </div>
 <div class="rbl-ident-card rbl-ident-wide">
 <label for="autoria">Autoria</label>
-<textarea class="rbl-expand-field rbl-header-expand-clean" id="autoria" name="autoria" placeholder="Nome do/a docente ou equipa autora do guião">Ana Silva; João Pereira</textarea>
+<textarea class="rbl-expand-field rbl-header-expand-clean" id="autoria" name="autoria" placeholder="Ex.: Ana Luiza Marques">Ana Silva; João Pereira</textarea>
 </div>
 </div>
 <div class="section">
@@ -3888,8 +3933,9 @@ function initMenu(){
   menu.innerHTML =
     '<button type="button" id="draftBtn">💾 Guardar rascunho</button>' +
     '<button type="button" id="restoreBtn">📂 Restaurar rascunho</button>' +
-    '<button type="button" id="clearBtn">🧹 Limpar formulário</button>' +
-    '<button type="button" id="deleteBtn">🗑️ Apagar rascunho</button>';
+    '<button type="button" id="deleteBtn">🗑️ Apagar rascunho</button>' +
+    '<button type="button" id="reuseHeaderBtn">↩️ Reutilizar cabeçalho</button>' +
+    '<button type="button" id="clearBtn">🧹 Limpar formulário</button>';
 
   btn.addEventListener('click', function(e){
     e.preventDefault(); e.stopPropagation();
@@ -3905,11 +3951,16 @@ function initMenu(){
   document.getElementById('restoreBtn').addEventListener('click', function(){
     restoreDraft(); menu.classList.remove('open');
   });
-  document.getElementById('clearBtn').addEventListener('click', function(){
-    clearAll(); menu.classList.remove('open');
-  });
   document.getElementById('deleteBtn').addEventListener('click', function(){
     deleteDraft(); menu.classList.remove('open');
+  });
+  var reuseHeaderBtn = document.getElementById('reuseHeaderBtn');
+  if(reuseHeaderBtn) reuseHeaderBtn.addEventListener('click', function(){
+    try { if(typeof window.rblReuseHeader === 'function') window.rblReuseHeader(); } catch(e) {}
+    menu.classList.remove('open');
+  });
+  document.getElementById('clearBtn').addEventListener('click', function(){
+    clearAll(); menu.classList.remove('open');
   });
 }
 
@@ -4239,14 +4290,14 @@ document.addEventListener('DOMContentLoaded', function(){
     var labels = {
       curso:'Curso:',
       uc:'Unidade(s) Curricular(es):',
-      ano:'Ano Letivo:',
+      ano:'Ano letivo:',
       professor:'Docente(s):',
       emails:'Email(s):',
-      n_estudantes:'Número de Estudantes:',
+      n_estudantes:'Número de estudantes:',
       autoria:'Autoria:',
       estado_guiao:'Estado do guião:'
     };
-    var ids = ['curso','uc','ano','professor','emails','n_estudantes','autoria','estado_guiao'];
+    var ids = ['curso','uc','ano','professor','emails','n_estudantes','n_grupos','autoria','estado_guiao'];
     var grid = document.createElement('div');
     grid.className = 'rbl-meta-coupled-grid';
     ids.forEach(function(id){
@@ -4329,7 +4380,7 @@ document.addEventListener('DOMContentLoaded', function(){
       const div = document.createElement("div");
       div.className = "toast-message powerautomate-toast";
       div.textContent = message;
-      div.style.background = type === "error" ? "#7a1f1f" : (type === "ok" ? "#1f4d2b" : "#333");
+      div.style.background = type === "error" ? "#7a1f1f" : "#333333";
       div.style.whiteSpace = "normal";
       document.body.appendChild(div);
       setTimeout(() => div.remove(), type === "error" ? 8000 : 4500);
@@ -4715,37 +4766,47 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function header(){
-      const logo = logoData();
+      /* RBL — cabeçalho/quadra superior alinhado ao diâmetro do PBL,
+         seguindo a lógica do CBL: caixa, logótipo, título, fita e autoria. */
+      const boxX = 12;
+      const boxY = y - 1;
+      const boxW = pageW - (boxX * 2);
+      const boxH = 36;
+      const accent = [227, 30, 36];
+      const border = [31, 31, 31];
 
+      setFill(white);
+      setDraw(border);
+      pdf.setLineWidth(0.26);
+      roundedRect(boxX, boxY, boxW, boxH, 2.8, "S");
+
+      const logo = logoData();
       if(logo && logo.src){
         try{
-          const logoW = 38;
-          const logoH = 12;
-          pdf.addImage(logo.src, logo.format, (pageW - logoW) / 2, y - 2, logoW, logoH);
-          y += 15;
-        }catch(e){
-          y += 4;
-        }
-      }else{
-        y += 4;
+          const logoW = 28;
+          const logoH = 6.6;
+          pdf.addImage(logo.src, logo.format, (pageW - logoW) / 2, y + 3, logoW, logoH);
+        }catch(e){}
       }
 
+      y += 14;
       pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(17.5);
+      pdf.setFontSize(13.8);
       setText(ink);
       pdf.text("Guião Research-Based Learning", pageW / 2, y, {align:"center"});
-      y += 7;
 
+      y += 3.7;
+      setDraw(accent);
+      pdf.setLineWidth(0.42);
+      pdf.line(boxX + 12, y, boxX + boxW - 12, y);
+
+      y += 8.0;
       pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(8.8);
+      pdf.setFontSize(7.7);
       setText(muted);
-      pdf.text("Autoria do guião: " + show(val("autoria")), pageW / 2, y, {align:"center"});
-      y += 6;
+      pdf.text("Autoria: " + show(val("autoria")), boxX + boxW - 6, y, {align:"right"});
 
-      setDraw(red);
-      pdf.setLineWidth(0.8);
-      pdf.line(pageW / 2 - 42, y, pageW / 2 + 42, y);
-      y += 12;
+      y = boxY + boxH + 8;
     }
 
     function sectionTitle(title, minHeight){
@@ -4770,55 +4831,85 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function identification(){
-      const items = [
-        ["Curso(s)", show(val("curso"))],
-        ["Unidade(s) Curricular(es)", show(val("uc"))],
-        ["Docente(s)", show(val("professor"))],
-        ["Ano letivo", show(val("ano"))],
-        ["Unidade Orgânica", show(val("unidadeOrganica"))],
-        ["Modalidade", show(val("modalidade"))]
+      /* RBL — identificação do guião com a mesma sequência do PBL, mantendo o estilo cromático do RBL. */
+      sectionTitle("Identificação do guião", 58);
+
+      const cardX = margin;
+      const cardW = usable;
+      const innerX = cardX + 6;
+      const innerW = cardW - 12;
+      const sepX = cardX + (cardW / 2);
+      const cellPad = 6;
+      const leftX = innerX;
+      const rightX = sepX + cellPad;
+      const leftW = sepX - innerX - cellPad;
+      const rightW = (cardX + cardW - 6) - rightX;
+      const singleW = innerW;
+
+      const pairRows = [
+        [
+          ["Unidade Orgânica", show(val("unidadeOrganica"))],
+          ["Curso(s)", show(val("curso"))]
+        ],
+        [
+          ["Docente(s)", show(val("professor"))],
+          ["Email(s)", show(val("emails"))]
+        ],
+        [
+          ["Unidade(s) Curricular(es)", show(val("uc"))],
+          ["Número de estudantes", show(val("n_estudantes"))]
+        ]
       ];
+      const singleRow = ["Ano letivo", show(val("ano"))];
 
-      sectionTitle("Identificação do guião", 42);
+      const rowHeights = pairRows.map(function(pair){
+        return Math.max.apply(null, pair.map(function(item, idx){
+          const w = idx === 0 ? leftW : rightW;
+          const lines = splitText(item[1] || " ", w - 7, 8.25, "normal");
+          return Math.max(17.8, 9.2 + Math.max(1, lines.length) * 4.35);
+        }));
+      });
+      const anoLines = splitText(singleRow[1] || " ", singleW - 7, 8.25, "normal");
+      const singleRowH = Math.max(17.8, 9.2 + Math.max(1, anoLines.length) * 4.35);
+      const cardH = rowHeights.reduce(function(acc, h){ return acc + h; }, 0) + singleRowH + 10;
+      ensure(cardH + 4);
 
-      const colGap = 6;
-      const colW = (usable - 16 - colGap) / 2;
-      const labelH = 3.2;
-      const rowGap = 5;
-      const rows = [];
+      setFill(white);
+      setDraw([45,45,45]);
+      pdf.setLineWidth(0.42);
+      roundedRect(cardX, y, cardW, cardH, 3.8, "S");
 
-      for(let i = 0; i < items.length; i += 2){
-        const pair = [items[i], items[i+1]];
-        let rowH = 10;
-        pair.forEach(function(item){
-          const lines = splitText(item[1], colW - 4, 7.4, "normal");
-          rowH = Math.max(rowH, labelH + 2 + lines.length * 3.5);
-        });
-        rows.push({pair, rowH});
+      function drawCell(item, x, yy, w, rowH, align){
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(7.7);
+        setText(muted);
+        pdf.text(item[0] + ":", align === "center" ? x + (w / 2) : x, yy + 4.7, align === "center" ? {align:"center"} : undefined);
+
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(8.25);
+        setText(ink);
+        pdf.text(splitText(item[1] || " ", w - 7, 8.25, "normal"), align === "center" ? x + (w / 2) : x, yy + 9.4, align === "center" ? {align:"center"} : undefined);
       }
 
-      const h = 12 + rows.reduce((acc, r) => acc + r.rowH + rowGap, 0);
-      cardStart(h);
+      let yy = y + 6;
+      pairRows.forEach(function(pair, ri){
+        const rowH = rowHeights[ri];
 
-      let yy = y + innerTop;
-      rows.forEach(function(row){
-        row.pair.forEach(function(item, idx){
-          const x = margin + innerLeft + idx * (colW + colGap);
-          pdf.setFont("helvetica", "bold");
-          pdf.setFontSize(7.2);
-          setText(muted);
-          pdf.text(item[0], x, yy);
+        drawCell(pair[0], leftX, yy, leftW, rowH);
+        drawCell(pair[1], rightX, yy, rightW, rowH);
 
-          pdf.setFont("helvetica", "normal");
-          pdf.setFontSize(7.4);
-          setText(ink);
-          const lines = splitText(item[1], colW - 4, 7.4, "normal");
-          pdf.text(lines, x, yy + 4.6);
-        });
-        yy += row.rowH + rowGap;
+        setDraw([205,205,205]);
+        pdf.setLineWidth(0.18);
+        pdf.line(sepX, yy + 1.1, sepX, yy + rowH - 3.9);
+
+        yy += rowH;
+        setDraw(line);
+        pdf.setLineWidth(0.18);
+        pdf.line(innerX, yy - 0.4, innerX + innerW, yy - 0.4);
       });
 
-      y += h + cardGapAfter;
+      drawCell(singleRow, innerX, yy, singleW, singleRowH, "center");
+      y += cardH + cardGapAfter;
     }
 
     function textCard(title, text){
@@ -4962,11 +5053,57 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }
 
-  async function downloadCurrentGuiesPdf(){
+  
+function guiaoPdfNormalizeFilePart(value){
+  var text = String(value || '').trim();
+  text = text.split(/\n|;|\||,/).map(function(x){ return x.trim(); }).filter(Boolean)[0] || text;
+  try { text = text.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); } catch(e) {}
+  text = text.replace(/[^A-Za-z0-9]+/g, ' ').trim();
+  if(!text) return '';
+  text = text.split(/\s+/).map(function(part){
+    return part ? part.charAt(0).toUpperCase() + part.slice(1) : '';
+  }).join('');
+  return text.slice(0, 50);
+}
+function guiaoPdfReadFirstUc(){
+  var selectors = [
+    '#uc','#unidade_curricular','[name="uc"]','[name="ucs"]','[name="unidade_curricular"]',
+    '#ucProjeto','#nomeUCProjeto','#nomeUcProjeto','#nome_uc_projeto','#nomeProjetoUC','.projbl-nome-uc-projeto-field'
+  ];
+  for(var i=0;i<selectors.length;i++){
+    var el = document.querySelector(selectors[i]);
+    if(el && /^(INPUT|TEXTAREA|SELECT)$/i.test(el.tagName || '')){
+      var v = String(el.value || '').trim();
+      if(v) return v;
+    }
+  }
+  var labels = Array.prototype.slice.call(document.querySelectorAll('label,th,strong,b'));
+  for(var j=0;j<labels.length;j++){
+    var t = String(labels[j].textContent || '').toLowerCase();
+    if(t.indexOf('unidade') !== -1 && (t.indexOf('curricular') !== -1 || t.indexOf('uc') !== -1)){
+      var root = labels[j].closest('tr, .section, .header-card, div') || labels[j].parentElement;
+      if(root){
+        var field = root.querySelector('textarea,input,select');
+        if(field){
+          var val = String(field.value || '').trim();
+          if(val) return val;
+        }
+      }
+    }
+  }
+  return '';
+}
+function guiaoPdfFileName(cenario, fallback){
+  var uc = guiaoPdfNormalizeFilePart(guiaoPdfReadFirstUc());
+  return String(cenario || 'Guiao') + '_' + (uc || fallback || 'Guiao') + '.pdf';
+}
+try { window.guiaoPdfFileName = guiaoPdfFileName; } catch(e) {}
+
+async function downloadCurrentGuiesPdf(){
     try {
       toast("A preparar o PDF...");
       const payload = collectFormData();
-      payload.pdfFileName = "guiao_research_based_learning.pdf";
+      payload.pdfFileName = guiaoPdfFileName("RBL", "Guiao");
       const blob = await generatePdfBlob(payload);
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -5068,7 +5205,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     try {
       const payload = collectFormData();
-      payload.pdfFileName = "guiao_research_based_learning.pdf";
+      payload.pdfFileName = guiaoPdfFileName("RBL", "Guiao");
       payload.pdfBase64 = await generatePdfBase64(payload);
       payload.html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
 
@@ -5212,8 +5349,8 @@ document.addEventListener('DOMContentLoaded', function(){
 /* ===== Validação defensiva — campos numéricos ===== */
 (function(){
   const fields = [
-    {ids:["n_estudantes","nEstudantes"], label:"Nº de estudantes"},
-    {ids:["n_grupos","nGrupos"], label:"Nº de Grupos"}
+    {ids:["n_estudantes","nEstudantes"], label:"Número de estudantes"},
+    {ids:["n_grupos","nGrupos"], label:"Número de grupos"}
   ];
 
   function findInput(ids){
@@ -6351,7 +6488,7 @@ h3.rbl-aula-heading,
     var d = document.createElement('div');
     d.className = 'toast-message rbl-final-toast rbl-toast-long';
     d.textContent = message;
-    d.style.background = type === 'error' ? '#7a1f1f' : (type === 'ok' ? '#1f4d2b' : '#333');
+    d.style.background = type === 'error' ? '#7a1f1f' : '#333333';
     d.style.whiteSpace = 'normal';
     document.body.appendChild(d);
     setTimeout(function(){ if(d.parentNode) d.remove(); }, duration || 2800);
@@ -6505,7 +6642,7 @@ input:focus, textarea:focus, select:focus,
       curso.setAttribute("type","text");
       curso.setAttribute("list","rblCursosList");
       curso.setAttribute("autocomplete","off");
-      curso.placeholder="Digite para procurar; se houver mais de um curso, separe por ;";
+      curso.placeholder="Digite para procurar e selecione um curso";
       curso.addEventListener("input", function(){ mark(curso, !String(curso.value||"").trim()); });
     }
   }
@@ -6741,6 +6878,24 @@ input:focus, textarea:focus, select:focus,
     return c;
   }
 
+  function numericPairCard(estudantesField, gruposField){
+    var c = document.createElement("div");
+    c.className = "rbl-ident-card rbl-numeric-pair-card";
+    function unit(labelText, field){
+      var wrap = document.createElement("div");
+      wrap.className = "rbl-numeric-pair-field";
+      var l = document.createElement("label");
+      l.setAttribute("for", field.id);
+      l.textContent = labelText;
+      wrap.appendChild(l);
+      wrap.appendChild(field);
+      return wrap;
+    }
+    c.appendChild(unit("Número de estudantes", estudantesField));
+    c.appendChild(unit("Número de grupos", gruposField));
+    return c;
+  }
+
   function prepare(){
     var unidade = detachField("unidadeOrganica", function(){
       var s = makeSelect('<option value="">Selecionar</option><option>FCST</option><option>FCS</option><option>IADE</option><option>IPAM Porto</option><option>IPAM Lisboa</option>');
@@ -6763,7 +6918,13 @@ input:focus, textarea:focus, select:focus,
     var curso = detachField("curso", function(){ return makeInput("text"); });
     var uc = detachField("uc", function(){ return makeInput("text"); });
     var ano = detachField("ano", function(){ return makeInput("text"); });
-    var n = detachField("n_estudantes", function(){ return makeInput("text"); });
+    var n = detachField("n_estudantes", function(){ return makeInput("number"); });
+    var nGrupos = detachField("n_grupos", function(){
+      var input = makeInput("number");
+      input.id = "n_grupos";
+      input.name = "n_grupos";
+      return input;
+    });
     var professor = ensureTextarea(detachField("professor", function(){ return makeTextarea(); }), "professor");
     var emails = ensureTextarea(detachField("emails", function(){ return makeTextarea(); }), "emails");
     var autoria = ensureTextarea(detachField("autoria", function(){ return makeTextarea(); }), "autoria");
@@ -6774,18 +6935,28 @@ input:focus, textarea:focus, select:focus,
     turma.placeholder = turma.placeholder || "Ex.: Turma 1 / Edição 2026";
     curso.setAttribute("list", "rblCursosList");
     curso.setAttribute("autocomplete", "off");
-    curso.placeholder = curso.placeholder || "Digite para procurar; se houver mais de um curso, separe por ;";
+    curso.placeholder = curso.placeholder || "Digite para procurar e selecione um curso";
     uc.placeholder = uc.placeholder || "UCs envolvidas";
     ano.placeholder = ano.placeholder || "Ex.: 2026/2027";
-    n.placeholder = n.placeholder || "Ex: 30";
+    n.type = "number";
+    n.placeholder = n.placeholder || "Ex.: 30";
     n.setAttribute("inputmode", "numeric");
     n.setAttribute("pattern", "[0-9]*");
+    n.setAttribute("min", "0");
+    n.setAttribute("step", "1");
     n.setAttribute("autocomplete", "off");
+    nGrupos.type = "number";
+    nGrupos.placeholder = nGrupos.placeholder || "Ex.: 6";
+    nGrupos.setAttribute("inputmode", "numeric");
+    nGrupos.setAttribute("pattern", "[0-9]*");
+    nGrupos.setAttribute("min", "0");
+    nGrupos.setAttribute("step", "1");
+    nGrupos.setAttribute("autocomplete", "off");
     professor.placeholder = professor.placeholder || "Nome do/a docente ou equipa docente";
     emails.placeholder = emails.placeholder || "email@universidade.pt";
     autoria.placeholder = autoria.placeholder || "Nome do/a autor/a ou equipa autora do guião";
 
-    return {unidade, modalidade, semestre, turma, curso, uc, ano, n, professor, emails, autoria, estado};
+    return {unidade, modalidade, semestre, turma, curso, uc, ano, n, nGrupos, professor, emails, autoria, estado};
   }
 
   function rebuild(){
@@ -6816,8 +6987,8 @@ input:focus, textarea:focus, select:focus,
     courseUcRow.appendChild(card("Unidade(s) Curricular(es)", fields.uc, false));
     grid.appendChild(courseUcRow);
 
-    grid.appendChild(card("Ano Letivo", fields.ano, false));
-    grid.appendChild(card("Número de Estudantes", fields.n, false));
+    grid.appendChild(card("Ano letivo", fields.ano, false));
+    grid.appendChild(numericPairCard(fields.n, fields.nGrupos));
     grid.appendChild(card("Docente(s)", fields.professor, true));
     grid.appendChild(card("Email(s)", fields.emails, true));
 
@@ -7254,8 +7425,9 @@ input:focus, textarea:focus, select:focus,
       [
         ["draft", "💾 Guardar rascunho"],
         ["restore", "📂 Restaurar rascunho"],
-        ["clear", "🧹 Limpar formulário"],
-        ["delete", "🗑️ Apagar rascunho"]
+        ["delete", "🗑️ Apagar rascunho"],
+        ["reuse", "↩️ Reutilizar cabeçalho"],
+        ["clear", "🧹 Limpar formulário"]
       ].forEach(function(pair){
         var b = document.createElement("button");
         b.type = "button";
@@ -7286,8 +7458,9 @@ input:focus, textarea:focus, select:focus,
         try{
           if(action === "draft" && typeof window.saveDraft === "function") window.saveDraft();
           if(action === "restore" && typeof window.restoreDraft === "function") window.restoreDraft();
-          if(action === "clear" && typeof window.clearAll === "function") window.clearAll();
           if(action === "delete" && typeof window.deleteDraft === "function") window.deleteDraft();
+          if(action === "reuse" && typeof window.rblReuseHeader === "function") window.rblReuseHeader();
+          if(action === "clear" && typeof window.clearAll === "function") window.clearAll();
           if(action === "draft" && typeof window.toast === "function") window.toast("Rascunho guardado com sucesso.");
         } finally {
           menu.classList.remove("open");
@@ -7481,8 +7654,9 @@ body [contenteditable="true"]:focus{
     menu.innerHTML =
       '<button type="button" data-rbl-force-action="draft">💾 Guardar rascunho</button>' +
       '<button type="button" data-rbl-force-action="restore">📂 Restaurar rascunho</button>' +
-      '<button type="button" data-rbl-force-action="clear">🧹 Limpar formulário</button>' +
-      '<button type="button" data-rbl-force-action="delete">🗑️ Apagar rascunho</button>';
+      '<button type="button" data-rbl-force-action="delete">🗑️ Apagar rascunho</button>' +
+      '<button type="button" data-rbl-force-action="reuse">↩️ Reutilizar cabeçalho</button>' +
+      '<button type="button" data-rbl-force-action="clear">🧹 Limpar formulário</button>';
   }
 
   function setOpen(menu, open){
@@ -7501,8 +7675,9 @@ body [contenteditable="true"]:focus{
         if(typeof window.toast === "function") window.toast("Rascunho guardado com sucesso.");
       }
       if(action === "restore" && typeof window.restoreDraft === "function") window.restoreDraft();
-      if(action === "clear" && typeof window.clearAll === "function") window.clearAll();
       if(action === "delete" && typeof window.deleteDraft === "function") window.deleteDraft();
+      if(action === "reuse" && typeof window.rblReuseHeader === "function") window.rblReuseHeader();
+      if(action === "clear" && typeof window.clearAll === "function") window.clearAll();
     }catch(err){
       if(typeof window.toast === "function") window.toast("Erro no menu Mais opções: " + err.message);
       else alert("Erro no menu Mais opções: " + err.message);
@@ -8109,7 +8284,7 @@ button[aria-label="Adicionar aula"]:focus{
 </style>
 <style id="rbl-camada4-sem-zonas-ano-estudantes-sem-buraco-ok">
 /* CAMADA 4 — desfaz a simulação por zonas.
-   Mantém o cabeçalho único e corrige Ano Letivo + Nº de estudantes para não deixarem buraco.
+   Mantém o cabeçalho único e corrige Ano letivo + Nº de estudantes para não deixarem buraco.
    CSS-only. Não altera scripts, IDs, Curso(s), UC, Estado, Autoria, Mais opções, PDF, Power Automate, payload ou autosave. */
 
 /* Garante que não aparecem títulos artificiais de zonas */
@@ -8147,7 +8322,7 @@ button[aria-label="Adicionar aula"]:focus{
     box-sizing:border-box !important;
   }
 
-  /* Ano Letivo e Nº de estudantes passam a ocupar a linha toda, 50% + 50%, sem buraco à direita */
+  /* Ano letivo e Nº de estudantes passam a ocupar a linha toda, 50% + 50%, sem buraco à direita */
   .rbl-ident-card:has(#ano),
   .rbl-ident-card:has(#n_estudantes){
     grid-column:span 2 !important;
@@ -8344,7 +8519,7 @@ input[type="radio"]:hover,
 }
 </style>
 <style id="rbl-camada4g-ano-estudantes-hover-data-duracao-ok">
-/* CAMADA 4G — Ano Letivo e Número de Estudantes com o mesmo hover dos campos de data/duração.
+/* CAMADA 4G — Ano letivo e Número de Estudantes com o mesmo hover dos campos de data/duração.
    Normal: discreto. Hover: pequeno movimento + borda acinzentada + sombra suave.
    Não altera validação, scripts principais, Curso(s), UC, Estado, Autoria, PDF, Power Automate, payload ou autosave. */
 
@@ -8724,7 +8899,7 @@ textarea[id$="_desc"]:focus{
 .rbl-ident-card:has(#estado_guiao),
 .field-card:has(#autoria),
 .field-card:has(#estado_guiao){
-  border-color:rgba(227,30,36,.26) !important;
+  border-color:rgba(0,0,0,.16) !important;
   background:#fff !important;
 }
 
@@ -8966,5 +9141,323 @@ textarea[id$="_desc"]::placeholder{
   setTimeout(fixStageTitles, 900);
 })();
 </script>
+<script id="rbl-reuse-header-function-minimal">
+(function(){
+  if (window.rblReuseHeader) return;
+  window.rblReuseHeader = function(){
+    var raw = '';
+    try { raw = localStorage.getItem('rbl_cabecalho_reutilizavel') || localStorage.getItem('projbl_cabecalho_reutilizavel') || ''; } catch(e) {}
+    if(!raw){
+      try { if(typeof window.toast === 'function') window.toast('Ainda não há cabeçalho disponível para reutilizar.'); } catch(e) {}
+      return;
+    }
+    var data = [];
+    try { data = JSON.parse(raw) || []; } catch(e) { data = []; }
+    data.forEach(function(item){
+      var el = null;
+      if(item.id) el = document.getElementById(item.id);
+      if(!el && item.name && window.CSS && CSS.escape) el = document.querySelector('[name="' + CSS.escape(item.name) + '"]');
+      if(!el) return;
+      var type = String(el.type || '').toLowerCase();
+      if(type === 'checkbox' || type === 'radio') el.checked = !!item.checked;
+      else el.value = item.value || '';
+      try { el.dispatchEvent(new Event('input', {bubbles:true})); el.dispatchEvent(new Event('change', {bubbles:true})); } catch(e) {}
+    });
+    try { if(typeof window.toast === 'function') window.toast('Cabeçalho reutilizado.'); } catch(e) {}
+  };
+})();
+</script>
+<style id="rbl-final-remove-linha-identificacao-antes-planeamento">
+/* FINAL — origem real da linha:
+   a linha que persistia antes de “3. Planeamento geral” vinha do border-bottom
+   do contentor .rbl-ident-modern, porque Autoria/Estado fica dentro da grelha
+   de identificação. Remove só essa borda final, sem alterar campos, menu, PDF
+   ou payload. */
+
+html body:not(.guiao-pdf-mode) .rbl-ident-modern {
+  border-bottom: 0 !important;
+  border-bottom-width: 0 !important;
+  border-bottom-style: none !important;
+  border-bottom-color: transparent !important;
+}
+
+/* Garante que nenhum pseudo-elemento ou divisor colado ao fim da identificação reaparece. */
+html body:not(.guiao-pdf-mode) .rbl-ident-modern::after {
+  content: none !important;
+  display: none !important;
+  height: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html body:not(.guiao-pdf-mode) .rbl-ident-modern > .rbl-ident-divider:last-child,
+html body:not(.guiao-pdf-mode) .rbl-ident-modern > .rbl-red-divider:last-child,
+html body:not(.guiao-pdf-mode) .rbl-ident-modern > .rbl-aula-divider:last-child {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+/* Mantém a etapa 3 limpa, sem linha herdada da grelha anterior. */
+html body:not(.guiao-pdf-mode) .rbl-ident-modern + .rbl-progressive-stage,
+html body:not(.guiao-pdf-mode) .rbl-ident-modern + .section {
+  border-top: 0 !important;
+  box-shadow: none !important;
+}
+</style>
+<script id="rbl-final-remove-linha-identificacao-antes-planeamento-js">
+(function(){
+  if (window.__rblRemoveLinhaIdentificacaoAntesPlaneamento) return;
+  window.__rblRemoveLinhaIdentificacaoAntesPlaneamento = true;
+
+  function aplicar(){
+    document.querySelectorAll('.rbl-ident-modern').forEach(function(el){
+      el.style.setProperty('border-bottom', '0', 'important');
+      el.style.setProperty('border-bottom-width', '0', 'important');
+      el.style.setProperty('border-bottom-style', 'none', 'important');
+      el.style.setProperty('border-bottom-color', 'transparent', 'important');
+      el.style.setProperty('box-shadow', el.style.getPropertyValue('box-shadow') || '', 'important');
+
+      Array.prototype.slice.call(el.children).forEach(function(child, idx, arr){
+        var isLast = idx === arr.length - 1;
+        if (isLast && child.classList && (
+            child.classList.contains('rbl-ident-divider') ||
+            child.classList.contains('rbl-red-divider') ||
+            child.classList.contains('rbl-aula-divider'))) {
+          child.style.setProperty('display', 'none', 'important');
+          child.style.setProperty('height', '0', 'important');
+          child.style.setProperty('margin', '0', 'important');
+          child.style.setProperty('padding', '0', 'important');
+          child.style.setProperty('border', '0', 'important');
+          child.style.setProperty('background', 'transparent', 'important');
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', aplicar);
+  else aplicar();
+
+  setTimeout(aplicar, 100);
+  setTimeout(aplicar, 500);
+  setTimeout(aplicar, 1200);
+})();
+</script>
+<style id="rbl-numeric-pair-final-align-fix">
+/* Microcamada RBL — campos numéricos lado a lado e alinhados */
+.rbl-ident-modern .rbl-numeric-pair-card{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:12px !important;
+  align-items:start !important;
+  padding:12px !important;
+}
+.rbl-ident-modern .rbl-numeric-pair-field{
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:flex-start !important;
+  min-width:0 !important;
+}
+.rbl-ident-modern .rbl-numeric-pair-field label{
+  display:block !important;
+  min-height:18px !important;
+  margin:0 0 7px 0 !important;
+  font-size:13px !important;
+  font-weight:700 !important;
+  line-height:1.25 !important;
+  color:#333 !important;
+}
+.rbl-ident-modern .rbl-numeric-pair-field input,
+.rbl-ident-modern input#n_estudantes,
+.rbl-ident-modern input#n_grupos{
+  width:100% !important;
+  min-height:42px !important;
+  height:42px !important;
+  padding:8px 10px !important;
+  border:1px solid #bbb !important;
+  border-radius:10px !important;
+  background:#fff !important;
+  font-family:'Century Gothic', sans-serif !important;
+  font-size:13px !important;
+  line-height:1.35 !important;
+  box-sizing:border-box !important;
+  text-align:left !important;
+}
+@media (max-width:680px){
+  .rbl-ident-modern .rbl-numeric-pair-card{grid-template-columns:1fr !important;}
+}
+</style>
+<script id="rbl-numeric-pair-final-align-fix-js">
+(function(){
+  function normalizarNumerico(id){
+    var el=document.getElementById(id);
+    if(!el) return;
+    el.type='number';
+    el.setAttribute('inputmode','numeric');
+    el.setAttribute('pattern','[0-9]*');
+    el.setAttribute('min','0');
+    el.setAttribute('step','1');
+    el.setAttribute('autocomplete','off');
+    el.addEventListener('input', function(){
+      var limpo=String(el.value||'').replace(/\D+/g,'');
+      if(String(el.value)!==limpo) el.value=limpo;
+    });
+  }
+  function init(){
+    normalizarNumerico('n_estudantes');
+    normalizarNumerico('n_grupos');
+    var estudante=document.getElementById('n_estudantes');
+    var grupo=document.getElementById('n_grupos');
+    if(estudante && grupo && !grupo.closest('.rbl-numeric-pair-card')){
+      var card=estudante.closest('.rbl-ident-card');
+      if(card){
+        card.className='rbl-ident-card rbl-numeric-pair-card';
+        card.innerHTML='';
+        function field(label, el){
+          var wrap=document.createElement('div');
+          wrap.className='rbl-numeric-pair-field';
+          var l=document.createElement('label');
+          l.setAttribute('for', el.id);
+          l.textContent=label;
+          wrap.appendChild(l);
+          wrap.appendChild(el);
+          return wrap;
+        }
+        card.appendChild(field('Número de estudantes', estudante));
+        card.appendChild(field('Número de grupos', grupo));
+      }
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+  setTimeout(init, 120);
+  setTimeout(init, 350);
+  setTimeout(init, 1500);
+  setTimeout(init, 2300);
+})();
+</script>
+<script id="guiao-required-submit-validation-v1">
+/* ===== Auditoria transversal — campos obrigatórios antes da submissão =====
+   Camada cirúrgica: não altera IDs, payloads, botões, Curso(s), PDF, Power Automate ou estrutura pedagógica.
+   Apenas bloqueia o clique em “Enviar para Validação” quando faltam dados mínimos institucionais. */
+(function(){
+  if(window.__guiaoRequiredSubmitValidationV1) return;
+  window.__guiaoRequiredSubmitValidationV1 = true;
+  function norm(s){ return String(s || '').replace(/\s+/g,' ').trim(); }
+  function val(el){
+    if(!el) return '';
+    if(el.tagName === 'SELECT'){
+      var v = norm(el.value);
+      if(v && !/^sele/i.test(v)) return v;
+      var opt = el.options && el.selectedIndex >= 0 ? el.options[el.selectedIndex] : null;
+      return opt ? norm(opt.value || opt.textContent) : '';
+    }
+    return norm(el.value || el.textContent || '');
+  }
+  function first(selectors){
+    for(var i=0;i<selectors.length;i++){
+      var el = document.querySelector(selectors[i]);
+      if(!el) continue;
+      if(!/^(INPUT|TEXTAREA|SELECT)$/i.test(el.tagName || '')) continue;
+      var v = val(el);
+      if(v) return {value:v, element:el};
+    }
+    return {value:'', element:null};
+  }
+  function courseValue(){
+    var direct = first(['#curso','[name="curso"]']);
+    if(direct.value) return direct;
+    var chips = Array.from(document.querySelectorAll('#cblCursosSelecionados .cbl-course-chip, .cbl-course-chip, [data-course-chip]')).map(function(x){ return norm(x.textContent).replace(/[×x]$/i,'').trim(); }).filter(Boolean).join('; ');
+    if(chips) return {value:chips, element:document.querySelector('#cursoBusca') || document.querySelector('#cblCursosSelecionados')};
+    return {value:'', element:document.querySelector('#cursoBusca') || document.querySelector('#curso')};
+  }
+  function ucValue(){
+    return first(['#uc','#ucs','[name="uc"]','[name="ucs"]','#unidade_curricular','[name="unidade_curricular"]','.projbl-nome-uc-projeto-field','#ucProjeto','#nomeUCProjeto','#nomeUcProjeto','#nome_uc_projeto']);
+  }
+  function docenteValue(){
+    return first(['#professor','#docentes','#docente','[name="professor"]','[name="docentes"]','[name="docente"]','.docente-nome','.proj-docente-field']);
+  }
+  function emailValue(){
+    return first(['#emails','#email','[name="emails"]','[name="email"]','.docente-email']);
+  }
+  function unidadeValue(){
+    return first(['#unidadeOrganica','#unidade_organica','#unidade-organica','[name="unidadeOrganica"]','[name="unidade_organica"]']);
+  }
+  function estadoValue(){
+    return first(['#estado','#estadoGuiao','#estado_guiao','[name="estado"]','[name="estadoGuiao"]','[name="estado_guiao"]']);
+  }
+  function autorizacaoValue(){
+    var checked = document.querySelector('input[name="autorizaRepositorio"]:checked, input[name="autorizaRepositorioOpcao"]:checked, input[name="autorizacaoRepositorio"]:checked');
+    if(checked) return {value:norm(checked.value), element:checked};
+    var ids = ['#autorizaRepositorio','#autorizacaoRepositorio'];
+    for(var i=0;i<ids.length;i++){
+      var el = document.querySelector(ids[i]);
+      if(el && String(el.type || '').toLowerCase() !== 'radio'){
+        var v = val(el);
+        if(v) return {value:v, element:el};
+      }
+    }
+    return {value:'', element:document.querySelector('input[name="autorizaRepositorio"], input[name="autorizaRepositorioOpcao"], input[name="autorizacaoRepositorio"]')};
+  }
+  function mark(el){
+    try{
+      if(!el) return;
+      el.classList.add('guiao-required-missing');
+      setTimeout(function(){ try{ el.classList.remove('guiao-required-missing'); }catch(e){} }, 4500);
+    }catch(e){}
+  }
+  function notify(msg){
+    if(typeof toast === 'function') return toast(msg, 'error', 6500);
+    if(typeof showToast === 'function') return showToast(msg);
+    if(typeof mostrarToast === 'function') return mostrarToast(msg);
+    alert(msg);
+  }
+  window.guiaoValidarCamposObrigatoriosSubmissaoV1 = function(options){
+    var checks = [
+      ['Unidade Orgânica', unidadeValue()],
+      ['Curso(s)', courseValue()],
+      ['Unidade(s) Curricular(es)', ucValue()],
+      ['Docente(s)', docenteValue()],
+      ['Email(s)', emailValue()],
+      ['Estado do guião', estadoValue()],
+      ['Autorização para integração no repositório', autorizacaoValue()]
+    ];
+    var missing = checks.filter(function(c){ return !c[1].value; });
+    if(missing.length){
+      if(!options || !options.silent){
+        var msg = 'Antes de enviar para validação, preencha: ' + missing.map(function(c){return c[0];}).join(', ') + '.';
+        notify(msg);
+        mark(missing[0][1].element);
+        try{ missing[0][1].element && missing[0][1].element.focus && missing[0][1].element.focus(); }catch(e){}
+      }
+      return {ok:false, missing:missing.map(function(c){return c[0];})};
+    }
+    return {ok:true, missing:[]};
+  };
+  function isSubmitControl(el){
+    if(!el) return false;
+    var txt = norm(el.textContent || el.value).toLowerCase();
+    return el.id === 'btnEnviarValidacao' || el.id === 'btnValidacaoReal' || txt.indexOf('enviar para valida') !== -1 || txt.indexOf('submeter') !== -1 || txt.indexOf('submiss') !== -1;
+  }
+  document.addEventListener('click', function(ev){
+    var btn = ev.target && ev.target.closest ? ev.target.closest('button,input[type="button"],input[type="submit"]') : null;
+    if(!isSubmitControl(btn)) return;
+    var result = window.guiaoValidarCamposObrigatoriosSubmissaoV1();
+    if(!result.ok){
+      ev.preventDefault();
+      ev.stopPropagation();
+      if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+      return false;
+    }
+  }, true);
+})();
+</script>
+<style id="guiao-required-submit-validation-v1-style">
+.guiao-required-missing{ outline:3px solid rgba(227,30,36,.28) !important; outline-offset:2px !important; }
+</style>
 </body>
 </html>
