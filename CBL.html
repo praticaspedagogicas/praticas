@@ -2806,6 +2806,46 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 }
 
 </style>
+
+<style id="cbl-mobile-numeric-compact-final">
+/* ===== CBL — compactação mobile dos campos Nº de estudantes / Nº de grupos =====
+   Ajuste restrito a telemóvel. Mantém o desktop e a lógica dos campos intactos. */
+@media screen and (max-width: 760px){
+  .cbl-numeric-pair-cell{
+    padding: 6px !important;
+  }
+  .cbl-numeric-pair{
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    gap: 0 !important;
+    border-radius: 12px !important;
+  }
+  .cbl-numeric-mini{
+    padding: 6px !important;
+    min-width: 0 !important;
+  }
+  .cbl-numeric-mini + .cbl-numeric-mini{
+    border-top: 0 !important;
+    border-left: 1px solid #e4e4e4 !important;
+  }
+  .cbl-numeric-mini label{
+    font-size: 11.2px !important;
+    line-height: 1.15 !important;
+    margin: -6px -6px 6px -6px !important;
+    padding: 6px 7px !important;
+    min-height: 30px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  .cbl-numeric-mini input{
+    min-height: 36px !important;
+    height: 36px !important;
+    padding: 7px 8px !important;
+    font-size: 12.2px !important;
+    line-height: 1.2 !important;
+    border-radius: 9px !important;
+  }
+}
+</style>
 </head>
 <body>
 <div class="page">
