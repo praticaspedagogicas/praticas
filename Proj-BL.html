@@ -7954,6 +7954,7 @@ html body:not(.guiao-pdf-mode) #nomeProjetoUC{
   background-color:#ffffff !important;
   background-image:none !important;
   box-shadow:none !important;
+  text-align:left !important;
 }
 
 /* Foco: exatamente o mesmo vermelho forte do Curso(s) */
@@ -10068,6 +10069,272 @@ body:not(.guiao-pdf-mode) .projbl-autoria-estado-heading{
   }
 }
 </style>
+
+
+<style id="projbl-mobile-uc7-final-card-fix">
+/* ===== PROJ-BL — correção final mobile: campos cortados + Separador 7 em cartões ===== */
+@media (max-width: 680px) {
+  html, body {
+    overflow-x: hidden !important;
+    max-width: 100% !important;
+  }
+  body {
+    padding: 10px !important;
+  }
+  .page {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 16px 12px !important;
+    overflow-x: hidden !important;
+    border-radius: 16px !important;
+  }
+
+  /* Cabeçalho: tudo em uma coluna no telemóvel, sem campos cortados */
+  .header-grid,
+  .header-info,
+  .proj-header-ident-grid,
+  .proj-header-grid,
+  .proj-ident-grid,
+  .proj-top-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+  .header-card,
+  .header-info .section,
+  .proj-title-card,
+  .proj-top-field-card,
+  .section {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+  }
+  input,
+  textarea,
+  select,
+  .proj-expandable-field,
+  .proj-expand-preserved,
+  .proj-compact-preserved,
+  .projbl-native-resize,
+  .projbl-native-header,
+  .projbl-native-table {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  /* Tabs no mobile: botões legíveis, sem esmagar */
+  .tabs {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    border-bottom: 0 !important;
+  }
+  .tabs .tab {
+    width: 100% !important;
+    min-height: 54px !important;
+    border-radius: 12px !important;
+    border: 1.4px solid rgba(0,0,0,.28) !important;
+    padding: 10px 8px !important;
+    text-align: center !important;
+    white-space: normal !important;
+    line-height: 1.2 !important;
+  }
+  .tabs .tab.active {
+    border-radius: 12px !important;
+  }
+
+  /* Separador 7 — Contribuições das UCs: transforma grelha/tabela em cartões empilhados */
+  #ucs .projblz7g-section {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+    padding: 14px !important;
+  }
+  #ucs .projblz7g-title {
+    display: block !important;
+    font-size: 18px !important;
+    line-height: 1.18 !important;
+    margin-bottom: 14px !important;
+    word-break: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+  #ucs .projblz7g-grid {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow: visible !important;
+    border: 1.4px solid rgba(0,0,0,.38) !important;
+    border-radius: 16px !important;
+    background: #fff !important;
+  }
+  #ucs .projblz7g-header-row {
+    display: none !important;
+  }
+  #ucs .projblz7g-row.projblz7g-data-row {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    padding: 12px !important;
+    border: 0 !important;
+    border-bottom: 1px solid #e1e1e1 !important;
+    background: #fff !important;
+    box-sizing: border-box !important;
+  }
+  #ucs .projblz7g-row.projblz7g-data-row:last-of-type {
+    border-bottom: 1px solid #e1e1e1 !important;
+  }
+  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    padding: 0 0 12px 0 !important;
+    margin: 0 0 12px 0 !important;
+    border: 0 !important;
+    border-bottom: 1px dashed #dedede !important;
+    background: #fff !important;
+    box-sizing: border-box !important;
+  }
+  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    border-bottom: 0 !important;
+  }
+  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell::before {
+    display: block !important;
+    margin: 0 0 6px 0 !important;
+    font-size: 12.5px !important;
+    line-height: 1.2 !important;
+    font-weight: 800 !important;
+    color: #222 !important;
+    letter-spacing: .01em !important;
+  }
+  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(1)::before { content: "ECTS" !important; }
+  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(2)::before { content: "Unidade Curricular" !important; }
+  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(3)::before { content: "Horas de contacto" !important; }
+  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(4)::before { content: "Contribuição" !important; }
+  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(5)::before { content: "Docente(s)/Email" !important; }
+  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(6)::before { content: "% do projeto final" !important; }
+
+  #ucs .projblz7g-cell .projbl-light-resize-wrap,
+  #ucs .projblz7g-cell .projbl-js-resize-wrap {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    display: block !important;
+    box-sizing: border-box !important;
+  }
+  #ucs .projblz7g-field,
+  #ucs .projblz7g-input,
+  #ucs .projblz7g-textarea,
+  #ucs .projblz7g-email {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    min-height: 48px !important;
+    height: auto !important;
+    padding: 10px 12px !important;
+    font-size: 15px !important;
+    line-height: 1.35 !important;
+    text-align: left !important;
+    border-radius: 12px !important;
+    overflow: auto !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+    box-sizing: border-box !important;
+  }
+  #ucs .projblz7g-textarea,
+  #ucs textarea.projblz7g-field {
+    min-height: 82px !important;
+    resize: vertical !important;
+  }
+  #ucs .projblz7g-input.projblz7g-percent,
+  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(1) .projblz7g-input,
+  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(3) .projblz7g-input {
+    text-align: left !important;
+  }
+
+  #ucs .projblz7g-total-row {
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    align-items: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+    padding: 12px !important;
+    background: #f7f7f7 !important;
+    border: 0 !important;
+    box-sizing: border-box !important;
+  }
+  #ucs .projblz7g-total-row .projblz7g-cell,
+  #ucs .projblz7g-total-label,
+  #ucs .projblz7g-total-value {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    border: 0 !important;
+    padding: 0 !important;
+    font-size: 14px !important;
+    line-height: 1.25 !important;
+    box-sizing: border-box !important;
+  }
+  #ucs .projblz7g-total-label {
+    text-align: left !important;
+    font-weight: 800 !important;
+  }
+  #ucs .projblz7g-total-value {
+    text-align: right !important;
+    font-weight: 900 !important;
+    white-space: nowrap !important;
+  }
+
+  /* Controlos + / − sempre visíveis e confortáveis no mobile */
+  #ucs .projbl-row-actions,
+  #ucs .projbl-row-actions-contribuicoes,
+  .projbl-row-actions,
+  .proj-table-tools,
+  .proj-row-controls {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    gap: 10px !important;
+    flex-wrap: wrap !important;
+    margin: 12px 0 0 0 !important;
+  }
+  #ucs .projbl-row-action-btn,
+  .projbl-row-action-btn,
+  .proj-control-btn,
+  .proj-table-tool {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    font-size: 24px !important;
+    line-height: 1 !important;
+    border-radius: 50% !important;
+  }
+  #ucs .projbl-row-action-legend,
+  .projbl-row-action-legend {
+    width: 100% !important;
+    text-align: right !important;
+    font-size: 12px !important;
+    color: #666 !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="page"><div class="premium-status no-print">
@@ -10103,7 +10370,7 @@ body:not(.guiao-pdf-mode) .projbl-autoria-estado-heading{
 <input class="projbl-header-red-same-course projbl-titulo-projeto-field" id="tituloProjeto" placeholder="Ex.: Projeto de Desenvolvimento Web" style="font-family:;;;text-align:center !important;;font-size:12.5px !important;line-height:1.35 !important;font-weight:500 !important;text-align:center !important;'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" type="text" value=""/>
 </div>
 <div class="header-info" style="display:grid !important;grid-template-columns:1fr 1fr !important;gap:14px !important;margin:0 0 12px 0 !important;padding:0 !important;clear:none !important;">
-<div class="section header-card proj-top-field-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;"><label style="text-transform:none !important;letter-spacing:.01em !important;font-size:13px !important;line-height:1.2 !important;margin-bottom:6px !important;color:#222 !important;font-weight:800 !important;">Unidade(s) Curricular(es):</label><div class="projbl-js-resize-wrap" style="min-height:38px !important;height:38px !important;"><textarea class="projbl-native-resize projbl-native-header projbl-js-resizable projbl-nome-uc-projeto-field projbl-header-red-same-course projbl-campo-igual-curso" data-projbl-native-converted="1" placeholder="Ex.: Projeto Aplicado" style="background:#ffffff !important; background-color:#ffffff !important; background-image:none !important; border:1.25px solid rgba(0,0,0,.35) !important; border-radius:11px !important; min-height:38px !important; padding:8px 10px !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:13px !important; line-height:1.25 !important; font-weight:500 !important; color:#222 !important; text-transform:none !important; box-shadow:none !important; box-sizing:border-box !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;min-height:38px !important;height:38px !important;max-height:none !important;padding:8px 25px 8px 10px !important;font-size:12.1px !important;line-height:1.25 !important;text-align:center !important;overflow:hidden !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value=""></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></div>
+<div class="section header-card proj-top-field-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;"><label style="text-transform:none !important;letter-spacing:.01em !important;font-size:13px !important;line-height:1.2 !important;margin-bottom:6px !important;color:#222 !important;font-weight:800 !important;">Unidade(s) Curricular(es):</label><div class="projbl-js-resize-wrap" style="min-height:38px !important;height:38px !important;"><textarea class="projbl-native-resize projbl-native-header projbl-js-resizable projbl-nome-uc-projeto-field projbl-header-red-same-course projbl-campo-igual-curso" data-projbl-native-converted="1" placeholder="Ex.: Projeto Aplicado" style="background:#ffffff !important; background-color:#ffffff !important; background-image:none !important; border:1.25px solid rgba(0,0,0,.35) !important; border-radius:11px !important; min-height:38px !important; padding:8px 10px !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:13px !important; line-height:1.25 !important; font-weight:500 !important; color:#222 !important; text-transform:none !important; box-shadow:none !important; box-sizing:border-box !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;min-height:38px !important;height:38px !important;max-height:none !important;padding:8px 25px 8px 10px !important;font-size:12.1px !important;line-height:1.25 !important;text-align:left !important;overflow:hidden !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value=""></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></div>
 <div class="section header-card proj-top-field-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;"><label for="curso" style="text-transform:none !important;letter-spacing:.01em !important;font-size:13px !important;line-height:1.2 !important;margin-bottom:6px !important;color:#222 !important;font-weight:800 !important;">Curso(s):</label><div class="proj-curso-combobox-wrap" style="position:relative;width:100%;"><input autocomplete="off" class="projbl-curso-payload" id="curso" placeholder="Ex.: Licenciatura em Marketing" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.25px solid rgba(0,0,0,.35) !important;border-radius:11px !important;min-height:38px !important;height:auto !important;padding:8px 10px !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:13px !important;line-height:1.25 !important;font-weight:500 !important;color:#222 !important;text-transform:none !important;box-shadow:none !important;box-sizing:border-box !important;;display:none !important;" type="hidden" value=""/><div class="projbl-curso-real-wrap"><input autocomplete="off" class="projbl-campo-igual-curso" id="cursoBusca" list="cblCursosList" placeholder="Digite para procurar e selecione um curso" style="font-family:;font-size:12.5px !important;line-height:1.35 !important;font-weight:500 !important;'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;min-height:38px !important;height:38px !important;padding:8px 10px !important;font-size:12.1px !important;line-height:1.25 !important;font-weight:500 !important;text-align:left !important;" type="text" value=""/><div class="cbl-course-chips" id="cblCursosSelecionados"></div></div><div aria-label="Sugestões de cursos" class="proj-cursos-sugestoes" id="projCursosSugestoes"></div></div><datalist id="projCursosList">
 <option value="Licenciatura em Animação e Criação Visual"></option>
 <option value="Licenciatura em Animação Global"></option>
@@ -12349,12 +12616,50 @@ function makeFileName(){
     }
 
     var ucsPayload = String(values.ucs || values.uc || "").trim();
-    var docentesPayload = String(values.docentes || values.professor || values.docente || values.autoria || "").trim();
-    var emailsPayload = String(values.emails || values.email || "").trim();
+
+    /* PROJ-BL EMAIL PAYLOAD FIX 2026-06-08 */
+    // A tabela Docente(s) do Proj-BL usa campos sem id/name. Por isso, o allFields()
+    // não conseguia criar values.email/values.emails e o Power Automate recebia To vazio.
+    function projReadJoinedValues(selector){
+      return Array.prototype.slice.call(document.querySelectorAll(selector))
+        .map(function(el){ return String((el && el.value) || "").trim(); })
+        .filter(Boolean)
+        .join("; ");
+    }
+    var docentesFromTable = projReadJoinedValues("#docentesTable .docente-nome");
+    var emailsFromTable = projReadJoinedValues("#docentesTable .docente-email");
+
+    var docentesPayload = String(values.docentes || values.Docentes || values.professor || values.docente || values.autoria || docentesFromTable || "").trim();
+    var emailsPayload = String(values.emails || values.email || values.Email || values.EmailDocente || values.emailDocente || emailsFromTable || "").trim();
+    if(docentesPayload){
+      values.docentes = values.docentes || docentesPayload;
+      values.Docentes = values.Docentes || docentesPayload;
+      values.docenteTexto = values.docenteTexto || docentesPayload;
+      values.Docentestexto = values.Docentestexto || docentesPayload;
+    }
+    if(emailsPayload){
+      values.emails = values.emails || emailsPayload;
+      values.email = values.email || emailsPayload;
+      values.Email = values.Email || emailsPayload;
+      values.EmailDocente = values.EmailDocente || emailsPayload;
+      values.emailDocente = values.emailDocente || emailsPayload;
+    }
+
     var nEstudantesPayload = String(values.nEstudantes || values.numeroEstudantes || values.numEstudantes || values.n_estudantes || values.numero_estudantes || "").trim();
     var nGruposPayload = String(values.nGrupos || values.numeroGrupos || values.numGrupos || values.n_grupos || values.numero_grupos || "").trim();
     var unidadeOrganicaPayload = String(values.unidadeOrganica || values.unidade_organica || "").trim();
     var modalidadePayload = String(values.modalidade || "").trim();
+    var semestrePayload = String(values.semestre || values.Semestre || "").trim();
+    var turmaPayload = String(values.turmaEdicao || values.turma || values.Turma || values.TurmaEdicao || values["Turma/Edição"] || "").trim();
+    var autoriaPayload = String(values.autoria || values.Autoria || values.autor || values.Autor || "").trim();
+    var estadoGuiaoPayload = String(values.estadoGuiao || values.estado || values.EstadoGuiao || values.Estado || "").trim();
+    var anoLetivoPayload = String(values.anoLetivoProjeto || values.ano || values.anoLetivo || values.AnoLetivo || "").trim();
+    if(semestrePayload){ values.semestre = values.semestre || semestrePayload; values.Semestre = values.Semestre || semestrePayload; }
+    if(turmaPayload){ values.turma = values.turma || turmaPayload; values.Turma = values.Turma || turmaPayload; values.turmaEdicao = values.turmaEdicao || turmaPayload; values.TurmaEdicao = values.TurmaEdicao || turmaPayload; values["Turma/Edição"] = values["Turma/Edição"] || turmaPayload; }
+    if(autoriaPayload){ values.autoria = values.autoria || autoriaPayload; values.Autoria = values.Autoria || autoriaPayload; values.autor = values.autor || autoriaPayload; values.Autor = values.Autor || autoriaPayload; }
+    if(estadoGuiaoPayload){ values.estadoGuiao = values.estadoGuiao || estadoGuiaoPayload; values.EstadoGuiao = values.EstadoGuiao || estadoGuiaoPayload; values.estado = values.estado || estadoGuiaoPayload; }
+    if(anoLetivoPayload){ values.anoLetivo = values.anoLetivo || anoLetivoPayload; values.AnoLetivo = values.AnoLetivo || anoLetivoPayload; values.ano = values.ano || anoLetivoPayload; }
+    values.submittedAt = new Date().toISOString();
 
     return {
       templateType: "PROJ-BL",
@@ -12367,8 +12672,15 @@ function makeFileName(){
       curso: cursosPayload,
       ucs: ucsPayload,
       docentes: docentesPayload,
+      Docentes: docentesPayload,
+      docente: docentesPayload,
       docenteTexto: docentesPayload,
+      Docentestexto: docentesPayload,
       emails: emailsPayload,
+      email: emailsPayload,
+      Email: emailsPayload,
+      EmailDocente: emailsPayload,
+      emailDocente: emailsPayload,
       nEstudantes: nEstudantesPayload,
       n_estudantes: nEstudantesPayload,
       numeroEstudantes: nEstudantesPayload,
@@ -12379,6 +12691,28 @@ function makeFileName(){
       numero_grupos: nGruposPayload,
       unidadeOrganica: unidadeOrganicaPayload,
       modalidade: modalidadePayload,
+      Modalidade: modalidadePayload,
+      unidade_organica: unidadeOrganicaPayload,
+      UnidadeOrganica: unidadeOrganicaPayload,
+      Semestre: semestrePayload,
+      semestre: semestrePayload,
+      Turma: turmaPayload,
+      turma: turmaPayload,
+      TurmaEdicao: turmaPayload,
+      turmaEdicao: turmaPayload,
+      "Turma/Edição": turmaPayload,
+      Autoria: autoriaPayload,
+      autoria: autoriaPayload,
+      Autor: autoriaPayload,
+      autor: autoriaPayload,
+      EstadoGuiao: estadoGuiaoPayload,
+      estadoGuiao: estadoGuiaoPayload,
+      estado: estadoGuiaoPayload,
+      AnoLetivo: anoLetivoPayload,
+      anoLetivo: anoLetivoPayload,
+      Ano: anoLetivoPayload,
+      ano: anoLetivoPayload,
+      submittedAt: new Date().toISOString(),
       source: window.location.href,
       sourceUrl: window.location.href,
       formData: values,
@@ -18333,164 +18667,119 @@ html body:not(.guiao-pdf-mode) .page #uxMenuMaisOpcoes button {
 <style id="guiao-required-submit-validation-v1-style">
 .guiao-required-missing{ outline:3px solid rgba(227,30,36,.28) !important; outline-offset:2px !important; }
 </style>
-
-
-<!-- ===== PROJ-BL FIX FINAL: DATA EM BRANCO + EMAIL PAYLOAD + MOBILE UC7 ===== -->
-<style id="projbl-final-data-mobile-uc7-fix-css">
-@media screen and (max-width:680px){
-  html body{ padding:10px !important; overflow-x:hidden !important; }
-  html body .page{ width:100% !important; max-width:100% !important; padding:16px 14px !important; overflow-x:hidden !important; border-radius:16px !important; }
-  html body .header-grid,
-  html body .header-info{ display:grid !important; grid-template-columns:1fr !important; gap:12px !important; width:100% !important; max-width:100% !important; }
-  html body .header-card,
-  html body .header-info .section,
-  html body .section{ width:100% !important; max-width:100% !important; min-width:0 !important; box-sizing:border-box !important; }
-  html body input,
-  html body textarea,
-  html body select{ max-width:100% !important; box-sizing:border-box !important; }
-
-  /* Separador 7 — Contribuições das UCs: deixa de ser grelha apertada e passa a cartões legíveis */
-  html body #ucs .projblz7g-section{ padding:12px !important; overflow:visible !important; }
-  html body #ucs .projblz7g-grid{ display:block !important; width:100% !important; max-width:100% !important; min-width:0 !important; border:0 !important; border-radius:0 !important; overflow:visible !important; background:transparent !important; }
-  html body #ucs .projblz7g-header-row{ display:none !important; }
-  html body #ucs .projblz7g-row{ display:grid !important; grid-template-columns:1fr !important; gap:10px !important; width:100% !important; max-width:100% !important; min-width:0 !important; margin:0 0 16px 0 !important; padding:12px !important; border:1.5px solid rgba(0,0,0,.24) !important; border-radius:14px !important; background:#fff !important; box-shadow:0 2px 8px rgba(0,0,0,.035) !important; }
-  html body #ucs .projblz7g-cell{ display:block !important; width:100% !important; max-width:100% !important; min-width:0 !important; padding:0 !important; border:0 !important; background:transparent !important; box-sizing:border-box !important; text-align:left !important; }
-  html body #ucs .projblz7g-data-row .projblz7g-cell::before{ display:block !important; margin:0 0 5px 0 !important; font-size:12.5px !important; line-height:1.25 !important; font-weight:800 !important; color:#222 !important; text-align:left !important; }
-  html body #ucs .projblz7g-data-row .projblz7g-cell:nth-child(1)::before{ content:"ECTS" !important; }
-  html body #ucs .projblz7g-data-row .projblz7g-cell:nth-child(2)::before{ content:"Unidade Curricular" !important; }
-  html body #ucs .projblz7g-data-row .projblz7g-cell:nth-child(3)::before{ content:"Horas de contacto" !important; }
-  html body #ucs .projblz7g-data-row .projblz7g-cell:nth-child(4)::before{ content:"Contribuição" !important; }
-  html body #ucs .projblz7g-data-row .projblz7g-cell:nth-child(5)::before{ content:"Docente(s)/Email" !important; }
-  html body #ucs .projblz7g-data-row .projblz7g-cell:nth-child(6)::before{ content:"% do projeto final" !important; }
-  html body #ucs .projblz7g-field,
-  html body #ucs input.projblz7g-field,
-  html body #ucs textarea.projblz7g-field{ width:100% !important; max-width:100% !important; min-width:0 !important; height:auto !important; max-height:none !important; min-height:48px !important; padding:10px 12px !important; font-size:15px !important; line-height:1.35 !important; text-align:left !important; white-space:normal !important; overflow-wrap:break-word !important; word-break:normal !important; overflow:auto !important; resize:vertical !important; border-radius:12px !important; box-sizing:border-box !important; }
-  html body #ucs input.projblz7g-field{ resize:none !important; text-align:left !important; }
-  html body #ucs .projblz7g-email{ font-size:14px !important; line-height:1.32 !important; }
-  html body #ucs .projblz7g-total-row{ display:grid !important; grid-template-columns:1fr !important; gap:6px !important; margin-top:4px !important; }
-  html body #ucs .projblz7g-total-label,
-  html body #ucs .projblz7g-total-value{ grid-column:auto !important; text-align:center !important; justify-content:center !important; padding:10px !important; border-radius:10px !important; background:#f7f7f7 !important; }
-  html body #ucs .projblz7g-controls,
-  html body #ucs .projbl-row-actions{ justify-content:center !important; gap:10px !important; }
-  html body #ucs .projbl-row-action-btn,
-  html body #ucs .btn-plus,
-  html body #ucs .btn-minus{ width:38px !important; height:38px !important; min-width:38px !important; min-height:38px !important; font-size:20px !important; }
-}
-</style>
-<script id="projbl-final-data-email-payload-fix-js">
+<script id="pbl-projbl-final-date-uc-payload-guard">
 (function(){
-  'use strict';
-  if(window.__PROJBL_FINAL_DATA_EMAIL_PAYLOAD_FIX_V3__) return;
-  window.__PROJBL_FINAL_DATA_EMAIL_PAYLOAD_FIX_V3__ = true;
+  if (window.__pblProjblFinalDateUcPayloadGuard) return;
+  window.__pblProjblFinalDateUcPayloadGuard = true;
 
-  function txt(v){ return String(v == null ? '' : v).trim(); }
-  function readOne(selector){
-    try{
-      var el = document.querySelector(selector);
-      return el ? txt(el.value || el.textContent || '') : '';
-    }catch(e){ return ''; }
+  var TOP_DATE_KEYS = ['Data','data','date','Date','DataSubmissao','dataSubmissao','Hora','hora','HoraInicio','horaInicio','HoraFim','horaFim'];
+
+  function cleanText(v){
+    return String(v == null ? '' : v).replace(/\s+/g,' ').trim();
   }
-  function readAll(selector){
-    return Array.prototype.slice.call(document.querySelectorAll(selector || '')).map(function(el){ return txt(el.value || el.textContent || ''); }).filter(Boolean).join('; ');
-  }
-  function looksProj(payload){
-    var probe = txt((payload && (payload.templateType || payload.scenario || payload.cenarioAprendizagem || payload.title || payload.pageTitle)) || '').toUpperCase();
-    return probe.indexOf('PROJ-BL') !== -1 || probe.indexOf('PROJECT-BASED') !== -1 || probe.indexOf('PROJECT BASED') !== -1;
-  }
-  function forceBlankDateHourKeys(obj, keepKeys){
-    if(!obj || typeof obj !== 'object') return;
-    var keys = ['data','Data','date','Date','dataSubmissao','DataSubmissao','submittedAt','SubmittedAt','submissionDate','SubmissionDate','hora','Hora','horaInicio','HoraInicio','horaFim','HoraFim'];
-    keys.forEach(function(k){
-      try{
-        if(keepKeys){ obj[k] = null; }
-        else { delete obj[k]; }
-      }catch(e){}
-    });
-  }
-  function removeDateKeys(obj){ forceBlankDateHourKeys(obj, false); }
-  function setMany(target, pairs){
-    if(!target || typeof target !== 'object') return;
-    Object.keys(pairs).forEach(function(k){
-      var v = txt(pairs[k]);
-      if(v) target[k] = v;
-    });
-  }
-  function normalisePayload(payload){
-    if(!payload || typeof payload !== 'object' || !looksProj(payload)) return payload;
 
-    /* Proj-BL não tem data/hora de cabeçalho. A coluna Data/Hora da lista Guiões deve ficar verdadeiramente vazia.
-       Por isso, os campos de topo seguem como null (não '-' nem data automática) e as cópias internas são limpas. */
-    forceBlankDateHourKeys(payload, true);
-    removeDateKeys(payload.formData);
-    removeDateKeys(payload.values);
-
-    var form = (payload.formData && typeof payload.formData === 'object') ? payload.formData : {};
-    var values = (payload.values && typeof payload.values === 'object') ? payload.values : {};
-
-    var curso = txt(payload.Curso || payload.curso || payload.cursos || form.Curso || form.curso || form.cursos || values.Curso || values.curso || values.cursos) || readOne('#curso') || readOne('#cursoBusca');
-    var uc = txt(payload.UC || payload.uc || payload.ucs || form.UC || form.uc || form.ucs || values.UC || values.uc || values.ucs) || readOne('#ucProjeto') || readOne('#nomeUCProjeto') || readOne('#uc') || readAll('#ucs textarea, #ucs input');
-    var unidadeOrganica = txt(payload.UnidadeOrganica || payload.unidadeOrganica || payload.unidade_organica || form.unidadeOrganica || values.unidadeOrganica) || readOne('#unidadeOrganica');
-    var modalidade = txt(payload.Modalidade || payload.modalidade || form.modalidade || values.modalidade) || readOne('#modalidade');
-    var semestre = txt(payload.Semestre || payload.semestre || form.Semestre || form.semestre || values.Semestre || values.semestre) || readOne('#semestre');
-    var turmaEdicao = txt(payload.TurmaEdicao || payload.turmaEdicao || payload.turma || payload.Turma || form.TurmaEdicao || form.turmaEdicao || form.turma || values.TurmaEdicao || values.turmaEdicao || values.turma) || readOne('#turmaEdicao');
-    var autoria = txt(payload.Autoria || payload.autoria || payload.autor || payload.Autor || form.Autoria || form.autoria || values.Autoria || values.autoria) || readOne('#autoria');
-    var estadoSelecionado = txt(payload.estadoGuiaoSelecionado || form.estadoGuiao || values.estadoGuiao) || readOne('#estadoGuiao');
-    var emails = txt(payload.emails || payload.email || payload.Email || payload.EmailDocente || payload.emailDocente || form.emails || form.email || values.emails || values.email) || readAll('.docente-email, input[type="email"], textarea[name="emails"], input[name="emails"], #emails, #email');
-    var docentes = txt(payload.docentes || payload.docente || payload.Docentes || payload.docenteTexto || payload.Docentestexto || payload.professor || form.docentes || form.professor || values.docentes || values.professor) || readAll('.docente-nome, .proj-docente-field, #professor, #docentes, #docente');
-    var nEst = txt(payload.nEstudantes || payload.numeroEstudantes || payload.n_estudantes || payload.numero_estudantes || form.numeroEstudantes || form.n_estudantes || values.numeroEstudantes || values.n_estudantes) || readOne('#numeroEstudantes') || readOne('#n_estudantes');
-    var nGrp = txt(payload.nGrupos || payload.numeroGrupos || payload.n_grupos || payload.numero_grupos || form.numeroGrupos || form.n_grupos || values.numeroGrupos || values.n_grupos) || readOne('#numeroGrupos') || readOne('#n_grupos');
-
-    setMany(payload, {
-      Curso: curso, curso: curso, cursos: curso,
-      UC: uc, uc: uc, ucs: uc,
-      UnidadeOrganica: unidadeOrganica, 'Unidade Orgânica': unidadeOrganica, unidadeOrganica: unidadeOrganica, unidade_organica: unidadeOrganica,
-      Modalidade: modalidade, modalidade: modalidade,
-      Semestre: semestre, semestre: semestre,
-      Turma: turmaEdicao, turma: turmaEdicao, TurmaEdicao: turmaEdicao, turmaEdicao: turmaEdicao, 'Turma/Edição': turmaEdicao,
-      Autoria: autoria, autoria: autoria, Autor: autoria, autor: autoria,
-      estadoGuiaoSelecionado: estadoSelecionado,
-      emails: emails, email: emails, Email: emails, EmailDocente: emails, emailDocente: emails,
-      docentes: docentes, Docentes: docentes, docente: docentes, docenteTexto: docentes, Docentestexto: docentes, professor: docentes,
-      nEstudantes: nEst, numeroEstudantes: nEst, n_estudantes: nEst, numero_estudantes: nEst,
-      nGrupos: nGrp, numeroGrupos: nGrp, n_grupos: nGrp, numero_grupos: nGrp
-    });
-
-    if(form && typeof form === 'object'){
-      setMany(form, {Curso:curso, curso:curso, cursos:curso, UC:uc, uc:uc, ucs:uc, UnidadeOrganica:unidadeOrganica, unidadeOrganica:unidadeOrganica, Modalidade:modalidade, modalidade:modalidade, Semestre:semestre, semestre:semestre, Turma:turmaEdicao, turma:turmaEdicao, TurmaEdicao:turmaEdicao, turmaEdicao:turmaEdicao, Autoria:autoria, autoria:autoria, emails:emails, email:emails, docentes:docentes, docente:docentes, professor:docentes, nEstudantes:nEst, numeroEstudantes:nEst, n_estudantes:nEst, nGrupos:nGrp, numeroGrupos:nGrp, n_grupos:nGrp});
+  function firstValue(selectors){
+    for(var i=0;i<selectors.length;i++){
+      var el = document.querySelector(selectors[i]);
+      if(!el) continue;
+      var v = cleanText(el.value || el.textContent || '');
+      if(v && !/^selecionar$/i.test(v)) return v;
     }
-    if(values && typeof values === 'object'){
-      setMany(values, {Curso:curso, curso:curso, cursos:curso, UC:uc, uc:uc, ucs:uc, UnidadeOrganica:unidadeOrganica, unidadeOrganica:unidadeOrganica, Modalidade:modalidade, modalidade:modalidade, Semestre:semestre, semestre:semestre, Turma:turmaEdicao, turma:turmaEdicao, TurmaEdicao:turmaEdicao, turmaEdicao:turmaEdicao, Autoria:autoria, autoria:autoria, emails:emails, email:emails, docentes:docentes, docente:docentes, professor:docentes, nEstudantes:nEst, numeroEstudantes:nEst, n_estudantes:nEst, nGrupos:nGrp, numeroGrupos:nGrp, n_grupos:nGrp});
+    return '';
+  }
+
+  function readProjBLUcs(){
+    var fromDirect = firstValue([
+      '#ucs','#uc','#unidadesCurriculares','#unidades_curriculares',
+      '[name="ucs"]','[name="uc"]','[name="unidadesCurriculares"]','[name="unidades_curriculares"]',
+      '.projbl-nome-uc-projeto-field','.projbl-campo-igual-curso','.projbl-native-header'
+    ]);
+    return fromDirect;
+  }
+
+  function stringifyNulls(value){
+    if(value === null || value === undefined) return '';
+    if(Array.isArray(value)) return value.map(stringifyNulls);
+    if(typeof value === 'object'){
+      Object.keys(value).forEach(function(k){ value[k] = stringifyNulls(value[k]); });
     }
-    forceBlankDateHourKeys(payload, true);
-    removeDateKeys(payload.formData);
-    removeDateKeys(payload.values);
+    return value;
+  }
+
+  function removeTopDateKeys(payload){
+    TOP_DATE_KEYS.forEach(function(k){
+      if(Object.prototype.hasOwnProperty.call(payload, k)) delete payload[k];
+    });
+  }
+
+  function removeEmptyNestedDateKeys(obj){
+    if(!obj || typeof obj !== 'object' || Array.isArray(obj)) return;
+    TOP_DATE_KEYS.forEach(function(k){
+      if(Object.prototype.hasOwnProperty.call(obj, k) && cleanText(obj[k]) === '') delete obj[k];
+    });
+  }
+
+  function fixPayload(payload){
+    if(!payload || typeof payload !== 'object' || Array.isArray(payload)) return payload;
+
+    // Igual aos templates sem data própria: não enviar Data/Hora artificiais no topo.
+    // O fluxo/SharePoint trata a data operacional; o HTML mantém apenas submittedAt real.
+    removeTopDateKeys(payload);
+    payload.submittedAt = cleanText(payload.submittedAt) || new Date().toISOString();
+
+    // Evita rejeição do trigger por null/undefined em campos string.
+    stringifyNulls(payload);
+
+    // Não deixar chaves de Data/Hora vazias escondidas em formData/values.
+    removeEmptyNestedDateKeys(payload.formData);
+    removeEmptyNestedDateKeys(payload.values);
+    if(payload.formData && typeof payload.formData === 'object') payload.formData.submittedAt = cleanText(payload.formData.submittedAt) || payload.submittedAt;
+    if(payload.values && typeof payload.values === 'object') payload.values.submittedAt = cleanText(payload.values.submittedAt) || payload.submittedAt;
+
+    // Proj-BL: garantir que a coluna UC(s), mapeada no Power Automate como "ucs", recebe texto.
+    var ucs = cleanText(payload.ucs || payload.uc || payload.UC || payload.UCs || payload.unidadesCurriculares || payload.unidadeCurricular || readProjBLUcs());
+    if(ucs){
+      payload.ucs = ucs;
+      payload.uc = payload.uc || ucs;
+      payload.UC = payload.UC || ucs;
+      payload.UCs = payload.UCs || ucs;
+      payload['UC(s)'] = payload['UC(s)'] || ucs;
+      payload.unidadeCurricular = payload.unidadeCurricular || ucs;
+      payload.unidadesCurriculares = payload.unidadesCurriculares || ucs;
+      payload['Unidade(s) Curricular(es)'] = payload['Unidade(s) Curricular(es)'] || ucs;
+      if(payload.formData && typeof payload.formData === 'object'){
+        payload.formData.ucs = payload.formData.ucs || ucs;
+        payload.formData.uc = payload.formData.uc || ucs;
+      }
+      if(payload.values && typeof payload.values === 'object'){
+        payload.values.ucs = payload.values.ucs || ucs;
+        payload.values.uc = payload.values.uc || ucs;
+      }
+    }
     return payload;
   }
-  window.projBLNormalizarPayloadFinal = normalisePayload;
 
-  var nativeFetch = window.fetch;
-  if(typeof nativeFetch === 'function'){
+  if(typeof window.fetch === 'function'){
+    var originalFetch = window.fetch;
     window.fetch = function(input, init){
       try{
-        if(init && typeof init.body === 'string' && init.body.trim().charAt(0) === '{'){
-          init.body = JSON.stringify(normalisePayload(JSON.parse(init.body)));
+        var url = String((input && input.url) || input || '');
+        var isPowerAutomate = /workflows|triggers|manual|powerautomate|logic\.azure/i.test(url);
+        if(isPowerAutomate && init && typeof init.body === 'string'){
+          var body = JSON.parse(init.body);
+          body = fixPayload(body);
+          init = Object.assign({}, init, { body: JSON.stringify(body) });
+          return originalFetch.call(this, input, init);
         }
       }catch(e){}
-      return nativeFetch.apply(this, arguments);
+      return originalFetch.apply(this, arguments);
     };
   }
 
-  function installAliases(){
-    Array.prototype.slice.call(document.querySelectorAll('.docente-email')).forEach(function(el, i){ if(!el.name) el.name = i === 0 ? 'emails' : 'emails_' + (i+1); });
-    Array.prototype.slice.call(document.querySelectorAll('.docente-nome')).forEach(function(el, i){ if(!el.name) el.name = i === 0 ? 'docentes' : 'docentes_' + (i+1); });
-    var map = {curso:'curso', cursoBusca:'cursoBusca', ucProjeto:'uc', unidadeOrganica:'unidadeOrganica', modalidade:'modalidade', semestre:'semestre', turmaEdicao:'turmaEdicao', autoria:'autoria', estadoGuiao:'estadoGuiao', numeroEstudantes:'numeroEstudantes', numeroGrupos:'numeroGrupos'};
-    Object.keys(map).forEach(function(id){ var el=document.getElementById(id); if(el && !el.name) el.name=map[id]; });
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', installAliases);
-  else installAliases();
+  // Também expõe a correção para funções internas que queiram chamar antes do fetch.
+  window.__pblProjblFixPayloadAntesDoEnvio = fixPayload;
 })();
 </script>
-
 </body>
 </html>
 <!-- projbl-camada15-curso-autosave-progress-selects -->
