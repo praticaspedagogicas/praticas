@@ -2,7 +2,7 @@
 
 <html lang="pt">
 <head>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta charset="utf-8"/>
 <style id="template-clean-style">
 /* ===== TEMPLATE LIMPO - CSS consolidado ===== */
@@ -7944,7 +7944,6 @@ html body:not(.guiao-pdf-mode) #nomeProjetoUC{
   background-color:#ffffff !important;
   background-image:none !important;
   box-shadow:none !important;
-  text-align:left !important;
 }
 
 /* Foco: exatamente o mesmo vermelho forte do Curso(s) */
@@ -9778,6 +9777,8 @@ body:not(.guiao-pdf-mode) .projbl-autorizacao-option:has(input[type="radio"]:che
   background:#fffafa !important;
 }
 </style>
+
+
 <style id="projbl-final-radio-dot-hardfix-v2">
 /* Correção cirúrgica: bolinha preenchida no rádio de autorização do formulário web.
    Não altera PDF, payload, autosave, campos, IDs ou submissão. */
@@ -9817,6 +9818,7 @@ body:not(.guiao-pdf-mode) #projblAutorizacaoRepositorioSection .projbl-finalbloc
   #projblAutorizacaoRepositorioSection{display:none !important; visibility:hidden !important;}
 }
 </style>
+
 <style id="projbl-campos-numericos-lado-a-lado-css">
 /* Microcamada — campos numéricos lado a lado no cabeçalho.
    Não altera PDF, menu, autorização, Curso(s) ou payload. */
@@ -9860,6 +9862,8 @@ body:not(.guiao-pdf-mode) #projblAutorizacaoRepositorioSection .projbl-finalbloc
   .projbl-numeric-pair-card{grid-template-columns:1fr !important;}
 }
 </style>
+
+
 <style id="projbl-autoria-estado-titulo-preto-css">
 /* Título visual da secção Autoria e Estado do guião — estilo Project, fitinha preta */
 body:not(.guiao-pdf-mode) .projbl-autoria-estado-heading{
@@ -9877,454 +9881,6 @@ body:not(.guiao-pdf-mode) .projbl-autoria-estado-heading{
   .projbl-autoria-estado-heading{page-break-after:avoid !important;}
 }
 </style>
-
-<style id="projbl-mobile-uc7-definitivo-css">
-/* FIX Proj-BL mobile — cabeçalho e separador 7 legíveis em telemóvel.
-   Não altera desktop, PDF, payload, botões, Curso(s) nem Power Automate. */
-@media screen and (max-width: 760px){
-  html body:not(.guiao-pdf-mode){
-    overflow-x:hidden !important;
-  }
-  html body:not(.guiao-pdf-mode) .page{
-    width:100% !important;
-    max-width:100% !important;
-    padding-left:14px !important;
-    padding-right:14px !important;
-    overflow-x:hidden !important;
-    box-sizing:border-box !important;
-  }
-  html body:not(.guiao-pdf-mode) .header-grid,
-  html body:not(.guiao-pdf-mode) .header-info,
-  html body:not(.guiao-pdf-mode) .proj-header-extra-info{
-    display:grid !important;
-    grid-template-columns:1fr !important;
-    gap:12px !important;
-    width:100% !important;
-    max-width:100% !important;
-    box-sizing:border-box !important;
-  }
-  html body:not(.guiao-pdf-mode) .header-card,
-  html body:not(.guiao-pdf-mode) .section,
-  html body:not(.guiao-pdf-mode) .proj-top-field-card,
-  html body:not(.guiao-pdf-mode) .proj-title-card{
-    width:100% !important;
-    max-width:100% !important;
-    min-width:0 !important;
-    box-sizing:border-box !important;
-    overflow:hidden !important;
-  }
-  html body:not(.guiao-pdf-mode) input,
-  html body:not(.guiao-pdf-mode) textarea,
-  html body:not(.guiao-pdf-mode) select{
-    max-width:100% !important;
-    box-sizing:border-box !important;
-  }
-
-  /* Docentes: evita cortes em emails longos sem mudar a estrutura funcional. */
-  html body:not(.guiao-pdf-mode) #docentesTable{
-    width:100% !important;
-    max-width:100% !important;
-    table-layout:fixed !important;
-  }
-  html body:not(.guiao-pdf-mode) #docentesTable td,
-  html body:not(.guiao-pdf-mode) #docentesTable th{
-    padding:7px !important;
-  }
-  html body:not(.guiao-pdf-mode) #docentesTable textarea,
-  html body:not(.guiao-pdf-mode) #docentesTable input{
-    overflow-wrap:anywhere !important;
-    word-break:break-word !important;
-    font-size:11.5px !important;
-    line-height:1.28 !important;
-  }
-
-  /* Separador 7 — em mobile deixa de ser grelha estreita e passa a cartões empilhados. */
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-section{
-    padding:12px !important;
-    overflow:hidden !important;
-  }
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-title{
-    font-size:18px !important;
-    line-height:1.25 !important;
-    letter-spacing:.04em !important;
-    margin-bottom:12px !important;
-  }
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-grid{
-    display:block !important;
-    width:100% !important;
-    max-width:100% !important;
-    border:1.35px solid rgba(0,0,0,.55) !important;
-    border-radius:16px !important;
-    overflow:hidden !important;
-    background:#fff !important;
-  }
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-header-row{
-    display:none !important;
-  }
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row{
-    display:block !important;
-    padding:10px !important;
-    border-bottom:1px solid #dddddd !important;
-    background:#fff !important;
-  }
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row:last-of-type{
-    border-bottom:0 !important;
-  }
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell{
-    display:block !important;
-    width:100% !important;
-    max-width:100% !important;
-    min-width:0 !important;
-    border:0 !important;
-    border-bottom:1px solid #eeeeee !important;
-    padding:8px 0 !important;
-    background:#fff !important;
-    box-sizing:border-box !important;
-    text-align:left !important;
-  }
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:last-child{
-    border-bottom:0 !important;
-  }
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell::before{
-    display:block !important;
-    margin:0 0 6px 0 !important;
-    font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;
-    font-size:12px !important;
-    line-height:1.2 !important;
-    font-weight:800 !important;
-    color:#333 !important;
-    letter-spacing:.01em !important;
-  }
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(1)::before{content:'ECTS';}
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(2)::before{content:'Unidade Curricular';}
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(3)::before{content:'Horas de contacto';}
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(4)::before{content:'Contribuição';}
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(5)::before{content:'Docente(s)/Email';}
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(6)::before{content:'% do projeto final';}
-
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-field,
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-input,
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-textarea{
-    width:100% !important;
-    max-width:100% !important;
-    min-width:0 !important;
-    height:auto !important;
-    min-height:44px !important;
-    max-height:none !important;
-    padding:9px 10px !important;
-    font-size:13px !important;
-    line-height:1.32 !important;
-    text-align:left !important;
-    white-space:pre-wrap !important;
-    overflow-wrap:anywhere !important;
-    word-break:normal !important;
-    overflow:auto !important;
-    resize:vertical !important;
-    box-sizing:border-box !important;
-  }
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-cell:nth-child(1) .projblz7g-field,
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-cell:nth-child(3) .projblz7g-field,
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-cell:nth-child(6) .projblz7g-field{
-    text-align:center !important;
-  }
-  html body:not(.guiao-pdf-mode) #ucs .projbl-light-resize-wrap{
-    width:100% !important;
-    max-width:100% !important;
-  }
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-total-row{
-    display:grid !important;
-    grid-template-columns:1fr auto !important;
-    width:100% !important;
-    border-top:1.35px solid #d8d8d8 !important;
-    background:#f7f7f7 !important;
-  }
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-total-label,
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-total-value{
-    display:flex !important;
-    align-items:center !important;
-    border:0 !important;
-    padding:10px !important;
-    background:#f7f7f7 !important;
-    font-size:13px !important;
-    line-height:1.2 !important;
-  }
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-total-label{
-    justify-content:flex-end !important;
-    text-align:right !important;
-  }
-  html body:not(.guiao-pdf-mode) #ucs .projblz7g-total-value{
-    justify-content:center !important;
-    min-width:62px !important;
-    font-weight:800 !important;
-  }
-}
-</style>
-
-
-<style id="projbl-mobile-uc7-final-card-fix">
-/* ===== PROJ-BL — correção final mobile: campos cortados + Separador 7 em cartões ===== */
-@media (max-width: 680px) {
-  html, body {
-    overflow-x: hidden !important;
-    max-width: 100% !important;
-  }
-  body {
-    padding: 10px !important;
-  }
-  .page {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 16px 12px !important;
-    overflow-x: hidden !important;
-    border-radius: 16px !important;
-  }
-
-  /* Cabeçalho: tudo em uma coluna no telemóvel, sem campos cortados */
-  .header-grid,
-  .header-info,
-  .proj-header-ident-grid,
-  .proj-header-grid,
-  .proj-ident-grid,
-  .proj-top-grid {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow: visible !important;
-  }
-  .header-card,
-  .header-info .section,
-  .proj-title-card,
-  .proj-top-field-card,
-  .section {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    box-sizing: border-box !important;
-    overflow: visible !important;
-  }
-  input,
-  textarea,
-  select,
-  .proj-expandable-field,
-  .proj-expand-preserved,
-  .proj-compact-preserved,
-  .projbl-native-resize,
-  .projbl-native-header,
-  .projbl-native-table {
-    max-width: 100% !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-  }
-
-  /* Tabs no mobile: botões legíveis, sem esmagar */
-  .tabs {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 8px !important;
-    border-bottom: 0 !important;
-  }
-  .tabs .tab {
-    width: 100% !important;
-    min-height: 54px !important;
-    border-radius: 12px !important;
-    border: 1.4px solid rgba(0,0,0,.28) !important;
-    padding: 10px 8px !important;
-    text-align: center !important;
-    white-space: normal !important;
-    line-height: 1.2 !important;
-  }
-  .tabs .tab.active {
-    border-radius: 12px !important;
-  }
-
-  /* Separador 7 — Contribuições das UCs: transforma grelha/tabela em cartões empilhados */
-  #ucs .projblz7g-section {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow: visible !important;
-    padding: 14px !important;
-  }
-  #ucs .projblz7g-title {
-    display: block !important;
-    font-size: 18px !important;
-    line-height: 1.18 !important;
-    margin-bottom: 14px !important;
-    word-break: normal !important;
-    overflow-wrap: anywhere !important;
-  }
-  #ucs .projblz7g-grid {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    overflow: visible !important;
-    border: 1.4px solid rgba(0,0,0,.38) !important;
-    border-radius: 16px !important;
-    background: #fff !important;
-  }
-  #ucs .projblz7g-header-row {
-    display: none !important;
-  }
-  #ucs .projblz7g-row.projblz7g-data-row {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    padding: 12px !important;
-    border: 0 !important;
-    border-bottom: 1px solid #e1e1e1 !important;
-    background: #fff !important;
-    box-sizing: border-box !important;
-  }
-  #ucs .projblz7g-row.projblz7g-data-row:last-of-type {
-    border-bottom: 1px solid #e1e1e1 !important;
-  }
-  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    padding: 0 0 12px 0 !important;
-    margin: 0 0 12px 0 !important;
-    border: 0 !important;
-    border-bottom: 1px dashed #dedede !important;
-    background: #fff !important;
-    box-sizing: border-box !important;
-  }
-  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:last-child {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-    border-bottom: 0 !important;
-  }
-  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell::before {
-    display: block !important;
-    margin: 0 0 6px 0 !important;
-    font-size: 12.5px !important;
-    line-height: 1.2 !important;
-    font-weight: 800 !important;
-    color: #222 !important;
-    letter-spacing: .01em !important;
-  }
-  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(1)::before { content: "ECTS" !important; }
-  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(2)::before { content: "Unidade Curricular" !important; }
-  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(3)::before { content: "Horas de contacto" !important; }
-  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(4)::before { content: "Contribuição" !important; }
-  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(5)::before { content: "Docente(s)/Email" !important; }
-  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(6)::before { content: "% do projeto final" !important; }
-
-  #ucs .projblz7g-cell .projbl-light-resize-wrap,
-  #ucs .projblz7g-cell .projbl-js-resize-wrap {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    display: block !important;
-    box-sizing: border-box !important;
-  }
-  #ucs .projblz7g-field,
-  #ucs .projblz7g-input,
-  #ucs .projblz7g-textarea,
-  #ucs .projblz7g-email {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    min-height: 48px !important;
-    height: auto !important;
-    padding: 10px 12px !important;
-    font-size: 15px !important;
-    line-height: 1.35 !important;
-    text-align: left !important;
-    border-radius: 12px !important;
-    overflow: auto !important;
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-    word-break: normal !important;
-    box-sizing: border-box !important;
-  }
-  #ucs .projblz7g-textarea,
-  #ucs textarea.projblz7g-field {
-    min-height: 82px !important;
-    resize: vertical !important;
-  }
-  #ucs .projblz7g-input.projblz7g-percent,
-  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(1) .projblz7g-input,
-  #ucs .projblz7g-row.projblz7g-data-row > .projblz7g-cell:nth-child(3) .projblz7g-input {
-    text-align: left !important;
-  }
-
-  #ucs .projblz7g-total-row {
-    display: grid !important;
-    grid-template-columns: 1fr auto !important;
-    align-items: center !important;
-    gap: 8px !important;
-    width: 100% !important;
-    padding: 12px !important;
-    background: #f7f7f7 !important;
-    border: 0 !important;
-    box-sizing: border-box !important;
-  }
-  #ucs .projblz7g-total-row .projblz7g-cell,
-  #ucs .projblz7g-total-label,
-  #ucs .projblz7g-total-value {
-    width: auto !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
-    border: 0 !important;
-    padding: 0 !important;
-    font-size: 14px !important;
-    line-height: 1.25 !important;
-    box-sizing: border-box !important;
-  }
-  #ucs .projblz7g-total-label {
-    text-align: left !important;
-    font-weight: 800 !important;
-  }
-  #ucs .projblz7g-total-value {
-    text-align: right !important;
-    font-weight: 900 !important;
-    white-space: nowrap !important;
-  }
-
-  /* Controlos + / − sempre visíveis e confortáveis no mobile */
-  #ucs .projbl-row-actions,
-  #ucs .projbl-row-actions-contribuicoes,
-  .projbl-row-actions,
-  .proj-table-tools,
-  .proj-row-controls {
-    width: 100% !important;
-    max-width: 100% !important;
-    display: flex !important;
-    justify-content: flex-end !important;
-    align-items: center !important;
-    gap: 10px !important;
-    flex-wrap: wrap !important;
-    margin: 12px 0 0 0 !important;
-  }
-  #ucs .projbl-row-action-btn,
-  .projbl-row-action-btn,
-  .proj-control-btn,
-  .proj-table-tool {
-    width: 44px !important;
-    height: 44px !important;
-    min-width: 44px !important;
-    min-height: 44px !important;
-    font-size: 24px !important;
-    line-height: 1 !important;
-    border-radius: 50% !important;
-  }
-  #ucs .projbl-row-action-legend,
-  .projbl-row-action-legend {
-    width: 100% !important;
-    text-align: right !important;
-    font-size: 12px !important;
-    color: #666 !important;
-  }
-}
-</style>
-
 </head>
 <body>
 <div class="page"><div class="premium-status no-print">
@@ -10354,13 +9910,13 @@ body:not(.guiao-pdf-mode) .projbl-autoria-estado-heading{
 <option value="Presencial">Presencial</option>
 <option selected="selected" value="EaD">EaD</option>
 </select>
-</div><div class="header-card projbl-header-selector-card"><label for="semestre">Semestre</label><select class="projbl-header-selector" id="semestre"><option value="">Selecionar</option><option selected="selected" value="1.º semestre">1.º semestre</option><option value="2.º semestre">2.º semestre</option><option value="Anual">Anual</option></select></div><div class="header-card projbl-header-selector-card"><label for="turmaEdicao">Turma/Edição</label><select class="projbl-header-selector" id="turmaEdicao" placeholder="Ex.: Turma A"><option value="">Selecionar</option><option selected="selected" value="Turma 1">Turma 1</option><option value="Turma 2">Turma 2</option><option value="Turma 3">Turma 3</option><option value="Turma 4">Turma 4</option></select></div></div>
+</div><div class="header-card projbl-header-selector-card"><label for="semestre">Semestre</label><select class="projbl-header-selector" id="semestre"><option value="">Selecionar</option><option selected="selected" value="1.º semestre">1.º semestre</option><option value="2.º semestre">2.º semestre</option><option value="Anual">Anual</option></select></div><div class="header-card projbl-header-selector-card"><label for="turmaEdicao">Turma/Edição</label><select class="projbl-header-selector" id="turmaEdicao"><option value="">Selecionar</option><option selected="selected" value="Turma 1">Turma 1</option><option value="Turma 2">Turma 2</option><option value="Turma 3">Turma 3</option><option value="Turma 4">Turma 4</option></select></div></div>
 <div class="header-card proj-title-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:11px 13px !important;margin:0 0 12px 0 !important;box-sizing:border-box !important;clear:none !important;">
 <label for="tituloProjeto" style=" text-transform:none !important;">Título do Projeto</label>
 <input class="projbl-header-red-same-course projbl-titulo-projeto-field" id="tituloProjeto" placeholder="Ex.: Projeto de Desenvolvimento Web" style="font-family:;;;text-align:center !important;;font-size:12.5px !important;line-height:1.35 !important;font-weight:500 !important;text-align:center !important;'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" type="text" value="Design Visual para Comunidade Local"/>
 </div>
 <div class="header-info" style="display:grid !important;grid-template-columns:1fr 1fr !important;gap:14px !important;margin:0 0 12px 0 !important;padding:0 !important;clear:none !important;">
-<div class="section header-card proj-top-field-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;"><label style="text-transform:none !important;letter-spacing:.01em !important;font-size:13px !important;line-height:1.2 !important;margin-bottom:6px !important;color:#222 !important;font-weight:800 !important;">Unidade(s) Curricular(es):</label><div class="projbl-js-resize-wrap" style="min-height:38px !important;height:38px !important;"><textarea class="projbl-native-resize projbl-native-header projbl-js-resizable projbl-nome-uc-projeto-field projbl-header-red-same-course projbl-campo-igual-curso" data-projbl-native-converted="1" placeholder="Ex.: Projeto Aplicado" style="background:#ffffff !important; background-color:#ffffff !important; background-image:none !important; border:1.25px solid rgba(0,0,0,.35) !important; border-radius:11px !important; min-height:38px !important; padding:8px 10px !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:13px !important; line-height:1.25 !important; font-weight:500 !important; color:#222 !important; text-transform:none !important; box-shadow:none !important; box-sizing:border-box !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;min-height:38px !important;height:38px !important;max-height:none !important;padding:8px 25px 8px 10px !important;font-size:12.1px !important;line-height:1.25 !important;text-align:left !important;overflow:hidden !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value="Projeto Interdisciplinar I">Projeto Interdisciplinar I</textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></div>
+<div class="section header-card proj-top-field-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;"><label style="text-transform:none !important;letter-spacing:.01em !important;font-size:13px !important;line-height:1.2 !important;margin-bottom:6px !important;color:#222 !important;font-weight:800 !important;">Nome da UC de Projeto:</label><div class="projbl-js-resize-wrap" style="min-height:38px !important;height:38px !important;"><textarea class="projbl-native-resize projbl-native-header projbl-js-resizable projbl-nome-uc-projeto-field projbl-header-red-same-course projbl-campo-igual-curso" data-projbl-native-converted="1" placeholder="Ex: Projeto I" style="background:#ffffff !important; background-color:#ffffff !important; background-image:none !important; border:1.25px solid rgba(0,0,0,.35) !important; border-radius:11px !important; min-height:38px !important; padding:8px 10px !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:13px !important; line-height:1.25 !important; font-weight:500 !important; color:#222 !important; text-transform:none !important; box-shadow:none !important; box-sizing:border-box !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;min-height:38px !important;height:38px !important;max-height:none !important;padding:8px 25px 8px 10px !important;font-size:12.1px !important;line-height:1.25 !important;text-align:center !important;overflow:hidden !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value="Projeto Interdisciplinar I">Projeto Interdisciplinar I</textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></div>
 <div class="section header-card proj-top-field-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;"><label for="curso" style="text-transform:none !important;letter-spacing:.01em !important;font-size:13px !important;line-height:1.2 !important;margin-bottom:6px !important;color:#222 !important;font-weight:800 !important;">Curso(s):</label><div class="proj-curso-combobox-wrap" style="position:relative;width:100%;"><input autocomplete="off" class="projbl-curso-payload" id="curso" placeholder="Ex.: Licenciatura em Marketing" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.25px solid rgba(0,0,0,.35) !important;border-radius:11px !important;min-height:38px !important;height:auto !important;padding:8px 10px !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:13px !important;line-height:1.25 !important;font-weight:500 !important;color:#222 !important;text-transform:none !important;box-shadow:none !important;box-sizing:border-box !important;;display:none !important;" type="hidden" value="Licenciatura em Design Visual EaD"/><div class="projbl-curso-real-wrap"><input autocomplete="off" class="projbl-campo-igual-curso" id="cursoBusca" list="cblCursosList" placeholder="Digite para procurar e selecione um curso" style="font-family:;font-size:12.5px !important;line-height:1.35 !important;font-weight:500 !important;'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;min-height:38px !important;height:38px !important;padding:8px 10px !important;font-size:12.1px !important;line-height:1.25 !important;font-weight:500 !important;text-align:left !important;" type="text" value="Licenciatura em Design Visual EaD"/><div class="cbl-course-chips" id="cblCursosSelecionados"><span class="cbl-course-chip">Licenciatura em Design Visual EaD <button aria-label="Remover curso" type="button">×</button></span></div></div><div aria-label="Sugestões de cursos" class="proj-cursos-sugestoes" id="projCursosSugestoes"></div></div><datalist id="projCursosList">
 <option value="Licenciatura em Animação e Criação Visual"></option>
 <option value="Licenciatura em Animação Global"></option>
@@ -10456,24 +10012,24 @@ body:not(.guiao-pdf-mode) .projbl-autoria-estado-heading{
 </div>
 <div class="section header-card proj-top-field-card projbl-numeric-pair-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;">
 <div class="projbl-numeric-pair-field">
-<label for="numeroEstudantes">Nº de estudantes</label>
-<input class="projbl-header-red-same-course projbl-numero-estudantes-field projbl-campo-igual-curso" id="numeroEstudantes" inputmode="numeric" min="0" name="numeroEstudantes" placeholder="Ex.: 32" step="1" type="number" value="32"/>
+<label for="numeroEstudantes">Número de estudantes</label>
+<input class="projbl-header-red-same-course projbl-numero-estudantes-field projbl-campo-igual-curso" id="numeroEstudantes" inputmode="numeric" min="0" name="numeroEstudantes" placeholder="Ex.: 30" step="1" type="number" value="32"/>
 </div>
 <div class="projbl-numeric-pair-field">
-<label for="numeroGrupos">Nº de grupos</label>
+<label for="numeroGrupos">Número de grupos</label>
 <input class="projbl-header-red-same-course projbl-numero-grupos-field projbl-campo-igual-curso" id="numeroGrupos" inputmode="numeric" min="0" name="numeroGrupos" placeholder="Ex.: 6" step="1" type="number" value="6"/>
 </div>
 </div>
 </div>
 <div class="section" style=" margin-top:6px !important; margin-top:0 !important;margin-bottom:12px !important; margin-top:0 !important;margin-bottom:12px !important;"><label>Docente(s):</label>
 <table class="quadro-table proj-radical-table proj-premium-table" id="docentesTable" style="width:100% !important; max-width:100% !important; table-layout:fixed !important; border-collapse:separate !important; border-spacing:0 !important; overflow:hidden !important; margin:13px 0 12px 0 !important; background:#ffffff !important; border:1.7px solid #242424 !important; border-radius:16px !important; box-shadow:0 2px 10px rgba(0,0,0,.035) !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;"><colgroup><col style="width:50% !important;"/><col style="width:50% !important;"/></colgroup>
-<tr style="background:#ffffff !important; background-image:none !important;"><th style="background:#f1f1f1 !important; color:#1f1f1f !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.4px !important; line-height:1.22 !important; font-weight:800 !important; text-align:center !important; vertical-align:middle !important; padding:10px 8px !important; border-right:1px solid #c8c8c8 !important; border-bottom:1.35px solid #242424 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important; text-transform:none !important; letter-spacing:.01em !important;">Nome</th><th style="background:#f1f1f1 !important; color:#1f1f1f !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.4px !important; line-height:1.22 !important; font-weight:800 !important; text-align:center !important; vertical-align:middle !important; padding:10px 8px !important; border-right:1px solid #c8c8c8 !important; border-bottom:1.35px solid #242424 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important; text-transform:none !important; letter-spacing:.01em !important;border-right:0 !important;">Email(s)</th></tr>
-<tr style="background:#ffffff !important; background-image:none !important;"><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-nome projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: Prof.ª Ana Luiza Marques" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value="Prof.ª Mariana Costa">Prof.ª Mariana Costa</textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-right:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-email projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: docente@universidadeeuropeia.pt" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value="mariana.costa@universidadeeuropeia.pt">mariana.costa@universidadeeuropeia.pt</textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td></tr>
-<tr style="background:#ffffff !important; background-image:none !important;"><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-nome projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: Prof.ª Ana Luiza Marques" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value="Prof. João Almeida">Prof. João Almeida</textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-right:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-email projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: docente@universidadeeuropeia.pt" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value="joao.almeida@iade.pt">joao.almeida@iade.pt</textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td></tr>
-<tr style="background:#ffffff !important; background-image:none !important;"><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-bottom:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-nome projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: Prof.ª Ana Luiza Marques" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value="Prof.ª Rita Fernandes">Prof.ª Rita Fernandes</textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-right:0 !important;border-bottom:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-email projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: docente@universidadeeuropeia.pt" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value="rita.fernandes@universidadeeuropeia.pt">rita.fernandes@universidadeeuropeia.pt</textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td></tr>
+<tr style="background:#ffffff !important; background-image:none !important;"><th style="background:#f1f1f1 !important; color:#1f1f1f !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.4px !important; line-height:1.22 !important; font-weight:800 !important; text-align:center !important; vertical-align:middle !important; padding:10px 8px !important; border-right:1px solid #c8c8c8 !important; border-bottom:1.35px solid #242424 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important; text-transform:none !important; letter-spacing:.01em !important;">Nome</th><th style="background:#f1f1f1 !important; color:#1f1f1f !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.4px !important; line-height:1.22 !important; font-weight:800 !important; text-align:center !important; vertical-align:middle !important; padding:10px 8px !important; border-right:1px solid #c8c8c8 !important; border-bottom:1.35px solid #242424 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important; text-transform:none !important; letter-spacing:.01em !important;border-right:0 !important;">Email</th></tr>
+<tr style="background:#ffffff !important; background-image:none !important;"><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-nome projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Nome docente" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value="Prof.ª Mariana Costa">Prof.ª Mariana Costa</textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-right:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-email projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="email@universidade.pt" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value="mariana.costa@universidadeeuropeia.pt">mariana.costa@universidadeeuropeia.pt</textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td></tr>
+<tr style="background:#ffffff !important; background-image:none !important;"><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-nome projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Nome docente" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value="Prof. João Almeida">Prof. João Almeida</textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-right:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-email projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="email@universidade.pt" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value="joao.almeida@iade.pt">joao.almeida@iade.pt</textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td></tr>
+<tr style="background:#ffffff !important; background-image:none !important;"><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-bottom:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-nome projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Nome docente" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value="Prof.ª Rita Fernandes">Prof.ª Rita Fernandes</textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-right:0 !important;border-bottom:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-email projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="email@universidade.pt" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value="rita.fernandes@universidadeeuropeia.pt">rita.fernandes@universidadeeuropeia.pt</textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td></tr>
 </table><div class="projbl-row-actions projbl-docentes-sbl-controls"><button aria-label="Adicionar linha" class="projbl-row-action-btn projbl-row-action-add projbl-docentes-sbl-add" data-sbl-tooltip="Adicionar linha" title="Adicionar linha" type="button">+</button><button aria-label="Remover linha" class="projbl-row-action-btn projbl-row-action-remove projbl-docentes-sbl-remove" data-sbl-tooltip="Remover linha" title="Remover linha" type="button">−</button><div class="projbl-row-action-legend">+ adicionar linha · − remover última linha</div></div>
 </div>
-<div class="projbl-autoria-estado-heading">Autoria e estado do guião</div><div class="section" style=" margin-top:0 !important;margin-bottom:12px !important;"><label for="autoria">Autoria:</label><div class="projbl-js-resize-wrap"><textarea class="projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" id="autoria" placeholder="Ex.: Ana Luiza Marques" style="font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;text-align:left !important;padding:8px 25px 14px 10px !important;overflow:auto !important;min-height:44px !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value="Ana Luiza Marques">Ana Luiza Marques</textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></div><div class="section projbl-estado-guiao-section" style="margin-top:0 !important;margin-bottom:12px !important;"><label for="estadoGuiao">Estado do guião:</label><select class="projbl-estado-guiao-select" id="estadoGuiao"><option value="">Selecionar</option><option value="Novo">Novo</option><option selected="selected" value="Atualizado">Atualizado</option><option value="Reutilizado">Reutilizado</option></select></div>
+<div class="projbl-autoria-estado-heading">Autoria e estado do guião</div><div class="section" style=" margin-top:0 !important;margin-bottom:12px !important;"><label for="autoria">Autoria:</label><div class="projbl-js-resize-wrap"><textarea class="projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" id="autoria" placeholder="Ex.: Nome(s) da autoria/equipa" style="font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;text-align:left !important;padding:8px 25px 14px 10px !important;overflow:auto !important;min-height:44px !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value="Ana Luiza Marques">Ana Luiza Marques</textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></div><div class="section projbl-estado-guiao-section" style="margin-top:0 !important;margin-bottom:12px !important;"><label for="estadoGuiao">Estado do guião:</label><select class="projbl-estado-guiao-select" id="estadoGuiao"><option value="">Selecionar</option><option value="Novo">Novo</option><option selected="selected" value="Atualizado">Atualizado</option><option value="Reutilizado">Reutilizado</option></select></div>
 <div class="tabs">
 <button class="tab active" onclick="openTab('descricao')">1. Descrição</button>
 <button class="tab" onclick="openTab('funcionamento')">2. Funcionamento</button>
@@ -10528,7 +10084,7 @@ body:not(.guiao-pdf-mode) .projbl-autoria-estado-heading{
 <div class="tab-content" id="entregaveis">
 <div class="section projbliso-section projbliso-section-entregaveis"><label class="projbliso-title">ENTREGÁVEIS:</label><table class="projbliso-table projbliso-table-entregaveis"><colgroup><col style="width:19%"/><col style="width:20%"/><col style="width:20%"/><col style="width:21%"/><col style="width:20%"/></colgroup><thead><tr><th>Semana</th><th>Entrega</th><th>Tipo de avaliação</th><th>Data</th><th>% da nota final</th></tr></thead><tbody><tr class="projbliso-data-row"><td><input class="projbliso-field projbliso-input projbliso-compact projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" value="Semana 2"/></td><td><div class="projbl-light-resize-wrap"><textarea class="projbliso-field projbliso-textarea projbliso-long projbliso-final-uniform projbl-light-resizable" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Briefing interpretado e mapa do problema</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></td><td><div class="projbl-light-resize-wrap"><textarea class="projbliso-field projbliso-textarea projbliso-long projbliso-final-uniform projbl-light-resizable" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Formativa</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></td><td><input class="projbliso-field projbliso-input projbliso-date projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="date" value="2026-03-15"/></td><td><input class="projbliso-field projbliso-input projbliso-percent projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" value="30%"/></td></tr><tr class="projbliso-data-row"><td><input class="projbliso-field projbliso-input projbliso-compact projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" value="Semana 6"/></td><td><div class="projbl-light-resize-wrap"><textarea class="projbliso-field projbliso-textarea projbliso-long projbliso-final-uniform projbl-light-resizable" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Investigação, personas e conceito preliminar</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></td><td><div class="projbl-light-resize-wrap"><textarea class="projbliso-field projbliso-textarea projbliso-long projbliso-final-uniform projbl-light-resizable" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Formativa</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></td><td><input class="projbliso-field projbliso-input projbliso-date projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="date" value="2026-04-15"/></td><td><input class="projbliso-field projbliso-input projbliso-percent projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" value="30%"/></td></tr><tr class="projbliso-data-row"><td><input class="projbliso-field projbliso-input projbliso-compact projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" value="Semana 10"/></td><td><div class="projbl-light-resize-wrap"><textarea class="projbliso-field projbliso-textarea projbliso-long projbliso-final-uniform projbl-light-resizable" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Protótipo intermédio e teste com utilizadores</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></td><td><div class="projbl-light-resize-wrap"><textarea class="projbliso-field projbliso-textarea projbliso-long projbliso-final-uniform projbl-light-resizable" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Formativa/Sumativa</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></td><td><input class="projbliso-field projbliso-input projbliso-date projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="date" value="2026-05-15"/></td><td><input class="projbliso-field projbliso-input projbliso-percent projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" value="40%"/></td></tr><tr class="projbliso-total-row"><td class="projbliso-total-label" colspan="4">Total da percentagem da nota final</td><td class="projbliso-total-value">100%</td></tr></tbody></table><div class="projbl-row-actions projbl-row-actions-entregaveis"><button aria-label="Adicionar linha" class="projbl-row-action-btn projbl-row-action-add projbliso-entregaveis-add" data-sbl-tooltip="Adicionar linha" title="Adicionar linha" type="button">+</button><button aria-label="Remover linha" class="projbl-row-action-btn projbl-row-action-remove projbliso-entregaveis-remove" data-sbl-tooltip="Remover linha" title="Remover linha" type="button">−</button><div class="projbl-row-action-legend">+ adicionar linha · − remover última linha</div></div></div></div>
 <div class="tab-content" id="avaliacao"><div class="section projbl-avaliacao-clean-section"><label class="projbl-avaliacao-clean-title">CRITÉRIOS DE AVALIAÇÃO:</label><div class="projbl-avaliacao-clean-list"><div class="projbl-avaliacao-clean-card"><label class="projbl-avaliacao-clean-label projbl-avaliacao-nome-uc-label-uniforme">NOME DA UC:</label><div class="projbl-avaliacao-field-wrap"><div class="projbl-light-resize-wrap"><textarea class="projbl-avaliacao-field projbl-light-resizable" placeholder="Ex.: Marketing Digital" style="min-height:44px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Projeto Interdisciplinar I</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projbl-avaliacao-clean-criteria"><div class="projbl-avaliacao-clean-criterion"><div class="projbl-avaliacao-field-wrap"><div class="projbl-light-resize-wrap"><textarea class="projbl-avaliacao-field projbl-light-resizable" placeholder="Descrição de critério" style="min-height:44px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Coerência entre problema, objetivos, metodologia e solução proposta.</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div></div><div class="projbl-avaliacao-clean-criterion"><div class="projbl-avaliacao-field-wrap"><div class="projbl-light-resize-wrap"><textarea class="projbl-avaliacao-field projbl-light-resizable" placeholder="Descrição de critério" style="min-height:44px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Qualidade do protótipo, fundamentação das decisões e capacidade de iteração.</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div></div><div class="projbl-avaliacao-clean-criterion"><div class="projbl-avaliacao-field-wrap"><div class="projbl-light-resize-wrap"><textarea class="projbl-avaliacao-field projbl-light-resizable" placeholder="Descrição de critério" style="min-height:44px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Clareza da apresentação, documentação do processo e reflexão crítica individual/grupal.</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div></div></div></div><div class="projbl-avaliacao-clean-card"><label class="projbl-avaliacao-clean-label projbl-avaliacao-nome-uc-label-uniforme">NOME DA UC:</label><div class="projbl-avaliacao-field-wrap"><div class="projbl-light-resize-wrap"><textarea class="projbl-avaliacao-field projbl-light-resizable" placeholder="Ex.: Marketing Digital" style="min-height:44px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Design de Comunicação</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projbl-avaliacao-clean-criteria"><div class="projbl-avaliacao-clean-criterion"><div class="projbl-avaliacao-field-wrap"><div class="projbl-light-resize-wrap"><textarea class="projbl-avaliacao-field projbl-light-resizable" placeholder="Descrição de critério" style="min-height:44px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Consistência da identidade visual e adequação das peças ao público-alvo.</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div></div><div class="projbl-avaliacao-clean-criterion"><div class="projbl-avaliacao-field-wrap"><div class="projbl-light-resize-wrap"><textarea class="projbl-avaliacao-field projbl-light-resizable" placeholder="Descrição de critério" style="min-height:44px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Rigor na aplicação dos princípios de design, composição, tipografia e acessibilidade.</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div></div><div class="projbl-avaliacao-clean-criterion"><div class="projbl-avaliacao-field-wrap"><div class="projbl-light-resize-wrap"><textarea class="projbl-avaliacao-field projbl-light-resizable" placeholder="Descrição de critério" style="min-height:44px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Qualidade da solução final, integração com o conceito e capacidade de comunicação.</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div></div></div></div></div><div aria-label="Controlos da avaliação" class="projbl-row-actions projbl-avaliacao-clean-controls no-print"><button aria-label="Adicionar linha" class="projbl-row-action-btn projbl-row-action-add projbl-avaliacao-add" data-sbl-tooltip="Adicionar linha" title="Adicionar linha" type="button">+</button><button aria-label="Remover linha" class="projbl-row-action-btn projbl-row-action-remove projbl-avaliacao-remove" data-sbl-tooltip="Remover linha" title="Remover linha" type="button">−</button><div class="projbl-row-action-legend">+ adicionar linha · − remover última linha</div></div></div></div>
-<div class="tab-content" id="ucs" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado">
+<div class="tab-content" id="ucs">
 <div class="section projblz7g-section"><label class="projblz7g-title">CONTRIBUIÇÕES DAS UNIDADES CURRICULARES:</label><div class="projblz7g-grid" id="projblz7gGrid" role="table"><div class="projblz7g-row projblz7g-header-row" role="row"><div class="projblz7g-cell projblz7g-header-cell" role="columnheader">ECTS</div><div class="projblz7g-cell projblz7g-header-cell" role="columnheader">Unidade Curricular</div><div class="projblz7g-cell projblz7g-header-cell" role="columnheader">Horas de contacto</div><div class="projblz7g-cell projblz7g-header-cell" role="columnheader">Contribuição</div><div class="projblz7g-cell projblz7g-header-cell" role="columnheader">Docente(s)/Email</div><div class="projblz7g-cell projblz7g-header-cell" role="columnheader">% do projeto final</div></div><div class="projblz7g-row projblz7g-data-row" role="row"><div class="projblz7g-cell" role="cell"><input class="projblz7g-field projblz7g-input" type="text" value="6"/></div><div class="projblz7g-cell" role="cell"><div class="projbl-light-resize-wrap"><textarea class="projblz7g-field projblz7g-textarea projbl-light-resizable" style="min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Projeto Interdisciplinar I</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projblz7g-cell" role="cell"><input class="projblz7g-field projblz7g-input" type="text" value="45h"/></div><div class="projblz7g-cell" role="cell"><div class="projbl-light-resize-wrap"><textarea class="projblz7g-field projblz7g-textarea projbl-light-resizable" style="min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Coordenação do desafio, integração dos resultados e acompanhamento das equipas.</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projblz7g-cell" role="cell"><div class="projbl-light-resize-wrap"><textarea class="projblz7g-field projblz7g-textarea projblz7g-email projbl-light-resizable" style="min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Prof.ª Mariana Costa — mariana.costa@universidadeeuropeia.pt</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projblz7g-cell" role="cell"><input class="projblz7g-field projblz7g-input projblz7g-percent" type="text" value="40%"/></div></div><div class="projblz7g-row projblz7g-data-row" role="row"><div class="projblz7g-cell" role="cell"><input class="projblz7g-field projblz7g-input" type="text" value="6"/></div><div class="projblz7g-cell" role="cell"><div class="projbl-light-resize-wrap"><textarea class="projblz7g-field projblz7g-textarea projbl-light-resizable" style="min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Design de Comunicação</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projblz7g-cell" role="cell"><input class="projblz7g-field projblz7g-input" type="text" value="36h"/></div><div class="projblz7g-cell" role="cell"><div class="projbl-light-resize-wrap"><textarea class="projblz7g-field projblz7g-textarea projbl-light-resizable" style="min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Sistema visual, experiência gráfica e comunicação da solução.</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projblz7g-cell" role="cell"><div class="projbl-light-resize-wrap"><textarea class="projblz7g-field projblz7g-textarea projblz7g-email projbl-light-resizable" style="min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Prof. João Almeida — joao.almeida@iade.pt</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projblz7g-cell" role="cell"><input class="projblz7g-field projblz7g-input projblz7g-percent" type="text" value="30%"/></div></div><div class="projblz7g-row projblz7g-data-row" role="row"><div class="projblz7g-cell" role="cell"><input class="projblz7g-field projblz7g-input" type="text" value="3"/></div><div class="projblz7g-cell" role="cell"><div class="projbl-light-resize-wrap"><textarea class="projblz7g-field projblz7g-textarea projbl-light-resizable" style="min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Metodologias de Investigação</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projblz7g-cell" role="cell"><input class="projblz7g-field projblz7g-input" type="text" value="24h"/></div><div class="projblz7g-cell" role="cell"><div class="projbl-light-resize-wrap"><textarea class="projblz7g-field projblz7g-textarea projbl-light-resizable" style="min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Pesquisa, recolha de dados, síntese de insights e validação.</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projblz7g-cell" role="cell"><div class="projbl-light-resize-wrap"><textarea class="projblz7g-field projblz7g-textarea projblz7g-email projbl-light-resizable" style="min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura.">Prof.ª Rita Fernandes — rita.fernandes@universidadeeuropeia.pt</textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projblz7g-cell" role="cell"><input class="projblz7g-field projblz7g-input projblz7g-percent" type="text" value="30%"/></div></div><div class="projblz7g-row projblz7g-total-row" role="row"><div class="projblz7g-cell projblz7g-total-label" role="cell">Total da percentagem do projeto final</div><div class="projblz7g-cell projblz7g-total-value" role="cell">100%</div></div></div><div class="projbl-row-actions projbl-row-actions-contribuicoes"><button aria-label="Adicionar linha" class="projbl-row-action-btn projbl-row-action-add projblz7g-add projbl-docentes-sbl-add" data-sbl-tooltip="Adicionar linha" title="Adicionar linha" type="button">+</button><button aria-label="Remover linha" class="projbl-row-action-btn projbl-row-action-remove projblz7g-remove projbl-docentes-sbl-remove" data-sbl-tooltip="Remover linha" title="Remover linha" type="button">−</button><div class="projbl-row-action-legend">+ adicionar linha · − remover última linha</div></div></div></div><div class="projbl-finalblocks-fixed-container" id="projblFinalBlocksFixedContainer"><div class="projbl-finalblock projbl-finalblock-bibliografia">
 <label class="projbl-finalblock-title" for="bibliografia">BIBLIOGRAFIA:</label>
 <div class="projbl-finalblock-fieldwrap projbl-finalblock-fieldwrap-native">
@@ -12461,6 +12017,7 @@ textarea#tituloProjeto{
   }
 }
 </style>
+
 <script id="ana-normaliza-separadores-final-sem-competencias">
 (function(){
   const labels = {
@@ -12545,54 +12102,10 @@ textarea#tituloProjeto{
     return el.id || el.name || el.placeholder || "Campo";
   }
 
-  
-function guiaoPdfNormalizeFilePart(value){
-  var text = String(value || '').trim();
-  text = text.split(/\n|;|\||,/).map(function(x){ return x.trim(); }).filter(Boolean)[0] || text;
-  try { text = text.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); } catch(e) {}
-  text = text.replace(/[^A-Za-z0-9]+/g, ' ').trim();
-  if(!text) return '';
-  text = text.split(/\s+/).map(function(part){
-    return part ? part.charAt(0).toUpperCase() + part.slice(1) : '';
-  }).join('');
-  return text.slice(0, 50);
-}
-function guiaoPdfReadFirstUc(){
-  var selectors = [
-    '#uc','#unidade_curricular','[name="uc"]','[name="ucs"]','[name="unidade_curricular"]',
-    '#ucProjeto','#nomeUCProjeto','#nomeUcProjeto','#nome_uc_projeto','#nomeProjetoUC','.projbl-nome-uc-projeto-field'
-  ];
-  for(var i=0;i<selectors.length;i++){
-    var el = document.querySelector(selectors[i]);
-    if(el && /^(INPUT|TEXTAREA|SELECT)$/i.test(el.tagName || '')){
-      var v = String(el.value || '').trim();
-      if(v) return v;
-    }
-  }
-  var labels = Array.prototype.slice.call(document.querySelectorAll('label,th,strong,b'));
-  for(var j=0;j<labels.length;j++){
-    var t = String(labels[j].textContent || '').toLowerCase();
-    if(t.indexOf('unidade') !== -1 && (t.indexOf('curricular') !== -1 || t.indexOf('uc') !== -1)){
-      var root = labels[j].closest('tr, .section, .header-card, div') || labels[j].parentElement;
-      if(root){
-        var field = root.querySelector('textarea,input,select');
-        if(field){
-          var val = String(field.value || '').trim();
-          if(val) return val;
-        }
-      }
-    }
-  }
-  return '';
-}
-function guiaoPdfFileName(cenario, fallback){
-  var uc = guiaoPdfNormalizeFilePart(guiaoPdfReadFirstUc());
-  return String(cenario || 'Guiao') + '_' + (uc || fallback || 'Guiao') + '.pdf';
-}
-try { window.guiaoPdfFileName = guiaoPdfFileName; } catch(e) {}
-
-function makeFileName(){
-    return guiaoPdfFileName('Proj-BL', 'Guiao');
+  function makeFileName(){
+    var title = (document.querySelector('input[placeholder*="Título"], textarea[placeholder*="Título"]') || {}).value ||
+      (document.querySelector("h1") || {}).textContent || "Proj-BL";
+    return String(title).normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/gi, "_").replace(/^_+|_+$/g, "").slice(0,80) + ".pdf";
   }
 
   function collectPayload(){
@@ -12615,50 +12128,11 @@ function makeFileName(){
     }
 
     var ucsPayload = String(values.ucs || values.uc || "").trim();
-
-    /* PROJ-BL EMAIL PAYLOAD FIX 2026-06-08 */
-    // A tabela Docente(s) do Proj-BL usa campos sem id/name. Por isso, o allFields()
-    // não conseguia criar values.email/values.emails e o Power Automate recebia To vazio.
-    function projReadJoinedValues(selector){
-      return Array.prototype.slice.call(document.querySelectorAll(selector))
-        .map(function(el){ return String((el && el.value) || "").trim(); })
-        .filter(Boolean)
-        .join("; ");
-    }
-    var docentesFromTable = projReadJoinedValues("#docentesTable .docente-nome");
-    var emailsFromTable = projReadJoinedValues("#docentesTable .docente-email");
-
-    var docentesPayload = String(values.docentes || values.Docentes || values.professor || values.docente || values.autoria || docentesFromTable || "").trim();
-    var emailsPayload = String(values.emails || values.email || values.Email || values.EmailDocente || values.emailDocente || emailsFromTable || "").trim();
-    if(docentesPayload){
-      values.docentes = values.docentes || docentesPayload;
-      values.Docentes = values.Docentes || docentesPayload;
-      values.docenteTexto = values.docenteTexto || docentesPayload;
-      values.Docentestexto = values.Docentestexto || docentesPayload;
-    }
-    if(emailsPayload){
-      values.emails = values.emails || emailsPayload;
-      values.email = values.email || emailsPayload;
-      values.Email = values.Email || emailsPayload;
-      values.EmailDocente = values.EmailDocente || emailsPayload;
-      values.emailDocente = values.emailDocente || emailsPayload;
-    }
-
-    var nEstudantesPayload = String(values.nEstudantes || values.numeroEstudantes || values.numEstudantes || values.n_estudantes || values.numero_estudantes || "").trim();
-    var nGruposPayload = String(values.nGrupos || values.numeroGrupos || values.numGrupos || values.n_grupos || values.numero_grupos || "").trim();
+    var docentesPayload = String(values.docentes || values.professor || values.docente || values.autoria || "").trim();
+    var emailsPayload = String(values.emails || values.email || "").trim();
+    var nEstudantesPayload = String(values.nEstudantes || values.n_estudantes || values.numero_estudantes || "").trim();
     var unidadeOrganicaPayload = String(values.unidadeOrganica || values.unidade_organica || "").trim();
     var modalidadePayload = String(values.modalidade || "").trim();
-    var semestrePayload = String(values.semestre || values.Semestre || "").trim();
-    var turmaPayload = String(values.turmaEdicao || values.turma || values.Turma || values.TurmaEdicao || values["Turma/Edição"] || "").trim();
-    var autoriaPayload = String(values.autoria || values.Autoria || values.autor || values.Autor || "").trim();
-    var estadoGuiaoPayload = String(values.estadoGuiao || values.estado || values.EstadoGuiao || values.Estado || "").trim();
-    var anoLetivoPayload = String(values.anoLetivoProjeto || values.ano || values.anoLetivo || values.AnoLetivo || "").trim();
-    if(semestrePayload){ values.semestre = values.semestre || semestrePayload; values.Semestre = values.Semestre || semestrePayload; }
-    if(turmaPayload){ values.turma = values.turma || turmaPayload; values.Turma = values.Turma || turmaPayload; values.turmaEdicao = values.turmaEdicao || turmaPayload; values.TurmaEdicao = values.TurmaEdicao || turmaPayload; values["Turma/Edição"] = values["Turma/Edição"] || turmaPayload; }
-    if(autoriaPayload){ values.autoria = values.autoria || autoriaPayload; values.Autoria = values.Autoria || autoriaPayload; values.autor = values.autor || autoriaPayload; values.Autor = values.Autor || autoriaPayload; }
-    if(estadoGuiaoPayload){ values.estadoGuiao = values.estadoGuiao || estadoGuiaoPayload; values.EstadoGuiao = values.EstadoGuiao || estadoGuiaoPayload; values.estado = values.estado || estadoGuiaoPayload; }
-    if(anoLetivoPayload){ values.anoLetivo = values.anoLetivo || anoLetivoPayload; values.AnoLetivo = values.AnoLetivo || anoLetivoPayload; values.ano = values.ano || anoLetivoPayload; }
-    values.submittedAt = new Date().toISOString();
 
     return {
       templateType: "PROJ-BL",
@@ -12671,46 +12145,11 @@ function makeFileName(){
       curso: cursosPayload,
       ucs: ucsPayload,
       docentes: docentesPayload,
-      Docentes: docentesPayload,
-      docente: docentesPayload,
       docenteTexto: docentesPayload,
-      Docentestexto: docentesPayload,
       emails: emailsPayload,
-      email: emailsPayload,
-      Email: emailsPayload,
-      EmailDocente: emailsPayload,
-      emailDocente: emailsPayload,
       nEstudantes: nEstudantesPayload,
-      n_estudantes: nEstudantesPayload,
-      numeroEstudantes: nEstudantesPayload,
-      numero_estudantes: nEstudantesPayload,
-      nGrupos: nGruposPayload,
-      n_grupos: nGruposPayload,
-      numeroGrupos: nGruposPayload,
-      numero_grupos: nGruposPayload,
       unidadeOrganica: unidadeOrganicaPayload,
       modalidade: modalidadePayload,
-      Modalidade: modalidadePayload,
-      unidade_organica: unidadeOrganicaPayload,
-      UnidadeOrganica: unidadeOrganicaPayload,
-      Semestre: semestrePayload,
-      semestre: semestrePayload,
-      Turma: turmaPayload,
-      turma: turmaPayload,
-      TurmaEdicao: turmaPayload,
-      turmaEdicao: turmaPayload,
-      "Turma/Edição": turmaPayload,
-      Autoria: autoriaPayload,
-      autoria: autoriaPayload,
-      Autor: autoriaPayload,
-      autor: autoriaPayload,
-      EstadoGuiao: estadoGuiaoPayload,
-      estadoGuiao: estadoGuiaoPayload,
-      estado: estadoGuiaoPayload,
-      AnoLetivo: anoLetivoPayload,
-      anoLetivo: anoLetivoPayload,
-      Ano: anoLetivoPayload,
-      ano: anoLetivoPayload,
       submittedAt: new Date().toISOString(),
       source: window.location.href,
       sourceUrl: window.location.href,
@@ -15168,16 +14607,16 @@ html body .page .proj-v9-example-field::placeholder {
       if(y + minSpaceAfterTitle > H - 20){
         newPage();
       }
-      y += 8;
-      pdf.setDrawColor(0,0,0);
-      pdf.setLineWidth(0.42);
-      pdf.line(m, y, m+34, y);
       y += 7;
       pdf.setFont("helvetica","bold");
-      pdf.setFontSize(13.4);
+      pdf.setFontSize(13.2);
       pdf.setTextColor(30,30,30);
-      pdf.text(title, m, y);
+      pdf.text(String(title || "").toUpperCase(), m, y);
       toc.push({title:title, page:pdf.getCurrentPageInfo().pageNumber});
+      y += 5.2;
+      pdf.setDrawColor(227,30,36);
+      pdf.setLineWidth(0.32);
+      pdf.line(m, y, W-m, y);
       y += 8;
     }
 
@@ -15400,83 +14839,93 @@ html body .page .proj-v9-example-field::placeholder {
     }
 
     function drawCover(){
-      var top = 16, cx = W/2;
+      var cx = W/2;
+      var top = 12;
       if(logo && logo.indexOf("data:image") === 0){
-        try{ pdf.addImage(logo, "PNG", cx-19, top, 38, 12); }catch(e){}
+        try{ pdf.addImage(logo, "PNG", cx-18, top, 36, 10); }catch(e){}
       } else {
-        pdf.setFont("helvetica","bold"); pdf.setFontSize(10); pdf.text("UE | IADE | IPAM", cx, top+7, {align:"center"});
+        pdf.setFont("helvetica","bold"); pdf.setFontSize(9.5); pdf.text("UE | IADE | IPAM", cx, top+7, {align:"center"});
       }
 
-      pdf.setTextColor(0,0,0);
-      pdf.setFont("helvetica","normal"); pdf.setFontSize(20); pdf.text("PLANO", cx, 74, {align:"center"});
-      pdf.setFont("helvetica","bold"); pdf.setFontSize(27); pdf.text("PROJECT-BASED", cx, 90, {align:"center"});
-      pdf.text("LEARNING", cx, 106, {align:"center"});
-      pdf.setDrawColor(80,80,80); pdf.setLineWidth(0.28); pdf.line(cx-20, 113, cx+20, 113);
+      pdf.setTextColor(24,24,24);
+      pdf.setFont("helvetica","bold");
+      pdf.setFontSize(24);
+      pdf.text("PLANO", cx, 56, {align:"center"});
+      pdf.setFontSize(25);
+      pdf.text("PROJECT-BASED", cx, 72, {align:"center"});
+      pdf.text("LEARNING", cx, 88, {align:"center"});
 
-      pdf.setFont("helvetica","normal"); pdf.setFontSize(18); pdf.setTextColor(64,64,64);
-      splitLines(pdf, data.top.title, 124, 18, "normal").forEach(function(line, idx){
-        pdf.text(line, cx, 130 + idx*7, {align:"center"});
-      });
+      pdf.setDrawColor(227,30,36);
+      pdf.setLineWidth(0.55);
+      pdf.line(cx-33, 98, cx+33, 98);
 
-      var left = 36, right = 128, yy = 164;
-      function meta(label, value){
-        if(!has(value)) return;
-        pdf.setFont("helvetica","bold"); pdf.setFontSize(9.3); pdf.setTextColor(0,0,0); pdf.text(label, left, yy);
-        yy += 7.2;
-        pdf.setFont("helvetica","normal"); pdf.setFontSize(10.4); pdf.setTextColor(48,48,48);
-        splitLines(pdf, value, 88, 10.4, "normal").forEach(function(line){ pdf.text(line, left, yy); yy += 4.4; });
-        yy += 2.3;
-        pdf.setDrawColor(165,165,165); pdf.setLineWidth(0.18); pdf.line(left, yy, right, yy);
-        yy += 7.2;
+      pdf.setFont("helvetica","normal");
+      pdf.setFontSize(16.5);
+      pdf.setTextColor(45,45,45);
+      var titleLines = splitLines(pdf, data.top.title || "Projeto", 138, 16.5, "normal");
+      var titleY = 118;
+      titleLines.slice(0,3).forEach(function(line){ pdf.text(line, cx, titleY, {align:"center"}); titleY += 7.2; });
+
+      var left = 31;
+      var right = W - 31;
+      var yy = 154;
+      var labelGap = 5.4;
+      var afterGap = 7.5;
+      function clean(v){ return String(v || "").replace(/\s*;\s*/g,"; ").replace(/\s+/g," ").trim(); }
+      function metaBlock(label, value, maxW){
+        value = clean(value);
+        if(!value) return;
+        pdf.setFont("helvetica","bold");
+        pdf.setFontSize(9.1);
+        pdf.setTextColor(20,20,20);
+        pdf.text(String(label || "").toUpperCase(), left, yy);
+        yy += labelGap;
+        pdf.setFont("helvetica","normal");
+        pdf.setFontSize(9.8);
+        pdf.setTextColor(45,45,45);
+        splitLines(pdf, value, maxW || (right-left), 9.8, "normal").forEach(function(line){
+          pdf.text(line, left, yy);
+          yy += 4.9;
+        });
+        yy += afterGap;
       }
 
-      meta("UC(s):", data.top.uc);
-      meta("Curso(s):", data.top.curso);
-      meta("Autoria do guião:", data.top.autoria);
+      metaBlock("UNIDADE ORGÂNICA", data.top.unidade || data.top.unidadeOrganica || "", 150);
+      metaBlock("CURSO(S)", data.top.curso || "", 150);
+      metaBlock("UNIDADE(S) CURRICULAR(ES)", data.top.uc || data.top.ucs || "", 150);
 
-      pdf.setFont("helvetica","bold"); pdf.setFontSize(9.3); pdf.setTextColor(0,0,0); pdf.text("Docente(s):", left, yy);
-      yy += 7.2;
-      data.top.docentes.forEach(function(d){
-        if(has(d.nome)){
-          pdf.setFont("helvetica","normal"); pdf.setFontSize(10.4); pdf.setTextColor(48,48,48); pdf.text(d.nome, left, yy); yy += 4.4;
-        }
-        if(has(d.email)){
-          var ex = left, ey = yy - 2.8;
-          pdf.setDrawColor(84,94,105); pdf.setLineWidth(0.18);
-          // Envelope em orientação correta: aba superior fecha para baixo.
-          pdf.rect(ex, ey, 4.6, 3.2);
-          pdf.line(ex, ey, ex+2.3, ey+1.75);
-          pdf.line(ex+4.6, ey, ex+2.3, ey+1.75);
-          pdf.line(ex, ey+3.2, ex+1.62, ey+1.85);
-          pdf.line(ex+4.6, ey+3.2, ex+2.98, ey+1.85);
-          pdf.setFont("helvetica","normal"); pdf.setFontSize(9.2); pdf.setTextColor(84,94,105);
-          pdf.text(d.email, left+6.2, yy);
-          yy += 5.1;
-        }
-      });
-      yy += 1;
-      pdf.setDrawColor(165,165,165); pdf.setLineWidth(0.18); pdf.line(left, yy, right, yy);
-      yy += 7.2;
+      var docentes = (data.top.docentes || []).filter(function(d){ return clean(d.nome) || clean(d.email); });
+      if(docentes.length){
+        pdf.setFont("helvetica","bold");
+        pdf.setFontSize(9.1);
+        pdf.setTextColor(20,20,20);
+        pdf.text("DOCENTE(S)", left, yy);
+        yy += labelGap + 1.5;
+        docentes.forEach(function(d, idx){
+          var nome = clean(d.nome), email = clean(d.email);
+          if(nome){
+            pdf.setFont("helvetica","normal");
+            pdf.setFontSize(9.8);
+            pdf.setTextColor(45,45,45);
+            splitLines(pdf, nome, 150, 9.8, "normal").forEach(function(line){ pdf.text(line, left, yy); yy += 4.7; });
+          }
+          if(email){
+            pdf.setFont("helvetica","normal");
+            pdf.setFontSize(8.8);
+            pdf.setTextColor(70,70,70);
+            splitLines(pdf, email, 150, 8.8, "normal").forEach(function(line){ pdf.text(line, left, yy); yy += 4.3; });
+          }
+          if(docentes.length > 1 && idx < docentes.length - 1) yy += 2.1;
+        });
+        yy += 5.2;
+      }
 
-      pdf.setFont("helvetica","bold"); pdf.setFontSize(9.3); pdf.setTextColor(0,0,0); pdf.text("Ano Letivo:", left, yy);
-      yy += 7.2;
-
-      var calX = left, calY = yy - 3.6;
-      pdf.setDrawColor(32,32,32); pdf.setLineWidth(0.15);
-      // Calendário premium restaurado: caixa, topo, argolas e pontos internos.
-      pdf.roundedRect(calX, calY, 4.2, 5.0, .42, .42);
-      pdf.line(calX, calY+1.15, calX+4.2, calY+1.15);
-      pdf.line(calX+.78, calY-.24, calX+.78, calY+.50);
-      pdf.line(calX+3.42, calY-.24, calX+3.42, calY+.50);
-      pdf.setFillColor(32,32,32);
-      pdf.circle(calX+1.18, calY+2.18, .13, "F");
-      pdf.circle(calX+2.10, calY+2.18, .13, "F");
-      pdf.circle(calX+3.02, calY+2.18, .13, "F");
-      pdf.circle(calX+1.18, calY+3.25, .13, "F");
-      pdf.circle(calX+2.10, calY+3.25, .13, "F");
-      pdf.circle(calX+3.02, calY+3.25, .13, "F");
-      pdf.setFont("helvetica","normal"); pdf.setFontSize(10.6); pdf.setTextColor(48,48,48);
-      pdf.text(data.top.ano, left+6.2, yy);
+      if(has(data.top.ano)){
+        pdf.setFont("helvetica","normal");
+        pdf.setFontSize(10.0);
+        pdf.setTextColor(45,45,45);
+        pdf.text("Ano letivo: " + clean(data.top.ano), left, yy);
+      }
 
       footer();
       pdf.addPage();
@@ -15513,27 +14962,27 @@ html body .page .proj-v9-example-field::placeholder {
     drawCover();
     drawIndexPage();
 
-    section("1. Descrição", 70);
+    section("1 | DESCRIÇÃO", 70);
     paragraph(data.descricao);
     premiumTable(["Unidade Curricular","Contexto / Objetivos principais da participação"], data.ucsParticipantes, [48,114], false);
 
-    section("2. Funcionamento e conteúdos", 70);
+    section("2 | FUNCIONAMENTO", 70);
     paragraph(data.funcionamento);
 
-    section("3. Objetivos de aprendizagem", 55);
+    section("3 | OBJETIVOS DE APRENDIZAGEM", 55);
     bullets(data.objetivos);
 
-    section("4. Metodologia", 75);
+    section("4 | METODOLOGIA", 75);
     paragraph(data.metodologia);
     premiumTable(["UC","Objetivos","Procedimentos","Entregáveis esperados"], data.metodologiaUc, [35,42,47,38], false);
 
-    section("5. Entregáveis", 90);
+    section("5 | ENTREGÁVEIS", 90);
     premiumTable(["Semana","Entrega","Tipo de avaliação","Data","% da nota final"], data.entregaveis, [24,55,34,22,27], true);
 
-    section("6. Avaliação", 80);
+    section("6 | CRITÉRIOS DE AVALIAÇÃO", 80);
     drawEvaluationBlocks(data.avaliacao);
 
-    section("7. Contribuições das Unidades Curriculares", 90);
+    section("7 | CONTRIBUIÇÕES DAS UNIDADES CURRICULARES", 90);
     premiumTable(
       ["ECTS","Unidade Curricular","Horas de contacto","Contribuição","Docente(s)/Email","% do projeto final"],
       data.contribuicoes.length ? data.contribuicoes : [["6","Projeto Interdisciplinar","5 semanas / 50 horas","Coordenação do desafio, acompanhamento e integração final.", data.top.docentes.map(function(d){return [d.nome,d.email].filter(Boolean).join(" - ");}).join("\\n"),"100%"]],
@@ -15541,11 +14990,11 @@ html body .page .proj-v9-example-field::placeholder {
       true
     );
 
-    section("8. Recursos", 55);
-    bullets(data.recursos || "- Briefing institucional do desafio.\n- Modelos de persona, jornada do utilizador e mapa de stakeholders.\n- Ferramentas digitais de prototipagem e apresentação.\n- Grelhas de feedback e rubricas de avaliação.");
-
-    section("9. Bibliografia", 55);
+    section("8 | BIBLIOGRAFIA", 55);
     plainBibliografia(data.bibliografia || "Bell, S. (2010). Project-Based Learning for the 21st Century.\nThomas, J. W. (2000). A Review of Research on Project-Based Learning.\nStickdorn, M., Hormess, M., Lawrence, A., & Schneider, J. (2018). This is Service Design Doing.\nBrown, T. (2009). Change by Design.");
+
+    section("9 | RECURSOS", 55);
+    paragraph(data.recursos || "Miro ou FigJam para mapeamento colaborativo; Figma para prototipagem; Google Drive/Teams para documentação; templates institucionais de avaliação; biblioteca digital e bases de dados científicas.");
 
     footer();
     fillIndex();
@@ -15558,7 +15007,11 @@ html body .page .proj-v9-example-field::placeholder {
     var url = URL.createObjectURL(blob);
     var a = document.createElement("a");
     a.href = url;
-    a.download = guiaoPdfFileName("Proj-BL", "Guiao");
+    var baseName = String((data.top && (data.top.uc || data.top.title)) || "Project-Based-Learning")
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-zA-Z0-9]+/g, "")
+      .slice(0,60) || "ProjectBasedLearning";
+    a.download = "Proj-BL_" + baseName + ".pdf";
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -15957,20 +15410,10 @@ html body .page .proj-v9-example-field::placeholder {
   }
 
   window.validarCamposObrigatoriosProjBL = function(showMessage){
-    /* Auditoria transversal: o Proj-BL mantém a validação própria já existente,
-       mas passa primeiro pela validação robusta comum, que contempla UC(s),
-       Docente(s), Email(s), Estado do guião e Autorização sem alterar IDs/payloads. */
-    if(typeof window.guiaoValidarCamposObrigatoriosSubmissaoV1 === "function"){
-      var transversal = window.guiaoValidarCamposObrigatoriosSubmissaoV1({silent: !showMessage});
-      if(!transversal || transversal.ok === false) return false;
-    }
-
     var checks = [
       {selector:"#unidadeOrganica", label:"Unidade Orgânica"},
       {selector:"#modalidade", label:"Modalidade"},
-      {selector:"#curso", label:"Curso(s)"},
-      {selector:"#numeroEstudantes", label:"Nº de estudantes"},
-      {selector:"#numeroGrupos", label:"Nº de grupos"}
+      {selector:"#curso", label:"Curso(s)"}
     ];
 
     var missing = [];
@@ -15999,7 +15442,7 @@ html body .page .proj-v9-example-field::placeholder {
   };
 
   function bindVisualCleanup(){
-    ["#unidadeOrganica","#modalidade","#curso","#numeroEstudantes","#numeroGrupos"].forEach(function(selector){
+    ["#unidadeOrganica","#modalidade","#curso"].forEach(function(selector){
       var el = document.querySelector(selector);
       if(!el || el.dataset.projRequiredBound === "1") return;
       el.dataset.projRequiredBound = "1";
@@ -17848,118 +17291,89 @@ html body .page button[data-proj-tooltip]::after {
         pdf.text(line, cx, 130 + i*6.5, {align:'center'});
       });
 
-      function hasText(v){ return clean(v).length > 0; }
-      function labelText(label, x, y){
-        pdf.setFont('helvetica','bold');
-        pdf.setFontSize(7.7);
-        pdf.setTextColor(80,80,80);
-        var txt = String(label || '').toUpperCase();
-        if(pdf.setCharSpace) pdf.setCharSpace(0.55);
-        pdf.text(txt, x, y);
-        if(pdf.setCharSpace) pdf.setCharSpace(0);
-      }
-      function valueText(value, x, y, maxWidth, size){
-        if(!hasText(value)) return y;
-        pdf.setFont('helvetica','normal');
-        pdf.setFontSize(size || 9.9);
-        pdf.setTextColor(24,24,24);
-        var lines = split(value, maxWidth || 70, size || 9.9, 'normal');
-        lines.forEach(function(line){ pdf.text(line, x, y); y += 4.4; });
-        return y;
-      }
-      function envelope(x, baseline){
-        var y = baseline - 2.9, w = 4.8, h = 3.1;
-        pdf.setDrawColor(84,94,105); pdf.setLineWidth(0.16);
-        pdf.rect(x, y, w, h);
-        pdf.line(x, y, x+w/2, y+h/2);
-        pdf.line(x+w, y, x+w/2, y+h/2);
-        pdf.line(x, y+h, x+w*0.36, y+h*0.58);
-        pdf.line(x+w, y+h, x+w*0.64, y+h*0.58);
-      }
-      function emailLine(email, x, y, maxWidth){
-        if(!hasText(email)) return y;
-        envelope(x, y);
-        pdf.setFont('helvetica','normal');
-        pdf.setFontSize(7.8);
-        pdf.setTextColor(84,94,105);
-        var lines = split(email, maxWidth || 66, 7.8, 'normal');
-        lines.forEach(function(line, i){ pdf.text(line, x+6.1, y + i*3.8); });
-        return y + Math.max(4.6, lines.length*3.8);
-      }
-      function drawYear(){
-        if(!hasText(top.ano)) return;
-        pdf.setFont('helvetica','normal');
-        pdf.setFontSize(9.1);
-        pdf.setTextColor(48,48,48);
-        var anoTxt = 'Ano letivo: ' + clean(top.ano);
-        pdf.text(anoTxt, cx, 262, {align:'center'});
-      }
-      function drawCornerMarks(){
-        pdf.setDrawColor(232,232,232); pdf.setLineWidth(0.18);
-        pdf.line(14, 18, 28, 18); pdf.line(14, 18, 14, 32);
-        pdf.line(W-14, H-28, W-28, H-28); pdf.line(W-14, H-28, W-14, H-42);
+      var left = 36, right = 132, yy = 164;
+
+      function rule(ypos){
+        pdf.setDrawColor(227,30,36); pdf.setLineWidth(0.22);
+        pdf.line(left, ypos, right, ypos);
       }
 
-      var docentes = (top.docentes || []).filter(function(d){ return hasText(d.nome) || hasText(d.email); });
+      function meta(label, value){
+        if(!has(value)) return;
+        pdf.setFont('helvetica','bold'); pdf.setFontSize(9.1); pdf.setTextColor(15,15,15);
+        pdf.text(label, left, yy);
+        yy += 6.6;
+        pdf.setFont('helvetica','normal'); pdf.setFontSize(10.0); pdf.setTextColor(55,55,55);
+        split(value, 90, 10.0, 'normal').forEach(function(line){
+          pdf.text(line, left, yy);
+          yy += 4.5;
+        });
+        yy += 2.2;
+        rule(yy);
+        yy += 7.0;
+      }
 
-      if(docentes.length <= 1){
-        var lx = 36, vx = 104, sy = 164, rowGap = 14.2;
-        function infoRow(label, value, y){
-          if(!hasText(value)) return y;
-          labelText(label, lx, y);
-          valueText(value, vx, y, 76, 9.4);
-          return y + rowGap;
-        }
-        sy = infoRow('Unidade Orgânica', top.unidade, sy);
-        sy = infoRow('Curso(s)', top.curso, sy);
-        sy = infoRow('Unidade(s) Curricular(es)', top.uc, sy);
+      function envelope(x, y){
+        pdf.setDrawColor(84,94,105); pdf.setLineWidth(0.18);
+        pdf.rect(x, y, 4.6, 3.2);
+        pdf.line(x, y, x+2.3, y+1.75);
+        pdf.line(x+4.6, y, x+2.3, y+1.75);
+        pdf.line(x, y+3.2, x+1.62, y+1.85);
+        pdf.line(x+4.6, y+3.2, x+2.98, y+1.85);
+      }
 
-        var d = docentes[0] || {nome:'', email:''};
-        if(hasText(d.nome) || hasText(d.email)){
-          sy += 6.5;
-          pdf.setDrawColor(226,226,226); pdf.setLineWidth(0.18);
-          pdf.line(lx, sy-8.5, W-lx, sy-8.5);
-          labelText('Docente(s)', lx, sy);
-          pdf.setFont('helvetica','normal'); pdf.setFontSize(9.4); pdf.setTextColor(24,24,24);
-          if(hasText(d.nome)) pdf.text(clean(d.nome), vx, sy);
-          if(hasText(d.email)) emailLine(clean(d.email), vx, sy+5.3, 72);
-        }
-      } else {
-        var leftX = 32, rightX = 117, startY = 164;
-        var valueGap = 6.1, pairGap = 17.0;
-        var leftBottom = startY;
-        function leftBlock(label, value, baseY){
-          if(!hasText(value)) return baseY;
-          labelText(label, leftX, baseY);
-          var yy = valueText(value, leftX, baseY + valueGap, 71, 9.9);
-          return Math.max(baseY + pairGap, yy + 4.5);
-        }
-        leftBottom = leftBlock('Unidade Orgânica', top.unidade, startY);
-        leftBottom = leftBlock('Curso(s)', top.curso, leftBottom);
-        leftBottom = leftBlock('Unidade(s) Curricular(es)', top.uc, leftBottom);
+      function calendar(x, y){
+        pdf.setDrawColor(32,32,32); pdf.setLineWidth(0.15);
+        pdf.roundedRect(x, y, 4.2, 5.0, .42, .42);
+        pdf.line(x, y+1.15, x+4.2, y+1.15);
+        pdf.line(x+.78, y-.24, x+.78, y+.50);
+        pdf.line(x+3.42, y-.24, x+3.42, y+.50);
+        pdf.setFillColor(32,32,32);
+        pdf.circle(x+1.18, y+2.18, .13, 'F');
+        pdf.circle(x+2.10, y+2.18, .13, 'F');
+        pdf.circle(x+3.02, y+2.18, .13, 'F');
+        pdf.circle(x+1.18, y+3.25, .13, 'F');
+        pdf.circle(x+2.10, y+3.25, .13, 'F');
+        pdf.circle(x+3.02, y+3.25, .13, 'F');
+      }
 
-        labelText('Docente(s)', rightX, startY);
-        var dy = startY + valueGap;
-        docentes.forEach(function(d){
-          if(hasText(d.nome)){
-            pdf.setFont('helvetica','normal'); pdf.setFontSize(9.9); pdf.setTextColor(24,24,24);
-            var nameLines = split(d.nome, 74, 9.9, 'normal');
-            nameLines.forEach(function(line){ pdf.text(line, rightX, dy); dy += 4.4; });
+      meta('UC(s):', top.uc);
+      meta('Curso(s):', top.curso);
+      meta('Autoria do guião:', top.autoria);
+
+      if(top.docentes && top.docentes.length){
+        pdf.setFont('helvetica','bold'); pdf.setFontSize(9.1); pdf.setTextColor(15,15,15);
+        pdf.text('Docente(s):', left, yy);
+        yy += 6.5;
+
+        top.docentes.forEach(function(d){
+          if(has(d.nome)){
+            pdf.setFont('helvetica','normal'); pdf.setFontSize(9.9); pdf.setTextColor(45,45,45);
+            pdf.text(clean(d.nome), left, yy);
+            yy += 4.5;
           }
-          if(hasText(d.email)){
-            dy = emailLine(d.email, rightX, dy + 1.0, 68);
+          if(has(d.email)){
+            envelope(left, yy-3.0);
+            pdf.setFont('helvetica','normal'); pdf.setFontSize(8.7); pdf.setTextColor(84,94,105);
+            pdf.text(clean(d.email), left+6.0, yy);
+            yy += 4.7;
           }
-          dy += 6.2;
         });
 
-        var lineTop = startY - 4.5;
-        var lineBottom = Math.max(leftBottom, dy) + 2;
-        pdf.setDrawColor(226,226,226); pdf.setLineWidth(0.18);
-        pdf.line(cx, lineTop, cx, Math.min(lineBottom, 226));
+        yy += 1.7;
+        rule(yy);
+        yy += 7.0;
       }
 
-      drawCornerMarks();
-      drawYear();
+      if(has(top.ano)){
+        pdf.setFont('helvetica','bold'); pdf.setFontSize(9.1); pdf.setTextColor(15,15,15);
+        pdf.text('Ano Letivo:', left, yy);
+        yy += 7.0;
+        calendar(left, yy-4.1);
+        pdf.setFont('helvetica','normal'); pdf.setFontSize(10.2); pdf.setTextColor(55,55,55);
+        pdf.text(top.ano, left+6.2, yy);
+      }
+
       footer();
       pdf.addPage();
       y = 18;
@@ -18035,8 +17449,9 @@ html body .page button[data-proj-tooltip]::after {
     if(window.__proj_pdf_base64_mode){
       return String(pdf.output('datauristring') || '').split(',')[1] || '';
     }
+    var safe = clean(top.titulo || 'guiao_project_based_learning').toLowerCase().replace(/[^a-z0-9\u00c0-\u017f]+/gi,'_').replace(/^_+|_+$/g,'').slice(0,80) || 'guiao_project_based_learning';
     var blob = pdf.output('blob'), url = URL.createObjectURL(blob), a = document.createElement('a');
-    a.href = url; a.download = guiaoPdfFileName('Proj-BL', 'Guiao'); document.body.appendChild(a); a.click(); a.remove();
+    a.href = url; a.download = safe + '.pdf'; document.body.appendChild(a); a.click(); a.remove();
     setTimeout(function(){ URL.revokeObjectURL(url); }, 1200);
     return true;
   }
@@ -18363,6 +17778,8 @@ html body:not(.guiao-pdf-mode) .page input[type="number"] {
   text-align: center !important;
 }
 </style>
+
+
 <script id="projbl-final-placeholder-textos-uniformes">
 (function(){
   if (window.__projblFinalPlaceholderTextosUniformes) return;
@@ -18397,6 +17814,8 @@ html body:not(.guiao-pdf-mode) .page input[type="number"] {
   [100, 300, 800, 1600].forEach(function(t){ setTimeout(init, t); });
 })();
 </script>
+
+
 <style id="projbl-menu-lateral-subido-sem-corte">
 /* HOTFIX Proj-BL — Mais opções lateral, mas subido para mostrar as 5 opções completas.
    Não altera PDF, campos, autorização, multicurso, payload nem autosave. */
@@ -18455,6 +17874,8 @@ html body:not(.guiao-pdf-mode) .page #uxMenuMaisOpcoes button {
   }
 }
 </style>
+
+
 <script id="projbl-menu-5-opcoes-garantido-sem-corte">
 (function(){
   if (window.__projblMenu5OpcoesGarantidoSemCorte) return;
@@ -18572,238 +17993,7 @@ html body:not(.guiao-pdf-mode) .page #uxMenuMaisOpcoes button {
   else init();
 })();
 </script>
-<script id="guiao-required-submit-validation-v1">
-/* ===== Auditoria transversal — campos obrigatórios antes da submissão =====
-   Camada cirúrgica: não altera IDs, payloads, botões, Curso(s), PDF, Power Automate ou estrutura pedagógica.
-   Apenas bloqueia o clique em “Enviar para Validação” quando faltam dados mínimos institucionais. */
-(function(){
-  if(window.__guiaoRequiredSubmitValidationV1) return;
-  window.__guiaoRequiredSubmitValidationV1 = true;
-  function norm(s){ return String(s || '').replace(/\s+/g,' ').trim(); }
-  function val(el){
-    if(!el) return '';
-    if(el.tagName === 'SELECT'){
-      var v = norm(el.value);
-      if(v && !/^sele/i.test(v)) return v;
-      var opt = el.options && el.selectedIndex >= 0 ? el.options[el.selectedIndex] : null;
-      return opt ? norm(opt.value || opt.textContent) : '';
-    }
-    return norm(el.value || el.textContent || '');
-  }
-  function first(selectors){
-    for(var i=0;i<selectors.length;i++){
-      var el = document.querySelector(selectors[i]);
-      if(!el) continue;
-      if(!/^(INPUT|TEXTAREA|SELECT)$/i.test(el.tagName || '')) continue;
-      var v = val(el);
-      if(v) return {value:v, element:el};
-    }
-    return {value:'', element:null};
-  }
-  function courseValue(){
-    var direct = first(['#curso','[name="curso"]']);
-    if(direct.value) return direct;
-    var chips = Array.from(document.querySelectorAll('#cblCursosSelecionados .cbl-course-chip, .cbl-course-chip, [data-course-chip]')).map(function(x){ return norm(x.textContent).replace(/[×x]$/i,'').trim(); }).filter(Boolean).join('; ');
-    if(chips) return {value:chips, element:document.querySelector('#cursoBusca') || document.querySelector('#cblCursosSelecionados')};
-    return {value:'', element:document.querySelector('#cursoBusca') || document.querySelector('#curso')};
-  }
-  function ucValue(){
-    return first(['#uc','#ucs','[name="uc"]','[name="ucs"]','#unidade_curricular','[name="unidade_curricular"]','.projbl-nome-uc-projeto-field','#ucProjeto','#nomeUCProjeto','#nomeUcProjeto','#nome_uc_projeto']);
-  }
-  function docenteValue(){
-    return first(['#professor','#docentes','#docente','[name="professor"]','[name="docentes"]','[name="docente"]','.docente-nome','.proj-docente-field']);
-  }
-  function emailValue(){
-    return first(['#emails','#email','[name="emails"]','[name="email"]','.docente-email']);
-  }
-  function unidadeValue(){
-    return first(['#unidadeOrganica','#unidade_organica','#unidade-organica','[name="unidadeOrganica"]','[name="unidade_organica"]']);
-  }
-  function estadoValue(){
-    return first(['#estado','#estadoGuiao','#estado_guiao','[name="estado"]','[name="estadoGuiao"]','[name="estado_guiao"]']);
-  }
-  function autorizacaoValue(){
-    var checked = document.querySelector('input[name="autorizaRepositorio"]:checked, input[name="autorizaRepositorioOpcao"]:checked, input[name="autorizacaoRepositorio"]:checked');
-    if(checked) return {value:norm(checked.value), element:checked};
-    var ids = ['#autorizaRepositorio','#autorizacaoRepositorio'];
-    for(var i=0;i<ids.length;i++){
-      var el = document.querySelector(ids[i]);
-      if(el && String(el.type || '').toLowerCase() !== 'radio'){
-        var v = val(el);
-        if(v) return {value:v, element:el};
-      }
-    }
-    return {value:'', element:document.querySelector('input[name="autorizaRepositorio"], input[name="autorizaRepositorioOpcao"], input[name="autorizacaoRepositorio"]')};
-  }
-  function mark(el){
-    try{
-      if(!el) return;
-      el.classList.add('guiao-required-missing');
-      setTimeout(function(){ try{ el.classList.remove('guiao-required-missing'); }catch(e){} }, 4500);
-    }catch(e){}
-  }
-  function notify(msg){
-    if(typeof toast === 'function') return toast(msg, 'error', 6500);
-    if(typeof showToast === 'function') return showToast(msg);
-    if(typeof mostrarToast === 'function') return mostrarToast(msg);
-    alert(msg);
-  }
-  window.guiaoValidarCamposObrigatoriosSubmissaoV1 = function(options){
-    var checks = [
-      ['Unidade Orgânica', unidadeValue()],
-      ['Curso(s)', courseValue()],
-      ['Unidade(s) Curricular(es)', ucValue()],
-      ['Docente(s)', docenteValue()],
-      ['Email(s)', emailValue()],
-      ['Estado do guião', estadoValue()],
-      ['Autorização para integração no repositório', autorizacaoValue()]
-    ];
-    var missing = checks.filter(function(c){ return !c[1].value; });
-    if(missing.length){
-      if(!options || !options.silent){
-        var msg = 'Antes de enviar para validação, preencha: ' + missing.map(function(c){return c[0];}).join(', ') + '.';
-        notify(msg);
-        mark(missing[0][1].element);
-        try{ missing[0][1].element && missing[0][1].element.focus && missing[0][1].element.focus(); }catch(e){}
-      }
-      return {ok:false, missing:missing.map(function(c){return c[0];})};
-    }
-    return {ok:true, missing:[]};
-  };
-  function isSubmitControl(el){
-    if(!el) return false;
-    var txt = norm(el.textContent || el.value).toLowerCase();
-    return el.id === 'btnEnviarValidacao' || el.id === 'btnValidacaoReal' || txt.indexOf('enviar para valida') !== -1 || txt.indexOf('submeter') !== -1 || txt.indexOf('submiss') !== -1;
-  }
-  document.addEventListener('click', function(ev){
-    var btn = ev.target && ev.target.closest ? ev.target.closest('button,input[type="button"],input[type="submit"]') : null;
-    if(!isSubmitControl(btn)) return;
-    var result = window.guiaoValidarCamposObrigatoriosSubmissaoV1();
-    if(!result.ok){
-      ev.preventDefault();
-      ev.stopPropagation();
-      if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
-      return false;
-    }
-  }, true);
-})();
-</script>
-<style id="guiao-required-submit-validation-v1-style">
-.guiao-required-missing{ outline:3px solid rgba(227,30,36,.28) !important; outline-offset:2px !important; }
-</style>
-<script id="pbl-projbl-final-date-uc-payload-guard">
-(function(){
-  if (window.__pblProjblFinalDateUcPayloadGuard) return;
-  window.__pblProjblFinalDateUcPayloadGuard = true;
 
-  var TOP_DATE_KEYS = ['Data','data','date','Date','DataSubmissao','dataSubmissao','Hora','hora','HoraInicio','horaInicio','HoraFim','horaFim'];
-
-  function cleanText(v){
-    return String(v == null ? '' : v).replace(/\s+/g,' ').trim();
-  }
-
-  function firstValue(selectors){
-    for(var i=0;i<selectors.length;i++){
-      var el = document.querySelector(selectors[i]);
-      if(!el) continue;
-      var v = cleanText(el.value || el.textContent || '');
-      if(v && !/^selecionar$/i.test(v)) return v;
-    }
-    return '';
-  }
-
-  function readProjBLUcs(){
-    var fromDirect = firstValue([
-      '#ucs','#uc','#unidadesCurriculares','#unidades_curriculares',
-      '[name="ucs"]','[name="uc"]','[name="unidadesCurriculares"]','[name="unidades_curriculares"]',
-      '.projbl-nome-uc-projeto-field','.projbl-campo-igual-curso','.projbl-native-header'
-    ]);
-    return fromDirect;
-  }
-
-  function stringifyNulls(value){
-    if(value === null || value === undefined) return '';
-    if(Array.isArray(value)) return value.map(stringifyNulls);
-    if(typeof value === 'object'){
-      Object.keys(value).forEach(function(k){ value[k] = stringifyNulls(value[k]); });
-    }
-    return value;
-  }
-
-  function removeTopDateKeys(payload){
-    TOP_DATE_KEYS.forEach(function(k){
-      if(Object.prototype.hasOwnProperty.call(payload, k)) delete payload[k];
-    });
-  }
-
-  function removeEmptyNestedDateKeys(obj){
-    if(!obj || typeof obj !== 'object' || Array.isArray(obj)) return;
-    TOP_DATE_KEYS.forEach(function(k){
-      if(Object.prototype.hasOwnProperty.call(obj, k) && cleanText(obj[k]) === '') delete obj[k];
-    });
-  }
-
-  function fixPayload(payload){
-    if(!payload || typeof payload !== 'object' || Array.isArray(payload)) return payload;
-
-    // Igual aos templates sem data própria: não enviar Data/Hora artificiais no topo.
-    // O fluxo/SharePoint trata a data operacional; o HTML mantém apenas submittedAt real.
-    removeTopDateKeys(payload);
-    payload.submittedAt = cleanText(payload.submittedAt) || new Date().toISOString();
-
-    // Evita rejeição do trigger por null/undefined em campos string.
-    stringifyNulls(payload);
-
-    // Não deixar chaves de Data/Hora vazias escondidas em formData/values.
-    removeEmptyNestedDateKeys(payload.formData);
-    removeEmptyNestedDateKeys(payload.values);
-    if(payload.formData && typeof payload.formData === 'object') payload.formData.submittedAt = cleanText(payload.formData.submittedAt) || payload.submittedAt;
-    if(payload.values && typeof payload.values === 'object') payload.values.submittedAt = cleanText(payload.values.submittedAt) || payload.submittedAt;
-
-    // Proj-BL: garantir que a coluna UC(s), mapeada no Power Automate como "ucs", recebe texto.
-    var ucs = cleanText(payload.ucs || payload.uc || payload.UC || payload.UCs || payload.unidadesCurriculares || payload.unidadeCurricular || readProjBLUcs());
-    if(ucs){
-      payload.ucs = ucs;
-      payload.uc = payload.uc || ucs;
-      payload.UC = payload.UC || ucs;
-      payload.UCs = payload.UCs || ucs;
-      payload['UC(s)'] = payload['UC(s)'] || ucs;
-      payload.unidadeCurricular = payload.unidadeCurricular || ucs;
-      payload.unidadesCurriculares = payload.unidadesCurriculares || ucs;
-      payload['Unidade(s) Curricular(es)'] = payload['Unidade(s) Curricular(es)'] || ucs;
-      if(payload.formData && typeof payload.formData === 'object'){
-        payload.formData.ucs = payload.formData.ucs || ucs;
-        payload.formData.uc = payload.formData.uc || ucs;
-      }
-      if(payload.values && typeof payload.values === 'object'){
-        payload.values.ucs = payload.values.ucs || ucs;
-        payload.values.uc = payload.values.uc || ucs;
-      }
-    }
-    return payload;
-  }
-
-  if(typeof window.fetch === 'function'){
-    var originalFetch = window.fetch;
-    window.fetch = function(input, init){
-      try{
-        var url = String((input && input.url) || input || '');
-        var isPowerAutomate = /workflows|triggers|manual|powerautomate|logic\.azure/i.test(url);
-        if(isPowerAutomate && init && typeof init.body === 'string'){
-          var body = JSON.parse(init.body);
-          body = fixPayload(body);
-          init = Object.assign({}, init, { body: JSON.stringify(body) });
-          return originalFetch.call(this, input, init);
-        }
-      }catch(e){}
-      return originalFetch.apply(this, arguments);
-    };
-  }
-
-  // Também expõe a correção para funções internas que queiram chamar antes do fetch.
-  window.__pblProjblFixPayloadAntesDoEnvio = fixPayload;
-})();
-</script>
 </body>
 </html>
 <!-- projbl-camada15-curso-autosave-progress-selects -->
