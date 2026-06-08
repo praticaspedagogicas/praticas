@@ -12668,6 +12668,20 @@ function makeFileName(){
     var docentesFromTable = projReadJoinedValues("#docentesTable .docente-nome");
     var emailsFromTable = projReadJoinedValues("#docentesTable .docente-email");
 
+    /* PROJ-BL AUTORIA PAYLOAD FIX 2026-06-08
+       Correção cirúrgica: garante que o campo visual Autoria (#autoria) chega ao
+       Power Automate como string, sem alterar submissão, PDF, UC(s), título ou validações. */
+    var autoriaFromVisual = projReadFirstControlValue([
+      '#autoria',
+      '[name="autoria"]',
+      '#autor',
+      '[name="autor"]',
+      '#nomeAutor',
+      '[name="nomeAutor"]',
+      '#nome_autor',
+      '[name="nome_autor"]'
+    ]);
+
     var docentesPayload = String(values.docentes || values.Docentes || values.professor || values.docente || values.autoria || docentesFromTable || "").trim();
     var emailsPayload = String(values.emails || values.email || values.Email || values.EmailDocente || values.emailDocente || emailsFromTable || "").trim();
     if(docentesPayload){
@@ -12690,12 +12704,38 @@ function makeFileName(){
     var modalidadePayload = String(values.modalidade || "").trim();
     var semestrePayload = String(values.semestre || values.Semestre || "").trim();
     var turmaPayload = String(values.turmaEdicao || values.turma || values.Turma || values.TurmaEdicao || values["Turma/Edição"] || "").trim();
-    var autoriaPayload = String(values.autoria || values.Autoria || values.autor || values.Autor || "").trim();
+    var autoriaPayload = String(values.autoria || values.Autoria || values.autor || values.Autor || values.nomeAutor || values.NomeAutor || values.nome_autor || values.Nome_Autor || values.author || values.Author || values.autores || values.Autores || values.autoriaGuiao || values.AutoriaGuiao || values.autoria_do_guiao || values.autoria_do_guião || values.docenteResponsavel || values.DocenteResponsavel || values.responsavel || values.Responsavel || values["Autoria do guião"] || values["Autoria do guiao"] || values["Nome do autor"] || values["Nome do Autor"] || values["Autor(es)"] || autoriaFromVisual || "").trim();
     var estadoGuiaoPayload = String(values.estadoGuiao || values.estado || values.EstadoGuiao || values.Estado || "").trim();
     var anoLetivoPayload = String(values.anoLetivoProjeto || values.ano || values.anoLetivo || values.AnoLetivo || "").trim();
     if(semestrePayload){ values.semestre = values.semestre || semestrePayload; values.Semestre = values.Semestre || semestrePayload; }
     if(turmaPayload){ values.turma = values.turma || turmaPayload; values.Turma = values.Turma || turmaPayload; values.turmaEdicao = values.turmaEdicao || turmaPayload; values.TurmaEdicao = values.TurmaEdicao || turmaPayload; values["Turma/Edição"] = values["Turma/Edição"] || turmaPayload; }
-    if(autoriaPayload){ values.autoria = values.autoria || autoriaPayload; values.Autoria = values.Autoria || autoriaPayload; values.autor = values.autor || autoriaPayload; values.Autor = values.Autor || autoriaPayload; }
+    if(autoriaPayload){
+      values.autoria = autoriaPayload;
+      values.Autoria = values.Autoria || autoriaPayload;
+      values.autor = values.autor || autoriaPayload;
+      values.Autor = values.Autor || autoriaPayload;
+      values.nomeAutor = values.nomeAutor || autoriaPayload;
+      values.NomeAutor = values.NomeAutor || autoriaPayload;
+      values.nome_autor = values.nome_autor || autoriaPayload;
+      values.Nome_Autor = values.Nome_Autor || autoriaPayload;
+      values.author = values.author || autoriaPayload;
+      values.Author = values.Author || autoriaPayload;
+      values.autores = values.autores || autoriaPayload;
+      values.Autores = values.Autores || autoriaPayload;
+      values.autoriaGuiao = values.autoriaGuiao || autoriaPayload;
+      values.AutoriaGuiao = values.AutoriaGuiao || autoriaPayload;
+      values.autoria_do_guiao = values.autoria_do_guiao || autoriaPayload;
+      values.autoria_do_guião = values.autoria_do_guião || autoriaPayload;
+      values.docenteResponsavel = values.docenteResponsavel || autoriaPayload;
+      values.DocenteResponsavel = values.DocenteResponsavel || autoriaPayload;
+      values.responsavel = values.responsavel || autoriaPayload;
+      values.Responsavel = values.Responsavel || autoriaPayload;
+      values["Autoria do guião"] = values["Autoria do guião"] || autoriaPayload;
+      values["Autoria do guiao"] = values["Autoria do guiao"] || autoriaPayload;
+      values["Nome do autor"] = values["Nome do autor"] || autoriaPayload;
+      values["Nome do Autor"] = values["Nome do Autor"] || autoriaPayload;
+      values["Autor(es)"] = values["Autor(es)"] || autoriaPayload;
+    }
     if(estadoGuiaoPayload){ values.estadoGuiao = values.estadoGuiao || estadoGuiaoPayload; values.EstadoGuiao = values.EstadoGuiao || estadoGuiaoPayload; values.estado = values.estado || estadoGuiaoPayload; }
     if(anoLetivoPayload){ values.anoLetivo = values.anoLetivo || anoLetivoPayload; values.AnoLetivo = values.AnoLetivo || anoLetivoPayload; values.ano = values.ano || anoLetivoPayload; }
     var tituloGuiaoPayload = "PROJ-BL - " + (ucsPayload || cursosPayload || ((document.title || "Guião").trim()));
@@ -12765,6 +12805,27 @@ function makeFileName(){
       autoria: autoriaPayload,
       Autor: autoriaPayload,
       autor: autoriaPayload,
+      nomeAutor: autoriaPayload,
+      NomeAutor: autoriaPayload,
+      nome_autor: autoriaPayload,
+      Nome_Autor: autoriaPayload,
+      author: autoriaPayload,
+      Author: autoriaPayload,
+      autores: autoriaPayload,
+      Autores: autoriaPayload,
+      autoriaGuiao: autoriaPayload,
+      AutoriaGuiao: autoriaPayload,
+      autoria_do_guiao: autoriaPayload,
+      autoria_do_guião: autoriaPayload,
+      docenteResponsavel: autoriaPayload,
+      DocenteResponsavel: autoriaPayload,
+      responsavel: autoriaPayload,
+      Responsavel: autoriaPayload,
+      "Autoria do guião": autoriaPayload,
+      "Autoria do guiao": autoriaPayload,
+      "Nome do autor": autoriaPayload,
+      "Nome do Autor": autoriaPayload,
+      "Autor(es)": autoriaPayload,
       EstadoGuiao: estadoGuiaoPayload,
       estadoGuiao: estadoGuiaoPayload,
       estado: estadoGuiaoPayload,
