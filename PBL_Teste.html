@@ -4783,6 +4783,144 @@ html body .page .pbl-numeric-cell{
   }
 }
 </style>
+
+
+<style id="pbl-mobile-botoes-add-remove-final-20260608">
+/* Correção mobile cirúrgica — apenas PBL: botões +/− legíveis e alinhados em todas as secções. */
+body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-table-tools,
+body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-tools{
+  width:100% !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-end !important;
+  gap:7px !important;
+  margin:8px 0 14px 0 !important;
+  padding:0 2px !important;
+  overflow:visible !important;
+  box-sizing:border-box !important;
+}
+body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-table-tool,
+body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-tool{
+  appearance:none !important;
+  -webkit-appearance:none !important;
+  width:30px !important;
+  height:30px !important;
+  min-width:30px !important;
+  min-height:30px !important;
+  max-width:30px !important;
+  max-height:30px !important;
+  flex:0 0 30px !important;
+  padding:0 !important;
+  margin:0 !important;
+  border-radius:999px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  text-align:center !important;
+  line-height:1 !important;
+  font-size:17px !important;
+  font-weight:800 !important;
+  font-family:'Century Gothic', sans-serif !important;
+  box-sizing:border-box !important;
+  overflow:visible !important;
+}
+body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-tool-add,
+body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-add{
+  background:#333 !important;
+  color:#fff !important;
+  border:1px solid #333 !important;
+}
+body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-tool-remove,
+body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-remove{
+  background:#fff !important;
+  color:#333 !important;
+  border:1px solid #777 !important;
+}
+@media (max-width:760px){
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-table-tools,
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-tools{
+    gap:8px !important;
+    margin:10px 0 16px 0 !important;
+    padding:0 4px !important;
+  }
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-table-tools::before,
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-tools::before{
+    display:none !important;
+    content:none !important;
+  }
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-table-tool,
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-tool{
+    width:34px !important;
+    height:34px !important;
+    min-width:34px !important;
+    min-height:34px !important;
+    max-width:34px !important;
+    max-height:34px !important;
+    flex:0 0 34px !important;
+    font-size:18px !important;
+  }
+}
+</style>
+
+
+<style id="pbl-final-data-empty-mobile-buttons-fix">
+/* FIX FINAL PBL — Data/Hora vazias + botões mobile legíveis
+   CSS-only para mobile: não altera payload, PDF, cálculos nem estrutura das tabelas. */
+@media screen and (max-width:760px){
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-table-tools,
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-tools{
+    width:100% !important;
+    display:flex !important;
+    flex-direction:row !important;
+    flex-wrap:wrap !important;
+    justify-content:flex-start !important;
+    align-items:center !important;
+    gap:8px !important;
+    margin:10px 0 16px 0 !important;
+    padding:0 !important;
+    overflow:visible !important;
+  }
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-table-tools::before,
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-tools::before{
+    display:none !important;
+    content:none !important;
+  }
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-table-tool,
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-avaliacao-tool{
+    width:auto !important;
+    min-width:118px !important;
+    max-width:none !important;
+    height:40px !important;
+    min-height:40px !important;
+    max-height:none !important;
+    flex:0 0 auto !important;
+    padding:0 14px !important;
+    margin:0 !important;
+    border-radius:999px !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:6px !important;
+    font-size:16px !important;
+    line-height:1 !important;
+    white-space:nowrap !important;
+    box-sizing:border-box !important;
+  }
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-action-label{
+    display:inline !important;
+    font-size:12.5px !important;
+    font-weight:800 !important;
+    line-height:1 !important;
+  }
+  body:not(.guiao-pdf-mode):not(.pbl-exporting) .pbl-row-help{
+    text-align:left !important;
+    font-size:12px !important;
+    line-height:1.35 !important;
+    margin:0 0 16px 0 !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="page"><div class="premium-status no-print">
@@ -5088,7 +5226,7 @@ html body .page .pbl-numeric-cell{
   }
   function abrirAssistente(){window.open(BOT_URL,'_blank','noopener,noreferrer'); toast('A abrir o Assistente IA institucional...');} window.abrirAssistentePedagogico=abrirAssistente;
   function validarCamposNumericosGuiao(){var bad=null; document.querySelectorAll('input[type="number"]').forEach(function(el){if(bad)return; var v=String(el.value||'').trim().replace(',','.'); if(v && !/^-?\d+(\.\d+)?$/.test(v)) bad=el;}); if(bad){bad.focus(); toast('Indique apenas números nos campos numéricos.','error'); return false;} return true;} window.validarCamposNumericosGuiao=validarCamposNumericosGuiao;
-  async function enviarValidacao(){if(submitLock)return; if(!validarCamposNumericosGuiao())return; submitLock=true; toast('A enviar guião para validação...'); var payload=collect(); payload.templateType='PBL'; payload.templateScenario='Problem Based Learning'; payload.cenarioAprendizagem='PBL'; payload.cenario='Problem Based Learning'; payload.scenario='Problem Based Learning'; payload.estadoGuiao='Submetido'; payload.submittedAt=new Date().toISOString(); payload.sourceUrl=window.location.href; payload.title='PBL - '+(payload.curso||payload.uc||payload.unidadeCurricular||'Guião'); payload.pageTitle=(document.querySelector('h1')||{}).textContent||'Guião PBL'; payload.formData=Object.assign({},payload); payload.pdfFileName=guiaoPdfFileName('PBL','Guiao'); payload.pdfBase64=await generatePdfBase64(); payload.html='<!DOCTYPE html>\n'+document.documentElement.outerHTML; try{var r=await fetch(FLOW_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); if(!r.ok)throw new Error('HTTP '+r.status); toast('Guião submetido com sucesso. O seu guião foi enviado para validação.'); showSubmissionConfirmation();}catch(e){console.error(e); toast('Não foi possível submeter agora. O rascunho local foi mantido.','error');}finally{submitLock=false;}}
+  async function enviarValidacao(){if(submitLock)return; if(!validarCamposNumericosGuiao())return; submitLock=true; toast('A enviar guião para validação...'); var payload=collect(); payload.templateType='PBL'; payload.templateScenario='Problem Based Learning'; payload.cenarioAprendizagem='PBL'; payload.cenario='Problem Based Learning'; payload.scenario='Problem Based Learning'; payload.estadoGuiao='Submetido'; payload.Data=null; payload.data=null; payload.date=null; payload.Date=null; payload.dataSubmissao=null; payload.DataSubmissao=null; payload.submittedAt=null; payload.Hora=null; payload.hora=null; payload.horaInicio=null; payload.HoraInicio=null; payload.horaFim=null; payload.HoraFim=null; payload.sourceUrl=window.location.href; payload.title='PBL - '+(payload.curso||payload.uc||payload.unidadeCurricular||'Guião'); payload.pageTitle=(document.querySelector('h1')||{}).textContent||'Guião PBL'; payload.formData=Object.assign({},payload); payload.pdfFileName=guiaoPdfFileName('PBL','Guiao'); payload.pdfBase64=await generatePdfBase64(); payload.html='<!DOCTYPE html>\n'+document.documentElement.outerHTML; try{var r=await fetch(FLOW_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); if(!r.ok)throw new Error('HTTP '+r.status); toast('Guião submetido com sucesso. O seu guião foi enviado para validação.'); showSubmissionConfirmation();}catch(e){console.error(e); toast('Não foi possível submeter agora. O rascunho local foi mantido.','error');}finally{submitLock=false;}}
   function showSubmissionConfirmation(result){
     try {
       let panel = document.getElementById("powerAutomateSubmissionConfirmation");
@@ -7835,25 +7973,16 @@ function makePdfFileName(){
 
   function normalizePayloadDates(payload){
     if(!isPBLPayload(payload)) return payload;
-    // O PBL não tem campo de data próprio no template.
-    // A coluna Data da lista Guiões deve ficar vazia para PBL.
-    // A data real de validação/publicação deve ser gerada no fluxo do repositório com utcNow().
-    delete payload.data;
-    delete payload.Data;
-    delete payload.date;
-    delete payload.Date;
-    delete payload.dataSubmissao;
-    delete payload.DataSubmissao;
-    delete payload.submittedAt;
-    if(payload.formData && typeof payload.formData === 'object'){
-      delete payload.formData.data;
-      delete payload.formData.Data;
-      delete payload.formData.date;
-      delete payload.formData.Date;
-      delete payload.formData.dataSubmissao;
-      delete payload.formData.DataSubmissao;
-      delete payload.formData.submittedAt;
-    }
+    // PBL não tem campo próprio de Data/Hora no cabeçalho.
+    // Para a lista Guiões ficar realmente vazia, enviamos null de forma explícita
+    // e limpamos formData/values para evitar placeholder como "/1/" ou "—".
+    var camposDataHora = ['data','Data','date','Date','dataSubmissao','DataSubmissao','submittedAt','Hora','hora','horaInicio','HoraInicio','horaFim','HoraFim'];
+    camposDataHora.forEach(function(k){ payload[k] = null; });
+    ['formData','values'].forEach(function(container){
+      if(payload[container] && typeof payload[container] === 'object'){
+        camposDataHora.forEach(function(k){ payload[container][k] = null; });
+      }
+    });
     return payload;
   }
 
@@ -7902,5 +8031,342 @@ function makePdfFileName(){
   installFetchPatch();
 })();
 </script>
+<script id="pbl-pdf-espelho-restauro-aprovado-v1">
+(function(){
+  'use strict';
+  if(window.__pblPdfEspelhoRestauroAprovadoV1) return;
+  window.__pblPdfEspelhoRestauroAprovadoV1 = true;
+
+  function $(id){ return document.getElementById(id); }
+  function clean(v){ return String(v || '').replace(/\r\n/g,'\n').replace(/\r/g,'\n').trim(); }
+  function isPlaceholder(v){
+    var s = clean(v).toLowerCase();
+    return !s || /^(selecionar|digite para procurar|nenhum curso selecionado ainda|título do guião|ex\.:|—|-)$/.test(s);
+  }
+  function val(id){
+    var el = $(id);
+    if(!el) return '';
+    if(el.tagName === 'SELECT'){
+      var opt = el.options && el.selectedIndex >= 0 ? el.options[el.selectedIndex] : null;
+      var text = clean(opt ? (opt.textContent || opt.value) : el.value);
+      return /^selecionar/i.test(text) ? '' : text;
+    }
+    var v = clean(el.value || el.textContent || '');
+    return isPlaceholder(v) ? '' : v;
+  }
+  function firstNonEmpty(){
+    for(var i=0;i<arguments.length;i++){
+      var v = clean(arguments[i]);
+      if(v) return v;
+    }
+    return '';
+  }
+  function onlyNumber(v){ return clean(v).replace(/[^0-9.,]/g,''); }
+  function logoSrc(){
+    var img = document.querySelector('.header img, .logo img, img');
+    return img && img.src ? img.src : '';
+  }
+  function textareasInTab(tabId){
+    var tab = $(tabId);
+    if(!tab) return [];
+    return Array.prototype.slice.call(tab.querySelectorAll('textarea')).filter(function(t){ return !t.closest('table'); });
+  }
+  function tabTextareaValue(tabId, labelNeedle, fallbackIndex){
+    var tab = $(tabId);
+    if(tab){
+      var needle = String(labelNeedle || '').toLowerCase();
+      var sections = Array.prototype.slice.call(tab.querySelectorAll('.section'));
+      for(var i=0;i<sections.length;i++){
+        var label = sections[i].querySelector('label');
+        var ta = sections[i].querySelector('textarea');
+        if(!label || !ta) continue;
+        if(String(label.textContent || '').toLowerCase().indexOf(needle) !== -1) return clean(ta.value || ta.placeholder || '');
+      }
+    }
+    var tas = textareasInTab(tabId);
+    return tas[fallbackIndex] ? clean(tas[fallbackIndex].value || tas[fallbackIndex].placeholder || '') : '';
+  }
+  function tableData(id){
+    var table = $(id);
+    if(!table) return {headers:[], rows:[]};
+    var headers = Array.prototype.slice.call(table.querySelectorAll('th')).map(function(th){ return clean(th.textContent); }).filter(Boolean);
+    var rows = Array.prototype.slice.call(table.querySelectorAll('tr')).slice(1).map(function(tr){
+      return Array.prototype.slice.call(tr.children).map(function(td){
+        var fields = Array.prototype.slice.call(td.querySelectorAll('input,textarea,select'));
+        if(fields.length){
+          return fields.map(function(el){
+            if(el.tagName === 'SELECT'){
+              var opt = el.options && el.selectedIndex >= 0 ? el.options[el.selectedIndex] : null;
+              return clean(opt ? (opt.textContent || opt.value) : el.value);
+            }
+            return clean(el.value || el.placeholder || '');
+          }).filter(function(v){ return v && !isPlaceholder(v); }).join('\n');
+        }
+        return clean(td.textContent);
+      });
+    }).filter(function(r){ return r.some(function(v){ return clean(v); }); }).filter(function(r){
+      if(id !== 'avaliacaoTable') return true;
+      var norm = function(x){ return String(x || '').replace(/\s+/g,'').toLowerCase(); };
+      var rn = r.map(norm), hn = headers.map(norm);
+      if(rn.length && rn.every(function(v,i){ return !v || v === (hn[i] || ''); })) return false;
+      if(rn[0] === 'nome' || rn[0] === 'name') return false;
+      return true;
+    });
+    return {headers:headers, rows:rows};
+  }
+  function shortEvalData(){
+    var d = tableData('avaliacaoTable');
+    d.headers = (d.headers || []).map(function(h){
+      var s = String(h || '').toLowerCase();
+      if(s.indexOf('nome') !== -1) return 'NOME';
+      if(/^c\s*1/.test(s) || s === 'c1') return 'C1';
+      if(/^c\s*2/.test(s) || s === 'c2') return 'C2';
+      if(/^c\s*3/.test(s) || s === 'c3') return 'C3';
+      if(/^c\s*4/.test(s) || s === 'c4') return 'C4';
+      if(/^c\s*5/.test(s) || s === 'c5') return 'C5';
+      if(/^c\s*6/.test(s) || s === 'c6') return 'C6';
+      if(/^c\s*7/.test(s) || s === 'c7') return 'C7';
+      if(s.indexOf('npa') !== -1) return 'NPA';
+      if(s.indexOf('npb1') !== -1) return 'NPB1';
+      if(s.indexOf('npb2') !== -1) return 'NPB2';
+      if(s.indexOf('nf') !== -1 || s.indexOf('nota final') !== -1) return 'NF';
+      return clean(h).replace(/\s+/g,' ');
+    });
+    return d;
+  }
+  function loadJsPdf(){
+    return new Promise(function(resolve,reject){
+      if(window.jspdf && window.jspdf.jsPDF) return resolve();
+      var src = window.JSPDF_CDN || 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+      var existing = document.querySelector('script[src="'+src+'"]');
+      if(existing){ existing.addEventListener('load', resolve, {once:true}); existing.addEventListener('error', reject, {once:true}); return; }
+      var s = document.createElement('script');
+      s.src = src; s.onload = resolve; s.onerror = reject; document.head.appendChild(s);
+    });
+  }
+  function blobToBase64(blob){
+    return new Promise(function(resolve,reject){
+      var r = new FileReader();
+      r.onloadend = function(){ resolve(String(r.result || '').split(',')[1] || ''); };
+      r.onerror = reject;
+      r.readAsDataURL(blob);
+    });
+  }
+  function toast(msg,type){
+    if(window.toast) return window.toast(msg,type || 'ok');
+    var d = document.createElement('div'); d.className = 'toast-message'; d.textContent = msg; document.body.appendChild(d);
+    setTimeout(function(){ if(d.parentNode) d.remove(); }, 2600);
+  }
+  function fileName(){
+    if(typeof window.guiaoPdfFileName === 'function') return window.guiaoPdfFileName('PBL','Guiao');
+    return 'PBL_Guiao.pdf';
+  }
+
+  async function renderPblPdfAprovadoBlob(){
+    await loadJsPdf();
+    var jsPDF = window.jspdf && window.jspdf.jsPDF;
+    if(!jsPDF) throw new Error('jsPDF não carregou.');
+    var pdf = new jsPDF({unit:'mm', format:'a4', orientation:'portrait'});
+    var W=210, H=297, m=12, y=12;
+    var red=[227,30,36], dark=[22,22,22], grey=[70,70,70], line=[145,145,145], soft=[242,242,242];
+    function tc(c){ pdf.setTextColor(c[0],c[1],c[2]); }
+    function dc(c){ pdf.setDrawColor(c[0],c[1],c[2]); }
+    function fc(c){ pdf.setFillColor(c[0],c[1],c[2]); }
+    function split(t,w,s,style){ pdf.setFont('helvetica', style || 'normal'); pdf.setFontSize(s || 8); return pdf.splitTextToSize(clean(t || ''), w); }
+    function ensure(h){ if(y + h > H - 15){ footer(); pdf.addPage(); y = 12; } }
+    function footer(){
+      var n = pdf.internal.getNumberOfPages();
+      pdf.setPage(n); pdf.setFont('helvetica','normal'); pdf.setFontSize(7); pdf.setTextColor(120,120,120);
+      pdf.text('Plano Problem-Based Learning - Universidade Europeia | IADE | IPAM', m, H-7);
+      pdf.text('Página ' + n, W-m, H-7, {align:'right'});
+      pdf.setTextColor(0,0,0);
+    }
+    function drawRule(x1, yy, x2, width){ dc(red); pdf.setLineWidth(width || .35); pdf.line(x1, yy, x2, yy); }
+    function empty(v){ return clean(v || ''); }
+    function getTitle(){ return firstNonEmpty(val('titulo'), 'Intervenção perante um caso de insucesso académico e ansiedade em contexto universitário'); }
+
+    function header(){
+      var boxX=m, boxW=W-2*m, boxY=y-1;
+      var titleLines = split(getTitle(), boxW - 24, 9.1, 'bold');
+      var boxH = Math.max(36, 31 + Math.max(1,titleLines.length)*4.2);
+      dc(dark); pdf.setLineWidth(.25); fc([255,255,255]);
+      pdf.roundedRect(boxX, boxY, boxW, boxH, 2.8, 2.8, 'S');
+      var logo = logoSrc();
+      if(logo){ try{ pdf.addImage(logo, 'PNG', W/2-14, y+4.2, 28, 6.6); }catch(e){ try{ pdf.addImage(logo, 'JPEG', W/2-14, y+4.2, 28, 6.6); }catch(e2){} } }
+      y += 15.2;
+      pdf.setFont('helvetica','bold'); pdf.setFontSize(13.8); tc(dark);
+      pdf.text('Plano Problem-Based Learning', W/2, y, {align:'center'});
+      y += 4.1; drawRule(boxX+12, y, boxX+boxW-12, .42);
+      y += 5.5; pdf.setFont('helvetica','bold'); pdf.setFontSize(9.1); tc(dark);
+      pdf.text(titleLines, W/2, y, {align:'center'});
+      y += Math.max(7, titleLines.length*4.2 + 1.2);
+      pdf.setFont('helvetica','normal'); pdf.setFontSize(7.6); tc(grey);
+      pdf.text('Autoria: ' + empty(val('autoria')), boxX+boxW-5.5, boxY+boxH-3.6, {align:'right'});
+      y = boxY + boxH + 9;
+    }
+    function section(title){
+      ensure(13); pdf.setFont('helvetica','bold'); pdf.setFontSize(10.8); tc(dark); pdf.text(title, m, y); y += 2.5; drawRule(m, y, W-m, .35); y += 6;
+    }
+    function topic(title){ ensure(7); pdf.setFont('helvetica','bold'); pdf.setFontSize(8.8); tc(dark); pdf.text(title, m, y); y += 4.5; }
+    function metaBlock(){
+      section('Identificação do guião');
+      var boxX=m, boxW=W-2*m, boxY=y, innerX=boxX+5.6, innerW=boxW-11.2;
+      var sepX=boxX+boxW/2, leftW=sepX-innerX-5.8, rightX=sepX+5.8, rightW=boxX+boxW-5.6-rightX;
+      var rows=[
+        [['Unidade Orgânica',val('unidadeOrganica')], ['Curso(s)',val('curso')]],
+        [['Docente(s)',val('docentes')], ['Email(s)',val('emails')]],
+        [['Unidade(s) Curricular(es)',val('uc')], ['Número de estudantes',onlyNumber(val('numeroEstudantes') || val('n_estudantes'))]]
+      ];
+      var rowHeights = rows.map(function(pair){
+        return Math.max.apply(null, pair.map(function(item,idx){
+          var w = idx === 0 ? leftW : rightW;
+          var lines = split(item[1] || ' ', w-5, 8.1);
+          return Math.max(17.2, 9.5 + Math.max(1,lines.length)*4.2);
+        }));
+      });
+      var yearH=17.4;
+      var boxH=rowHeights.reduce(function(a,b){return a+b;},0)+yearH+8;
+      ensure(boxH+5);
+      dc(line); pdf.setLineWidth(.32); fc([255,255,255]); pdf.roundedRect(boxX, boxY, boxW, boxH, 2.2, 2.2, 'S');
+      var curY=boxY+6.0;
+      rows.forEach(function(pair,ri){
+        var rh=rowHeights[ri];
+        pair.forEach(function(item,c){
+          var x=c===0?innerX:rightX, w=c===0?leftW:rightW;
+          pdf.setFont('helvetica','bold'); pdf.setFontSize(7.8); tc(dark); pdf.text(item[0]+':', x, curY+4.4);
+          pdf.setFont('helvetica','normal'); pdf.setFontSize(8.2); tc([35,35,35]); pdf.text(split(item[1] || ' ', w-5, 8.2), x, curY+8.9);
+        });
+        dc([210,210,210]); pdf.setLineWidth(.18); pdf.line(sepX,curY+0.8,sepX,curY+rh-3.8);
+        curY += rh;
+        dc([218,218,218]); pdf.setLineWidth(.18); pdf.line(innerX,curY-0.3,innerX+innerW,curY-0.3);
+      });
+      pdf.setFont('helvetica','bold'); pdf.setFontSize(8.0); tc(dark); pdf.text('Ano letivo:', W/2, curY+5.0, {align:'center'});
+      pdf.setFont('helvetica','normal'); pdf.setFontSize(8.2); tc([35,35,35]); pdf.text(empty(val('ano')), W/2, curY+9.4, {align:'center'});
+      y = boxY + boxH + 8;
+    }
+    function textBox(label, text, minH){
+      topic(label);
+      var w=W-2*m, lines=split(text || ' ', w-5.5, 8.0);
+      var h=Math.max(minH || 13.5, 7.5 + Math.max(1,lines.length)*3.7);
+      ensure(h+3.2); dc(line); pdf.setLineWidth(.25); fc([255,255,255]); pdf.roundedRect(m,y,w,h,1.4,1.4,'S');
+      pdf.setFont('helvetica','normal'); pdf.setFontSize(8.0); pdf.setTextColor(50,50,50); pdf.text(lines,m+2.7,y+5.5);
+      y += h + 6;
+    }
+    function tableBlock(label, data, opt){
+      opt = opt || {};
+      var headers=data.headers||[], rows=(data.rows&&data.rows.length)?data.rows:[headers.map(function(){return '';})];
+      if(!headers.length) return;
+      var cols=headers.length, tableW=W-2*m;
+      var ratios=opt.ratios||Array(cols).fill(1);
+      var sum=ratios.reduce(function(a,b){return a+b;},0)||1;
+      var colW=ratios.map(function(r){return tableW*r/sum;});
+      var fs=opt.fs||6.3, hfs=opt.headFs||6.5, headH=opt.headH||10;
+      function rowMetrics(row){
+        var lines=headers.map(function(_,i){return split(row[i] || '', colW[i]-2, fs);});
+        var rowH=Math.max(opt.rowH||9, Math.max.apply(null,lines.map(function(l){return Math.max(1,l.length);}))*fs*.45+4.5);
+        return {lines:lines, rowH:rowH};
+      }
+      var first = rowMetrics(rows[0] || []);
+      ensure(7 + headH + first.rowH + 2);
+      topic(label);
+      function head(){
+        ensure(headH+2); var x=m;
+        headers.forEach(function(h,i){
+          fc(soft); pdf.setDrawColor(70,70,70); pdf.rect(x,y,colW[i],headH,'FD');
+          pdf.setFont('helvetica','bold'); pdf.setFontSize(hfs); pdf.setTextColor(20,20,20); pdf.text(split(h,colW[i]-2,hfs,'bold'),x+1.1,y+3.8);
+          x += colW[i];
+        });
+        y += headH;
+      }
+      head();
+      rows.forEach(function(row){
+        var metrics=rowMetrics(row);
+        var lines=metrics.lines, rowH=metrics.rowH;
+        if(y+rowH>H-15){ footer(); pdf.addPage(); y=12; head(); }
+        var x=m;
+        headers.forEach(function(_,i){
+          pdf.setFillColor(255,255,255); pdf.setDrawColor(90,90,90); pdf.rect(x,y,colW[i],rowH,'S');
+          pdf.setFont('helvetica','normal'); pdf.setFontSize(fs); pdf.setTextColor(25,25,25); pdf.text(lines[i],x+1.1,y+3.7);
+          x += colW[i];
+        });
+        y += rowH;
+      });
+      y += 6;
+    }
+
+    header();
+    metaBlock();
+    section('Guião docente');
+    textBox('CASO', tabTextareaValue('docente','caso',0), 15.5);
+    textBox('INFORMAÇÃO INICIAL', tabTextareaValue('docente','informação inicial',1), 15.5);
+    textBox('Informações pertinentes para dinamização das sessões com os estudantes', tabTextareaValue('docente','informações pertinentes',2), 17);
+    tableBlock('Plano das sessões - docente', tableData('docenteTable'), {ratios:[.09,.09,.09,.16,.15,.20,.16,.16],fs:6.65,headFs:6.9,headH:11,rowH:9.8});
+    section('Guião estudante');
+    textBox('INFORMAÇÃO INICIAL', tabTextareaValue('estudante','informação inicial',0) || tabTextareaValue('docente','informação inicial',1), 15.5);
+    tableBlock('Plano das sessões - estudante', tableData('estudanteTable'), {ratios:[.09,.18,.18,.18,.22,.15],fs:6.9,headFs:7.1,headH:11,rowH:10});
+    ensure(92);
+    section('Avaliação');
+    textBox('Legenda de avaliação', [
+      'C1 = Apresenta e defende as suas opiniões, e escuta a opinião dos outros valorizando pontos de vista distintos [30%]',
+      'C2 = Comunica usando conceitos e linguagem técnica e profissional [30%]',
+      'C3 = Identifica problemas para a futura prática profissional, formulando hipóteses sustentadas na evidência científica [15%]',
+      'C4 = Elabora e submete NAs de acordo com plano definido [5%]',
+      'C5 = Integra os conhecimentos da UC e das NAs com o caso apresentado [20%]',
+      'NPA = Média das sessões C1-C5 [50%]',
+      'NPB1 = Apresentação C6 [25%] | NPB2 = Apresentação C7 [25%]',
+      'NF = (NPA x 50%) + (NPB1 x 25%) + (NPB2 x 25%)'
+    ].join('\n'), 28);
+    tableBlock('Tabela de avaliação', shortEvalData(), {ratios:[.20,.055,.055,.055,.055,.055,.055,.055,.065,.065,.065,.065,.065,.065,.07],fs:6.05,headFs:6.25,headH:8.8,rowH:8});
+    footer();
+    return pdf.output('blob');
+  }
+
+  async function downloadPblPdfAprovado(ev){
+    if(ev){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); }
+    try{
+      toast('A preparar o PDF...');
+      var blob = await renderPblPdfAprovadoBlob();
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a'); a.href = url; a.download = fileName(); document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 1200);
+      toast('PDF gerado com sucesso.');
+    }catch(e){ console.error(e); alert('Não foi possível gerar o PDF.\n\nDetalhe técnico:\n' + (e.message || e)); }
+    return false;
+  }
+  async function generatePblPdfAprovadoBase64(){ return blobToBase64(await renderPblPdfAprovadoBlob()); }
+
+  function bindPdfButton(){
+    var btn = $('btnSalvarPDF');
+    if(!btn) return;
+    if(btn.dataset.pblPdfEspelhoRestauroAprovado === '1') return;
+    var clone = btn.cloneNode(true);
+    clone.id = 'btnSalvarPDF';
+    clone.textContent = 'Gerar guião em PDF';
+    clone.removeAttribute('onclick');
+    clone.dataset.pblPdfEspelhoRestauroAprovado = '1';
+    clone.addEventListener('click', downloadPblPdfAprovado, true);
+    btn.parentNode.replaceChild(clone, btn);
+  }
+
+  window.renderPblMirrorPdfBlob = renderPblPdfAprovadoBlob;
+  window.PBL_FINAL_renderPdfBlob = renderPblPdfAprovadoBlob;
+  window.PBL_FINAL_downloadPdf = downloadPblPdfAprovado;
+  window.PBL_FINAL_generatePdfBase64 = generatePblPdfAprovadoBase64;
+  window.downloadPblMirrorPdf = downloadPblPdfAprovado;
+  window.downloadPblFinalPdf = downloadPblPdfAprovado;
+  window.generatePblMirrorPdfBase64 = generatePblPdfAprovadoBase64;
+  window.generatePblFinalPdfBase64 = generatePblPdfAprovadoBase64;
+  window.generatePdfBase64 = generatePblPdfAprovadoBase64;
+  window.salvarPDF = downloadPblPdfAprovado;
+  window.downloadGuiesPdf = downloadPblPdfAprovado;
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindPdfButton);
+  else bindPdfButton();
+  setTimeout(bindPdfButton, 250);
+  setTimeout(bindPdfButton, 900);
+  setTimeout(bindPdfButton, 1800);
+})();
+</script>
+
 </body>
 </html>

@@ -788,14 +788,7 @@ label {
   --rbl-black: #1F1F1F;
   --rbl-ink: #2B2B2B;
 }
-::selection {
-  background: rgba(31,31,31,.92) !important;
-  color: #fff !important;
-}
-::-moz-selection {
-  background: rgba(31,31,31,.92) !important;
-  color: #fff !important;
-}
+
 input[type="text"]:focus, textarea:focus, select:focus, .header-card select:focus, .rbl-meta-coupled-card input:focus, .rbl-meta-coupled-card textarea:focus, .rbl-soft-field-card input:focus, .rbl-expand-field:focus, .rbl-compact-field:focus, .section textarea:focus {
   border-color: var(--rbl-black) !important;
   outline: 3px solid rgba(0,0,0,.10) !important;
@@ -9528,6 +9521,28 @@ input#n_grupos::-webkit-inner-spin-button{
     font-size:15px !important;
   }
 }
+
+@media (max-width:680px) {
+  .header-card {
+    padding: 14px !important;
+  }
+  .header-card label {
+    font-size: 14px !important;
+    margin: 0 0 8px 0 !important;
+    line-height: 1.25 !important;
+  }
+  .header-card select {
+    width: 100% !important;
+    min-height: 56px !important;
+    height: 56px !important;
+    font-size: 16px !important;
+    line-height: 1.35 !important;
+    padding: 12px 44px 12px 14px !important;
+    border-radius: 14px !important;
+    box-sizing: border-box !important;
+  }
+}
+
 </style>
 <script id="rbl-fix-definitivo-numericos-nativos-js">
 (function(){

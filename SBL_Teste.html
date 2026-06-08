@@ -905,14 +905,7 @@ input[type="text"]:focus, textarea:focus, select:focus, .sbl-meta-coupled-card i
   outline: 3px solid rgba(227,30,36,.12) !important;
   box-shadow: 0 3px 10px rgba(227,30,36,.08) !important;
 }
-::selection {
-  background: rgba(227,30,36,.92) !important;
-  color: #fff !important;
-}
-::-moz-selection {
-  background: rgba(227,30,36,.92) !important;
-  color: #fff !important;
-}
+
 #hint_procedimentos, #hint_briefing {
   border-left: 3px solid var(--sbl-accent) !important;
   background: #fafafa !important;
@@ -1702,6 +1695,23 @@ body.guiao-pdf-mode .section{
 body.guiao-pdf-mode h1{
   margin-bottom:10px !important;
   padding-bottom:9px !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+.header-card select:focus,
+.sbl-meta-coupled-card input:focus,
+.sbl-meta-coupled-card textarea:focus,
+.header-grid + table input:focus,
+.header-grid + table textarea:focus,
+.sbl-rounded-block textarea:focus,
+.sbl-rounded-block input[type="text"]:focus,
+#quadroAcao textarea:focus {
+  border-color: #333 !important;
+  outline: 3px solid rgba(0,0,0,.10) !important;
+  box-shadow: 0 3px 10px rgba(0,0,0,.06) !important;
+  background: #fff !important;
 }
 
 </style>
@@ -10385,6 +10395,14 @@ body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field input[ty
     white-space:normal !important;
   }
 }
+
+
+
+#emails:focus, #email:focus, textarea[name="emails"]:focus, input[name="emails"]:focus {
+  outline: 3px solid rgba(0,0,0,.10) !important;
+  border-color: #2f2f2f !important;
+  box-shadow: 0 3px 10px rgba(0,0,0,.07) !important;
+}
 </style>
 </head>
 <body>
@@ -12136,14 +12154,32 @@ async function downloadCurrentGuiesPdf(){
     try {
       const payload = collectFormData();
       payload.pdfFileName = guiaoPdfFileName("SBL", "Guiao");
-      payload.pdfBase64 = await generatePdfBase64(payload);
+      payload.pdfBase64 = await Promise.race([
+        generatePdfBase64(payload),
+        new Promise(function(resolve){
+          setTimeout(function(){
+            console.warn("[PowerAutomate] Geração do PDF excedeu o tempo limite. Submissão seguirá sem PDF automático.");
+            resolve("");
+          }, 25000);
+        })
+      ]);
       payload.html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
 
-      const response = await fetch(FLOW_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
+      const controller = (typeof AbortController !== "undefined") ? new AbortController() : null;
+      const timeoutId = setTimeout(function(){
+        try { if (controller) controller.abort(); } catch(e) {}
+      }, 55000);
+      let response;
+      try {
+        response = await fetch(FLOW_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          signal: controller ? controller.signal : undefined
+        });
+      } finally {
+        clearTimeout(timeoutId);
+      }
 
       const responseText = await response.text();
       let responseJson = null;
@@ -12157,8 +12193,10 @@ async function downloadCurrentGuiesPdf(){
       showSubmissionConfirmation(responseJson);
     } catch(error) {
       console.error("[PowerAutomate] Erro na submissão:", error);
-      toast("Não foi possível enviar para validação.", "error");
-      alert("Não foi possível enviar para validação.\n\nDetalhe técnico:\n" + (error.message || error));
+      const isTimeout = error && (error.name === "AbortError" || /abort|timeout|tempo limite/i.test(String(error.message || error)));
+      const msg = isTimeout ? "O envio demorou demasiado e foi interrompido. Verifique o histórico do Power Automate antes de tentar novamente." : "Não foi possível enviar para validação.";
+      toast(msg, "error");
+      alert(msg + "\n\nDetalhe técnico:\n" + (error.message || error));
     } finally {
       activeSubmission = false;
       if (button) { button.disabled = false; button.textContent = originalText || "Enviar para Validação"; }
@@ -16200,5 +16238,6 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
 <style id="guiao-required-submit-validation-v1-style">
 .guiao-required-missing{ outline:3px solid rgba(227,30,36,.28) !important; outline-offset:2px !important; }
 </style>
+<!-- sbl-timeout-submit-fix-marker -->
 </body>
 </html>
