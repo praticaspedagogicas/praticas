@@ -2,6 +2,7 @@
 
 <html lang="pt">
 <head>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta charset="utf-8"/>
 <style id="template-clean-style">
 /* ===== TEMPLATE LIMPO - CSS consolidado ===== */
@@ -930,7 +931,7 @@ button[title="Saiba mais"]:focus, .sbl-info-i:focus {
 }
 .btn-plus:hover, #quadroAcao .btn-plus:hover, .quadro-btn:hover, .btn-add:hover {
   background: var(--sbl-accent-soft) !important;
-  color: #B81D22 !important;
+  color: #E31E24 !important;
 }
 .ux-actions .ux-btn-primary, #btnValidacaoReal {
   background: #fff !important;
@@ -940,7 +941,7 @@ button[title="Saiba mais"]:focus, .sbl-info-i:focus {
 .ux-actions .ux-btn-primary:hover, #btnValidacaoReal:hover {
   background: var(--sbl-red-soft) !important;
   border-color: rgba(227,30,36,.70) !important;
-  color: #B81D22 !important;
+  color: #E31E24 !important;
 }
 div[style*="border-top:2px solid #E31E24"], div[style*="border-top: 2px solid #E31E24"], div[style*="border-top:2px solid rgb(227, 30, 36)"], div[style*="border-top:2px solid #D66A1F"], div[style*="border-top: 2px solid #D66A1F"], div[style*="border-top:2px solid #2F5D62"], div[style*="border-top: 2px solid #2F5D62"] {
   border-top-color: var(--sbl-accent) !important;
@@ -1478,8 +1479,8 @@ input, textarea, select {
 #btnEnviarValidacao:hover,
 #btnValidacaoReal:hover{
   background:#fff4f4 !important;
-  color:#B81D22 !important;
-  border-color:#B81D22 !important;
+  color:#E31E24 !important;
+  border-color:#E31E24 !important;
 }
 
 @media print{
@@ -9981,7 +9982,6 @@ body:not(.guiao-pdf-mode) #quadroAcao .sbl-acoes-footer-botoes .btn-minus{
   justify-content:center !important;
 }
 </style>
-
 <style id="sbl62-preview-visual-mais-leve-css">
 /* ===== SBL(62) — preview visual mais leve =====
    Mantém conteúdo e estrutura; reduz peso visual de textos auxiliares.
@@ -10073,7 +10073,136 @@ body:not(.guiao-pdf-mode) .sbl-repository-text{
   max-width:92% !important;
 }
 </style>
+<style id="sbl-autoria-estado-rbl-like-final"><style id="sbl-autoria-estado-rbl-like-final">
+/* ===== SBL — Autoria e estado do guião visíveis à lógica do RBL =====
+   Microcamada: apenas reorganiza/mostra os campos já existentes #autoria e #estado.
+   Não altera PDF, menu, autorização, Curso(s), payload ou campos pedagógicos. */
 
+body:not(.guiao-pdf-mode) .sbl-autoria-estado-panel{
+  width:100% !important;
+  margin:10px 0 16px 0 !important;
+  padding:14px 16px !important;
+  border:1.5px solid rgba(0,0,0,.14) !important;
+  border-radius:18px !important;
+  background:#fff !important;
+  box-shadow:0 4px 14px rgba(0,0,0,.035) !important;
+  box-sizing:border-box !important;
+  clear:both !important;
+}
+body:not(.guiao-pdf-mode) .sbl-autoria-estado-title{
+  margin:0 0 12px 0 !important;
+  padding:0 0 8px 0 !important;
+  border-bottom:2px solid var(--sbl-accent, #E31E24) !important;
+  color:var(--sbl-ink, #333) !important;
+  font-size:16px !important;
+  line-height:1.2 !important;
+  font-weight:800 !important;
+}
+body:not(.guiao-pdf-mode) .sbl-autoria-estado-grid{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:10px 12px !important;
+  align-items:stretch !important;
+  margin:0 !important;
+  padding:0 !important;
+}
+body:not(.guiao-pdf-mode) .sbl-autoria-estado-grid .sbl-autoria-card{
+  grid-column:1 / -1 !important;
+}
+body:not(.guiao-pdf-mode) .sbl-autoria-estado-grid .sbl-estado-card{
+  grid-column:1 / -1 !important;
+}
+body:not(.guiao-pdf-mode) .sbl-autoria-estado-grid .sbl47-v53-card{
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:flex-start !important;
+  margin:0 !important;
+  padding:10px 12px !important;
+  border:1px solid rgba(0,0,0,.12) !important;
+  border-radius:14px !important;
+  background:#fff !important;
+  box-shadow:none !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  box-sizing:border-box !important;
+}
+body:not(.guiao-pdf-mode) .sbl-autoria-estado-grid label{
+  display:block !important;
+  margin:0 0 7px 0 !important;
+  color:#333 !important;
+  font-size:14px !important;
+  line-height:1.18 !important;
+  font-weight:800 !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+body:not(.guiao-pdf-mode) .sbl-autoria-estado-grid #autoria,
+body:not(.guiao-pdf-mode) .sbl-autoria-estado-grid #estado{
+  display:block !important;
+  width:100% !important;
+  min-height:38px !important;
+  height:auto !important;
+  padding:8px 10px !important;
+  border:1px solid #cfcfcf !important;
+  border-radius:10px !important;
+  background:#fff !important;
+  color:#222 !important;
+  font-size:13.5px !important;
+  line-height:1.32 !important;
+  box-shadow:none !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  box-sizing:border-box !important;
+}
+body:not(.guiao-pdf-mode) .sbl-autoria-estado-grid #autoria{
+  min-height:52px !important;
+  resize:vertical !important;
+}
+body:not(.guiao-pdf-mode) .sbl-autoria-estado-grid #estado{
+  min-height:38px !important;
+}
+body:not(.guiao-pdf-mode) .sbl-autoria-estado-grid #autoria:focus,
+body:not(.guiao-pdf-mode) .sbl-autoria-estado-grid #estado:focus{
+  outline:none !important;
+  border-color:var(--sbl-accent, #E31E24) !important;
+  box-shadow:0 0 0 3px rgba(227,30,36,.12) !important;
+}
+@media screen and (max-width:760px){
+  body:not(.guiao-pdf-mode) .sbl-autoria-estado-grid{
+    grid-template-columns:1fr !important;
+  }
+}
+@media print{
+  .sbl-autoria-estado-panel{
+    margin:4px 0 8px 0 !important;
+    padding:8px 10px !important;
+    border:1px solid #ddd !important;
+    box-shadow:none !important;
+  }
+  .sbl-autoria-estado-title{ display:none !important; }
+}
+</style>
+<style id="sbl-estado-select-menu5-final">
+/* Microcamada final — Estado do guião como select nativo, uniforme com RBL. */
+html body:not(.guiao-pdf-mode) .sbl-estado-card select#estado{
+  width:100% !important;
+  min-height:44px !important;
+  border:1px solid #d8d8d8 !important;
+  border-radius:10px !important;
+  background:#fff !important;
+  padding:9px 10px !important;
+  font-family:'Century Gothic', sans-serif !important;
+  font-size:13px !important;
+  line-height:1.35 !important;
+  box-sizing:border-box !important;
+  color:#333 !important;
+}
+html body:not(.guiao-pdf-mode) .sbl-estado-card select#estado:focus{
+  outline:none !important;
+  border-color:#777777 !important;
+  box-shadow:0 0 0 3px rgba(227,30,36,.14) !important;
+}
+</style>
 </head>
 <body>
 <div class="page">
@@ -10110,15 +10239,34 @@ body:not(.guiao-pdf-mode) .sbl-repository-text{
 <option>EaD</option>
 </select>
 </div>
+<div class="header-card">
+<label>Semestre</label>
+<select id="semestre">
+<option value="">Selecionar</option>
+<option>1.º semestre</option>
+<option>2.º semestre</option>
+<option>Anual</option>
+</select>
 </div>
-<div class="sbl47-v53-header-cards"><div class="sbl47-v53-card sbl-course-cbl-card"><div class="cbl-course-picker" data-multicourse="true">
+<div class="header-card">
+<label>Turma/Edição</label>
+<select id="turmaEdicao">
+<option value="">Selecionar</option>
+<option>Turma A</option>
+<option>Turma B</option>
+<option>Turma C</option>
+<option>Turma D</option>
+</select>
+</div>
+</div>
+<div class="sbl47-v53-header-cards"><div class="sbl47-v53-card sbl-course-cbl-card"><label for="cursoBusca">Curso(s)</label><div class="cbl-course-picker" data-multicourse="true">
 <input id="curso" name="curso" type="hidden"/>
 <div class="cbl-course-search-row">
 <input autocomplete="off" id="cursoBusca" list="cblCursosList" placeholder="Digite para procurar e selecione um curso" type="text"/>
 </div>
 <div aria-live="polite" class="cbl-course-chips" id="cblCursosSelecionados"></div>
 <div class="cbl-course-helper">Selecione um curso na lista. Para adicionar mais cursos, repita a seleção.</div>
-</div></div><div class="sbl47-v53-card"><label for="uc">Unidade(s) Curricular(es)</label><textarea id="uc" name="uc" placeholder="Unidade(s) Curricular(es) envolvida(s)"></textarea></div><div class="sbl47-v53-card"><label for="professor">Docente(s)</label><textarea id="professor" name="professor" placeholder="Nome do/a docente"></textarea></div><div class="sbl47-v53-card wide"><label for="emails">Email(s) docente(s)</label><textarea id="emails" name="emails" placeholder="email@universidade.pt"></textarea></div><div class="sbl47-v53-card"><label for="ano_letivo">Ano Letivo</label><input id="ano_letivo" name="ano_letivo" placeholder="2025/2026" type="text"/></div><div class="sbl47-v53-card"><label for="data">Data</label><input id="data" name="data" placeholder="AAAA-MM-DD" type="date"/></div><div class="sbl47-v53-card"><label for="hora">Hora</label><input id="hora" name="hora" placeholder="HH:MM" type="time"/></div><div class="sbl47-v53-card"><label for="n_estudantes">Número de Estudantes</label><input id="n_estudantes" name="n_estudantes" placeholder="Ex: 30" type="text"/></div><div class="sbl47-v53-card"><label for="n_grupos">Número de Grupos</label><input id="n_grupos" name="n_grupos" placeholder="Ex: 6" type="text"/></div><div class="sbl47-v53-card span-2"><label for="estado">Estado do Guião</label><input id="estado" name="estado" placeholder="Novo / Atualizado / Reutilizado" type="text"/></div><div class="sbl47-v53-card wide"><label for="autoria">Autoria</label><textarea id="autoria" name="autoria" placeholder="Nome do autor"></textarea></div></div>
+</div></div><div class="sbl47-v53-card"><label for="uc">Unidade(s) Curricular(es)</label><textarea id="uc" name="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado"></textarea></div><div class="sbl47-v53-card"><label for="professor">Docente(s)</label><textarea id="professor" name="professor" placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva"></textarea></div><div class="sbl47-v53-card wide"><label for="emails">Email(s)</label><textarea id="emails" name="emails" placeholder="Ex.: docente@universidadeeuropeia.pt"></textarea></div><div class="sbl47-v53-card"><label for="ano_letivo">Ano letivo</label><input id="ano_letivo" name="ano_letivo" placeholder="Ex.: 2026/2027" type="text"/></div><div class="sbl47-v53-card"><label for="data">Data</label><input id="data" name="data" placeholder="AAAA-MM-DD" type="date"/></div><div class="sbl47-v53-card"><label for="hora">Hora</label><input id="hora" name="hora" placeholder="HH:MM" type="time"/></div><div class="sbl47-v53-card"><label for="n_estudantes">Nº de estudantes</label><input id="n_estudantes" inputmode="numeric" min="0" name="n_estudantes" placeholder="Ex.: 32" step="1" type="number"/></div><div class="sbl47-v53-card"><label for="n_grupos">Nº de grupos</label><input id="n_grupos" inputmode="numeric" min="0" name="n_grupos" placeholder="Ex.: 6" step="1" type="number"/></div></div><div class="sbl-autoria-estado-panel"><div class="sbl-autoria-estado-title">Autoria e estado do guião</div><div class="sbl-autoria-estado-grid"><div class="sbl47-v53-card sbl-autoria-card"><label for="autoria">Autoria</label><textarea id="autoria" name="autoria" placeholder="Ex.: Ana Luiza Marques">Prof.ª Mariana Costa; Prof. João Almeida</textarea></div><div class="sbl47-v53-card sbl-estado-card"><label for="estado">Estado do guião</label><select id="estado" name="estado"><option value="">Selecionar</option><option selected="selected" value="Novo">Novo</option><option value="Atualizado">Atualizado</option><option value="Reutilizado">Reutilizado</option></select></div></div></div>
 <div class="section sbl47-v68-red-print-card">
 <label>Objetivos:</label>
 <textarea id="objetivos" placeholder="Indique os objetivos de aprendizagem..."></textarea>
@@ -10159,14 +10307,14 @@ body:not(.guiao-pdf-mode) .sbl-repository-text{
 <textarea id="cenario" placeholder="Descreva o cenário de simulação..."></textarea>
 </div>
 <div class="section sbl47-v68-red-print-card sbl47-v73-essential-print-card">
-<label>Informação Inicial:</label>
+<label>Informação inicial:</label>
 <textarea id="oq_simulacao" placeholder="Informação inicial sobre o caso que o ator deve saber para a simulação (contexto, situação, personagens envolvidos, etc.)"></textarea>
 </div>
 <div class="section sbl47-v67-info-ator-print sbl47-v68-red-print-card">
 <div class="section sbl47-v68-red-print-card">
 <div class="section sbl47-v68-red-print-card">
 <div class="section sbl47-v67-hide-print">
-<div style="border-top:2px solid #E31E24;margin:15px 0;"></div><label style="display:inline;">Guião para Ator</label><button onclick="var d=document.getElementById('hint_ator');d.style.display=d.style.display=='block'?'none':'block'" style="background:#E31E24;color:#fff;font-weight:bold;border:1px solid #000;border-radius:3px;padding:2px 8px;margin-left:5px;font-size:11px;cursor:pointer;font-weight:bold;" title="Saiba mais" type="button">+</button><div id="hint_ator" style="display:none;margin:10px 0;padding:10px;background:#f5f5f5;border-left:3px solid #E31E24;border-radius:4px;"><div style="font-size:12px;line-height:1.8;text-align:justify;">O objetivo é apresentar diferentes elementos da história, indicando como começa e termina o cenário, descrevendo os estados emocionais da personagem ao longo da mesma; indicar informação prévia necessária; comportamento na sessão; comportamento no debriefing.</div></div>
+<div style="border-top:2px solid #E31E24;margin:15px 0;"></div><label style="display:inline;">Guião para ator</label><button onclick="var d=document.getElementById('hint_ator');d.style.display=d.style.display=='block'?'none':'block'" style="background:#E31E24;color:#fff;font-weight:bold;border:1px solid #000;border-radius:3px;padding:2px 8px;margin-left:5px;font-size:11px;cursor:pointer;font-weight:bold;" title="Saiba mais" type="button">+</button><div id="hint_ator" style="display:none;margin:10px 0;padding:10px;background:#f5f5f5;border-left:3px solid #E31E24;border-radius:4px;"><div style="font-size:12px;line-height:1.8;text-align:justify;">O objetivo é apresentar diferentes elementos da história, indicando como começa e termina o cenário, descrevendo os estados emocionais da personagem ao longo da mesma; indicar informação prévia necessária; comportamento na sessão; comportamento no debriefing.</div></div>
 </div>
 <div class="section">
 <div class="sbl47-v55-quadro-explicativo" style="font-size:14px;font-weight:500;margin-bottom:10px;">O quadro seguinte deve ser preenchido para completar o guião para ator, indicando ações que o Técnico/Profissional possa adotar durante o cenário e reações respetivas que o Ator/Personagem deve seguir. Ou o inverso, ações que o Ator/Personagem possa adotar durante o cenário e reações respetivas que o Técnico/Profissional deve seguir. Especificar no cabeçalho a situação.</div>
@@ -10184,7 +10332,7 @@ body:not(.guiao-pdf-mode) .sbl-repository-text{
 </div>
 <div class="btn-group sbl47-v68-red-print-card">
 <div class="section sbl47-v68-red-print-card sbl47-v68-info-ator-force-print sbl47-v73-essential-print-card">
-<label style="display:inline;">Informações para Ator/Personagem:</label><button onclick="var d=document.getElementById('hint_info_ator');d.style.display=d.style.display=='block'?'none':'block'" style="background:#E31E24;color:#fff;font-weight:bold;border:1px solid #000;border-radius:3px;padding:2px 8px;margin-left:5px;font-size:11px;cursor:pointer;" title="Saiba mais" type="button">+</button><div id="hint_info_ator" style="display:none;margin:10px 0;padding:10px;background:#f5f5f5;border-left:3px solid #E31E24;border-radius:4px;"><div style="font-size:12px;line-height:1.8;text-align:justify;">Para o ator é importante saber as respostas a todas as possíveis perguntas que os alunos possam fazer na simulação ou no debriefing para saber como responder/reagir às mesmas.<br/><br/><b>Como se caracteriza a personagem:</b><br/>• Que tipo de personalidade tem?<br/>• Como se sente consigo?<br/>• Como se sente com os outros?<br/>• Quais as relações com as pessoas à sua volta?<br/>• Quais as suas principais preocupações?<br/>• Qual a sua rotina? (p.ex.: um dia típico)<br/>• Qual o motivo de estar ali?<br/>• O discurso interior corresponde ao discurso exterior?<br/>• Qual o estado emocional mais vigente? (p.ex.: alegria, indiferença, medo)<br/>• Quais os seus comportamentos? (p.ex.: o que despoleta o quê?)<br/>• Informações relevantes em relação à imagem geral (roupa, cabelo, higiene, estrato social).<br/>• Informações relevantes em relação à cronologia de vida.<br/><br/><b>Consoante a disciplina e os objetivos da sessão de SBL, poderá ser importante fornecer:</b><br/>• informações sobre trabalho<br/>• informações sobre a família<br/>• informações sobre alguém específico<br/>• informações sobre um tema específico<br/>• informações médicas<br/>Estas informações podem ser facultadas através de documentos ou links.</div></div>
+<label style="display:inline;">Informações para ator/personagem:</label><button onclick="var d=document.getElementById('hint_info_ator');d.style.display=d.style.display=='block'?'none':'block'" style="background:#E31E24;color:#fff;font-weight:bold;border:1px solid #000;border-radius:3px;padding:2px 8px;margin-left:5px;font-size:11px;cursor:pointer;" title="Saiba mais" type="button">+</button><div id="hint_info_ator" style="display:none;margin:10px 0;padding:10px;background:#f5f5f5;border-left:3px solid #E31E24;border-radius:4px;"><div style="font-size:12px;line-height:1.8;text-align:justify;">Para o ator é importante saber as respostas a todas as possíveis perguntas que os alunos possam fazer na simulação ou no debriefing para saber como responder/reagir às mesmas.<br/><br/><b>Como se caracteriza a personagem:</b><br/>• Que tipo de personalidade tem?<br/>• Como se sente consigo?<br/>• Como se sente com os outros?<br/>• Quais as relações com as pessoas à sua volta?<br/>• Quais as suas principais preocupações?<br/>• Qual a sua rotina? (p.ex.: um dia típico)<br/>• Qual o motivo de estar ali?<br/>• O discurso interior corresponde ao discurso exterior?<br/>• Qual o estado emocional mais vigente? (p.ex.: alegria, indiferença, medo)<br/>• Quais os seus comportamentos? (p.ex.: o que despoleta o quê?)<br/>• Informações relevantes em relação à imagem geral (roupa, cabelo, higiene, estrato social).<br/>• Informações relevantes em relação à cronologia de vida.<br/><br/><b>Consoante a disciplina e os objetivos da sessão de SBL, poderá ser importante fornecer:</b><br/>• informações sobre trabalho<br/>• informações sobre a família<br/>• informações sobre alguém específico<br/>• informações sobre um tema específico<br/>• informações médicas<br/>Estas informações podem ser facultadas através de documentos ou links.</div></div>
 <textarea id="info_ator" placeholder="Informação que o ator/personagem necessita saber..."></textarea>
 </div>
 </div></div></div></div></div>
@@ -10264,7 +10412,10 @@ function renderAutosave(txt){
 /* ── GUARDAR RASCUNHO ── */
 function saveDraft(){
   var p = { timestamp: new Date().toLocaleTimeString('pt-PT'), data: {} };
-  fields().forEach(function(el,i){ p.data[i] = el.value; });
+  fields().forEach(function(el){
+    var key = el.id || el.name;
+    if(key) p.data[key] = el.value;
+  });
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }catch(e){}
   renderProgress();
   renderAutosave('Última gravação automática: ' + p.timestamp);
@@ -10276,7 +10427,18 @@ function restoreDraft(){
   if(!raw){ renderProgress(); renderAutosave('Última gravação automática: --'); return; }
   try{
     var p = JSON.parse(raw);
-    fields().forEach(function(el,i){ if(p.data[i] !== undefined) el.value = p.data[i]; });
+    var data = p && p.data ? p.data : {};
+    var hasNamedKeys = Object.keys(data).some(function(k){ return isNaN(Number(k)); });
+    if(!hasNamedKeys){
+      // Rascunhos antigos por índice podem deslocar valores quando o layout muda.
+      renderProgress();
+      renderAutosave('Última gravação automática: --');
+      return;
+    }
+    fields().forEach(function(el){
+      var key = el.id || el.name;
+      if(key && data[key] !== undefined) el.value = data[key];
+    });
     renderProgress();
     renderAutosave('Última gravação automática: ' + (p.timestamp||'--'));
     toast('Rascunho restaurado com sucesso.');
@@ -10344,12 +10506,13 @@ function initMenu(){
   var menu = document.getElementById('uxMenuMaisOpcoes');
   if(!btn || !menu) return;
 
-  // Substitui o conteúdo do menu pelos 4 botões correctos
+  // Substitui o conteúdo do menu pelos 5 botões uniformizados com RBL
   menu.innerHTML =
     '<button type="button" id="draftBtn">💾 Guardar rascunho</button>' +
     '<button type="button" id="restoreBtn">📂 Restaurar rascunho</button>' +
-    '<button type="button" id="clearBtn">🧹 Limpar formulário</button>' +
-    '<button type="button" id="deleteBtn">🗑️ Apagar rascunho</button>';
+    '<button type="button" id="deleteBtn">🗑️ Apagar rascunho</button>' +
+    '<button type="button" id="reuseHeaderBtn">↩️ Reutilizar cabeçalho</button>' +
+    '<button type="button" id="clearBtn">🧹 Limpar formulário</button>';
 
   btn.addEventListener('click', function(e){
     e.preventDefault(); e.stopPropagation();
@@ -10365,11 +10528,16 @@ function initMenu(){
   document.getElementById('restoreBtn').addEventListener('click', function(){
     restoreDraft(); menu.classList.remove('open');
   });
-  document.getElementById('clearBtn').addEventListener('click', function(){
-    clearAll(); menu.classList.remove('open');
-  });
   document.getElementById('deleteBtn').addEventListener('click', function(){
     deleteDraft(); menu.classList.remove('open');
+  });
+  var reuseHeaderBtn = document.getElementById('reuseHeaderBtn');
+  if(reuseHeaderBtn) reuseHeaderBtn.addEventListener('click', function(){
+    try { if(typeof window.sblReuseHeader === 'function') window.sblReuseHeader(); } catch(e) {}
+    menu.classList.remove('open');
+  });
+  document.getElementById('clearBtn').addEventListener('click', function(){
+    clearAll(); menu.classList.remove('open');
   });
 }
 
@@ -10408,7 +10576,10 @@ function initButtons(){
 
 /* ── INIT ── */
 document.addEventListener('DOMContentLoaded', function(){
-  restoreDraft();
+  // Não restaurar automaticamente: evita que rascunhos antigos desloquem valores
+  // depois de alterações no cabeçalho. O utilizador pode restaurar manualmente em Mais opções.
+  renderProgress();
+  renderAutosave('Última gravação automática: --');
   bindFields();
   initMenu();
   initButtons();
@@ -10613,7 +10784,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   function camposLeves(){
     // Mantém estrutura original; só permite crescer onde faz sentido.
-    ['uc','estado','professor'].forEach(function(id){
+    ['uc','professor'].forEach(function(id){
       makeTextarea(id, 44);
     });
 
@@ -11012,6 +11183,9 @@ document.addEventListener('DOMContentLoaded', function(){
                    firstByLabel(["Email(s)", "Email", "E-mail", "E-mail(s)"]);
     const organizacoesContacto = firstById(["organizacao","organizacoes","contacto","contato"]) || firstByLabel(["Organização(ões) | Contacto", "Organização", "Contacto", "Contato"]);
     const tituloProjeto = firstById(["titulo_projeto","tituloProjeto","project_title"]) || firstByLabel(["Título do projeto", "Título do Projeto"]);
+    const estadoGuiaoFormulario = firstById(["estado","estado_guiao","estadoGuiaoFormulario","estado_formulario"]) || firstByLabel(["Estado do guião", "Estado do guia"]);
+    const autorizacaoEl = document.querySelector('input[name="autorizaRepositorio"]:checked');
+    const autorizaRepositorio = autorizacaoEl ? String(autorizacaoEl.value || "").trim() : "";
 
     return {
       title,
@@ -11019,6 +11193,9 @@ document.addEventListener('DOMContentLoaded', function(){
       templateType: TEMPLATE_TYPE,
       cenarioAprendizagem: TEMPLATE_SCENARIO,
       estadoGuiao: "Submetido",
+      estadoGuiaoFormulario,
+      autorizaRepositorio,
+      partilhaRepositorio: autorizaRepositorio,
       docentes,
       docenteTexto: docentes,
       cursos,
@@ -11158,40 +11335,38 @@ document.addEventListener('DOMContentLoaded', function(){
           <h1>PLANO DE CENÁRIO DE SIMULAÇÃO COMPLEXA</h1>
         </header>
 
-        <div class="pdf-top-grid">
-          ${field("Unidade Orgânica", fieldText("unidadeOrganica"))}
-          ${field("Modalidade", fieldText("modalidade"))}
-        </div>
-
-        <table class="pdf-info-table" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pdf-cell-label">Curso(s):</td>
-            <td class="pdf-cell-value">${valueHtml(fieldText("curso"))}</td>
-            <td class="pdf-cell-label">Unidade(s) Curricular(es):</td>
-            <td class="pdf-cell-value">${valueHtml(fieldText("uc"))}</td>
-          </tr>
-          <tr>
-            <td class="pdf-cell-label">Ano Letivo:</td>
-            <td class="pdf-cell-value">${valueHtml(fieldText("ano_letivo"))}</td>
-            <td class="pdf-cell-label">Email(s):</td>
-            <td class="pdf-cell-value">${valueHtml(fieldText("emails"))}</td>
-          </tr>
-          <tr>
-            <td class="pdf-cell-label">Docente(s):</td>
-            <td class="pdf-cell-value" colspan="3">${valueHtml(fieldText("professor"))}</td>
-          </tr>
-        </table>
-
         ${section("Identificação do guião", `
+          <table class="pdf-info-table" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="pdf-cell-label">Unidade Orgânica:</td>
+              <td class="pdf-cell-value">${valueHtml(fieldText("unidadeOrganica"))}</td>
+              <td class="pdf-cell-label">Curso(s):</td>
+              <td class="pdf-cell-value">${valueHtml(fieldText("curso"))}</td>
+            </tr>
+            <tr>
+              <td class="pdf-cell-label">Docente(s):</td>
+              <td class="pdf-cell-value">${valueHtml(fieldText("professor"))}</td>
+              <td class="pdf-cell-label">Email(s):</td>
+              <td class="pdf-cell-value">${valueHtml(fieldText("emails"))}</td>
+            </tr>
+            <tr>
+              <td class="pdf-cell-label">Unidade(s) Curricular(es):</td>
+              <td class="pdf-cell-value">${valueHtml(fieldText("uc"))}</td>
+              <td class="pdf-cell-label">Número de estudantes:</td>
+              <td class="pdf-cell-value">${valueHtml(fieldText("n_estudantes"))}</td>
+            </tr>
+            <tr>
+              <td class="pdf-cell-label" colspan="2" style="text-align:center;">Ano letivo:</td>
+              <td class="pdf-cell-value" colspan="2" style="text-align:center;">${valueHtml(fieldText("ano_letivo"))}</td>
+            </tr>
+          </table>
           <div class="pdf-ident-grid">
             ${field("Autoria", fieldText("autoria"), "full")}
-            ${field("Estado do Guião", fieldText("estado"))}
+            ${field("Estado do guião", fieldText("estado"))}
             <div class="pdf-two-mini">
               ${field("Data", fieldText("data"))}
               ${field("Hora", fieldText("hora"))}
             </div>
-            ${field("Número de Estudantes", fieldText("n_estudantes"))}
-            ${field("Número de Grupos", fieldText("n_grupos"))}
           </div>
         `)}
 
@@ -11202,12 +11377,12 @@ document.addEventListener('DOMContentLoaded', function(){
 
         ${section("Cenário de simulação", `
           ${simpleBlock("Caso:", fieldText("cenario"))}
-          ${simpleBlock("Informação Inicial:", fieldText("oq_simulacao") || fieldText("info_inicial"))}
+          ${simpleBlock("Informação inicial:", fieldText("oq_simulacao") || fieldText("info_inicial"))}
         `)}
 
         ${section("Guião para ator/personagem", `
           ${actionTable}
-          ${simpleBlock("Informações para Ator/Personagem:", fieldText("info_ator") || fieldText("ator_personagem"))}
+          ${simpleBlock("Informações para ator/personagem:", fieldText("info_ator") || fieldText("ator_personagem"))}
         `, "pdf-actor-section")}
       </div>
     `;
@@ -11248,7 +11423,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const contentW = pageW - margin * 2;
 
     const red = [227, 30, 36];
-    const deepRed = [153, 24, 29];
+    const deepRed = [227, 30, 36];
     const ink = [38, 38, 38];
     const muted = [110, 110, 110];
     const pale = [253, 247, 247];
@@ -11340,33 +11515,47 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function docHeader(){
+      /* SBL — cabeçalho/quadro superior alinhado ao diâmetro do PBL,
+         seguindo a lógica do CBL: caixa, logótipo, título, fita e autoria. */
+      const boxX = 12;
+      const boxY = y - 1;
+      const boxW = pageW - (boxX * 2);
+      const boxH = 36;
+      const border = [31, 31, 31];
+      const author = val('autoria') || val('professor');
+
+      pdf.setFillColor(...white);
+      pdf.setDrawColor(...border);
+      pdf.setLineWidth(0.26);
+      pdf.roundedRect(boxX, boxY, boxW, boxH, 2.8, 2.8, 'S');
+
       const logo = findLogoSrc();
       if (logo) {
         try {
-          const logoW = 42;
-          const logoH = 12;
-          pdf.addImage(logo, 'PNG', (pageW - logoW) / 2, y, logoW, logoH);
-          y += 18;
-        } catch(e) {
-          y += 4;
-        }
+          const logoW = 25;
+          const logoH = 7.9;
+          pdf.addImage(logo, 'PNG', (pageW - logoW) / 2, y + 2.6, logoW, logoH);
+        } catch(e) {}
       }
 
+      y += 14;
       pdf.setFont('helvetica','bold');
-      pdf.setFontSize(16.4);
+      pdf.setFontSize(13.8);
       pdf.setTextColor(...ink);
-      pdf.text('Guião Simulation-Based Learning', pageW / 2, y + 4, {align:'center'});
+      pdf.text('Guião Simulation-Based Learning', pageW / 2, y, {align:'center'});
 
-      const author = val('autoria') || val('professor');
-      pdf.setFont('helvetica','normal');
-      pdf.setFontSize(9.0);
-      pdf.setTextColor(...muted);
-      pdf.text('Autoria do guião: ' + safeText(author), pageW / 2, y + 10.8, {align:'center'});
-
+      y += 3.7;
       pdf.setDrawColor(...red);
-      pdf.setLineWidth(1.0);
-      pdf.line(margin, y + 16.6, pageW - margin, y + 16.6);
-      y += 25.5;
+      pdf.setLineWidth(0.42);
+      pdf.line(boxX + 12, y, boxX + boxW - 12, y);
+
+      y += 8.0;
+      pdf.setFont('helvetica','normal');
+      pdf.setFontSize(7.7);
+      pdf.setTextColor(...muted);
+      pdf.text('Autoria: ' + safeText(author), boxX + boxW - 6, y, {align:'right'});
+
+      y = boxY + boxH + 8;
     }
 
     function section(title, keepWithNextHeight){
@@ -11406,6 +11595,89 @@ document.addEventListener('DOMContentLoaded', function(){
         row.forEach((it, idx) => metaCard(it[0], it[1], margin + idx * (w + gap), y, w, h));
         y += h + 4.2;
       }
+    }
+
+
+    function identificationPblStyle(){
+      /* SBL — identificação do guião com a mesma sequência/estrutura do PBL, mantendo o estilo cromático do SBL. */
+      section('Identificação do guião');
+
+      const cardX = margin;
+      const cardW = contentW;
+      const innerX = cardX + 6;
+      const innerW = cardW - 12;
+      const sepX = cardX + (cardW / 2);
+      const cellPad = 6;
+      const leftX = innerX;
+      const rightX = sepX + cellPad;
+      const leftW = sepX - innerX - cellPad;
+      const rightW = (cardX + cardW - 6) - rightX;
+      const singleW = innerW;
+
+      const pairRows = [
+        [
+          ['Unidade Orgânica', val('unidadeOrganica') || val('unidade_organica')],
+          ['Curso(s)', val('curso')]
+        ],
+        [
+          ['Docente(s)', val('professor')],
+          ['Email(s)', val('emails')]
+        ],
+        [
+          ['Unidade(s) Curricular(es)', val('uc')],
+          ['Número de estudantes', val('n_estudantes')]
+        ]
+      ];
+      const singleRow = ['Ano letivo', val('ano_letivo') || val('ano')];
+
+      const rowHeights = pairRows.map(function(pair){
+        return Math.max.apply(null, pair.map(function(item, idx){
+          const w = idx === 0 ? leftW : rightW;
+          const lines = split(item[1] || ' ', w - 7, 8.25, 'normal');
+          return Math.max(17.8, 9.2 + Math.max(1, lines.length) * 4.35);
+        }));
+      });
+      const anoLines = split(singleRow[1] || ' ', singleW - 7, 8.25, 'normal');
+      const singleRowH = Math.max(17.8, 9.2 + Math.max(1, anoLines.length) * 4.35);
+      const cardH = rowHeights.reduce(function(acc, h){ return acc + h; }, 0) + singleRowH + 10;
+      ensure(cardH + 4);
+
+      pdf.setFillColor(...white);
+      pdf.setDrawColor(45,45,45);
+      pdf.setLineWidth(0.42);
+      pdf.roundedRect(cardX, y, cardW, cardH, 3.8, 3.8, 'S');
+
+      function drawCell(item, x, yy, w, align){
+        pdf.setFont('helvetica', 'bold');
+        pdf.setFontSize(7.7);
+        pdf.setTextColor(...muted);
+        pdf.text(item[0] + ':', align === 'center' ? x + (w / 2) : x, yy + 4.7, align === 'center' ? {align:'center'} : undefined);
+
+        pdf.setFont('helvetica', 'normal');
+        pdf.setFontSize(8.25);
+        pdf.setTextColor(...ink);
+        pdf.text(split(item[1] || ' ', w - 7, 8.25, 'normal'), align === 'center' ? x + (w / 2) : x, yy + 9.4, align === 'center' ? {align:'center', lineHeightFactor:1.15} : {lineHeightFactor:1.15});
+      }
+
+      let yy = y + 6;
+      pairRows.forEach(function(pair, ri){
+        const rowH = rowHeights[ri];
+
+        drawCell(pair[0], leftX, yy, leftW);
+        drawCell(pair[1], rightX, yy, rightW);
+
+        pdf.setDrawColor(205,205,205);
+        pdf.setLineWidth(0.18);
+        pdf.line(sepX, yy + 1.1, sepX, yy + rowH - 3.9);
+
+        yy += rowH;
+        pdf.setDrawColor(...line);
+        pdf.setLineWidth(0.18);
+        pdf.line(innerX, yy - 0.4, innerX + innerW, yy - 0.4);
+      });
+
+      drawCell(singleRow, innerX, yy, singleW, 'center');
+      y += cardH + 8;
     }
 
     function textCard(title, value, opts){
@@ -11541,15 +11813,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     docHeader();
 
-    section('Identificação do guião');
-    metaGrid([
-      ['Curso(s)', val('curso')],
-      ['Unidade(s) Curricular(es)', val('uc')],
-      ['Docente(s)', val('professor')],
-      ['Ano letivo', val('ano_letivo')],
-      ['Unidade Orgânica', val('unidadeOrganica') || val('unidade_organica')],
-      ['Modalidade', val('modalidade')]
-    ], 2);
+    identificationPblStyle();
 
     section('Enquadramento da simulação');
     twoTextCards('Objetivos de aprendizagem', val('objetivos'), 'Recursos necessários', val('recursos'));
@@ -11580,11 +11844,57 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }
 
-  async function downloadCurrentGuiesPdf(){
+  
+function guiaoPdfNormalizeFilePart(value){
+  var text = String(value || '').trim();
+  text = text.split(/\n|;|\||,/).map(function(x){ return x.trim(); }).filter(Boolean)[0] || text;
+  try { text = text.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); } catch(e) {}
+  text = text.replace(/[^A-Za-z0-9]+/g, ' ').trim();
+  if(!text) return '';
+  text = text.split(/\s+/).map(function(part){
+    return part ? part.charAt(0).toUpperCase() + part.slice(1) : '';
+  }).join('');
+  return text.slice(0, 50);
+}
+function guiaoPdfReadFirstUc(){
+  var selectors = [
+    '#uc','#unidade_curricular','[name="uc"]','[name="ucs"]','[name="unidade_curricular"]',
+    '#ucProjeto','#nomeUCProjeto','#nomeUcProjeto','#nome_uc_projeto','#nomeProjetoUC','.projbl-nome-uc-projeto-field'
+  ];
+  for(var i=0;i<selectors.length;i++){
+    var el = document.querySelector(selectors[i]);
+    if(el && /^(INPUT|TEXTAREA|SELECT)$/i.test(el.tagName || '')){
+      var v = String(el.value || '').trim();
+      if(v) return v;
+    }
+  }
+  var labels = Array.prototype.slice.call(document.querySelectorAll('label,th,strong,b'));
+  for(var j=0;j<labels.length;j++){
+    var t = String(labels[j].textContent || '').toLowerCase();
+    if(t.indexOf('unidade') !== -1 && (t.indexOf('curricular') !== -1 || t.indexOf('uc') !== -1)){
+      var root = labels[j].closest('tr, .section, .header-card, div') || labels[j].parentElement;
+      if(root){
+        var field = root.querySelector('textarea,input,select');
+        if(field){
+          var val = String(field.value || '').trim();
+          if(val) return val;
+        }
+      }
+    }
+  }
+  return '';
+}
+function guiaoPdfFileName(cenario, fallback){
+  var uc = guiaoPdfNormalizeFilePart(guiaoPdfReadFirstUc());
+  return String(cenario || 'Guiao') + '_' + (uc || fallback || 'Guiao') + '.pdf';
+}
+try { window.guiaoPdfFileName = guiaoPdfFileName; } catch(e) {}
+
+async function downloadCurrentGuiesPdf(){
     try {
       toast("A preparar o PDF...");
       const payload = collectFormData();
-      payload.pdfFileName = "guiao_simulation_based_learning.pdf";
+      payload.pdfFileName = guiaoPdfFileName("SBL", "Guiao");
       const blob = await generatePdfBlob(payload);
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -11623,7 +11933,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     try {
       const payload = collectFormData();
-      payload.pdfFileName = "guiao_simulation_based_learning.pdf";
+      payload.pdfFileName = guiaoPdfFileName("SBL", "Guiao");
       payload.pdfBase64 = await generatePdfBase64(payload);
       payload.html = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
 
@@ -11920,8 +12230,8 @@ document.addEventListener('DOMContentLoaded', function(){
 .sbl47-v49-cbl-buttons #btnEnviarValidacao:hover,
 .sbl47-v49-cbl-buttons #btnValidacaoReal:hover{
   background:#fff4f4 !important;
-  color:#B81D22 !important;
-  border-color:#B81D22 !important;
+  color:#E31E24 !important;
+  border-color:#E31E24 !important;
 }
 
 .sbl47-v49-cbl-buttons .ux-btn:hover{
@@ -12430,7 +12740,7 @@ button[data-sbl47-v66-rowbtn]::after,
    Ajustes leves para apresentação:
    - cabeçalho mais alinhado e com bordas vermelhas;
    - remove alças de redimensionamento no PDF;
-   - oculta Guião para Ator/observação;
+   - oculta Guião para ator/observação;
    - mantém Informações para Ator/Personagem.
    Não altera ecrã, submissão, Power Automate, autosave ou botões. */
 
@@ -12605,7 +12915,7 @@ button[data-sbl47-v66-rowbtn]::after,
     display:none !important;
   }
 
-  /* Ocultar a secção/nota Guião para Ator no print */
+  /* Ocultar a secção/nota Guião para ator no print */
   .sbl47-v67-hide-print{
     display:none !important;
     visibility:hidden !important;
@@ -13098,8 +13408,9 @@ button[data-sbl47-v66-rowbtn]::after,
     menu.innerHTML =
       '<button type="button" id="draftBtn">💾 Guardar rascunho</button>' +
       '<button type="button" id="restoreBtn">📂 Restaurar rascunho</button>' +
-      '<button type="button" id="clearBtn">🧹 Limpar formulário</button>' +
-      '<button type="button" id="deleteBtn">🗑️ Apagar rascunho</button>';
+      '<button type="button" id="deleteBtn">🗑️ Apagar rascunho</button>' +
+      '<button type="button" id="reuseHeaderBtn">↩️ Reutilizar cabeçalho</button>' +
+      '<button type="button" id="clearBtn">🧹 Limpar formulário</button>';
 
     btn.addEventListener("click", function(e){
       e.preventDefault();
@@ -13113,8 +13424,10 @@ button[data-sbl47-v66-rowbtn]::after,
 
     menu.querySelector("#draftBtn").addEventListener("click", function(){ ownSaveDraft(); menu.classList.remove("open"); });
     menu.querySelector("#restoreBtn").addEventListener("click", function(){ ownRestoreDraft(); menu.classList.remove("open"); });
-    menu.querySelector("#clearBtn").addEventListener("click", function(){ ownClear(); menu.classList.remove("open"); });
     menu.querySelector("#deleteBtn").addEventListener("click", function(){ ownDelete(); menu.classList.remove("open"); });
+    var reuseBtn = menu.querySelector("#reuseHeaderBtn");
+    if(reuseBtn) reuseBtn.addEventListener("click", function(){ if(typeof window.sblReuseHeader === "function") window.sblReuseHeader(); menu.classList.remove("open"); });
+    menu.querySelector("#clearBtn").addEventListener("click", function(){ ownClear(); menu.classList.remove("open"); });
   }
 
   function bindPdf(){
@@ -13912,6 +14225,33 @@ button[data-sbl47-v66-rowbtn]::after,
   };
 })();
 </script>
+<style id="sbl-campos-numericos-cabecalho-css">
+/* SBL — microcamada: Número de estudantes + Número de grupos visíveis no cabeçalho, compactos e lado a lado. */
+body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field{
+  min-width:0 !important;
+}
+body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field label{
+  text-transform:none !important;
+}
+body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type="number"]{
+  width:100% !important;
+  height:42px !important;
+  min-height:42px !important;
+  padding:9px 10px !important;
+  border:1px solid #b8b8b8 !important;
+  border-radius:13px !important;
+  background:#fff !important;
+  font-family:'Century Gothic','Segoe UI',sans-serif !important;
+  font-size:13px !important;
+  line-height:1.35 !important;
+  box-sizing:border-box !important;
+}
+@media screen and (max-width:760px){
+  body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field{
+    grid-column:auto !important;
+  }
+}
+</style>
 <script id="sbl62-oferta-section-layout-js">
 (function(){
   'use strict';
@@ -13983,15 +14323,27 @@ button[data-sbl47-v66-rowbtn]::after,
     var ano = byId('ano_letivo') || byId('ano');
     var emails = byId('emails');
     var professor = byId('professor');
+    var nEstudantes = byId('n_estudantes');
+    var nGrupos = byId('n_grupos');
 
     if(!coursePicker || !uc || !ano || !emails || !professor) return;
+
+    [nEstudantes, nGrupos].forEach(function(el){
+      if(!el) return;
+      el.setAttribute('type','number');
+      el.setAttribute('inputmode','numeric');
+      el.setAttribute('min','0');
+      el.setAttribute('step','1');
+    });
 
     var oldContainers = [
       findCardContaining(coursePicker),
       findCardContaining(uc),
       findCardContaining(ano),
       findCardContaining(emails),
-      findCardContaining(professor)
+      findCardContaining(professor),
+      findCardContaining(nEstudantes),
+      findCardContaining(nGrupos)
     ];
 
     var section = document.createElement('div');
@@ -14002,9 +14354,18 @@ button[data-sbl47-v66-rowbtn]::after,
 
     grid.appendChild(makeField('Curso(s):', coursePicker, {forId:'cursoBusca'}));
     grid.appendChild(makeField('Unidade(s) Curricular(es):', uc, {forId:'uc'}));
-    grid.appendChild(makeField('Ano Letivo:', ano, {forId:ano.id}));
+    grid.appendChild(makeField('Ano letivo:', ano, {forId:ano.id}));
     grid.appendChild(makeField('Email(s):', emails, {forId:'emails'}));
     grid.appendChild(makeField('Docente(s):', professor, {forId:'professor', wide:true}));
+
+    if(nEstudantes && nGrupos){
+      var estudantesField = makeField('Número de estudantes', nEstudantes, {forId:'n_estudantes'});
+      var gruposField = makeField('Número de grupos', nGrupos, {forId:'n_grupos'});
+      estudantesField.classList.add('sbl-oferta-numeric-field');
+      gruposField.classList.add('sbl-oferta-numeric-field');
+      grid.appendChild(estudantesField);
+      grid.appendChild(gruposField);
+    }
 
     // Inserir no mesmo local do bloco antigo, antes da tabela/card original.
     var anchor = oldContainers.find(Boolean);
@@ -15020,9 +15381,7 @@ button[data-sbl47-v66-rowbtn]::after,
   };
 })();
 </script>
-
 <!-- SBL | base final corrigida com PDF espelho estável -->
-
 <script id="sbl-final-fill-by-real-ids">
 (function(){
   "use strict";
@@ -15195,9 +15554,7 @@ button[data-sbl47-v66-rowbtn]::after,
   }
 })();
 </script>
-
 <!-- SBL teste final funcional: preenchimento por IDs, sem remover scripts dos botões -->
-
 <script id="sbl-final-fill-100-garantido">
 (function(){
   "use strict";
@@ -15451,7 +15808,158 @@ button[data-sbl47-v66-rowbtn]::after,
   }
 })();
 </script>
-
 <!-- SBL teste 100% funcional: todos os campos visíveis preenchidos -->
+<script id="sbl-reuse-header-function-minimal">
+(function(){
+  if (window.sblReuseHeader) return;
+  window.sblReuseHeader = function(){
+    var raw = '';
+    try {
+      raw = localStorage.getItem('sbl_cabecalho_reutilizavel') ||
+            localStorage.getItem('rbl_cabecalho_reutilizavel') ||
+            localStorage.getItem('projbl_cabecalho_reutilizavel') || '';
+    } catch(e) {}
+    if(!raw){
+      try { if(typeof window.toast === 'function') window.toast('Ainda não há cabeçalho disponível para reutilizar.'); } catch(e) {}
+      return;
+    }
+    var data = [];
+    try { data = JSON.parse(raw) || []; } catch(e) { data = []; }
+    data.forEach(function(item){
+      var el = null;
+      if(item.id) el = document.getElementById(item.id);
+      if(!el && item.name && window.CSS && CSS.escape) el = document.querySelector('[name="' + CSS.escape(item.name) + '"]');
+      if(!el) return;
+      var type = String(el.type || '').toLowerCase();
+      if(type === 'checkbox' || type === 'radio') el.checked = !!item.checked;
+      else el.value = item.value || '';
+      try {
+        el.dispatchEvent(new Event('input', {bubbles:true}));
+        el.dispatchEvent(new Event('change', {bubbles:true}));
+      } catch(e) {}
+    });
+    try { if(typeof window.toast === 'function') window.toast('Cabeçalho reutilizado.'); } catch(e) {}
+  };
+})();
+</script>
+<script id="guiao-required-submit-validation-v1">
+/* ===== Auditoria transversal — campos obrigatórios antes da submissão =====
+   Camada cirúrgica: não altera IDs, payloads, botões, Curso(s), PDF, Power Automate ou estrutura pedagógica.
+   Apenas bloqueia o clique em “Enviar para Validação” quando faltam dados mínimos institucionais. */
+(function(){
+  if(window.__guiaoRequiredSubmitValidationV1) return;
+  window.__guiaoRequiredSubmitValidationV1 = true;
+  function norm(s){ return String(s || '').replace(/\s+/g,' ').trim(); }
+  function val(el){
+    if(!el) return '';
+    if(el.tagName === 'SELECT'){
+      var v = norm(el.value);
+      if(v && !/^sele/i.test(v)) return v;
+      var opt = el.options && el.selectedIndex >= 0 ? el.options[el.selectedIndex] : null;
+      return opt ? norm(opt.value || opt.textContent) : '';
+    }
+    return norm(el.value || el.textContent || '');
+  }
+  function first(selectors){
+    for(var i=0;i<selectors.length;i++){
+      var el = document.querySelector(selectors[i]);
+      if(!el) continue;
+      if(!/^(INPUT|TEXTAREA|SELECT)$/i.test(el.tagName || '')) continue;
+      var v = val(el);
+      if(v) return {value:v, element:el};
+    }
+    return {value:'', element:null};
+  }
+  function courseValue(){
+    var direct = first(['#curso','[name="curso"]']);
+    if(direct.value) return direct;
+    var chips = Array.from(document.querySelectorAll('#cblCursosSelecionados .cbl-course-chip, .cbl-course-chip, [data-course-chip]')).map(function(x){ return norm(x.textContent).replace(/[×x]$/i,'').trim(); }).filter(Boolean).join('; ');
+    if(chips) return {value:chips, element:document.querySelector('#cursoBusca') || document.querySelector('#cblCursosSelecionados')};
+    return {value:'', element:document.querySelector('#cursoBusca') || document.querySelector('#curso')};
+  }
+  function ucValue(){
+    return first(['#uc','#ucs','[name="uc"]','[name="ucs"]','#unidade_curricular','[name="unidade_curricular"]','.projbl-nome-uc-projeto-field','#ucProjeto','#nomeUCProjeto','#nomeUcProjeto','#nome_uc_projeto']);
+  }
+  function docenteValue(){
+    return first(['#professor','#docentes','#docente','[name="professor"]','[name="docentes"]','[name="docente"]','.docente-nome','.proj-docente-field']);
+  }
+  function emailValue(){
+    return first(['#emails','#email','[name="emails"]','[name="email"]','.docente-email']);
+  }
+  function unidadeValue(){
+    return first(['#unidadeOrganica','#unidade_organica','#unidade-organica','[name="unidadeOrganica"]','[name="unidade_organica"]']);
+  }
+  function estadoValue(){
+    return first(['#estado','#estadoGuiao','#estado_guiao','[name="estado"]','[name="estadoGuiao"]','[name="estado_guiao"]']);
+  }
+  function autorizacaoValue(){
+    var checked = document.querySelector('input[name="autorizaRepositorio"]:checked, input[name="autorizaRepositorioOpcao"]:checked, input[name="autorizacaoRepositorio"]:checked');
+    if(checked) return {value:norm(checked.value), element:checked};
+    var ids = ['#autorizaRepositorio','#autorizacaoRepositorio'];
+    for(var i=0;i<ids.length;i++){
+      var el = document.querySelector(ids[i]);
+      if(el && String(el.type || '').toLowerCase() !== 'radio'){
+        var v = val(el);
+        if(v) return {value:v, element:el};
+      }
+    }
+    return {value:'', element:document.querySelector('input[name="autorizaRepositorio"], input[name="autorizaRepositorioOpcao"], input[name="autorizacaoRepositorio"]')};
+  }
+  function mark(el){
+    try{
+      if(!el) return;
+      el.classList.add('guiao-required-missing');
+      setTimeout(function(){ try{ el.classList.remove('guiao-required-missing'); }catch(e){} }, 4500);
+    }catch(e){}
+  }
+  function notify(msg){
+    if(typeof toast === 'function') return toast(msg, 'error', 6500);
+    if(typeof showToast === 'function') return showToast(msg);
+    if(typeof mostrarToast === 'function') return mostrarToast(msg);
+    alert(msg);
+  }
+  window.guiaoValidarCamposObrigatoriosSubmissaoV1 = function(options){
+    var checks = [
+      ['Unidade Orgânica', unidadeValue()],
+      ['Curso(s)', courseValue()],
+      ['Unidade(s) Curricular(es)', ucValue()],
+      ['Docente(s)', docenteValue()],
+      ['Email(s)', emailValue()],
+      ['Estado do guião', estadoValue()],
+      ['Autorização para integração no repositório', autorizacaoValue()]
+    ];
+    var missing = checks.filter(function(c){ return !c[1].value; });
+    if(missing.length){
+      if(!options || !options.silent){
+        var msg = 'Antes de enviar para validação, preencha: ' + missing.map(function(c){return c[0];}).join(', ') + '.';
+        notify(msg);
+        mark(missing[0][1].element);
+        try{ missing[0][1].element && missing[0][1].element.focus && missing[0][1].element.focus(); }catch(e){}
+      }
+      return {ok:false, missing:missing.map(function(c){return c[0];})};
+    }
+    return {ok:true, missing:[]};
+  };
+  function isSubmitControl(el){
+    if(!el) return false;
+    var txt = norm(el.textContent || el.value).toLowerCase();
+    return el.id === 'btnEnviarValidacao' || el.id === 'btnValidacaoReal' || txt.indexOf('enviar para valida') !== -1 || txt.indexOf('submeter') !== -1 || txt.indexOf('submiss') !== -1;
+  }
+  document.addEventListener('click', function(ev){
+    var btn = ev.target && ev.target.closest ? ev.target.closest('button,input[type="button"],input[type="submit"]') : null;
+    if(!isSubmitControl(btn)) return;
+    var result = window.guiaoValidarCamposObrigatoriosSubmissaoV1();
+    if(!result.ok){
+      ev.preventDefault();
+      ev.stopPropagation();
+      if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+      return false;
+    }
+  }, true);
+})();
+</script>
+<style id="guiao-required-submit-validation-v1-style">
+.guiao-required-missing{ outline:3px solid rgba(227,30,36,.28) !important; outline-offset:2px !important; }
+</style>
 </body>
 </html>
