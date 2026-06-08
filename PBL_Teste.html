@@ -7835,19 +7835,25 @@ function makePdfFileName(){
 
   function normalizePayloadDates(payload){
     if(!isPBLPayload(payload)) return payload;
-    var now = new Date().toISOString();
-    // Envia uma data válida e completa para evitar valores parciais como “/1/” na lista Guiões.
-    payload.submittedAt = payload.submittedAt || now;
-    payload.dataSubmissao = payload.dataSubmissao || payload.submittedAt;
-    payload.DataSubmissao = payload.DataSubmissao || payload.submittedAt;
-    payload.data = payload.submittedAt;
-    payload.Data = payload.submittedAt;
-    if(!payload.formData || typeof payload.formData !== 'object') payload.formData = {};
-    payload.formData.submittedAt = payload.formData.submittedAt || payload.submittedAt;
-    payload.formData.dataSubmissao = payload.formData.dataSubmissao || payload.submittedAt;
-    payload.formData.DataSubmissao = payload.formData.DataSubmissao || payload.submittedAt;
-    payload.formData.data = payload.submittedAt;
-    payload.formData.Data = payload.submittedAt;
+    // O PBL não tem campo de data próprio no template.
+    // A coluna Data da lista Guiões deve ficar vazia para PBL.
+    // A data real de validação/publicação deve ser gerada no fluxo do repositório com utcNow().
+    delete payload.data;
+    delete payload.Data;
+    delete payload.date;
+    delete payload.Date;
+    delete payload.dataSubmissao;
+    delete payload.DataSubmissao;
+    delete payload.submittedAt;
+    if(payload.formData && typeof payload.formData === 'object'){
+      delete payload.formData.data;
+      delete payload.formData.Data;
+      delete payload.formData.date;
+      delete payload.formData.Date;
+      delete payload.formData.dataSubmissao;
+      delete payload.formData.DataSubmissao;
+      delete payload.formData.submittedAt;
+    }
     return payload;
   }
 
