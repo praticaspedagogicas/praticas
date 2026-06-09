@@ -10404,6 +10404,428 @@ body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field input[ty
   box-shadow: 0 3px 10px rgba(0,0,0,.07) !important;
 }
 </style>
+
+<style id="sbl-mobile-final-v76-css">
+/* SBL — camada final de correção mobile.
+   Apenas CSS de ecrã: não altera PDF, payload, submissão, anexos, e-mail, botões ou validações. */
+@media screen and (max-width: 760px){
+  html, body{
+    width:100% !important;
+    max-width:100% !important;
+    overflow-x:hidden !important;
+  }
+  body:not(.guiao-pdf-mode){
+    padding:8px !important;
+    background:#f5f5f5 !important;
+  }
+  body:not(.guiao-pdf-mode) .page{
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 auto !important;
+    padding:12px !important;
+    border-radius:14px !important;
+    overflow-x:hidden !important;
+    box-sizing:border-box !important;
+  }
+  body:not(.guiao-pdf-mode) .header{
+    margin-bottom:16px !important;
+  }
+  body:not(.guiao-pdf-mode) .header img{
+    max-width:100% !important;
+    height:34px !important;
+    object-fit:contain !important;
+  }
+  body:not(.guiao-pdf-mode) h1{
+    font-size:20px !important;
+    line-height:1.18 !important;
+    padding-bottom:10px !important;
+    margin-bottom:14px !important;
+    overflow-wrap:anywhere !important;
+  }
+  body:not(.guiao-pdf-mode) .premium-status,
+  body:not(.guiao-pdf-mode) .premium-header,
+  body:not(.guiao-pdf-mode) .sbl-rounded-block,
+  body:not(.guiao-pdf-mode) .sbl-rounded-title-block,
+  body:not(.guiao-pdf-mode) .sbl47-v68-red-print-card,
+  body:not(.guiao-pdf-mode) .sbl47-v68-info-ator-force-print,
+  body:not(.guiao-pdf-mode) .sbl47-v55-quadro-explicativo{
+    width:100% !important;
+    max-width:100% !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+    padding:12px !important;
+    box-sizing:border-box !important;
+    overflow:visible !important;
+  }
+  body:not(.guiao-pdf-mode) .header-grid,
+  body:not(.guiao-pdf-mode) .sbl47-v53-header-cards,
+  body:not(.guiao-pdf-mode) .sbl47-v53-grid,
+  body:not(.guiao-pdf-mode) .sbl-identification-grid,
+  body:not(.guiao-pdf-mode) .sbl-course-grid,
+  body:not(.guiao-pdf-mode) .sbl-autoria-estado-grid,
+  body:not(.guiao-pdf-mode) .sbl-meta-coupled-grid,
+  body:not(.guiao-pdf-mode) .ux-info-panel{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:10px !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    box-sizing:border-box !important;
+  }
+  body:not(.guiao-pdf-mode) .header-card,
+  body:not(.guiao-pdf-mode) .sbl47-v53-card,
+  body:not(.guiao-pdf-mode) .sbl47-v53-card.wide,
+  body:not(.guiao-pdf-mode) .sbl47-v53-card.span-2,
+  body:not(.guiao-pdf-mode) .sbl-course-cbl-card,
+  body:not(.guiao-pdf-mode) .sbl-autoria-card,
+  body:not(.guiao-pdf-mode) .sbl-estado-card,
+  body:not(.guiao-pdf-mode) .sbl-meta-coupled-card,
+  body:not(.guiao-pdf-mode) .sbl-meta-coupled-card.compact,
+  body:not(.guiao-pdf-mode) .ux-info-item{
+    grid-column:1 / -1 !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+    box-sizing:border-box !important;
+    overflow:visible !important;
+  }
+  body:not(.guiao-pdf-mode) input,
+  body:not(.guiao-pdf-mode) textarea,
+  body:not(.guiao-pdf-mode) select,
+  body:not(.guiao-pdf-mode) .header-card select,
+  body:not(.guiao-pdf-mode) .sbl47-v53-card input,
+  body:not(.guiao-pdf-mode) .sbl47-v53-card textarea,
+  body:not(.guiao-pdf-mode) .sbl47-v53-card select,
+  body:not(.guiao-pdf-mode) .sbl-meta-coupled-card input,
+  body:not(.guiao-pdf-mode) .sbl-meta-coupled-card textarea,
+  body:not(.guiao-pdf-mode) .cbl-course-picker,
+  body:not(.guiao-pdf-mode) #cursoBusca,
+  body:not(.guiao-pdf-mode) #cblCursosSelecionados{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    box-sizing:border-box !important;
+  }
+  body:not(.guiao-pdf-mode) label,
+  body:not(.guiao-pdf-mode) .header-card label,
+  body:not(.guiao-pdf-mode) .sbl47-v53-card label,
+  body:not(.guiao-pdf-mode) .sbl-meta-coupled-card label,
+  body:not(.guiao-pdf-mode) th,
+  body:not(.guiao-pdf-mode) td{
+    white-space:normal !important;
+    overflow-wrap:anywhere !important;
+    word-break:normal !important;
+  }
+  body:not(.guiao-pdf-mode) .cbl-course-chips,
+  body:not(.guiao-pdf-mode) #cblCursosSelecionados{
+    display:flex !important;
+    flex-wrap:wrap !important;
+    gap:6px !important;
+  }
+  body:not(.guiao-pdf-mode) .cbl-course-chip{
+    max-width:100% !important;
+    white-space:normal !important;
+    overflow-wrap:anywhere !important;
+  }
+  body:not(.guiao-pdf-mode) .sbl-oferta-section.sbl-oferta-simulacao-section .sbl-oferta-grid{
+    display:grid !important;
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+    gap:10px !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    box-sizing:border-box !important;
+  }
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-span-2,
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-date-field{
+    grid-column:1 / -1 !important;
+  }
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field,
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-time-field{
+    grid-column:span 1 !important;
+    min-width:0 !important;
+  }
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-field,
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field,
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-time-field{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    box-sizing:border-box !important;
+  }
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field label,
+  body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-time-field label{
+    white-space:normal !important;
+    font-size:12.4px !important;
+    line-height:1.22 !important;
+  }
+  body:not(.guiao-pdf-mode) .ux-actions{
+    width:100% !important;
+    max-width:100% !important;
+    margin:18px 0 10px 0 !important;
+    padding:10px !important;
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:stretch !important;
+    justify-content:center !important;
+    gap:8px !important;
+    box-sizing:border-box !important;
+    overflow:visible !important;
+  }
+  body:not(.guiao-pdf-mode) .ux-actions .ux-btn,
+  body:not(.guiao-pdf-mode) .ux-actions .ux-btn-ai,
+  body:not(.guiao-pdf-mode) .ux-actions .ux-btn-primary,
+  body:not(.guiao-pdf-mode) .ux-actions .ux-btn-pdf,
+  body:not(.guiao-pdf-mode) .ux-actions .ux-btn-more,
+  body:not(.guiao-pdf-mode) .ux-more{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    margin:0 !important;
+    box-sizing:border-box !important;
+  }
+  body:not(.guiao-pdf-mode) #uxMenuMaisOpcoes,
+  body:not(.guiao-pdf-mode) .ux-menu{
+    position:static !important;
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    margin-top:8px !important;
+    left:auto !important;
+    right:auto !important;
+    top:auto !important;
+    box-sizing:border-box !important;
+  }
+  body:not(.guiao-pdf-mode) table{
+    width:100% !important;
+    max-width:100% !important;
+  }
+  body:not(.guiao-pdf-mode) .section > table,
+  body:not(.guiao-pdf-mode) #quadroAcao,
+  body:not(.guiao-pdf-mode) table.quadro-table{
+    display:block !important;
+    overflow-x:auto !important;
+    -webkit-overflow-scrolling:touch !important;
+    white-space:normal !important;
+  }
+  body:not(.guiao-pdf-mode) #quadroAcao tbody,
+  body:not(.guiao-pdf-mode) table.quadro-table tbody{
+    display:table !important;
+    width:100% !important;
+    min-width:680px !important;
+  }
+  body:not(.guiao-pdf-mode) .sbl-quadro-instrucao,
+  body:not(.guiao-pdf-mode) #hint_procedimentos,
+  body:not(.guiao-pdf-mode) #hint_briefing,
+  body:not(.guiao-pdf-mode) #hint_ator,
+  body:not(.guiao-pdf-mode) #hint_info_ator{
+    width:100% !important;
+    max-width:100% !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+    box-sizing:border-box !important;
+  }
+  body:not(.guiao-pdf-mode) .toast-message,
+  body:not(.guiao-pdf-mode) .ux-toast{
+    width:calc(100% - 24px) !important;
+    min-width:0 !important;
+    max-width:calc(100% - 24px) !important;
+    left:12px !important;
+    right:12px !important;
+    transform:none !important;
+    box-sizing:border-box !important;
+  }
+}
+@media screen and (max-width: 430px){
+  body:not(.guiao-pdf-mode) .page{
+    padding:10px !important;
+  }
+  body:not(.guiao-pdf-mode) .sbl-oferta-section.sbl-oferta-simulacao-section .sbl-oferta-grid{
+    gap:9px !important;
+  }
+  body:not(.guiao-pdf-mode) .ux-actions .ux-btn,
+  body:not(.guiao-pdf-mode) .ux-actions .ux-btn-ai,
+  body:not(.guiao-pdf-mode) .ux-actions .ux-btn-primary,
+  body:not(.guiao-pdf-mode) .ux-actions .ux-btn-pdf,
+  body:not(.guiao-pdf-mode) .ux-actions .ux-btn-more{
+    font-size:12px !important;
+    padding-left:10px !important;
+    padding-right:10px !important;
+  }
+}
+</style>
+
+
+
+<style id="sbl-mobile-quadro-acao-stack-fix">
+/* ===== FIX MOBILE SBL — quadro Ação/Reação em cards empilhados =====
+   Corrige o corte lateral observado no telemóvel, sem alterar PDF, payload,
+   submissão, botões, validações ou lógica JavaScript. */
+@media screen and (max-width:760px){
+  .sbl47-v73-essential-print-card:has(#quadroAcao){
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    padding:8px !important;
+    margin:10px 0 !important;
+    border-radius:14px !important;
+    overflow:visible !important;
+    box-sizing:border-box !important;
+  }
+
+  #quadroAcao,
+  #quadroAcao tbody,
+  #quadroAcao tr,
+  #quadroAcao th,
+  #quadroAcao td{
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    box-sizing:border-box !important;
+  }
+
+  #quadroAcao{
+    table-layout:fixed !important;
+    border-collapse:separate !important;
+    border-spacing:0 !important;
+    overflow:visible !important;
+    border-radius:14px !important;
+    margin:0 !important;
+  }
+
+  #quadroAcao tbody{
+    min-width:0 !important;
+    width:100% !important;
+    overflow:visible !important;
+  }
+
+  #quadroAcao tr:first-child{
+    display:none !important;
+  }
+
+  #quadroAcao tr:not(:first-child):not(.sbl-acoes-footer-row){
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 0 10px 0 !important;
+    padding:9px !important;
+    border:1px solid #e1e1e1 !important;
+    border-radius:13px !important;
+    background:#fff !important;
+    overflow:hidden !important;
+    box-shadow:none !important;
+  }
+
+  #quadroAcao tr:not(:first-child):not(.sbl-acoes-footer-row) td{
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    padding:0 0 9px 0 !important;
+    border:0 !important;
+    background:transparent !important;
+    overflow:visible !important;
+    box-shadow:none !important;
+  }
+
+  #quadroAcao tr:not(:first-child):not(.sbl-acoes-footer-row) td + td{
+    padding-top:8px !important;
+    border-top:1px solid #ededed !important;
+  }
+
+  #quadroAcao tr:not(:first-child):not(.sbl-acoes-footer-row) td::before{
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 0 5px 0 !important;
+    padding:5px 8px !important;
+    border:1px solid #f0c4c6 !important;
+    border-radius:9px !important;
+    background:#fff5f5 !important;
+    color:#333 !important;
+    font-size:11.5px !important;
+    line-height:1.18 !important;
+    font-weight:800 !important;
+    text-align:left !important;
+    white-space:normal !important;
+    overflow-wrap:anywhere !important;
+    box-sizing:border-box !important;
+  }
+
+  #quadroAcao tr:not(:first-child):not(.sbl-acoes-footer-row) td:nth-child(1)::before{
+    content:"AÇÃO – Ator/Personagem" !important;
+  }
+
+  #quadroAcao tr:not(:first-child):not(.sbl-acoes-footer-row) td:nth-child(2)::before{
+    content:"REAÇÃO – Técnico/Profissional" !important;
+  }
+
+  #quadroAcao textarea,
+  #quadroAcao td textarea,
+  #quadroAcao tr textarea{
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    min-height:82px !important;
+    margin:0 !important;
+    padding:8px 9px !important;
+    border:1px solid #c7c7c7 !important;
+    border-radius:11px !important;
+    font-size:12px !important;
+    line-height:1.32 !important;
+    resize:vertical !important;
+    overflow:auto !important;
+    box-sizing:border-box !important;
+    white-space:normal !important;
+    overflow-wrap:anywhere !important;
+  }
+
+  #quadroAcao .sbl-acoes-footer-row,
+  #quadroAcao .sbl-acoes-footer-row td,
+  #quadroAcao .sbl-acoes-footer-cell{
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    padding:8px 0 0 0 !important;
+    border:0 !important;
+    background:transparent !important;
+  }
+
+  #quadroAcao .sbl-acoes-footer-bar{
+    display:flex !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:8px !important;
+    padding:8px 4px 2px 4px !important;
+    box-sizing:border-box !important;
+    overflow:visible !important;
+  }
+
+  #quadroAcao .sbl-acoes-footer-texto{
+    min-width:0 !important;
+    white-space:normal !important;
+    overflow-wrap:break-word !important;
+    font-size:12px !important;
+    line-height:1.2 !important;
+  }
+
+  #quadroAcao .sbl-acoes-footer-botoes{
+    flex:0 0 auto !important;
+    display:inline-flex !important;
+    gap:6px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="page">
