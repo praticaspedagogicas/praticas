@@ -10659,173 +10659,183 @@ body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field input[ty
 </style>
 
 
-
-<style id="sbl-mobile-quadro-acao-stack-fix">
-/* ===== FIX MOBILE SBL — quadro Ação/Reação em cards empilhados =====
-   Corrige o corte lateral observado no telemóvel, sem alterar PDF, payload,
-   submissão, botões, validações ou lógica JavaScript. */
-@media screen and (max-width:760px){
-  .sbl47-v73-essential-print-card:has(#quadroAcao){
-    width:100% !important;
-    max-width:100% !important;
-    min-width:0 !important;
-    padding:8px !important;
-    margin:10px 0 !important;
-    border-radius:14px !important;
-    overflow:visible !important;
-    box-sizing:border-box !important;
+<style id="sbl-mobile-quadro-acao-card-fix-final">
+/* ===== SBL mobile — quadro Ação/Reação em cartões, sem corte lateral ===== */
+@media screen and (max-width: 760px){
+  body:not(.guiao-pdf-mode),
+  body:not(.guiao-pdf-mode) .page{
+    overflow-x:hidden !important;
   }
 
-  #quadroAcao,
-  #quadroAcao tbody,
-  #quadroAcao tr,
-  #quadroAcao th,
-  #quadroAcao td{
+  body:not(.guiao-pdf-mode) #quadroAcao,
+  body:not(.guiao-pdf-mode) table#quadroAcao,
+  body:not(.guiao-pdf-mode) .sbl-guiao-explainer-v76 #quadroAcao{
     display:block !important;
     width:100% !important;
-    max-width:100% !important;
     min-width:0 !important;
+    max-width:100% !important;
+    overflow:visible !important;
+    table-layout:auto !important;
+    border-collapse:separate !important;
+    border-spacing:0 !important;
+    box-sizing:border-box !important;
+    border:0 !important;
+    background:transparent !important;
+  }
+
+  body:not(.guiao-pdf-mode) #quadroAcao tbody{
+    display:block !important;
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    overflow:visible !important;
     box-sizing:border-box !important;
   }
 
-  #quadroAcao{
-    table-layout:fixed !important;
-    border-collapse:separate !important;
-    border-spacing:0 !important;
-    overflow:visible !important;
-    border-radius:14px !important;
-    margin:0 !important;
-  }
-
-  #quadroAcao tbody{
-    min-width:0 !important;
+  body:not(.guiao-pdf-mode) #quadroAcao tr{
+    display:block !important;
     width:100% !important;
-    overflow:visible !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    margin:0 0 12px 0 !important;
+    padding:0 !important;
+    border:1px solid #e2e2e2 !important;
+    border-radius:14px !important;
+    background:#fff !important;
+    overflow:hidden !important;
+    box-sizing:border-box !important;
+    box-shadow:0 2px 8px rgba(0,0,0,.035) !important;
   }
 
-  #quadroAcao tr:first-child{
+  body:not(.guiao-pdf-mode) #quadroAcao tr:first-child{
     display:none !important;
   }
 
-  #quadroAcao tr:not(:first-child):not(.sbl-acoes-footer-row){
+  body:not(.guiao-pdf-mode) #quadroAcao th{
+    display:none !important;
+  }
+
+  body:not(.guiao-pdf-mode) #quadroAcao td{
     display:block !important;
     width:100% !important;
+    min-width:0 !important;
     max-width:100% !important;
-    margin:0 0 10px 0 !important;
-    padding:9px !important;
-    border:1px solid #e1e1e1 !important;
+    padding:10px !important;
+    border:0 !important;
+    border-left:0 !important;
+    border-right:0 !important;
+    border-bottom:1px solid #eeeeee !important;
+    border-radius:0 !important;
+    background:#fff !important;
+    box-sizing:border-box !important;
+    white-space:normal !important;
+    overflow:visible !important;
+  }
+
+  body:not(.guiao-pdf-mode) #quadroAcao td:last-child{
+    border-bottom:0 !important;
+  }
+
+  body:not(.guiao-pdf-mode) #quadroAcao tr:not(.sbl-acoes-footer-row) td:nth-child(1)::before,
+  body:not(.guiao-pdf-mode) #quadroAcao tr:not(.sbl-acoes-footer-row) td:nth-child(2)::before{
+    display:block !important;
+    margin:0 0 7px 0 !important;
+    padding:0 !important;
+    font-family:'Century Gothic','Segoe UI',sans-serif !important;
+    font-size:12px !important;
+    line-height:1.25 !important;
+    font-weight:800 !important;
+    letter-spacing:.01em !important;
+    color:#333 !important;
+    white-space:normal !important;
+  }
+
+  body:not(.guiao-pdf-mode) #quadroAcao tr:not(.sbl-acoes-footer-row) td:nth-child(1)::before{
+    content:'AÇÃO – Ator/Personagem' !important;
+  }
+
+  body:not(.guiao-pdf-mode) #quadroAcao tr:not(.sbl-acoes-footer-row) td:nth-child(2)::before{
+    content:'REAÇÃO – Técnico/Profissional' !important;
+  }
+
+  body:not(.guiao-pdf-mode) #quadroAcao textarea{
+    display:block !important;
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    min-height:96px !important;
+    height:auto !important;
+    margin:0 !important;
+    padding:10px !important;
+    border:1px solid #bdbdbd !important;
     border-radius:13px !important;
     background:#fff !important;
-    overflow:hidden !important;
-    box-shadow:none !important;
-  }
-
-  #quadroAcao tr:not(:first-child):not(.sbl-acoes-footer-row) td{
-    display:block !important;
-    width:100% !important;
-    max-width:100% !important;
-    min-width:0 !important;
-    padding:0 0 9px 0 !important;
-    border:0 !important;
-    background:transparent !important;
-    overflow:visible !important;
-    box-shadow:none !important;
-  }
-
-  #quadroAcao tr:not(:first-child):not(.sbl-acoes-footer-row) td + td{
-    padding-top:8px !important;
-    border-top:1px solid #ededed !important;
-  }
-
-  #quadroAcao tr:not(:first-child):not(.sbl-acoes-footer-row) td::before{
-    display:block !important;
-    width:100% !important;
-    max-width:100% !important;
-    margin:0 0 5px 0 !important;
-    padding:5px 8px !important;
-    border:1px solid #f0c4c6 !important;
-    border-radius:9px !important;
-    background:#fff5f5 !important;
-    color:#333 !important;
-    font-size:11.5px !important;
-    line-height:1.18 !important;
-    font-weight:800 !important;
-    text-align:left !important;
-    white-space:normal !important;
-    overflow-wrap:anywhere !important;
     box-sizing:border-box !important;
-  }
-
-  #quadroAcao tr:not(:first-child):not(.sbl-acoes-footer-row) td:nth-child(1)::before{
-    content:"AÇÃO – Ator/Personagem" !important;
-  }
-
-  #quadroAcao tr:not(:first-child):not(.sbl-acoes-footer-row) td:nth-child(2)::before{
-    content:"REAÇÃO – Técnico/Profissional" !important;
-  }
-
-  #quadroAcao textarea,
-  #quadroAcao td textarea,
-  #quadroAcao tr textarea{
-    display:block !important;
-    width:100% !important;
-    max-width:100% !important;
-    min-width:0 !important;
-    min-height:82px !important;
-    margin:0 !important;
-    padding:8px 9px !important;
-    border:1px solid #c7c7c7 !important;
-    border-radius:11px !important;
-    font-size:12px !important;
-    line-height:1.32 !important;
-    resize:vertical !important;
+    font-family:'Century Gothic','Segoe UI',sans-serif !important;
+    font-size:13px !important;
+    line-height:1.38 !important;
+    white-space:pre-wrap !important;
+    overflow-wrap:break-word !important;
+    word-break:normal !important;
     overflow:auto !important;
-    box-sizing:border-box !important;
-    white-space:normal !important;
-    overflow-wrap:anywhere !important;
+    resize:vertical !important;
   }
 
-  #quadroAcao .sbl-acoes-footer-row,
-  #quadroAcao .sbl-acoes-footer-row td,
-  #quadroAcao .sbl-acoes-footer-cell{
+  body:not(.guiao-pdf-mode) #quadroAcao tr.sbl-acoes-footer-row{
+    border:0 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+    background:transparent !important;
+    margin:4px 0 0 0 !important;
+    overflow:visible !important;
+  }
+
+  body:not(.guiao-pdf-mode) #quadroAcao tr.sbl-acoes-footer-row td.sbl-acoes-footer-cell{
     display:block !important;
     width:100% !important;
-    max-width:100% !important;
-    min-width:0 !important;
-    padding:8px 0 0 0 !important;
+    padding:0 !important;
     border:0 !important;
     background:transparent !important;
   }
 
-  #quadroAcao .sbl-acoes-footer-bar{
+  body:not(.guiao-pdf-mode) #quadroAcao .sbl-acoes-footer-bar{
     display:flex !important;
     width:100% !important;
     max-width:100% !important;
-    min-width:0 !important;
     align-items:center !important;
     justify-content:space-between !important;
-    gap:8px !important;
-    padding:8px 4px 2px 4px !important;
+    gap:10px !important;
+    padding:12px !important;
+    border:1px solid #e2e2e2 !important;
+    border-radius:14px !important;
+    background:#fafafa !important;
     box-sizing:border-box !important;
-    overflow:visible !important;
   }
 
-  #quadroAcao .sbl-acoes-footer-texto{
+  body:not(.guiao-pdf-mode) #quadroAcao .sbl-acoes-footer-texto{
     min-width:0 !important;
-    white-space:normal !important;
-    overflow-wrap:break-word !important;
-    font-size:12px !important;
-    line-height:1.2 !important;
+    font-size:12.5px !important;
+    line-height:1.3 !important;
+    font-weight:800 !important;
+    color:#555 !important;
   }
 
-  #quadroAcao .sbl-acoes-footer-botoes{
+  body:not(.guiao-pdf-mode) #quadroAcao .sbl-acoes-footer-botoes{
+    display:flex !important;
     flex:0 0 auto !important;
-    display:inline-flex !important;
-    gap:6px !important;
+    gap:8px !important;
+    align-items:center !important;
+    justify-content:flex-end !important;
+  }
+}
+
+@media screen and (max-width: 430px){
+  body:not(.guiao-pdf-mode) #quadroAcao textarea{
+    min-height:90px !important;
+    font-size:12.8px !important;
   }
 }
 </style>
-
 </head>
 <body>
 <div class="page">
