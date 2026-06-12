@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Template SBL com IA</title>
+  <style>
+    /* RESET BÁSICO */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; line-height: 1.6; padding-bottom: 80px; }
+    
+    /* ===== CONTEÚDO DO DOCUMENTO ===== */
+    .documento-conteudo { max-width: 900px; margin: 0 auto; padding: 20px; }
+    .documento-conteudo h1 { color: #E31E24; margin-bottom: 20px; }
+    .documento-conteudo table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+    .documento-conteudo td { border: 1px solid #ddd; padding: 10px; }
+    .documento-conteudo input, .documento-conteudo textarea { 
+      width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; 
+    }
+    
+    /* ===== BOTÃO FLUTUANTE IA ===== */
+    .ia-botao-fixo {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+    .ia-botao-fixo button {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #FF6B00;
+      color: white;
+      font-size: 24px;
+      border: 3px solid white;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+    }
+    .ia-botao-fixo button:hover { transform: scale(1.1); }
+    
+    /* ===== MODAL IA ===== */
+    .ia-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+    }
+    .ia-modal.ativo { display: flex; }
+    .ia-modal-caixa {
+      background: white;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      border-radius: 12px;
+      padding: 20px;
+      overflow-y: auto;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .ia-modal-fechar {
+      float: right;
+      font-size: 24px;
+      cursor: pointer;
+      color: #666;
+    }
+    .ia-input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+    .ia-botao-enviar {
+      background: #FF6B00;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .ia-resposta {
+      margin-top: 15px;
+      padding: 15px;
+      background: #f5f5f5;
+      border-left: 4px solid #FF6B00;
+      border-radius: 4px;
+      white-space: pre-wrap;
+      display: none;
+    }
+    .ia-carregando {
+      display: none;
+      text-align: center;
+      color: #666;
+      padding: 20px;
+    }
+    
+    /* OCULTAR NO PRINT */
+    @media print {
+      .ia-botao-fixo, .ia-modal { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== CONTEÚDO DO GUIÃO ===== -->
+<div class="documento-conteudo">
+  <!-- TODO: COLAR CONTEÚDO EXISTENTE DO GUIÃO AQUI -->
+  
+  <h1>Guião SBL</h1>
+  <label>Curso:</label>
+  <input type="text" id="Var_Curso">
+  <label>Unidade Curricular:</label>
+  <input type="text" id="Var_UC">
+  <!-- ... resto do guião ... -->
+  
+</div>
+
+<!-- ===== BOTÃO FLUTUANTE IA ===== -->
+<div class="ia-botao-fixo">
+  <button type="button" onclick="abrirModalIA()" title="Perguntar à IA">🤖</button>
+</div>
+
+<!-- ===== MODAL IA ===== -->
+<div id="iaModal" class="ia-modal" onclick="fecharModalIA(event)">
+  <div class="ia-modal-caixa" onclick="event.stopPropagation()">
+    <span class="ia-modal-fechar" onclick="fecharModalIA()">&times;</span>
+    <h2>🤖 Assistente IA Pedagógico</h2>
+    <p>Faça perguntas sobre o conteúdo do guião:</p>
+    
+    <input type="text" id="ia_pergunta" class="ia-input" placeholder="Ex: Que competências desenvolve este guião?">
+    
+    <button type="button" class="ia-botao-enviar" onclick="enviarIa()">📤 Perguntar IA</button>
+    
+    <div id="iaCarregando" class="ia-carregando">⏳ A analisar...</div>
+    <div id="iaResposta" class="ia-resposta"></div>
+  </div>
+</div>
+
+<script>
+// Variável configurável - definir URL do endpoint
+var IA_ENDPOINT = ""; // e.g., "https://seu-azure.openai.azure.com/..."
+
+function abrirModalIA() {
+  document.getElementById('iaModal').classList.add('ativo');
+  document.getElementById('ia_pergunta').focus();
+}
+
+function fecharModalIA(e) {
+  if (!e || e.target === document.getElementById('iaModal')) {
+    document.getElementById('iaModal').classList.remove('ativo');
+    // Limpar
+    document.getElementById('ia_pergunta').value = '';
+    document.getElementById('iaResposta').style.display = 'none';
+  }
+}
+
+async function enviarIa() {
+  var pergunta = document.getElementById('ia_pergunta').value.trim();
+  if (!pergunta) { alert('Escreva uma pergunta!'); return; }
+  
+  var carregando = document.getElementById('iaCarregando');
+  var resposta = document.getElementById('iaResposta');
+  
+  carregando.style.display = 'block';
+  resposta.style.display = 'none';
+  
+  try {
+    // Capturar conteúdo do documento
+    var conteudo = '';
+    document.querySelectorAll('.documento-conteudo input, .documento-conteudo textarea').forEach(function(el) {
+      if (el.id && el.value) conteudo += el.id + ': ' + el.value + '\n';
+    });
+    
+    // Enviar para endpoint (ou simular se não configurado)
+    var result;
+    if (!IA_ENDPOINT) {
+      result = { resposta: '🤖 IA configurada!\n\nDefina IA_ENDPOINT no JavaScript para ativar.' };
+    } else {
+      var r = await fetch(IA_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pergunta: pergunta, conteudo: conteudo })
+      });
+      result = await r.json();
+    }
+    
+    resposta.innerText = result.resposta || result.fulfillment || 'Resposta recebida!';
+    resposta.style.display = 'block';
+  } catch (e) {
+    resposta.innerText = 'Erro: ' + e.message;
+    resposta.style.display = 'block';
+  } finally {
+    carregando.style.display = 'none';
+  }
+}
+
+// Fechar com ESC
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') fecharModalIA();
+});
+
+// Carregar params URL
+function lerParametros() {
+  var u = new URLSearchParams(window.location.search);
+  u.forEach(function(v, k) {
+    var el = document.getElementById(k);
+    if (el) el.value = decodeURIComponent(v);
+  });
+}
+window.onload = lerParametros;
+</script>
+
+</body>
+</html>

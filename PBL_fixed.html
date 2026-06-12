@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Plano PBL</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Century Gothic', sans-serif; background: #f5f5f5; padding: 15px; }
+.page { max-width: 900px; margin: 0 auto; background: white; padding: 15px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.logo { text-align: center; margin-bottom: 15px; }
+.logo img { height: 40px; }
+.section { margin: 12px 0; padding: 10px; border: 1px solid #333; }
+.section label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 12px; }
+input, textarea { width: 100%; padding: 6px; border: 1px solid #333; border-radius: 3px; font-size: 12px; box-sizing: border-box; }
+.tabs { display: flex; border-bottom: 2px solid #E31E24; }
+.tab { padding: 8px 15px; cursor: pointer; background: #eee; border: none; font-size: 12px; }
+.tab.active { background: #E31E24; color: white; }
+.tab-content { display: none; padding: 12px 0; }
+.tab-content.active { display: block; }
+.quadro-table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 9px; table-layout: fixed; word-wrap: break-word; }
+.quadro-table th, .quadro-table td { font-size: 8px; padding: 2px;  overflow: hidden; }
+.quadro-table th { text-align: center; font-size: 10px; padding: 4px 2px; background: #fff; color: #000; border: 1px solid #333; vertical-align: middle; white-space: normal; }
+.quadro-table th { text-align: center; font-size: 10px; padding: 4px 2px; background: #eee; color: #000; border: 1px solid #333; vertical-align: middle; white-space: normal; }
+.quadro-table td { font-size: 8px; padding: 4px 6px; border: 1px solid #333; vertical-align: top; }
+.quadro-table input { border: none; background: transparent; width: 100%; padding: 2px; font-size: 9px; box-sizing: border-box; }
+.btn-preto { background: #333; color: #fff; border: 1px solid #000; padding: 8px 20px; font-size: 12px; border-radius: 4px; }
+.btn { padding: 8px 20px; background: #FF6B00; color: white; border: none; border-radius: 4px; font-size: 12px; }
+.legend { background: #f0f0f0; padding: 10px; border: 1px solid #ccc; margin: 10px 0; font-size: 10px; }
+.legend div { margin-bottom: 3px; }
+.calculated { background: #ffcccc; color: #cc0000; font-weight: bold; }
+@media print { .btn, button, .no-print, .tab { display: none !important; } .tab-content { display: block !important; } }
+
+
+/* === UX nível 2: barra de ações limpa === */
+.ux-actions {
+  margin: 28px auto 10px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 16px;
+  border: 1px solid #e8e8e8;
+  border-radius: 16px;
+  background: #fafafa;
+}
+.ux-btn {
+  border: 1px solid #333;
+  border-radius: 999px;
+  padding: 11px 18px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  min-height: 44px;
+  transition: transform .12s ease, opacity .12s ease, box-shadow .12s ease;
+  white-space: nowrap;
+}
+.ux-btn:hover { opacity: .92; transform: translateY(-1px); box-shadow: 0 3px 10px rgba(0,0,0,.12); }
+.ux-btn:focus { outline: 3px solid rgba(227,30,36,.22); outline-offset: 2px; }
+.ux-btn-primary { background: #E31E24; color: #fff; border-color: #E31E24; }
+.ux-btn-ai { background: #333; color: #fff; border-color: #333; }
+.ux-btn-pdf { background: #fff; color: #333; }
+.ux-btn-more { background: #fff; color: #333; padding-right: 16px; }
+.ux-more { position: relative; display: inline-block; }
+.ux-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  min-width: 230px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.14);
+  z-index: 9999;
+  overflow: hidden;
+  text-align: left;
+}
+.ux-menu.open { display: block; }
+.ux-menu button {
+  width: 100%;
+  border: 0;
+  background: #fff;
+  padding: 12px 14px;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  color: #333;
+}
+.ux-menu button:hover { background: #f5f5f5; }
+.ux-helper {
+  width: 100%;
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+  margin-top: 2px;
+}
+@media (max-width: 680px) {
+  .ux-actions { align-items: stretch; }
+  .ux-btn, .ux-more { width: 100%; }
+  .ux-more .ux-btn { width: 100%; }
+  .ux-menu { position: static; margin-top: 8px; width: 100%; }
+}
+@media print {
+  .ux-actions, .ux-menu, .no-print, button, .btn, .btn-preto, .btn-primary, .btn-secondary, .btn-add, .btn-remove,
+  .btn-plus, .btn-minus, button[title="Saiba mais"], .tab { display: none !important; }
+  body { background: #fff !important; padding: 0 !important; }
+  .page { box-shadow: none !important; margin: 0 auto !important; padding: 10mm !important; }
+  textarea { overflow: visible !important; }
+  input, textarea, select { border: 1px solid #777 !important; }
+  .tab-content { display: block !important; }
+  @page { size: A4; margin: 12mm; }
+}
+</style>
+<style id="cbl-header-style">
+.premium-header{
+  margin:0 0 24px 0;
+  padding:18px 22px;
+  border:1px solid #e8e8e8;
+  border-radius:16px;
+  background:#fafafa;
+}
+
+.premium-header-title{
+  font-size:18px;
+  font-weight:700;
+  color:#333;
+  margin-bottom:4px;
+}
+
+.premium-header-subtitle{
+  color:#666;
+  font-size:12px;
+}
+
+.ux-actions{
+  position:relative;
+}
+
+.ux-more{
+  position:relative;
+}
+
+.ux-menu{
+  right:0 !important;
+  left:auto !important;
+  top:calc(100% + 8px) !important;
+}
+
+.ux-toast{
+  position:fixed;
+  left:50%;
+  bottom:30px;
+  transform:translateX(-50%);
+  background:#333;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:12px;
+  z-index:999999;
+  font-size:13px;
+}
+</style>
+<style id="premium-status-final-style">
+.premium-status{
+  margin:0 0 24px 0;
+  padding:14px 18px;
+  border:1px solid #e8e8e8;
+  border-radius:16px;
+  background:#fafafa;
+}
+
+.premium-status-grid{
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
+  font-size:13px;
+  color:#333;
+}
+</style>
+<style>
+/* ===== CBL PREMIUM FINAL ===== */
+
+.premium-status{
+  margin:0 0 24px 0;
+  padding:14px 18px;
+  border:1px solid #ececec;
+  border-radius:14px;
+  background:#fafafa;
+}
+
+.progress-label{
+  font-size:12px;
+  color:#666;
+  margin-bottom:6px;
+}
+
+.progress-bar{
+  width:100%;
+  height:8px;
+  background:#e8e8e8;
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.progress-fill{
+  width:0%;
+  height:100%;
+  background:#E31E24;
+  transition:width .25s ease;
+}
+
+.autosave-status{
+  margin-top:8px;
+  font-size:12px;
+  color:#666;
+}
+
+.header-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin:0 0 24px 0;
+}
+
+.header-card{
+  border:1px solid #e5e5e5;
+  border-radius:12px;
+  padding:12px;
+  background:#fafafa;
+}
+
+.header-card label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.header-card select{
+  width:100%;
+  padding:10px;
+  border:1px solid #bbb;
+  border-radius:8px;
+  font-family:inherit;
+}
+
+.ux-btn,
+.ux-btn-primary,
+.ux-btn-ai,
+.ux-btn-pdf,
+.ux-btn-more{
+  min-height:40px !important;
+  height:40px !important;
+  padding:0 16px !important;
+  font-size:13px !important;
+  border-radius:999px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  box-sizing:border-box !important;
+}
+
+
+.ux-more{
+  position:relative;
+  display:inline-block;
+}
+
+.ux-helper{
+
+  width:100%;
+  margin-top:8px;
+  text-align:center;
+  font-size:12px;
+  color:#666;
+}
+
+.toast-message{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#333;
+  color:#fff;
+  padding:12px 16px;
+  border-radius:10px;
+  z-index:99999;
+  font-size:13px;
+  box-shadow:0 4px 14px rgba(0,0,0,.2);
+}
+
+/* FINAL UX FIXES */
+.ux-more{
+  position:relative !important;
+  display:inline-block !important;
+}
+
+.ux-menu{
+  display:none;
+  position:absolute !important;
+  top:48px !important;
+  right:0 !important;
+  min-width:240px !important;
+  background:#fff !important;
+  border:1px solid #ddd !important;
+  border-radius:12px !important;
+  box-shadow:0 10px 25px rgba(0,0,0,.14) !important;
+  z-index:999999 !important;
+}
+
+.ux-menu.open{
+  display:block !important;
+}
+
+.toast-message{
+  position:fixed !important;
+  bottom:20px !important;
+  right:20px !important;
+  background:#333 !important;
+  color:#fff !important;
+  padding:12px 16px !important;
+  border-radius:12px !important;
+  font-size:13px !important;
+  box-shadow:0 4px 14px rgba(0,0,0,.2) !important;
+  z-index:999999 !important;
+}
+
+
+/* CLEAN FINAL MENU */
+.ux-more{
+  position:relative !important;
+  display:inline-block !important;
+}
+
+#uxMenuMaisOpcoes{
+  display:none;
+  position:absolute;
+  top:44px;
+  right:-4px;
+  min-width:240px;
+  background:#fff;
+  border:1px solid #ddd;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,.14);
+  z-index:999999;
+  overflow:hidden;
+}
+
+#uxMenuMaisOpcoes.open{
+  display:block !important;
+}
+
+
+/* UX POLISH FINAL */
+
+#uxMenuMaisOpcoes{
+  top:-14px !important;
+  left:calc(100% + 12px) !important;
+  right:auto !important;
+  min-width:260px !important;
+  padding:8px 0 !important;
+}
+
+#uxMenuMaisOpcoes button{
+  padding:14px 18px !important;
+}
+
+.toast-message{
+  left:50% !important;
+  right:auto !important;
+  bottom:32px !important;
+  transform:translateX(-50%) !important;
+  min-width:320px !important;
+  text-align:center !important;
+  font-weight:500 !important;
+}
+
+</style><style id="header-grid-cbl-style">/* ===== CBL PREMIUM FINAL ===== */
+
+.premium-status{
+  margin:0 0 24px 0;
+  padding:14px 18px;
+  border:1px solid #ececec;
+  border-radius:14px;
+  background:#fafafa;
+}
+
+.progress-label{
+  font-size:12px;
+  color:#666;
+  margin-bottom:6px;
+}
+
+.progress-bar{
+  width:100%;
+  height:8px;
+  background:#e8e8e8;
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.progress-fill{
+  width:0%;
+  height:100%;
+  background:#E31E24;
+  transition:width .25s ease;
+}
+
+.autosave-status{
+  margin-top:8px;
+  font-size:12px;
+  color:#666;
+}
+
+.header-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin:0 0 24px 0;
+}
+
+.header-card{
+  border:1px solid #e5e5e5;
+  border-radius:12px;
+  padding:12px;
+  background:#fafafa;
+}
+
+.header-card label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.header-card select{
+  width:100%;
+  padding:10px;
+  border:1px solid #bbb;
+  border-radius:8px;
+  font-family:inherit;
+}</style><style>.header-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin:0 0 24px 0;
+}
+
+.header-card{
+  border:1px solid #e5e5e5;
+  border-radius:12px;
+  padding:12px;
+  background:#fafafa;
+}
+
+.header-card label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.header-card select{
+  width:100%;
+  padding:10px;
+  border:1px solid #bbb;
+  border-radius:8px;
+  font-family:inherit;
+}</style><style>
+.header-grid{
+display:grid !important;
+grid-template-columns:1fr 1fr !important;
+gap:14px !important;
+margin:0 0 24px 0 !important;
+visibility:visible !important;
+opacity:1 !important;
+}
+
+.header-card{
+display:block !important;
+visibility:visible !important;
+opacity:1 !important;
+}
+
+.header-card select{
+display:block !important;
+width:100% !important;
+}
+</style></head>
+<body>
+<div class="page"><div class="premium-status no-print">
+<div class="progress-label" id="progressLabel">Guião preenchido: 0%</div>
+<div class="progress-bar">
+<div class="progress-fill" id="progressFill"></div>
+</div>
+<div class="autosave-status" id="autosaveStatus">
+    Última gravação automática: --
+  </div>
+</div><div class="header" style="text-align:center;margin-bottom:30px;">
+<img src="data:image/png;base64,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" style="display:block;margin:0 auto 15px auto;height:40px;"/>
+<h1 style="
+font-family:'Century Gothic',sans-serif;
+font-size:24px;
+font-weight:bold;
+text-align:center;
+margin:0 0 8px 0;
+color:#333;
+padding-bottom:15px;
+border-bottom:2px solid #E31E24;
+">Plano Project-based Learning</h1>
+</div><div class="header-grid">
+<div class="header-card">
+<label>Unidade Orgânica</label>
+<select id="unidadeOrganica">
+<option value="">Selecionar</option>
+<option>FCST</option>
+<option>FCS</option>
+<option>IADE</option>
+<option>IPAM</option>
+</select>
+</div>
+<div class="header-card">
+<label>Modalidade</label>
+<select id="modalidade">
+<option value="">Selecionar</option>
+<option>Presencial</option>
+<option>EaD</option>
+</select>
+</div>
+</div>
+<div style="display:block !important;width:100% !important;margin:20px 0 24px 0 !important;clear:both !important;">
+<div style="display:grid !important;grid-template-columns:1fr 1fr !important;gap:14px !important;">
+<div style="border:1px solid #e5e5e5;padding:12px;border-radius:12px;background:#fafafa;">
+<label style="display:block;font-weight:bold;margin-bottom:8px;">Unidade Orgânica</label>
+<select style="width:100%;padding:10px;border:1px solid #bbb;border-radius:8px;background:white;">
+<option>Selecionar</option>
+<option>FCST</option>
+<option>FCS</option>
+<option>IADE</option>
+<option>IPAM</option>
+</select>
+</div>
+<div style="border:1px solid #e5e5e5;padding:12px;border-radius:12px;background:#fafafa;">
+<label style="display:block;font-weight:bold;margin-bottom:8px;">Modalidade</label>
+<select style="width:100%;padding:10px;border:1px solid #bbb;border-radius:8px;background:white;">
+<option>Selecionar</option>
+<option>Presencial</option>
+<option>EaD</option>
+</select>
+</div>
+</div>
+</div>
+<div class="logo"></div>
+<div class="header-row" style="display:flex; gap:10px; flex-wrap:wrap;">
+<div class="section" style="flex:1; min-width:45%;"><label>Nome:</label><input/></div>
+<div class="section" style="flex:1; min-width:45%;"><label>Curso:</label><input/></div>
+<div class="section" style="flex:1; min-width:45%;"><label>Unidade Curricular:</label><input/></div>
+<div class="section" style="flex:1; min-width:45%;"><label>Ano Letivo:</label><input/></div>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="openTab('docente')">Docente</button>
+<button class="tab" onclick="openTab('estudante')">Estudante</button>
+<button class="tab" onclick="openTab('avaliacao')">Avaliação</button>
+</div>
+<div class="tab-content active" id="docente">
+<div class="section"><label>CASO:</label><textarea placeholder='(descrição alargada e pomenorizada do "cliente"/paciente, incluindo história clínica) - NÃO É DADO AO ESTUDANTE!'></textarea></div>
+<div class="section"><label>INFORMAÇÃO INICIAL:</label><textarea placeholder='(frase sucinta de descrição do problema do "cliente"/paciente) - DADO AO ESTUDANTE! Exemplo: O João foi à consulta de Psicologia porque estava com insónias…'></textarea></div>
+<div class="section"><label>Informações pertinentes para dinamização das sessões com os estudantes:</label><textarea placeholder='a sala deve estar disposta em círculo e o professor integrado no mesmo; a turma deve indicar 1 "escriba" que regista as hipóteses, as respostas e as NA (e que no final de cada sessão partilha com os colegas e professor); o docente deve ter um papel PASSIVO na sua função de lecionar conteúdos e "dar matéria" MAS deve ter um papel ATIVO como moderador e dinamizador da discussão entre o grupo (fomentar o questionamento das escolhas da perguntas, elicitar os estudantes a argumentarem com conteúdos associados às mesmas, gerir as discussões, estimular os estudantes a colocarem hipóteses críticas, apoiar a que todos falam e tenham a sua vez para o fazer...)'></textarea></div>
+<table class="quadro-table">
+<tr><th>Sessão</th><th>vEstud</th><th>vProf</th><th>PERGUNTAS<br/>(sobre o caso)</th><th>RESPOSTAS - FACTOS</th><th>Questões de Alinhamento<br/>com FUC -<br/>Conteúdos<br/>Programáticos</th><th>Possíveis<br/>Questões<br/>de<br/>Moderação<br/>do<br/>Debate</th><th>Necessidades DE<br/>Aprendizagem - NA</th></tr>
+<tr><td><input/></td><td><input/></td><td>1</td><td><input/></td><td><input/></td><td><input/></td><td><input/></td><td><input/></td></tr>
+<tr><td><input/></td><td><input/></td><td>2</td><td><input/></td><td><input/></td><td><input/></td><td><input/></td><td><input/></td></tr>
+<tr><td><input/></td><td><input/></td><td>3</td><td><input/></td><td><input/></td><td><input/></td><td><input/></td><td><input/></td></tr>
+<tr><td><input/></td><td><input/></td><td>4</td><td><input/></td><td><input/></td><td><input/></td><td><input/></td><td><input/></td></tr>
+<tr><td><input/></td><td><input/></td><td>5</td><td><input/></td><td><input/></td><td><input/></td><td><input/></td><td><input/></td></tr>
+</table>
+<div style="margin-top:10px;"><button onclick="addRowDocente()" style="padding:5px 10px; cursor:pointer; border:1px solid #333;">+</button></div>
+</div>
+<div class="tab-content" id="estudante">
+<div class="section"><label>INFORMAÇÃO INICIAL:</label><textarea placeholder='(frase sucinta de descrição do problema do "cliente"/paciente) - DADO AO ESTUDANTE! Exemplo: O João foi à consulta de Psicologia porque estava com insónias…'></textarea></div>
+<table class="quadro-table">
+<tr><th>vEstud</th><th>PERGUNTAS</th><th>RESPOSTAS - FACTOS</th><th>HIPÓTESES</th><th>QUAL NECESSIDADE<br/>DE APRENDIZAGEM</th><th>NA ATRIBUÍDA<br/>AO ESTUDANTE:</th></tr>
+<tr><td>1</td><td><input/></td><td><input/></td><td><input/></td><td><input/></td><td><input/></td></tr>
+<tr><td>2</td><td><input/></td><td><input/></td><td><input/></td><td><input/></td><td><input/></td></tr>
+<tr><td>3</td><td><input/></td><td><input/></td><td><input/></td><td><input/></td><td><input/></td></tr>
+<tr><td>4</td><td><input/></td><td><input/></td><td><input/></td><td><input/></td><td><input/></td></tr>
+<tr><td>5</td><td><input/></td><td><input/></td><td><input/></td><td><input/></td><td><input/></td></tr>
+<tr><td>6</td><td><input/></td><td><input/></td><td><input/></td><td><input/></td><td><input/></td></tr>
+<tr><td>7</td><td><input/></td><td><input/></td><td><input/></td><td><input/></td><td><input/></td></tr>
+</table>
+<div style="margin-top:10px;"><button onclick="addRowEstudante()" style="padding:5px 10px; cursor:pointer; border:1px solid #333;">+</button></div>
+</div>
+<div class="tab-content" id="avaliacao">
+<div class="legend">
+<div><strong>LEGENDA COMPLETA:</strong></div>
+<div><strong>C1</strong> = 1 - Apresenta e defende as suas opiniões, e escuta a opinião dos outros valorizando e incorporando pontos de vista distintos [30%]</div>
+<div><strong>C2</strong> = 2 - Comunica usando conceitos e linguagem técnica e profissional, distinguindo conhecimento popular de conhecimento técnico-científico [30%]</div>
+<div><strong>C3</strong> = 3 - Identifica problemas para a futura prática profissional, formulando criticamente hipóteses, sustentadas na evidência científica [15%]</div>
+<div><strong>C4</strong> = 4 - Elabora e submete NAs de acordo com plano definido [5%] (Escala: 0→0 | 1→10 | 2→20)</div>
+<div><strong>C5</strong> = 5 - Apreende e integra os conhecimentos da UC e das NAs com o caso apresentado, nas sessões de discussão do PBL [20%]</div>
+<div><strong>Nota Parcial A (NPA)</strong> = Média das sessões C1-C5 [50%]</div>
+<div><strong>C6.1</strong> = 6.1 - Descrição clara e coerente [20%]</div>
+<div><strong>C6.2</strong> = 6.2 - Justificação científica [40%]</div>
+<div><strong>C6.3</strong> = 6.3 - Conteúdos [40%]</div>
+<div><strong>Nota Parcial B1 (NPB1)</strong> = Apresentação C6 [25%]</div>
+<div><strong>C7.1</strong> = 7.1 - Apresentação assertiva e graficamente atrativa [40%]</div>
+<div><strong>C7.2</strong> = 7.2 - Adequar a comunicação a um contexto profissional (voz, vícios de linguagem, linguagem corporal, gestão da audiência, gestão do tempo, coordenação em equipa) [60%]</div>
+<div><strong>Nota Parcial B2 (NPB2)</strong> = Apresentação C7 [25%]</div>
+<div><strong>Nota Final (NF)</strong> = (NPA×50%)+(NPB1×25%)+(NPB2×25%)</div>
+</div>
+<table class="quadro-table">
+<tr><th>NOME</th><th>C1</th><th>C2</th><th>C3</th><th>C4</th><th>C5</th><th>NPA</th><th>C6.1</th><th>C6.2</th><th>C6.3</th><th>NPB1</th><th>C7.1</th><th>C7.2</th><th>NPB2</th><th>NF</th></tr>
+<tr><td><input placeholder="Nome"/></td><td><input id="c1-1" max="20" min="0" oninput="calc(1)" onsave();="" type="number"/></td><td><input id="c2-1" max="20" min="0" oninput="calc(1)" onsave();="" type="number"/></td><td><input id="c3-1" max="20" min="0" oninput="calc(1)" onsave();="" type="number"/></td><td><input id="c4-1" max="2" min="0" oninput="calc(1)" onsave();="" type="number"/></td><td><input id="c5-1" max="20" min="0" oninput="calc(1)" onsave();="" type="number"/></td><td class="calculated" id="npa1">-</td><td><input id="c61-1" max="20" min="0" oninput="calc(1)" onsave();="" type="number"/></td><td><input id="c62-1" max="20" min="0" oninput="calc(1)" onsave();="" type="number"/></td><td><input id="c63-1" max="20" min="0" oninput="calc(1)" onsave();="" type="number"/></td><td class="calculated" id="npb1-1">-</td><td><input id="c71-1" max="20" min="0" oninput="calc(1)" onsave();="" type="number"/></td><td><input id="c72-1" max="20" min="0" oninput="calc(1)" onsave();="" type="number"/></td><td class="calculated" id="npb2-1">-</td><td class="calculated" id="nf1">-</td></tr>
+<tr><td><input placeholder="Nome"/></td><td><input id="c1-2" max="20" min="0" oninput="calc(2)" onsave();="" type="number"/></td><td><input id="c2-2" max="20" min="0" oninput="calc(2)" onsave();="" type="number"/></td><td><input id="c3-2" max="20" min="0" oninput="calc(2)" onsave();="" type="number"/></td><td><input id="c4-2" max="2" min="0" oninput="calc(2)" onsave();="" type="number"/></td><td><input id="c5-2" max="20" min="0" oninput="calc(2)" onsave();="" type="number"/></td><td class="calculated" id="npa2">-</td><td><input id="c61-2" max="20" min="0" oninput="calc(2)" onsave();="" type="number"/></td><td><input id="c62-2" max="20" min="0" oninput="calc(2)" onsave();="" type="number"/></td><td><input id="c63-2" max="20" min="0" oninput="calc(2)" onsave();="" type="number"/></td><td class="calculated" id="npb1-2">-</td><td><input id="c71-2" max="20" min="0" oninput="calc(2)" onsave();="" type="number"/></td><td><input id="c72-2" max="20" min="0" oninput="calc(2)" onsave();="" type="number"/></td><td class="calculated" id="npb2-2">-</td><td class="calculated" id="nf2">-</td></tr>
+<tr><td><input placeholder="Nome"/></td><td><input id="c1-3" max="20" min="0" oninput="calc(3)" onsave();="" type="number"/></td><td><input id="c2-3" max="20" min="0" oninput="calc(3)" onsave();="" type="number"/></td><td><input id="c3-3" max="20" min="0" oninput="calc(3)" onsave();="" type="number"/></td><td><input id="c4-3" max="2" min="0" oninput="calc(3)" onsave();="" type="number"/></td><td><input id="c5-3" max="20" min="0" oninput="calc(3)" onsave();="" type="number"/></td><td class="calculated" id="npa3">-</td><td><input id="c61-3" max="20" min="0" oninput="calc(3)" onsave();="" type="number"/></td><td><input id="c62-3" max="20" min="0" oninput="calc(3)" onsave();="" type="number"/></td><td><input id="c63-3" max="20" min="0" oninput="calc(3)" onsave();="" type="number"/></td><td class="calculated" id="npb1-3">-</td><td><input id="c71-3" max="20" min="0" oninput="calc(3)" onsave();="" type="number"/></td><td><input id="c72-3" max="20" min="0" oninput="calc(3)" onsave();="" type="number"/></td><td class="calculated" id="npb2-3">-</td><td class="calculated" id="nf3">-</td></tr>
+<tr><td><input placeholder="Nome"/></td><td><input id="c1-4" max="20" min="0" oninput="calc(4)" onsave();="" type="number"/></td><td><input id="c2-4" max="20" min="0" oninput="calc(4)" onsave();="" type="number"/></td><td><input id="c3-4" max="20" min="0" oninput="calc(4)" onsave();="" type="number"/></td><td><input id="c4-4" max="2" min="0" oninput="calc(4)" onsave();="" type="number"/></td><td><input id="c5-4" max="20" min="0" oninput="calc(4)" onsave();="" type="number"/></td><td class="calculated" id="npa4">-</td><td><input id="c61-4" max="20" min="0" oninput="calc(4)" onsave();="" type="number"/></td><td><input id="c62-4" max="20" min="0" oninput="calc(4)" onsave();="" type="number"/></td><td><input id="c63-4" max="20" min="0" oninput="calc(4)" onsave();="" type="number"/></td><td class="calculated" id="npb1-4">-</td><td><input id="c71-4" max="20" min="0" oninput="calc(4)" onsave();="" type="number"/></td><td><input id="c72-4" max="20" min="0" oninput="calc(4)" onsave();="" type="number"/></td><td class="calculated" id="npb2-4">-</td><td class="calculated" id="nf4">-</td></tr>
+<tr><td><input placeholder="Nome"/></td><td><input id="c1-5" max="20" min="0" oninput="calc(5)" onsave();="" type="number"/></td><td><input id="c2-5" max="20" min="0" oninput="calc(5)" onsave();="" type="number"/></td><td><input id="c3-5" max="20" min="0" oninput="calc(5)" onsave();="" type="number"/></td><td><input id="c4-5" max="2" min="0" oninput="calc(5)" onsave();="" type="number"/></td><td><input id="c5-5" max="20" min="0" oninput="calc(5)" onsave();="" type="number"/></td><td class="calculated" id="npa5">-</td><td><input id="c61-5" max="20" min="0" oninput="calc(5)" onsave();="" type="number"/></td><td><input id="c62-5" max="20" min="0" oninput="calc(5)" onsave();="" type="number"/></td><td><input id="c63-5" max="20" min="0" oninput="calc(5)" onsave();="" type="number"/></td><td class="calculated" id="npb1-5">-</td><td><input id="c71-5" max="20" min="0" oninput="calc(5)" onsave();="" type="number"/></td><td><input id="c72-5" max="20" min="0" oninput="calc(5)" onsave();="" type="number"/></td><td class="calculated" id="npb2-5">-</td><td class="calculated" id="nf5">-</td></tr>
+</table>
+<div style="margin-top:10px;"><button onclick="addRowAval()" style="padding:5px 10px; cursor:pointer; border:1px solid #333;">+</button></div>
+</div>
+<div aria-label="Ações do guião" class="ux-actions no-print">
+<button class="ux-btn ux-btn-ai" onclick="abrirAssistente()" type="button">Assistente IA</button>
+<button class="ux-btn ux-btn-primary" onclick="guardar()" type="button">Submeter</button>
+<button class="ux-btn ux-btn-pdf" onclick="salvarPDF()" type="button">Salvar PDF</button>
+<div class="ux-more">
+<button class="ux-btn ux-btn-more" id="btnMaisOpcoes" type="button">Mais opções</button>
+<div class="ux-menu" id="uxMenuMaisOpcoes"></div>
+</div><div class="ux-helper">
+O acesso ao Assistente IA depende das permissões institucionais Microsoft 365.
+</div></div></div>
+<script>
+function openTab(t){var c=document.getElementsByClassName("tab-content"),x=document.getElementsByClassName("tab");for(var i=0;i<c.length;i++){c[i].classList.remove("active");c[i].style.display="none"}for(var i=0;i<x.length;i++){x[i].classList.remove("active")}document.getElementById(t).style.display="block";document.getElementById(t).classList.add("active");for(var i=0;i<x.length;i++){x[i].style.background="#eee";}var btns=document.getElementsByClassName("tab");for(var i=0;i<btns.length;i++){if(btns[i].getAttribute("onclick").indexOf(t)>-1){btns[i].classList.add("active");btns[i].style.background="#E31E24";}}}
+
+function calc(id){
+ var c1=parseFloat(document.getElementById('c1-'+id)?.value)||0;
+ var c2=parseFloat(document.getElementById('c2-'+id)?.value)||0;
+ var c3=parseFloat(document.getElementById('c3-'+id)?.value)||0;
+ var c4=(parseFloat(document.getElementById('c4-'+id)?.value)||0)*10;
+ var c5=parseFloat(document.getElementById('c5-'+id)?.value)||0;
+ var c61=parseFloat(document.getElementById('c61-'+id)?.value)||0;
+ var c62=parseFloat(document.getElementById('c62-'+id)?.value)||0;
+ var c63=parseFloat(document.getElementById('c63-'+id)?.value)||0;
+ var c71=parseFloat(document.getElementById('c71-'+id)?.value)||0;
+ var c72=parseFloat(document.getElementById('c72-'+id)?.value)||0;
+ var npa=(c1*.3)+(c2*.3)+(c3*.15)+(c4*.05)+(c5*.2);
+ var npb1=(c61*.2)+(c62*.4)+(c63*.4);
+ var npb2=(c71*.4)+(c72*.6);
+ var nf=(npa*.5)+(npb1*.25)+(npb2*.25);
+ document.getElementById('npa'+id).textContent=npa>0?npa.toFixed(1):'-';
+ document.getElementById('npb1-'+id).textContent=npb1>0?npb1.toFixed(1):'-';
+ document.getElementById('npb2-'+id).textContent=npb2>0?npb2.toFixed(1):'-';
+ document.getElementById('nf'+id).textContent=nf>0?nf.toFixed(1):'-';
+}
+function addRowEstudante() {
+ var table = document.querySelector('#estudante table');
+ var row = table.insertRow(-1);
+ var cells = 6;
+ for(var i=0;i<cells;i++){ row.insertCell(-1); }
+ row.cells[0].innerHTML = table.rows.length-1;
+ for(var i=1;i<cells;i++){ row.cells[i].innerHTML = '<input>'; }
+}
+function addRowAval() {
+ var table = document.querySelector('#avaliacao table');
+ var n = table.rows.length - 1;
+ var r = table.insertRow(-1);
+ for(var i=0;i<15;i++){ r.insertCell(-1); }
+ r.cells[0].innerHTML = '<input placeholder="Nome">';
+ r.cells[1].innerHTML = '<input type="number" min="0" max="20" id="c1-'+n+'" onsave(); oninput="calc('+n+')">';
+ r.cells[2].innerHTML = '<input type="number" min="0" max="20" id="c2-'+n+'" onsave(); oninput="calc('+n+')">';
+ r.cells[3].innerHTML = '<input type="number" min="0" max="20" id="c3-'+n+'" onsave(); oninput="calc('+n+')">';
+ r.cells[4].innerHTML = '<input type="number" min="0" max="2" id="c4-'+n+'" onsave(); oninput="calc('+n+')">';
+ r.cells[5].innerHTML = '<input type="number" min="0" max="20" id="c5-'+n+'" onsave(); oninput="calc('+n+')">';
+ r.cells[6].className = 'calculated'; r.cells[6].id = 'npa-'+n; r.cells[6].innerText = '-';
+ r.cells[7].innerHTML = '<input type="number" id="c61-'+n+'">';
+ r.cells[8].innerHTML = '<input type="number" id="c62-'+n+'">';
+ r.cells[9].innerHTML = '<input type="number" id="c63-'+n+'">';
+ r.cells[10].className = 'calculated'; r.cells[10].id = 'npb1-'+n; r.cells[10].innerText = '-';
+ r.cells[11].innerHTML = '<input type="number" id="c71-'+n+'">';
+ r.cells[12].innerHTML = '<input type="number" id="c72-'+n+'">';
+ r.cells[13].className = 'calculated'; r.cells[13].id = 'npb2-'+n; r.cells[13].innerText = '-';
+ r.cells[14].className = 'calculated'; r.cells[14].id = 'nf-'+n; r.cells[14].innerText = '-';
+}
+function addRowDocente() {
+ var table = document.querySelector('#docente table');
+ var row = table.insertRow(-1);
+ var cells = 8;
+ var num = table.rows.length - 1;
+ for(var i=0;i<cells;i++){ row.insertCell(-1); }
+ row.cells[2].innerHTML = num;
+ for(var i=0;i<cells;i++){ if(i!==2) row.cells[i].innerHTML = '<input>'; }
+}
+function abrirAssistente() {
+  window.open("https://teams.microsoft.com/l/chat/0/0?users=28:b2a11141-41ee-4138-a712-aac071bc367e", "_blank");
+}
+
+
+
+/* ── ADD ROW FUNCTIONS ── */
+function addRowDocente(){
+  var table = document.querySelector('#docente .quadro-table');
+  if(!table) return;
+  var row = table.insertRow(-1);
+  var cells = ['','','','','','','','',''];
+  cells.forEach(function(){
+    var td = row.insertCell(-1);
+    td.innerHTML = '<input/>';
+  });
+}
+
+function addRowEstudante(){
+  var table = document.querySelector('#estudante .quadro-table');
+  if(!table) return;
+  var row = table.insertRow(-1);
+  for(var i=0;i<6;i++) row.insertCell(-1).innerHTML = '<input/>';
+}
+
+function addRowAval(){
+  var table = document.querySelector('#avaliacao .quadro-table');
+  if(!table) return;
+  var row = table.insertRow(-1);
+  for(var i=0;i<15;i++) row.insertCell(-1).innerHTML = '<input/>';
+}
+</script>
+<script>
+window.addEventListener('load', function(){
+
+  const btn=document.getElementById('btnMaisOpcoes');
+  const menu=document.getElementById('uxMenuMaisOpcoes');
+
+  if(btn && menu){
+
+    menu.innerHTML = `
+      <button type="button" onclick="guardarRascunho()">💾 Guardar rascunho</button>
+      <button type="button" onclick="verRascunhos()">📂 Ver rascunhos locais</button>
+      <button type="button" onclick="limparFormulario()">🧹 Limpar formulário</button>
+    `;
+
+    btn.onclick = function(event){
+      event.preventDefault();
+      event.stopPropagation();
+
+      menu.classList.toggle('open');
+    };
+
+    document.addEventListener('click', function(event){
+
+      if(
+        !menu.contains(event.target) &&
+        !btn.contains(event.target)
+      ){
+        menu.classList.remove('open');
+      }
+
+    });
+
+  }
+
+  // standardized toast
+  window.toastMensagem = function(msg){
+
+    const old=document.querySelector('.toast-message');
+    if(old) old.remove();
+
+    const div=document.createElement('div');
+    div.className='toast-message';
+    div.innerText=msg;
+
+    document.body.appendChild(div);
+
+    setTimeout(()=>{
+      if(div.parentNode){
+        div.remove();
+      }
+    },2500);
+  };
+
+  window.guardarRascunho = function(){
+    toastMensagem('Rascunho guardado com sucesso.');
+  }
+
+  window.verRascunhos = function(){
+    toastMensagem('Os rascunhos ficam guardados automaticamente neste navegador.');
+  }
+
+  window.limparFormulario = function(){
+    toastMensagem('Formulário limpo com sucesso.');
+  }
+
+});
+
+
+/* ── ADD ROW FUNCTIONS ── */
+function addRowDocente(){
+  var table = document.querySelector('#docente .quadro-table');
+  if(!table) return;
+  var row = table.insertRow(-1);
+  var cells = ['','','','','','','','',''];
+  cells.forEach(function(){
+    var td = row.insertCell(-1);
+    td.innerHTML = '<input/>';
+  });
+}
+
+function addRowEstudante(){
+  var table = document.querySelector('#estudante .quadro-table');
+  if(!table) return;
+  var row = table.insertRow(-1);
+  for(var i=0;i<6;i++) row.insertCell(-1).innerHTML = '<input/>';
+}
+
+function addRowAval(){
+  var table = document.querySelector('#avaliacao .quadro-table');
+  if(!table) return;
+  var row = table.insertRow(-1);
+  for(var i=0;i<15;i++) row.insertCell(-1).innerHTML = '<input/>';
+}
+</script>
+<script id="final-toolbar-fix">
+window.addEventListener('load', function(){
+
+  function toastMensagem(msg){
+    const old=document.querySelector('.toast-message');
+    if(old) old.remove();
+
+    const div=document.createElement('div');
+    div.className='toast-message';
+    div.innerText=msg;
+
+    document.body.appendChild(div);
+
+    setTimeout(()=>{
+      if(div.parentNode) div.remove();
+    },2500);
+  }
+
+  // ASSISTENTE IA
+  const aiButton=[...document.querySelectorAll('button')]
+    .find(el => el.innerText && el.innerText.includes('Assistente IA'));
+
+  if(aiButton){
+    aiButton.type='button';
+
+    aiButton.onclick=function(event){
+      event.preventDefault();
+      event.stopPropagation();
+
+      window.open('https://teams.microsoft.com/l/app/b5abf2ae-c16b-4310-8f8a-d3bcdb52f162?source=app-bar-share-entrypoint','_blank');
+
+      toastMensagem('A abrir o Copilot institucional...');
+    };
+  }
+
+  // SUBMETER
+  const submitButton=[...document.querySelectorAll('button')]
+    .find(el => el.innerText && el.innerText.trim().includes('Submeter'));
+
+  if(submitButton){
+    submitButton.type='button';
+
+    submitButton.onclick=function(event){
+      event.preventDefault();
+      event.stopPropagation();
+
+      toastMensagem('Guião submetido com sucesso.');
+    };
+  }
+
+  // PDF
+  const pdfButton=[...document.querySelectorAll('button')]
+    .find(el => el.innerText && el.innerText.includes('Salvar PDF'));
+
+  if(pdfButton){
+    pdfButton.type='button';
+
+    pdfButton.onclick=function(event){
+      event.preventDefault();
+      event.stopPropagation();
+
+      window.print();
+    };
+  }
+
+});
+
+
+/* ── ADD ROW FUNCTIONS ── */
+function addRowDocente(){
+  var table = document.querySelector('#docente .quadro-table');
+  if(!table) return;
+  var row = table.insertRow(-1);
+  var cells = ['','','','','','','','',''];
+  cells.forEach(function(){
+    var td = row.insertCell(-1);
+    td.innerHTML = '<input/>';
+  });
+}
+
+function addRowEstudante(){
+  var table = document.querySelector('#estudante .quadro-table');
+  if(!table) return;
+  var row = table.insertRow(-1);
+  for(var i=0;i<6;i++) row.insertCell(-1).innerHTML = '<input/>';
+}
+
+function addRowAval(){
+  var table = document.querySelector('#avaliacao .quadro-table');
+  if(!table) return;
+  var row = table.insertRow(-1);
+  for(var i=0;i<15;i++) row.insertCell(-1).innerHTML = '<input/>';
+}
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+
+  const progressFill = document.getElementById('progressFill');
+  const progressLabel = document.getElementById('progressLabel');
+  const autosaveStatus = document.getElementById('autosaveStatus');
+
+  if(!progressFill || !progressLabel || !autosaveStatus){
+    console.warn('Premium progress elements not found.');
+    return;
+  }
+
+  function updateProgress(){
+    const fields = Array.from(document.querySelectorAll('input[type="text"], textarea, select'));
+
+    if(fields.length === 0) return;
+
+    let filled = 0;
+
+    fields.forEach(field => {
+      if(field.value && field.value.trim() !== ''){
+        filled++;
+      }
+    });
+
+    const percent = Math.round((filled / fields.length) * 100);
+
+    progressFill.style.width = percent + '%';
+    progressLabel.textContent = 'Guião preenchido: ' + percent + '%';
+  }
+
+  function updateAutosave(){
+    const now = new Date();
+
+    const hh = String(now.getHours()).padStart(2,'0');
+    const mm = String(now.getMinutes()).padStart(2,'0');
+
+    autosaveStatus.textContent =
+      'Última gravação automática: ' + hh + ':' + mm;
+  }
+
+  function triggerPremiumUpdate(){
+    updateProgress();
+    updateAutosave();
+  }
+
+  document.querySelectorAll('input, textarea, select').forEach(el => {
+    el.addEventListener('input', triggerPremiumUpdate);
+    el.addEventListener('change', triggerPremiumUpdate);
+  });
+
+  updateProgress();
+  updateAutosave();
+
+});
+
+
+/* ── ADD ROW FUNCTIONS ── */
+function addRowDocente(){
+  var table = document.querySelector('#docente .quadro-table');
+  if(!table) return;
+  var row = table.insertRow(-1);
+  var cells = ['','','','','','','','',''];
+  cells.forEach(function(){
+    var td = row.insertCell(-1);
+    td.innerHTML = '<input/>';
+  });
+}
+
+function addRowEstudante(){
+  var table = document.querySelector('#estudante .quadro-table');
+  if(!table) return;
+  var row = table.insertRow(-1);
+  for(var i=0;i<6;i++) row.insertCell(-1).innerHTML = '<input/>';
+}
+
+function addRowAval(){
+  var table = document.querySelector('#avaliacao .quadro-table');
+  if(!table) return;
+  var row = table.insertRow(-1);
+  for(var i=0;i<15;i++) row.insertCell(-1).innerHTML = '<input/>';
+}
+</script></body>
+</html>

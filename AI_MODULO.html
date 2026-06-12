@@ -1,0 +1,136 @@
+<!-- ============================================== -->
+<!-- MÓDULO IA - Assistente Pedagógico (Auxiliar)     -->
+<!-- ============================================== -->
+<div class="ai-modulo no-print" style="margin:15px 0;padding:15px;border:2px dashed #FF6B00;border-radius:8px;background:#FFF8F0;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+    <span style="font-size:20px;">🤖</span>
+    <strong style="color:#FF6B00;">Assistente IA</strong>
+  </div>
+  
+  <!-- CAMPO DE TEXTO: Pergunta do utilizador -->
+  <input type="text" id="ia_perg" placeholder="Faça uma pergunta sobre o conteúdo do guião..." 
+         style="width:100%;padding:10px;border:1px solid #ccc;border-radius:4px;font-size:14px;margin-bottom:10px;">
+  
+  <!-- BOTÃO: "🤖 Perguntar IA" -->
+  <button type="button" onclick="perguntarIA()" 
+          style="padding:10px 20px;background:#FF6B00;color:#fff;border:none;border-radius:4px;cursor:pointer;font-weight:bold;font-size:14px;">
+    🤖 Perguntar IA
+  </button>
+  
+  <!-- ÁREA DE RESPOSTA: Visible após resposta -->
+  <div id="ia_response" style="display:none;margin-top:15px;padding:15px;background:#fff;border-left:4px solid #FF6B00;border-radius:4px;">
+    <strong>Resposta da IA:</strong>
+    <pre id="ia_text" style="margin-top:10px;white-space:pre-wrap;font-family:inherit;line-height:1.6;font-size:13px;"></pre>
+    <div id="ia_load" style="display:none;color:#666;font-style:italic;">⏳ A analisar...</div>
+  </div>
+</div>
+
+<script>
+/**
+ * perguntarIA() - Função principal modular
+ * Requisitos:
+ * 1. Ler texto da pergunta ✓
+ * 2. Capturar conteúdo atual do documento ✓
+ * 3. Enviar via HTTP POST para endpoint configurável ✓
+ * 4. Receber JSON e renderizar resposta ✓
+ */
+async function perguntarIA() {
+  // 1. Ler texto da pergunta
+  var pergunta = document.getElementById("ia_perg").value.trim();
+  if (!pergunta) {
+    alert("Escreva uma pergunta primeiro!");
+    return;
+  }
+  
+  // Mostrar áreas de resposta
+  var respostaArea = document.getElementById("ia_response");
+  var respostaTexto = document.getElementById("ia_text");
+  var carregando = document.getElementById("ia_load");
+  
+  respostaArea.style.display = "block";
+  respostaTexto.style.display = "none";
+  carregando.style.display = "block";
+  
+  try {
+    // 2. Capturar conteúdo atual do documento
+    var conteudo = obterConteudoDocumento();
+    
+    // 3. Enviar via HTTP POST (endpoint configurável)
+    var resposta = await chamarIA(pergunta, conteudo);
+    
+    // 4. Renderizar resposta (formato: {resposta: "..."})
+    respostaTexto.innerText = resposta.resposta || resposta.fulfillment || "Resposta recebida!";
+    respostaTexto.style.display = "block";
+  } catch (erro) {
+    respostaTexto.innerText = "Erro: " + erro.message;
+    respostaTexto.style.display = "block";
+  } finally {
+    carregando.style.display = "none";
+  }
+}
+
+/**
+ * obterConteudoDocumento() - Captura conteúdo do guião
+ * @returns {string} Texto com campos do documento
+ */
+function obterConteudoDocumento() {
+  var campos = {};
+  document.querySelectorAll("input[id], textarea[id], select[id]").forEach(function(el) {
+    if (el.id && el.value && el.value.trim()) {
+      campos[el.id] = el.value;
+    }
+  });
+  return Object.entries(campos).map(function(kv) { 
+    return kv[0] + ": " + kv[1]; 
+  }).join("\n\n");
+}
+
+/**
+ * chamarIA() - Endpoint configurável
+ * Envia {pergunta, conteudo} → Recebe {resposta}
+ * 
+ * CONFIGURAR: Definir variável IA_ENDPOINT abaixo
+ * Exemplos:
+ *   • Azure OpenAI: "https://xxxx.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-01"
+ *   • Power Automate: "https://prod-xxxx.webhook.azure.com/..."
+ *   • OpenAI: "https://api.openai.com/v1/chat/completions"
+ */
+var IA_ENDPOINT = ""; // ← DEFINIR ESTA VARIÁVEL PARA ATIVAR
+
+async function chamarIA(pergunta, conteudo) {
+  if (!IA_ENDPOINT || IA_ENDPOINT === "") {
+    return {
+      resposta: "🤖 IA configurada!\n\n" +
+               "Para ativar, defina 'IA_ENDPOINT' no JavaScript.\n\n" +
+               "Opções disponíveis:\n" +
+               "• Azure OpenAI\n" +
+               "• Power Automate\n" +
+               "• Copilot Studio\n\n" +
+               "Formato do backend:\n" +
+               '{ "pergunta": "...", "conteudo": "..." }\n\n' +
+               "Formato de retorno:\n" +
+               '{ "resposta": "..." }'
+    };
+  }
+  
+  var corpo = JSON.stringify({
+    pergunta: pergunta,
+    conteudo: conteudo
+  });
+  
+  var resposta = await fetch(IA_ENDPOINT, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+      // "Authorization": "Bearer SUA_API_KEY" // Adicionar se necessário
+    },
+    body: corpo
+  });
+  
+  if (!resposta.ok) {
+    throw new Error("HTTP " + resposta.status);
+  }
+  
+  return await resposta.json();
+}
+</script>

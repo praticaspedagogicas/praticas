@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dominó EVO - 2 Jogadores</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#1a472a;min-height:100vh;user-select:none}
+#game{display:flex;flex-direction:column;height:100vh}
+#info-bar{background:rgba(0,0,0,0.4);color:#fff;padding:10px 16px;display:flex;justify-content:space-between;font-size:14px}
+#board-area{flex:1;overflow:auto;position:relative;padding:10px}
+#board{display:flex;align-items:center;min-width:200px;min-height:100px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+#my-hand{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;padding:10px;background:rgba(0,0,0,0.3)}
+#controls{background:rgba(0,0,0,0.5);padding:10px;display:flex;gap:10px;justify-content:center}
+#msg{color:#ffeb3b;font-size:14px;text-align:center;flex:1}
+.dom-piece{display:inline-flex;flex-direction:column;background:#fffde7;border:2px solid #333;border-radius:4px;cursor:pointer;box-shadow:2px 2px 4px rgba(0,0,0,0.5)}
+.dom-piece:hover{transform:translateY(-4px)}
+.dom-piece.selected{border-color:#f44336;box-shadow:0 0 0 3px #f44336}
+.dom-piece.horizontal{flex-direction:row}
+.half{width:36px;height:36px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:2px}
+.divider-v{width:100%;height:2px;background:#333}
+.divider-h{height:100%;width:2px;background:#333}
+.pip{width:7px;height:7px;background:#222;border-radius:50%}
+button{background:#2e7d32;color:#fff;border:none;padding:10px 20px;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600}
+button:hover{background:#388e3c}
+.opp-back{width:32px;height:52px;background:#1565c0;border:2px solid #0d47a1;border-radius:4px}
+</style>
+</head>
+<body>
+<div id="game">
+<div id="info-bar">
+<div>🎮 <span id="whose-turn">-</span></div>
+<div>Pontos: <span id="my-score">0</span> | <span id="opp-score">0</span></div>
+<button onclick="newGame()" style="padding:6px 12px;">🔄 Nova</button>
+</div>
+<div style="background:rgba(0,0,0,0.2);padding:8px;text-align:center;">
+Oponente (<span id="opp-count">0</span> peças)
+</div>
+<div id="opp-area" style="display:flex;gap:4px;justify-content:center;padding:8px;"></div>
+<div id="board-area"><div id="board"></div></div>
+<div style="background:rgba(0,0,0,0.2);padding:8px;text-align:center;">
+Sua mão (<span id="my-count">0</span>)
+</div>
+<div id="my-hand"></div>
+<div id="controls">
+<div id="msg">Carregando...</div>
+<button onclick="placePiece('left')" id="btn-left">⬅️</button>
+<button onclick="placePiece('right')" id="btn-right">➡️</button>
+<button onclick="drawTile()" id="btn-draw">🎴</button>
+<button onclick="passTurn()" id="btn-pass" class="danger">⏩</button>
+</div>
+</div>
+<script>
+const PIP=[[],[1],[0,2],[0,1,2],[0,2,0,2],[0,2,1,2,0,2],[0,2,0,1,1,1,0,2,0,2]];
+let myHand,oppHand,board,boneyard,myTurn,selectedIdx,myScore=0,oppScore=0,gameOver=false,canPass=false;
+function makeDomino(a,b){return{a,b}}
+function createAll(){const t=[];for(let i=0;i<=6;i++)for(let j=i;j<=6;j++)t.push(makeDomino(i,j));return t}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function newGame(){gameOver=false;selectedIdx=null;canPass=false;const all=shuffle(createAll());myHand=all.slice(0,7);oppHand=all.slice(7,14);boneyard=all.slice(14);board=[];myTurn=myHand[0].a==myHand[0].b;render();document.getElementById('msg').innerText=myTurn?'Você começa!':'Oponente beg'}
+function renderHalf(v){const d=document.createElement('div');d.className='half';PIP[v].forEach(i=>{const p=document.createElement('div');p.className='pip';d.appendChild(p)});return d}
+function createPiece(t,h,i){const e=document.createElement('div');e.className='dom-piece'+(h?' horizontal':'');if(h){e.appendChild(renderHalf(t.a));e.appendChild(renderHalf(t.b))}else{e.appendChild(renderHalf(t.a));const d=document.createElement('div');d.className='divider-v';e.appendChild(d);e.appendChild(renderHalf(t.b))}if(i!==undefined){if(i===selectedIdx)e.classList.add('selected');e.onclick=()=>{if(myTurn&&!gameOver){selectedIdx=(selectedIdx===i)?null:i;render()}}}return e}
+function render(){document.getElementById('my-hand').innerHTML='';myHand.forEach((t,i)=>document.getElementById('my-hand').appendChild(createPiece(t,false,i)));document.getElementById('opp-area').innerHTML='';oppHand.forEach(()=>{document.getElementById('opp-area').appendChild(document.createElement('div'))});document.getElementById('opp-area').innerHTML=Array(oppHand.length).fill('<div class="opp-back"></div>').join('');document.getElementById('board').innerHTML='';board.forEach(e=>document.getElementById('board').appendChild(createPiece(e.tile,true)));document.getElementById('my-count').innerText=myHand.length;document.getElementById('opp-count').innerText=oppHand.length;document.getElementById('my-score').innerText=myScore;document.getElementById('opp-score').innerText=oppScore;document.getElementById('whose-turn').innerText=myTurn?'Sua vez':'Aguarde';document.getElementById('btn-left').disabled=!(myTurn&&selectedIdx!==null);document.getElementById('btn-right').disabled=!(myTurn&&selectedIdx!==null);document.getElementById('btn-draw').disabled=!(myTurn&&boneyard.length>0&&!canPass);document.getElementById('btn-pass').disabled=!(myTurn&&canPass)}
+function tileEnds(t,s){if(!board.length)return t;if(s==='left')return t.b===board[0].tile.a?{a:t.b,b:t.a}:t.a===board[0].tile.a?{a:t.a,b:t.b}:null;else return t.a===board[board.length-1].tile.b?{a:t.b,b:t.a}:t.b===board[board.length-1].tile.b?{a:t.a,b:t.b}:null}
+function placePiece(s){if(!myTurn||selectedIdx===null||gameOver)return;const t=myHand[selectedIdx];const o=tileEnds(t,s);if(!o){document.getElementById('msg').innerText='Não encaixa!';return}if(!board.length){board.push({tile:o})}else if(s==='left'){board.unshift({tile:o})}else{board.push({tile:o})}myHand.splice(selectedIdx,1);selectedIdx=null;canPass=false;if(myHand.length===0){endGame('Você venceu!');return}myTurn=false;render();setTimeout(oppMove,800)}
+function drawTile(){if(!myTurn||boneyard.length===0||gameOver)return;myHand.push(boneyard.pop());myTurn=false;render();setTimeout(oppMove,800)}
+function passTurn(){if(!canPass||gameOver)return;myTurn=false;canPass=false;render();setTimeout(oppMove,800)}
+function endGame(m){gameOver=true;const os=oppHand.reduce((s,t)=>s+t.a+t.b,0);const ms=myHand.reduce((s,t)=>s+t.a+t.b,0);if(ms<os)myScore+=os;else if(os<ms)oppScore+=ms;document.getElementById('msg').innerText=m+' ('+ms+' vs '+os+')';render()}
+function oppMove(){if(gameOver)return;let p=false;for(let i=0;i<oppHand.length;i++){const o=oppHand[i];if(board.length===0||o.a===board[board.length-1].tile.b||o.b===board[board.length-1].tile.b){board.push({tile:o});oppHand.splice(i,1);p=true;break}}if(!p&&boneyard.length>0){oppHand.push(boneyard.pop());document.getElementById('msg').innerText='Oponente comprou...';render();setTimeout(oppMove,500);return}if(!p){document.getElementById('msg').innerText='Oponente passou.';myTurn=true;canPass=false;render();return}if(oppHand.length===0){endGame('Oponente venceu!');return}myTurn=true;canPass=false;document.getElementById('msg').innerText='Sua vez!';render()}
+newGame();
+</script>
+</body>
+</html>

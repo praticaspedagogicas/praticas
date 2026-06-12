@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EVO - Base de Músicas</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+:root {
+  --yellow: #FFD600;
+  --orange: #FF8C42;
+  --coral: #FF6B6B;
+  --black: #0a0a0a;
+  --bg: #FFFDF9;
+  --bg-card: #FFFFFF;
+  --text: #1A1A1A;
+  --text-muted: #555555;
+}
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); padding: 40px; margin: 0; }
+h1 { font-family: 'Space Grotesk', sans-serif; font-size: 2em; font-weight: 800; color: var(--text); margin-bottom: 30px; }
+.playlist-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; margin-top: 30px; }
+.playlist-card { background: var(--bg-card); border: 2px solid var(--black); border-radius: 16px; padding: 10px; text-decoration: none; color: inherit; display: block; box-shadow: 4px 4px 0px var(--black); transition: all 0.3s; }
+.playlist-card:hover { transform: translateY(-6px); box-shadow: 6px 8px 0px var(--black); border-color: var(--yellow); }
+.playlist-thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 10px; margin-bottom: 8px; background: #000; }
+.playlist-title { font-family: 'Space Grotesk', sans-serif; font-size: 1em; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.playlist-artist { font-size: 0.85em; color: var(--text-muted); margin-bottom: 8px; }
+.playlist-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.playlist-tag { background: var(--yellow); color: var(--black); padding: 3px 8px; border-radius: 20px; font-size: 0.7em; font-weight: 700; }
+.playlist-tag.verde { background: #4CAF50; color: #fff; }
+.playlist-tag.coral { background: var(--coral); color: #fff; }
+.playlist-tag.laranja { background: var(--orange); color: #fff; }
+.card-score { display: inline-block; font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 0.8em; color: var(--black); background: var(--yellow); padding: 2px 8px; border-radius: 20px; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+<h1>🎵 EVO — Base de Músicas</h1>
+<p style="color:var(--text-muted)">31 músicas | Catálogo mestre | Sistema de Aprendizagem</p>
+<div class="playlist-grid">
+<a class="playlist-card" href="https://www.youtube.com/watch?v=F5HUxyWja_Q" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/F5HUxyWja_Q/mqdefault.jpg" alt="Naguará" onerror="this.src='https://via.placeholder.com/320x180?text=Naguará'">
+  <div class="playlist-title">Naguará</div>
+  <div class="playlist-artist">Rawayana • Venezuela</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Trippy Pop</span>
+    <span class="playlist-tag laranja">Score: 75</span>
+  </div>
+  <span class="card-score">Pronta</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=OSUxrSe5GbI" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/OSUxrSe5GbI/mqdefault.jpg" alt="Mía" onerror="this.src='https://via.placeholder.com/320x180?text=Mía'">
+  <div class="playlist-title">Mía</div>
+  <div class="playlist-artist">Bad Bunny • Puerto Rico</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Reggaeton</span>
+    <span class="playlist-tag laranja">Score: 60</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=TmKh7lAwnBI" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/TmKh7lAwnBI/mqdefault.jpg" alt="Dákiti" onerror="this.src='https://via.placeholder.com/320x180?text=Dákiti'">
+  <div class="playlist-title">Dákiti</div>
+  <div class="playlist-artist">Bad Bunny • Puerto Rico</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Reggaeton</span>
+    <span class="playlist-tag laranja">Score: 60</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=LxzDkFpWTW4" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/LxzDkFpWTW4/mqdefault.jpg" alt="Malportada" onerror="this.src='https://via.placeholder.com/320x180?text=Malportada'">
+  <div class="playlist-title">Malportada</div>
+  <div class="playlist-artist">Nathhy Peluso • Argentina</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Hip-Hop</span>
+    <span class="playlist-tag laranja">Score: 60</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=zCLK89kWHxc" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/zCLK89kWHxc/mqdefault.jpg" alt="Aquí" onerror="this.src='https://via.placeholder.com/320x180?text=Aquí'">
+  <div class="playlist-title">Aquí</div>
+  <div class="playlist-artist">Rawayana • Venezuela</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Trippy Pop</span>
+    <span class="playlist-tag coral">Score: 40</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=Cxl19JAaSOU" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/Cxl19JAaSOU/mqdefault.jpg" alt="Qué rico PR!" onerror="this.src='https://via.placeholder.com/320x180?text=Qué rico PR!'">
+  <div class="playlist-title">Qué rico PR!</div>
+  <div class="playlist-artist">Rawayana • Venezuela</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Trippy Pop</span>
+    <span class="playlist-tag coral">Score: 40</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=S1vmPmK4q6Q" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/S1vmPmK4q6Q/mqdefault.jpg" alt="La Llorona" onerror="this.src='https://via.placeholder.com/320x180?text=La Llorona'">
+  <div class="playlist-title">La Llorona</div>
+  <div class="playlist-artist">Justin Quiles • Puerto Rico</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Reggaeton</span>
+    <span class="playlist-tag coral">Score: 40</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=BeUOBoSPWvA" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/BeUOBoSPWvA/mqdefault.jpg" alt="Qlona" onerror="this.src='https://via.placeholder.com/320x180?text=Qlona'">
+  <div class="playlist-title">Qlona</div>
+  <div class="playlist-artist">Karol G • Colombia</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Reggaeton</span>
+    <span class="playlist-tag laranja">Score: 60</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=QCZZwZQ4qNs" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/QCZZwZQ4qNs/mqdefault.jpg" alt="Si Antes Te Hubiera Conocido" onerror="this.src='https://via.placeholder.com/320x180?text=Si Antes Te Hubiera Conocido'">
+  <div class="playlist-title">Si Antes Te Hubiera Conocido</div>
+  <div class="playlist-artist">Karol G • Colombia</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Reggaeton</span>
+    <span class="playlist-tag laranja">Score: 60</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=gpIBmED4oss" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/gpIBmED4oss/mqdefault.jpg" alt="Chambea" onerror="this.src='https://via.placeholder.com/320x180?text=Chambea'">
+  <div class="playlist-title">Chambea</div>
+  <div class="playlist-artist">Bad Bunny • Puerto Rico</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Reggaeton</span>
+    <span class="playlist-tag coral">Score: 40</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=_lRmEd9qasU" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/_lRmEd9qasU/mqdefault.jpg" alt="Pasa_je_ro" onerror="this.src='https://via.placeholder.com/320x180?text=Pasa_je_ro'">
+  <div class="playlist-title">Pasa_je_ro</div>
+  <div class="playlist-artist">Farruko • Puerto Rico</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Reggaeton</span>
+    <span class="playlist-tag coral">Score: 40</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=kMIaYXxLnUA" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/kMIaYXxLnUA/mqdefault.jpg" alt="A Dios Le Pido" onerror="this.src='https://via.placeholder.com/320x180?text=A Dios Le Pido'">
+  <div class="playlist-title">A Dios Le Pido</div>
+  <div class="playlist-artist">Juanes • Colombia</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Rock</span>
+    <span class="playlist-tag verde">Score: 85</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=bSZdgfecrYE" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/bSZdgfecrYE/mqdefault.jpg" alt="Viviendo" onerror="this.src='https://via.placeholder.com/320x180?text=Viviendo'">
+  <div class="playlist-title">Viviendo</div>
+  <div class="playlist-artist">Marc Anthony • Puerto Rico</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Salsa</span>
+    <span class="playlist-tag verde">Score: 80</span>
+  </div>
+  <span class="card-score">https://genius.com/Marc-anthony-viviendo-lyrics</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=hn4sDrzK1gA" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/hn4sDrzK1gA/mqdefault.jpg" alt="Pers Americana" onerror="this.src='https://via.placeholder.com/320x180?text=Pers Americana'">
+  <div class="playlist-title">Pers Americana</div>
+  <div class="playlist-artist">Soda Stereo • Argentina</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Rock Alternativo</span>
+    <span class="playlist-tag verde">Score: 90</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=wnJ6LuUFpMo" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/wnJ6LuUFpMo/mqdefault.jpg" alt="Mi Gente" onerror="this.src='https://via.placeholder.com/320x180?text=Mi Gente'">
+  <div class="playlist-title">Mi Gente</div>
+  <div class="playlist-artist">J Balvin • Colombia</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Reggaeton</span>
+    <span class="playlist-tag laranja">Score: 75</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=qrO4YIQ1Zcc" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/qrO4YIQ1Zcc/mqdefault.jpg" alt="Bad Romance" onerror="this.src='https://via.placeholder.com/320x180?text=Bad Romance'">
+  <div class="playlist-title">Bad Romance</div>
+  <div class="playlist-artist">Selena Gomez • USA/Mexico</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Pop</span>
+    <span class="playlist-tag laranja">Score: 70</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=teprNzF6J1I" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/teprNzF6J1I/mqdefault.jpg" alt="En El Muelle" onerror="this.src='https://via.placeholder.com/320x180?text=En El Muelle'">
+  <div class="playlist-title">En El Muelle</div>
+  <div class="playlist-artist">Maná • Mexico</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Rock</span>
+    <span class="playlist-tag verde">Score: 88</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=0w3XwPVxcsw" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/0w3XwPVxcsw/mqdefault.jpg" alt="Ella Quiere Beber" onerror="this.src='https://via.placeholder.com/320x180?text=Ella Quiere Beber'">
+  <div class="playlist-title">Ella Quiere Beber</div>
+  <div class="playlist-artist">Anuel AA • Puerto Rico</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Trap</span>
+    <span class="playlist-tag laranja">Score: 65</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=8_QY5gFQUTg" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/8_QY5gFQUTg/mqdefault.jpg" alt="Obsesión" onerror="this.src='https://via.placeholder.com/320x180?text=Obsesión'">
+  <div class="playlist-title">Obsesión</div>
+  <div class="playlist-artist">Aventura • Puerto Rico</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Bachata</span>
+    <span class="playlist-tag verde">Score: 82</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=oD5f55ohsc4" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/oD5f55ohsc4/mqdefault.jpg" alt="Normal" onerror="this.src='https://via.placeholder.com/320x180?text=Normal'">
+  <div class="playlist-title">Normal</div>
+  <div class="playlist-artist">Feid • Colombia</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Trap</span>
+    <span class="playlist-tag laranja">Score: 68</span>
+  </div>
+  <span class="card-score">https://genius.com/Feid-normal-lyrics</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=bE3ABNHDnAc" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/bE3ABNHDnAc/mqdefault.jpg" alt="Rayando el Sol" onerror="this.src='https://via.placeholder.com/320x180?text=Rayando el Sol'">
+  <div class="playlist-title">Rayando el Sol</div>
+  <div class="playlist-artist">Café Tacvba • Mexico</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Rock Alternativo</span>
+    <span class="playlist-tag verde">Score: 85</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=8CL7uJinlYI" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/8CL7uJinlYI/mqdefault.jpg" alt="Yo No Fui" onerror="this.src='https://via.placeholder.com/320x180?text=Yo No Fui'">
+  <div class="playlist-title">Yo No Fui</div>
+  <div class="playlist-artist">Grupo Firme • Mexico</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Regional Mexicano</span>
+    <span class="playlist-tag laranja">Score: 72</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=lZiaYpD9ZrI" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/lZiaYpD9ZrI/mqdefault.jpg" alt="Ella Baila Sola" onerror="this.src='https://via.placeholder.com/320x180?text=Ella Baila Sola'">
+  <div class="playlist-title">Ella Baila Sola</div>
+  <div class="playlist-artist">Peso Pluma • Mexico</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Corridos</span>
+    <span class="playlist-tag laranja">Score: 78</span>
+  </div>
+  <span class="card-score">https://genius.com/Peso-pluma-ella-baila-sola-lyrics</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=bn_p95HbHoQ" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/bn_p95HbHoQ/mqdefault.jpg" alt="Telepatía" onerror="this.src='https://via.placeholder.com/320x180?text=Telepatía'">
+  <div class="playlist-title">Telepatía</div>
+  <div class="playlist-artist">Kali Uchis • USA/Colombia</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">R&B</span>
+    <span class="playlist-tag laranja">Score: 74</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=2cTgKuTnlqE" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/2cTgKuTnlqE/mqdefault.jpg" alt="Tini Tour" onerror="this.src='https://via.placeholder.com/320x180?text=Tini Tour'">
+  <div class="playlist-title">Tini Tour</div>
+  <div class="playlist-artist">Bizarrap • Argentina</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Trap</span>
+    <span class="playlist-tag laranja">Score: 76</span>
+  </div>
+  <span class="card-score">https://genius.com/Bizarrap-bizarrap-tini-tour-lyrics</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=3euxpGuDLtI" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/3euxpGuDLtI/mqdefault.jpg" alt="Me Voy" onerror="this.src='https://via.placeholder.com/320x180?text=Me Voy'">
+  <div class="playlist-title">Me Voy</div>
+  <div class="playlist-artist">Alejandro Fernández • Mexico</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Ranchera</span>
+    <span class="playlist-tag verde">Score: 83</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=e3-mshY5k6U" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/e3-mshY5k6U/mqdefault.jpg" alt="Pero No Toco" onerror="this.src='https://via.placeholder.com/320x180?text=Pero No Toco'">
+  <div class="playlist-title">Pero No Toco</div>
+  <div class="playlist-artist">Tiago PZK • Argentina</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Trap</span>
+    <span class="playlist-tag laranja">Score: 67</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=IHZK9f5Uo4A" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/IHZK9f5Uo4A/mqdefault.jpg" alt="Combustible" onerror="this.src='https://via.placeholder.com/320x180?text=Combustible'">
+  <div class="playlist-title">Combustible</div>
+  <div class="playlist-artist">Olga Tañón • Puerto Rico</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Merengue</span>
+    <span class="playlist-tag laranja">Score: 71</span>
+  </div>
+  <span class="card-score">https://genius.com/Olga-tanon-combustible-lyrics</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=ONdlP-nxo3g" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/ONdlP-nxo3g/mqdefault.jpg" alt="Fénix" onerror="this.src='https://via.placeholder.com/320x180?text=Fénix'">
+  <div class="playlist-title">Fénix</div>
+  <div class="playlist-artist">Nicky Jam • Puerto Rico</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Reggaeton</span>
+    <span class="playlist-tag laranja">Score: 77</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=3Gx1SI2GxHE" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/3Gx1SI2GxHE/mqdefault.jpg" alt="Antología" onerror="this.src='https://via.placeholder.com/320x180?text=Antología'">
+  <div class="playlist-title">Antología</div>
+  <div class="playlist-artist">Jorge Drexler • Uruguay</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Folk</span>
+    <span class="playlist-tag verde">Score: 86</span>
+  </div>
+  <span class="card-score">https://genius.com/Jorge-drexler-antologia-lyrics</span>
+</a>
+<a class="playlist-card" href="https://www.youtube.com/watch?v=dzsuE5ugxf4" target="_blank">
+  <img class="playlist-thumb" src="https://img.youtube.com/vi/dzsuE5ugxf4/mqdefault.jpg" alt="Waka Waka (Esto Es África)" onerror="this.src='https://via.placeholder.com/320x180?text=Waka Waka (Esto Es África)'">
+  <div class="playlist-title">Waka Waka (Esto Es África)</div>
+  <div class="playlist-artist">Shakira • Colombia</div>
+  <div class="playlist-meta">
+    <span class="playlist-tag">Pop</span>
+    <span class="playlist-tag verde">Score: 88</span>
+  </div>
+  <span class="card-score">Por analisar</span>
+</a>
+</div></body></html>

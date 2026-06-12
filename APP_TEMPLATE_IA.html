@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Universidad Europeia - Guiões Pedagógicos</title>
+  <style>
+    /* SISTEMA - Header Global */
+    .sistema-header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .sistema-header h1 { font-size: 18px; margin: 0; }
+    .sistema-header select { padding: 8px 12px; border-radius: 4px; border: none; font-size: 14px; }
+    
+    /* Container do Documento */
+    #documento-frame {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    
+    /* ===== BOTÃO GLOBAL IA (FIXO no Sistema) ===== */
+    .ia-botao-global {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+    .ia-botao-global button {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FF6B00 0%, #e55a00 100%);
+      color: white;
+      font-size: 26px;
+      border: 4px solid white;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(255,107,0,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ia-botao-global button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 25px rgba(255,107,0,0.5);
+    }
+    
+    /* ===== MODAL IA GLOBAL ===== */
+    .ia-modal-global {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+    }
+    .ia-modal-global.ativo { display: flex; }
+    .ia-modal-caixa {
+      background: white;
+      width: 90%;
+      max-width: 550px;
+      max-height: 85vh;
+      border-radius: 16px;
+      padding: 24px;
+      overflow-y: auto;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+    .ia-modal-fechar {
+      float: right;
+      font-size: 28px;
+      cursor: pointer;
+      color: #999;
+      line-height: 1;
+    }
+    .ia-modal-fechar:hover { color: #333; }
+    
+    .ia-pergunta-input {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      margin: 15px 0;
+      font-size: 15px;
+      transition: border-color 0.2s;
+    }
+    .ia-pergunta-input:focus {
+      outline: none;
+      border-color: #FF6B00;
+    }
+    
+    .ia-botao-enviar {
+      background: linear-gradient(135deg, #FF6B00 0%, #e55a00 100%);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 15px;
+      width: 100%;
+    }
+    .ia-botao-enviar:hover { opacity: 0.9; }
+    
+    .ia-resposta-area {
+      margin-top: 20px;
+      padding: 18px;
+      background: #f8f9fa;
+      border-left: 4px solid #FF6B00;
+      border-radius: 6px;
+      white-space: pre-wrap;
+      line-height: 1.7;
+      font-size: 14px;
+      display: none;
+    }
+    .ia-carregando {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      color: #666;
+      font-size: 15px;
+    }
+    
+    /* Ocultar IA no print */
+    @media print {
+      .ia-botao-global, .ia-modal-global { display: none !important; }
+      .sistema-header { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== SISTEMA HEADER (não faz parte do documento) ===== -->
+<header class="sistema-header">
+  <h1>📚 Guiões Pedagógicos - UE</h1>
+  <select id="selector-template" onchange="trocarTemplate()">
+    <option value="">Selecione o template...</option>
+    <option value="CBL">CBL - Case-Based Learning</option>
+    <option value="PBL">PBL - Problem-Based Learning</option>
+    <option value="RBL">RBL - Role-Based Learning</option>
+    <option value="SBL">SBL - Simulation-Based Learning</option>
+    <option value="Proj-BL">Proj-BL - Project-Based Learning</option>
+  </select>
+</header>
+
+<!-- ===== CONTEÚDO DO GUIÃO (embed do template) ===== -->
+<iframe id="documento-frame" src="" style="width:100%; min-height:600px; border:none;"></iframe>
+
+<!-- ===== BOTÃO GLOBAL IA (FERRAMENTA DO SISTEMA) ===== -->
+<div class="ia-botao-global">
+  <button type="button" onclick="abrirModallA()" title="Assistente IA Pedagógico">🤖</button>
+</div>
+
+<!-- ===== MODAL IA GLOBAL ===== -->
+<div id="iaModalGlobal" class="ia-modal-global">
+  <div class="ia-modal-caixa">
+    <span class="ia-modal-fechar" onclick="fecharModallA()">×</span>
+    
+    <h2 style="color:#FF6B00;margin-bottom:5px;">🤖 Assistente IA</h2>
+    <p style="color:#666;font-size:14px;">Pergunte sobre o conteúdo do guião loaded</p>
+    
+    <input type="text" id="iaPergunta" class="ia-pergunta-input" placeholder="Ex: Que competências desenvolve esta sessão?">
+    
+    <button type="button" class="ia-botao-enviar" onclick="enviarPerguntaIA()">📤 Perguntar IA</button>
+    
+    <div id="iaCarregando" class="ia-carregando">⏳ A analisar o guião...</div>
+    <div id="iaResposta" class="ia-resposta-area"></div>
+  </div>
+</div>
+
+<script>
+// ===== CONFIGURAR ENDPOINT DA IA =====
+var IA_ENDPOINT = ""; // Definir URL: Azure OpenAI, Power Automate, etc.
+
+// Templates (URLs SharePoint)
+var TEMPLATES = {
+  "CBL": "https://univeuropeia.sharepoint.com/templates/CBL/template.html",
+  "PBL": "https://univeuropeia.sharepoint.com/templates/PBL/template.html",
+  "RBL": "https://univeuropeia.sharepoint.com/templates/RBL/template.html",
+  "SBL": "https://univeuropeia.sharepoint.com/templates/SBL/template.html",
+  "Proj-BL": "https://univeuropeia.sharepoint.com/templates/Proj-BL/template.html"
+};
+
+function trocarTemplate() {
+  var sel = document.getElementById("selector-template");
+  var url = TEMPLATES[sel.value];
+  if(url) {
+    document.getElementById("documento-frame").src = url;
+  }
+}
+
+// ===== FUNÇÕES DO MODAL IA =====
+function abrirModallA() {
+  document.getElementById("iaModalGlobal").classList.add("ativo");
+  document.getElementById("iaPergunta").focus();
+}
+
+function fecharModallA() {
+  document.getElementById("iaModalGlobal").classList.remove("ativo");
+  // Limpar
+  document.getElementById("iaPergunta").value = "";
+  document.getElementById("iaResposta").style.display = "none";
+}
+
+async function enviarPerguntaIA() {
+  var pergunta = document.getElementById("iaPergunta").value.trim();
+  if(!pergunta) { alert("Escreva uma pergunta!"); return; }
+  
+  var carregando = document.getElementById("iaCarregando");
+  var resposta = document.getElementById("iaResposta");
+  
+  carregando.style.display = "block";
+  resposta.style.display = "none";
+  
+  try {
+    // Pegar conteúdo do iframe (documento)
+    var iframe = document.getElementById("documento-frame");
+    var doc = iframe.contentDocument || iframe.contentWindow.document;
+    var conteudo = "";
+    doc.querySelectorAll("input[id], textarea[id]").forEach(function(el) {
+      if(el.id && el.value) conteudo += el.id + ": " + el.value + "\n";
+    });
+    
+    if(!conteudo) { conteudo = "(Documento vazio ou não carregado)"; }
+    
+    // Enviar para IA
+    var resultado;
+    if(!IA_ENDPOINT) {
+      resultado = { resposta: "🤖 IA precisa de配置!\n\nDefina 'IA_ENDPOINT' no JavaScript deste ficheiro." };
+    } else {
+      var req = await fetch(IA_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pergunta: pergunta, conteudo: conteudo })
+      });
+      resultado = await req.json();
+    }
+    
+    resposta.innerText = resultado.resposta || resultado.fulfillment || "Resposta recebida!";
+    resposta.style.display = "block";
+  } catch(e) {
+    resposta.innerText = "Erro: " + e.message;
+    resposta.style.display = "block";
+  } finally {
+    carregando.style.display = "none";
+  }
+}
+
+// Fechar com ESC
+document.addEventListener("keydown", function(e) {
+  if(e.key === "Escape") fecharModallA();
+});
+
+// Carregar parâmetros URL
+function lerParametros() {
+  var u = new URLSearchParams(window.location.search);
+  var template = u.get("template");
+  if(template && TEMPLATES[template]) {
+    document.getElementById("selector-template").value = template;
+    document.getElementById("documento-frame").src = TEMPLATES[template];
+  }
+}
+window.onload = lerParametros;
+</script>
+
+</body>
+</html>

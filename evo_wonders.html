@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EVO - Wonders</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ==================== PREMIUM DESIGN ==================== */
+        :root {
+            --bg-dark: #0a0a12;
+            --bg-gradient: linear-gradient(180deg, #12121f 0%, #0a0a12 50%, #0f0f1a 100%);
+            --surface: rgba(30, 30, 45, 0.85);
+            --surface-glass: rgba(255, 255, 255, 0.08);
+            --card: rgba(40, 40, 60, 0.9);
+            --gold: #ffd700;
+            --gold-light: #ffe566;
+            --gold-glow: rgba(255, 215, 0, 0.4);
+            --gold-gradient: linear-gradient(135deg, #ffd700 0%, #ff9500 100%);
+            --green: #4ade80;
+            --green-glow: rgba(74, 222, 128, 0.4);
+            --blue: #60a5fa;
+            --purple: #a855f7;
+            --text: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.6);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+            --shadow-glow: 0 0 40px var(--gold-glow);
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px;
+            -webkit-user-select: none;
+            touch-action: none;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* Atmospheric background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(96, 165, 250, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* ==================== HEADER ==================== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 340px;
+            margin-bottom: 12px;
+            padding: 12px 18px;
+            background: var(--surface-glass);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .header h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+            letter-spacing: 1px;
+        }
+        
+        .header-stats {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        
+        .stat-label {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* ==================== LOCATION CARD ==================== */
+        .location {
+            background: linear-gradient(145deg, rgba(255, 215, 0, 0.2), rgba(255, 150, 0, 0.15));
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 24px;
+            padding: 16px 28px;
+            margin-bottom: 14px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .location::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .location-icon { font-size: 36px; }
+        .location-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-top: 4px;
+        }
+        
+        /* ==================== PROGRESS BAR ==================== */
+        .progress-container {
+            width: 100%;
+            max-width: 340px;
+            margin-bottom: 14px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--gold-gradient);
+            border-radius: 10px;
+            transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 0 20px var(--gold-glow);
+        }
+        
+        /* ==================== CROSSWORD BOARD ==================== */
+        .board-container {
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .board-title {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+        
+        .board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            padding: 4px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+        }
+        
+        .tile {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(145deg, #2a2a3d, #1e1e2e);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .tile.empty {
+            background: transparent;
+            box-shadow: none;
+        }
+        
+        .tile.found {
+            background: var(--gold-gradient);
+            color: #1a1a1a;
+            box-shadow: 0 4px 15px var(--gold-glow), inset 0 2px 4px rgba(255,255,255,0.3);
+            transform: scale(1.05);
+            animation: tilePop 0.4s ease;
+        }
+        
+        @keyframes tilePop {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+        
+        /* ==================== CURRENT WORD ==================== */
+        .current-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            height: 56px;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+        
+        .current-tile {
+            width: 40px;
+            height: 52px;
+            background: var(--surface-glass);
+            border-bottom: 3px solid var(--gold);
+            border-radius: 10px 10px 4px 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gold);
+            transition: all 0.15s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .current-tile.empty {
+            background: transparent;
+            border-bottom-color: rgba(255,255,255,0.15);
+        }
+        
+        .current-tile.pop {
+            animation: letterPop 0.3s ease;
+        }
+        
+        @keyframes letterPop {
+            0% { transform: scale(0.8) rotateX(20deg); }
+            100% { transform: scale(1) rotateX(0); }
+        }
+        
+        /* ==================== LETTER WHEEL ==================== */
+        .wheel-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 16px auto;
+        }
+        
+        .wheel-bg {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(60, 60, 90, 0.9), rgba(20, 20, 35, 0.95));
+            box-shadow: 
+                inset 0 8px 32px rgba(0,0,0,0.5),
+                0 0 60px rgba(0, 0, 0, 0.4),
+                0 0 100px rgba(255, 215, 0, 0.1);
+        }
+        
+        .wheel-ring {
+            position: absolute;
+            inset: 8px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
+            border: 3px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gold);
+            box-shadow: 0 0 30px var(--gold-glow), inset 0 4px 12px rgba(0,0,0,0.5);
+            z-index: 20;
+            transition: all 0.2s ease;
+        }
+        
+        .wheel-center.pop {
+            animation: centerPop 0.3s ease;
+        }
+        
+        @keyframes centerPop {
+            0% { transform: translate(-50%, -50%) scale(0.9); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        /* Letter buttons */
+        .letter-btn {
+            position: absolute;
+            width: 58px;
+            height: 58px;
+            background: linear-gradient(145deg, #3a3a50, #252535);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-shadow: 
+                0 6px 20px rgba(0, 0, 0, 0.4),
+                inset 0 2px 4px rgba(255, 255, 255, 0.1);
+            z-index: 10;
+        }
+        
+        .letter-btn:hover {
+            background: linear-gradient(145deg, #4a4a60, #353545);
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+        
+        .letter-btn:active, .letter-btn.selected {
+            background: var(--gold-gradient);
+            color: #1a1a1a;
+            border-color: var(--gold-light);
+            transform: scale(0.95);
+            box-shadow: 0 0 30px var(--gold-glow), 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Swipe trail */
+        .trail-svg {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
+        
+        .trail-path {
+            stroke: var(--gold);
+            stroke-width: 6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 10px var(--gold-glow));
+        }
+        
+        /* ==================== CONTROLS ==================== */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 16px 0;
+        }
+        
+        .ctrl-btn {
+            padding: 14px 24px;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        
+        .ctrl-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .btn-shuffle {
+            background: linear-gradient(145deg, #3b82f6, #2563eb);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-clear {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-submit {
+            background: var(--gold-gradient);
+            color: #1a1a1a;
+            min-width: 90px;
+            box-shadow: 0 4px 20px var(--gold-glow);
+            font-weight: 700;
+        }
+        
+        .btn-hint {
+            background: linear-gradient(145deg, #a855f7, #9333ea);
+            color: white;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+        }
+        
+        /* ==================== WORD LIST ==================== */
+        .word-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            max-width: 320px;
+            padding: 12px;
+            background: var(--surface-glass);
+            border-radius: 16px;
+        }
+        
+        .word-item {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dim);
+            background: rgba(255, 255, 255, 0.05);
+            letter-spacing: 1px;
+        }
+        
+        .word-item.found {
+            background: var(--gold-gradient);
+            color: #1a1a1a;
+            box-shadow: 0 2px 10px var(--gold-glow);
+        }
+        
+        /* ==================== POPUP ==================== */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            padding: 24px 48px;
+            border-radius: 24px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 100;
+            text-align: center;
+        }
+        
+        .popup.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        .popup.success { background: var(--gold-gradient); color: #1a1a1a; box-shadow: 0 0 60px var(--gold-glow); }
+        .popup.bonus { background: linear-gradient(135deg, var(--blue), #3b82f6); color: white; box-shadow: 0 0 50px rgba(96, 165, 250, 0.5); }
+        .popup.error { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
+        .popup.win { background: linear-gradient(135deg, var(--gold), #ff9500); color: #1a1a1a; font-size: 2rem; box-shadow: 0 0 80px var(--gold-glow); }
+        
+        /* ==================== PARTICLES ==================== */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            border-radius: 50%;
+            animation: particleFly 1s ease-out forwards;
+        }
+        
+        @keyframes particleFly {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0) translateY(-100px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-title">
+            <h1>🔥 EVO</h1>
+        </div>
+        <div class="header-stats">
+            <div class="stat">
+                <div class="stat-value" id="level">1</div>
+                <div class="stat-label">Nivel</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="score">0</div>
+                <div class="stat-label">Puntos</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- LOCATION -->
+    <div class="location">
+        <div class="location-icon" id="icon">🗼</div>
+        <div class="location-name" id="name">Torre Eiffel</div>
+    </div>
+    
+    <!-- PROGRESS -->
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress" style="width: 0%"></div>
+        </div>
+    </div>
+    
+    <!-- CROSSWORD BOARD -->
+    <div class="board-container">
+        <div class="board-title">Encuentra las palabras</div>
+        <div class="board" id="board"></div>
+    </div>
+    
+    <!-- CURRENT WORD -->
+    <div class="current-container" id="current"></div>
+    
+    <!-- LETTER WHEEL -->
+    <div class="wheel-container" id="wheel">
+        <div class="wheel-bg"></div>
+        <div class="wheel-ring"></div>
+        <svg class="trail-svg"><path class="trail-path" id="trail" d=""/></svg>
+        <div class="wheel-center" id="center">-</div>
+    </div>
+    
+    <!-- CONTROLS -->
+    <div class="controls">
+        <button class="ctrl-btn btn-shuffle" onclick="shuffle()">🔀</button>
+        <button class="ctrl-btn btn-clear" onclick="clear()">🗑️</button>
+        <button class="ctrl-btn btn-submit" onclick="submit()">✓</button>
+        <button class="ctrl-btn btn-hint" onclick="hint()">💡</button>
+    </div>
+    
+    <!-- WORD LIST -->
+    <div class="word-list" id="words"></div>
+    
+    <!-- POPUP -->
+    <div class="popup" id="popup"></div>
+    
+    <script>
+        // ==================== DATA ====================
+        const WONDERS = [
+            {i:'🗼',n:'Torre Eiffel'},
+            {i:'🗽',n:'Estátua Liberdade'},
+            {i:'🕌',n:'Taj Mahal'},
+            {i:'🏛️',n:'Partenón'},
+            {i:'🗿',n:'Moai'},
+            {i:'🏰',n:'Castelo'},
+            {i:'🕰️',n:'Big Ben'},
+            {i:'🏜️',n:'Pirámides'},
+            {i:'⛩️',n:'Templo'},
+            {i:'🏟️',n:'Coliseo'}
+        ];
+        
+        const DICT = new Set([
+            'casa','cosa',' vida','noche','dia','amor','agua','aire','alto','ante','arbol','arte','avion','bajo','bello','bien','blusa','brazo','bueno','caballo','cabeza','cabo','cada','cafe','calle','calma','calor','cama','camino','campo','canto','cara','carne','carta','caso','caza','cerca','cielo','cinco','clase','color','cosa','costa','crema','cruz','cuarto','cuatro','cuerpo','dia','dicho','dolor','donde','dulce','duro','edad','ella','ello','epoca','error','espalda','estar','esto','falso','falta','fama','favor','fecha','feliz','feria','fiesta','figura','firma','flor','fondo','forma','fuego','fuente','fuerza','frio','gallo','gama','ganga','gato','genio','gente','gota','gozo','grado','grande','grito','grupo','guapo','haber','hacer','hacia','hasta','hecho','helado','heroe','hijo','hoja','hombre','hora','hotel','huevo','idea','igual','isla','jardin','jefe','joven','juez','jugar','junto','lado','lago','lana','largo','leche','leer','legal','lejos','lengua','leon','letra','libre','libro','linea','lista','lobo','loco','lucha','lugar','luz','madera','madre','mago','mala','malo','mana','mano','mapa','mar','marca','marco','marido','masa','mayor','media','medio','mejor','menos','mente','mesa','metal','metro','miedo','miel','milla','mirada','mirar','mismo','moda','modo','mono','monte','moral','morir','mover','mucho','muerte','mujer','mundo','nacer','nada','nadie','nariz','nata','nave','negro','nieve','nivel','noche','nombre','norte','nota','nube','nunca','obra','oceano','ocupa','oficial','ojala','ola','opera','orden','oro','otro','oveja','padre','pagar','pais','palabra','palma','pan','panel','papel','para','parar','pared','parte','pasar','paso','pasta','paz','pecho','pedir','pelota','pena','pensar','pera','perder','perro','pesca','pie','piedra','piel','pierna','pieza','pila','pino','pintor','piso','plana','plano','planta','plata','playa','plaza','pluma','pobre','poco','poder','poeta','polo','poner','portal','precio','prensa','primo','probar','pronto','prueba','pueblo','puerta','pues','puesto','punto','puro','quedar','querer','quien','quinto','quitar','rabo','rana','rapido','raro','rasgo','rata','raton','rayo','raza','razon','real','receta','red','regio','regla','reino','relax','reloj','remar','resto','rey','rico','rima','rincon','rio','ritmo','robar','roca','rodar','rodear','rojo','romper','ropa','rostro','rubio','rueda','ruido',
+            'arte','tear','area','cabe','coco','echo','hay','lee','rayo','reya','rueda','saco','sed','seda','sido','sube','tema','tiba','tiene','tino','tira','todo','tono','trae','uso','ve','via','vie','voz','yo','amor','mora','roma','mar','cabo','coba','boca','casa','caso','cosa','echo','este','esto','hay','rayo','raya','rey','reya','rica','rico','rueda','ruido','saco','sale','seda','sed','sido','solo','sube','taza','tema','tempo','tibia','tiene','tino','tira','todo','tono','toen','trae','uso','vaya','ve','voy','ya'
+        ]);
+        
+        const LEVELS = [
+            {l:['A','R','T','E'], t:['ARTE','TEAR']},
+            {l:['A','M','O','R'], t:['AMOR','MORA']},
+            {l:['A','B','C','O'], t:['CABO','BOCA']},
+            {l:['A','C','E','R'], t:['CARA','AREA']},
+            {l:['A','D','I','O'], t:['ADIO','DIA']},
+            {l:['O','S','A','P'], t:['PASO','SAPO']},
+            {l:['A','N','O','S'], t:['NOSA','SON']},
+            {l:['A','E','L','V'], t:['VALE','LAVE']},
+            {l:['E','R','O','S'], t:['SERO','ROSE']},
+            {l:['I','R','A','D'], t:['RIDA','IRA']}
+        ];
+        
+        // ==================== STATE ====================
+        let level = 0, letters = [], targets = [], found = [], swipe = [], hints = 3, score = 0;
+        
+        function init() {
+            const lvl = LEVELS[level % LEVELS.length];
+            letters = shuffle([...lvl.l]);
+            targets = lvl.t;
+            found = []; swipe = [];
+            document.getElementById('icon').textContent = WONDERS[level % WONDERS.length].i;
+            document.getElementById('name').textContent = WONDERS[level % WONDERS.length].n;
+            render();
+        }
+        
+        function render() {
+            renderWheel();
+            renderBoard();
+            renderWords();
+            updateStats();
+        }
+        
+        function renderWheel() {
+            const w = document.getElementById('wheel');
+            w.querySelectorAll('.letter-btn').forEach(e => e.remove());
+            const cx = 150, r = 100;
+            letters.forEach((lt, i) => {
+                const ang = (i * 360 / letters.length - 90) * Math.PI / 180;
+                const x = cx + r * Math.cos(ang) - 29;
+                const y = cx + r * Math.sin(ang) - 29;
+                const el = document.createElement('div');
+                el.className = 'letter-btn';
+                el.textContent = lt;
+                el.style.left = x + 'px';
+                el.style.top = y + 'px';
+                el.dataset.i = i;
+                el.onpointerdown = e => { e.preventDefault(); begin(parseInt(e.target.dataset.i)); };
+                w.appendChild(el);
+            });
+            w.onpointermove = move;
+            w.onpointerup = end;
+        }
+        
+        function isAdjacent(a, b) {
+            const d = Math.abs(a - b);
+            return d === 1 || d === letters.length - 1;
+        }
+        
+        function begin(i) { swipe = [i]; update(); }
+        
+        function move(e) {
+            if (!swipe.length) return;
+            const el = document.elementFromPoint(e.clientX, e.clientY);
+            if (el?.classList.contains('letter-btn')) {
+                const i = parseInt(el.dataset.i);
+                if (swipe.includes(i) || !isAdjacent(swipe[swipe.length-1], i)) return;
+                swipe.push(i);
+                update();
+            }
+        }
+        
+        function end() {}
+        
+        function update() {
+            const cx = 150, r = 100;
+            document.querySelectorAll('.letter-btn').forEach((el, i) => el.classList.toggle('selected', swipe.includes(i)));
+            const w = swipe.map(i => letters[i]).join('');
+            document.getElementById('center').textContent = w || '-';
+            if (w) document.getElementById('center').classList.add('pop');
+            else document.getElementById('center').classList.remove('pop');
+            
+            // Trail
+            const tr = document.getElementById('trail');
+            if (swipe.length < 2) tr.setAttribute('d', '');
+            else {
+                let d = '';
+                swipe.forEach((idx, i) => {
+                    const ang = (idx * 360 / letters.length - 90) * Math.PI / 180;
+                    d += (i === 0 ? 'M' : 'L') + (cx + r * Math.cos(ang)) + ',' + (cx + r * Math.sin(ang)) + ' ';
+                });
+                tr.setAttribute('d', d);
+            }
+            
+            // Current display
+            const cur = document.getElementById('current');
+            cur.innerHTML = '';
+            const max = Math.max(...targets.map(t => t.length));
+            const disp = [...w];
+            for (let i = 0; i <= max; i++) {
+                const el = document.createElement('div');
+                el.className = 'current-tile' + (disp[i] ? ' pop' : ' empty');
+                el.textContent = disp[i] || '';
+                cur.appendChild(el);
+            }
+        }
+        
+        function renderBoard() {
+            const bd = document.getElementById('board');
+            bd.innerHTML = '';
+            const sz = 5;
+            const g = Array(sz).fill(null).map(() => Array(sz).fill(null));
+            const locs = [];
+            const first = [...targets].sort((a, b) => b.length - a.length)[0];
+            const rx = Math.floor((sz - first.length) / 2);
+            const ry = 2;
+            locs.push({w: first, x: rx, y: ry, d: 'h'});
+            for (let i = 0; i < first.length; i++) g[ry][rx + i] = first[i];
+            
+            for (const w of targets.slice(1)) {
+                for (const pl of locs) {
+                    for (let i = 0; i < w.length; i++) {
+                        for (let j = 0; j < pl.w.length; j++) {
+                            if (w[i] === pl.w[j]) {
+                                const dx = pl.d === 'h' ? pl.x + j : pl.x;
+                                const dy = pl.d === 'h' ? pl.y : pl.y + j;
+                                const nd = pl.d === 'h' ? 'v' : 'h';
+                                let ok = true;
+                                for (let k = 0; k < w.length; k++) {
+                                    const px = nd === 'h' ? dx + k : dx;
+                                    const py = nd === 'h' ? dy : dy + k;
+                                    if (px < 0 || px >= sz || py < 0 || py >= sz) ok = false;
+                                    else if (g[py]?.[px] && g[py][px] !== w[k]) ok = false;
+                                }
+                                if (ok) {
+                                    locs.push({w, x: dx, y: dy, d: nd});
+                                    for (let k = 0; k < w.length; k++) {
+                                        const px = nd === 'h' ? dx + k : dx;
+                                        const py = nd === 'h' ? dy : dy + k;
+                                        g[py][px] = w[k];
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        if (locs.find(l => l.w === w)) break;
+                    }
+                    if (locs.find(l => l.w === w)) break;
+                }
+            }
+            
+            for (let r = 0; r < sz; r++) {
+                for (let c = 0; c < sz; c++) {
+                    const el = document.createElement('div');
+                    el.className = 'tile';
+                    if (g[r][c]) {
+                        el.textContent = g[r][c].toUpperCase();
+                        const wl = locs.find(l => (l.d === 'h' && l.y === r && c >= l.x && c < l.x + l.w.length) || (l.d === 'v' && l.x === c && r >= l.y && r < l.y + l.w.length));
+                        if (found.includes(wl?.w)) el.classList.add('found');
+                    } else el.classList.add('empty');
+                    bd.appendChild(el);
+                }
+            }
+        }
+        
+        function renderWords() {
+            const ws = document.getElementById('words');
+            ws.innerHTML = '';
+            targets.forEach(w => {
+                const el = document.createElement('div');
+                el.className = 'word-item' + (found.includes(w) ? ' found' : '');
+                el.textContent = found.includes(w) ? w : '_'.repeat(w.length);
+                ws.appendChild(el);
+            });
+        }
+        
+        function updateStats() {
+            document.getElementById('progress').style.width = (found.length / targets.length * 100) + '%';
+            document.getElementById('level').textContent = level + 1;
+            document.getElementById('score').textContent = score;
+        }
+        
+        function clear() {
+            swipe = [];
+            document.getElementById('trail').setAttribute('d', '');
+            document.getElementById('center').textContent = '-';
+            document.querySelectorAll('.letter-btn').forEach(e => e.classList.remove('selected'));
+            document.getElementById('current').innerHTML = '';
+        }
+        
+        function shuffle() {
+            letters = shuffle([...letters]);
+            clear();
+            renderWheel();
+        }
+        
+        function particles(x, y, color) {
+            for (let i = 0; i < 8; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = x + Math.random() * 60 - 30 + 'px';
+                p.style.top = y + 'px';
+                p.style.width = p.style.height = (Math.random() * 8 + 4) + 'px';
+                p.style.background = color;
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 1000);
+            }
+        }
+        
+        function submit() {
+            const w = swipe.map(i => letters[i]).join('');
+            const p = document.getElementById('popup');
+            
+            if (w.length < 3) { show('Min 3!', 'error'); return; }
+            if (found.includes(w)) { show('Ya usado!', 'error'); clear(); return; }
+            if (!DICT.has(w)) { show('No existe!', 'error'); clear(); return; }
+            
+            if (targets.includes(w)) {
+                found.push(w);
+                score += w.length * 15;
+                show('✓ ' + w, 'success');
+                particles(window.innerWidth/2, window.innerHeight/2, 'var(--gold)');
+                if (found.length === targets.length) {
+                    setTimeout(() => { show('🎉 NIVEL!', 'win'); setTimeout(() => { level++; init(); }, 2000); }, 500);
+                }
+            } else {
+                score += w.length * 5;
+                show('★ ' + w, 'bonus');
+            }
+            clear();
+            render();
+        }
+        
+        function hint() {
+            if (hints <= 0) { show('Sin pistas!', 'error'); return; }
+            const unfound = targets.find(t => !found.includes(t));
+            if (!unfound) return;
+            hints--;
+            score = Math.max(0, score - 30);
+            found.push(unfound);
+            show('💡', 'success');
+            render();
+        }
+        
+        function show(txt, cls) {
+            const p = document.getElementById('popup');
+            p.textContent = txt;
+            p.className = 'popup ' + cls;
+            setTimeout(() => p.className = 'popup', 1500);
+        }
+        
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+        
+        init();
+    </script>
+</body>
+</html>

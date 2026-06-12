@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Dominó EVO</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b08;
+  --surface: #0f140f;
+  --card: #161e16;
+  --border: #233023;
+  --gold: #c9a227;
+  --gold2: #e8c96a;
+  --gold3: #fff5cc;
+  --green: #1a4a28;
+  --green2: #2d7a47;
+  --green3: #3da060;
+  --felt: #0d1f10;
+  --felt2: #0a1a0d;
+  --red: #b03010;
+  --red2: #e04020;
+  --blue: #12346a;
+  --blue2: #1e5aaa;
+  --text: #edeae2;
+  --muted: #5a6855;
+  --pip: #161616;
+  --pip-shadow: #000;
+  --piece-bg: #f7f2e8;
+  --piece-border: #7a6a48;
+  --piece-shadow: rgba(0,0,0,0.5);
+  --chat-bg: #0c110c;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); }
+
+/* ── LOBBY ── */
+#lobby {
+  position: fixed; inset: 0; z-index: 10;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background:
+    linear-gradient(rgba(8,11,8,0.55), rgba(8,11,8,0.93)),
+    url("https://analuizamrques.github.io/domino-evo/raniramli-night-5396224.jpg");
+  background-size: cover; background-position: center;
+  padding: 20px; overflow-y: auto;
+}
+.lobby-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 12vw, 88px); font-weight: 900;
+  letter-spacing: -3px; line-height: 1; margin-bottom: 2px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 45%, var(--gold3) 60%, var(--gold2) 75%, var(--gold) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  animation: shimmer 3s ease-in-out infinite;
+  background-size: 200% auto;
+}
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+.lobby-sub {
+  font-size: 10px; letter-spacing: 8px; color: var(--muted);
+  text-transform: uppercase; margin-bottom: 40px;
+}
+.lobby-card {
+  background: rgba(15,20,15,0.95); border: 1px solid var(--border);
+  border-radius: 22px; padding: 30px 26px;
+  width: 100%; max-width: 370px;
+  display: flex; flex-direction: column; gap: 16px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.04);
+  backdrop-filter: blur(20px);
+}
+.lobby-card h3 {
+  font-family: 'Playfair Display', serif; font-size: 17px;
+  color: var(--gold); text-align: center; letter-spacing: 0.5px;
+}
+.input-group { display: flex; flex-direction: column; gap: 6px; }
+.input-group label {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); padding-left: 2px;
+}
+.input-group input, .input-group select {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 11px; padding: 12px 15px;
+  color: var(--text); font-size: 14px; font-family: 'DM Sans', sans-serif;
+  outline: none; transition: border-color 0.25s, box-shadow 0.25s;
+}
+.input-group input:focus, .input-group select:focus {
+  border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,162,39,0.12);
+}
+.input-group input::placeholder { color: var(--muted); }
+.divider {
+  display: flex; align-items: center; gap: 12px;
+  color: var(--muted); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+}
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.mode-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.btn {
+  padding: 12px 16px; border: none; border-radius: 11px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; letter-spacing: 0.2px;
+}
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 100%);
+  color: #120e00; box-shadow: 0 4px 14px rgba(201,162,39,0.3);
+}
+.btn-gold:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(201,162,39,0.4); }
+.btn-outline {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text); transition: all 0.2s;
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,162,39,0.06); }
+.btn-full { grid-column: 1/-1; }
+#lobby-msg { font-size: 13px; text-align: center; min-height: 18px; color: var(--gold2); font-weight: 500; }
+.room-code-box {
+  background: var(--card); border: 1px dashed var(--gold);
+  border-radius: 11px; padding: 14px; text-align: center; display: none;
+}
+.room-code-box .code {
+  font-family: 'Playfair Display', serif; font-size: 28px;
+  letter-spacing: 10px; color: var(--gold2);
+}
+.room-code-box p { font-size: 11px; color: var(--muted); margin-top: 5px; }
+
+/* ── GAME LAYOUT ── */
+#game {
+  display: none; position: fixed; inset: 0;
+  flex-direction: column;
+}
+
+/* INFO BAR */
+#info-bar {
+  display: flex; gap: 12px; justify-content: space-between; align-items: center;
+  padding: 7px 14px; background: rgba(5,8,5,0.96);
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
+  backdrop-filter: blur(16px); z-index: 10;
+}
+.player-badge {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 11px; border-radius: 22px;
+  background: var(--card); border: 1px solid var(--border);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.player-badge.active-turn {
+  border-color: var(--gold); box-shadow: 0 0 14px rgba(201,162,39,0.18);
+}
+.player-badge .avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800; flex-shrink: 0;
+}
+.avatar-me { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: #120e00; }
+.avatar-opp { background: linear-gradient(135deg, var(--blue2), #2a7ae8); color: #fff; }
+.avatar-ai { background: linear-gradient(135deg, var(--red), var(--red2)); color: #fff; }
+.player-badge .pname {
+  font-size: 12px; font-weight: 600;
+  max-width: 72px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.player-badge .pts { font-size: 11px; color: var(--gold2); font-weight: 700; }
+.center-hud {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 5px; flex-shrink: 0;
+}
+.turn-pill {
+  font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 20px;
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--muted); transition: all 0.3s; text-align: center; white-space: nowrap;
+}
+.turn-pill.active {
+  background: rgba(201,162,39,0.12); border-color: var(--gold); color: var(--gold);
+  animation: pulse-border 1.5s ease-in-out infinite;
+}
+@keyframes pulse-border {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,162,39,0.2); }
+  50% { box-shadow: 0 0 0 4px rgba(201,162,39,0.08); }
+}
+.timer-badge {
+  display: flex; align-items: center; gap: 5px;
+  padding: 4px 10px; border-radius: 20px;
+  background: rgba(0,0,0,0.7); border: 1px solid var(--border);
+  font-size: 11px; color: var(--gold);
+}
+.timer-badge .time { font-size: 14px; font-weight: 700; min-width: 32px; }
+.timer-badge.urgent { border-color: var(--red2); color: var(--red2); animation: blink-red 0.5s ease-in-out infinite; }
+@keyframes blink-red { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+.eq { display: flex; gap: 2px; align-items: flex-end; height: 14px; }
+.eq-bar {
+  width: 2px; background: var(--gold); border-radius: 1px;
+  animation: eq 0.7s ease-in-out infinite alternate;
+}
+.eq-bar:nth-child(1){height:30%;animation-delay:0s}
+.eq-bar:nth-child(2){height:80%;animation-delay:0.1s}
+.eq-bar:nth-child(3){height:50%;animation-delay:0.2s}
+.eq-bar:nth-child(4){height:100%;animation-delay:0.05s}
+.eq-bar:nth-child(5){height:40%;animation-delay:0.15s}
+@keyframes eq{from{transform:scaleY(0.2)}to{transform:scaleY(1)}}
+.eq.paused .eq-bar { animation-play-state: paused; transform: scaleY(0.2); }
+
+/* AI dots */
+.ai-dots { display: none; align-items: center; gap: 3px; justify-content: center; }
+.ai-dots.show { display: flex; }
+.ai-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold); animation: blink 0.7s infinite alternate;
+}
+.ai-dot:nth-child(2){animation-delay:.22s} .ai-dot:nth-child(3){animation-delay:.44s}
+@keyframes blink{from{opacity:.15}to{opacity:1}}
+
+/* MIDDLE = OPP + BOARD + HAND side by side with chat */
+#game-body {
+  flex: 1; display: flex; min-height: 0; overflow: hidden;
+}
+
+/* LEFT GAME AREA */
+#game-left {
+  flex: 1; display: flex; flex-direction: column; min-width: 0; min-height: 0;
+}
+
+/* OPP HAND */
+#opp-section {
+  flex-shrink: 0; padding: 5px 12px;
+  background: rgba(0,0,0,0.3); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 8px; min-height: 46px; flex-wrap: wrap;
+}
+.opp-label { font-size: 10px; color: var(--muted); flex-shrink: 0; letter-spacing: 0.5px; }
+#opp-area { display: flex; gap: 3px; flex-wrap: wrap; align-items: center; }
+.opp-back {
+  width: 18px; height: 32px;
+  background: linear-gradient(160deg, #1e3a7a 0%, #0d1f4a 50%, #0a1530 100%);
+  border: 1px solid #2a4080; border-radius: 4px; flex-shrink: 0;
+  box-shadow: 1px 2px 4px rgba(0,0,0,0.5);
+  position: relative; overflow: hidden;
+}
+.opp-back::after {
+  content: ''; position: absolute; inset: 2px;
+  border: 1px solid rgba(255,255,255,0.06); border-radius: 2px;
+  background: repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255,255,255,0.02) 3px, rgba(255,255,255,0.02) 4px);
+}
+
+/* BOARD */
+#board-area {
+  flex: 1; overflow: auto; position: relative; min-height: 0;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(20,50,22,0.4) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 60%, rgba(10,30,12,0.3) 0%, transparent 50%),
+    var(--felt2);
+  scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+}
+#board-area::-webkit-scrollbar { width: 4px; height: 4px; }
+#board-area::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+#board-felt {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(255,255,255,0.006) 28px, rgba(255,255,255,0.006) 29px),
+    repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(255,255,255,0.006) 28px, rgba(255,255,255,0.006) 29px);
+}
+
+/* BOARD pieces container — scrollable snake layout */
+#board-wrapper {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 20px;
+  z-index: 1;
+  min-width: 200px;
+  max-width: 90vw;
+}
+.board-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 3px;
+  align-items: center;
+}
+.board-row.row-reverse {
+  flex-direction: row-reverse;
+}
+
+/* Drop zones on board ends */
+.board-drop-zone {
+  width: 36px; height: 54px;
+  border: 2px dashed var(--border);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-size: 16px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  cursor: default;
+}
+.board-drop-zone.drag-over {
+  border-color: var(--gold); background: rgba(201,162,39,0.08);
+  color: var(--gold); transform: scale(1.05);
+}
+
+.boneyard-info {
+  position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+  background: rgba(0,0,0,0.7); border: 1px solid var(--border);
+  border-radius: 8px; padding: 4px 12px;
+  font-size: 11px; color: var(--muted);
+  white-space: nowrap; z-index: 5; pointer-events: none;
+}
+.boneyard-info span { color: var(--gold2); font-weight: 600; }
+
+/* MY HAND */
+#hand-section {
+  flex-shrink: 0;
+  background: rgba(0,0,0,0.35);
+  border-top: 1px solid var(--border); padding: 10px 12px 8px;
+  display: flex; flex-direction: column; gap: 6px; align-items: center;
+}
+#my-hand {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  justify-content: center; align-items: flex-end;
+  min-height: 70px;
+}
+
+/* CONTROLS */
+#controls {
+  flex-shrink: 0;
+  background: rgba(5,8,5,0.97);
+  border-top: 1px solid var(--border);
+  padding: 8px 14px 10px;
+  display: flex; gap: 8px; align-items: center; justify-content: center;
+  flex-wrap: wrap;
+}
+#msg {
+  font-size: 12px; font-weight: 600; color: var(--gold2);
+  letter-spacing: 0.3px; text-align: center; flex: 0 0 100%; order: -1;
+}
+.ctrl-btn {
+  padding: 9px 16px; border: none; border-radius: 10px;
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+  cursor: pointer; transition: all 0.2s; letter-spacing: 0.3px;
+  text-transform: uppercase; flex-shrink: 0;
+}
+.ctrl-btn:disabled {
+  opacity: 0.25; cursor: not-allowed; transform: none !important;
+  box-shadow: none !important; filter: none !important;
+}
+.ctrl-btn:not(:disabled):hover { transform: translateY(-2px); }
+.ctrl-btn:not(:disabled):active { transform: translateY(0); }
+.ctrl-btn.draw {
+  background: linear-gradient(135deg, var(--blue), var(--blue2));
+  color: #fff; box-shadow: 0 3px 10px rgba(30,90,170,0.3);
+}
+.ctrl-btn.draw:not(:disabled):hover { box-shadow: 0 6px 16px rgba(30,90,170,0.5); }
+.ctrl-btn.pass {
+  background: linear-gradient(135deg, var(--red), var(--red2));
+  color: #fff; box-shadow: 0 3px 10px rgba(176,48,16,0.3);
+}
+.ctrl-btn.pass:not(:disabled):hover { box-shadow: 0 6px 16px rgba(176,48,16,0.5); }
+.ctrl-btn.exit {
+  background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+  color: var(--muted); font-size: 11px; padding: 8px 12px;
+}
+.ctrl-btn.exit:hover { color: var(--text); border-color: var(--muted); }
+
+/* PIECES */
+.dom-piece {
+  display: inline-flex; flex-direction: column;
+  background: var(--piece-bg);
+  border: 2px solid var(--piece-border);
+  border-radius: 7px;
+  transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.18s, border-color 0.18s, opacity 0.18s;
+  position: relative; flex-shrink: 0;
+  box-shadow: 0 4px 10px var(--piece-shadow), inset 0 1px 0 rgba(255,255,255,0.45);
+  user-select: none;
+}
+.dom-piece::after {
+  content: ''; position: absolute; inset: 0; border-radius: 5px;
+  background: linear-gradient(140deg, rgba(255,255,255,0.22) 0%, transparent 50%);
+  pointer-events: none;
+}
+/* Hand pieces: draggable, hoverable */
+.dom-piece.in-hand {
+  cursor: grab;
+}
+.dom-piece.in-hand:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 16px 32px rgba(201,162,39,0.22), 0 0 20px rgba(201,162,39,0.12);
+  border-color: var(--gold);
+  z-index: 5;
+}
+.dom-piece.in-hand.selected {
+  transform: translateY(-14px) scale(1.06);
+  border-color: var(--gold2);
+  box-shadow: 0 0 0 2px var(--gold), 0 18px 36px rgba(201,162,39,0.4);
+  z-index: 6;
+}
+.dom-piece.in-hand.dragging {
+  opacity: 0.35; cursor: grabbing; transform: none;
+}
+.dom-piece.on-board {
+  cursor: default; pointer-events: none;
+}
+.dom-piece.horizontal { flex-direction: row; }
+
+/* drag ghost */
+#drag-ghost {
+  position: fixed; pointer-events: none; z-index: 9999;
+  display: none; transform: translate(-50%, -50%) scale(1.1) rotate(3deg);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.6), 0 0 20px rgba(201,162,39,0.3);
+  border: 2px solid var(--gold);
+  border-radius: 7px; background: var(--piece-bg);
+  filter: brightness(1.05);
+}
+
+/* HALVES & PIPS */
+.half {
+  display: grid; grid-template-columns: repeat(3,1fr); grid-template-rows: repeat(3,1fr);
+  
+  padding: 4px; gap: 2px; width: 36px; height: 36px; flex-shrink: 0;
+}
+.half.sm { width: 24px; height: 24px; padding: 2px; gap: 1.5px; }
+.pip {
+  width: 100%; height: 100%; background: var(--pip);
+  border-radius: 50%; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.05);
+}
+.pip.empty { background: transparent; box-shadow: none; }
+
+/* DIVIDERS */
+.divider-v {
+  height: 100%; width: 1.5px; flex-shrink: 0;
+  background: linear-gradient(180deg, transparent, var(--piece-border), transparent);
+}
+.divider-h {
+  width: 100%; height: 1.5px; flex-shrink: 0;
+  background: linear-gradient(90deg, transparent, var(--piece-border), transparent);
+}
+
+/* === CHAT === */
+#chat-panel {
+  width: 240px; flex-shrink: 0;
+  background: var(--chat-bg); border-left: 1px solid var(--border);
+  display: flex; flex-direction: column; min-height: 0;
+  transition: width 0.3s ease;
+}
+#chat-panel.collapsed { width: 0; overflow: hidden; border-left: none; }
+#chat-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 12px; border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+#chat-header span {
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--muted); font-weight: 600;
+}
+#chat-toggle-btn {
+  background: none; border: none; color: var(--muted); cursor: pointer;
+  font-size: 14px; padding: 2px 5px; border-radius: 4px;
+  transition: color 0.2s;
+}
+#chat-toggle-btn:hover { color: var(--text); }
+#chat-messages {
+  flex: 1; overflow-y: auto; padding: 10px; display: flex;
+  flex-direction: column; gap: 7px; min-height: 0;
+  scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+}
+#chat-messages::-webkit-scrollbar { width: 3px; }
+#chat-messages::-webkit-scrollbar-thumb { background: var(--border); }
+.chat-msg {
+  display: flex; flex-direction: column; gap: 2px;
+  animation: fade-in 0.25s ease;
+}
+@keyframes fade-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.chat-msg .sender { font-size: 9px; color: var(--muted); letter-spacing: 0.5px; text-transform: uppercase; }
+.chat-msg .bubble {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 3px 10px 10px 10px;
+  padding: 6px 10px; font-size: 12px; color: var(--text); line-height: 1.4;
+  max-width: 100%; word-break: break-word;
+}
+.chat-msg.mine .sender { text-align: right; color: rgba(201,162,39,0.6); }
+.chat-msg.mine .bubble {
+  background: rgba(201,162,39,0.1); border-color: rgba(201,162,39,0.2);
+  border-radius: 10px 3px 10px 10px; align-self: flex-end;
+}
+.chat-msg.system .bubble {
+  background: transparent; border: none; border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border); border-radius: 0;
+  font-size: 10px; color: var(--muted); text-align: center; padding: 4px 8px;
+}
+.chat-input-area {
+  flex-shrink: 0; padding: 8px; border-top: 1px solid var(--border);
+  display: flex; gap: 6px; align-items: center;
+}
+#chat-input {
+  flex: 1; background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 10px; color: var(--text);
+  font-size: 12px; font-family: 'DM Sans', sans-serif; outline: none;
+  transition: border-color 0.2s;
+}
+#chat-input:focus { border-color: var(--gold); }
+#chat-input::placeholder { color: var(--muted); }
+#chat-send {
+  background: var(--gold); border: none; border-radius: 8px;
+  padding: 8px 11px; cursor: pointer; color: #120e00;
+  font-size: 13px; font-weight: 700; transition: all 0.2s; flex-shrink: 0;
+}
+#chat-send:hover { background: var(--gold2); }
+
+/* Chat toggle on info bar */
+#chat-open-btn {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 5px 10px; cursor: pointer;
+  font-size: 12px; color: var(--muted); transition: all 0.2s;
+  position: relative;
+}
+#chat-open-btn:hover { border-color: var(--gold); color: var(--gold); }
+.chat-badge {
+  position: absolute; top: -4px; right: -4px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--red2); color: #fff; font-size: 9px;
+  display: none; align-items: center; justify-content: center;
+  font-weight: 700;
+}
+.chat-badge.show { display: flex; }
+
+/* OVERLAY */
+#overlay {
+  display: none; position: fixed; inset: 0; z-index: 50;
+  background: rgba(0,0,0,0.88); backdrop-filter: blur(16px);
+  align-items: center; justify-content: center;
+}
+#overlay.show { display: flex; }
+.overlay-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 24px; padding: 40px 32px;
+  text-align: center; max-width: 360px; width: 92%;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.7);
+  animation: pop-in 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes pop-in {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.overlay-trophy {
+  font-size: 60px; margin-bottom: 12px;
+  display: block; animation: trophy-bounce 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.2s both;
+}
+@keyframes trophy-bounce {
+  from { transform: scale(0) rotate(-15deg); }
+  to { transform: scale(1) rotate(0deg); }
+}
+.overlay-card h2 {
+  font-family: 'Playfair Display', serif; font-size: 26px;
+  color: var(--gold); margin-bottom: 10px; line-height: 1.2;
+}
+.overlay-card .score-summary {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px; margin-bottom: 20px;
+  display: flex; gap: 0; overflow: hidden;
+}
+.score-col {
+  flex: 1; padding: 8px 12px; text-align: center;
+}
+.score-col:first-child { border-right: 1px solid var(--border); }
+.score-col .s-name { font-size: 11px; color: var(--muted); margin-bottom: 4px; letter-spacing: 0.5px; }
+.score-col .s-pts { font-size: 24px; font-weight: 700; font-family: 'Playfair Display', serif; }
+.score-col.winner .s-pts { color: var(--gold2); }
+.score-col.loser .s-pts { color: var(--muted); }
+.overlay-card .outcome-msg {
+  font-size: 13px; color: var(--muted); margin-bottom: 22px; line-height: 1.6;
+}
+.overlay-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+/* CONFETTI */
+.confetti-piece {
+  position: fixed; top: -10px;
+  animation: confetti-fall linear forwards; z-index: 200;
+}
+@keyframes confetti-fall {
+  0% { transform: translateY(-10px) rotate(0deg) scale(1); opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg) scale(0.5); opacity: 0; }
+}
+
+/* Piece placement animation */
+@keyframes piece-land {
+  0% { transform: scale(1.2) translateY(-8px); opacity: 0.6; }
+  60% { transform: scale(0.97) translateY(1px); }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+.piece-landing { animation: piece-land 0.28s cubic-bezier(0.34,1.56,0.64,1) both; }
+
+@media (max-width: 600px) {
+  #chat-panel { display: none; }
+  .half { width: 30px; height: 30px; padding: 3px; gap: 1.5px; }
+  .half.sm { width: 20px; height: 20px; padding: 2px; gap: 1px; }
+  .ctrl-btn { padding: 8px 12px; font-size: 11px; }
+}
+
+/* Pulse animation for new chat message */
+@keyframes chat-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+.chat-badge.pulse { animation: chat-pulse 0.4s ease; }
+
+/* Instruction text */
+.hand-hint {
+  font-size: 10px; color: var(--muted); letter-spacing: 0.5px;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<!-- DRAG GHOST -->
+<div id="drag-ghost"></div>
+
+<!-- LOBBY -->
+<div id="lobby">
+  <div class="lobby-logo">DOMINÓ</div>
+  <div class="lobby-sub">EVO · Edição Clássica</div>
+
+  <div class="lobby-card">
+    <h3>Bem-vindo ao Jogo</h3>
+
+    <div class="input-group">
+      <label>O teu nome</label>
+      <input id="my-name" placeholder="Ex: Ana" maxlength="20"/>
+    </div>
+
+    <div class="divider">Modo de Jogo</div>
+
+    <div class="mode-btns">
+      <button class="btn btn-gold" onclick="startAI()">🤖 vs IA</button>
+      <button class="btn btn-outline" onclick="toggleMP()">👥 Online</button>
+    </div>
+
+    <div id="mp-section" style="display:none;flex-direction:column;gap:12px">
+      <div class="input-group">
+        <label>Código da sala (vazio = criar nova)</label>
+        <input id="room-input" placeholder="Ex: EVO123" maxlength="10" style="text-transform:uppercase"/>
+      </div>
+      <div class="input-group">
+        <label>Dificuldade IA</label>
+        <select id="ai-diff">
+          <option value="easy">😊 Fácil</option>
+          <option value="medium" selected>🎯 Médio</option>
+          <option value="hard">🔥 Difícil</option>
+        </select>
+      </div>
+      <button class="btn btn-gold btn-full" style="font-size:14px;padding:13px;" onclick="joinRoom()">🌐 CRIAR / ENTRAR SALA</button>
+    </div>
+
+    <div id="lobby-msg"></div>
+    <div class="room-code-box" id="room-code-box">
+      <div class="code" id="room-code-display">—</div>
+      <p>Partilha este código com o teu oponente</p>
+    </div>
+  </div>
+</div>
+
+<!-- GAME -->
+<div id="game">
+  <!-- INFO BAR -->
+  <div id="info-bar">
+    <div class="player-badge" id="badge-me">
+      <div class="avatar avatar-me" id="avatar-me">A</div>
+      <div>
+        <div class="pname" id="pname-me">Tu</div>
+        <div class="pts" id="score-me">0 pts</div>
+      </div>
+      <div class="eq paused" id="eq-me">
+        <div class="eq-bar"></div><div class="eq-bar"></div>
+        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+      </div>
+    </div>
+
+    <div class="center-hud">
+      <div class="timer-badge" id="timer-badge">⏱ <span class="time" id="turn-timer">1:30</span></div>
+      <div class="turn-pill" id="turn-pill">⏳</div>
+      <div class="ai-dots" id="ai-dots">
+        <div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div>
+      </div>
+    </div>
+
+    <div class="player-badge" id="badge-opp">
+      <div class="eq paused" id="eq-opp">
+        <div class="eq-bar"></div><div class="eq-bar"></div>
+        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+      </div>
+      <div style="text-align:right">
+        <div class="pname" id="pname-opp">Oponente</div>
+        <div class="pts" id="score-opp">0 pts</div>
+      </div>
+      <div class="avatar avatar-opp" id="avatar-opp">O</div>
+    </div>
+
+    <button id="chat-open-btn" onclick="toggleChat()">💬 Chat
+      <span class="chat-badge" id="chat-badge">0</span>
+    </button>
+  </div>
+
+  <!-- GAME BODY -->
+  <div id="game-body">
+    <!-- LEFT: OPP + BOARD + HAND + CONTROLS -->
+    <div id="game-left">
+      <!-- OPP HAND -->
+      <div id="opp-section">
+        <span class="opp-label">Oponente &nbsp;<span id="opp-count">0</span> peças</span>
+        <div id="opp-area"></div>
+      </div>
+
+      <!-- BOARD -->
+      <div id="board-area">
+        <div id="board-felt"></div>
+        <div id="board-wrapper">
+          <div class="board-row" id="board-row-0"></div>
+        </div>
+        <div class="boneyard-info">🎴 Monte: <span id="boneyard-count">0</span></div>
+      </div>
+
+      <!-- MY HAND -->
+      <div id="hand-section">
+        <div class="hand-hint">Arrastar peça até à mesa · ou clicar para selecionar</div>
+        <div id="my-hand"></div>
+      </div>
+
+      <!-- CONTROLS -->
+      <div id="controls">
+        <div id="msg">A aguardar...</div>
+        <button class="ctrl-btn draw" id="btn-draw" onclick="drawTile()" disabled>🎴 Comprar</button>
+        <button class="ctrl-btn pass" id="btn-pass" onclick="passTurn()" disabled>⏩ Passar</button>
+        <button class="ctrl-btn exit" onclick="backToLobby()">⬅ Sair</button>
+      </div>
+    </div>
+
+    <!-- CHAT PANEL -->
+    <div id="chat-panel" class="collapsed">
+      <div id="chat-header">
+        <span>💬 Chat</span>
+        <button id="chat-toggle-btn" onclick="toggleChat()">✕</button>
+      </div>
+      <div id="chat-messages"></div>
+      <div class="chat-input-area">
+        <input id="chat-input" placeholder="Mensagem..." maxlength="120"
+          onkeydown="if(event.key==='Enter')sendChat()"/>
+        <button id="chat-send" onclick="sendChat()">➤</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OVERLAY (End of game) -->
+<div id="overlay">
+  <div class="overlay-card">
+    <span class="overlay-trophy" id="overlay-trophy">🏆</span>
+    <h2 id="overlay-title">Fim de Jogo</h2>
+    <div class="score-summary" id="score-summary">
+      <div class="score-col winner" id="score-col-me">
+        <div class="s-name" id="sc-name-me">Tu</div>
+        <div class="s-pts" id="sc-pts-me">0</div>
+      </div>
+      <div class="score-col loser" id="score-col-opp">
+        <div class="s-name" id="sc-name-opp">Oponente</div>
+        <div class="s-pts" id="sc-pts-opp">0</div>
+      </div>
+    </div>
+    <div class="outcome-msg" id="overlay-msg"></div>
+    <div class="overlay-btns">
+      <button class="btn btn-gold" onclick="requestRematch()">🔄 Revanche</button>
+      <button class="btn btn-outline" onclick="backToLobby()">🏠 Lobby</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SERVER_URL = 'wss://domino-evo.onrender.com';
+
+/* ──────────────────────────────
+   AUDIO ENGINE
+──────────────────────────────── */
+let audioCtx = null;
+let lobbyAudio = null;
+let lobbyMusicStarted = false;
+
+function initAudio() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+}
+document.addEventListener('click', initAudio, { once: true });
+document.addEventListener('touchstart', initAudio, { once: true });
+
+function playSound(type) {
+  try {
+    initAudio();
+    const t = audioCtx.currentTime;
+
+    if (type === 'place') {
+      // Domino clack: sharp attack, wooden thud
+      const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.18, audioCtx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < data.length; i++) {
+        const noise = (Math.random() * 2 - 1);
+        const decay = Math.exp(-i / (audioCtx.sampleRate * 0.04));
+        data[i] = noise * decay * 0.6;
+      }
+      const src = audioCtx.createBufferSource();
+      src.buffer = buf;
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'bandpass'; filter.frequency.value = 900; filter.Q.value = 0.8;
+      const gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(1.0, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
+      src.connect(filter); filter.connect(gain); gain.connect(audioCtx.destination);
+      src.start();
+      // Second tap for echo
+      setTimeout(() => {
+        try {
+          const src2 = audioCtx.createBufferSource();
+          src2.buffer = buf;
+          const g2 = audioCtx.createGain();
+          g2.gain.setValueAtTime(0.35, audioCtx.currentTime);
+          g2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
+          src2.connect(g2); g2.connect(audioCtx.destination);
+          src2.start();
+        } catch(e) {}
+      }, 80);
+      return;
+    }
+
+    if (type === 'draw') {
+      // Slide/shuffle sound
+      const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.25, audioCtx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < data.length; i++) {
+        const noise = (Math.random() * 2 - 1);
+        const env = Math.sin(Math.PI * i / data.length);
+        data[i] = noise * env * 0.25;
+      }
+      const src = audioCtx.createBufferSource(); src.buffer = buf;
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'highpass'; filter.frequency.value = 2000;
+      const gain = audioCtx.createGain(); gain.gain.value = 0.8;
+      src.connect(filter); filter.connect(gain); gain.connect(audioCtx.destination);
+      src.start();
+      return;
+    }
+
+    if (type === 'select') {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.type = 'sine'; osc.frequency.setValueAtTime(600, t);
+      osc.frequency.exponentialRampToValueAtTime(800, t + 0.06);
+      gain.gain.setValueAtTime(0.08, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.1);
+      osc.start(); osc.stop(t + 0.1);
+      return;
+    }
+
+    if (type === 'error') {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.type = 'sawtooth'; osc.frequency.setValueAtTime(180, t);
+      osc.frequency.exponentialRampToValueAtTime(90, t + 0.2);
+      gain.gain.setValueAtTime(0.09, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
+      osc.start(); osc.stop(t + 0.2);
+      return;
+    }
+
+    if (type === 'win') {
+      // Victory fanfare: 4 rising notes
+      const notes = [523, 659, 784, 1047];
+      notes.forEach((freq, i) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.type = 'triangle'; osc.frequency.value = freq;
+        const start = t + i * 0.14;
+        gain.gain.setValueAtTime(0, start);
+        gain.gain.linearRampToValueAtTime(0.14, start + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.001, start + 0.5);
+        osc.start(start); osc.stop(start + 0.5);
+      });
+      return;
+    }
+
+    if (type === 'lose') {
+      const notes = [440, 330, 220];
+      notes.forEach((freq, i) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.type = 'sine'; osc.frequency.value = freq;
+        const start = t + i * 0.18;
+        gain.gain.setValueAtTime(0.1, start);
+        gain.gain.exponentialRampToValueAtTime(0.001, start + 0.5);
+        osc.start(start); osc.stop(start + 0.5);
+      });
+      return;
+    }
+
+    if (type === 'pass') {
+      const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.type = 'triangle'; osc.frequency.value = 350;
+      gain.gain.setValueAtTime(0.08, t); gain.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
+      osc.start(); osc.stop(t + 0.15);
+      return;
+    }
+
+    if (type === 'chat') {
+      const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.type = 'sine'; osc.frequency.setValueAtTime(880, t);
+      osc.frequency.setValueAtTime(1100, t + 0.07);
+      gain.gain.setValueAtTime(0.05, t); gain.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
+      osc.start(); osc.stop(t + 0.15);
+    }
+  } catch(e) {}
+}
+
+function startLobbyMusic() {
+  if (lobbyMusicStarted) return;
+  lobbyMusicStarted = true;
+  try {
+    lobbyAudio = new Audio('https://analuizamrques.github.io/domino-evo/lobby-music.mp3');
+    lobbyAudio.volume = 0.28; lobbyAudio.loop = true;
+    lobbyAudio.play().catch(() => {});
+  } catch(e) {}
+}
+
+function stopLobbyMusic() {
+  if (lobbyAudio) { lobbyAudio.pause(); lobbyAudio.currentTime = 0; }
+}
+
+document.addEventListener('click', startLobbyMusic, { once: true });
+
+/* ──────────────────────────────
+   PIP LAYOUTS
+──────────────────────────────── */
+const PIP_LAYOUTS = {
+  0:[], 1:[[1,1]], 2:[[0,0],[2,2]], 3:[[0,0],[1,1],[2,2]],
+  4:[[0,0],[2,0],[0,2],[2,2]], 5:[[0,0],[2,0],[1,1],[0,2],[2,2]],
+  6:[[0,0],[0,2],[1,0],[1,2],[2,0],[2,2]]
+};
+
+/* ──────────────────────────────
+   STATE
+──────────────────────────────── */
+let ws = null, myIndex = null, selectedIdx = null;
+let myHand = [], board = [], gameOver = false, canPass = false;
+let myScore = 0, oppScore = 0, currentTurn = null;
+let boneyardCount = 0, oppHandCount = 0;
+let boardLeftEnd = null, boardRightEnd = null;
+let myName = 'Tu', oppName = 'Oponente';
+let isAIMode = false;
+let aiHand = [], aiBoneyard = [], aiDiff = 'medium';
+let unreadChat = 0;
+let chatOpen = false;
+
+/* ──────────────────────────────
+   CHAT
+──────────────────────────────── */
+function toggleChat() {
+  chatOpen = !chatOpen;
+  const panel = document.getElementById('chat-panel');
+  panel.classList.toggle('collapsed', !chatOpen);
+  if (chatOpen) {
+    unreadChat = 0;
+    const badge = document.getElementById('chat-badge');
+    badge.classList.remove('show', 'pulse');
+    badge.textContent = '0';
+    setTimeout(() => {
+      const msgs = document.getElementById('chat-messages');
+      msgs.scrollTop = msgs.scrollHeight;
+    }, 310);
+  }
+}
+
+function toggleMP() {
+  const sec = document.getElementById('mp-section');
+  sec.style.display = sec.style.display === 'none' ? 'flex' : 'none';
+}
+
+function addChatMsg(sender, text, isMine, isSystem) {
+  const c = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'chat-msg' + (isMine ? ' mine' : '') + (isSystem ? ' system' : '');
+  if (!isSystem) {
+    const s = document.createElement('div'); s.className = 'sender'; s.textContent = sender;
+    div.appendChild(s);
+  }
+  const b = document.createElement('div'); b.className = 'bubble'; b.textContent = text;
+  div.appendChild(b);
+  c.appendChild(div);
+  c.scrollTop = c.scrollHeight;
+  if (!chatOpen) {
+    unreadChat++;
+    const badge = document.getElementById('chat-badge');
+    badge.textContent = unreadChat > 9 ? '9+' : unreadChat;
+    badge.classList.add('show');
+    badge.classList.remove('pulse');
+    void badge.offsetWidth;
+    badge.classList.add('pulse');
+    playSound('chat');
+  }
+}
+
+function sendChat() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  addChatMsg('Tu', text, true, false);
+  if (ws && ws.readyState === 1) {
+    ws.send(JSON.stringify({ type: 'chat', message: text }));
+  } else if (isAIMode) {
+    // Fun AI responses
+    const responses = [
+      '🤖 Boa jogada...', '🤖 Hmm, interessante!', '🤖 Estou a calcular...',
+      '🤖 Não me distrais!', '🤖 Processo linguagem natural...', '🤖 👀',
+      '🤖 Concentração máxima.', '🤖 Erro 404: Amizade não encontrada.',
+    ];
+    setTimeout(() => {
+      addChatMsg(oppName, responses[Math.floor(Math.random() * responses.length)], false, false);
+    }, 600 + Math.random() * 800);
+  }
+}
+
+/* ──────────────────────────────
+   DRAG & DROP
+──────────────────────────────── */
+let dragTileIdx = null;
+let dragGhost = document.getElementById('drag-ghost');
+let dragOver = null; // 'left' | 'right' | null
+
+function startDrag(e, idx) {
+  const isMyTurn = isAIMode ? currentTurn === 0 : currentTurn === myIndex;
+  if (!isMyTurn || gameOver) return;
+  e.preventDefault();
+  dragTileIdx = idx;
+  selectedIdx = idx;
+  renderMyHand();
+  updateButtons();
+
+  // Build ghost
+  const tile = myHand[idx];
+  dragGhost.innerHTML = '';
+  dragGhost.style.display = 'flex';
+  dragGhost.style.flexDirection = 'column';
+  const ghostEl = createPieceEl(tile, false, null, false);
+  dragGhost.appendChild(ghostEl);
+  moveDragGhost(e);
+
+  document.addEventListener('mousemove', onDragMove);
+  document.addEventListener('mouseup', onDragEnd);
+  document.addEventListener('touchmove', onDragMove, { passive: false });
+  document.addEventListener('touchend', onDragEnd);
+}
+
+function getClientXY(e) {
+  if (e.touches && e.touches[0]) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  return { x: e.clientX, y: e.clientY };
+}
+
+function moveDragGhost(e) {
+  const { x, y } = getClientXY(e);
+  dragGhost.style.left = x + 'px';
+  dragGhost.style.top = y + 'px';
+
+  // Check drop zones
+  const leftZone = document.getElementById('drop-left');
+  const rightZone = document.getElementById('drop-right');
+  const prev = dragOver;
+
+  dragOver = null;
+  if (leftZone && isOver(e, leftZone)) { dragOver = 'left'; }
+  else if (rightZone && isOver(e, rightZone)) { dragOver = 'right'; }
+
+  if (prev !== dragOver) {
+    if (leftZone) leftZone.classList.toggle('drag-over', dragOver === 'left');
+    if (rightZone) rightZone.classList.toggle('drag-over', dragOver === 'right');
+  }
+}
+
+function isOver(e, el) {
+  const { x, y } = getClientXY(e);
+  const rect = el.getBoundingClientRect();
+  return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+}
+
+function onDragMove(e) {
+  e.preventDefault();
+  moveDragGhost(e);
+}
+
+function onDragEnd(e) {
+  document.removeEventListener('mousemove', onDragMove);
+  document.removeEventListener('mouseup', onDragEnd);
+  document.removeEventListener('touchmove', onDragMove);
+  document.removeEventListener('touchend', onDragEnd);
+  dragGhost.style.display = 'none';
+
+  const leftZone = document.getElementById('drop-left');
+  const rightZone = document.getElementById('drop-right');
+  if (leftZone) leftZone.classList.remove('drag-over');
+  if (rightZone) rightZone.classList.remove('drag-over');
+
+  if (dragOver && dragTileIdx !== null) {
+    placePiece(dragOver);
+  }
+  dragTileIdx = null;
+  dragOver = null;
+}
+
+/* ──────────────────────────────
+   LOBBY
+──────────────────────────────── */
+function startAI() {
+  myName = document.getElementById('my-name').value.trim() || 'Jogador';
+  aiDiff = document.getElementById('ai-diff') ? document.getElementById('ai-diff').value : 'medium';
+  oppName = aiDiff === 'easy' ? 'IA Fácil' : aiDiff === 'hard' ? 'IA Difícil' : 'IA Médio';
+  isAIMode = true;
+  stopLobbyMusic();
+  newAIGame();
+}
+
+function joinRoom() {
+  myName = document.getElementById('my-name').value.trim() || 'Jogador';
+  const input = document.getElementById('room-input').value.trim().toUpperCase();
+  const roomId = input || 'EVO' + Math.random().toString(36).substr(2,5).toUpperCase();
+  document.getElementById('room-input').value = roomId;
+  isAIMode = false;
+  setLobbyMsg('A conectar...');
+  ws = new WebSocket(SERVER_URL);
+  ws.onopen = () => {
+    setLobbyMsg('✅ Ligado!');
+    ws.send(JSON.stringify({ type: 'join', roomId, name: myName }));
+  };
+  ws.onerror = () => setLobbyMsg('❌ Erro de ligação. Tenta novamente.');
+  ws.onmessage = e => handleServerMsg(JSON.parse(e.data));
+  ws.onclose = e => { if (!gameOver) setLobbyMsg('Ligação perdida (' + e.code + '). Recarrega.'); };
+}
+
+/* ──────────────────────────────
+   ONLINE SERVER MESSAGES
+──────────────────────────────── */
+function handleServerMsg(msg) {
+  switch (msg.type) {
+    case 'joined':
+      myIndex = msg.playerIndex;
+      const box = document.getElementById('room-code-box');
+      box.style.display = 'block';
+      document.getElementById('room-code-display').textContent = msg.roomId;
+      setLobbyMsg(myIndex === 0 ? '⏳ Aguarda o oponente...' : '✅ Entraste!');
+      break;
+    case 'waiting': setLobbyMsg('⏳ Aguardando oponente...'); break;
+    case 'opponent_joined': setLobbyMsg('🎮 A iniciar...'); break;
+    case 'game_start':
+      myIndex = msg.myIndex;
+      oppName = msg.oppName || 'Oponente';
+      myHand = msg.myHand; currentTurn = msg.currentTurn;
+      boneyardCount = msg.boneyardCount; oppHandCount = msg.oppHandCount;
+      myScore = msg.scores[myIndex]; oppScore = msg.scores[1 - myIndex];
+      board = []; boardLeftEnd = null; boardRightEnd = null;
+      selectedIdx = null; gameOver = false; canPass = false;
+      stopLobbyMusic();
+      launchGame();
+      addChatMsg('', '🎮 Jogo iniciado! Boa sorte!', false, true);
+      setMsg(currentTurn === myIndex ? '✅ Começas tu!' : '⏳ Oponente começa...');
+      break;
+    case 'state_update':
+      myHand = msg.myHand; board = msg.board; currentTurn = msg.currentTurn;
+      boneyardCount = msg.boneyardCount; oppHandCount = msg.oppHandCount;
+      boardLeftEnd = msg.boardLeftEnd; boardRightEnd = msg.boardRightEnd;
+      myScore = msg.scores[myIndex]; oppScore = msg.scores[1 - myIndex];
+      canPass = msg.canPass; selectedIdx = null; gameOver = false;
+      render(); startTimer();
+      if (currentTurn === myIndex) {
+        if (canPass) setMsg('Sem jogadas! Passa a vez.');
+        else if (boneyardCount > 0 && !myHand.some(t => canPlayTile(t))) setMsg('Compra uma peça!');
+        else setMsg('✅ Tua vez! Seleciona ou arrasta uma peça.');
+      } else setMsg('⏳ Vez do oponente...');
+      break;
+    case 'game_over':
+      gameOver = true;
+      myScore = msg.scores[myIndex]; oppScore = msg.scores[1 - myIndex];
+      render();
+      const won = msg.winner === myIndex;
+      finishGame(won, msg.reason || '');
+      break;
+    case 'chat':
+      addChatMsg(msg.from || oppName, msg.message, false, false);
+      break;
+    case 'rematch_waiting':
+      document.getElementById('overlay-msg').textContent = 'Aguardando oponente...'; break;
+    case 'opponent_left':
+      showOverlay('😔', 'Oponente saiu', 'A partida terminou antes da hora.'); break;
+    case 'error': setLobbyMsg('❌ ' + msg.message); break;
+  }
+}
+
+/* ──────────────────────────────
+   AI GAME
+──────────────────────────────── */
+function createAllTiles() {
+  const t = [];
+  for (let i = 0; i <= 6; i++) for (let j = i; j <= 6; j++) t.push({ a: i, b: j });
+  return t;
+}
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function newAIGame() {
+  const all = shuffle(createAllTiles());
+  myHand = all.slice(0, 7); aiHand = all.slice(7, 14); aiBoneyard = all.slice(14);
+  board = []; boardLeftEnd = null; boardRightEnd = null;
+  selectedIdx = null; gameOver = false; canPass = false;
+  boneyardCount = aiBoneyard.length; oppHandCount = aiHand.length; myIndex = 0;
+  const myMax = myHand.reduce((m, t) => t.a === t.b && t.a > m ? t.a : m, -1);
+  const aiMax = aiHand.reduce((m, t) => t.a === t.b && t.a > m ? t.a : m, -1);
+  currentTurn = myMax >= aiMax ? 0 : 1;
+  launchGame();
+  addChatMsg('', '🤖 A IA está pronta. Boa sorte!', false, true);
+  setMsg(currentTurn === 0 ? '✅ Começas tu!' : '⏳ IA começa...');
+  if (currentTurn === 1) setTimeout(doAIMove, 1200);
+}
+
+function getAllPossibleMoves(hand, boardL, boardR) {
+  const moves = [];
+  hand.forEach((t, i) => {
+    if (boardR === null) {
+      moves.push({ tile: t, index: i, side: 'right', oriented: { a: t.a, b: t.b } });
+    } else {
+      if (t.a === boardR) moves.push({ tile: t, index: i, side: 'right', oriented: { a: t.a, b: t.b } });
+      if (t.b === boardR && t.a !== t.b) moves.push({ tile: t, index: i, side: 'right', oriented: { a: t.b, b: t.a } });
+    }
+    if (boardL !== null) {
+      if (t.b === boardL) moves.push({ tile: t, index: i, side: 'left', oriented: { a: t.a, b: t.b } });
+      if (t.a === boardL && t.a !== t.b) moves.push({ tile: t, index: i, side: 'left', oriented: { a: t.b, b: t.a } });
+    }
+  });
+  return moves;
+}
+
+function doAIMove() {
+  if (gameOver) return;
+  document.getElementById('ai-dots').classList.add('show');
+  const delay = aiDiff === 'easy' ? 800 : aiDiff === 'hard' ? 1800 : 1100;
+  setTimeout(() => {
+    document.getElementById('ai-dots').classList.remove('show');
+    if (gameOver) return;
+
+    let plays = getAllPossibleMoves(aiHand, boardLeftEnd, boardRightEnd);
+
+    // Difficulty-based strategy
+    let best = null;
+    if (plays.length > 0) {
+      if (aiDiff === 'easy') {
+        best = plays[Math.floor(Math.random() * plays.length)];
+      } else if (aiDiff === 'medium') {
+        // Prefer doubles or high value
+        plays.sort((a, b) => {
+          const va = a.tile.a + a.tile.b; const vb = b.tile.a + b.tile.b;
+          return vb - va;
+        });
+        best = plays[0];
+      } else {
+        // Hard: pick move that limits player most
+        plays.sort((a, b) => {
+          const va = (a.tile.a === a.tile.b ? 1 : 0) * 10 + a.tile.a + a.tile.b;
+          const vb = (b.tile.a === b.tile.b ? 1 : 0) * 10 + b.tile.a + b.tile.b;
+          return vb - va;
+        });
+        best = plays[0];
+      }
+    }
+
+    if (best) {
+      putOnBoard(best.oriented, best.side);
+      const ri = aiHand.findIndex(t => t === best.tile);
+      if (ri > -1) aiHand.splice(ri, 1);
+      playSound('place');
+    }
+
+    oppHandCount = aiHand.length; boneyardCount = aiBoneyard.length;
+
+    if (!best) {
+      if (aiBoneyard.length > 0) {
+        aiHand.push(aiBoneyard.pop());
+        oppHandCount = aiHand.length; boneyardCount = aiBoneyard.length;
+        render(); startTimer();
+        setTimeout(doAIMove, 700); return;
+      } else {
+        currentTurn = 0; canPass = false; render(); startTimer();
+        if (checkBlock()) return;
+        if (!myHand.some(t => canPlayTile(t))) {
+          canPass = true; setMsg('Sem jogadas! Passa a vez.'); updateButtons();
+        } else setMsg('✅ Tua vez!');
+        return;
+      }
+    }
+
+    if (aiHand.length === 0) { render(); endAIGame('IA venceu'); return; }
+    if (checkBlock()) return;
+    currentTurn = 0; canPass = false; render(); startTimer();
+    if (!myHand.some(t => canPlayTile(t))) {
+      if (aiBoneyard.length > 0) setMsg('Sem jogadas! Compra uma peça.');
+      else { canPass = true; setMsg('Sem jogadas! Passa a vez.'); updateButtons(); }
+    } else setMsg('✅ Tua vez! Arrasta ou clica numa peça.');
+  }, delay);
+}
+
+function putOnBoard(oriented, side) {
+  if (board.length === 0) {
+    board.push({ tile: oriented });
+    boardLeftEnd = oriented.a; boardRightEnd = oriented.b;
+  } else if (side === 'left') {
+    board.unshift({ tile: oriented }); boardLeftEnd = oriented.a;
+  } else {
+    board.push({ tile: oriented }); boardRightEnd = oriented.b;
+  }
+}
+
+function checkBlock() {
+  const myCan = myHand.some(t => canPlayTile(t));
+  const aiCan = aiHand.some(t => canPlayTile(t));
+  if (!myCan && !aiCan && aiBoneyard.length === 0) {
+    const myS = myHand.reduce((s,t)=>s+t.a+t.b,0);
+    const aiS = aiHand.reduce((s,t)=>s+t.a+t.b,0);
+    gameOver = true;
+    if (myS < aiS) { myScore += aiS; endAIGame('bloqueio-ganhou'); }
+    else if (aiS < myS) { oppScore += myS; endAIGame('bloqueio-perdeu'); }
+    else endAIGame('bloqueio-empate');
+    return true;
+  }
+  return false;
+}
+
+function endAIGame(reason) {
+  gameOver = true;
+  const myS = myHand.reduce((s,t)=>s+t.a+t.b,0);
+  const aiS = aiHand.reduce((s,t)=>s+t.a+t.b,0);
+  if (!reason.includes('bloqueio')) {
+    if (myS < aiS) myScore += aiS;
+    else if (aiS < myS) oppScore += myS;
+  }
+  render();
+  finishGame(
+    reason.includes('ganhou') || reason === 'Venceste',
+    reason
+  );
+}
+
+/* ──────────────────────────────
+   PLAYER ACTIONS
+──────────────────────────────── */
+function selectTile(i) {
+  const isMyTurn = isAIMode ? currentTurn === 0 : currentTurn === myIndex;
+  if (!isMyTurn || gameOver) return;
+  if (selectedIdx !== i) playSound('select');
+  selectedIdx = selectedIdx === i ? null : i;
+  renderMyHand(); updateButtons();
+}
+
+function placePiece(side) {
+  const isMyTurn = isAIMode ? currentTurn === 0 : currentTurn === myIndex;
+  if (!isMyTurn || selectedIdx === null || gameOver) return;
+  const origIdx = selectedIdx;
+  const tile = myHand[origIdx];
+  const oriented = getTileOriented(tile, side);
+  if (!oriented) { playSound('error'); setMsg('❌ Esta peça não encaixa nesse lado!'); return; }
+  playSound('place');
+  if (isAIMode) {
+    putOnBoard(oriented, side);
+    myHand.splice(origIdx, 1); selectedIdx = null; canPass = false;
+    boneyardCount = aiBoneyard.length; oppHandCount = aiHand.length;
+    if (myHand.length === 0) { render(); endAIGame('Venceste'); return; }
+    if (checkBlock()) return;
+    currentTurn = 1; render(); startTimer(); setMsg('⏳ IA a pensar...');
+    setTimeout(doAIMove, 900);
+  } else {
+    ws.send(JSON.stringify({ type: 'place', tileIndex: origIdx, side }));
+    selectedIdx = null;
+  }
+}
+
+function drawTile() {
+  const isMyTurn = isAIMode ? currentTurn === 0 : currentTurn === myIndex;
+  if (!isMyTurn || gameOver) return;
+  playSound('draw');
+  if (isAIMode) {
+    if (aiBoneyard.length === 0) return;
+    myHand.push(aiBoneyard.pop()); boneyardCount = aiBoneyard.length;
+    if (myHand.some(t => canPlayTile(t))) setMsg('Peça comprada! Joga agora.');
+    else if (aiBoneyard.length === 0) { canPass = true; setMsg('Sem mais peças! Passa a vez.'); }
+    else setMsg('Sem jogada. Compra mais ou passa.');
+    render(); startTimer();
+  } else ws.send(JSON.stringify({ type: 'draw' }));
+}
+
+function passTurn() {
+  const isMyTurn = isAIMode ? currentTurn === 0 : currentTurn === myIndex;
+  if (!isMyTurn || !canPass || gameOver) return;
+  playSound('pass');
+  addChatMsg('', '⏩ Passaste a vez', false, true);
+  if (isAIMode) {
+    canPass = false; currentTurn = 1; render(); startTimer();
+    setMsg('⏳ IA a jogar...'); setTimeout(doAIMove, 800);
+  } else ws.send(JSON.stringify({ type: 'pass' }));
+}
+
+function requestRematch() {
+  if (isAIMode) {
+    newAIGame();
+    document.getElementById('overlay').classList.remove('show');
+  } else {
+    ws.send(JSON.stringify({ type: 'rematch' }));
+    document.getElementById('overlay-msg').textContent = 'Aguardando oponente...';
+  }
+}
+
+function backToLobby() {
+  document.getElementById('overlay').classList.remove('show');
+  document.getElementById('game').style.display = 'none';
+  document.getElementById('lobby').style.display = 'flex';
+  if (ws) { ws.close(); ws = null; }
+  isAIMode = false; myIndex = null; gameOver = false;
+  chatOpen = false;
+  document.getElementById('chat-panel').classList.add('collapsed');
+  document.getElementById('chat-messages').innerHTML = '';
+  unreadChat = 0;
+}
+
+/* ──────────────────────────────
+   HELPERS
+──────────────────────────────── */
+function getTileOriented(tile, side) {
+  if (side === 'left') {
+    if (boardLeftEnd === null) return tile;
+    if (tile.b === boardLeftEnd) return tile;
+    if (tile.a === boardLeftEnd) return { a: tile.b, b: tile.a };
+    return null;
+  } else {
+    if (boardRightEnd === null) return tile;
+    if (tile.a === boardRightEnd) return tile;
+    if (tile.b === boardRightEnd) return { a: tile.b, b: tile.a };
+    return null;
+  }
+}
+function canPlayTile(t) {
+  if (!board.length) return true;
+  return t.a===boardLeftEnd || t.b===boardLeftEnd || t.a===boardRightEnd || t.b===boardRightEnd;
+}
+
+/* ──────────────────────────────
+   TIMER
+──────────────────────────────── */
+let turnTimer = null, timeLeft = 90;
+function startTimer() {
+  clearInterval(turnTimer); timeLeft = 90;
+  const el = document.getElementById('turn-timer');
+  const badge = document.getElementById('timer-badge');
+  if (el) el.textContent = '1:30';
+  if (badge) badge.classList.remove('urgent');
+  turnTimer = setInterval(() => {
+    if (!document.getElementById('turn-timer')) return;
+    timeLeft--;
+    const m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+    document.getElementById('turn-timer').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    const badge = document.getElementById('timer-badge');
+    if (timeLeft <= 15 && badge) badge.classList.add('urgent');
+    if (timeLeft <= 0) clearInterval(turnTimer);
+  }, 1000);
+}
+
+/* ──────────────────────────────
+   RENDER
+──────────────────────────────── */
+function launchGame() {
+  document.getElementById('lobby').style.display = 'none';
+  document.getElementById('game').style.display = 'flex';
+  document.getElementById('overlay').classList.remove('show');
+  document.getElementById('pname-me').textContent = myName;
+  document.getElementById('avatar-me').textContent = myName.charAt(0).toUpperCase();
+  document.getElementById('pname-opp').textContent = oppName;
+  document.getElementById('avatar-opp').textContent = oppName.charAt(0).toUpperCase();
+  document.getElementById('avatar-opp').className = isAIMode ? 'avatar avatar-ai' : 'avatar avatar-opp';
+  render(); startTimer();
+}
+
+function render() {
+  renderBoard(); renderMyHand(); renderOpp();
+  document.getElementById('score-me').textContent = myScore + ' pts';
+  document.getElementById('score-opp').textContent = oppScore + ' pts';
+  document.getElementById('opp-count').textContent = oppHandCount;
+  document.getElementById('boneyard-count').textContent = isAIMode ? aiBoneyard.length : boneyardCount;
+  const isMyTurn = isAIMode ? currentTurn === 0 : currentTurn === myIndex;
+  const pill = document.getElementById('turn-pill');
+  if (isMyTurn) { pill.textContent = '✅ Tua vez!'; pill.classList.add('active'); }
+  else { pill.textContent = '⏳ ' + oppName; pill.classList.remove('active'); }
+  document.getElementById('badge-me').classList.toggle('active-turn', isMyTurn);
+  document.getElementById('badge-opp').classList.toggle('active-turn', !isMyTurn);
+  document.getElementById('eq-me').classList.toggle('paused', !isMyTurn);
+  document.getElementById('eq-opp').classList.toggle('paused', isMyTurn);
+  updateButtons();
+}
+
+function renderHalf(val, small) {
+  const div = document.createElement('div');
+  div.className = 'half' + (small ? ' sm' : '');
+  const layout = PIP_LAYOUTS[val] || [];
+  const grid = Array(3).fill(null).map(() => Array(3).fill(0));
+  layout.forEach(([r,c]) => grid[r][c] = 1);
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) {
+    const cell = document.createElement('div');
+    cell.className = grid[r][c] ? 'pip' : 'pip empty';
+    div.appendChild(cell);
+  }
+  return div;
+}
+
+function createPieceEl(tile, onBoard, idx, clickable, landing) {
+  const horiz = onBoard && tile.a !== tile.b;
+  const el = document.createElement('div');
+  let cls = 'dom-piece';
+  if (horiz) cls += ' horizontal';
+  if (onBoard) cls += ' on-board';
+  if (!onBoard && clickable) cls += ' in-hand';
+  if (landing) cls += ' piece-landing';
+  el.className = cls;
+  const small = onBoard;
+  if (horiz) {
+    el.appendChild(renderHalf(tile.a, small));
+    const d = document.createElement('div'); d.className = 'divider-h'; el.appendChild(d);
+    el.appendChild(renderHalf(tile.b, small));
+  } else {
+    el.appendChild(renderHalf(tile.a, small));
+    const d = document.createElement('div'); d.className = 'divider-v'; el.appendChild(d);
+    el.appendChild(renderHalf(tile.b, small));
+  }
+  if (clickable && idx !== undefined) {
+    if (idx === selectedIdx) el.classList.add('selected');
+    el.addEventListener('click', () => selectTile(idx));
+    el.addEventListener('mousedown', (e) => { if (e.button === 0) startDrag(e, idx); });
+    el.addEventListener('touchstart', (e) => startDrag(e, idx), { passive: false });
+  }
+  return el;
+}
+
+function renderMyHand() {
+  const c = document.getElementById('my-hand');
+  c.innerHTML = '';
+  myHand.forEach((t, i) => c.appendChild(createPieceEl(t, false, i, true)));
+}
+
+function renderOpp() {
+  const c = document.getElementById('opp-area');
+  c.innerHTML = '';
+  for (let i = 0; i < oppHandCount; i++) {
+    const d = document.createElement('div'); d.className = 'opp-back'; c.appendChild(d);
+  }
+}
+
+/* Board layout: snake rows of max N pieces each */
+function renderBoard() {
+  const wrapper = document.getElementById('board-wrapper');
+  wrapper.innerHTML = '';
+
+  if (!board.length) {
+    wrapper.style.flexDirection = 'column';
+    const empty = document.createElement('div');
+    empty.style.cssText = 'color:rgba(255,255,255,0.15);font-size:13px;letter-spacing:1px;text-align:center;padding:30px 0;';
+    empty.textContent = '🁣  Arrasta a primeira peça para cá';
+    wrapper.appendChild(empty);
+    // Still add drop zone in center
+    const dz = createDropZone('right');
+    dz.textContent = '+';
+    wrapper.appendChild(dz);
+    return;
+  }
+
+  wrapper.style.flexDirection = 'column';
+  const ROW_MAX = 9; // pieces per row before wrapping
+  const totalPieces = board.length;
+  const rows = Math.ceil(totalPieces / ROW_MAX);
+
+  // Add left drop zone before board
+  const leftDrop = createDropZone('left');
+  const rightDrop = createDropZone('right');
+
+  for (let r = 0; r < rows; r++) {
+    const rowEl = document.createElement('div');
+    rowEl.className = 'board-row' + (r % 2 === 1 ? ' row-reverse' : '');
+    const start = r * ROW_MAX;
+    const end = Math.min(start + ROW_MAX, totalPieces);
+    const isFirst = r === 0;
+    const isLast = r === rows - 1;
+
+    // Insert left drop zone at very start
+    if (isFirst && r % 2 === 0) rowEl.appendChild(leftDrop);
+    if (isFirst && r % 2 === 1) rowEl.appendChild(rightDrop);
+
+    for (let i = start; i < end; i++) {
+      const piece = board[i];
+      const el = createPieceEl(piece.tile, true, null, false, piece.fresh);
+      if (piece.fresh) { piece.fresh = false; }
+      rowEl.appendChild(el);
+    }
+
+    // Insert right drop zone at very end
+    if (isLast && r % 2 === 0) rowEl.appendChild(rightDrop);
+    if (isLast && r % 2 === 1) rowEl.appendChild(leftDrop);
+
+    wrapper.appendChild(rowEl);
+  }
+
+  // Scroll board to show latest piece
+  setTimeout(() => {
+    const ba = document.getElementById('board-area');
+    ba.scrollLeft = (ba.scrollWidth - ba.clientWidth) / 2;
+  }, 50);
+}
+
+function createDropZone(side) {
+  const dz = document.createElement('div');
+  dz.className = 'board-drop-zone';
+  dz.id = 'drop-' + side;
+  dz.title = side === 'left' ? 'Colocar à esquerda' : 'Colocar à direita';
+  dz.textContent = '+';
+
+  // Click to place if selected
+  dz.addEventListener('click', () => {
+    const isMyTurn = isAIMode ? currentTurn === 0 : currentTurn === myIndex;
+    if (isMyTurn && selectedIdx !== null && !gameOver) placePiece(side);
+  });
+
+  return dz;
+}
+
+function updateButtons() {
+  const isMyTurn = (isAIMode ? currentTurn === 0 : currentTurn === myIndex) && !gameOver;
+  const bn = isAIMode ? aiBoneyard.length : boneyardCount;
+  document.getElementById('btn-draw').disabled = !(isMyTurn && bn > 0 && !canPass);
+  document.getElementById('btn-pass').disabled = !(isMyTurn && canPass);
+}
+
+function setMsg(m) { document.getElementById('msg').textContent = m; }
+function setLobbyMsg(m) { document.getElementById('lobby-msg').textContent = m; }
+
+/* ──────────────────────────────
+   GAME ENDING
+──────────────────────────────── */
+function finishGame(won, reason) {
+  const myS = myHand.reduce((s,t) => s+t.a+t.b, 0);
+  const aiS = isAIMode ? aiHand.reduce((s,t) => s+t.a+t.b, 0) : 0;
+
+  if (won) {
+    showConfetti();
+    playSound('win');
+  } else {
+    playSound('lose');
+  }
+
+  // Update score overlay
+  document.getElementById('sc-name-me').textContent = myName;
+  document.getElementById('sc-name-opp').textContent = oppName;
+  document.getElementById('sc-pts-me').textContent = myScore;
+  document.getElementById('sc-pts-opp').textContent = oppScore;
+
+  const meCol = document.getElementById('score-col-me');
+  const oppCol = document.getElementById('score-col-opp');
+  if (won) {
+    meCol.className = 'score-col winner'; oppCol.className = 'score-col loser';
+  } else if (!won && reason !== 'bloqueio-empate') {
+    meCol.className = 'score-col loser'; oppCol.className = 'score-col winner';
+  } else {
+    meCol.className = 'score-col'; oppCol.className = 'score-col';
+  }
+
+  let trophy, title, msg;
+  if (reason === 'bloqueio-empate') {
+    trophy = '🤝'; title = 'Empate!';
+    msg = 'Jogo bloqueado com pontuações iguais. Ninguém vence desta vez!';
+  } else if (reason.includes('bloqueio-ganhou')) {
+    trophy = '🏆'; title = 'Venceste por Bloqueio!';
+    msg = `O jogo bloqueou! As tuas peças valiam menos (${myS} pts vs ${aiS} pts). Parabéns, ${myName}!`;
+  } else if (reason.includes('bloqueio-perdeu')) {
+    trophy = '😔'; title = 'IA Vence por Bloqueio';
+    msg = `O jogo bloqueou! As tuas peças valiam mais (${myS} pts vs ${aiS} pts). Melhor sorte na próxima!`;
+  } else if (won) {
+    trophy = '🏆'; title = 'Dominó! Venceste!';
+    msg = `Excelente jogo, ${myName}! Ficaste sem peças primeiro. A ${oppName} ainda tinha ${aiS} pontos na mão.`;
+  } else {
+    trophy = '😔'; title = 'A IA Venceu!';
+    msg = `A ${oppName} ficou sem peças primeiro. Tinhas ainda ${myS} pontos na mão. Tenta de novo!`;
+  }
+
+  addChatMsg('', trophy + ' ' + title, false, true);
+  showOverlay(trophy, title, msg);
+}
+
+function showConfetti() {
+  const shapes = ['●', '■', '▲', '◆'];
+  const colors = ['#c9a227','#e8c96a','#3da060','#f5f0e8','#ff6b6b','#4ecdc4','#a78bfa'];
+  for (let i = 0; i < 80; i++) {
+    setTimeout(() => {
+      const c = document.createElement('div');
+      c.className = 'confetti-piece';
+      c.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+      c.style.left = Math.random() * 100 + 'vw';
+      c.style.color = colors[Math.floor(Math.random() * colors.length)];
+      c.style.fontSize = (8 + Math.random() * 10) + 'px';
+      c.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+      c.style.animationDelay = Math.random() * 0.8 + 's';
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 5000);
+    }, i * 25);
+  }
+}
+
+function showOverlay(trophy, title, msg) {
+  document.getElementById('overlay-trophy').textContent = trophy;
+  document.getElementById('overlay-title').textContent = title;
+  document.getElementById('overlay-msg').textContent = msg;
+  document.getElementById('overlay').classList.add('show');
+}
+
+// Mark new board pieces for animation
+const _origPutOnBoard = putOnBoard;
+// Patch putOnBoard to mark fresh pieces
+const origPutOnBoard = putOnBoard;
+window.putOnBoardWithFresh = function(oriented, side) {
+  origPutOnBoard(oriented, side);
+  if (board.length > 0) board[side === 'left' ? 0 : board.length - 1].fresh = true;
+};
+// Override
+window.putOnBoard = window.putOnBoardWithFresh;
+
+</script>
+</body>
+</html>

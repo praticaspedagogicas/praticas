@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EVO Word Connect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        :root {
+            --gold: #ffd700;
+            --gold-dark: #ff9500;
+            --gold-light: #ffe566;
+            --bg-deep: #0d0d1a;
+            --bg-mid: #1a1a2e;
+            --bg-card: rgba(30,30,50,0.85);
+            --text: #ffffff;
+            --text-dim: rgba(255,255,255,0.6);
+            --glow: rgba(255,215,0,0.4);
+        }
+        
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background: var(--bg-deep);
+            color: var(--text);
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: auto; -webkit-overflow-scrolling: touch;
+            touch-action: none;
+            -webkit-user-select: none;
+            user-select: none;
+            position: relative;
+        }
+        
+        /* Atmospheric background */
+        .bg-atmosphere {
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(99,102,241,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(255,215,0,0.08) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 100%, rgba(139,92,246,0.12) 0%, transparent 50%),
+                linear-gradient(180deg, #0d0d1a 0%, #1a1a2e 50%, #151528 100%);
+            z-index: -1;
+        }
+        
+        /* Floating particles */
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+            50% { transform: translateY(-30px) scale(0.8); opacity: 0.6; }
+        }
+        
+        /* === TOP ZONE === */
+        .top-zone {
+            flex: 0 0 56%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 14px;
+            position: relative;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+        }
+        
+        .header h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px var(--glow);
+        }
+        
+        .stats {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-num {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        
+        .stat-label {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+        }
+        
+        .level-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,149,0,0.1));
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--gold);
+        }
+        
+        .progress {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 3px;
+            margin: 14px 0;
+            overflow: auto; -webkit-overflow-scrolling: touch;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+            border-radius: 3px;
+            transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 0 12px var(--glow);
+        }
+        
+        /* Premium Crossword Grid */
+        .grid-container {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border-radius: 16px;
+            padding: 14px;
+            border: 1px solid rgba(255,215,0,0.15);
+            box-shadow: 
+                0 8px 32px rgba(0,0,0,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 4px;
+        }
+        
+        .cell {
+            width: 38px;
+            height: 38px;
+            background: rgba(20,20,35,0.9);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: transparent;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .cell.has-letter {
+            background: rgba(30,30,50,0.9);
+            border-color: rgba(255,255,255,0.12);
+        }
+        
+        .cell.found {
+            background: linear-gradient(145deg, var(--gold), var(--gold-dark));
+            color: #1a1a1a;
+            border-color: var(--gold);
+            box-shadow: 
+                0 4px 16px rgba(255,215,0,0.35),
+                inset 0 2px 4px rgba(255,255,255,0.3);
+            transform: scale(1.05);
+            animation: pop 0.4s ease;
+        }
+        
+        @keyframes pop {
+            0% { transform: scale(0.85); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Current word */
+        .current-word {
+            display: flex;
+            gap: 6px;
+            margin-top: 16px;
+        }
+        
+        .char-box {
+            width: 32px;
+            height: 40px;
+            background: var(--bg-card);
+            border-bottom: 3px solid var(--gold);
+            border-radius: 8px 8px 6px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--gold);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.2s ease;
+        }
+        
+        .char-box.empty {
+            background: rgba(255,255,255,0.04);
+            border-bottom-color: rgba(255,255,255,0.2);
+            color: transparent;
+        }
+        
+        /* === BOTTOM ZONE: PREMIUM WHEEL === */
+        .bottom-zone {
+            flex: 0 0 42%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px 0 30px;
+            position: relative;
+        }
+        
+        /* Premium Wheel Container */
+        .wheel-container {
+            position: relative;
+            width: 170px;
+            height: 170px;
+        }
+        
+        /* Outer glow ring */
+        .wheel-glow {
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent, rgba(255,215,0,0.3), transparent, rgba(255,215,0,0.3), transparent);
+            animation: rotate 4s linear infinite;
+            filter: blur(8px);
+        }
+        
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Main wheel */
+        .wheel {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: 
+                radial-gradient(circle at 35% 35%, rgba(60,60,90,0.9), rgba(20,20,40,0.95)),
+                linear-gradient(180deg, rgba(40,40,70,0.8), rgba(15,15,30,0.9));
+            border: 3px solid rgba(255,215,0,0.25);
+            box-shadow: 
+                0 8px 40px rgba(0,0,0,0.5),
+                0 0 60px rgba(255,215,0,0.1),
+                inset 0 -4px 20px rgba(0,0,0,0.4),
+                inset 0 4px 20px rgba(255,255,255,0.05);
+        }
+        
+        /* Inner ring decoration */
+        .wheel::before {
+            content: '';
+            position: absolute;
+            inset: 12px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,215,0,0.15);
+        }
+        
+        /* Center display */
+        .wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(145deg, #1a1a35, #0f0f25);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--gold);
+            z-index: 15;
+            box-shadow: 
+                0 0 20px rgba(255,215,0,0.4),
+                inset 0 2px 8px rgba(0,0,0,0.5);
+        }
+        
+        /* SVG Trail */
+        .trail-svg {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .trail-path {
+            stroke: var(--gold);
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 6px var(--glow));
+        }
+        
+        /* Premium Letters */
+        .letter {
+            position: absolute;
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(145deg, #4a4a70, #2a2a50);
+            border: 2px solid rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            z-index: 12;
+            transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 
+                0 6px 16px rgba(0,0,0,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        
+        .letter:hover {
+            transform: scale(1.12);
+            border-color: var(--gold);
+            box-shadow: 0 8px 24px rgba(255,215,0,0.25);
+        }
+        
+        .letter.selected {
+            background: linear-gradient(145deg, var(--gold), var(--gold-dark));
+            color: #1a1a1a;
+            border-color: var(--gold);
+            box-shadow: 
+                0 0 24px rgba(255,215,0,0.5),
+                0 8px 24px rgba(255,215,0,0.3),
+                inset 0 2px 4px rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+        
+        /* Buttons - floating between wheel and edge */
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 14px;
+            padding: 10px 16px;
+            background: rgba(20,20,40,0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            border: 1px solid rgba(255,215,0,0.15);
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+        }
+        
+        .btn:active { transform: scale(0.94); }
+        
+        .btn-shuffle {
+            background: linear-gradient(145deg, #4f46e5, #4338ca);
+            color: #fff;
+        }
+        
+        .btn-clear {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        
+        .btn-submit.big {
+            min-width: 90px;
+            padding: 16px 24px;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(145deg, var(--gold), var(--gold-dark));
+            color: #1a1a1a;
+            box-shadow: 0 4px 20px rgba(255,215,0,0.3);
+            min-width: 70px;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+        }
+        
+        /* Popup */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 100;
+        }
+        
+        .popup.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .popup.success {
+            background: linear-gradient(145deg, var(--gold), var(--gold-dark));
+            color: #1a1a1a;
+            box-shadow: 0 8px 32px rgba(255,215,0,0.4);
+        }
+        
+        .popup.bonus {
+            background: linear-gradient(145deg, #4f46e5, #4338ca);
+            color: #fff;
+        }
+        
+        .popup.error {
+            background: linear-gradient(145deg, #ef4444, #dc2626);
+            color: #fff;
+        }
+        
+        .popup.win {
+            background: linear-gradient(145deg, #10b981, #059669);
+            color: #fff;
+            font-size: 1.4rem;
+            box-shadow: 0 8px 40px rgba(16,185,129,0.4);
+        }
+        
+        /* Confetti burst */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            pointer-events: none;
+            z-index: 50;
+            animation: confetti-fall 1s ease-out forwards;
+        }
+        
+        @keyframes confetti-fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100px) rotate(720deg); opacity: 0; }
+        }
+
+        .floating-submit {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, var(--gold), var(--gold-dark));
+            border: 3px solid #fff;
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 24px rgba(255,215,0,0.5);
+            z-index: 200;
+            display: none; /* We'll show dynamically */
+        }
+        
+        @keyframes pulse-btn {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+        
+        .pulse { animation: pulse-btn 1s ease infinite; }
+
+        .fab-submit {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #ffd700, #ff9500);
+            border: 3px solid #fff;
+            color: #1a1a1a;
+            font-size: 1.8rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 6px 24px rgba(255,215,0,0.5);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-atmosphere"></div>
+    
+    <!-- TOP ZONE -->
+    <div class="top-zone">
+        <div class="header">
+            <h1>🔥 EVO</h1>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-num" id="level">1</div>
+                    <div class="stat-label">Nivel</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num" id="score">0</div>
+                    <div class="stat-label">Puntos</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="level-badge">
+            <span>🎯</span>
+            <span>Nivel <span id="level-num">1</span> · <span id="found">0</span>/<span id="total">2</span></span>
+        </div>
+        
+        <div class="progress">
+            <div class="progress-fill" id="progress" style="width:0%"></div>
+        </div>
+        
+        <div class="grid-container">
+            <div class="grid" id="grid"></div>
+        </div>
+        
+        <div class="current-word" id="current"></div>
+    </div>
+    
+    <!-- BOTTOM ZONE -->
+    <div class="bottom-zone">
+        <div class="wheel-container">
+            <div class="wheel-glow"></div>
+            <div class="wheel" id="wheel">
+                <svg class="trail-svg"><path class="trail-path" id="trail"/></svg>
+            </div>
+            <div class="wheel-center" id="center" onclick="submit()">-</div>
+        </div>
+        
+        <div class="buttons">
+            <button class="btn btn-shuffle" onclick="shuffle()">🔀</button>
+            <button class="btn btn-clear" onclick="clear()">🗑️</button>
+            <button class="btn btn-submit big pulse" onclick="submit()">✓ ENVIAR</button>
+        </div>
+        
+        <!-- FAB Submit button always visible -->
+        <button class="fab-submit" onclick="submit()">✓</button>
+    </div>
+    
+    <div class="popup" id="popup"></div>
+    
+    <script>
+        const LEVELS = [
+            {l:['A','R','T','E'], t:['ARTE','TEAR']},
+            {l:['A','M','O','R'], t:['AMOR','MORA']},
+            {l:['A','B','C','O'], t:['CABO','BOCA']},
+            {l:['A','C','E','R'], t:['CARA','AREA']},
+            {l:['A','D','I','O'], t:['DIA','IDA']},
+            {l:['O','S','A','P'], t:['PASO','SAPO']},
+            {l:['A','N','O','S'], t:['NOSA','SON']},
+            {l:['A','E','L','V'], t:['VALE','LAVE']},
+            {l:['E','R','O','S'], t:['SERO','ROSE']},
+            {l:['I','R','A','D'], t:['RIDA','IRA']}
+        ];
+        
+        const WORDS = new Set([
+            'arte','tear','area','cabe','casa','boca','echo','hay','mora','rayo','reya','rueda','saco','sed','seda','sido','sube','tema','tiba','tiene','tino','tira','todo','tono','trae','uso','ve','via','vie','voz','yo','amor','cabo','cosa','dia','ida','mar','casa','cosa','vida','noche','dia','amor','agua','aire','alto','ante','arte','avion','bajo','bien','brazo','bueno','cabeza','cada','cafe','calle','cama','camino','campo','cara','carne','carta','cerca','cielo','cinco','color','costa','cruz','cuatro','cuerpo','dicho','dolor','donde','dulce','duro','edad','ella','error','falso','falta','fama','favor','fecha','feliz','feria','fiesta','flor','fondo','forma','fuego','fuente','fuerza','frio','gallo','ganga','gato','genio','gente','gota','gozo','grado','grande','grito','grupo','guapo','hacer','hacia','hasta','hecho','helado','heroe','hijo','hoja','hombre','hora','hotel','huevo','idea','igual','isla','jardin','jefe','joven','juez','jugar','junto','lado','lago','largo','leche','leer','legal','lejos','lengua','leon','letra','libre','libro','linea','lista','lobo','loco','lucha','lugar','luz','madera','madre','mala','malo','mana','mano','mapa','mar','marca','marco','marido','masa','mayor','media','medio','mejor','menos','mente','mesa','metal','metro','miedo','miel','mirar','mismo','moda','modo','mono','monte','moral','morir','mover','mucho','muerte','mujer','mundo','nacer','nada','nadie','nariz','nata','nave','negro','nieve','nivel','noche','nombre','norte','nota','nube','nunca','obra','oceano','ocupa','ola','opera','orden','oro','otro','oveja','padre','pagar','pais','palabra','palma','pan','papel','para','parar','pared','parte','pasar','paso','pasta','paz','pecho','pedir','pena','pensar','pera','perder','perro','pesca','pie','piedra','piel','pierna','pieza','pino','pintor','piso','planta','plata','playa','plaza','pluma','pobre','poco','poder','poeta','polo','poner','portal','precio','prensa','primo','pronto','prueba','pueblo','puerta','pues','punto','quedar','querer','quien','quinto','quitar','rana','raro','rata','rayo','raza','razon','receta','regla','reino','reloj','resto','rey','rico','rima','rincon','rio','ritmo','robar','roca','rojo','romper','ropa','rostro','rubio','rueda','ruido'
+        ]);
+        
+        let level = 0;
+        let letters = [];
+        let targets = [];
+        let found = [];
+        let swipe = [];
+        let placements = [];
+        let score = 0;
+        
+        function init() {
+            const lvl = LEVELS[level % LEVELS.length];
+            letters = shuffle([...lvl.l]);
+            targets = lvl.t;
+            found = [];
+            swipe = [];
+            
+            document.getElementById('level').textContent = level + 1;
+            document.getElementById('level-num').textContent = level + 1;
+            document.getElementById('total').textContent = targets.length;
+            
+            render();
+        }
+        
+        function render() {
+            renderWheel();
+            renderGrid();
+            updateUI();
+        }
+        
+        // Premium Wheel
+        function renderWheel() {
+            const wheel = document.getElementById('wheel');
+            const container = wheel;
+            const size = 170;
+            const cx = size / 2;
+            const r = size * 0.38;
+            
+            // Clear letters
+            container.querySelectorAll(':scope > .letter').forEach(el => el.remove());
+            
+            const n = letters.length;
+            letters.forEach((letter, i) => {
+                const angle = (i * 360 / n - 90) * Math.PI / 180;
+                const x = cx + r * Math.cos(angle);
+                const y = cx + r * Math.sin(angle);
+                
+                const el = document.createElement('div');
+                el.className = 'letter';
+                el.textContent = letter;
+                el.style.left = (x - 19) + 'px';
+                el.style.top = (y - 19) + 'px';
+                el.dataset.i = i;
+                el.onclick = () => selectLetter(i);
+                
+                container.appendChild(el);
+            });
+            
+            window._wheelParams = { cx, r, n };
+        }
+        
+        function selectLetter(i) {
+            if (!swipe.includes(i)) {
+                swipe.push(i);
+                updateSwipe();
+                if (navigator.vibrate) navigator.vibrate(10);
+            }
+        }
+        
+        function updateSwipe() {
+            const { cx, r, n } = window._wheelParams || { cx: 100, r: 70, n: 4 };
+            
+            document.querySelectorAll('.letter').forEach((el, i) => {
+                el.classList.toggle('selected', swipe.includes(i));
+            });
+            
+            const word = swipe.map(i => letters[i]).join('');
+            document.getElementById('center').textContent = word || '-';
+            
+            const trail = document.getElementById('trail');
+            if (swipe.length < 2) {
+                trail.setAttribute('d', '');
+            } else {
+                let d = '';
+                swipe.forEach((idx, i) => {
+                    const angle = (idx * 360 / n - 90) * Math.PI / 180;
+                    const x = cx + r * Math.cos(angle);
+                    const y = cx + r * Math.sin(angle);
+                    d += (i === 0 ? 'M' : 'L') + x + ',' + y + ' ';
+                });
+                trail.setAttribute('d', d);
+            }
+            
+            const cur = document.getElementById('current');
+            cur.innerHTML = '';
+            const maxLen = Math.max(...targets.map(t => t.length));
+            const chars = [...word];
+            for (let i = 0; i <= maxLen; i++) {
+                const div = document.createElement('div');
+                div.className = 'char-box' + (chars[i] ? '' : ' empty');
+                div.textContent = chars[i] || '';
+                cur.appendChild(div);
+            }
+        }
+        
+        // Grid
+        function renderGrid() {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+            
+            const size = 5;
+            const w1 = targets[0] || 'ARTE';
+            const w2 = targets[1] || 'TEAR';
+            
+            placements = [{ word: w1, col: 1, row: 2, dir: 'h' }];
+            
+            outer: for (let i = 0; i < w1.length; i++) {
+                for (let j = 0; j < w2.length; j++) {
+                    if (w1[i] === w2[j]) {
+                        placements.push({ word: w2, col: 1 + i, row: 2 - j, dir: 'v' });
+                        break outer;
+                    }
+                }
+            }
+            
+            if (placements.length < 2) placements.push({ word: w2, col: 0, row: 2, dir: 'v' });
+            
+            for (let r = 0; r < size; r++) {
+                for (let c = 0; c < size; c++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    
+                    let letter = null;
+                    let isFound = false;
+                    
+                    for (const pl of placements) {
+                        if (pl.dir === 'h') {
+                            if (r === pl.row && c >= pl.col && c < pl.col + pl.word.length) {
+                                letter = pl.word[c - pl.col];
+                                isFound = found.includes(pl.word);
+                                break;
+                            }
+                        } else {
+                            if (c === pl.col && r >= pl.row && r < pl.row + pl.word.length) {
+                                letter = pl.word[r - pl.row];
+                                isFound = found.includes(pl.word);
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (letter) {
+                        cell.textContent = isFound ? letter.toUpperCase() : '';
+                        cell.classList.add('has-letter');
+                        if (isFound) cell.classList.add('found');
+                    }
+                    
+                    grid.appendChild(cell);
+                }
+            }
+        }
+        
+        function updateUI() {
+            document.getElementById('progress').style.width = (found.length / targets.length * 100) + '%';
+            document.getElementById('found').textContent = found.length;
+            document.getElementById('score').textContent = score;
+        }
+        
+        function clear() {
+            swipe = [];
+            document.getElementById('trail').setAttribute('d', '');
+            document.getElementById('center').textContent = '-';
+            document.querySelectorAll('.letter').forEach(el => el.classList.remove('selected'));
+            document.getElementById('current').innerHTML = '';
+        }
+        
+        function shuffle() {
+            letters = shuffle([...letters]);
+            clear();
+            renderWheel();
+        }
+        
+        function submit() {
+            const word = swipe.map(i => letters[i]).join('');
+            
+            if (word.length < 3) { show('Min 3!', 'error'); return; }
+            if (found.includes(word)) { show('Ya usado!', 'error'); clear(); return; }
+            if (!WORDS.has(word)) { show('Nope!', 'error'); clear(); return; }
+            
+            if (targets.includes(word)) {
+                found.push(word);
+                score += word.length * 15;
+                show('✓', 'success');
+                spawnConfetti();
+                
+                if (found.length === targets.length) {
+                    setTimeout(() => {
+                        show('🎉 Nivel!', 'win');
+                        setTimeout(() => { level++; init(); }, 2000);
+                    }, 500);
+                }
+            } else {
+                score += word.length * 5;
+                show('★', 'bonus');
+            }
+            
+            clear();
+            render();
+        }
+        
+        function show(text, cls) {
+            const popup = document.getElementById('popup');
+            popup.textContent = text;
+            popup.className = 'popup ' + (cls || '');
+            setTimeout(() => popup.className = 'popup', 1500);
+        }
+        
+        function spawnConfetti() {
+            for (let i = 0; i < 12; i++) {
+                setTimeout(() => {
+                    const c = document.createElement('div');
+                    c.className = 'confetti';
+                    c.style.left = Math.random() * window.innerWidth + 'px';
+                    c.style.top = window.innerHeight / 2 + 'px';
+                    c.style.background = ['#ffd700','#ff9500','#4f46e5','#10b981'][Math.floor(Math.random()*4)];
+                    document.body.appendChild(c);
+                    setTimeout(() => c.remove(), 1000);
+                }, i * 50);
+            }
+        }
+        
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+        
+        // Add floating particles
+        for (let i = 0; i < 8; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.top = Math.random() * 100 + '%';
+            p.style.animationDelay = Math.random() * 8 + 's';
+            document.body.appendChild(p);
+        }
+        
+        init();
+    </script>
+</body>
+</html>
