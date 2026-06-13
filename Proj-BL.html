@@ -12596,7 +12596,166 @@ function makeFileName(){
     return guiaoPdfFileName('Proj-BL', 'Guiao');
   }
 
-  function collectPayload(){
+  
+
+  /* PATCH INSTITUCIONAL — compatibilidade com edição via itemId (Power Automate Guiões) */
+  function getGuiaoItemIdFromUrl(){
+    try {
+      return new URLSearchParams(window.location.search).get('itemId') || '';
+    } catch(e) {
+      return '';
+    }
+  }
+
+  function normalizeGuiaoPowerAutomatePayload(payload){
+    payload = payload || {};
+    var formData = payload.formData || {};
+    function first(){
+      for(var i = 0; i < arguments.length; i++){
+        var value = arguments[i];
+        if(value !== undefined && value !== null && String(value).trim() !== '') return String(value).trim();
+      }
+      return '';
+    }
+
+    payload.itemId = first(payload.itemId, getGuiaoItemIdFromUrl());
+    payload.title = first(payload.title, payload.tituloProjeto, payload.ucs, payload.cursos, 'Guião');
+    payload.templateType = first(payload.templateType, formData.templateType);
+    payload.submittedAt = first(payload.submittedAt, formData.submittedAt, new Date().toISOString());
+    payload.cursos = first(payload.cursos, payload.curso, formData.cursos, formData.curso);
+    payload.ucs = first(payload.ucs, payload.uc, formData.ucs, formData.uc);
+    payload.cenarioAprendizagem = first(payload.cenarioAprendizagem, payload.cenario, payload.scenario, formData.cenarioAprendizagem);
+    payload.docentes = first(payload.docentes, payload.docenteTexto, formData.docentes, formData.docente, formData.professor);
+    payload.nEstudantes = first(payload.nEstudantes, payload.numeroEstudantes, formData.nEstudantes, formData.numeroEstudantes, formData.n_estudantes, formData.numero_estudantes);
+    payload.nGrupos = first(payload.nGrupos, payload.numeroGrupos, formData.nGrupos, formData.numeroGrupos, formData.n_grupos, formData.numero_grupos);
+    payload.estadoGuiao = first(payload.estadoGuiao, formData.estadoGuiao, formData.estado);
+    payload.autorias = first(payload.autorias, payload.autoria, formData.autorias, formData.autoria);
+    payload.unidadeOrganica = first(payload.unidadeOrganica, formData.unidadeOrganica, formData.unidade_organica);
+    payload.modalidade = first(payload.modalidade, formData.modalidade);
+    payload.semestre = first(payload.semestre, formData.semestre);
+    payload.turmaEdicao = first(payload.turmaEdicao, payload.turma, formData.turmaEdicao, formData.turma_edicao, formData.turma);
+    payload.anoLetivo = first(payload.anoLetivo, payload.ano, formData.anoLetivo, formData.AnoLetivo, formData.ano);
+    payload.autorizaRepositorio = first(payload.autorizaRepositorio, payload.autorizaPartilhaInterna, payload.partilhaRepositorio, formData.autorizaRepositorio);
+    payload.data = first(payload.data, payload.Data, payload.date, formData.data, formData.Data, formData.date);
+    payload.hora = first(payload.hora, payload.Hora, formData.hora, formData.Hora);
+    payload.estruturaPedagogica = first(payload.estruturaPedagogica, formData.estruturaPedagogica);
+    payload.emails = first(payload.emails, payload.email, formData.emails, formData.email);
+    payload.organizacoesContacto = first(payload.organizacoesContacto, formData.organizacoesContacto, formData.organizacao, formData.organizacoes, formData.contacto, formData.contato);
+    payload.tituloProjeto = first(payload.tituloProjeto, formData.tituloProjeto, formData.titulo_projeto);
+    payload.pdfFileName = first(payload.pdfFileName);
+    payload.pdfBase64 = first(payload.pdfBase64);
+    payload.html = (payload.html === undefined || payload.html === null) ? '' : payload.html;
+    return payload;
+  }
+
+  /* PATCH INSTITUCIONAL — fecho seguro do modo edição via itemId (não altera layout/PDF) */
+  function guiaoFlowResponseToObject(text){
+    if(!text) return {};
+    try { return JSON.parse(text); } catch(e) { return { message: String(text || '') }; }
+  }
+
+  function getGuiaoFlowItemId(result){
+    result = result || {};
+    return String(result.itemId || result.ItemId || result.ID || result.id || '').trim();
+  }
+
+  function getGuiaoFlowMode(result){
+    result = result || {};
+    return String(result.mode || result.Mode || '').trim().toLowerCase();
+  }
+
+  function persistGuiaoItemIdFromResponse(result){
+    var returnedItemId = getGuiaoFlowItemId(result);
+    if(!returnedItemId) return;
+    window.__lastGuiaoFlowResponse = result || {};
+    try { window.localStorage.setItem('guiao_itemId', returnedItemId); } catch(e) {}
+    try {
+      var url = new URL(window.location.href);
+      if(url.searchParams.get('itemId') !== returnedItemId){
+        url.searchParams.set('itemId', returnedItemId);
+        window.history.replaceState(window.history.state, document.title, url.toString());
+      }
+    } catch(e) {}
+    updateGuiaoSubmitButtonText();
+  }
+
+  function isGuiaoEditMode(){
+    return !!getGuiaoItemIdFromUrl();
+  }
+
+  function guiaoSubmitButtons(){
+    return Array.from(document.querySelectorAll('button, input[type="button"], input[type="submit"]')).filter(function(btn){
+      var txt = String(btn.textContent || btn.value || '').toLowerCase();
+      return btn.id === 'btnEnviarValidacao' || btn.id === 'btnValidacaoReal' ||
+        txt.indexOf('enviar para valida') !== -1 || txt.indexOf('submeter') !== -1 || txt.indexOf('submiss') !== -1 ||
+        txt.indexOf('atualizar guião') !== -1 || txt.indexOf('guardar alterações') !== -1;
+    });
+  }
+
+  function updateGuiaoSubmitButtonText(){
+    var editMode = isGuiaoEditMode();
+    guiaoSubmitButtons().forEach(function(btn){
+      var targetLabel = editMode ? 'Atualizar guião' : (btn.dataset.defaultSubmitLabel || btn.textContent || btn.value || 'Enviar para Validação');
+      if(!btn.dataset.defaultSubmitLabel){
+        var current = String(btn.textContent || btn.value || '').trim();
+        btn.dataset.defaultSubmitLabel = current && current !== 'Atualizar guião' ? current : 'Enviar para Validação';
+      }
+      if(btn.tagName === 'INPUT') btn.value = targetLabel;
+      else btn.textContent = targetLabel;
+    });
+  }
+
+  function isGuiaoPowerAutomateRequest(input, init){
+    try {
+      var url = typeof input === 'string' ? input : (input && input.url) || '';
+      var method = String((init && init.method) || (input && input.method) || 'GET').toUpperCase();
+      return method === 'POST' && url && (url.indexOf('powerautomate') !== -1 || url.indexOf('/workflows/') !== -1 || url.indexOf('powerplatform.com') !== -1);
+    } catch(e) { return false; }
+  }
+
+  function normalizeGuiaoFetchBody(init){
+    if(!init || !init.body || typeof init.body !== 'string') return init;
+    try {
+      var payload = JSON.parse(init.body);
+      if(payload && typeof payload === 'object' && !Array.isArray(payload)){
+        normalizeGuiaoPowerAutomatePayload(payload);
+        init.body = JSON.stringify(payload);
+      }
+    } catch(e) {}
+    return init;
+  }
+
+  function installGuiaoPowerAutomateFetchGuard(){
+    if(window.__guiaoPowerAutomateFetchGuardInstalled) return;
+    if(typeof window.fetch !== 'function') return;
+    window.__guiaoPowerAutomateFetchGuardInstalled = true;
+    var nativeFetch = window.fetch.bind(window);
+    window.fetch = async function(input, init){
+      var guarded = isGuiaoPowerAutomateRequest(input, init);
+      if(guarded){
+        init = Object.assign({}, init || {});
+        normalizeGuiaoFetchBody(init);
+      }
+      var response = await nativeFetch(input, init);
+      if(guarded){
+        try {
+          var clone = response.clone();
+          clone.text().then(function(text){
+            var result = guiaoFlowResponseToObject(text);
+            window.__lastGuiaoFlowResponse = result || {};
+            persistGuiaoItemIdFromResponse(result);
+          }).catch(function(){});
+        } catch(e) {}
+      }
+      return response;
+    };
+  }
+
+  installGuiaoPowerAutomateFetchGuard();
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', updateGuiaoSubmitButtonText);
+  else updateGuiaoSubmitButtonText();
+
+function collectPayload(){
     var values = {};
     var linhas = [];
     allFields().forEach(function(el, i){
@@ -12629,7 +12788,7 @@ function makeFileName(){
     var docentesFromTable = projReadJoinedValues("#docentesTable .docente-nome");
     var emailsFromTable = projReadJoinedValues("#docentesTable .docente-email");
 
-    var docentesPayload = String(values.docentes || values.Docentes || values.professor || values.docente || values.autoria || docentesFromTable || "").trim();
+    var docentesPayload = String(values.docentes || values.Docentes || values.professor || values.docente || docentesFromTable || "").trim();
     var emailsPayload = String(values.emails || values.email || values.Email || values.EmailDocente || values.emailDocente || emailsFromTable || "").trim();
     if(docentesPayload){
       values.docentes = values.docentes || docentesPayload;
@@ -12783,6 +12942,7 @@ function makeFileName(){
   }
 
   function showSubmissionConfirmation(result){
+    result = result || window.__lastGuiaoFlowResponse || {};
     try {
       var panel = document.getElementById("powerAutomateSubmissionConfirmation");
       if(!panel){
@@ -12801,7 +12961,10 @@ function makeFileName(){
         else document.body.appendChild(panel);
       }
       var itemInfo = result && (result.itemId || result.ID || result.id) ? " — ID " + (result.itemId || result.ID || result.id) : "";
-      panel.innerHTML = "<strong>✅ Guião submetido com sucesso.</strong><br>O seu guião foi enviado para validação" + itemInfo + ".<br>Pode fechar esta página.";
+      var modo = getGuiaoFlowMode(result);
+      var titulo = modo === "updated" ? "✅ Guião atualizado com sucesso." : "✅ Guião submetido com sucesso.";
+      var texto = modo === "updated" ? "As alterações foram enviadas para nova validação" : "O seu guião foi enviado para validação";
+      panel.innerHTML = "<strong>" + titulo + "</strong><br>" + texto + itemInfo + ".<br>Pode fechar esta página.";
       panel.scrollIntoView({behavior:"smooth", block:"center"});
     } catch(e){}
   }
@@ -12814,6 +12977,7 @@ function makeFileName(){
     notify("A enviar para validação...", "info", 2600);
     try {
       var payload = await addPdf(collectPayload());
+      normalizeGuiaoPowerAutomatePayload(payload);
       var res = await fetch(FLOW_URL, {
         method: "POST",
         headers: {"Content-Type":"application/json"},
@@ -18716,4 +18880,3 @@ html body:not(.guiao-pdf-mode) .page #uxMenuMaisOpcoes button {
 </body>
 </html>
 <!-- projbl-camada15-curso-autosave-progress-selects -->
-<!-- Mon Jun  8 23:22:43 WEST 2026 -->

@@ -10659,183 +10659,173 @@ body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field input[ty
 </style>
 
 
-<style id="sbl-mobile-quadro-acao-card-fix-final">
-/* ===== SBL mobile — quadro Ação/Reação em cartões, sem corte lateral ===== */
-@media screen and (max-width: 760px){
-  body:not(.guiao-pdf-mode),
-  body:not(.guiao-pdf-mode) .page{
-    overflow-x:hidden !important;
+
+<style id="sbl-mobile-quadro-acao-stack-fix">
+/* ===== FIX MOBILE SBL — quadro Ação/Reação em cards empilhados =====
+   Corrige o corte lateral observado no telemóvel, sem alterar PDF, payload,
+   submissão, botões, validações ou lógica JavaScript. */
+@media screen and (max-width:760px){
+  .sbl47-v73-essential-print-card:has(#quadroAcao){
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    padding:8px !important;
+    margin:10px 0 !important;
+    border-radius:14px !important;
+    overflow:visible !important;
+    box-sizing:border-box !important;
   }
 
-  body:not(.guiao-pdf-mode) #quadroAcao,
-  body:not(.guiao-pdf-mode) table#quadroAcao,
-  body:not(.guiao-pdf-mode) .sbl-guiao-explainer-v76 #quadroAcao{
+  #quadroAcao,
+  #quadroAcao tbody,
+  #quadroAcao tr,
+  #quadroAcao th,
+  #quadroAcao td{
     display:block !important;
     width:100% !important;
-    min-width:0 !important;
     max-width:100% !important;
-    overflow:visible !important;
-    table-layout:auto !important;
+    min-width:0 !important;
+    box-sizing:border-box !important;
+  }
+
+  #quadroAcao{
+    table-layout:fixed !important;
     border-collapse:separate !important;
     border-spacing:0 !important;
-    box-sizing:border-box !important;
-    border:0 !important;
-    background:transparent !important;
-  }
-
-  body:not(.guiao-pdf-mode) #quadroAcao tbody{
-    display:block !important;
-    width:100% !important;
-    min-width:0 !important;
-    max-width:100% !important;
     overflow:visible !important;
-    box-sizing:border-box !important;
-  }
-
-  body:not(.guiao-pdf-mode) #quadroAcao tr{
-    display:block !important;
-    width:100% !important;
-    min-width:0 !important;
-    max-width:100% !important;
-    margin:0 0 12px 0 !important;
-    padding:0 !important;
-    border:1px solid #e2e2e2 !important;
     border-radius:14px !important;
-    background:#fff !important;
-    overflow:hidden !important;
-    box-sizing:border-box !important;
-    box-shadow:0 2px 8px rgba(0,0,0,.035) !important;
+    margin:0 !important;
   }
 
-  body:not(.guiao-pdf-mode) #quadroAcao tr:first-child{
-    display:none !important;
-  }
-
-  body:not(.guiao-pdf-mode) #quadroAcao th{
-    display:none !important;
-  }
-
-  body:not(.guiao-pdf-mode) #quadroAcao td{
-    display:block !important;
-    width:100% !important;
+  #quadroAcao tbody{
     min-width:0 !important;
-    max-width:100% !important;
-    padding:10px !important;
-    border:0 !important;
-    border-left:0 !important;
-    border-right:0 !important;
-    border-bottom:1px solid #eeeeee !important;
-    border-radius:0 !important;
-    background:#fff !important;
-    box-sizing:border-box !important;
-    white-space:normal !important;
+    width:100% !important;
     overflow:visible !important;
   }
 
-  body:not(.guiao-pdf-mode) #quadroAcao td:last-child{
-    border-bottom:0 !important;
+  #quadroAcao tr:first-child{
+    display:none !important;
   }
 
-  body:not(.guiao-pdf-mode) #quadroAcao tr:not(.sbl-acoes-footer-row) td:nth-child(1)::before,
-  body:not(.guiao-pdf-mode) #quadroAcao tr:not(.sbl-acoes-footer-row) td:nth-child(2)::before{
-    display:block !important;
-    margin:0 0 7px 0 !important;
-    padding:0 !important;
-    font-family:'Century Gothic','Segoe UI',sans-serif !important;
-    font-size:12px !important;
-    line-height:1.25 !important;
-    font-weight:800 !important;
-    letter-spacing:.01em !important;
-    color:#333 !important;
-    white-space:normal !important;
-  }
-
-  body:not(.guiao-pdf-mode) #quadroAcao tr:not(.sbl-acoes-footer-row) td:nth-child(1)::before{
-    content:'AÇÃO – Ator/Personagem' !important;
-  }
-
-  body:not(.guiao-pdf-mode) #quadroAcao tr:not(.sbl-acoes-footer-row) td:nth-child(2)::before{
-    content:'REAÇÃO – Técnico/Profissional' !important;
-  }
-
-  body:not(.guiao-pdf-mode) #quadroAcao textarea{
+  #quadroAcao tr:not(:first-child):not(.sbl-acoes-footer-row){
     display:block !important;
     width:100% !important;
-    min-width:0 !important;
     max-width:100% !important;
-    min-height:96px !important;
-    height:auto !important;
-    margin:0 !important;
-    padding:10px !important;
-    border:1px solid #bdbdbd !important;
+    margin:0 0 10px 0 !important;
+    padding:9px !important;
+    border:1px solid #e1e1e1 !important;
     border-radius:13px !important;
     background:#fff !important;
-    box-sizing:border-box !important;
-    font-family:'Century Gothic','Segoe UI',sans-serif !important;
-    font-size:13px !important;
-    line-height:1.38 !important;
-    white-space:pre-wrap !important;
-    overflow-wrap:break-word !important;
-    word-break:normal !important;
-    overflow:auto !important;
-    resize:vertical !important;
-  }
-
-  body:not(.guiao-pdf-mode) #quadroAcao tr.sbl-acoes-footer-row{
-    border:0 !important;
-    border-radius:0 !important;
+    overflow:hidden !important;
     box-shadow:none !important;
-    background:transparent !important;
-    margin:4px 0 0 0 !important;
-    overflow:visible !important;
   }
 
-  body:not(.guiao-pdf-mode) #quadroAcao tr.sbl-acoes-footer-row td.sbl-acoes-footer-cell{
+  #quadroAcao tr:not(:first-child):not(.sbl-acoes-footer-row) td{
     display:block !important;
     width:100% !important;
-    padding:0 !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    padding:0 0 9px 0 !important;
+    border:0 !important;
+    background:transparent !important;
+    overflow:visible !important;
+    box-shadow:none !important;
+  }
+
+  #quadroAcao tr:not(:first-child):not(.sbl-acoes-footer-row) td + td{
+    padding-top:8px !important;
+    border-top:1px solid #ededed !important;
+  }
+
+  #quadroAcao tr:not(:first-child):not(.sbl-acoes-footer-row) td::before{
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 0 5px 0 !important;
+    padding:5px 8px !important;
+    border:1px solid #f0c4c6 !important;
+    border-radius:9px !important;
+    background:#fff5f5 !important;
+    color:#333 !important;
+    font-size:11.5px !important;
+    line-height:1.18 !important;
+    font-weight:800 !important;
+    text-align:left !important;
+    white-space:normal !important;
+    overflow-wrap:anywhere !important;
+    box-sizing:border-box !important;
+  }
+
+  #quadroAcao tr:not(:first-child):not(.sbl-acoes-footer-row) td:nth-child(1)::before{
+    content:"AÇÃO – Ator/Personagem" !important;
+  }
+
+  #quadroAcao tr:not(:first-child):not(.sbl-acoes-footer-row) td:nth-child(2)::before{
+    content:"REAÇÃO – Técnico/Profissional" !important;
+  }
+
+  #quadroAcao textarea,
+  #quadroAcao td textarea,
+  #quadroAcao tr textarea{
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    min-height:82px !important;
+    margin:0 !important;
+    padding:8px 9px !important;
+    border:1px solid #c7c7c7 !important;
+    border-radius:11px !important;
+    font-size:12px !important;
+    line-height:1.32 !important;
+    resize:vertical !important;
+    overflow:auto !important;
+    box-sizing:border-box !important;
+    white-space:normal !important;
+    overflow-wrap:anywhere !important;
+  }
+
+  #quadroAcao .sbl-acoes-footer-row,
+  #quadroAcao .sbl-acoes-footer-row td,
+  #quadroAcao .sbl-acoes-footer-cell{
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    padding:8px 0 0 0 !important;
     border:0 !important;
     background:transparent !important;
   }
 
-  body:not(.guiao-pdf-mode) #quadroAcao .sbl-acoes-footer-bar{
+  #quadroAcao .sbl-acoes-footer-bar{
     display:flex !important;
     width:100% !important;
     max-width:100% !important;
+    min-width:0 !important;
     align-items:center !important;
     justify-content:space-between !important;
-    gap:10px !important;
-    padding:12px !important;
-    border:1px solid #e2e2e2 !important;
-    border-radius:14px !important;
-    background:#fafafa !important;
-    box-sizing:border-box !important;
-  }
-
-  body:not(.guiao-pdf-mode) #quadroAcao .sbl-acoes-footer-texto{
-    min-width:0 !important;
-    font-size:12.5px !important;
-    line-height:1.3 !important;
-    font-weight:800 !important;
-    color:#555 !important;
-  }
-
-  body:not(.guiao-pdf-mode) #quadroAcao .sbl-acoes-footer-botoes{
-    display:flex !important;
-    flex:0 0 auto !important;
     gap:8px !important;
-    align-items:center !important;
-    justify-content:flex-end !important;
+    padding:8px 4px 2px 4px !important;
+    box-sizing:border-box !important;
+    overflow:visible !important;
   }
-}
 
-@media screen and (max-width: 430px){
-  body:not(.guiao-pdf-mode) #quadroAcao textarea{
-    min-height:90px !important;
-    font-size:12.8px !important;
+  #quadroAcao .sbl-acoes-footer-texto{
+    min-width:0 !important;
+    white-space:normal !important;
+    overflow-wrap:break-word !important;
+    font-size:12px !important;
+    line-height:1.2 !important;
+  }
+
+  #quadroAcao .sbl-acoes-footer-botoes{
+    flex:0 0 auto !important;
+    display:inline-flex !important;
+    gap:6px !important;
   }
 }
 </style>
+
 </head>
 <body>
 <div class="page">
@@ -11734,7 +11724,166 @@ document.addEventListener('DOMContentLoaded', function(){
     return (el.value || "").trim();
   }
 
-  function collectFormData(){
+  
+
+  /* PATCH INSTITUCIONAL — compatibilidade com edição via itemId (Power Automate Guiões) */
+  function getGuiaoItemIdFromUrl(){
+    try {
+      return new URLSearchParams(window.location.search).get('itemId') || '';
+    } catch(e) {
+      return '';
+    }
+  }
+
+  function normalizeGuiaoPowerAutomatePayload(payload){
+    payload = payload || {};
+    var formData = payload.formData || {};
+    function first(){
+      for(var i = 0; i < arguments.length; i++){
+        var value = arguments[i];
+        if(value !== undefined && value !== null && String(value).trim() !== '') return String(value).trim();
+      }
+      return '';
+    }
+
+    payload.itemId = first(payload.itemId, getGuiaoItemIdFromUrl());
+    payload.title = first(payload.title, payload.tituloProjeto, payload.ucs, payload.cursos, 'Guião');
+    payload.templateType = first(payload.templateType, formData.templateType);
+    payload.submittedAt = first(payload.submittedAt, formData.submittedAt, new Date().toISOString());
+    payload.cursos = first(payload.cursos, payload.curso, formData.cursos, formData.curso);
+    payload.ucs = first(payload.ucs, payload.uc, formData.ucs, formData.uc);
+    payload.cenarioAprendizagem = first(payload.cenarioAprendizagem, payload.cenario, payload.scenario, formData.cenarioAprendizagem);
+    payload.docentes = first(payload.docentes, payload.docenteTexto, formData.docentes, formData.docente, formData.professor);
+    payload.nEstudantes = first(payload.nEstudantes, payload.numeroEstudantes, formData.nEstudantes, formData.numeroEstudantes, formData.n_estudantes, formData.numero_estudantes);
+    payload.nGrupos = first(payload.nGrupos, payload.numeroGrupos, formData.nGrupos, formData.numeroGrupos, formData.n_grupos, formData.numero_grupos);
+    payload.estadoGuiao = first(payload.estadoGuiao, formData.estadoGuiao, formData.estado);
+    payload.autorias = first(payload.autorias, payload.autoria, formData.autorias, formData.autoria);
+    payload.unidadeOrganica = first(payload.unidadeOrganica, formData.unidadeOrganica, formData.unidade_organica);
+    payload.modalidade = first(payload.modalidade, formData.modalidade);
+    payload.semestre = first(payload.semestre, formData.semestre);
+    payload.turmaEdicao = first(payload.turmaEdicao, payload.turma, formData.turmaEdicao, formData.turma_edicao, formData.turma);
+    payload.anoLetivo = first(payload.anoLetivo, payload.ano, formData.anoLetivo, formData.AnoLetivo, formData.ano);
+    payload.autorizaRepositorio = first(payload.autorizaRepositorio, payload.autorizaPartilhaInterna, payload.partilhaRepositorio, formData.autorizaRepositorio);
+    payload.data = first(payload.data, payload.Data, payload.date, formData.data, formData.Data, formData.date);
+    payload.hora = first(payload.hora, payload.Hora, formData.hora, formData.Hora);
+    payload.estruturaPedagogica = first(payload.estruturaPedagogica, formData.estruturaPedagogica);
+    payload.emails = first(payload.emails, payload.email, formData.emails, formData.email);
+    payload.organizacoesContacto = first(payload.organizacoesContacto, formData.organizacoesContacto, formData.organizacao, formData.organizacoes, formData.contacto, formData.contato);
+    payload.tituloProjeto = first(payload.tituloProjeto, formData.tituloProjeto, formData.titulo_projeto);
+    payload.pdfFileName = first(payload.pdfFileName);
+    payload.pdfBase64 = first(payload.pdfBase64);
+    payload.html = (payload.html === undefined || payload.html === null) ? '' : payload.html;
+    return payload;
+  }
+
+  /* PATCH INSTITUCIONAL — fecho seguro do modo edição via itemId (não altera layout/PDF) */
+  function guiaoFlowResponseToObject(text){
+    if(!text) return {};
+    try { return JSON.parse(text); } catch(e) { return { message: String(text || '') }; }
+  }
+
+  function getGuiaoFlowItemId(result){
+    result = result || {};
+    return String(result.itemId || result.ItemId || result.ID || result.id || '').trim();
+  }
+
+  function getGuiaoFlowMode(result){
+    result = result || {};
+    return String(result.mode || result.Mode || '').trim().toLowerCase();
+  }
+
+  function persistGuiaoItemIdFromResponse(result){
+    var returnedItemId = getGuiaoFlowItemId(result);
+    if(!returnedItemId) return;
+    window.__lastGuiaoFlowResponse = result || {};
+    try { window.localStorage.setItem('guiao_itemId', returnedItemId); } catch(e) {}
+    try {
+      var url = new URL(window.location.href);
+      if(url.searchParams.get('itemId') !== returnedItemId){
+        url.searchParams.set('itemId', returnedItemId);
+        window.history.replaceState(window.history.state, document.title, url.toString());
+      }
+    } catch(e) {}
+    updateGuiaoSubmitButtonText();
+  }
+
+  function isGuiaoEditMode(){
+    return !!getGuiaoItemIdFromUrl();
+  }
+
+  function guiaoSubmitButtons(){
+    return Array.from(document.querySelectorAll('button, input[type="button"], input[type="submit"]')).filter(function(btn){
+      var txt = String(btn.textContent || btn.value || '').toLowerCase();
+      return btn.id === 'btnEnviarValidacao' || btn.id === 'btnValidacaoReal' ||
+        txt.indexOf('enviar para valida') !== -1 || txt.indexOf('submeter') !== -1 || txt.indexOf('submiss') !== -1 ||
+        txt.indexOf('atualizar guião') !== -1 || txt.indexOf('guardar alterações') !== -1;
+    });
+  }
+
+  function updateGuiaoSubmitButtonText(){
+    var editMode = isGuiaoEditMode();
+    guiaoSubmitButtons().forEach(function(btn){
+      var targetLabel = editMode ? 'Atualizar guião' : (btn.dataset.defaultSubmitLabel || btn.textContent || btn.value || 'Enviar para Validação');
+      if(!btn.dataset.defaultSubmitLabel){
+        var current = String(btn.textContent || btn.value || '').trim();
+        btn.dataset.defaultSubmitLabel = current && current !== 'Atualizar guião' ? current : 'Enviar para Validação';
+      }
+      if(btn.tagName === 'INPUT') btn.value = targetLabel;
+      else btn.textContent = targetLabel;
+    });
+  }
+
+  function isGuiaoPowerAutomateRequest(input, init){
+    try {
+      var url = typeof input === 'string' ? input : (input && input.url) || '';
+      var method = String((init && init.method) || (input && input.method) || 'GET').toUpperCase();
+      return method === 'POST' && url && (url.indexOf('powerautomate') !== -1 || url.indexOf('/workflows/') !== -1 || url.indexOf('powerplatform.com') !== -1);
+    } catch(e) { return false; }
+  }
+
+  function normalizeGuiaoFetchBody(init){
+    if(!init || !init.body || typeof init.body !== 'string') return init;
+    try {
+      var payload = JSON.parse(init.body);
+      if(payload && typeof payload === 'object' && !Array.isArray(payload)){
+        normalizeGuiaoPowerAutomatePayload(payload);
+        init.body = JSON.stringify(payload);
+      }
+    } catch(e) {}
+    return init;
+  }
+
+  function installGuiaoPowerAutomateFetchGuard(){
+    if(window.__guiaoPowerAutomateFetchGuardInstalled) return;
+    if(typeof window.fetch !== 'function') return;
+    window.__guiaoPowerAutomateFetchGuardInstalled = true;
+    var nativeFetch = window.fetch.bind(window);
+    window.fetch = async function(input, init){
+      var guarded = isGuiaoPowerAutomateRequest(input, init);
+      if(guarded){
+        init = Object.assign({}, init || {});
+        normalizeGuiaoFetchBody(init);
+      }
+      var response = await nativeFetch(input, init);
+      if(guarded){
+        try {
+          var clone = response.clone();
+          clone.text().then(function(text){
+            var result = guiaoFlowResponseToObject(text);
+            window.__lastGuiaoFlowResponse = result || {};
+            persistGuiaoItemIdFromResponse(result);
+          }).catch(function(){});
+        } catch(e) {}
+      }
+      return response;
+    };
+  }
+
+  installGuiaoPowerAutomateFetchGuard();
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', updateGuiaoSubmitButtonText);
+  else updateGuiaoSubmitButtonText();
+
+function collectFormData(){
     const fields = allFields();
     const values = {};
     const byId = {};
@@ -11797,8 +11946,8 @@ document.addEventListener('DOMContentLoaded', function(){
                   firstByLabel(["Título", "Título do projeto", "Unidade Curricular", "Curso(s)", "Curso"]) ||
                   `${TEMPLATE_TYPE} - ${new Date().toLocaleDateString("pt-PT")}`;
 
-    const docentes = firstById(["docente","docentes","professor","professor_responsavel","autoria","autorias"]) ||
-                     firstByLabel(["Docente(s)", "Docente", "Docente(s)", "Docente(s)", "Autoria(s)", "Autoria"]);
+    const docentes = firstById(["docente","docentes","professor","professor_responsavel"]) ||
+                     firstByLabel(["Docente(s)", "Docente", "Docente(s)", "Docente(s)"]);
     const cursoElDireto = document.getElementById("curso") || document.querySelector('[name="curso"]');
     const cursoDireto = cursoElDireto ? readValue(cursoElDireto) : "";
     const cursos = firstById(["curso","cursos"]) || cursoDireto || firstByLabel(["Curso(s)", "Curso"]);
@@ -12585,6 +12734,7 @@ async function downloadCurrentGuiesPdf(){
 
     try {
       const payload = collectFormData();
+      normalizeGuiaoPowerAutomatePayload(payload);
       payload.pdfFileName = guiaoPdfFileName("SBL", "Guiao");
       payload.pdfBase64 = await Promise.race([
         generatePdfBase64(payload),
@@ -12636,6 +12786,7 @@ async function downloadCurrentGuiesPdf(){
   }
 
   function showSubmissionConfirmation(result){
+    result = result || window.__lastGuiaoFlowResponse || {};
     try {
       let panel = document.getElementById("powerAutomateSubmissionConfirmation");
       if (!panel) {
@@ -12654,7 +12805,10 @@ async function downloadCurrentGuiesPdf(){
         else document.body.appendChild(panel);
       }
       const itemInfo = result && (result.itemId || result.ID || result.id) ? ` — ID ${result.itemId || result.ID || result.id}` : "";
-      panel.innerHTML = `<strong>✅ Guião submetido com sucesso.</strong><br>O seu guião foi enviado para validação${itemInfo}.<br>Pode fechar esta página.`;
+      var modo = getGuiaoFlowMode(result);
+      var titulo = modo === "updated" ? "✅ Guião atualizado com sucesso." : "✅ Guião submetido com sucesso.";
+      var texto = modo === "updated" ? "As alterações foram enviadas para nova validação" : "O seu guião foi enviado para validação";
+      panel.innerHTML = `<strong>${titulo}</strong><br>${texto}${itemInfo}.<br>Pode fechar esta página.`;
       panel.scrollIntoView({behavior:"smooth", block:"center"});
     } catch(e) {}
   }
