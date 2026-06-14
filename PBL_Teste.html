@@ -5161,11 +5161,11 @@ html body .page .pbl-numeric-cell{
         if (actions && actions.parentNode) actions.parentNode.insertBefore(panel, actions);
         else document.body.appendChild(panel);
       }
-      const itemInfo = result && (result.itemId || result.ID || result.id) ? ` — ID ${result.itemId || result.ID || result.id}` : "";
+      const itemInfo = '';
       var modo = getGuiaoSubmissionMode(result);
       var titulo = modo === "updated" ? "✅ Guião atualizado com sucesso." : "✅ Guião submetido com sucesso.";
       var texto = modo === "updated" ? "As alterações foram enviadas para nova validação" : "O seu guião foi enviado para validação";
-      panel.innerHTML = `<strong>${titulo}</strong><br>${texto}${itemInfo}.<br>Pode fechar esta página.`;
+      panel.innerHTML = `<strong>${titulo}</strong><br>${texto}.<br>Pode fechar esta página.`;
       panel.scrollIntoView({behavior:"smooth", block:"center"});
     } catch(e) {}
   }
@@ -5295,6 +5295,20 @@ html body .page .pbl-numeric-cell{
       return '';
     }
 
+    function domValue(selector){
+      try {
+        var el = document.querySelector(selector);
+        return el ? String(el.value || '').trim() : '';
+      } catch(e) {
+        return '';
+      }
+    }
+    function guiaoIntervaloHora(){
+      var inicio = first(formData.hora_inicio, formData.horaInicio, formData.hora, domValue('#hora_inicio'), domValue('#hora'), domValue('[name="hora"]'));
+      var fim = first(formData.hora_fim, formData.horaFim, domValue('#hora_fim'), domValue('[name="hora_fim"]'));
+      return (inicio && fim) ? (inicio + '–' + fim) : '';
+    }
+
     payload.itemId = first(payload.itemId, getGuiaoItemIdFromUrl());
     payload.title = first(payload.title, payload.tituloProjeto, payload.ucs, payload.cursos, 'Guião');
     payload.templateType = first(payload.templateType, formData.templateType);
@@ -5313,8 +5327,8 @@ html body .page .pbl-numeric-cell{
     payload.turmaEdicao = first(payload.turmaEdicao, payload.turma, formData.turmaEdicao, formData.turma_edicao, formData.turma);
     payload.anoLetivo = first(payload.anoLetivo, payload.ano, formData.anoLetivo, formData.AnoLetivo, formData.ano);
     payload.autorizaRepositorio = first(payload.autorizaRepositorio, payload.autorizaPartilhaInterna, payload.partilhaRepositorio, formData.autorizaRepositorio);
-    payload.data = first(payload.data, payload.Data, payload.date, formData.data, formData.Data, formData.date);
-    payload.hora = first(payload.hora, payload.Hora, formData.hora, formData.Hora);
+    payload.data = first(payload.data, payload.Data, payload.date, formData.data, formData.Data, formData.date, formData.calendarizacao, formData.dataSessao, formData.data_simulacao, formData.aula1_data, domValue('#data'), domValue('[name="data"]'), domValue('#calendarizacao'), domValue('[id^="aula"][id$="_data"]'), domValue('#entregaveis input[type="date"]'), domValue('input[type="date"]'));
+    payload.hora = first(payload.hora, payload.Hora, formData.hora, formData.Hora, guiaoIntervaloHora(), formData.hora_inicio, formData.hora_fim, formData.aula1_duracao, domValue('#hora'), domValue('[name="hora"]'), domValue('#hora_inicio'), domValue('#hora_fim'), domValue('[id^="aula"][id$="_duracao"]'), domValue('input[type="time"]'));
     payload.estruturaPedagogica = first(payload.estruturaPedagogica, formData.estruturaPedagogica);
     payload.emails = first(payload.emails, payload.email, formData.emails, formData.email);
     payload.organizacoesContacto = first(payload.organizacoesContacto, formData.organizacoesContacto, formData.organizacao, formData.organizacoes, formData.contacto, formData.contato);
@@ -5350,7 +5364,7 @@ html body .page .pbl-numeric-cell{
 
   function getGuiaoSuccessMessage(result){
     return getGuiaoSubmissionMode(result) === 'updated'
-      ? 'Guião atualizado com sucesso. As alterações foram reenviadas para validação.'
+      ? 'Guião atualizado com sucesso. As alterações foram enviadas para nova validação.'
       : 'Guião submetido com sucesso. O seu guião foi enviado para validação.';
   }
 
@@ -8135,8 +8149,8 @@ function makePdfFileName(){
         if(actions && actions.parentNode) actions.parentNode.insertBefore(panel, actions);
         else document.body.appendChild(panel);
       }
-      var itemInfo = result && (result.itemId || result.ID || result.id) ? ' — ID ' + (result.itemId || result.ID || result.id) : '';
-      panel.innerHTML = '<strong>✅ Guião submetido com sucesso.</strong><br>O seu guião foi enviado para validação' + itemInfo + '.<br>Pode fechar esta página.';
+      var itemInfo = '';
+      panel.innerHTML = '<strong>✅ Guião submetido com sucesso.</strong><br>O seu guião foi enviado para validação.<br>Pode fechar esta página.';
       try{ panel.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){}
     }catch(e){}
   };
