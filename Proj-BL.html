@@ -18904,6 +18904,201 @@ html body:not(.guiao-pdf-mode) .page #uxMenuMaisOpcoes button {
 <style id="guiao-required-submit-validation-v1-style">
 .guiao-required-missing{ outline:3px solid rgba(227,30,36,.28) !important; outline-offset:2px !important; }
 </style>
+
+
+<script id="guioes-camada-padrao-titulo-anoletivo-cursos-v1">
+(function(){
+  'use strict';
+
+  function clean(v){
+    return String(v == null ? '' : v).replace(/\s+/g,' ').trim();
+  }
+
+  function strip(v){
+    try{
+      return clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    }catch(e){
+      return clean(v).toLowerCase();
+    }
+  }
+
+  function byId(ids){
+    for(var i=0;i<ids.length;i++){
+      var el=document.getElementById(ids[i]);
+      if(el){
+        var v = ('value' in el) ? el.value : el.textContent;
+        if(clean(v)) return clean(v);
+      }
+    }
+    return '';
+  }
+
+  function firstUnit(v){
+    var parts = String(v || '').split(/[;\n]+/).map(clean).filter(Boolean);
+    return parts[0] || clean(v);
+  }
+
+  function inferScenario(payload){
+    var raw = clean(payload && (payload.templateType || payload.cenarioAprendizagem)) ||
+              clean((document.querySelector('h1') || {}).textContent || document.title || '');
+    var s = strip(raw);
+    if(/\bproj\b|project[- ]?based|projeto interdisciplinar/.test(s)) return 'PROJ-BL';
+    if(/\bpbl\b|problem[- ]?based/.test(s)) return 'PBL';
+    if(/\bcbl\b|challenge[- ]?based/.test(s)) return 'CBL';
+    if(/\brbl\b|research[- ]?based|laboratorio de investigacao/.test(s)) return 'RBL';
+    if(/\bsbl\b|simulacao|simulacao complexa/.test(s)) return 'SBL';
+    return raw || 'Guião';
+  }
+
+  function buildTitle(payload){
+    var scenario = inferScenario(payload);
+    var ucs = clean(payload && payload.ucs) ||
+              byId(['uc','ucs','unidadeCurricular','unidadesCurriculares','unidades_curriculares']);
+    var ucPrincipal = firstUnit(ucs);
+    if(ucPrincipal) return scenario + ' - ' + ucPrincipal;
+    return clean(payload && payload.title) || scenario;
+  }
+
+  function normalizePayload(payload){
+    if(!payload || typeof payload !== 'object') return payload;
+
+    var looksLikeGuiao = payload.pdfBase64 || payload.templateType || payload.cenarioAprendizagem || payload.html;
+    if(!looksLikeGuiao) return payload;
+
+    payload.title = buildTitle(payload);
+
+    var anoDom = byId(['anoLetivo','anoLetivoProjeto','ano_letivo','ano','anoLetivoInput']);
+    if(anoDom) payload.anoLetivo = anoDom;
+    else if(!clean(payload.anoLetivo) && payload.values && typeof payload.values === 'object'){
+      payload.anoLetivo = clean(payload.values.anoLetivo || payload.values.ano_letivo || payload.values.ano || '');
+    }
+
+    var dataDom = byId(['data','calendarizacao','dataSimulacao','data_simulacao','dataSessao','data_sessao']);
+    if(dataDom && !clean(payload.data)) payload.data = dataDom;
+
+    var hi = byId(['hora_inicio','horaInicio','hora_inicial','horaInicial']);
+    var hf = byId(['hora_fim','horaFim','hora_final','horaFinal']);
+    var horaDom = byId(['hora']);
+    if((hi || hf) && !clean(payload.hora)) payload.hora = [hi,hf].filter(Boolean).join(' - ');
+    else if(horaDom && !clean(payload.hora)) payload.hora = horaDom;
+
+    return payload;
+  }
+
+  function installFetchPatch(){
+    if(window.__guioesPayloadPadraoTituloAnoCursosV1) return;
+    if(typeof window.fetch !== 'function') return;
+    window.__guioesPayloadPadraoTituloAnoCursosV1 = true;
+    var nativeFetch = window.fetch;
+    window.fetch = function(input, init){
+      try{
+        if(init && typeof init.body === 'string'){
+          var body = init.body.trim();
+          if(body.charAt(0)==='{'){
+            var payload = JSON.parse(body);
+            init.body = JSON.stringify(normalizePayload(payload));
+          }
+        }
+      }catch(e){}
+      return nativeFetch.apply(this, arguments);
+    };
+  }
+
+  function courseWordsMatch(valueNorm, queryNorm){
+    if(!queryNorm) return false;
+    var qWords = queryNorm.split(/\s+/).filter(Boolean);
+    var vWords = valueNorm.split(/\s+/).filter(Boolean);
+    if(!qWords.length) return false;
+    var pos = 0;
+    for(var i=0;i<qWords.length;i++){
+      var qw = qWords[i];
+      var found = false;
+      for(var j=pos;j<vWords.length;j++){
+        if(vWords[j].indexOf(qw) === 0){
+          found = true;
+          pos = j + 1;
+          break;
+        }
+      }
+      if(!found) return false;
+    }
+    return true;
+  }
+
+  function scoreCourse(value, query){
+    var v = strip(value);
+    var q = strip(query);
+    if(!q) return 0;
+    if(v === q) return 0;
+    if(v.indexOf(q) === 0) return 1;
+    if(courseWordsMatch(v, q)) return 2;
+    if(v.indexOf(q) >= 0) return 3;
+    var tokens = q.split(/\s+/).filter(Boolean);
+    if(tokens.length && tokens.every(function(t){ return v.indexOf(t) >= 0; })) return 4;
+    return 99;
+  }
+
+  function installCourseSearchFix(){
+    function initInput(input){
+      if(!input || input.dataset.guioesCursoFixV1 === '1') return;
+      var listId = input.getAttribute('list');
+      if(!listId) return;
+      var dl = document.getElementById(listId);
+      if(!dl) return;
+
+      var original = Array.prototype.slice.call(dl.querySelectorAll('option')).map(function(o, idx){
+        return { value: clean(o.value || o.textContent), label: o.getAttribute('label') || '', idx: idx };
+      }).filter(function(o){ return !!o.value; });
+
+      if(!original.length) return;
+      input.dataset.guioesCursoFixV1 = '1';
+
+      function reorder(){
+        var q = input.value || '';
+        var sorted = original.slice().sort(function(a,b){
+          var sa = scoreCourse(a.value, q);
+          var sb = scoreCourse(b.value, q);
+          if(sa !== sb) return sa - sb;
+          return a.idx - b.idx;
+        });
+        while(dl.firstChild) dl.removeChild(dl.firstChild);
+        sorted.forEach(function(item){
+          var opt = document.createElement('option');
+          opt.value = item.value;
+          if(item.label) opt.setAttribute('label', item.label);
+          dl.appendChild(opt);
+        });
+      }
+
+      input.addEventListener('input', reorder, true);
+      input.addEventListener('focus', reorder, true);
+      input.addEventListener('keydown', function(){ setTimeout(reorder, 0); }, true);
+      reorder();
+    }
+
+    function initAll(){
+      Array.prototype.slice.call(document.querySelectorAll('input[list]')).forEach(function(input){
+        var id = strip(input.id || '');
+        var ph = strip(input.getAttribute('placeholder') || '');
+        var name = strip(input.getAttribute('name') || '');
+        if(id.indexOf('curso') >= 0 || ph.indexOf('curso') >= 0 || name.indexOf('curso') >= 0) initInput(input);
+      });
+    }
+
+    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAll);
+    else initAll();
+    setTimeout(initAll, 300);
+    setTimeout(initAll, 1000);
+    setTimeout(initAll, 2000);
+  }
+
+  installFetchPatch();
+  installCourseSearchFix();
+
+  window.guioesPadronizarPayloadTituloAnoCursos = normalizePayload;
+})();
+</script>
+
 </body>
 </html>
 <!-- projbl-camada15-curso-autosave-progress-selects -->
