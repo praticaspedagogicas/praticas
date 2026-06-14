@@ -5141,7 +5141,7 @@ html body .page .pbl-numeric-cell{
   }
   function abrirAssistente(){window.open(BOT_URL,'_blank','noopener,noreferrer'); toast('A abrir o Assistente IA institucional...');} window.abrirAssistentePedagogico=abrirAssistente;
   function validarCamposNumericosGuiao(){var bad=null; document.querySelectorAll('input[type="number"]').forEach(function(el){if(bad)return; var v=String(el.value||'').trim().replace(',','.'); if(v && !/^-?\d+(\.\d+)?$/.test(v)) bad=el;}); if(bad){bad.focus(); toast('Indique apenas números nos campos numéricos.','error'); return false;} return true;} window.validarCamposNumericosGuiao=validarCamposNumericosGuiao;
-  async function enviarValidacao(){if(submitLock)return; if(!validarCamposNumericosGuiao())return; submitLock=true; toast('A enviar guião para validação...'); var payload=collect(); payload.templateType='PBL'; payload.templateScenario='Problem Based Learning'; payload.cenarioAprendizagem='PBL'; payload.cenario='Problem Based Learning'; payload.scenario='Problem Based Learning'; payload.estadoGuiao='Submetido'; var submissionIso=new Date().toISOString(); payload.submittedAt=submissionIso; payload.Data=submissionIso; payload.data=submissionIso; payload.date=submissionIso; payload.DataSubmissao=submissionIso; payload.Hora=new Date().toLocaleTimeString('pt-PT',{hour:'2-digit',minute:'2-digit'}); payload.sourceUrl=window.location.href; payload.title='PBL - '+(payload.curso||payload.uc||payload.unidadeCurricular||'Guião'); payload.pageTitle=(document.querySelector('h1')||{}).textContent||'Guião PBL'; payload.formData=Object.assign({},payload); payload.pdfFileName=guiaoPdfFileName('PBL','Guiao'); payload.pdfBase64=await generatePdfBase64(); payload.html=''; try{var r=await fetch(FLOW_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); if(!r.ok)throw new Error('HTTP '+r.status); toast('Guião submetido com sucesso. O seu guião foi enviado para validação.'); showSubmissionConfirmation();}catch(e){console.error(e); toast('Não foi possível submeter agora. O rascunho local foi mantido.','error');}finally{submitLock=false;}}
+  async function enviarValidacao(){if(submitLock)return; if(!validarCamposNumericosGuiao())return; submitLock=true; toast('A enviar guião para validação...'); var payload=collect(); payload.templateType='PBL'; payload.templateScenario='Problem Based Learning'; payload.cenarioAprendizagem='PBL'; payload.cenario='Problem Based Learning'; payload.scenario='Problem Based Learning'; payload.estadoGuiao='Submetido'; var submissionIso=new Date().toISOString(); payload.submittedAt=submissionIso; payload.Data=submissionIso; payload.data=submissionIso; payload.date=submissionIso; payload.DataSubmissao=submissionIso; payload.Hora=new Date().toLocaleTimeString('pt-PT',{hour:'2-digit',minute:'2-digit'}); payload.sourceUrl=window.location.href; payload.title='PBL - '+(payload.curso||payload.uc||payload.unidadeCurricular||'Guião'); payload.pageTitle=(document.querySelector('h1')||{}).textContent||'Guião PBL'; payload.formData=Object.assign({},payload); payload.pdfFileName=guiaoPdfFileName('PBL','Guiao'); payload.pdfBase64=await generatePdfBase64(); payload.html=''; try{var r=await fetch(FLOW_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); if(!r.ok)throw new Error('HTTP '+r.status); toast(getGuiaoSuccessMessage(window.__lastGuiaoFlowResponse)); showSubmissionConfirmation(responseJson);}catch(e){console.error(e); toast('Não foi possível submeter agora. O rascunho local foi mantido.','error');}finally{submitLock=false;}}
   function showSubmissionConfirmation(result){
     result = result || window.__lastGuiaoFlowResponse || {};
     try {
@@ -5162,7 +5162,7 @@ html body .page .pbl-numeric-cell{
         else document.body.appendChild(panel);
       }
       const itemInfo = result && (result.itemId || result.ID || result.id) ? ` — ID ${result.itemId || result.ID || result.id}` : "";
-      var modo = getGuiaoFlowMode(result);
+      var modo = getGuiaoSubmissionMode(result);
       var titulo = modo === "updated" ? "✅ Guião atualizado com sucesso." : "✅ Guião submetido com sucesso.";
       var texto = modo === "updated" ? "As alterações foram enviadas para nova validação" : "O seu guião foi enviado para validação";
       panel.innerHTML = `<strong>${titulo}</strong><br>${texto}${itemInfo}.<br>Pode fechar esta página.`;
@@ -5339,6 +5339,19 @@ html body .page .pbl-numeric-cell{
   function getGuiaoFlowMode(result){
     result = result || {};
     return String(result.mode || result.Mode || '').trim().toLowerCase();
+  }
+
+
+  function getGuiaoSubmissionMode(result){
+    var mode = getGuiaoFlowMode(result);
+    if(mode === 'updated' || mode === 'created') return mode;
+    return isGuiaoEditMode() ? 'updated' : 'created';
+  }
+
+  function getGuiaoSuccessMessage(result){
+    return getGuiaoSubmissionMode(result) === 'updated'
+      ? 'Guião atualizado com sucesso. As alterações foram reenviadas para validação.'
+      : 'Guião submetido com sucesso. O seu guião foi enviado para validação.';
   }
 
   function persistGuiaoItemIdFromResponse(result){
@@ -5876,9 +5889,11 @@ function makePdfFileName(){
       payload.html = ''; // tal como no CBL: PDF final gerado no próprio HTML via jsPDF.
       var res = await fetch(FLOW_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
       var txt = await res.text();
+      var responseJson = guiaoFlowResponseToObject(txt);
+      persistGuiaoItemIdFromResponse(responseJson);
       if(!res.ok) throw new Error('Power Automate respondeu ' + res.status + '. ' + txt);
-      toast('Guião submetido com sucesso. O seu guião foi enviado para validação.', 'ok');
-      if(window.showSubmissionConfirmation) window.showSubmissionConfirmation();
+      toast(getGuiaoSuccessMessage(responseJson || window.__lastGuiaoFlowResponse), 'ok');
+      if(window.showSubmissionConfirmation) window.showSubmissionConfirmation(responseJson);
     }catch(e){
       console.error(e);
       toast('Não foi possível enviar para validação.', 'error');

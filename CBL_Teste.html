@@ -4073,6 +4073,19 @@ function makePdfFileName(){
     return String(result.mode || result.Mode || '').trim().toLowerCase();
   }
 
+
+  function getGuiaoSubmissionMode(result){
+    var mode = getGuiaoFlowMode(result);
+    if(mode === 'updated' || mode === 'created') return mode;
+    return isGuiaoEditMode() ? 'updated' : 'created';
+  }
+
+  function getGuiaoSuccessMessage(result){
+    return getGuiaoSubmissionMode(result) === 'updated'
+      ? 'Guião atualizado com sucesso. As alterações foram reenviadas para validação.'
+      : 'Guião submetido com sucesso. O seu guião foi enviado para validação.';
+  }
+
   function persistGuiaoItemIdFromResponse(result){
     var returnedItemId = getGuiaoFlowItemId(result);
     if(!returnedItemId) return;
@@ -4288,9 +4301,11 @@ if(submitLock) return;
       payload.html = ''; // PDF final é gerado no próprio HTML via jsPDF; não enviar HTML para conversão.
       var res = await fetch(FLOW_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
       var txt = await res.text();
+      var responseJson = guiaoFlowResponseToObject(txt);
+      persistGuiaoItemIdFromResponse(responseJson);
       if(!res.ok) throw new Error('Power Automate respondeu ' + res.status + '. ' + txt);
-      toast('Guião submetido com sucesso. O seu guião foi enviado para validação.', 'ok');
-      showSubmissionConfirmation();
+      toast(getGuiaoSuccessMessage(responseJson || window.__lastGuiaoFlowResponse), 'ok');
+      showSubmissionConfirmation(responseJson);
     }catch(e){
       console.error(e);
       toast('Não foi possível enviar para validação.', 'error');
@@ -4322,7 +4337,7 @@ if(submitLock) return;
         else document.body.appendChild(panel);
       }
       const itemInfo = result && (result.itemId || result.ID || result.id) ? ` — ID ${result.itemId || result.ID || result.id}` : "";
-      var modo = getGuiaoFlowMode(result);
+      var modo = getGuiaoSubmissionMode(result);
       var titulo = modo === "updated" ? "✅ Guião atualizado com sucesso." : "✅ Guião submetido com sucesso.";
       var texto = modo === "updated" ? "As alterações foram enviadas para nova validação" : "O seu guião foi enviado para validação";
       panel.innerHTML = `<strong>${titulo}</strong><br>${texto}${itemInfo}.<br>Pode fechar esta página.`;

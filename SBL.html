@@ -11109,7 +11109,7 @@ async function submitValidacao(){
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(dados)
     });
-    toast(r.ok ? 'Guião submetido com sucesso. O seu guião foi enviado para validação.' : 'Erro ao enviar (código ' + r.status + ').');
+    toast(r.ok ? getGuiaoSuccessMessage(window.__lastGuiaoFlowResponse) : 'Erro ao enviar (código ' + r.status + ').');
   }catch(e){ toast('Erro de ligação: ' + e.message); }
 }
 
@@ -11183,7 +11183,7 @@ function initButtons(){
       return (b.innerText||'').includes('Enviar para Validação');
     });
   if(enviarBtn) enviarBtn.addEventListener('click', function(e){
-    e.preventDefault(); toast('Guião submetido com sucesso. O seu guião foi enviado para validação.');
+    e.preventDefault(); toast(getGuiaoSuccessMessage(window.__lastGuiaoFlowResponse));
   });
 
   // Gerar guião em PDF
@@ -11790,6 +11790,19 @@ document.addEventListener('DOMContentLoaded', function(){
   function getGuiaoFlowMode(result){
     result = result || {};
     return String(result.mode || result.Mode || '').trim().toLowerCase();
+  }
+
+
+  function getGuiaoSubmissionMode(result){
+    var mode = getGuiaoFlowMode(result);
+    if(mode === 'updated' || mode === 'created') return mode;
+    return isGuiaoEditMode() ? 'updated' : 'created';
+  }
+
+  function getGuiaoSuccessMessage(result){
+    return getGuiaoSubmissionMode(result) === 'updated'
+      ? 'Guião atualizado com sucesso. As alterações foram reenviadas para validação.'
+      : 'Guião submetido com sucesso. O seu guião foi enviado para validação.';
   }
 
   function persistGuiaoItemIdFromResponse(result){
@@ -12770,7 +12783,7 @@ async function downloadCurrentGuiesPdf(){
         throw new Error(`Power Automate respondeu ${response.status}. ${responseText || ""}`);
       }
 
-      toast("Guião submetido com sucesso. O seu guião foi enviado para validação.", "ok");
+      toast(getGuiaoSuccessMessage(responseJson || window.__lastGuiaoFlowResponse), "ok");
       console.log("[PowerAutomate] Submissão concluída", responseJson || responseText);
       showSubmissionConfirmation(responseJson);
     } catch(error) {
@@ -12805,7 +12818,7 @@ async function downloadCurrentGuiesPdf(){
         else document.body.appendChild(panel);
       }
       const itemInfo = result && (result.itemId || result.ID || result.id) ? ` — ID ${result.itemId || result.ID || result.id}` : "";
-      var modo = getGuiaoFlowMode(result);
+      var modo = getGuiaoSubmissionMode(result);
       var titulo = modo === "updated" ? "✅ Guião atualizado com sucesso." : "✅ Guião submetido com sucesso.";
       var texto = modo === "updated" ? "As alterações foram enviadas para nova validação" : "O seu guião foi enviado para validação";
       panel.innerHTML = `<strong>${titulo}</strong><br>${texto}${itemInfo}.<br>Pode fechar esta página.`;
