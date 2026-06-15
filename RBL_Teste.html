@@ -10661,5 +10661,90 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 })();
 </script>
 
+
+<script id="guioes-fechar-dropdown-cursos-edicao-v2">
+(function(){
+  'use strict';
+  if(window.__guioesFecharDropdownCursosEdicaoV2) return;
+  window.__guioesFecharDropdownCursosEdicaoV2 = true;
+  function hasItemId(){ try { return !!new URLSearchParams(window.location.search).get('itemId'); } catch(e){ return false; } }
+  function closeCourseDropdowns(){
+    if(!hasItemId()) return;
+    var selectors = [
+      '.guioes-curso-suggestions-v2',
+      '.curso-suggestions', '.course-suggestions',
+      '[id*="curso" i][class*="suggest" i]',
+      '[class*="curso" i][class*="suggest" i]',
+      '[class*="course" i][class*="suggest" i]',
+      '[id*="curso" i][class*="dropdown" i]',
+      '[class*="curso" i][class*="dropdown" i]'
+    ];
+    selectors.forEach(function(sel){
+      try {
+        Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){
+          el.style.display = 'none';
+          el.classList.remove('open','active','show','visible');
+          el.setAttribute('aria-hidden','true');
+        });
+      } catch(e){}
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('input#cursoBusca, input[name="cursoBusca"], input[placeholder*="curso" i]'), function(input){
+      if(document.activeElement === input){ try { input.blur(); } catch(e){} }
+    });
+  }
+  window.__guioesFecharDropdownCursos = closeCourseDropdowns;
+  function schedule(){ [0,80,200,500,900,1500,2500,4000].forEach(function(ms){ setTimeout(closeCourseDropdowns, ms); }); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', schedule); else schedule();
+  window.addEventListener('load', schedule);
+})();
+</script>
+
+
+<script id="guioes-fechar-dropdown-cursos-edicao-v3-hardening">
+(function(){
+  'use strict';
+  if(window.__guioesFecharDropdownCursosEdicaoV3) return;
+  window.__guioesFecharDropdownCursosEdicaoV3 = true;
+  function hasItemId(){ try { return !!new URLSearchParams(window.location.search).get('itemId'); } catch(e){ return false; } }
+  if(!hasItemId()) return;
+  var selectors = [
+    '.guioes-curso-suggestions-v2', '.curso-suggestions', '.course-suggestions',
+    '.rbl-course-dropdown', '.projbl-course-dropdown', '.pbl-course-dropdown', '.cbl-course-dropdown', '.sbl-course-dropdown',
+    '[id*="curso" i][class*="suggest" i]', '[class*="curso" i][class*="suggest" i]', '[class*="course" i][class*="suggest" i]',
+    '[id*="curso" i][class*="dropdown" i]', '[class*="curso" i][class*="dropdown" i]', '[class*="course" i][class*="dropdown" i]'
+  ];
+  var style = document.createElement('style');
+  style.id = 'guioes-fechar-dropdown-cursos-edicao-v3-css';
+  style.textContent = selectors.join(',') + '{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;}';
+  document.head.appendChild(style);
+  function close(){
+    selectors.forEach(function(sel){
+      try { Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){
+        el.style.display='none'; el.style.visibility='hidden'; el.style.opacity='0';
+        el.classList.remove('open','active','show','visible','is-open');
+        el.setAttribute('aria-hidden','true');
+      }); } catch(e){}
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('input#cursoBusca, input[name="cursoBusca"], input[placeholder*="curso" i], input[placeholder*="procurar" i]'), function(input){
+      if(document.activeElement === input){ try { input.blur(); } catch(e){} }
+    });
+  }
+  var released = false;
+  var obs = null;
+  function release(){
+    if(released) return;
+    released = true;
+    try { if(style && style.parentNode) style.parentNode.removeChild(style); } catch(e){}
+    try { if(obs) obs.disconnect(); } catch(e){}
+  }
+  function isCourseTarget(t){ return !!(t && t.closest && t.closest('[id*="curso" i], [class*="curso" i], [class*="course" i]')); }
+  document.addEventListener('pointerdown', function(e){ if(isCourseTarget(e.target)) release(); }, true);
+  document.addEventListener('keydown', function(e){ if(isCourseTarget(e.target)) release(); }, true);
+  [0,50,120,250,500,900,1500,2500,4000,6500,9000,12000].forEach(function(ms){ setTimeout(function(){ if(!released) close(); }, ms); });
+  try { obs = new MutationObserver(function(){ if(!released) close(); }); obs.observe(document.documentElement, {childList:true,subtree:true,attributes:true,attributeFilter:['class','style']}); } catch(e){}
+  setTimeout(release, 14000);
+})();
+</script>
+
 </body>
 </html>
