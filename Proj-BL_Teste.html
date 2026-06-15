@@ -19536,24 +19536,23 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 </script>
 
 
-<script id="guioes-itemid-loader-v4">
-/* Camada institucional v4 — edição por itemId.
-   Corrige: carregamento real dos dados, chips de Curso(s), dropdown fechada e manutenção do itemId.
-   Não altera design, PDF, botões nem payload principal. */
+<script id="guioes-itemid-loader-v5">
+/* Camada institucional v5 — edição por itemId.
+   Corrige: chamada real ao fluxo sem passar pelos fetch-patches do template,
+   leitura de respostas aninhadas do Power Automate, preenchimento por IDs/estruturaPedagogica,
+   chips de Curso(s), dropdown fechada e manutenção do itemId no submit. */
 (function(){
   'use strict';
-  if(window.__guioesItemIdLoaderV4) return;
-  window.__guioesItemIdLoaderV4 = true;
-  window.__guioesCarregamentoPorItemIdV2Instalado = true; // impede loader antigo duplicado, quando existir
+  if(window.__guioesItemIdLoaderV5) return;
+  window.__guioesItemIdLoaderV5 = true;
+  window.__guioesCarregamentoPorItemIdV2Instalado = true;
 
   var OBTER_GUIAO_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
 
   function clean(v){
     if(v == null) return '';
     if(Array.isArray(v)) return v.map(clean).filter(Boolean).join('; ');
-    if(typeof v === 'object'){
-      return clean(v.Value || v.value || v.Title || v.title || v.Label || v.label || v.Email || v.email || v.DisplayName || v.displayName || '');
-    }
+    if(typeof v === 'object') return clean(v.Value || v.value || v.Title || v.title || v.Label || v.label || v.Email || v.email || v.DisplayName || v.displayName || '');
     return String(v).replace(/\s+/g,' ').trim();
   }
   function norm(v){
@@ -19569,19 +19568,46 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   function parseMaybeJson(v){
     if(!v) return null;
     if(typeof v === 'object') return v;
-    var s = String(v);
+    var s = String(v).trim();
+    if(!s) return null;
     try { return JSON.parse(s); } catch(e){}
-    try { return JSON.parse(s.replace(/&quot;/g,'"')); } catch(e){}
+    try { return JSON.parse(s.replace(/&quot;/g,'"').replace(/&#34;/g,'"')); } catch(e){}
     return null;
+  }
+  function mergeObjects(a,b){
+    a = a || {}; b = b || {};
+    Object.keys(b).forEach(function(k){ if(a[k] === undefined || a[k] === null || a[k] === '') a[k] = b[k]; });
+    return a;
+  }
+  function unwrapResponse(data){
+    var parsed = parseMaybeJson(data) || data || {};
+    if(Array.isArray(parsed)) parsed = parsed[0] || {};
+    if(parsed && typeof parsed === 'object'){
+      ['body','Body','result','Result','data','Data','item','Item','guiao','Guiao','fields','Fields'].forEach(function(k){
+        if(parsed && Object.prototype.hasOwnProperty.call(parsed,k)){
+          var inner = parseMaybeJson(parsed[k]);
+          if(inner && typeof inner === 'object'){
+            if(Array.isArray(inner)) inner = inner[0] || {};
+            parsed = mergeObjects(inner, parsed);
+          }
+        }
+      });
+    }
+    return parsed || {};
   }
   function flatten(src, out){
     out = out || {};
+    src = unwrapResponse(src);
     if(!src || typeof src !== 'object') return out;
     Object.keys(src).forEach(function(k){
       var v = src[k];
-      if(v && typeof v === 'object' && !Array.isArray(v)){
+      var parsed = (typeof v === 'string' && /^[\s\[{]/.test(v)) ? parseMaybeJson(v) : null;
+      if(parsed && typeof parsed === 'object'){
+        if(['estruturaPedagogica','EstruturaPedagogica','values','Values','formData','FormData','body','data','fields','item','guiao','result'].indexOf(k) !== -1){ flatten(parsed, out); }
+        out[k] = v;
+      } else if(v && typeof v === 'object' && !Array.isArray(v)){
         if(v.Value || v.value || v.Title || v.title || v.Label || v.label || v.Email || v.email || v.DisplayName || v.displayName){ out[k] = clean(v); }
-        else if(['body','d','result','results','item','fields','guiao','data'].indexOf(k) !== -1){ flatten(v, out); }
+        else if(['body','Body','d','result','Result','results','item','Item','fields','Fields','guiao','Guiao','data','Data','values','Values','formData','FormData'].indexOf(k) !== -1){ flatten(v, out); }
         else out[k] = v;
       } else out[k] = v;
     });
@@ -19589,11 +19615,13 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   }
   function buildLookup(data){
     var flat = flatten(data || {}, {});
-    var estrutura = parseMaybeJson(flat.estruturaPedagogica || flat.EstruturaPedagogica || flat.estrutura || flat.Estrutura || flat.values || flat.formData || flat.FormData);
+    var estrutura = parseMaybeJson(flat.estruturaPedagogica || flat.EstruturaPedagogica || flat.estrutura || flat.Estrutura || flat.values || flat.Values || flat.formData || flat.FormData);
     if(estrutura){
       flatten(estrutura, flat);
       if(estrutura.values) flatten(estrutura.values, flat);
+      if(estrutura.Values) flatten(estrutura.Values, flat);
       if(estrutura.formData) flatten(estrutura.formData, flat);
+      if(estrutura.FormData) flatten(estrutura.FormData, flat);
     }
     var lookup = {};
     Object.keys(flat).forEach(function(k){ lookup[norm(k)] = flat[k]; });
@@ -19614,31 +19642,28 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     try { el.dispatchEvent(new Event('input', {bubbles:true})); } catch(e){}
     try { el.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
   }
+  function setSelectValue(el, value){
+    var target = norm(value), found = false;
+    qsa('option', el).forEach(function(opt){
+      if(found) return;
+      var ov = norm(opt.value), ot = norm(opt.textContent);
+      if(ov === target || ot === target || (target && ot.indexOf(target) !== -1) || (ot && target.indexOf(ot) !== -1)){
+        el.value = opt.value; found = true;
+      }
+    });
+    if(!found) el.value = value;
+  }
+  function setFieldElement(el, value){
+    value = clean(value); if(!el || !value) return false;
+    if(el.tagName === 'SELECT') setSelectValue(el, value);
+    else if(el.type === 'checkbox') el.checked = /^(sim|true|1|yes)$/i.test(value);
+    else if(el.type === 'radio') { /* tratado por setRadio */ }
+    else { el.value = value; try { el.setAttribute('value', value); } catch(e){} }
+    dispatch(el); return true;
+  }
   function setFieldById(ids, value){
     value = clean(value); if(!value) return false;
-    for(var i=0;i<ids.length;i++){
-      var el = $(ids[i]);
-      if(!el) continue;
-      if(el.tagName === 'SELECT'){
-        var target = norm(value), found = false;
-        qsa('option', el).forEach(function(opt){
-          if(found) return;
-          if(norm(opt.value) === target || norm(opt.textContent) === target || norm(opt.textContent).indexOf(target) !== -1 || target.indexOf(norm(opt.textContent)) !== -1){
-            el.value = opt.value; found = true;
-          }
-        });
-        if(!found) el.value = value;
-      } else if(el.type === 'radio') {
-        // tratado por setRadio
-      } else if(el.type === 'checkbox'){
-        el.checked = /^(sim|true|1|yes)$/i.test(value);
-      } else {
-        el.value = value;
-        try { el.setAttribute('value', value); } catch(e){}
-      }
-      dispatch(el);
-      return true;
-    }
+    for(var i=0;i<ids.length;i++){ var el = $(ids[i]); if(el && setFieldElement(el, value)) return true; }
     return false;
   }
   function setRadio(names, value){
@@ -19652,6 +19677,25 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     });
     return ok;
   }
+  function visibleControlsForFallback(){
+    return qsa('input, textarea, select').filter(function(el){ return !el.disabled && el.type !== 'hidden' && !el.closest('.no-print'); });
+  }
+  function applyValuesByKey(values){
+    values = values || {};
+    Object.keys(values).forEach(function(key){
+      var val = values[key];
+      if(/^campo_\d+$/.test(key) || /^field_\d+$/.test(key)) return;
+      if($(key)) setFieldElement($(key), val);
+    });
+    var controls = visibleControlsForFallback();
+    Object.keys(values).forEach(function(key){
+      var m = key.match(/^(?:campo|field)_(\d+)$/);
+      if(!m) return;
+      var idx = parseInt(m[1],10) - 1;
+      var el = controls[idx];
+      if(el && !el.id && !el.name) setFieldElement(el, values[key]);
+    });
+  }
   function findFieldByText(patterns){
     var pats = patterns.map(function(p){ return p instanceof RegExp ? p : new RegExp(p, 'i'); });
     var labels = qsa('label, th, .header-card label, .rbl-ident-card label, .projbl-ident-label, .projbl-field-label');
@@ -19661,22 +19705,14 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
       var f = labels[i].getAttribute && labels[i].getAttribute('for');
       if(f && $(f)) return $(f);
       var box = labels[i].closest('td,.section,.header-card,.rbl-ident-card,.projbl-field-card,.projbl-ident-card,div') || labels[i].parentElement;
-      if(box){
-        var el = box.querySelector('input:not([type="hidden"]), textarea, select');
-        if(el) return el;
-      }
+      if(box){ var el = box.querySelector('input:not([type="hidden"]), textarea, select'); if(el) return el; }
     }
     return null;
   }
   function setByText(patterns, value){
     value = clean(value); if(!value) return false;
-    var el = findFieldByText(patterns);
-    if(!el) return false;
-    if(el.tagName === 'SELECT') return setFieldById([el.id], value);
-    el.value = value;
-    try { el.setAttribute('value', value); } catch(e){}
-    dispatch(el);
-    return true;
+    var el = findFieldByText(patterns); if(!el) return false;
+    return setFieldElement(el, value);
   }
   function splitList(v){
     return clean(v).split(/;|\n|\|/).map(clean).filter(Boolean).filter(function(x,i,a){ return a.findIndex(function(y){return norm(y)===norm(x);}) === i; });
@@ -19685,7 +19721,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     qsa('#projCursosSugestoes,.proj-cursos-sugestoes,.rbl-course-dropdown,.guioes-curso-suggestions-v2,.curso-suggestions,.course-suggestions,[class*="suggest" i],[class*="dropdown" i]').forEach(function(el){
       if(!el) return;
       el.classList.remove('open','active','show','visible','is-open');
-      if(el.id === 'projCursosSugestoes' || el.className && /course|curso|suggest|dropdown/i.test(String(el.className))) el.style.display = 'none';
+      if(el.id === 'projCursosSugestoes' || /course|curso|suggest|dropdown/i.test(String(el.className))) el.style.display = 'none';
       el.setAttribute('aria-hidden','true');
     });
     ['cursoBusca','cursoSearch'].forEach(function(id){ var el=$(id); if(el && document.activeElement === el){ try{ el.blur(); }catch(e){} } });
@@ -19694,8 +19730,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     if(!container) return;
     container.innerHTML = '';
     courses.forEach(function(name){
-      var chip = document.createElement('span');
-      chip.className = chipClass;
+      var chip = document.createElement('span'); chip.className = chipClass;
       var txt = document.createElement('span'); txt.textContent = name; chip.appendChild(txt);
       container.appendChild(chip);
     });
@@ -19704,41 +19739,17 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     var courses = splitList(value); if(!courses.length) return;
     window.__guioesIsLoadingFromItemId = true;
     if(document.body) document.body.classList.add('guioes-loading-from-itemid');
-
     var joined = courses.join('; ');
-    var hidden = $('curso');
+    var hidden = $('curso') || $('cursos');
     function forceHiddenCourse(){
-      hidden = $('curso') || hidden;
-      if(hidden){
-        try{
-          if(hidden.getAttribute('data-guioes-value-bridge') !== '1'){
-            var backing = hidden.value || hidden.getAttribute('value') || '';
-            Object.defineProperty(hidden, 'value', {
-              configurable: true,
-              get: function(){ return backing; },
-              set: function(v){
-                var incoming = String(v == null ? '' : v);
-                if(window.__guioesIsLoadingFromItemId && !clean(incoming) && clean(backing)) return;
-                backing = incoming;
-                try { this.setAttribute('value', backing); } catch(e) {}
-              }
-            });
-            hidden.setAttribute('data-guioes-value-bridge','1');
-          }
-        }catch(e){}
-        hidden.value = joined;
-        try{ hidden.setAttribute('value', joined); hidden.setAttribute('data-guioes-itemid-course','1'); }catch(e){}
-        dispatch(hidden);
-      }
+      hidden = $('curso') || $('cursos') || hidden;
+      if(hidden){ hidden.value = joined; try{ hidden.setAttribute('value', joined); hidden.setAttribute('data-guioes-itemid-course','1'); }catch(e){} dispatch(hidden); }
     }
     forceHiddenCourse();
-
     var busca = $('cursoBusca') || $('cursoSearch');
     if(busca){ busca.value = ''; try{ busca.blur(); }catch(e){} }
-
-    var projContainer = $('cblCursosSelecionados') || document.querySelector('.cbl-course-chips,.pbl-course-chips');
+    var projContainer = $('cblCursosSelecionados') || $('pblCursosSelecionados') || document.querySelector('.cbl-course-chips,.pbl-course-chips,.projbl-course-chips');
     var rblContainer = document.querySelector('.rbl-course-chip-area');
-
     if(rblContainer) renderChips(rblContainer, courses, 'rbl-course-chip');
     else if(projContainer) renderChips(projContainer, courses, 'cbl-course-chip');
     else if(hidden && hidden.closest){
@@ -19749,11 +19760,10 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
         renderChips(area, courses, 'rbl-course-chip');
       }
     }
-    forceHiddenCourse();
-    closeCourseDropdowns();
+    forceHiddenCourse(); closeCourseDropdowns();
     setTimeout(function(){ forceHiddenCourse(); closeCourseDropdowns(); }, 80);
     setTimeout(function(){ forceHiddenCourse(); closeCourseDropdowns(); }, 220);
-    setTimeout(function(){ forceHiddenCourse(); window.__guioesIsLoadingFromItemId = false; if(document.body) document.body.classList.remove('guioes-loading-from-itemid'); closeCourseDropdowns(); }, 420);
+    setTimeout(function(){ forceHiddenCourse(); window.__guioesIsLoadingFromItemId = false; if(document.body) document.body.classList.remove('guioes-loading-from-itemid'); closeCourseDropdowns(); }, 520);
   }
   ['focus','input','change'].forEach(function(evt){
     document.addEventListener(evt, function(ev){
@@ -19762,16 +19772,14 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
       if(!t || !t.matches || !t.matches('#cursoBusca,#cursoSearch,input[placeholder*="curso" i],input[placeholder*="procurar" i]')) return;
       if(evt !== 'focus') t.value = '';
       closeCourseDropdowns();
-      ev.stopPropagation();
-      if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+      ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
     }, true);
   });
   ['pointerdown','keydown'].forEach(function(evt){
     document.addEventListener(evt, function(ev){
       var t = ev.target;
-      if(t && t.closest && t.closest('#cursoBusca,#cursoSearch,.rbl-course-picker,.proj-curso-combobox-wrap,.cbl-course-chips')){
-        window.__guioesIsLoadingFromItemId = false;
-        if(document.body) document.body.classList.remove('guioes-loading-from-itemid');
+      if(t && t.closest && t.closest('#cursoBusca,#cursoSearch,.rbl-course-picker,.proj-curso-combobox-wrap,.cbl-course-chips,.pbl-course-chips')){
+        window.__guioesIsLoadingFromItemId = false; if(document.body) document.body.classList.remove('guioes-loading-from-itemid');
       }
     }, true);
   });
@@ -19786,25 +19794,32 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     var box = $('guioesModoEdicaoBox');
     if(!box){
       var ref = document.querySelector('.premium-status') || document.querySelector('.header') || document.querySelector('h1') || document.querySelector('.page') || document.body.firstElementChild;
-      box = document.createElement('div');
-      box.id = 'guioesModoEdicaoBox';
-      box.className = 'no-print';
-      box.style.margin = '0 0 16px 0';
-      box.style.padding = '12px 14px';
-      box.style.border = '1.5px solid ' + (kind === 'error' ? '#8a1f1f' : '#1f4d2b');
-      box.style.borderRadius = '14px';
-      box.style.background = kind === 'error' ? '#fff3f3' : '#f3fff6';
-      box.style.color = kind === 'error' ? '#8a1f1f' : '#1f4d2b';
-      box.style.fontSize = '13px';
+      box = document.createElement('div'); box.id = 'guioesModoEdicaoBox'; box.className = 'no-print';
+      box.style.margin = '0 0 16px 0'; box.style.padding = '12px 14px'; box.style.border = '1.5px solid ' + (kind === 'error' ? '#8a1f1f' : '#1f4d2b');
+      box.style.borderRadius = '14px'; box.style.background = kind === 'error' ? '#fff3f3' : '#f3fff6'; box.style.color = kind === 'error' ? '#8a1f1f' : '#1f4d2b'; box.style.fontSize = '13px';
       if(ref && ref.parentNode) ref.parentNode.insertBefore(box, ref.nextSibling); else document.body.insertBefore(box, document.body.firstChild);
     }
+    box.style.borderColor = kind === 'error' ? '#8a1f1f' : '#1f4d2b';
+    box.style.background = kind === 'error' ? '#fff3f3' : '#f3fff6';
+    box.style.color = kind === 'error' ? '#8a1f1f' : '#1f4d2b';
     box.innerHTML = msg;
   }
-  function applyData(data, forcedItemId, noReschedule){
+  function applyData(rawData, forcedItemId, noReschedule){
+    var data = unwrapResponse(rawData || {});
     var ctx = buildLookup(data || {});
+    var estrutura = parseMaybeJson(ctx.flat.estruturaPedagogica || ctx.flat.EstruturaPedagogica || ctx.flat.estrutura || ctx.flat.Estrutura) || {};
+    if(estrutura && typeof estrutura === 'object'){
+      if(estrutura.values) applyValuesByKey(estrutura.values);
+      if(estrutura.Values) applyValuesByKey(estrutura.Values);
+      if(estrutura.formData) applyValuesByKey(estrutura.formData);
+      if(estrutura.FormData) applyValuesByKey(estrutura.FormData);
+    }
+    if(ctx.flat.values && typeof ctx.flat.values === 'object') applyValuesByKey(ctx.flat.values);
+    if(ctx.flat.formData && typeof ctx.flat.formData === 'object') applyValuesByKey(ctx.flat.formData);
+    applyValuesByKey(ctx.flat);
+
     var itemId = clean(forcedItemId) || pick(ctx, ['itemId','ItemId','ID','Id']);
     ensureItemIdField(itemId);
-
     var unidade = pick(ctx, ['unidadeOrganica','UnidadeOrganica','Unidade Orgânica','Unidade_Organica','Unidade']);
     var modalidade = pick(ctx, ['modalidade','Modalidade']);
     var semestre = pick(ctx, ['semestre','Semestre']);
@@ -19812,7 +19827,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     var cursos = pick(ctx, ['curso','cursos','Curso','Curso(s)','Cursos','CursoTexto']);
     var ucs = pick(ctx, ['uc','ucs','Unidade Curricular','Unidade(s) Curricular(es)','UnidadesCurriculares','UC','UCs']);
     var titulo = pick(ctx, ['tituloProjeto','Título do Projeto','TituloProjeto','titulo','Title','Projeto']);
-    var ano = pick(ctx, ['anoLetivo','AnoLetivo','Ano letivo','ano','Ano']);
+    var ano = pick(ctx, ['anoLetivo','AnoLetivo','Ano letivo','ano_letivo','ano','Ano']);
     var docentes = pick(ctx, ['docentes','Docentes','Docente(s)','DocentesTexto','professor','Professor']);
     var emails = pick(ctx, ['emails','Emails','Email(s)','email','EmailDocente','EmailsDocentes']);
     var nEst = pick(ctx, ['n_estudantes','numeroEstudantes','N_Estudantes','Nº de estudantes','N DE ESTUDANTES','nEstudantes','NumeroEstudantes']);
@@ -19820,7 +19835,6 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     var autoria = pick(ctx, ['autoria','Autoria','autorias','Autorias','NomeAutor','Nome Autor']);
     var estado = pick(ctx, ['estadoGuiao','EstadoGuiao','estado_guiao','Estado do guião','estado']) || 'Atualizado';
     var autorizacao = pick(ctx, ['autorizaRepositorio','AutorizaRepositorio','autorizacaoRepositorio','Autorização Repositório','Autoriza Repositório']);
-
     setFieldById(['unidadeOrganica','unidade_organica'], unidade);
     setFieldById(['modalidade'], modalidade);
     setFieldById(['semestre'], semestre);
@@ -19837,25 +19851,36 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     setFieldById(['estado_guiao','estadoGuiao','estado'], estado);
     setFieldById(['autorizaRepositorio','autorizacaoRepositorio'], autorizacao);
     setRadio(['autorizaRepositorio','autorizacaoRepositorio','autorizaRepositorioOpcao'], autorizacao);
-
-    if(docentes && !$( 'professor')) setByText([/Docente/i], docentes);
-    if(emails && !$( 'emails')) setByText([/E-?mail/i,/Email/i], emails);
-
+    if(docentes && !$('professor')) setByText([/Docente/i], docentes);
+    if(emails && !$('emails')) setByText([/E-?mail/i,/Email/i], emails);
     ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso','syncCourseChips','renderCursosSelecionados','rblSyncHeaderVisual'].forEach(function(fn){ try{ if(typeof window[fn] === 'function') window[fn](); }catch(e){} });
     if(document.body) document.body.classList.add('guiao-carregado-por-id');
     closeCourseDropdowns();
     statusBox('<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.', 'ok');
-    if(!noReschedule){
-      [700, 1600, 2800].forEach(function(ms){
-        setTimeout(function(){ try { applyData(data, forcedItemId || itemId, true); } catch(e){ console.error('Reaplicação itemId falhou:', e); } }, ms);
-      });
-    }
+    if(!noReschedule){ [700, 1600, 2800].forEach(function(ms){ setTimeout(function(){ try { applyData(rawData, forcedItemId || itemId, true); } catch(e){ console.error('Reaplicação itemId falhou:', e); } }, ms); }); }
     return {ok:true, itemId:itemId, cursos:cursos, unidade:unidade, ucs:ucs};
+  }
+  function requestGuiao(itemId){
+    return new Promise(function(resolve, reject){
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', OBTER_GUIAO_URL, true);
+      xhr.timeout = 30000;
+      try { xhr.setRequestHeader('Content-Type','application/json'); } catch(e){}
+      xhr.onload = function(){
+        var text = xhr.responseText || '';
+        var data = parseMaybeJson(text) || {raw:text};
+        if(xhr.status < 200 || xhr.status >= 300){ reject(new Error('HTTP ' + xhr.status + (text ? ': ' + text.slice(0,280) : ''))); return; }
+        resolve(unwrapResponse(data));
+      };
+      xhr.onerror = function(){ reject(new Error('Falha de rede/CORS ao chamar o fluxo Obter guião por ID')); };
+      xhr.ontimeout = function(){ reject(new Error('Timeout ao chamar o fluxo Obter guião por ID')); };
+      xhr.send(JSON.stringify({itemId:String(itemId), id:String(itemId), ID:String(itemId)}));
+    });
   }
   async function loadFromItemId(){
     var itemId = getItemId();
-    if(!itemId || window.__guioesCarregamentoPorItemIdExecutadoV4) return;
-    window.__guioesCarregamentoPorItemIdExecutadoV4 = true;
+    if(!itemId || window.__guioesCarregamentoPorItemIdExecutadoV5) return;
+    window.__guioesCarregamentoPorItemIdExecutadoV5 = true;
     window.__guioesCarregamentoPorItemIdExecutado = true;
     window.__guioesIsLoadingFromItemId = true;
     if(document.body) document.body.classList.add('guioes-loading-from-itemid');
@@ -19863,22 +19888,20 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     statusBox('<strong>Edição de guião submetido</strong><br>A carregar dados do guião...', 'ok');
     closeCourseDropdowns();
     try{
-      var res = await fetch(OBTER_GUIAO_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({itemId:itemId, id:itemId})});
-      var text = await res.text();
-      var data = parseMaybeJson(text) || {raw:text};
-      if(!res.ok || data.ok === false || data.success === false) throw new Error(clean(data.message || data.error || text || ('HTTP ' + res.status)));
+      var data = await requestGuiao(itemId);
+      if(data && (data.ok === false || data.success === false)) throw new Error(clean(data.message || data.error || 'O fluxo devolveu erro.'));
       applyData(data, itemId);
     }catch(e){
       console.error('Erro ao carregar guião por itemId:', e);
       window.__guioesIsLoadingFromItemId = false;
       if(document.body) document.body.classList.remove('guioes-loading-from-itemid');
       closeCourseDropdowns();
-      statusBox('<strong>Não foi possível carregar automaticamente os dados deste guião.</strong><br>Confirme o itemId ou tente novamente. Erro: ' + clean(e && e.message || e), 'error');
+      statusBox('<strong>Não foi possível carregar automaticamente os dados deste guião.</strong><br>Erro técnico: ' + clean(e && e.message || e), 'error');
     }
   }
-  window.__guioesApplyItemIdDataV4 = applyData;
-  window.__guioesLoadFromItemIdV4 = loadFromItemId;
-  function init(){ setTimeout(loadFromItemId, 120); }
+  window.__guioesApplyItemIdDataV5 = applyData;
+  window.__guioesLoadFromItemIdV5 = loadFromItemId;
+  function init(){ setTimeout(loadFromItemId, 180); }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
