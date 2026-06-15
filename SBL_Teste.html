@@ -17290,13 +17290,12 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 
     var active = -1;
     function close(){ box.classList.remove('is-open'); active = -1; }
-    function open(){ if(box.children.length) box.classList.add('is-open'); }
+    function open(){ if(clean(input.value).length >= 2 && box.children.length) box.classList.add('is-open'); }
     function render(){
       var q = clean(input.value);
       var qNorm = strip(q);
-      if(!qNorm){ close(); return; }
       var matches = options.map(function(o){ return {value:o.value, idx:o.idx, score:score(o.value, q)}; })
-        .filter(function(o){ return !qNorm || o.score < 99; })
+        .filter(function(o){ return qNorm && qNorm.length >= 2 && o.score < 99; })
         .sort(function(a,b){ return (a.score - b.score) || (a.idx - b.idx); })
         .slice(0, 10);
 
@@ -17325,7 +17324,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     }
 
     input.addEventListener('input', render, true);
-    input.addEventListener('focus', render, true);
+    input.addEventListener('focus', function(){ close(); }, true);
     input.addEventListener('keydown', function(ev){
       var items = Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));
       if(ev.key === 'ArrowDown'){
@@ -17358,90 +17357,128 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 </script>
 
 
-<script id="guiao-title-payload-final-v4">
+<style id="guioes-curso-dropdown-final-v5-css">
+/* v5 final: dropdown compacta; fechada ao carregar; sem sugestões se o campo estiver vazio */
+body:not(.guiao-pdf-mode) .guioes-curso-suggestions-v2{
+  font-size:13px !important;
+  max-height:190px !important;
+  padding:3px !important;
+}
+body:not(.guiao-pdf-mode) .guioes-curso-suggestion-v2{
+  font-size:13px !important;
+  line-height:1.18 !important;
+  padding:5px 7px !important;
+  min-height:0 !important;
+}
+</style>
+<script id="guioes-curso-dropdown-final-v5-js">
 (function(){
   'use strict';
-  if(window.__guiaoTitlePayloadFinalV4) return;
-  window.__guiaoTitlePayloadFinalV4 = true;
-  function clean(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
-  function firstUC(v){
-    v = clean(v);
-    if(!v) return '';
-    return clean(v.split(/;|\n|\r|\|/).filter(Boolean)[0] || v);
-  }
-  function scenarioOf(payload){
-    var s = clean(payload && (payload.templateType || payload.cenarioAprendizagem || payload.cenario || payload.scenario));
-    if(s) return s;
-    try{
-      var h = clean((document.querySelector('h1') || {}).textContent || document.title || '');
-      if(/problem.?based/i.test(h)) return 'PBL';
-      if(/project.?based/i.test(h)) return 'PROJ-BL';
-      if(/research/i.test(h)) return 'RBL';
-      if(/simula/i.test(h)) return 'SBL';
-      if(/challenge/i.test(h)) return 'CBL';
-    }catch(e){}
-    return 'Guião';
-  }
-  function ucFromDom(){
-    var selectors = [
-      '#uc', '#ucs', '[name="uc"]', '[name="ucs"]',
-      '#unidadeCurricular', '#unidade_curricular', '[name="unidadeCurricular"]', '[name="unidade_curricular"]',
-      '.projbl-nome-uc-projeto-field', 'textarea[id*="uc" i]', 'input[id*="uc" i]', 'textarea[name*="uc" i]', 'input[name*="uc" i]'
-    ];
-    for(var i=0;i<selectors.length;i++){
-      try{
-        var els = Array.prototype.slice.call(document.querySelectorAll(selectors[i]));
-        for(var j=0;j<els.length;j++){
-          var el = els[j];
-          if(!el || !/^(INPUT|TEXTAREA|SELECT)$/i.test(el.tagName || '')) continue;
-          var val = clean(el.value || '');
-          if(val) return val;
-        }
-      }catch(e){}
-    }
-    return '';
-  }
-  function applyTitle(payload){
-    if(!payload || typeof payload !== 'object' || Array.isArray(payload)) return payload;
-    var fd = payload.formData || {};
-    var uc = firstUC(payload.ucs || payload.uc || fd.ucs || fd.uc || fd.unidadeCurricular || fd.unidade_curricular || ucFromDom());
-    if(uc){ payload.title = scenarioOf(payload) + ' - ' + uc; }
-    return payload;
-  }
-  window.guiaoAplicarTituloCenarioUcV4 = applyTitle;
-  if(typeof window.fetch === 'function'){
-    var nativeFetch = window.fetch.bind(window);
-    window.fetch = function(input, init){
-      try{
-        if(init && typeof init.body === 'string' && /powerautomate|logic\.azure|requestbin|http/i.test(String(input && (input.url || input)))){
-          var payload = JSON.parse(init.body);
-          applyTitle(payload);
-          init = Object.assign({}, init, {body: JSON.stringify(payload)});
-        }
-      }catch(e){}
-      return nativeFetch(input, init);
-    };
-  }
-})();
-</script>
-
-
-<script id="guioes-curso-dropdown-custom-v4-close-empty">
-(function(){
-  'use strict';
-  function clean(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
   function closeAll(){
-    document.querySelectorAll('.guioes-curso-suggestions-v2.is-open').forEach(function(box){ box.classList.remove('is-open'); });
+    document.querySelectorAll('.guioes-curso-suggestions-v2').forEach(function(box){
+      box.classList.remove('is-open');
+      box.innerHTML = '';
+    });
   }
-  document.addEventListener('input', function(ev){
-    var el = ev.target;
-    if(el && el.dataset && el.dataset.guioesCustomCursoV2 === '1' && !clean(el.value)) closeAll();
-  }, true);
-  document.addEventListener('focusin', function(ev){
-    var el = ev.target;
-    if(el && el.dataset && el.dataset.guioesCustomCursoV2 === '1' && !clean(el.value)) setTimeout(closeAll, 0);
-  }, true);
-  window.addEventListener('load', function(){ setTimeout(closeAll, 0); setTimeout(closeAll, 350); setTimeout(closeAll, 1200); });
+  function clean(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
+  function strip(v){
+    try{ return clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
+    catch(e){ return clean(v).toLowerCase(); }
+  }
+  function score(value, query){
+    var v=strip(value), q=strip(query);
+    if(!q || q.length < 2) return 99;
+    if(v === q) return 0;
+    if(v.indexOf(q) === 0) return 1;
+    var qWords=q.split(/\s+/).filter(Boolean), vWords=v.split(/\s+/).filter(Boolean), pos=0, ok=qWords.length>0;
+    for(var i=0;i<qWords.length;i++){
+      var found=false;
+      for(var j=pos;j<vWords.length;j++){
+        if(vWords[j].indexOf(qWords[i]) === 0){ found=true; pos=j+1; break; }
+      }
+      if(!found){ ok=false; break; }
+    }
+    if(ok) return 2;
+    if(v.indexOf(q) >= 0) return 3;
+    if(qWords.length && qWords.every(function(t){ return v.indexOf(t)>=0; })) return 4;
+    return 99;
+  }
+  function getOptions(listId){
+    var dl=document.getElementById(listId); if(!dl) return [];
+    var seen={};
+    return Array.prototype.slice.call(dl.querySelectorAll('option')).map(function(o,idx){return {value:clean(o.value||o.textContent),idx:idx};}).filter(function(o){
+      var k=strip(o.value); if(!o.value || seen[k]) return false; seen[k]=true; return true;
+    });
+  }
+  function selectCourse(input, value){
+    input.value=value;
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+    input.dispatchEvent(new Event('change',{bubbles:true}));
+    setTimeout(function(){ input.value=''; closeAll(); }, 80);
+  }
+  function ensureFinal(input){
+    if(!input || input.dataset.guioesCursoFinalV5 === '1') return;
+    var listId=input.dataset.nativeList || input.getAttribute('list') || 'cblCursosList';
+    var opts=getOptions(listId); if(!opts.length) return;
+    input.dataset.nativeList=listId;
+    input.removeAttribute('list');
+    input.setAttribute('autocomplete','off');
+    input.dataset.guioesCursoFinalV5='1';
+    var wrap=input.closest('.cbl-course-search-row,.pbl-course-search-row,.projbl-curso-real-wrap,.proj-curso-combobox-wrap') || input.parentElement;
+    if(!wrap) return;
+    if(getComputedStyle(wrap).position === 'static') wrap.style.position='relative';
+    var old=wrap.querySelector('.guioes-curso-suggestions-v2');
+    if(old) old.remove();
+    var box=document.createElement('div');
+    box.className='guioes-curso-suggestions-v2';
+    box.setAttribute('role','listbox');
+    box.setAttribute('aria-label','Sugestões de cursos');
+    wrap.appendChild(box);
+    var active=-1;
+    function close(){ box.classList.remove('is-open'); box.innerHTML=''; active=-1; }
+    function render(){
+      var q=clean(input.value), qNorm=strip(q);
+      box.innerHTML=''; active=-1;
+      if(!qNorm || qNorm.length < 2){ close(); return; }
+      var matches=opts.map(function(o){return {value:o.value,idx:o.idx,score:score(o.value,q)};})
+        .filter(function(o){return o.score < 99;})
+        .sort(function(a,b){return (a.score-b.score)||(a.idx-b.idx);})
+        .slice(0,10);
+      if(!matches.length){ close(); return; }
+      matches.forEach(function(item){
+        var btn=document.createElement('button');
+        btn.type='button'; btn.className='guioes-curso-suggestion-v2'; btn.textContent=item.value;
+        btn.addEventListener('mousedown',function(ev){ev.preventDefault();});
+        btn.addEventListener('click',function(){selectCourse(input,item.value); close(); try{input.focus();}catch(e){};});
+        box.appendChild(btn);
+      });
+      box.classList.add('is-open');
+    }
+    input.addEventListener('input', render, true);
+    input.addEventListener('focus', function(){ close(); }, true);
+    input.addEventListener('keydown', function(ev){
+      var items=Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));
+      if(ev.key==='Escape'){ close(); return; }
+      if(!items.length) return;
+      if(ev.key==='ArrowDown'){ ev.preventDefault(); active=Math.min(active+1,items.length-1); items.forEach(function(x){x.classList.remove('is-active')}); items[active].classList.add('is-active'); }
+      if(ev.key==='ArrowUp'){ ev.preventDefault(); active=Math.max(active-1,0); items.forEach(function(x){x.classList.remove('is-active')}); items[active].classList.add('is-active'); }
+      if(ev.key==='Enter' && active>=0){ ev.preventDefault(); items[active].click(); }
+    }, true);
+    document.addEventListener('click',function(ev){ if(!wrap.contains(ev.target)) close(); }, true);
+    close();
+  }
+  function init(){
+    var candidates='input[list],#cursoBusca,#cursoSearch,#cursoPesquisa,#projCursoSearch,.pbl-course-search-row input,.cbl-course-search-row input';
+    document.querySelectorAll(candidates).forEach(function(input){
+      var listId=input.dataset.nativeList || input.getAttribute('list');
+      if((listId && /curso/i.test(listId)) || /curso/i.test(input.id||'') || (input.closest && input.closest('.cbl-course-picker,.pbl-course-picker,.projbl-curso-real-wrap,.proj-curso-combobox-wrap'))){
+        ensureFinal(input);
+      }
+    });
+    closeAll();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  window.addEventListener('load',function(){ init(); setTimeout(closeAll,50); setTimeout(closeAll,300); });
 })();
 </script>
 
