@@ -19536,16 +19536,16 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 </script>
 
 
-<script id="guioes-itemid-loader-v5">
-/* Camada institucional v6 — edição por itemId.
+<script id="guioes-itemid-loader-v7">
+/* Camada institucional v7 — edição por itemId.
    Corrige: chamada real ao fluxo sem passar pelos fetch-patches do template,
    leitura de respostas aninhadas do Power Automate, preenchimento por IDs/estruturaPedagogica,
    chips de Curso(s), dropdown fechada e manutenção do itemId no submit. */
 (function(){
   'use strict';
-  if(window.__guioesItemIdLoaderV6) return;
-  window.__guioesItemIdLoaderV6 = true;
-  window.__guioesCarregamentoPorItemIdV2Instalado = true;
+  if(window.__guioesItemIdLoaderV7) return;
+  window.__guioesItemIdLoaderV7 = true;
+  /* Não bloqueia loaders institucionais existentes; apenas evita duplicação deste patch. */
 
   var OBTER_GUIAO_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
 
@@ -19861,27 +19861,29 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     return {ok:true, itemId:itemId, cursos:cursos, unidade:unidade, ucs:ucs};
   }
   function requestGuiao(itemId){
-    /* V6: usa a mesma forma de chamada dos templates que funcionam (PBL/SBL/CBL):
-       fetch + Content-Type application/json + body apenas com {itemId}. */
+    /* V7: chamada idêntica ao loader institucional dos templates que funcionam.
+       Body idêntico ao dos templates que funcionam; validação final deve ser visual no browser. */
     return fetch(OBTER_GUIAO_URL, {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({itemId: String(itemId)})
+      body: JSON.stringify({itemId: itemId})
     }).then(function(res){
       return res.text().then(function(text){
-        var data = parseMaybeJson(text) || {raw:text};
+        var data = {};
+        try { data = JSON.parse(text); } catch(e){ data = {raw:text}; }
         if(!res.ok || data.ok === false || data.success === false){
-          var msg = (data && (data.message || data.error || data.errorMessage)) || text || ('HTTP ' + res.status);
-          throw new Error(msg);
+          var rawMsg = (data && (data.message || data.errorMessage)) || text || ('HTTP ' + res.status);
+          if(data && data.error && typeof data.error !== 'object') rawMsg = data.error;
+          throw new Error(clean(rawMsg) || ('HTTP ' + res.status));
         }
-        return unwrapResponse(data);
+        return data;
       });
     });
   }
   async function loadFromItemId(){
     var itemId = getItemId();
-    if(!itemId || window.__guioesCarregamentoPorItemIdExecutadoV6) return;
-    window.__guioesCarregamentoPorItemIdExecutadoV6 = true;
+    if(!itemId || window.__guioesCarregamentoPorItemIdExecutadoV7) return;
+    window.__guioesCarregamentoPorItemIdExecutadoV7 = true;
     window.__guioesCarregamentoPorItemIdExecutado = true;
     window.__guioesIsLoadingFromItemId = true;
     if(document.body) document.body.classList.add('guioes-loading-from-itemid');
@@ -19890,19 +19892,34 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     closeCourseDropdowns();
     try{
       var data = await requestGuiao(itemId);
-      if(data && (data.ok === false || data.success === false)) throw new Error(clean(data.message || data.error || 'O fluxo devolveu erro.'));
-      applyData(data, itemId);
+      window.__guioesDadosCarregadosPorItemId = data;
+      try {
+        applyData(data, itemId);
+      } catch(fillErr) {
+        console.error('Erro ao preencher formulário por itemId:', fillErr);
+        /* Não esconder dados carregados por causa de um campo específico: tenta reaplicar por valores planos. */
+        var flatFallback = flatten(data || {});
+        try { applyValuesByKey(flatFallback); } catch(e){}
+        ensureItemIdField(itemId);
+        closeCourseDropdowns();
+        statusBox('<strong>Edição de guião submetido</strong><br>Os dados foram recebidos. Alguns campos específicos podem precisar de revisão manual.', 'ok');
+      }
+      if(typeof window.toast === 'function') window.toast('Dados do guião carregados para edição.', 'ok', 4500);
+      if(typeof window.showToast === 'function') window.showToast('Dados do guião carregados para edição.', 'ok', 4500);
     }catch(e){
       console.error('Erro ao carregar guião por itemId:', e);
       window.__guioesIsLoadingFromItemId = false;
       if(document.body) document.body.classList.remove('guioes-loading-from-itemid');
       closeCourseDropdowns();
-      statusBox('<strong>Não foi possível carregar automaticamente os dados deste guião.</strong><br>Erro técnico: ' + clean(e && e.message || e), 'error');
+      /* Mensagem igual à lógica dos templates que funcionam: sem [object Object] e sem falso positivo. */
+      statusBox('<strong>Não foi possível carregar automaticamente os dados deste guião.</strong><br>Confirme o link de edição ou tente novamente.', 'error');
+      if(typeof window.toast === 'function') window.toast('Não foi possível carregar automaticamente os dados deste guião. Confirme o link de edição ou tente novamente.', 'error', 8000);
+      if(typeof window.showToast === 'function') window.showToast('Não foi possível carregar automaticamente os dados deste guião. Confirme o link de edição ou tente novamente.', 'error', 8000);
     }
   }
-  window.__guioesApplyItemIdDataV5 = applyData;
-  window.__guioesLoadFromItemIdV5 = loadFromItemId;
-  function init(){ setTimeout(loadFromItemId, 180); }
+  window.__guioesApplyItemIdDataV7 = applyData;
+  window.__guioesLoadFromItemIdV7 = loadFromItemId;
+  function init(){ setTimeout(loadFromItemId, 450); }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
