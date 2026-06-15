@@ -7667,19 +7667,7 @@ input:focus, textarea:focus, select:focus,
 
     var userOpenedCourseSearch = false;
 
-
-    window.rblSetCoursesFromItemId = function(value){
-      selected = splitCourses(value);
-      search.value = "";
-      dropdown.classList.remove("open");
-      renderChips();
-      sync();
-      try { search.blur(); } catch(e) {}
-      if(typeof window.guioesCloseCursoDropdownsItemId === "function") window.guioesCloseCursoDropdownsItemId();
-    };
-
     function renderOptions(forceOpenEmpty){
-      if(window.__guioesIsLoadingFromItemId || (document.body && document.body.classList.contains('guioes-loading-from-itemid'))){ dropdown.classList.remove("open"); return; }
       var term = cleanText(search.value).toLowerCase();
 
       // Não abrir a dropdown no carregamento/programmatic focus.
@@ -10449,367 +10437,350 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 </script>
 
 
-<script id="guioes-itemid-curso-guard-v1">
-/* Camada institucional — bloqueio de abertura automática de Curso(s) durante carregamento por itemId. */
+<script id="guioes-itemid-loader-v4">
+/* Camada institucional v4 — edição por itemId.
+   Corrige: carregamento real dos dados, chips de Curso(s), dropdown fechada e manutenção do itemId.
+   Não altera design, PDF, botões nem payload principal. */
 (function(){
   'use strict';
-  if(window.__guioesItemIdCursoGuardV1) return;
-  window.__guioesItemIdCursoGuardV1 = true;
-  function hasItemId(){ try { return !!String(new URLSearchParams(window.location.search).get('itemId') || '').trim(); } catch(e){ return false; } }
-  window.__guioesIsLoadingFromItemId = !!hasItemId();
-  function isLoading(){ return !!window.__guioesIsLoadingFromItemId || (document.body && document.body.classList.contains('guioes-loading-from-itemid')); }
-  window.guioesCloseCursoDropdownsItemId = function(){
-    try {
-      Array.prototype.forEach.call(document.querySelectorAll('#projCursosSugestoes,.proj-cursos-sugestoes,.rbl-course-dropdown,.projbl-course-dropdown,.pbl-course-dropdown,.cbl-course-dropdown,.sbl-course-dropdown,.guioes-course-suggestions'), function(el){
-        el.classList.remove('open');
-        el.classList.remove('is-open');
-      });
-      Array.prototype.forEach.call(document.querySelectorAll('#cursoBusca,#cursoSearch,input[name="cursoBusca"],input[placeholder*="procurar" i]'), function(input){
-        if(input && document.activeElement === input) input.blur();
-      });
-    } catch(e) {}
-  };
-  ['focus','input','change'].forEach(function(evt){
-    document.addEventListener(evt, function(ev){
-      if(!isLoading()) return;
-      var t = ev.target;
-      if(!t || !t.matches || !t.matches('#cursoBusca,#cursoSearch,input[name="cursoBusca"],input[placeholder*="procurar" i],input[placeholder*="curso" i]')) return;
-      if(evt !== 'focus') t.value = '';
-      if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
-      ev.stopPropagation();
-      window.guioesCloseCursoDropdownsItemId();
-    }, true);
-  });
-})();
-</script>
-
-<script id="guioes-carregar-guiao-por-id-v2">
-/* ===== Camada institucional — carregamento de guião para edição por itemId =====
-   Abre o template com ?itemId=..., obtém os dados do fluxo “Obter guião por ID”
-   e preenche o formulário sem alterar PDF, layout, submissão principal ou botões. */
-(function(){
-  'use strict';
-  if(window.__guioesCarregamentoPorItemIdV2Instalado) return;
-  window.__guioesCarregamentoPorItemIdV2Instalado = true;
+  if(window.__guioesItemIdLoaderV4) return;
+  window.__guioesItemIdLoaderV4 = true;
+  window.__guioesCarregamentoPorItemIdV2Instalado = true; // impede loader antigo duplicado, quando existir
 
   var OBTER_GUIAO_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
 
-  function clean(v){ return String(v == null ? '' : v).trim(); }
-  function lower(v){ return clean(v).toLowerCase(); }
+  function clean(v){
+    if(v == null) return '';
+    if(Array.isArray(v)) return v.map(clean).filter(Boolean).join('; ');
+    if(typeof v === 'object'){
+      return clean(v.Value || v.value || v.Title || v.title || v.Label || v.label || v.Email || v.email || v.DisplayName || v.displayName || '');
+    }
+    return String(v).replace(/\s+/g,' ').trim();
+  }
+  function norm(v){
+    try { return clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,''); }
+    catch(e){ return clean(v).toLowerCase().replace(/[^a-z0-9]/g,''); }
+  }
   function $(id){ return document.getElementById(id); }
+  function qsa(sel, root){ return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
   function getItemId(){
-    try { return clean(new URLSearchParams(window.location.search).get('itemId')); }
+    try { return clean(new URLSearchParams(window.location.search).get('itemId') || new URLSearchParams(window.location.search).get('ID') || ''); }
     catch(e){ return ''; }
   }
-  function notify(message, type, duration){
-    if(typeof window.toast === 'function') return window.toast(message, type || '', duration || 4500);
-    if(typeof window.showToast === 'function') return window.showToast(message, type || '', duration || 4500);
-    if(type === 'error') alert(message);
+  function parseMaybeJson(v){
+    if(!v) return null;
+    if(typeof v === 'object') return v;
+    var s = String(v);
+    try { return JSON.parse(s); } catch(e){}
+    try { return JSON.parse(s.replace(/&quot;/g,'"')); } catch(e){}
+    return null;
+  }
+  function flatten(src, out){
+    out = out || {};
+    if(!src || typeof src !== 'object') return out;
+    Object.keys(src).forEach(function(k){
+      var v = src[k];
+      if(v && typeof v === 'object' && !Array.isArray(v)){
+        if(v.Value || v.value || v.Title || v.title || v.Label || v.label || v.Email || v.email || v.DisplayName || v.displayName){ out[k] = clean(v); }
+        else if(['body','d','result','results','item','fields','guiao','data'].indexOf(k) !== -1){ flatten(v, out); }
+        else out[k] = v;
+      } else out[k] = v;
+    });
+    return out;
+  }
+  function buildLookup(data){
+    var flat = flatten(data || {}, {});
+    var estrutura = parseMaybeJson(flat.estruturaPedagogica || flat.EstruturaPedagogica || flat.estrutura || flat.Estrutura || flat.values || flat.formData || flat.FormData);
+    if(estrutura){
+      flatten(estrutura, flat);
+      if(estrutura.values) flatten(estrutura.values, flat);
+      if(estrutura.formData) flatten(estrutura.formData, flat);
+    }
+    var lookup = {};
+    Object.keys(flat).forEach(function(k){ lookup[norm(k)] = flat[k]; });
+    return {flat:flat, lookup:lookup};
+  }
+  function pick(ctx, names){
+    for(var i=0;i<names.length;i++){
+      var key = norm(names[i]);
+      if(Object.prototype.hasOwnProperty.call(ctx.lookup, key)){
+        var val = clean(ctx.lookup[key]);
+        if(val) return val;
+      }
+    }
+    return '';
   }
   function dispatch(el){
     if(!el) return;
     try { el.dispatchEvent(new Event('input', {bubbles:true})); } catch(e){}
     try { el.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
   }
-  function setField(id, value){
-    var el = $(id);
-    if(!el) return false;
-    value = clean(value);
-    if(el.type === 'radio') return false;
-    if(el.type === 'checkbox'){
-      el.checked = /^(sim|true|1|yes)$/i.test(value);
-    } else if(el.tagName === 'SELECT'){
-      var found = false;
-      Array.prototype.forEach.call(el.options || [], function(opt){
-        if(clean(opt.value).toLowerCase() === value.toLowerCase() || clean(opt.text).toLowerCase() === value.toLowerCase()){
-          el.value = opt.value;
-          found = true;
-        }
-      });
-      if(!found && value) el.value = value;
-    } else {
-      el.value = value;
+  function setFieldById(ids, value){
+    value = clean(value); if(!value) return false;
+    for(var i=0;i<ids.length;i++){
+      var el = $(ids[i]);
+      if(!el) continue;
+      if(el.tagName === 'SELECT'){
+        var target = norm(value), found = false;
+        qsa('option', el).forEach(function(opt){
+          if(found) return;
+          if(norm(opt.value) === target || norm(opt.textContent) === target || norm(opt.textContent).indexOf(target) !== -1 || target.indexOf(norm(opt.textContent)) !== -1){
+            el.value = opt.value; found = true;
+          }
+        });
+        if(!found) el.value = value;
+      } else if(el.type === 'radio') {
+        // tratado por setRadio
+      } else if(el.type === 'checkbox'){
+        el.checked = /^(sim|true|1|yes)$/i.test(value);
+      } else {
+        el.value = value;
+        try { el.setAttribute('value', value); } catch(e){}
+      }
+      dispatch(el);
+      return true;
     }
+    return false;
+  }
+  function setRadio(names, value){
+    value = clean(value); if(!value) return false;
+    var ok = false;
+    names.forEach(function(name){
+      qsa('input[type="radio"][name="' + name + '"]').forEach(function(r){
+        var same = norm(r.value) === norm(value) || norm((r.closest('label') || {}).textContent || '').indexOf(norm(value)) !== -1;
+        r.checked = same; if(same) ok = true; dispatch(r);
+      });
+    });
+    return ok;
+  }
+  function findFieldByText(patterns){
+    var pats = patterns.map(function(p){ return p instanceof RegExp ? p : new RegExp(p, 'i'); });
+    var labels = qsa('label, th, .header-card label, .rbl-ident-card label, .projbl-ident-label, .projbl-field-label');
+    for(var i=0;i<labels.length;i++){
+      var txt = clean(labels[i].textContent);
+      if(!pats.some(function(rx){ return rx.test(txt); })) continue;
+      var f = labels[i].getAttribute && labels[i].getAttribute('for');
+      if(f && $(f)) return $(f);
+      var box = labels[i].closest('td,.section,.header-card,.rbl-ident-card,.projbl-field-card,.projbl-ident-card,div') || labels[i].parentElement;
+      if(box){
+        var el = box.querySelector('input:not([type="hidden"]), textarea, select');
+        if(el) return el;
+      }
+    }
+    return null;
+  }
+  function setByText(patterns, value){
+    value = clean(value); if(!value) return false;
+    var el = findFieldByText(patterns);
+    if(!el) return false;
+    if(el.tagName === 'SELECT') return setFieldById([el.id], value);
+    el.value = value;
+    try { el.setAttribute('value', value); } catch(e){}
     dispatch(el);
     return true;
   }
-  function setFirst(ids, value){
-    value = clean(value);
-    if(!value) return false;
-    for(var i=0;i<ids.length;i++){ if(setField(ids[i], value)) return true; }
-    return false;
+  function splitList(v){
+    return clean(v).split(/;|\n|\|/).map(clean).filter(Boolean).filter(function(x,i,a){ return a.findIndex(function(y){return norm(y)===norm(x);}) === i; });
   }
-  function setRadioGroup(name, value){
-    value = clean(value);
-    if(!value) return false;
-    var done = false;
-    Array.prototype.forEach.call(document.querySelectorAll('input[type="radio"][name="' + name + '"]'), function(radio){
-      var same = clean(radio.value).toLowerCase() === value.toLowerCase();
-      radio.checked = same;
-      if(same) done = true;
-      dispatch(radio);
+  function closeCourseDropdowns(){
+    qsa('#projCursosSugestoes,.proj-cursos-sugestoes,.rbl-course-dropdown,.guioes-curso-suggestions-v2,.curso-suggestions,.course-suggestions,[class*="suggest" i],[class*="dropdown" i]').forEach(function(el){
+      if(!el) return;
+      el.classList.remove('open','active','show','visible','is-open');
+      if(el.id === 'projCursosSugestoes' || el.className && /course|curso|suggest|dropdown/i.test(String(el.className))) el.style.display = 'none';
+      el.setAttribute('aria-hidden','true');
     });
-    return done;
+    ['cursoBusca','cursoSearch'].forEach(function(id){ var el=$(id); if(el && document.activeElement === el){ try{ el.blur(); }catch(e){} } });
   }
-  function setAuthorization(value){
-    value = clean(value);
-    if(!value) return;
-    setField('autorizaRepositorio', value);
-    setField('autorizacaoRepositorio', value);
-    ['autorizaRepositorio','autorizaRepositorioOpcao','autorizacaoRepositorio'].forEach(function(name){ setRadioGroup(name, value); });
-  }
-  function splitCourses(value){
-    return clean(value).split(/;|\n|\|/).map(clean).filter(Boolean).filter(function(v,i,a){
-      return a.findIndex(function(x){ return x.toLowerCase() === v.toLowerCase(); }) === i;
-    });
-  }
-  function renderCourseFallback(container, value, chipClass){
-    if(!container || !clean(value)) return;
-    var existing = container.querySelector('.cbl-course-chip,.pbl-course-chip,.projbl-course-chip,.rbl-course-chip,.sbl-course-chip');
-    if(existing) return;
+  function renderChips(container, courses, chipClass){
+    if(!container) return;
     container.innerHTML = '';
-    splitCourses(value).forEach(function(curso){
+    courses.forEach(function(name){
       var chip = document.createElement('span');
-      chip.className = chipClass || 'cbl-course-chip';
-      var span = document.createElement('span');
-      span.textContent = curso;
-      chip.appendChild(span);
+      chip.className = chipClass;
+      var txt = document.createElement('span'); txt.textContent = name; chip.appendChild(txt);
       container.appendChild(chip);
     });
   }
-  function setCursos(value){
-    value = clean(value);
-    if(!value) return;
+  function setCourses(value){
+    var courses = splitList(value); if(!courses.length) return;
     window.__guioesIsLoadingFromItemId = true;
     if(document.body) document.body.classList.add('guioes-loading-from-itemid');
-    if(typeof window.rblSetCoursesFromItemId === 'function'){
-      try { window.rblSetCoursesFromItemId(value); } catch(e){}
-    } else if(typeof window.projblSetCoursesFromItemId === 'function'){
-      try { window.projblSetCoursesFromItemId(value); } catch(e){}
-    } else {
-      setFirst(['curso','cursos'], value);
-    }
-    ['cursoBusca','cursoSearch'].forEach(function(id){
-      var search = $(id);
-      if(search){ search.value = ''; try{ search.blur(); }catch(e){} }
-    });
-    var chips = $('cblCursosSelecionados') || $('pblCursosSelecionados') || document.querySelector('.cbl-course-chips,.pbl-course-chips,.rbl-course-chip-area,.sbl-course-chips');
-    if(chips){
-      setTimeout(function(){
-        renderCourseFallback(chips, value, chips.classList && chips.classList.contains('rbl-course-chip-area') ? 'rbl-course-chip' : (chips.id === 'pblCursosSelecionados' ? 'pbl-course-chip' : 'cbl-course-chip'));
-        if(typeof window.guioesCloseCursoDropdownsItemId === 'function') window.guioesCloseCursoDropdownsItemId();
-      }, 80);
-    }
-    if(typeof window.guioesCloseCursoDropdownsItemId === 'function') window.guioesCloseCursoDropdownsItemId();
-  }
-  function parseEstrutura(raw){
-    if(!raw) return {};
-    if(typeof raw === 'object') return raw;
-    try { return JSON.parse(String(raw)); } catch(e){ return {}; }
-  }
-  function splitHoraIntervalo(hora){
-    hora = clean(hora);
-    if(!hora) return {};
-    var parts = hora.split(/\s*[–—-]\s*/).map(clean).filter(Boolean);
-    return {inicio: parts[0] || '', fim: parts[1] || ''};
-  }
-  function visibleControlsForFallback(){
-    return Array.prototype.slice.call(document.querySelectorAll('input, textarea, select')).filter(function(el){
-      return !el.disabled && el.type !== 'hidden' && !el.closest('.no-print');
-    });
-  }
-  function applyValuesByKey(values){
-    values = values || {};
-    Object.keys(values).forEach(function(key){
-      var val = values[key];
-      if(/^campo_\d+$/.test(key) || /^field_\d+$/.test(key)) return;
-      if($(key)) setField(key, val);
-    });
-    var controls = visibleControlsForFallback();
-    Object.keys(values).forEach(function(key){
-      var m = key.match(/^(?:campo|field)_(\d+)$/);
-      if(!m) return;
-      var idx = parseInt(m[1],10) - 1;
-      var el = controls[idx];
-      if(el && !el.id && !el.name){
-        el.value = clean(values[key]);
-        dispatch(el);
+
+    var joined = courses.join('; ');
+    var hidden = $('curso');
+    function forceHiddenCourse(){
+      hidden = $('curso') || hidden;
+      if(hidden){
+        try{
+          if(hidden.getAttribute('data-guioes-value-bridge') !== '1'){
+            var backing = hidden.value || hidden.getAttribute('value') || '';
+            Object.defineProperty(hidden, 'value', {
+              configurable: true,
+              get: function(){ return backing; },
+              set: function(v){
+                var incoming = String(v == null ? '' : v);
+                if(window.__guioesIsLoadingFromItemId && !clean(incoming) && clean(backing)) return;
+                backing = incoming;
+                try { this.setAttribute('value', backing); } catch(e) {}
+              }
+            });
+            hidden.setAttribute('data-guioes-value-bridge','1');
+          }
+        }catch(e){}
+        hidden.value = joined;
+        try{ hidden.setAttribute('value', joined); hidden.setAttribute('data-guioes-itemid-course','1'); }catch(e){}
+        dispatch(hidden);
       }
-    });
-  }
-  function addStatusBox(){
-    if($('guioesModoEdicaoBox')) return;
-    var ref = document.querySelector('.premium-status') || document.querySelector('.header') || document.querySelector('.page') || document.body.firstElementChild;
-    if(!ref || !ref.parentNode) return;
-    var box = document.createElement('div');
-    box.id = 'guioesModoEdicaoBox';
-    box.className = 'no-print';
-    box.style.margin = '0 0 16px 0';
-    box.style.padding = '12px 14px';
-    box.style.border = '1.5px solid #1f4d2b';
-    box.style.borderRadius = '14px';
-    box.style.background = '#f3fff6';
-    box.style.color = '#1f4d2b';
-    box.style.fontSize = '13px';
-    box.innerHTML = '<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.';
-    ref.parentNode.insertBefore(box, ref.nextSibling);
-  }
-  function preencherFormulario(data){
-    data = data || {};
-    var estrutura = parseEstrutura(data.estruturaPedagogica);
-    var values = (estrutura && estrutura.values && typeof estrutura.values === 'object') ? estrutura.values : {};
-    var hora = splitHoraIntervalo(data.hora);
+    }
+    forceHiddenCourse();
 
-    applyValuesByKey(values);
+    var busca = $('cursoBusca') || $('cursoSearch');
+    if(busca){ busca.value = ''; try{ busca.blur(); }catch(e){} }
 
-    setFirst(['unidadeOrganica','unidade_organica'], values.unidadeOrganica || data.unidadeOrganica);
-    setFirst(['modalidade'], values.modalidade || data.modalidade);
-    setFirst(['semestre'], values.semestre || data.semestre);
-    setFirst(['turmaEdicao','turma_edicao','turma'], values.turmaEdicao || values.turma || data.turmaEdicao);
-    setCursos(values.curso || values.cursos || data.cursos);
-    setFirst(['uc','ucs','unidade_curricular'], values.uc || values.ucs || data.ucs);
-    setFirst(['titulo','tituloProjeto'], values.titulo || values.tituloProjeto || data.title);
-    setFirst(['ano','ano_letivo','anoLetivo','anoLetivoProjeto'], values.ano || values.ano_letivo || values.anoLetivo || data.anoLetivo);
-    setFirst(['professor','docentes'], values.professor || values.docentes || data.docentes);
-    setFirst(['emails','email'], values.emails || values.email || data.emails);
-    setFirst(['n_estudantes','numeroEstudantes'], values.n_estudantes || values.numeroEstudantes || data.nEstudantes);
-    setFirst(['n_grupos','numeroGrupos'], values.n_grupos || values.numeroGrupos || data.nGrupos);
-    setFirst(['autoria','autorias'], values.autoria || values.autorias || data.autorias);
-    setFirst(['estado','estado_guiao','estadoGuiao'], values.estado || values.estadoGuiao || 'Atualizado');
-    setFirst(['organizacao','organizacoes','contacto'], values.organizacao || values.organizacoesContacto || data.organizacoesContacto);
-    setFirst(['calendarizacao','data','dataSimulacao'], values.calendarizacao || values.data || data.data);
-    setFirst(['hora_inicio','horaInicio','hora'], values.hora_inicio || values.horaInicio || hora.inicio || data.hora);
-    setFirst(['hora_fim','horaFim'], values.hora_fim || values.horaFim || hora.fim);
-    setAuthorization(values.autorizaRepositorio || values.autorizacaoRepositorio || data.autorizaRepositorio);
+    var projContainer = $('cblCursosSelecionados') || document.querySelector('.cbl-course-chips,.pbl-course-chips');
+    var rblContainer = document.querySelector('.rbl-course-chip-area');
 
-    ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso','syncCourseChips','renderCursosSelecionados'].forEach(function(fn){
-      try { if(typeof window[fn] === 'function') window[fn](); } catch(e){}
-    });
-    document.body.classList.add('guiao-carregado-por-id');
+    if(rblContainer) renderChips(rblContainer, courses, 'rbl-course-chip');
+    else if(projContainer) renderChips(projContainer, courses, 'cbl-course-chip');
+    else if(hidden && hidden.closest){
+      var card = hidden.closest('.rbl-ident-card,.header-card,td,div');
+      if(card && !card.querySelector('.rbl-course-chip-area')){
+        var area = document.createElement('div'); area.className = 'rbl-course-chip-area';
+        if(hidden.parentNode) hidden.parentNode.insertBefore(area, hidden);
+        renderChips(area, courses, 'rbl-course-chip');
+      }
+    }
+    forceHiddenCourse();
+    closeCourseDropdowns();
+    setTimeout(function(){ forceHiddenCourse(); closeCourseDropdowns(); }, 80);
+    setTimeout(function(){ forceHiddenCourse(); closeCourseDropdowns(); }, 220);
+    setTimeout(function(){ forceHiddenCourse(); window.__guioesIsLoadingFromItemId = false; if(document.body) document.body.classList.remove('guioes-loading-from-itemid'); closeCourseDropdowns(); }, 420);
   }
-  async function carregarGuiaoPorId(){
+  ['focus','input','change'].forEach(function(evt){
+    document.addEventListener(evt, function(ev){
+      if(!window.__guioesIsLoadingFromItemId) return;
+      var t = ev.target;
+      if(!t || !t.matches || !t.matches('#cursoBusca,#cursoSearch,input[placeholder*="curso" i],input[placeholder*="procurar" i]')) return;
+      if(evt !== 'focus') t.value = '';
+      closeCourseDropdowns();
+      ev.stopPropagation();
+      if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+    }, true);
+  });
+  ['pointerdown','keydown'].forEach(function(evt){
+    document.addEventListener(evt, function(ev){
+      var t = ev.target;
+      if(t && t.closest && t.closest('#cursoBusca,#cursoSearch,.rbl-course-picker,.proj-curso-combobox-wrap,.cbl-course-chips')){
+        window.__guioesIsLoadingFromItemId = false;
+        if(document.body) document.body.classList.remove('guioes-loading-from-itemid');
+      }
+    }, true);
+  });
+  function ensureItemIdField(itemId){
+    if(!itemId) return;
+    var el = $('itemId') || document.querySelector('input[name="itemId"]');
+    if(!el){ el = document.createElement('input'); el.type='hidden'; el.id='itemId'; el.name='itemId'; document.body.appendChild(el); }
+    el.value = itemId;
+    try { window.localStorage.setItem('guiao_itemId', itemId); } catch(e){}
+  }
+  function statusBox(msg, kind){
+    var box = $('guioesModoEdicaoBox');
+    if(!box){
+      var ref = document.querySelector('.premium-status') || document.querySelector('.header') || document.querySelector('h1') || document.querySelector('.page') || document.body.firstElementChild;
+      box = document.createElement('div');
+      box.id = 'guioesModoEdicaoBox';
+      box.className = 'no-print';
+      box.style.margin = '0 0 16px 0';
+      box.style.padding = '12px 14px';
+      box.style.border = '1.5px solid ' + (kind === 'error' ? '#8a1f1f' : '#1f4d2b');
+      box.style.borderRadius = '14px';
+      box.style.background = kind === 'error' ? '#fff3f3' : '#f3fff6';
+      box.style.color = kind === 'error' ? '#8a1f1f' : '#1f4d2b';
+      box.style.fontSize = '13px';
+      if(ref && ref.parentNode) ref.parentNode.insertBefore(box, ref.nextSibling); else document.body.insertBefore(box, document.body.firstChild);
+    }
+    box.innerHTML = msg;
+  }
+  function applyData(data, forcedItemId, noReschedule){
+    var ctx = buildLookup(data || {});
+    var itemId = clean(forcedItemId) || pick(ctx, ['itemId','ItemId','ID','Id']);
+    ensureItemIdField(itemId);
+
+    var unidade = pick(ctx, ['unidadeOrganica','UnidadeOrganica','Unidade Orgânica','Unidade_Organica','Unidade']);
+    var modalidade = pick(ctx, ['modalidade','Modalidade']);
+    var semestre = pick(ctx, ['semestre','Semestre']);
+    var turma = pick(ctx, ['turmaEdicao','TurmaEdicao','Turma/Edição','Turma','turma']);
+    var cursos = pick(ctx, ['curso','cursos','Curso','Curso(s)','Cursos','CursoTexto']);
+    var ucs = pick(ctx, ['uc','ucs','Unidade Curricular','Unidade(s) Curricular(es)','UnidadesCurriculares','UC','UCs']);
+    var titulo = pick(ctx, ['tituloProjeto','Título do Projeto','TituloProjeto','titulo','Title','Projeto']);
+    var ano = pick(ctx, ['anoLetivo','AnoLetivo','Ano letivo','ano','Ano']);
+    var docentes = pick(ctx, ['docentes','Docentes','Docente(s)','DocentesTexto','professor','Professor']);
+    var emails = pick(ctx, ['emails','Emails','Email(s)','email','EmailDocente','EmailsDocentes']);
+    var nEst = pick(ctx, ['n_estudantes','numeroEstudantes','N_Estudantes','Nº de estudantes','N DE ESTUDANTES','nEstudantes','NumeroEstudantes']);
+    var nGrp = pick(ctx, ['n_grupos','numeroGrupos','N_Grupos','Nº de grupos','N DE GRUPOS','nGrupos','NumeroGrupos']);
+    var autoria = pick(ctx, ['autoria','Autoria','autorias','Autorias','NomeAutor','Nome Autor']);
+    var estado = pick(ctx, ['estadoGuiao','EstadoGuiao','estado_guiao','Estado do guião','estado']) || 'Atualizado';
+    var autorizacao = pick(ctx, ['autorizaRepositorio','AutorizaRepositorio','autorizacaoRepositorio','Autorização Repositório','Autoriza Repositório']);
+
+    setFieldById(['unidadeOrganica','unidade_organica'], unidade);
+    setFieldById(['modalidade'], modalidade);
+    setFieldById(['semestre'], semestre);
+    setFieldById(['turmaEdicao','turma_edicao','turma'], turma);
+    setFieldById(['tituloProjeto','titulo'], titulo);
+    if(cursos) setCourses(cursos);
+    if(!setFieldById(['uc','ucs','unidade_curricular'], ucs)) setByText([/Unidade\(s\) Curricular/i,/Unidades? Curriculares?/i,/Nome da UC/i], ucs);
+    setFieldById(['anoLetivoProjeto','anoLetivo','ano_letivo','ano'], ano);
+    setFieldById(['professor','docentes'], docentes);
+    setFieldById(['emails','email'], emails);
+    setFieldById(['n_estudantes','numeroEstudantes'], nEst);
+    setFieldById(['n_grupos','numeroGrupos'], nGrp);
+    setFieldById(['autoria','autorias'], autoria);
+    setFieldById(['estado_guiao','estadoGuiao','estado'], estado);
+    setFieldById(['autorizaRepositorio','autorizacaoRepositorio'], autorizacao);
+    setRadio(['autorizaRepositorio','autorizacaoRepositorio','autorizaRepositorioOpcao'], autorizacao);
+
+    if(docentes && !$( 'professor')) setByText([/Docente/i], docentes);
+    if(emails && !$( 'emails')) setByText([/E-?mail/i,/Email/i], emails);
+
+    ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso','syncCourseChips','renderCursosSelecionados','rblSyncHeaderVisual'].forEach(function(fn){ try{ if(typeof window[fn] === 'function') window[fn](); }catch(e){} });
+    if(document.body) document.body.classList.add('guiao-carregado-por-id');
+    closeCourseDropdowns();
+    statusBox('<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.', 'ok');
+    if(!noReschedule){
+      [700, 1600, 2800].forEach(function(ms){
+        setTimeout(function(){ try { applyData(data, forcedItemId || itemId, true); } catch(e){ console.error('Reaplicação itemId falhou:', e); } }, ms);
+      });
+    }
+    return {ok:true, itemId:itemId, cursos:cursos, unidade:unidade, ucs:ucs};
+  }
+  async function loadFromItemId(){
     var itemId = getItemId();
-    if(!itemId || window.__guioesCarregamentoPorItemIdExecutado) return;
+    if(!itemId || window.__guioesCarregamentoPorItemIdExecutadoV4) return;
+    window.__guioesCarregamentoPorItemIdExecutadoV4 = true;
     window.__guioesCarregamentoPorItemIdExecutado = true;
     window.__guioesIsLoadingFromItemId = true;
     if(document.body) document.body.classList.add('guioes-loading-from-itemid');
-    addStatusBox();
-    notify('A carregar dados do guião...', '', 2500);
-    try {
-      var res = await fetch(OBTER_GUIAO_URL, {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({itemId: itemId})
-      });
+    ensureItemIdField(itemId);
+    statusBox('<strong>Edição de guião submetido</strong><br>A carregar dados do guião...', 'ok');
+    closeCourseDropdowns();
+    try{
+      var res = await fetch(OBTER_GUIAO_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({itemId:itemId, id:itemId})});
       var text = await res.text();
-      var data = {};
-      try { data = JSON.parse(text); } catch(e){ data = {raw:text}; }
-      if(!res.ok || data.ok === false || data.success === false){
-        throw new Error((data && (data.message || data.error)) || text || ('HTTP ' + res.status));
-      }
-      preencherFormulario(data);
-      setTimeout(function(){
-        window.__guioesIsLoadingFromItemId = false;
-        if(document.body) document.body.classList.remove('guioes-loading-from-itemid');
-        if(typeof window.guioesCloseCursoDropdownsItemId === 'function') window.guioesCloseCursoDropdownsItemId();
-      }, 220);
-      notify('Dados do guião carregados para edição.', 'ok', 4500);
-    } catch(e) {
+      var data = parseMaybeJson(text) || {raw:text};
+      if(!res.ok || data.ok === false || data.success === false) throw new Error(clean(data.message || data.error || text || ('HTTP ' + res.status)));
+      applyData(data, itemId);
+    }catch(e){
+      console.error('Erro ao carregar guião por itemId:', e);
       window.__guioesIsLoadingFromItemId = false;
       if(document.body) document.body.classList.remove('guioes-loading-from-itemid');
-      if(typeof window.guioesCloseCursoDropdownsItemId === 'function') window.guioesCloseCursoDropdownsItemId();
-      console.error('Erro ao carregar guião por itemId:', e);
-      notify('Não foi possível carregar automaticamente os dados deste guião. Confirme o link de edição ou tente novamente.', 'error', 8000);
+      closeCourseDropdowns();
+      statusBox('<strong>Não foi possível carregar automaticamente os dados deste guião.</strong><br>Confirme o itemId ou tente novamente. Erro: ' + clean(e && e.message || e), 'error');
     }
   }
-  function init(){ setTimeout(carregarGuiaoPorId, 450); }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
-})();
-</script>
-
-
-<script id="guioes-fechar-dropdown-cursos-edicao-v2">
-(function(){
-  'use strict';
-  if(window.__guioesFecharDropdownCursosEdicaoV2) return;
-  window.__guioesFecharDropdownCursosEdicaoV2 = true;
-  function hasItemId(){ try { return !!new URLSearchParams(window.location.search).get('itemId'); } catch(e){ return false; } }
-  function closeCourseDropdowns(){
-    if(!hasItemId()) return;
-    var selectors = [
-      '.guioes-curso-suggestions-v2',
-      '.curso-suggestions', '.course-suggestions',
-      '[id*="curso" i][class*="suggest" i]',
-      '[class*="curso" i][class*="suggest" i]',
-      '[class*="course" i][class*="suggest" i]',
-      '[id*="curso" i][class*="dropdown" i]',
-      '[class*="curso" i][class*="dropdown" i]'
-    ];
-    selectors.forEach(function(sel){
-      try {
-        Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){
-          el.style.display = 'none';
-          el.classList.remove('open','active','show','visible');
-          el.setAttribute('aria-hidden','true');
-        });
-      } catch(e){}
-    });
-    Array.prototype.forEach.call(document.querySelectorAll('input#cursoBusca, input[name="cursoBusca"], input[placeholder*="curso" i]'), function(input){
-      if(document.activeElement === input){ try { input.blur(); } catch(e){} }
-    });
-  }
-  window.__guioesFecharDropdownCursos = closeCourseDropdowns;
-  function schedule(){ [0,80,200,500,900,1500,2500,4000].forEach(function(ms){ setTimeout(closeCourseDropdowns, ms); }); }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', schedule); else schedule();
-  window.addEventListener('load', schedule);
-})();
-</script>
-
-
-<script id="guioes-fechar-dropdown-cursos-edicao-v3-hardening">
-(function(){
-  'use strict';
-  if(window.__guioesFecharDropdownCursosEdicaoV3) return;
-  window.__guioesFecharDropdownCursosEdicaoV3 = true;
-  function hasItemId(){ try { return !!new URLSearchParams(window.location.search).get('itemId'); } catch(e){ return false; } }
-  if(!hasItemId()) return;
-  var selectors = [
-    '.guioes-curso-suggestions-v2', '.curso-suggestions', '.course-suggestions',
-    '.rbl-course-dropdown', '.projbl-course-dropdown', '.pbl-course-dropdown', '.cbl-course-dropdown', '.sbl-course-dropdown',
-    '[id*="curso" i][class*="suggest" i]', '[class*="curso" i][class*="suggest" i]', '[class*="course" i][class*="suggest" i]',
-    '[id*="curso" i][class*="dropdown" i]', '[class*="curso" i][class*="dropdown" i]', '[class*="course" i][class*="dropdown" i]'
-  ];
-  var style = document.createElement('style');
-  style.id = 'guioes-fechar-dropdown-cursos-edicao-v3-css';
-  style.textContent = selectors.join(',') + '{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;}';
-  document.head.appendChild(style);
-  function close(){
-    selectors.forEach(function(sel){
-      try { Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){
-        el.style.display='none'; el.style.visibility='hidden'; el.style.opacity='0';
-        el.classList.remove('open','active','show','visible','is-open');
-        el.setAttribute('aria-hidden','true');
-      }); } catch(e){}
-    });
-    Array.prototype.forEach.call(document.querySelectorAll('input#cursoBusca, input[name="cursoBusca"], input[placeholder*="curso" i], input[placeholder*="procurar" i]'), function(input){
-      if(document.activeElement === input){ try { input.blur(); } catch(e){} }
-    });
-  }
-  var released = false;
-  var obs = null;
-  function release(){
-    if(released) return;
-    released = true;
-    try { if(style && style.parentNode) style.parentNode.removeChild(style); } catch(e){}
-    try { if(obs) obs.disconnect(); } catch(e){}
-  }
-  function isCourseTarget(t){ return !!(t && t.closest && t.closest('[id*="curso" i], [class*="curso" i], [class*="course" i]')); }
-  document.addEventListener('pointerdown', function(e){ if(isCourseTarget(e.target)) release(); }, true);
-  document.addEventListener('keydown', function(e){ if(isCourseTarget(e.target)) release(); }, true);
-  [0,50,120,250,500,900,1500,2500,4000,6500,9000,12000].forEach(function(ms){ setTimeout(function(){ if(!released) close(); }, ms); });
-  try { obs = new MutationObserver(function(){ if(!released) close(); }); obs.observe(document.documentElement, {childList:true,subtree:true,attributes:true,attributeFilter:['class','style']}); } catch(e){}
-  setTimeout(release, 14000);
+  window.__guioesApplyItemIdDataV4 = applyData;
+  window.__guioesLoadFromItemIdV4 = loadFromItemId;
+  function init(){ setTimeout(loadFromItemId, 120); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
 
