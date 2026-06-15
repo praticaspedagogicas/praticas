@@ -10264,393 +10264,409 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 </script>
 
 
-<script id="guioes-itemid-loader-v7">
-/* Camada institucional v7 — edição por itemId.
-   Corrige: chamada real ao fluxo sem passar pelos fetch-patches do template,
-   leitura de respostas aninhadas do Power Automate, preenchimento por IDs/estruturaPedagogica,
-   chips de Curso(s), dropdown fechada e manutenção do itemId no submit. */
+
+<script id="guioes-carregar-guiao-por-id-v3-transplante-profundo">
+/* ===== Camada institucional — edição por itemId v3 (transplante + mapeamento profundo) =====
+   Corrige PROJ-BL/RBL usando o mesmo contrato de chamada dos templates funcionais:
+   fetch(OBTER_GUIAO_URL, POST, JSON.stringify({itemId:itemId})).
+   A diferença desta versão é apenas o mapeamento: ela desembrulha respostas aninhadas do Power Automate
+   e aplica valores aos campos reais de PROJ-BL/RBL, incluindo campos sem id e chips de Curso(s).
+*/
 (function(){
   'use strict';
-  if(window.__guioesItemIdLoaderV7) return;
-  window.__guioesItemIdLoaderV7 = true;
-  /* Não bloqueia loaders institucionais existentes; apenas evita duplicação deste patch. */
+  if(window.__guioesCarregamentoPorItemIdV3TransplanteProfundo) return;
+  window.__guioesCarregamentoPorItemIdV3TransplanteProfundo = true;
 
   var OBTER_GUIAO_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
 
-  function clean(v){
-    if(v == null) return '';
-    if(Array.isArray(v)) return v.map(clean).filter(Boolean).join('; ');
-    if(typeof v === 'object') return clean(v.Value || v.value || v.Title || v.title || v.Label || v.label || v.Email || v.email || v.DisplayName || v.displayName || '');
-    return String(v).replace(/\s+/g,' ').trim();
-  }
-  function norm(v){
-    try { return clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,''); }
-    catch(e){ return clean(v).toLowerCase().replace(/[^a-z0-9]/g,''); }
-  }
+  function clean(v){ return String(v == null ? '' : v).trim(); }
+  function norm(v){ return clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,''); }
   function $(id){ return document.getElementById(id); }
-  function qsa(sel, root){ return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
-  function getItemId(){
-    try { return clean(new URLSearchParams(window.location.search).get('itemId') || new URLSearchParams(window.location.search).get('ID') || ''); }
-    catch(e){ return ''; }
-  }
-  function parseMaybeJson(v){
-    if(!v) return null;
-    if(typeof v === 'object') return v;
-    var s = String(v).trim();
-    if(!s) return null;
-    try { return JSON.parse(s); } catch(e){}
-    try { return JSON.parse(s.replace(/&quot;/g,'"').replace(/&#34;/g,'"')); } catch(e){}
-    return null;
-  }
-  function mergeObjects(a,b){
-    a = a || {}; b = b || {};
-    Object.keys(b).forEach(function(k){ if(a[k] === undefined || a[k] === null || a[k] === '') a[k] = b[k]; });
-    return a;
-  }
-  function unwrapResponse(data){
-    var parsed = parseMaybeJson(data) || data || {};
-    if(Array.isArray(parsed)) parsed = parsed[0] || {};
-    if(parsed && typeof parsed === 'object'){
-      ['body','Body','result','Result','data','Data','item','Item','guiao','Guiao','fields','Fields'].forEach(function(k){
-        if(parsed && Object.prototype.hasOwnProperty.call(parsed,k)){
-          var inner = parseMaybeJson(parsed[k]);
-          if(inner && typeof inner === 'object'){
-            if(Array.isArray(inner)) inner = inner[0] || {};
-            parsed = mergeObjects(inner, parsed);
-          }
-        }
-      });
-    }
-    return parsed || {};
-  }
-  function flatten(src, out){
-    out = out || {};
-    src = unwrapResponse(src);
-    if(!src || typeof src !== 'object') return out;
-    Object.keys(src).forEach(function(k){
-      var v = src[k];
-      var parsed = (typeof v === 'string' && /^[\s\[{]/.test(v)) ? parseMaybeJson(v) : null;
-      if(parsed && typeof parsed === 'object'){
-        if(['estruturaPedagogica','EstruturaPedagogica','values','Values','formData','FormData','body','data','fields','item','guiao','result'].indexOf(k) !== -1){ flatten(parsed, out); }
-        out[k] = v;
-      } else if(v && typeof v === 'object' && !Array.isArray(v)){
-        if(v.Value || v.value || v.Title || v.title || v.Label || v.label || v.Email || v.email || v.DisplayName || v.displayName){ out[k] = clean(v); }
-        else if(['body','Body','d','result','Result','results','item','Item','fields','Fields','guiao','Guiao','data','Data','values','Values','formData','FormData'].indexOf(k) !== -1){ flatten(v, out); }
-        else out[k] = v;
-      } else out[k] = v;
-    });
-    return out;
-  }
-  function buildLookup(data){
-    var flat = flatten(data || {}, {});
-    var estrutura = parseMaybeJson(flat.estruturaPedagogica || flat.EstruturaPedagogica || flat.estrutura || flat.Estrutura || flat.values || flat.Values || flat.formData || flat.FormData);
-    if(estrutura){
-      flatten(estrutura, flat);
-      if(estrutura.values) flatten(estrutura.values, flat);
-      if(estrutura.Values) flatten(estrutura.Values, flat);
-      if(estrutura.formData) flatten(estrutura.formData, flat);
-      if(estrutura.FormData) flatten(estrutura.FormData, flat);
-    }
-    var lookup = {};
-    Object.keys(flat).forEach(function(k){ lookup[norm(k)] = flat[k]; });
-    return {flat:flat, lookup:lookup};
-  }
-  function pick(ctx, names){
-    for(var i=0;i<names.length;i++){
-      var key = norm(names[i]);
-      if(Object.prototype.hasOwnProperty.call(ctx.lookup, key)){
-        var val = clean(ctx.lookup[key]);
-        if(val) return val;
-      }
-    }
-    return '';
+  function getItemId(){ try { return clean(new URLSearchParams(window.location.search).get('itemId') || new URLSearchParams(window.location.search).get('ID') || ''); } catch(e){ return ''; } }
+  function notify(message, type, duration){
+    if(typeof window.toast === 'function') return window.toast(message, type || '', duration || 4500);
+    if(typeof window.showToast === 'function') return window.showToast(message, type || '', duration || 4500);
+    if(type === 'error') console.error(message);
   }
   function dispatch(el){
     if(!el) return;
     try { el.dispatchEvent(new Event('input', {bubbles:true})); } catch(e){}
     try { el.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
   }
-  function setSelectValue(el, value){
-    var target = norm(value), found = false;
-    qsa('option', el).forEach(function(opt){
-      if(found) return;
-      var ov = norm(opt.value), ot = norm(opt.textContent);
-      if(ov === target || ot === target || (target && ot.indexOf(target) !== -1) || (ot && target.indexOf(ot) !== -1)){
-        el.value = opt.value; found = true;
+  function parseMaybeJson(v, depth){
+    depth = depth == null ? 0 : depth;
+    if(depth > 5) return v;
+    if(v == null) return v;
+    if(typeof v === 'object') return v;
+    var s = clean(v);
+    if(!s) return s;
+    if((s.charAt(0) === '{' && s.charAt(s.length-1) === '}') || (s.charAt(0) === '[' && s.charAt(s.length-1) === ']')){
+      try { return parseMaybeJson(JSON.parse(s), depth+1); } catch(e) { return v; }
+    }
+    return v;
+  }
+  function collectObjects(obj, out, depth){
+    out = out || [];
+    depth = depth || 0;
+    if(depth > 8 || obj == null) return out;
+    obj = parseMaybeJson(obj);
+    if(Array.isArray(obj)){
+      obj.forEach(function(x){ collectObjects(x, out, depth+1); });
+      return out;
+    }
+    if(typeof obj === 'object'){
+      out.push(obj);
+      ['body','data','item','guiao','result','fields','value','outputs','response'].forEach(function(k){
+        if(Object.prototype.hasOwnProperty.call(obj,k)) collectObjects(obj[k], out, depth+1);
+      });
+    }
+    return out;
+  }
+  function flatten(obj, out, depth){
+    out = out || {};
+    depth = depth || 0;
+    obj = parseMaybeJson(obj);
+    if(!obj || typeof obj !== 'object' || depth > 8) return out;
+    if(Array.isArray(obj)){ obj.forEach(function(x){ flatten(x,out,depth+1); }); return out; }
+    Object.keys(obj).forEach(function(k){
+      var v = parseMaybeJson(obj[k]);
+      var nk = norm(k);
+      if(v == null) return;
+      if(typeof v === 'object'){
+        if(!out[k]) out[k] = v;
+        if(!out[nk]) out[nk] = v;
+        flatten(v,out,depth+1);
+      } else {
+        if(out[k] == null || out[k] === '') out[k] = v;
+        if(out[nk] == null || out[nk] === '') out[nk] = v;
       }
     });
-    if(!found) el.value = value;
+    return out;
   }
-  function setFieldElement(el, value){
-    value = clean(value); if(!el || !value) return false;
-    if(el.tagName === 'SELECT') setSelectValue(el, value);
-    else if(el.type === 'checkbox') el.checked = /^(sim|true|1|yes)$/i.test(value);
-    else if(el.type === 'radio') { /* tratado por setRadio */ }
-    else { el.value = value; try { el.setAttribute('value', value); } catch(e){} }
-    dispatch(el); return true;
+  function firstFrom(obj, keys){
+    obj = obj || {};
+    for(var i=0;i<keys.length;i++){
+      var k = keys[i], nk = norm(k);
+      if(obj[k] != null && clean(obj[k]) !== '') return obj[k];
+      if(obj[nk] != null && clean(obj[nk]) !== '') return obj[nk];
+    }
+    return '';
   }
-  function setFieldById(ids, value){
-    value = clean(value); if(!value) return false;
-    for(var i=0;i<ids.length;i++){ var el = $(ids[i]); if(el && setFieldElement(el, value)) return true; }
-    return false;
+  function mergeObjects(){
+    var out = {};
+    for(var i=0;i<arguments.length;i++){
+      var o = arguments[i];
+      if(!o || typeof o !== 'object') continue;
+      Object.keys(o).forEach(function(k){ if(out[k] == null || out[k] === '') out[k] = o[k]; });
+    }
+    return out;
   }
-  function setRadio(names, value){
-    value = clean(value); if(!value) return false;
-    var ok = false;
-    names.forEach(function(name){
-      qsa('input[type="radio"][name="' + name + '"]').forEach(function(r){
-        var same = norm(r.value) === norm(value) || norm((r.closest('label') || {}).textContent || '').indexOf(norm(value)) !== -1;
-        r.checked = same; if(same) ok = true; dispatch(r);
+  function extractData(raw){
+    var parsed = parseMaybeJson(raw);
+    var objects = collectObjects(parsed, [], 0);
+    var flat = {};
+    objects.forEach(function(o){ flatten(o, flat, 0); });
+    var estruturaRaw = firstFrom(flat, ['estruturaPedagogica','EstruturaPedagogica','Estrutura Pedagógica','estrutura','Estrutura']);
+    var estrutura = parseMaybeJson(estruturaRaw) || {};
+    var estruturaValues = {};
+    if(estrutura && typeof estrutura === 'object'){
+      estruturaValues = parseMaybeJson(estrutura.values || estrutura.Values || estrutura.formData || estrutura.FormData || estrutura.fields || estrutura.campos) || {};
+    }
+    var directValues = {};
+    objects.forEach(function(o){
+      ['values','Values','formData','FormData','fields','campos'].forEach(function(k){
+        if(o && o[k] && typeof parseMaybeJson(o[k]) === 'object') directValues = mergeObjects(directValues, parseMaybeJson(o[k]));
       });
     });
-    return ok;
+    var values = mergeObjects(flat, directValues, estruturaValues);
+    return {raw:parsed, objects:objects, flat:flat, estrutura:estrutura, values:values};
   }
   function visibleControlsForFallback(){
-    return qsa('input, textarea, select').filter(function(el){ return !el.disabled && el.type !== 'hidden' && !el.closest('.no-print'); });
-  }
-  function applyValuesByKey(values){
-    values = values || {};
-    Object.keys(values).forEach(function(key){
-      var val = values[key];
-      if(/^campo_\d+$/.test(key) || /^field_\d+$/.test(key)) return;
-      if($(key)) setFieldElement($(key), val);
+    return Array.prototype.slice.call(document.querySelectorAll('input, textarea, select')).filter(function(el){
+      if(el.disabled || el.type === 'hidden') return false;
+      if(el.id === 'cursoBusca' || el.classList.contains('rbl-course-search')) return false;
+      if(el.closest('.no-print')) return false;
+      return true;
     });
+  }
+  function setField(id, value){
+    var el = $(id);
+    if(!el) return false;
+    return setElement(el, value);
+  }
+  function setElement(el, value){
+    if(!el) return false;
+    value = clean(value);
+    if(!value) return false;
+    if(el.type === 'radio') return false;
+    if(el.type === 'checkbox'){
+      el.checked = /^(sim|true|1|yes|x)$/i.test(value);
+    } else if(el.tagName === 'SELECT'){
+      var found = false, wanted = norm(value);
+      Array.prototype.forEach.call(el.options || [], function(opt){
+        if(found) return;
+        var ov = clean(opt.value), ot = clean(opt.text);
+        if(norm(ov) === wanted || norm(ot) === wanted || norm(ov + ot) === wanted){
+          el.value = opt.value;
+          found = true;
+        }
+      });
+      if(!found){
+        Array.prototype.forEach.call(el.options || [], function(opt){
+          if(found) return;
+          var ot = norm(opt.text), ov = norm(opt.value);
+          if((wanted && (ot.indexOf(wanted) !== -1 || wanted.indexOf(ot) !== -1 || ov.indexOf(wanted) !== -1 || wanted.indexOf(ov) !== -1))){
+            el.value = opt.value; found = true;
+          }
+        });
+      }
+      if(!found) return false;
+    } else {
+      el.value = value;
+    }
+    dispatch(el);
+    return true;
+  }
+  function setFirst(ids, value){
+    value = clean(value);
+    if(!value) return false;
+    for(var i=0;i<ids.length;i++){ if(setField(ids[i], value)) return true; }
+    return false;
+  }
+  function setRadioGroup(name, value){
+    value = clean(value);
+    if(!value) return false;
+    var done = false;
+    Array.prototype.forEach.call(document.querySelectorAll('input[type="radio"][name="' + name + '"]'), function(radio){
+      var same = norm(radio.value) === norm(value);
+      radio.checked = same;
+      if(same) done = true;
+      dispatch(radio);
+    });
+    return done;
+  }
+  function setByLabel(labelNeedles, value){
+    value = clean(value);
+    if(!value) return false;
+    var needles = labelNeedles.map(norm);
+    var labels = Array.prototype.slice.call(document.querySelectorAll('label, th, h3, strong, b'));
+    for(var i=0;i<labels.length;i++){
+      var label = labels[i];
+      var txt = norm(label.textContent || '');
+      var matches = needles.some(function(n){ return txt.indexOf(n) !== -1 || n.indexOf(txt) !== -1; });
+      if(!matches) continue;
+      var el = null;
+      var forId = label.getAttribute && label.getAttribute('for');
+      if(forId) el = $(forId);
+      var container = label.closest('.section,.header-card,.rbl-ident-card,.proj-top-field-card,td,div') || label.parentElement;
+      if(!el && container) el = container.querySelector('input:not([type="hidden"]), textarea, select');
+      if(el && setElement(el, value)) return true;
+    }
+    return false;
+  }
+  function setByCampoIndex(values){
+    values = values || {};
     var controls = visibleControlsForFallback();
     Object.keys(values).forEach(function(key){
-      var m = key.match(/^(?:campo|field)_(\d+)$/);
+      var m = key.match(/^(?:campo|field)_(\d+)$/i);
       if(!m) return;
       var idx = parseInt(m[1],10) - 1;
       var el = controls[idx];
-      if(el && !el.id && !el.name) setFieldElement(el, values[key]);
+      if(el) setElement(el, values[key]);
     });
   }
-  function findFieldByText(patterns){
-    var pats = patterns.map(function(p){ return p instanceof RegExp ? p : new RegExp(p, 'i'); });
-    var labels = qsa('label, th, .header-card label, .rbl-ident-card label, .projbl-ident-label, .projbl-field-label');
-    for(var i=0;i<labels.length;i++){
-      var txt = clean(labels[i].textContent);
-      if(!pats.some(function(rx){ return rx.test(txt); })) continue;
-      var f = labels[i].getAttribute && labels[i].getAttribute('for');
-      if(f && $(f)) return $(f);
-      var box = labels[i].closest('td,.section,.header-card,.rbl-ident-card,.projbl-field-card,.projbl-ident-card,div') || labels[i].parentElement;
-      if(box){ var el = box.querySelector('input:not([type="hidden"]), textarea, select'); if(el) return el; }
-    }
-    return null;
+  function splitList(value){
+    return clean(value).split(/;|\n|\|/).map(clean).filter(Boolean).filter(function(v,i,a){ return a.findIndex(function(x){ return norm(x) === norm(v); }) === i; });
   }
-  function setByText(patterns, value){
-    value = clean(value); if(!value) return false;
-    var el = findFieldByText(patterns); if(!el) return false;
-    return setFieldElement(el, value);
-  }
-  function splitList(v){
-    return clean(v).split(/;|\n|\|/).map(clean).filter(Boolean).filter(function(x,i,a){ return a.findIndex(function(y){return norm(y)===norm(x);}) === i; });
-  }
-  function closeCourseDropdowns(){
-    qsa('#projCursosSugestoes,.proj-cursos-sugestoes,.rbl-course-dropdown,.guioes-curso-suggestions-v2,.curso-suggestions,.course-suggestions,[class*="suggest" i],[class*="dropdown" i]').forEach(function(el){
-      if(!el) return;
-      el.classList.remove('open','active','show','visible','is-open');
-      if(el.id === 'projCursosSugestoes' || /course|curso|suggest|dropdown/i.test(String(el.className))) el.style.display = 'none';
-      el.setAttribute('aria-hidden','true');
-    });
-    ['cursoBusca','cursoSearch'].forEach(function(id){ var el=$(id); if(el && document.activeElement === el){ try{ el.blur(); }catch(e){} } });
-  }
-  function renderChips(container, courses, chipClass){
-    if(!container) return;
+  function renderChips(container, value, cls){
+    if(!container || !clean(value)) return false;
     container.innerHTML = '';
-    courses.forEach(function(name){
-      var chip = document.createElement('span'); chip.className = chipClass;
-      var txt = document.createElement('span'); txt.textContent = name; chip.appendChild(txt);
+    splitList(value).forEach(function(curso){
+      var chip = document.createElement('span');
+      chip.className = cls;
+      var span = document.createElement('span');
+      span.textContent = curso;
+      chip.appendChild(span);
       container.appendChild(chip);
     });
+    return true;
   }
-  function setCourses(value){
-    var courses = splitList(value); if(!courses.length) return;
-    window.__guioesIsLoadingFromItemId = true;
-    if(document.body) document.body.classList.add('guioes-loading-from-itemid');
-    var joined = courses.join('; ');
-    var hidden = $('curso') || $('cursos');
-    function forceHiddenCourse(){
-      hidden = $('curso') || $('cursos') || hidden;
-      if(hidden){ hidden.value = joined; try{ hidden.setAttribute('value', joined); hidden.setAttribute('data-guioes-itemid-course','1'); }catch(e){} dispatch(hidden); }
-    }
-    forceHiddenCourse();
-    var busca = $('cursoBusca') || $('cursoSearch');
-    if(busca){ busca.value = ''; try{ busca.blur(); }catch(e){} }
-    var projContainer = $('cblCursosSelecionados') || $('pblCursosSelecionados') || document.querySelector('.cbl-course-chips,.pbl-course-chips,.projbl-course-chips');
-    var rblContainer = document.querySelector('.rbl-course-chip-area');
-    if(rblContainer) renderChips(rblContainer, courses, 'rbl-course-chip');
-    else if(projContainer) renderChips(projContainer, courses, 'cbl-course-chip');
-    else if(hidden && hidden.closest){
-      var card = hidden.closest('.rbl-ident-card,.header-card,td,div');
-      if(card && !card.querySelector('.rbl-course-chip-area')){
-        var area = document.createElement('div'); area.className = 'rbl-course-chip-area';
-        if(hidden.parentNode) hidden.parentNode.insertBefore(area, hidden);
-        renderChips(area, courses, 'rbl-course-chip');
-      }
-    }
-    forceHiddenCourse(); closeCourseDropdowns();
-    setTimeout(function(){ forceHiddenCourse(); closeCourseDropdowns(); }, 80);
-    setTimeout(function(){ forceHiddenCourse(); closeCourseDropdowns(); }, 220);
-    setTimeout(function(){ forceHiddenCourse(); window.__guioesIsLoadingFromItemId = false; if(document.body) document.body.classList.remove('guioes-loading-from-itemid'); closeCourseDropdowns(); }, 520);
+  function closeCourseDropdowns(){
+    ['projCursosSugestoes','cursoSugestoes','cblCursosSugestoes'].forEach(function(id){
+      var el = $(id); if(el){ el.innerHTML=''; el.classList.remove('open','active','visible'); el.style.display='none'; }
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.rbl-course-dropdown,.proj-cursos-sugestoes,.curso-dropdown,.course-dropdown'), function(el){
+      el.classList.remove('open','active','visible'); el.style.display='none';
+    });
+    var busca = $('cursoBusca') || document.querySelector('.rbl-course-search');
+    if(busca){ busca.value=''; try{ busca.blur(); }catch(e){} dispatch(busca); }
   }
-  ['focus','input','change'].forEach(function(evt){
-    document.addEventListener(evt, function(ev){
-      if(!window.__guioesIsLoadingFromItemId) return;
-      var t = ev.target;
-      if(!t || !t.matches || !t.matches('#cursoBusca,#cursoSearch,input[placeholder*="curso" i],input[placeholder*="procurar" i]')) return;
-      if(evt !== 'focus') t.value = '';
-      closeCourseDropdowns();
-      ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
-    }, true);
-  });
-  ['pointerdown','keydown'].forEach(function(evt){
-    document.addEventListener(evt, function(ev){
-      var t = ev.target;
-      if(t && t.closest && t.closest('#cursoBusca,#cursoSearch,.rbl-course-picker,.proj-curso-combobox-wrap,.cbl-course-chips,.pbl-course-chips')){
-        window.__guioesIsLoadingFromItemId = false; if(document.body) document.body.classList.remove('guioes-loading-from-itemid');
-      }
-    }, true);
-  });
+  function setCursos(value){
+    value = clean(value);
+    if(!value) return false;
+    var done = false;
+    done = setField('curso', value) || done;
+    done = setField('cursos', value) || done;
+    var busca = $('cursoBusca') || document.querySelector('.rbl-course-search');
+    if(busca){ busca.value=''; dispatch(busca); }
+    var projChips = $('cblCursosSelecionados');
+    var rblArea = document.querySelector('.rbl-course-chip-area');
+    if(projChips) done = renderChips(projChips, value, 'projbl-course-chip') || done;
+    if(rblArea) done = renderChips(rblArea, value, 'rbl-course-chip') || done;
+    closeCourseDropdowns();
+    return done;
+  }
+  function setDocentes(value){
+    value = clean(value); if(!value) return false;
+    var done = false;
+    done = setFirst(['professor','docentes','docente'], value) || done;
+    var arr = splitList(value);
+    var els = Array.prototype.slice.call(document.querySelectorAll('#docentesTable .docente-nome'));
+    els.forEach(function(el, i){ if(arr[i] || (i===0 && value)){ setElement(el, arr[i] || value); done = true; } });
+    return done;
+  }
+  function setEmails(value){
+    value = clean(value); if(!value) return false;
+    var done = false;
+    done = setFirst(['emails','email'], value) || done;
+    var arr = splitList(value);
+    var els = Array.prototype.slice.call(document.querySelectorAll('#docentesTable .docente-email'));
+    els.forEach(function(el, i){ if(arr[i] || (i===0 && value)){ setElement(el, arr[i] || value); done = true; } });
+    return done;
+  }
+  function getVal(ctx, keys){ return firstFrom(ctx.values, keys) || firstFrom(ctx.flat, keys); }
+  function applyValuesById(ctx){
+    var count = 0, values = ctx.values || {};
+    Object.keys(values).forEach(function(key){
+      if(/^campo_\d+$/i.test(key) || /^field_\d+$/i.test(key)) return;
+      if($(key) && setField(key, values[key])) count++;
+    });
+    setByCampoIndex(values);
+    return count;
+  }
+  function addStatusBox(){
+    var box = $('guioesModoEdicaoBox');
+    if(!box){
+      var ref = document.querySelector('.premium-status') || document.querySelector('.header') || document.querySelector('.page') || document.body.firstElementChild;
+      if(!ref || !ref.parentNode) return null;
+      box = document.createElement('div');
+      box.id = 'guioesModoEdicaoBox';
+      box.className = 'no-print';
+      box.style.margin = '0 0 16px 0';
+      box.style.padding = '12px 14px';
+      box.style.border = '1.5px solid #1f4d2b';
+      box.style.borderRadius = '14px';
+      box.style.background = '#f3fff6';
+      box.style.color = '#1f4d2b';
+      box.style.fontSize = '13px';
+      ref.parentNode.insertBefore(box, ref.nextSibling);
+    }
+    box.innerHTML = '<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.';
+    return box;
+  }
   function ensureItemIdField(itemId){
-    if(!itemId) return;
     var el = $('itemId') || document.querySelector('input[name="itemId"]');
     if(!el){ el = document.createElement('input'); el.type='hidden'; el.id='itemId'; el.name='itemId'; document.body.appendChild(el); }
     el.value = itemId;
     try { window.localStorage.setItem('guiao_itemId', itemId); } catch(e){}
   }
-  function statusBox(msg, kind){
-    var box = $('guioesModoEdicaoBox');
-    if(!box){
-      var ref = document.querySelector('.premium-status') || document.querySelector('.header') || document.querySelector('h1') || document.querySelector('.page') || document.body.firstElementChild;
-      box = document.createElement('div'); box.id = 'guioesModoEdicaoBox'; box.className = 'no-print';
-      box.style.margin = '0 0 16px 0'; box.style.padding = '12px 14px'; box.style.border = '1.5px solid ' + (kind === 'error' ? '#8a1f1f' : '#1f4d2b');
-      box.style.borderRadius = '14px'; box.style.background = kind === 'error' ? '#fff3f3' : '#f3fff6'; box.style.color = kind === 'error' ? '#8a1f1f' : '#1f4d2b'; box.style.fontSize = '13px';
-      if(ref && ref.parentNode) ref.parentNode.insertBefore(box, ref.nextSibling); else document.body.insertBefore(box, document.body.firstChild);
-    }
-    box.style.borderColor = kind === 'error' ? '#8a1f1f' : '#1f4d2b';
-    box.style.background = kind === 'error' ? '#fff3f3' : '#f3fff6';
-    box.style.color = kind === 'error' ? '#8a1f1f' : '#1f4d2b';
-    box.innerHTML = msg;
-  }
-  function applyData(rawData, forcedItemId, noReschedule){
-    var data = unwrapResponse(rawData || {});
-    var ctx = buildLookup(data || {});
-    var estrutura = parseMaybeJson(ctx.flat.estruturaPedagogica || ctx.flat.EstruturaPedagogica || ctx.flat.estrutura || ctx.flat.Estrutura) || {};
-    if(estrutura && typeof estrutura === 'object'){
-      if(estrutura.values) applyValuesByKey(estrutura.values);
-      if(estrutura.Values) applyValuesByKey(estrutura.Values);
-      if(estrutura.formData) applyValuesByKey(estrutura.formData);
-      if(estrutura.FormData) applyValuesByKey(estrutura.FormData);
-    }
-    if(ctx.flat.values && typeof ctx.flat.values === 'object') applyValuesByKey(ctx.flat.values);
-    if(ctx.flat.formData && typeof ctx.flat.formData === 'object') applyValuesByKey(ctx.flat.formData);
-    applyValuesByKey(ctx.flat);
-
-    var itemId = clean(forcedItemId) || pick(ctx, ['itemId','ItemId','ID','Id']);
-    ensureItemIdField(itemId);
-    var unidade = pick(ctx, ['unidadeOrganica','UnidadeOrganica','Unidade Orgânica','Unidade_Organica','Unidade']);
-    var modalidade = pick(ctx, ['modalidade','Modalidade']);
-    var semestre = pick(ctx, ['semestre','Semestre']);
-    var turma = pick(ctx, ['turmaEdicao','TurmaEdicao','Turma/Edição','Turma','turma']);
-    var cursos = pick(ctx, ['curso','cursos','Curso','Curso(s)','Cursos','CursoTexto']);
-    var ucs = pick(ctx, ['uc','ucs','Unidade Curricular','Unidade(s) Curricular(es)','UnidadesCurriculares','UC','UCs']);
-    var titulo = pick(ctx, ['tituloProjeto','Título do Projeto','TituloProjeto','titulo','Title','Projeto']);
-    var ano = pick(ctx, ['anoLetivo','AnoLetivo','Ano letivo','ano_letivo','ano','Ano']);
-    var docentes = pick(ctx, ['docentes','Docentes','Docente(s)','DocentesTexto','professor','Professor']);
-    var emails = pick(ctx, ['emails','Emails','Email(s)','email','EmailDocente','EmailsDocentes']);
-    var nEst = pick(ctx, ['n_estudantes','numeroEstudantes','N_Estudantes','Nº de estudantes','N DE ESTUDANTES','nEstudantes','NumeroEstudantes']);
-    var nGrp = pick(ctx, ['n_grupos','numeroGrupos','N_Grupos','Nº de grupos','N DE GRUPOS','nGrupos','NumeroGrupos']);
-    var autoria = pick(ctx, ['autoria','Autoria','autorias','Autorias','NomeAutor','Nome Autor']);
-    var estado = pick(ctx, ['estadoGuiao','EstadoGuiao','estado_guiao','Estado do guião','estado']) || 'Atualizado';
-    var autorizacao = pick(ctx, ['autorizaRepositorio','AutorizaRepositorio','autorizacaoRepositorio','Autorização Repositório','Autoriza Repositório']);
-    setFieldById(['unidadeOrganica','unidade_organica'], unidade);
-    setFieldById(['modalidade'], modalidade);
-    setFieldById(['semestre'], semestre);
-    setFieldById(['turmaEdicao','turma_edicao','turma'], turma);
-    setFieldById(['tituloProjeto','titulo'], titulo);
-    if(cursos) setCourses(cursos);
-    if(!setFieldById(['uc','ucs','unidade_curricular'], ucs)) setByText([/Unidade\(s\) Curricular/i,/Unidades? Curriculares?/i,/Nome da UC/i], ucs);
-    setFieldById(['anoLetivoProjeto','anoLetivo','ano_letivo','ano'], ano);
-    setFieldById(['professor','docentes'], docentes);
-    setFieldById(['emails','email'], emails);
-    setFieldById(['n_estudantes','numeroEstudantes'], nEst);
-    setFieldById(['n_grupos','numeroGrupos'], nGrp);
-    setFieldById(['autoria','autorias'], autoria);
-    setFieldById(['estado_guiao','estadoGuiao','estado'], estado);
-    setFieldById(['autorizaRepositorio','autorizacaoRepositorio'], autorizacao);
-    setRadio(['autorizaRepositorio','autorizacaoRepositorio','autorizaRepositorioOpcao'], autorizacao);
-    if(docentes && !$('professor')) setByText([/Docente/i], docentes);
-    if(emails && !$('emails')) setByText([/E-?mail/i,/Email/i], emails);
-    ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso','syncCourseChips','renderCursosSelecionados','rblSyncHeaderVisual'].forEach(function(fn){ try{ if(typeof window[fn] === 'function') window[fn](); }catch(e){} });
-    if(document.body) document.body.classList.add('guiao-carregado-por-id');
+  function applyData(raw, itemId, silent){
+    var ctx = extractData(raw);
+    ensureItemIdField(itemId || getVal(ctx, ['itemId','ItemId','ID','Id']));
+    var changed = 0;
+    changed += applyValuesById(ctx);
+    var unidade = getVal(ctx, ['unidadeOrganica','UnidadeOrganica','unidade_organica','Unidade Orgânica','UnidadeOrganicaValue','OU','organicUnit','unidade']);
+    var modalidade = getVal(ctx, ['modalidade','Modalidade']);
+    var semestre = getVal(ctx, ['semestre','Semestre']);
+    var turma = getVal(ctx, ['turmaEdicao','TurmaEdicao','turma_edicao','Turma/Edição','turma','Turma']);
+    var cursos = getVal(ctx, ['curso','cursos','Curso','Cursos','Curso(s)']);
+    var ucs = getVal(ctx, ['uc','ucs','UC','UCs','UnidadeCurricular','unidade_curricular','Unidade(s) Curricular(es)']);
+    var titulo = getVal(ctx, ['tituloProjeto','titulo_projeto','Título do Projeto','titulo','title','Title']);
+    var ano = getVal(ctx, ['anoLetivoProjeto','anoLetivo','AnoLetivo','Ano Letivo','ano','Ano']);
+    var estado = getVal(ctx, ['estadoGuiao','EstadoGuiao','estado_guiao','Estado do guião','estado']);
+    var docentes = getVal(ctx, ['docentes','Docentes','docenteTexto','Docentestexto','professor','Docente(s)','docente']);
+    var emails = getVal(ctx, ['emails','email','Email','EmailDocente','emailDocente','E-mail(s)']);
+    var nEst = getVal(ctx, ['numeroEstudantes','nEstudantes','n_estudantes','Número de estudantes','Nº de estudantes','estudantes']);
+    var nGr = getVal(ctx, ['numeroGrupos','nGrupos','n_grupos','Número de grupos','Nº de grupos','grupos']);
+    var autoria = getVal(ctx, ['autoria','autorias','Autoria','Autorias','autor','Autor','Autoria(s)']);
+    changed += setFirst(['unidadeOrganica','unidade_organica'], unidade) ? 1 : 0;
+    changed += setFirst(['modalidade'], modalidade) ? 1 : 0;
+    changed += setFirst(['semestre'], semestre) ? 1 : 0;
+    changed += setFirst(['turmaEdicao','turma_edicao','turma'], turma) ? 1 : 0;
+    changed += setCursos(cursos) ? 1 : 0;
+    changed += setFirst(['uc','ucs','unidade_curricular'], ucs) ? 1 : 0;
+    changed += setByLabel(['Unidade(s) Curricular(es)','UC(s)','Unidade Curricular'], ucs) ? 1 : 0;
+    changed += setFirst(['tituloProjeto','titulo_projeto','titulo','title'], titulo) ? 1 : 0;
+    changed += setByLabel(['Título do Projeto','Título do projeto'], titulo) ? 1 : 0;
+    changed += setFirst(['anoLetivoProjeto','anoLetivo','ano_letivo','ano'], ano) ? 1 : 0;
+    changed += setFirst(['estadoGuiao','estado_guiao','estado'], estado || 'Atualizado') ? 1 : 0;
+    changed += setDocentes(docentes) ? 1 : 0;
+    changed += setEmails(emails) ? 1 : 0;
+    changed += setFirst(['numeroEstudantes','n_estudantes'], nEst) ? 1 : 0;
+    changed += setFirst(['numeroGrupos','n_grupos'], nGr) ? 1 : 0;
+    changed += setFirst(['autoria','autorias'], autoria) ? 1 : 0;
+    var autoriza = getVal(ctx, ['autorizaRepositorio','autorizacaoRepositorio','Autoriza Repositório','AutorizaRepositorio']);
+    if(autoriza){ setRadioGroup('autorizaRepositorio', autoriza); setFirst(['autorizaRepositorio','autorizacaoRepositorio'], autoriza); }
+    ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso','syncCourseChips','renderCursosSelecionados'].forEach(function(fn){ try { if(typeof window[fn] === 'function') window[fn](); } catch(e){} });
     closeCourseDropdowns();
-    statusBox('<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.', 'ok');
-    if(!noReschedule){ [700, 1600, 2800].forEach(function(ms){ setTimeout(function(){ try { applyData(rawData, forcedItemId || itemId, true); } catch(e){ console.error('Reaplicação itemId falhou:', e); } }, ms); }); }
-    return {ok:true, itemId:itemId, cursos:cursos, unidade:unidade, ucs:ucs};
+    document.body.classList.add('guiao-carregado-por-id');
+    window.__ultimoGuiaoItemIdData = {changed:changed, ctx:ctx};
+    if(changed < 2 && !silent){
+      console.warn('Carregamento por itemId recebeu dados, mas poucos campos foram preenchidos.', {changed:changed, data:raw, ctx:ctx});
+    }
+    return changed;
   }
-  function requestGuiao(itemId){
-    /* V7: chamada idêntica ao loader institucional dos templates que funcionam.
-       Body idêntico ao dos templates que funcionam; validação final deve ser visual no browser. */
-    return fetch(OBTER_GUIAO_URL, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({itemId: itemId})
-    }).then(function(res){
-      return res.text().then(function(text){
-        var data = {};
-        try { data = JSON.parse(text); } catch(e){ data = {raw:text}; }
-        if(!res.ok || data.ok === false || data.success === false){
-          var rawMsg = (data && (data.message || data.errorMessage)) || text || ('HTTP ' + res.status);
-          if(data && data.error && typeof data.error !== 'object') rawMsg = data.error;
-          throw new Error(clean(rawMsg) || ('HTTP ' + res.status));
-        }
-        return data;
-      });
-    });
-  }
-  async function loadFromItemId(){
+  async function carregarGuiaoPorId(){
     var itemId = getItemId();
-    if(!itemId || window.__guioesCarregamentoPorItemIdExecutadoV7) return;
-    window.__guioesCarregamentoPorItemIdExecutadoV7 = true;
-    window.__guioesCarregamentoPorItemIdExecutado = true;
-    window.__guioesIsLoadingFromItemId = true;
-    if(document.body) document.body.classList.add('guioes-loading-from-itemid');
+    if(!itemId || window.__guioesCarregamentoPorItemIdExecutadoV3) return;
+    window.__guioesCarregamentoPorItemIdExecutadoV3 = true;
     ensureItemIdField(itemId);
-    statusBox('<strong>Edição de guião submetido</strong><br>A carregar dados do guião...', 'ok');
-    closeCourseDropdowns();
-    try{
-      var data = await requestGuiao(itemId);
-      window.__guioesDadosCarregadosPorItemId = data;
-      try {
-        applyData(data, itemId);
-      } catch(fillErr) {
-        console.error('Erro ao preencher formulário por itemId:', fillErr);
-        /* Não esconder dados carregados por causa de um campo específico: tenta reaplicar por valores planos. */
-        var flatFallback = flatten(data || {});
-        try { applyValuesByKey(flatFallback); } catch(e){}
-        ensureItemIdField(itemId);
-        closeCourseDropdowns();
-        statusBox('<strong>Edição de guião submetido</strong><br>Os dados foram recebidos. Alguns campos específicos podem precisar de revisão manual.', 'ok');
+    notify('A carregar dados do guião...', '', 2500);
+    try {
+      var res = await fetch(OBTER_GUIAO_URL, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({itemId: itemId})
+      });
+      var text = await res.text();
+      var data = parseMaybeJson(text || '{}');
+      if(!res.ok || (data && (data.ok === false || data.success === false))){
+        throw new Error((data && (data.message || data.error && (data.error.message || data.error.code || JSON.stringify(data.error)))) || text || ('HTTP ' + res.status));
       }
-      if(typeof window.toast === 'function') window.toast('Dados do guião carregados para edição.', 'ok', 4500);
-      if(typeof window.showToast === 'function') window.showToast('Dados do guião carregados para edição.', 'ok', 4500);
-    }catch(e){
+      var changed = applyData(data, itemId, false);
+      if(changed < 2) throw new Error('A resposta chegou, mas não continha campos mapeáveis suficientes para preencher o formulário.');
+      addStatusBox();
+      notify('Dados do guião carregados para edição.', 'ok', 4500);
+      [350, 900, 1800, 3200, 5200].forEach(function(ms){ setTimeout(function(){ try { applyData(data, itemId, true); } catch(e){} }, ms); });
+    } catch(e) {
       console.error('Erro ao carregar guião por itemId:', e);
-      window.__guioesIsLoadingFromItemId = false;
-      if(document.body) document.body.classList.remove('guioes-loading-from-itemid');
-      closeCourseDropdowns();
-      /* Mensagem igual à lógica dos templates que funcionam: sem [object Object] e sem falso positivo. */
-      statusBox('<strong>Não foi possível carregar automaticamente os dados deste guião.</strong><br>Confirme o link de edição ou tente novamente.', 'error');
-      if(typeof window.toast === 'function') window.toast('Não foi possível carregar automaticamente os dados deste guião. Confirme o link de edição ou tente novamente.', 'error', 8000);
-      if(typeof window.showToast === 'function') window.showToast('Não foi possível carregar automaticamente os dados deste guião. Confirme o link de edição ou tente novamente.', 'error', 8000);
+      notify('Não foi possível carregar automaticamente os dados deste guião. Confirme o link de edição ou tente novamente.', 'error', 8000);
+      var box = $('guioesModoEdicaoBox');
+      if(box){
+        box.style.borderColor = '#a91f1f'; box.style.background = '#fff3f3'; box.style.color = '#8a1111';
+        box.innerHTML = '<strong>Não foi possível carregar automaticamente os dados deste guião.</strong><br>Confirme o link de edição ou tente novamente.';
+      }
     }
   }
-  window.__guioesApplyItemIdDataV7 = applyData;
-  window.__guioesLoadFromItemIdV7 = loadFromItemId;
-  function init(){ setTimeout(loadFromItemId, 450); }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  function init(){ setTimeout(carregarGuiaoPorId, 450); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
 </script>
 
+<script id="guioes-fechar-dropdown-cursos-edicao-v3-transplante-profundo">
+(function(){
+  'use strict';
+  function hasItemId(){ try { return !!new URLSearchParams(window.location.search).get('itemId'); } catch(e){ return false; } }
+  function closeAll(){
+    if(!hasItemId()) return;
+    ['cursoBusca'].forEach(function(id){ var el=document.getElementById(id); if(el){ el.value=''; try{el.blur();}catch(e){} } });
+    Array.prototype.forEach.call(document.querySelectorAll('.rbl-course-search'), function(el){ el.value=''; try{el.blur();}catch(e){} });
+    Array.prototype.forEach.call(document.querySelectorAll('.rbl-course-dropdown,.proj-cursos-sugestoes,.curso-dropdown,.course-dropdown'), function(el){ el.classList.remove('open','active','visible'); el.style.display='none'; });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(closeAll, 650); setTimeout(closeAll, 1400); });
+  else { setTimeout(closeAll, 650); setTimeout(closeAll, 1400); }
+})();
+</script>
 </body>
 </html>
