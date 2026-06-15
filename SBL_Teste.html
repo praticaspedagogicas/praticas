@@ -17294,6 +17294,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     function render(){
       var q = clean(input.value);
       var qNorm = strip(q);
+      if(!qNorm){ close(); return; }
       var matches = options.map(function(o){ return {value:o.value, idx:o.idx, score:score(o.value, q)}; })
         .filter(function(o){ return !qNorm || o.score < 99; })
         .sort(function(a,b){ return (a.score - b.score) || (a.idx - b.idx); })
@@ -17353,6 +17354,94 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAll);
   else initAll();
   [200, 600, 1200, 2500].forEach(function(ms){ setTimeout(initAll, ms); });
+})();
+</script>
+
+
+<script id="guiao-title-payload-final-v4">
+(function(){
+  'use strict';
+  if(window.__guiaoTitlePayloadFinalV4) return;
+  window.__guiaoTitlePayloadFinalV4 = true;
+  function clean(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
+  function firstUC(v){
+    v = clean(v);
+    if(!v) return '';
+    return clean(v.split(/;|\n|\r|\|/).filter(Boolean)[0] || v);
+  }
+  function scenarioOf(payload){
+    var s = clean(payload && (payload.templateType || payload.cenarioAprendizagem || payload.cenario || payload.scenario));
+    if(s) return s;
+    try{
+      var h = clean((document.querySelector('h1') || {}).textContent || document.title || '');
+      if(/problem.?based/i.test(h)) return 'PBL';
+      if(/project.?based/i.test(h)) return 'PROJ-BL';
+      if(/research/i.test(h)) return 'RBL';
+      if(/simula/i.test(h)) return 'SBL';
+      if(/challenge/i.test(h)) return 'CBL';
+    }catch(e){}
+    return 'Guião';
+  }
+  function ucFromDom(){
+    var selectors = [
+      '#uc', '#ucs', '[name="uc"]', '[name="ucs"]',
+      '#unidadeCurricular', '#unidade_curricular', '[name="unidadeCurricular"]', '[name="unidade_curricular"]',
+      '.projbl-nome-uc-projeto-field', 'textarea[id*="uc" i]', 'input[id*="uc" i]', 'textarea[name*="uc" i]', 'input[name*="uc" i]'
+    ];
+    for(var i=0;i<selectors.length;i++){
+      try{
+        var els = Array.prototype.slice.call(document.querySelectorAll(selectors[i]));
+        for(var j=0;j<els.length;j++){
+          var el = els[j];
+          if(!el || !/^(INPUT|TEXTAREA|SELECT)$/i.test(el.tagName || '')) continue;
+          var val = clean(el.value || '');
+          if(val) return val;
+        }
+      }catch(e){}
+    }
+    return '';
+  }
+  function applyTitle(payload){
+    if(!payload || typeof payload !== 'object' || Array.isArray(payload)) return payload;
+    var fd = payload.formData || {};
+    var uc = firstUC(payload.ucs || payload.uc || fd.ucs || fd.uc || fd.unidadeCurricular || fd.unidade_curricular || ucFromDom());
+    if(uc){ payload.title = scenarioOf(payload) + ' - ' + uc; }
+    return payload;
+  }
+  window.guiaoAplicarTituloCenarioUcV4 = applyTitle;
+  if(typeof window.fetch === 'function'){
+    var nativeFetch = window.fetch.bind(window);
+    window.fetch = function(input, init){
+      try{
+        if(init && typeof init.body === 'string' && /powerautomate|logic\.azure|requestbin|http/i.test(String(input && (input.url || input)))){
+          var payload = JSON.parse(init.body);
+          applyTitle(payload);
+          init = Object.assign({}, init, {body: JSON.stringify(payload)});
+        }
+      }catch(e){}
+      return nativeFetch(input, init);
+    };
+  }
+})();
+</script>
+
+
+<script id="guioes-curso-dropdown-custom-v4-close-empty">
+(function(){
+  'use strict';
+  function clean(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
+  function closeAll(){
+    document.querySelectorAll('.guioes-curso-suggestions-v2.is-open').forEach(function(box){ box.classList.remove('is-open'); });
+  }
+  document.addEventListener('input', function(ev){
+    var el = ev.target;
+    if(el && el.dataset && el.dataset.guioesCustomCursoV2 === '1' && !clean(el.value)) closeAll();
+  }, true);
+  document.addEventListener('focusin', function(ev){
+    var el = ev.target;
+    if(el && el.dataset && el.dataset.guioesCustomCursoV2 === '1' && !clean(el.value)) setTimeout(closeAll, 0);
+  }, true);
+  window.addEventListener('load', function(){ setTimeout(closeAll, 0); setTimeout(closeAll, 350); setTimeout(closeAll, 1200); });
 })();
 </script>
 
