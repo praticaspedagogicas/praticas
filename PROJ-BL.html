@@ -18554,9 +18554,10 @@ html body .page button[data-proj-tooltip]::after {
     if(!bx){ bx=document.createElement('div'); bx.id='projCursosSugestoes'; bx.className='proj-cursos-sugestoes'; var wrap=b.closest('.projbl-curso-real-wrap,.proj-curso-combobox-wrap,.section,.header-card') || b.parentNode; if(wrap){ if(getComputedStyle(wrap).position==='static') wrap.style.position='relative'; wrap.appendChild(bx); } }
     return bx;
   }
-  function close(){ var bx=el('projCursosSugestoes'); if(bx) bx.classList.remove('open'); }
+  function close(){ var bx=el('projCursosSugestoes'); if(bx){ bx.classList.remove('open'); bx.classList.remove('is-open'); } }
   function addCurso(valor){ valor=clean(valor); if(!valor) return false; if(!CURSOS.some(function(c){return strip(c)===strip(valor);})) return false; var list=cursosAtuais(); if(!list.some(function(c){return strip(c)===strip(valor);})) list.push(valor); sync(list); var b=busca(); if(b) b.value=''; renderChips(); close(); return true; }
   function open(){
+    if(window.__guioesIsLoadingFromItemId || (document.body && document.body.classList.contains('guioes-loading-from-itemid'))){ close(); return; }
     var b=busca(), bx=box(); if(!b||!bx) return;
     var q=clean(b.value), selected=cursosAtuais().map(strip);
     var matches=CURSOS.map(function(c,idx){return {value:c, idx:idx, score:score(c,q)};}).filter(function(o){return selected.indexOf(strip(o.value))<0 && (!q || o.score<99);}).sort(function(a,b){return (a.score-b.score)||(a.idx-b.idx);}).slice(0,10);
@@ -18568,13 +18569,20 @@ html body .page button[data-proj-tooltip]::after {
     }
     bx.classList.add('open');
   }
+  window.projblSetCoursesFromItemId = function(value){
+    sync(splitCursos(value));
+    var b = busca();
+    if(b){ b.value=''; try{ b.blur(); }catch(e){} }
+    renderChips();
+    close();
+  };
   function bind(){
     var h=hidden(), b=busca(); if(!h||!b) return;
     h.type='hidden'; h.style.setProperty('display','none','important'); b.removeAttribute('list'); b.setAttribute('autocomplete','off');
     if(b.dataset.projblCoursePickerV3==='1') return; b.dataset.projblCoursePickerV3='1';
-    b.addEventListener('keydown', function(ev){ if(ev.key==='Enter'){ ev.preventDefault(); ev.stopImmediatePropagation(); var first=(el('projCursosSugestoes')||{}).querySelector && el('projCursosSugestoes').querySelector('button'); if(first) addCurso(first.textContent); else open(); } else if(ev.key==='Escape') close(); }, true);
+    b.addEventListener('keydown', function(ev){ if(window.__guioesIsLoadingFromItemId || (document.body && document.body.classList.contains('guioes-loading-from-itemid'))){ ev.stopImmediatePropagation(); close(); return; } if(ev.key==='Enter'){ ev.preventDefault(); ev.stopImmediatePropagation(); var first=(el('projCursosSugestoes')||{}).querySelector && el('projCursosSugestoes').querySelector('button'); if(first) addCurso(first.textContent); else open(); } else if(ev.key==='Escape') close(); }, true);
     b.addEventListener('input', open, true); b.addEventListener('focus', open, true);
-    b.addEventListener('change', function(ev){ ev.stopImmediatePropagation(); if(clean(b.value)) open(); }, true);
+    b.addEventListener('change', function(ev){ ev.stopImmediatePropagation(); if(window.__guioesIsLoadingFromItemId || (document.body && document.body.classList.contains('guioes-loading-from-itemid'))){ close(); return; } if(clean(b.value)) open(); }, true);
     b.addEventListener('blur', function(ev){ if(clean(b.value)) ev.stopImmediatePropagation(); setTimeout(close,170); }, true);
     document.addEventListener('click', function(ev){ var bx=el('projCursosSugestoes'); if(bx && !bx.contains(ev.target) && ev.target!==b) close(); }, true);
     renderChips();
@@ -19497,6 +19505,40 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 </script>
 
 
+<script id="guioes-itemid-curso-guard-v1">
+/* Camada institucional — bloqueio de abertura automática de Curso(s) durante carregamento por itemId. */
+(function(){
+  'use strict';
+  if(window.__guioesItemIdCursoGuardV1) return;
+  window.__guioesItemIdCursoGuardV1 = true;
+  function hasItemId(){ try { return !!String(new URLSearchParams(window.location.search).get('itemId') || '').trim(); } catch(e){ return false; } }
+  window.__guioesIsLoadingFromItemId = !!hasItemId();
+  function isLoading(){ return !!window.__guioesIsLoadingFromItemId || (document.body && document.body.classList.contains('guioes-loading-from-itemid')); }
+  window.guioesCloseCursoDropdownsItemId = function(){
+    try {
+      Array.prototype.forEach.call(document.querySelectorAll('#projCursosSugestoes,.proj-cursos-sugestoes,.rbl-course-dropdown,.projbl-course-dropdown,.pbl-course-dropdown,.cbl-course-dropdown,.sbl-course-dropdown,.guioes-course-suggestions'), function(el){
+        el.classList.remove('open');
+        el.classList.remove('is-open');
+      });
+      Array.prototype.forEach.call(document.querySelectorAll('#cursoBusca,#cursoSearch,input[name="cursoBusca"],input[placeholder*="procurar" i]'), function(input){
+        if(input && document.activeElement === input) input.blur();
+      });
+    } catch(e) {}
+  };
+  ['focus','input','change'].forEach(function(evt){
+    document.addEventListener(evt, function(ev){
+      if(!isLoading()) return;
+      var t = ev.target;
+      if(!t || !t.matches || !t.matches('#cursoBusca,#cursoSearch,input[name="cursoBusca"],input[placeholder*="procurar" i],input[placeholder*="curso" i]')) return;
+      if(evt !== 'focus') t.value = '';
+      if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+      ev.stopPropagation();
+      window.guioesCloseCursoDropdownsItemId();
+    }, true);
+  });
+})();
+</script>
+
 <script id="guioes-carregar-guiao-por-id-v2">
 /* ===== Camada institucional — carregamento de guião para edição por itemId =====
    Abre o template com ?itemId=..., obtém os dados do fluxo “Obter guião por ID”
@@ -19594,16 +19636,27 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   function setCursos(value){
     value = clean(value);
     if(!value) return;
-    setFirst(['curso','cursos'], value);
-    var search = $('cursoBusca');
-    if(search){ search.value = ''; dispatch(search); }
+    window.__guioesIsLoadingFromItemId = true;
+    if(document.body) document.body.classList.add('guioes-loading-from-itemid');
+    if(typeof window.rblSetCoursesFromItemId === 'function'){
+      try { window.rblSetCoursesFromItemId(value); } catch(e){}
+    } else if(typeof window.projblSetCoursesFromItemId === 'function'){
+      try { window.projblSetCoursesFromItemId(value); } catch(e){}
+    } else {
+      setFirst(['curso','cursos'], value);
+    }
+    ['cursoBusca','cursoSearch'].forEach(function(id){
+      var search = $(id);
+      if(search){ search.value = ''; try{ search.blur(); }catch(e){} }
+    });
     var chips = $('cblCursosSelecionados') || $('pblCursosSelecionados') || document.querySelector('.cbl-course-chips,.pbl-course-chips,.rbl-course-chip-area,.sbl-course-chips');
     if(chips){
       setTimeout(function(){
-        dispatch($('curso'));
-        renderCourseFallback(chips, value, chips.id === 'pblCursosSelecionados' ? 'pbl-course-chip' : 'cbl-course-chip');
+        renderCourseFallback(chips, value, chips.classList && chips.classList.contains('rbl-course-chip-area') ? 'rbl-course-chip' : (chips.id === 'pblCursosSelecionados' ? 'pbl-course-chip' : 'cbl-course-chip'));
+        if(typeof window.guioesCloseCursoDropdownsItemId === 'function') window.guioesCloseCursoDropdownsItemId();
       }, 80);
     }
+    if(typeof window.guioesCloseCursoDropdownsItemId === 'function') window.guioesCloseCursoDropdownsItemId();
   }
   function parseEstrutura(raw){
     if(!raw) return {};
@@ -19694,6 +19747,8 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     var itemId = getItemId();
     if(!itemId || window.__guioesCarregamentoPorItemIdExecutado) return;
     window.__guioesCarregamentoPorItemIdExecutado = true;
+    window.__guioesIsLoadingFromItemId = true;
+    if(document.body) document.body.classList.add('guioes-loading-from-itemid');
     addStatusBox();
     notify('A carregar dados do guião...', '', 2500);
     try {
@@ -19709,8 +19764,16 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
         throw new Error((data && (data.message || data.error)) || text || ('HTTP ' + res.status));
       }
       preencherFormulario(data);
+      setTimeout(function(){
+        window.__guioesIsLoadingFromItemId = false;
+        if(document.body) document.body.classList.remove('guioes-loading-from-itemid');
+        if(typeof window.guioesCloseCursoDropdownsItemId === 'function') window.guioesCloseCursoDropdownsItemId();
+      }, 220);
       notify('Dados do guião carregados para edição.', 'ok', 4500);
     } catch(e) {
+      window.__guioesIsLoadingFromItemId = false;
+      if(document.body) document.body.classList.remove('guioes-loading-from-itemid');
+      if(typeof window.guioesCloseCursoDropdownsItemId === 'function') window.guioesCloseCursoDropdownsItemId();
       console.error('Erro ao carregar guião por itemId:', e);
       notify('Não foi possível carregar automaticamente os dados deste guião. Confirme o link de edição ou tente novamente.', 'error', 8000);
     }
@@ -19718,6 +19781,91 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   function init(){ setTimeout(carregarGuiaoPorId, 450); }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
+})();
+</script>
+
+
+<script id="guioes-fechar-dropdown-cursos-edicao-v2">
+(function(){
+  'use strict';
+  if(window.__guioesFecharDropdownCursosEdicaoV2) return;
+  window.__guioesFecharDropdownCursosEdicaoV2 = true;
+  function hasItemId(){ try { return !!new URLSearchParams(window.location.search).get('itemId'); } catch(e){ return false; } }
+  function closeCourseDropdowns(){
+    if(!hasItemId()) return;
+    var selectors = [
+      '.guioes-curso-suggestions-v2',
+      '.curso-suggestions', '.course-suggestions',
+      '[id*="curso" i][class*="suggest" i]',
+      '[class*="curso" i][class*="suggest" i]',
+      '[class*="course" i][class*="suggest" i]',
+      '[id*="curso" i][class*="dropdown" i]',
+      '[class*="curso" i][class*="dropdown" i]'
+    ];
+    selectors.forEach(function(sel){
+      try {
+        Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){
+          el.style.display = 'none';
+          el.classList.remove('open','active','show','visible');
+          el.setAttribute('aria-hidden','true');
+        });
+      } catch(e){}
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('input#cursoBusca, input[name="cursoBusca"], input[placeholder*="curso" i]'), function(input){
+      if(document.activeElement === input){ try { input.blur(); } catch(e){} }
+    });
+  }
+  window.__guioesFecharDropdownCursos = closeCourseDropdowns;
+  function schedule(){ [0,80,200,500,900,1500,2500,4000].forEach(function(ms){ setTimeout(closeCourseDropdowns, ms); }); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', schedule); else schedule();
+  window.addEventListener('load', schedule);
+})();
+</script>
+
+
+<script id="guioes-fechar-dropdown-cursos-edicao-v3-hardening">
+(function(){
+  'use strict';
+  if(window.__guioesFecharDropdownCursosEdicaoV3) return;
+  window.__guioesFecharDropdownCursosEdicaoV3 = true;
+  function hasItemId(){ try { return !!new URLSearchParams(window.location.search).get('itemId'); } catch(e){ return false; } }
+  if(!hasItemId()) return;
+  var selectors = [
+    '.guioes-curso-suggestions-v2', '.curso-suggestions', '.course-suggestions',
+    '.rbl-course-dropdown', '.projbl-course-dropdown', '.pbl-course-dropdown', '.cbl-course-dropdown', '.sbl-course-dropdown',
+    '[id*="curso" i][class*="suggest" i]', '[class*="curso" i][class*="suggest" i]', '[class*="course" i][class*="suggest" i]',
+    '[id*="curso" i][class*="dropdown" i]', '[class*="curso" i][class*="dropdown" i]', '[class*="course" i][class*="dropdown" i]'
+  ];
+  var style = document.createElement('style');
+  style.id = 'guioes-fechar-dropdown-cursos-edicao-v3-css';
+  style.textContent = selectors.join(',') + '{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;}';
+  document.head.appendChild(style);
+  function close(){
+    selectors.forEach(function(sel){
+      try { Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){
+        el.style.display='none'; el.style.visibility='hidden'; el.style.opacity='0';
+        el.classList.remove('open','active','show','visible','is-open');
+        el.setAttribute('aria-hidden','true');
+      }); } catch(e){}
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('input#cursoBusca, input[name="cursoBusca"], input[placeholder*="curso" i], input[placeholder*="procurar" i]'), function(input){
+      if(document.activeElement === input){ try { input.blur(); } catch(e){} }
+    });
+  }
+  var released = false;
+  var obs = null;
+  function release(){
+    if(released) return;
+    released = true;
+    try { if(style && style.parentNode) style.parentNode.removeChild(style); } catch(e){}
+    try { if(obs) obs.disconnect(); } catch(e){}
+  }
+  function isCourseTarget(t){ return !!(t && t.closest && t.closest('[id*="curso" i], [class*="curso" i], [class*="course" i]')); }
+  document.addEventListener('pointerdown', function(e){ if(isCourseTarget(e.target)) release(); }, true);
+  document.addEventListener('keydown', function(e){ if(isCourseTarget(e.target)) release(); }, true);
+  [0,50,120,250,500,900,1500,2500,4000,6500,9000,12000].forEach(function(ms){ setTimeout(function(){ if(!released) close(); }, ms); });
+  try { obs = new MutationObserver(function(){ if(!released) close(); }); obs.observe(document.documentElement, {childList:true,subtree:true,attributes:true,attributeFilter:['class','style']}); } catch(e){}
+  setTimeout(release, 14000);
 })();
 </script>
 
