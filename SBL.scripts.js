@@ -5047,3 +5047,76 @@ async function downloadCurrentGuiesPdf(){
   else init();
   [200, 700, 1500, 3000].forEach(function(ms){ setTimeout(init, ms); });
 })();
+
+
+
+/* sbl-quadro-acao-edicao-legado-v2 */
+(function(){
+  'use strict';
+  if(window.__sblQuadroAcaoEdicaoLegadoV2) return;
+  window.__sblQuadroAcaoEdicaoLegadoV2 = true;
+  function clean(v){ return String(v == null ? '' : v).trim(); }
+  function norm(v){ return clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[º°ª()|\\/\-_.:;,[\]]/g,' ').replace(/\s+/g,' ').trim().toLowerCase(); }
+  function parse(raw){ if(!raw) return {}; if(typeof raw === 'object') return raw; try { return JSON.parse(String(raw)); } catch(e){ return {}; } }
+  function table(){ return document.getElementById('quadroAcao'); }
+  function rows(){ var t=table(); if(!t) return []; return Array.prototype.slice.call(t.querySelectorAll('tr')).filter(function(r){ return r.querySelectorAll('textarea').length >= 2 && !r.querySelector('.btn-plus,.btn-minus'); }); }
+  function ensureIds(){ rows().forEach(function(r,idx){ var tas=r.querySelectorAll('textarea'); var i=idx+1; if(tas[0]){ tas[0].id='sbl_acao_'+i; tas[0].name='sbl_acao_'+i; } if(tas[1]){ tas[1].id='sbl_reacao_'+i; tas[1].name='sbl_reacao_'+i; } }); }
+  function dispatch(el){ if(!el) return; try{ el.dispatchEvent(new Event('input',{bubbles:true})); }catch(e){} try{ el.dispatchEvent(new Event('change',{bubbles:true})); }catch(e){} }
+  function set(id,v){ var el=document.getElementById(id); if(!el) return; el.value=clean(v); dispatch(el); }
+  function addRowsUntil(count){ var t=table(); if(!t) return; var rs=rows(); while(rs.length < count){ if(typeof window.addRow === 'function') window.addRow(); else { var tr=document.createElement('tr'); tr.innerHTML='<td style="padding:10px;border-bottom:1px solid #ddd;"><textarea rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td><td style="padding:10px;border-bottom:1px solid #ddd;border-left:1px solid #ddd;"><textarea rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td>'; var foot=t.querySelector('tr:last-child'); if(foot && foot.parentNode) foot.parentNode.insertBefore(tr, foot); else t.appendChild(tr); } rs=rows(); if(rs.length>60) break; } ensureIds(); }
+  function val(values, keys){ for(var i=0;i<keys.length;i++){ if(clean(values[keys[i]])) return clean(values[keys[i]]); } return ''; }
+  function pairsFromLines(estrutura){
+    var raw = [];
+    if(Array.isArray(estrutura && estrutura.lines)) raw = estrutura.lines;
+    else if(Array.isArray(estrutura && estrutura.resumoCampos)) raw = estrutura.resumoCampos;
+    else if(typeof (estrutura && estrutura.resumoCampos) === 'string') raw = estrutura.resumoCampos.split(/\n+/);
+    var pairs=[], current=null;
+    raw.forEach(function(line){
+      line = clean(line); if(!line) return;
+      var idx=line.indexOf(':'); if(idx<0) return;
+      var label=line.slice(0,idx), value=clean(line.slice(idx+1)); if(!value) return;
+      var n=norm(label);
+      var isAcao = (n.indexOf('acao') !== -1 && (n.indexOf('ator') !== -1 || n.indexOf('personagem') !== -1)) || n.indexOf('guiao para ator') !== -1 || n.indexOf('ator personagem') !== -1;
+      var isReacao = (n.indexOf('reacao') !== -1 && (n.indexOf('tecnico') !== -1 || n.indexOf('profissional') !== -1));
+      if(isAcao){ current={acao:value,reacao:''}; pairs.push(current); }
+      else if(isReacao){ if(!current || current.reacao){ current={acao:'',reacao:value}; pairs.push(current); } else current.reacao=value; }
+    });
+    return pairs;
+  }
+  function pairsFromSequentialFields(values){
+    var keys = Object.keys(values || {}).filter(function(k){ return /^field_\d+$/.test(k) || /^campo_\d+$/.test(k); }).sort(function(a,b){ return parseInt(a.replace(/\D/g,''),10)-parseInt(b.replace(/\D/g,''),10); });
+    var vals = keys.map(function(k){return clean(values[k]);}).filter(Boolean);
+    if(vals.length < 2) return [];
+    // Último recurso: se houver muitos campos sequenciais antigos, usa os últimos 10 como o quadro Ação/Reação.
+    vals = vals.slice(-10);
+    var pairs=[];
+    for(var i=0;i<vals.length;i+=2) pairs.push({acao:vals[i]||'', reacao:vals[i+1]||''});
+    return pairs.filter(function(p){return p.acao || p.reacao;});
+  }
+  function preencher(data){
+    var t=table(); if(!t || !data) return;
+    ensureIds();
+    var estrutura=parse(data.estruturaPedagogica);
+    var values=(estrutura && estrutura.values && typeof estrutura.values==='object') ? estrutura.values : {};
+    var pairs=[];
+    for(var i=1;i<=60;i++){
+      var acao=val(values,['sbl_acao_'+i,'acao_'+i,'acaoAtor_'+i,'acaoAtorPersonagem_'+i,'ator_acao_'+i]);
+      var reacao=val(values,['sbl_reacao_'+i,'reacao_'+i,'reacaoTecnico_'+i,'reacaoTecnicoProfissional_'+i,'tecnico_reacao_'+i]);
+      if(acao || reacao) pairs.push({acao:acao,reacao:reacao});
+    }
+    if(!pairs.length) pairs = pairsFromLines(estrutura);
+    if(!pairs.length) pairs = pairsFromSequentialFields(values);
+    pairs = pairs.filter(function(p){ return clean(p.acao) || clean(p.reacao); });
+    if(!pairs.length) return;
+    addRowsUntil(Math.max(5,pairs.length));
+    pairs.forEach(function(p,idx){ var i=idx+1; set('sbl_acao_'+i,p.acao); set('sbl_reacao_'+i,p.reacao); });
+    try{ if(typeof window.renderProgress === 'function') window.renderProgress(); }catch(e){}
+  }
+  var old = window.__sblPreencherQuadroAcaoFromGuiao;
+  window.__sblPreencherQuadroAcaoFromGuiao = function(data){ try{ if(typeof old === 'function') old(data); }catch(e){} setTimeout(function(){ preencher(data); }, 80); setTimeout(function(){ preencher(data); }, 500); };
+  function init(){ ensureIds(); if(window.__guioesDadosCarregadosPorItemId) preencher(window.__guioesDadosCarregadosPorItemId); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  [300,900,1800,3500].forEach(function(ms){ setTimeout(init, ms); });
+})();
+
+
