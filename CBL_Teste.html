@@ -6073,5 +6073,198 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 })();
 </script>
 
+
+<script id="cbl-carregar-guiao-por-id-v1">
+/* ===== CBL — carregamento institucional por itemId =====
+   Permite abrir CBL.html?itemId=123, obter dados do SharePoint pelo fluxo
+   “Obter guião por ID” e preencher automaticamente o formulário.
+   Não altera PDF, submissão principal, botões ou estrutura visual. */
+(function(){
+  'use strict';
+
+  var OBTER_GUIAO_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
+
+  function $(id){ return document.getElementById(id); }
+  function clean(v){ return String(v == null ? '' : v).trim(); }
+  function getItemId(){
+    try { return clean(new URLSearchParams(window.location.search).get('itemId')); }
+    catch(e){ return ''; }
+  }
+  function notify(message, type, duration){
+    if(typeof window.toast === 'function') return window.toast(message, type || '', duration || 4500);
+    if(typeof window.showToast === 'function') return window.showToast(message, type || '', duration || 4500);
+    if(type === 'error') alert(message);
+  }
+  function dispatch(el){
+    if(!el) return;
+    try { el.dispatchEvent(new Event('input', {bubbles:true})); } catch(e){}
+    try { el.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
+  }
+  function setField(id, value){
+    var el = $(id);
+    if(!el) return false;
+    value = clean(value);
+    if(el.type === 'radio') return false;
+    if(el.tagName === 'SELECT'){
+      var found = false;
+      Array.prototype.forEach.call(el.options || [], function(opt){
+        if(clean(opt.value || opt.text) === value || clean(opt.text) === value){
+          el.value = opt.value || opt.text;
+          found = true;
+        }
+      });
+      if(!found) el.value = value;
+    } else {
+      el.value = value;
+    }
+    dispatch(el);
+    return true;
+  }
+  function setRadio(name, value){
+    value = clean(value);
+    if(!value) return false;
+    var done = false;
+    Array.prototype.forEach.call(document.querySelectorAll('input[type="radio"][name="' + name + '"]'), function(radio){
+      var same = clean(radio.value).toLowerCase() === value.toLowerCase();
+      radio.checked = same;
+      if(same) done = true;
+      dispatch(radio);
+    });
+    return done;
+  }
+  function setCursos(value){
+    value = clean(value);
+    var hidden = $('curso');
+    var search = $('cursoBusca');
+    var chips = $('cblCursosSelecionados');
+    if(hidden){
+      hidden.value = value;
+      dispatch(hidden);
+    }
+    if(search){
+      search.value = '';
+      dispatch(search);
+    }
+    /* Fallback visual caso o render dos chips ainda não esteja pronto. */
+    if(chips && value && !chips.querySelector('.cbl-course-chip')){
+      chips.innerHTML = '';
+      value.split(';').map(clean).filter(Boolean).forEach(function(curso){
+        var chip = document.createElement('span');
+        chip.className = 'cbl-course-chip';
+        var span = document.createElement('span');
+        span.textContent = curso;
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = '×';
+        btn.setAttribute('aria-label','Remover curso');
+        btn.addEventListener('click', function(){
+          var restantes = clean(hidden && hidden.value).split(';').map(clean).filter(Boolean).filter(function(v){ return v !== curso; });
+          if(hidden) hidden.value = restantes.join('; ');
+          dispatch(hidden);
+        });
+        chip.appendChild(span);
+        chip.appendChild(btn);
+        chips.appendChild(chip);
+      });
+    }
+  }
+  function parseEstrutura(raw){
+    if(!raw) return {};
+    if(typeof raw === 'object') return raw;
+    try { return JSON.parse(String(raw)); } catch(e) { return {}; }
+  }
+  function splitHoraIntervalo(hora){
+    hora = clean(hora);
+    if(!hora) return {};
+    var parts = hora.split(/\s*[–—-]\s*/).map(clean).filter(Boolean);
+    return {inicio: parts[0] || '', fim: parts[1] || ''};
+  }
+  function addStatusBox(itemId){
+    if($('cblModoEdicaoBox')) return;
+    var ref = document.querySelector('.premium-status') || document.querySelector('.header') || document.querySelector('.page');
+    if(!ref || !ref.parentNode) return;
+    var box = document.createElement('div');
+    box.id = 'cblModoEdicaoBox';
+    box.className = 'no-print';
+    box.style.margin = '0 0 16px 0';
+    box.style.padding = '12px 14px';
+    box.style.border = '1.5px solid #1f4d2b';
+    box.style.borderRadius = '14px';
+    box.style.background = '#f3fff6';
+    box.style.color = '#1f4d2b';
+    box.style.fontSize = '13px';
+    box.innerHTML = '<strong>Modo de edição ativo.</strong><br>Este guião foi carregado a partir do item SharePoint ' + itemId + '. Ao submeter, o mesmo item será atualizado.';
+    ref.parentNode.insertBefore(box, ref.nextSibling);
+  }
+  function preencherFormulario(data){
+    data = data || {};
+    var estrutura = parseEstrutura(data.estruturaPedagogica);
+    var values = (estrutura && estrutura.values && typeof estrutura.values === 'object') ? estrutura.values : {};
+    var hora = splitHoraIntervalo(data.hora);
+
+    setField('unidadeOrganica', values.unidadeOrganica || data.unidadeOrganica);
+    setField('modalidade', values.modalidade || data.modalidade);
+    setField('semestre', values.semestre || data.semestre);
+    setField('turmaEdicao', values.turmaEdicao || data.turmaEdicao);
+    setCursos(values.curso || data.cursos);
+    setField('uc', values.uc || data.ucs);
+    setField('ano', values.ano || values.anoLetivo || data.anoLetivo);
+    setField('professor', values.professor || data.docentes);
+    setField('emails', values.emails || data.emails);
+    setField('n_estudantes', values.n_estudantes || data.nEstudantes);
+    setField('n_grupos', values.n_grupos || data.nGrupos);
+    setField('autoria', values.autoria || data.autorias);
+    setField('estado', values.estado || 'Atualizado');
+    setField('organizacao', values.organizacao || data.organizacoesContacto);
+    setField('conteudos', values.conteudos);
+    setField('desafio', values.desafio);
+    setField('objetivos', values.objetivos);
+    setField('doc_escrito', values.doc_escrito);
+    setField('apresentacao', values.apresentacao);
+    setField('pond_total', values.pond_total);
+    setField('pond_doc', values.pond_doc);
+    setField('pond_apres', values.pond_apres);
+    setField('calendarizacao', values.calendarizacao || data.data);
+    setField('hora_inicio', values.hora_inicio || hora.inicio);
+    setField('hora_fim', values.hora_fim || hora.fim);
+    setRadio('autorizaRepositorio', values.autorizaRepositorio || data.autorizaRepositorio);
+
+    try { if(typeof window.renderProgress === 'function') window.renderProgress(); } catch(e){}
+    document.body.classList.add('cbl-guiao-carregado-por-id');
+  }
+  async function carregarGuiaoPorId(){
+    var itemId = getItemId();
+    if(!itemId || window.__cblCarregamentoItemIdExecutado) return;
+    window.__cblCarregamentoItemIdExecutado = true;
+    addStatusBox(itemId);
+    notify('A carregar dados do guião...', '', 2500);
+    try {
+      var res = await fetch(OBTER_GUIAO_URL, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({itemId: itemId})
+      });
+      var text = await res.text();
+      var data = {};
+      try { data = JSON.parse(text); } catch(e) { data = {raw:text}; }
+      if(!res.ok || data.ok === false || data.success === false){
+        throw new Error((data && (data.message || data.error)) || text || ('HTTP ' + res.status));
+      }
+      preencherFormulario(data);
+      notify('Dados do guião carregados para edição.', 'ok', 4500);
+    } catch(e) {
+      console.error('Erro ao carregar guião por itemId:', e);
+      notify('Não foi possível carregar automaticamente os dados deste guião. Confirme o link de edição ou tente novamente.', 'error', 8000);
+    }
+  }
+  function init(){
+    /* Dá tempo aos patches de Curso(s), botões e validações de inicializarem. */
+    setTimeout(carregarGuiaoPorId, 350);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
 </body>
 </html>
