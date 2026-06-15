@@ -7488,7 +7488,19 @@ input:focus, textarea:focus, select:focus,
       renderChips(); sync();
     }
 
+
+    window.rblSetCoursesFromItemId = function(value){
+      selected = splitCourses(value);
+      search.value = "";
+      dropdown.classList.remove("open");
+      renderChips();
+      sync();
+      try { search.blur(); } catch(e) {}
+      if(typeof window.guioesCloseCursoDropdownsItemId === "function") window.guioesCloseCursoDropdownsItemId();
+    };
+
     function renderOptions(){
+      if(window.__guioesIsLoadingFromItemId || (document.body && document.body.classList.contains('guioes-loading-from-itemid'))){ dropdown.classList.remove("open"); return; }
       var term = cleanText(search.value).toLowerCase();
       var opts = getCourseOptions().filter(function(v){
         return selected.indexOf(v) === -1 && (!term || v.toLowerCase().indexOf(term) !== -1);
@@ -10264,6 +10276,40 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 </script>
 
 
+<script id="guioes-itemid-curso-guard-v1">
+/* Camada institucional — bloqueio de abertura automática de Curso(s) durante carregamento por itemId. */
+(function(){
+  'use strict';
+  if(window.__guioesItemIdCursoGuardV1) return;
+  window.__guioesItemIdCursoGuardV1 = true;
+  function hasItemId(){ try { return !!String(new URLSearchParams(window.location.search).get('itemId') || '').trim(); } catch(e){ return false; } }
+  window.__guioesIsLoadingFromItemId = !!hasItemId();
+  function isLoading(){ return !!window.__guioesIsLoadingFromItemId || (document.body && document.body.classList.contains('guioes-loading-from-itemid')); }
+  window.guioesCloseCursoDropdownsItemId = function(){
+    try {
+      Array.prototype.forEach.call(document.querySelectorAll('#projCursosSugestoes,.proj-cursos-sugestoes,.rbl-course-dropdown,.projbl-course-dropdown,.pbl-course-dropdown,.cbl-course-dropdown,.sbl-course-dropdown,.guioes-course-suggestions'), function(el){
+        el.classList.remove('open');
+        el.classList.remove('is-open');
+      });
+      Array.prototype.forEach.call(document.querySelectorAll('#cursoBusca,#cursoSearch,input[name="cursoBusca"],input[placeholder*="procurar" i]'), function(input){
+        if(input && document.activeElement === input) input.blur();
+      });
+    } catch(e) {}
+  };
+  ['focus','input','change'].forEach(function(evt){
+    document.addEventListener(evt, function(ev){
+      if(!isLoading()) return;
+      var t = ev.target;
+      if(!t || !t.matches || !t.matches('#cursoBusca,#cursoSearch,input[name="cursoBusca"],input[placeholder*="procurar" i],input[placeholder*="curso" i]')) return;
+      if(evt !== 'focus') t.value = '';
+      if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+      ev.stopPropagation();
+      window.guioesCloseCursoDropdownsItemId();
+    }, true);
+  });
+})();
+</script>
+
 <script id="guioes-carregar-guiao-por-id-v2">
 /* ===== Camada institucional — carregamento de guião para edição por itemId =====
    Abre o template com ?itemId=..., obtém os dados do fluxo “Obter guião por ID”
@@ -10361,16 +10407,27 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   function setCursos(value){
     value = clean(value);
     if(!value) return;
-    setFirst(['curso','cursos'], value);
-    var search = $('cursoBusca');
-    if(search){ search.value = ''; dispatch(search); }
+    window.__guioesIsLoadingFromItemId = true;
+    if(document.body) document.body.classList.add('guioes-loading-from-itemid');
+    if(typeof window.rblSetCoursesFromItemId === 'function'){
+      try { window.rblSetCoursesFromItemId(value); } catch(e){}
+    } else if(typeof window.projblSetCoursesFromItemId === 'function'){
+      try { window.projblSetCoursesFromItemId(value); } catch(e){}
+    } else {
+      setFirst(['curso','cursos'], value);
+    }
+    ['cursoBusca','cursoSearch'].forEach(function(id){
+      var search = $(id);
+      if(search){ search.value = ''; try{ search.blur(); }catch(e){} }
+    });
     var chips = $('cblCursosSelecionados') || $('pblCursosSelecionados') || document.querySelector('.cbl-course-chips,.pbl-course-chips,.rbl-course-chip-area,.sbl-course-chips');
     if(chips){
       setTimeout(function(){
-        dispatch($('curso'));
-        renderCourseFallback(chips, value, chips.id === 'pblCursosSelecionados' ? 'pbl-course-chip' : 'cbl-course-chip');
+        renderCourseFallback(chips, value, chips.classList && chips.classList.contains('rbl-course-chip-area') ? 'rbl-course-chip' : (chips.id === 'pblCursosSelecionados' ? 'pbl-course-chip' : 'cbl-course-chip'));
+        if(typeof window.guioesCloseCursoDropdownsItemId === 'function') window.guioesCloseCursoDropdownsItemId();
       }, 80);
     }
+    if(typeof window.guioesCloseCursoDropdownsItemId === 'function') window.guioesCloseCursoDropdownsItemId();
   }
   function parseEstrutura(raw){
     if(!raw) return {};
@@ -10461,6 +10518,8 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     var itemId = getItemId();
     if(!itemId || window.__guioesCarregamentoPorItemIdExecutado) return;
     window.__guioesCarregamentoPorItemIdExecutado = true;
+    window.__guioesIsLoadingFromItemId = true;
+    if(document.body) document.body.classList.add('guioes-loading-from-itemid');
     addStatusBox();
     notify('A carregar dados do guião...', '', 2500);
     try {
@@ -10476,8 +10535,16 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
         throw new Error((data && (data.message || data.error)) || text || ('HTTP ' + res.status));
       }
       preencherFormulario(data);
+      setTimeout(function(){
+        window.__guioesIsLoadingFromItemId = false;
+        if(document.body) document.body.classList.remove('guioes-loading-from-itemid');
+        if(typeof window.guioesCloseCursoDropdownsItemId === 'function') window.guioesCloseCursoDropdownsItemId();
+      }, 220);
       notify('Dados do guião carregados para edição.', 'ok', 4500);
     } catch(e) {
+      window.__guioesIsLoadingFromItemId = false;
+      if(document.body) document.body.classList.remove('guioes-loading-from-itemid');
+      if(typeof window.guioesCloseCursoDropdownsItemId === 'function') window.guioesCloseCursoDropdownsItemId();
       console.error('Erro ao carregar guião por itemId:', e);
       notify('Não foi possível carregar automaticamente os dados deste guião. Confirme o link de edição ou tente novamente.', 'error', 8000);
     }
