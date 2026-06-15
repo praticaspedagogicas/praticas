@@ -7665,8 +7665,19 @@ input:focus, textarea:focus, select:focus,
       renderChips(); sync();
     }
 
-    function renderOptions(){
+    var userOpenedCourseSearch = false;
+
+    function renderOptions(forceOpenEmpty){
       var term = cleanText(search.value).toLowerCase();
+
+      // Não abrir a dropdown no carregamento/programmatic focus.
+      // Com termo vazio, só mostra a lista quando o clique/tecla vier do utilizador.
+      if(!term && !forceOpenEmpty){
+        dropdown.innerHTML = "";
+        dropdown.classList.remove("open");
+        return;
+      }
+
       var opts = getCourseOptions().filter(function(v){
         return selected.indexOf(v) === -1 && (!term || v.toLowerCase().indexOf(term) !== -1);
       }).slice(0, 30);
@@ -7678,11 +7689,13 @@ input:focus, textarea:focus, select:focus,
         opt.addEventListener("mousedown", function(e){ e.preventDefault(); addCourse(v); });
         dropdown.appendChild(opt);
       });
-      dropdown.classList.toggle("open", opts.length > 0 && (document.activeElement === search));
+      dropdown.classList.toggle("open", opts.length > 0 && document.activeElement === search && (!!term || !!forceOpenEmpty));
     }
 
-    search.addEventListener("input", renderOptions);
-    search.addEventListener("focus", renderOptions);
+    search.addEventListener("pointerdown", function(){ userOpenedCourseSearch = true; }, true);
+    search.addEventListener("keydown", function(){ userOpenedCourseSearch = true; }, true);
+    search.addEventListener("input", function(){ renderOptions(false); });
+    search.addEventListener("focus", function(){ renderOptions(userOpenedCourseSearch && !cleanText(search.value)); });
     search.addEventListener("keydown", function(e){
       if(e.key === "Enter"){
         e.preventDefault();
@@ -10346,9 +10359,10 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     wrap.appendChild(box);
 
     var active = -1;
+    var userOpenedCourseSearch = false;
     function close(){ box.classList.remove('is-open'); active = -1; }
     function open(){ if(box.children.length) box.classList.add('is-open'); }
-    function render(){
+    function render(allowOpen){
       var q = clean(input.value);
       if(q.length < 2){ box.innerHTML = ''; close(); return; }
       var qNorm = strip(q);
@@ -10370,7 +10384,8 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
         btn.addEventListener('click', function(){ selectCourse(input, item.value); close(); input.focus(); });
         box.appendChild(btn);
       });
-      open();
+      if(allowOpen) open();
+      else close();
     }
     function setActive(idx){
       var items = Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));
@@ -10381,13 +10396,20 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
       items[active].scrollIntoView({block:'nearest'});
     }
 
-    input.addEventListener('input', render, true);
-    input.addEventListener('focus', function(){ if(clean(input.value).length < 2) close(); else render(); }, true);
+    input.addEventListener('pointerdown', function(){ userOpenedCourseSearch = true; }, true);
+    input.addEventListener('input', function(){
+      render(userOpenedCourseSearch && document.activeElement === input);
+    }, true);
+    input.addEventListener('focus', function(){
+      if(!userOpenedCourseSearch || clean(input.value).length < 2) close();
+      else render(true);
+    }, true);
     input.addEventListener('keydown', function(ev){
+      userOpenedCourseSearch = true;
       var items = Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));
       if(ev.key === 'ArrowDown'){
         ev.preventDefault();
-        if(!box.classList.contains('is-open')){ if(clean(input.value).length < 2) return; render(); }
+        if(!box.classList.contains('is-open')){ if(clean(input.value).length < 2) return; render(true); }
         setActive(active + 1);
       }else if(ev.key === 'ArrowUp'){
         ev.preventDefault();
