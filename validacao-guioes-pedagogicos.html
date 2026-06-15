@@ -353,15 +353,12 @@ main,.topnav-inner{max-width:880px;}
 .message-grid .field{height:100%;margin-bottom:0;}
 .message-grid textarea{min-height:112px;height:112px;}
 #teams .field textarea,#validacao .field textarea{min-height:108px;}
-.flow-showcase{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 20px;}
+.flow-showcase{grid-template-columns:repeat(5,minmax(0,1fr));gap:14px 20px;}
 .flow-step{background:linear-gradient(180deg,#ffffff,#fbfbfb);border-color:#dedede;}
 .flow-step:before{height:4px;}
 .flow-step:not(:last-child):after{right:-18px;color:#b20d24;background:#fff;border:1px solid #ecd0d5;border-radius:999px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(178,13,36,.12);}
-.flow-step:nth-child(4):after{display:flex;}
-.flow-step:nth-child(4){margin-right:0;}
-.flow-step:nth-child(4)::after{content:'›';}
-.flow-step:nth-child(4n)::after{display:none;}
-.flow-step:nth-child(8)::after{display:none;}
+.flow-step:nth-child(5n)::after{display:none;}
+.flow-step:nth-child(10)::after{display:none;}
 .flow-step strong{color:#221f20;}
 .checks{align-items:stretch;}
 .check{min-height:56px;}
@@ -416,8 +413,8 @@ main,.topnav-inner{max-width:880px;}
   line-height:1!important;
   font-weight:900!important;
 }
-.flow-step:nth-child(4n)::after,
-.flow-step:nth-child(8)::after{display:none!important;}
+.flow-step:nth-child(5n)::after,
+.flow-step:nth-child(10)::after{display:none!important;}
 .step-number{
   width:auto!important;
   height:auto!important;
@@ -449,8 +446,8 @@ main,.topnav-inner{max-width:880px;}
 @media(max-width:620px){
   .flow-showcase{grid-template-columns:1fr!important;}
   .flow-step:not(:last-child):after{display:block!important;content:"↓"!important;left:50%!important;right:auto!important;bottom:-17px!important;top:auto!important;transform:translateX(-50%)!important;font-size:1.2rem!important;}
-  .flow-step:nth-child(4n)::after{display:block!important;}
-  .flow-step:nth-child(8)::after{display:none!important;}
+  .flow-step:nth-child(5n)::after{display:block!important;}
+  .flow-step:nth-child(10)::after{display:none!important;}
 }
 
 </style>
@@ -466,12 +463,12 @@ main,.topnav-inner{max-width:880px;}
 </div>
 </header>
 <nav class="topnav"><div class="topnav-inner">
-<a href="#recursos">Recursos</a><a href="#dados">Dados</a><a href="#templates">Templates</a><a href="#interface">Interface</a><a href="#pdf">PDF</a><a href="#submissao">Submissão</a><a href="#validacao">Validação</a><a href="#julho">Continuação do projeto</a><a href="#feedback">Feedback</a>
+<a href="#recursos">Recursos</a><a href="#dados">Dados</a><a href="#templates">Templates</a><a href="#interface">Interface</a><a href="#pdf">PDF</a><a href="#submissao">Submissão</a><a href="#edicao">Edição</a><a href="#validacao">Validação</a><a href="#julho">Continuação do projeto</a><a href="#feedback">Feedback</a>
 <div class="progress-wrap"><div class="progress-line"><div class="progress-bar" id="progressBar" style="width:0%"></div></div><div class="progress-text" id="progressText">0% percorrido</div></div>
 </div></nav>
 <main>
 <div class="notice">
-<strong>Objetivo do teste:</strong> seguir a ordem do fluxo real — confirmar dados de coordenação, abrir template, gerar PDF, submeter, acompanhar a lista Guiões, verificar Teams/e-mails e validar o item. Enquanto estes testes decorrem em junho, a área de Práticas Pedagógicas continuará a preparar a etapa seguinte: consolidação do Repositório de Práticas Pedagógicas e desenvolvimento/alimentação do Assistente IA, prevista para julho.
+<strong>Objetivo do teste:</strong> seguir a ordem do fluxo real — confirmar dados de coordenação, abrir template, gerar PDF, submeter, testar o link de edição, acompanhar a lista Guiões, verificar Teams/e-mails e validar o item. Enquanto estes testes decorrem em junho, a área de Práticas Pedagógicas continuará a preparar a etapa seguinte: consolidação do Repositório de Práticas Pedagógicas e desenvolvimento/alimentação do Assistente IA, prevista para julho.
   </div>
 <section class="card" id="fluxo">
 <h2>Como o fluxo deve funcionar</h2>
@@ -480,11 +477,13 @@ main,.topnav-inner{max-width:880px;}
   <div class="flow-step is-active"><span class="step-number">01</span><strong>Docente</strong><span>preenche o template</span></div>
   <div class="flow-step"><span class="step-number">02</span><strong>PDF</strong><span>gera cópia do guião</span></div>
   <div class="flow-step"><span class="step-number">03</span><strong>SharePoint</strong><span>cria item na lista Guiões</span></div>
-  <div class="flow-step"><span class="step-number">04</span><strong>Teams</strong><span>notifica em Fluxos de trabalho</span></div>
-  <div class="flow-step"><span class="step-number">05</span><strong>Coordenação</strong><span>altera Validado = Sim</span></div>
-  <div class="flow-step"><span class="step-number">06</span><strong>E-mail</strong><span>docente recebe validação</span></div>
-  <div class="flow-step"><span class="step-number">07</span><strong>Lista Repositório</strong><span>cria registo, se autorizado</span></div>
-  <div class="flow-step is-future"><span class="step-number">08</span><strong>Julho</strong><span>continuidade do projeto</span></div>
+  <div class="flow-step"><span class="step-number">04</span><strong>Link de edição</strong><span>abre o guião já preenchido</span></div>
+  <div class="flow-step"><span class="step-number">05</span><strong>Atualização</strong><span>docente altera e reenvia</span></div>
+  <div class="flow-step"><span class="step-number">06</span><strong>Teams</strong><span>notifica em Fluxos de trabalho</span></div>
+  <div class="flow-step"><span class="step-number">07</span><strong>Coordenação</strong><span>altera Validado = Sim</span></div>
+  <div class="flow-step"><span class="step-number">08</span><strong>E-mail</strong><span>docente recebe validação</span></div>
+  <div class="flow-step"><span class="step-number">09</span><strong>Lista Repositório</strong><span>cria registo, se autorizado</span></div>
+  <div class="flow-step is-future"><span class="step-number">10</span><strong>Julho</strong><span>continuidade do projeto</span></div>
 </div>
 </section>
 <section class="card" id="recursos">
@@ -649,7 +648,7 @@ main,.topnav-inner{max-width:880px;}
 <div class="note"><strong>Remetente temporário:</strong> durante estes testes iniciais, os e-mails automáticos podem chegar pela caixa de Ana Luiza Marques. Já foi solicitado ao IT a ativação/configuração do endereço <strong>praticas_pedagogicas@universidadeeuropeia.pt</strong>; após a ativação, os fluxos serão ajustados para usar esse remetente institucional.</div>
 <p><a class="btn secondary" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Guies/AllItems.aspx" target="_blank">Abrir lista Guiões em paralelo</a></p>
 <ol class="steps-list"><li>Abra a lista <strong>Guiões</strong> em paralelo, para acompanhar se o item aparece após a submissão.</li><li>Na versão de teste do template, confirme se o curso selecionado corresponde a um curso sob sua coordenação.</li><li>Submeta o guião para validação.</li><li>Confirme se aparece mensagem de sucesso no template.</li><li>Verifique se recebeu o e-mail automático com cópia do PDF.</li><li>Na lista Guiões, confirme se foi criado um novo item com curso, UC, docente/e-mail, ano letivo, estado e demais campos aplicáveis ao cenário preenchidos. Nos templates que tenham calendarização ou simulação, confirme também data e hora.</li><li>Se encontrar erro, guarde prints ou PDFs de apoio. Ao enviar o feedback, anexe-os manualmente na janela de e-mail que será aberta.</li></ol>
-<div class="checks"><label class="check"><input data-k="subOk" type="checkbox"/> Submissão concluída.</label><label class="check"><input data-k="subEmail" type="checkbox"/> Recebi o e-mail automático.</label><label class="check"><input data-k="subPDF" type="checkbox"/> PDF chegou/anexo corretamente.</label><label class="check"><input data-k="subSharepoint" type="checkbox"/> Item apareceu na lista Guiões.</label><label class="check"><input data-k="subCurso" type="checkbox"/> Curso submetido corresponde à minha coordenação.</label><label class="check"><input data-k="subMsgSucesso" type="checkbox"/> Mensagem de sucesso apareceu no template.</label></div>
+<div class="checks"><label class="check"><input data-k="subOk" type="checkbox"/> Submissão concluída.</label><label class="check"><input data-k="subEmail" type="checkbox"/> Recebi o e-mail automático.</label><label class="check"><input data-k="subPDF" type="checkbox"/> PDF chegou/anexo corretamente.</label><label class="check"><input data-k="subSharepoint" type="checkbox"/> Item apareceu na lista Guiões.</label><label class="check"><input data-k="subCurso" type="checkbox"/> Curso submetido corresponde à minha coordenação.</label><label class="check"><input data-k="subMsgSucesso" type="checkbox"/> Mensagem de sucesso apareceu no template.</label><label class="check"><input data-k="subLinkEdicao" type="checkbox"/> Link de edição foi gerado no item SharePoint.</label><label class="check"><input data-k="subLinkItemId" type="checkbox"/> Link de edição contém ?itemId=.</label></div>
 <h3>Verificação específica do SBL</h3>
 <p class="intro">Quando testar o template SBL — Simulation-Based Learning, confirme também os campos próprios da simulação.</p>
 <div class="checks"><label class="check"><input data-k="sblTurma" type="checkbox"/> Turma/Edição apresenta Turma 1, Turma 2, Turma 3 ou Turma 4.</label><label class="check"><input data-k="sblData" type="checkbox"/> Data da simulação preenchida e registada corretamente.</label><label class="check"><input data-k="sblHoraInicio" type="checkbox"/> Hora de início preenchida e registada corretamente.</label><label class="check"><input data-k="sblHoraFim" type="checkbox"/> Hora de fim preenchida e registada corretamente.</label></div>
@@ -666,21 +665,30 @@ main,.topnav-inner{max-width:880px;}
 <div class="field"><label>Observações sobre submissão/e-mail inicial</label><textarea data-k="obsSub" placeholder="Registe apenas problemas ou dúvidas relevantes."></textarea></div>
 </div>
 </section>
+<section class="card" id="edicao">
+<h2>6. Edição do guião submetido</h2>
+<p class="intro">Após a submissão inicial, teste o link de edição gerado para o guião. O objetivo é confirmar que o docente consegue abrir novamente o template já preenchido, alterar informação e reenviar sem criar um item duplicado na lista Guiões.</p>
+<ol class="steps-list"><li>Na lista <strong>Guiões</strong>, confirme se o campo <strong>Link de edição</strong> está preenchido.</li><li>Abra o link de edição, que deve conter <strong>?itemId=</strong>.</li><li>Confirme se o formulário abre já preenchido com os dados anteriormente submetidos.</li><li>Confirme se também foram carregados os campos pedagógicos específicos do cenário.</li><li>Altere um campo simples, por exemplo número de estudantes, ano letivo ou uma observação textual.</li><li>Submeta novamente o guião.</li><li>Volte à lista Guiões e confirme se o mesmo item foi atualizado, sem criação de item duplicado.</li><li>Se o guião já estava validado antes da alteração, confirme se voltou a requerer nova validação.</li></ol>
+<div class="checks"><label class="check"><input data-k="editLinkCriado" type="checkbox"/> Link de edição criado.</label><label class="check"><input data-k="editLinkItemId" type="checkbox"/> Link abre com ?itemId=.</label><label class="check"><input data-k="editCarregouDados" type="checkbox"/> Formulário carregou os dados anteriores.</label><label class="check"><input data-k="editCamposPedagogicos" type="checkbox"/> Campos pedagógicos também carregaram.</label><label class="check"><input data-k="editAlteracao" type="checkbox"/> Alteração simples foi guardada.</label><label class="check"><input data-k="editMesmoItem" type="checkbox"/> Mesmo item SharePoint foi atualizado.</label><label class="check"><input data-k="editSemDuplicado" type="checkbox"/> Não foi criado item duplicado.</label><label class="check"><input data-k="editPdfAtualizado" type="checkbox"/> PDF atualizado foi anexado/gerado.</label><label class="check"><input data-k="editEmailAtualizacao" type="checkbox"/> E-mail de atualização foi recebido.</label><label class="check"><input data-k="editTeamsAtualizacao" type="checkbox"/> Teams notificou a atualização.</label><label class="check"><input data-k="editRequerValidacao" type="checkbox"/> Se já estava validado, voltou a requerer nova validação.</label></div>
+<div class="warning"><strong>Atenção:</strong> este teste deve ser feito antes da validação final. Se o docente alterar um guião já validado, a nova versão deve voltar a exigir revisão da coordenação.</div>
+<div class="field"><label>Observações sobre a edição do guião</label><textarea data-k="obsEdicao" placeholder="Indique se o link não abriu, se algum campo não carregou, se houve duplicação ou se a atualização não voltou a requerer validação."></textarea></div>
+</section>
 <section class="card" id="teams">
-<h2>6. Notificação Teams</h2>
-<ol class="steps-list"><li>Após a submissão, abra o Teams.</li><li>Procure a notificação na área/chamada <strong>Fluxos de trabalho</strong>.</li><li>Confirme se o cartão apresenta cenário, docente, e-mail e link para abrir o guião.</li><li>Clique em <strong>Abrir guião no SharePoint</strong> e confirme se abre o item correto.</li><li>Nos cursos com mais de um coordenador, confirme se todos receberam notificação separada.</li></ol>
+<h2>7. Notificação Teams</h2>
+<ol class="steps-list"><li>Após a submissão, abra o Teams.</li><li>Procure a notificação na área/chamada <strong>Fluxos de trabalho</strong>.</li><li>Confirme se o cartão apresenta cenário, docente, e-mail e link para abrir o guião.</li><li>Clique em <strong>Abrir guião no SharePoint</strong> e confirme se abre o item correto.</li><li>Após uma atualização pelo link de edição, confirme se a notificação permite distinguir atualização de submissão nova.</li><li>Nos cursos com mais de um coordenador, confirme se todos receberam notificação separada.</li></ol>
 <div class="checks"><label class="check"><input data-k="teamsRecebi" type="checkbox"/> Recebi notificação em Fluxos de trabalho.</label><label class="check"><input data-k="teamsLink" type="checkbox"/> Link abriu o item correto da lista Guiões.</label><label class="check"><input data-k="teamsDados" type="checkbox"/> Dados da notificação estavam corretos.</label><label class="check"><input data-k="teamsMulti" type="checkbox"/> Cursos com múltiplos coordenadores receberam notificação separada.</label></div>
 <div class="field"><label>Observações sobre a notificação Teams</label><textarea data-k="obsTeams" placeholder="Indique apenas se houve falha, atraso, erro no link ou problema em cursos com vários coordenadores."></textarea></div>
 </section>
 <section class="card" id="validacao">
-<h2>7. Validação do guião na lista Guiões</h2>
+<h2>8. Validação do guião na lista Guiões</h2>
 <p class="intro">Este passo confirma se o fluxo de validação realmente dispara o e-mail automático ao docente.</p>
 <p><a class="btn secondary" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Guies/AllItems.aspx" target="_blank">Abrir lista Guiões</a></p>
-<ol class="steps-list"><li>Abra a lista <strong>Guiões</strong>.</li><li>Abra o item submetido no teste.</li><li>Altere apenas o campo <strong>Validado</strong> para <strong>Sim</strong>.</li><li><strong>Não</strong> marque manualmente <strong>E-mail Validação Enviado</strong>. O fluxo deve marcar isto sozinho.</li><li>Guarde o item.</li><li>Verifique se o docente recebeu o e-mail automático de validação.</li><li>Volte à lista Guiões e confirme se <strong>E-mail Validação Enviado</strong> ficou marcado automaticamente e se <strong>Status de Validação</strong> ficou como <strong>Validado</strong>.</li></ol>
-<div class="checks"><label class="check"><input data-k="valMarquei" type="checkbox"/> Marquei Validado = Sim.</label><label class="check"><input data-k="valNaoMarqueiEmail" type="checkbox"/> Não marquei manualmente E-mail Validação Enviado.</label><label class="check"><input data-k="valEmailDocente" type="checkbox"/> Docente recebeu e-mail de validação.</label><label class="check"><input data-k="valEmailFlag" type="checkbox"/> E-mail Validação Enviado ficou marcado automaticamente.</label><label class="check"><input data-k="valStatus" type="checkbox"/> Status de Validação ficou como Validado.</label><label class="check"><input data-k="valItemGuardado" type="checkbox"/> Item guardado sem erro na lista Guiões.</label></div>
+<ol class="steps-list"><li>Abra a lista <strong>Guiões</strong>.</li><li>Abra o item submetido no teste e confirme que corresponde à última versão atualizada pelo docente.</li><li>Altere apenas o campo <strong>Validado</strong> para <strong>Sim</strong>.</li><li><strong>Não</strong> marque manualmente <strong>E-mail Validação Enviado</strong>. O fluxo deve marcar isto sozinho.</li><li>Guarde o item.</li><li>Verifique se o docente recebeu o e-mail automático de validação.</li><li>Volte à lista Guiões e confirme se <strong>E-mail Validação Enviado</strong> ficou marcado automaticamente e se <strong>Status de Validação</strong> ficou como <strong>Validado</strong>.</li></ol>
+<div class="checks"><label class="check"><input data-k="valMarquei" type="checkbox"/> Marquei Validado = Sim.</label><label class="check"><input data-k="valNaoMarqueiEmail" type="checkbox"/> Não marquei manualmente E-mail Validação Enviado.</label><label class="check"><input data-k="valEmailDocente" type="checkbox"/> Docente recebeu e-mail de validação.</label><label class="check"><input data-k="valEmailFlag" type="checkbox"/> E-mail Validação Enviado ficou marcado automaticamente.</label><label class="check"><input data-k="valStatus" type="checkbox"/> Status de Validação ficou como Validado.</label><label class="check"><input data-k="valItemGuardado" type="checkbox"/> Item guardado sem erro na lista Guiões.</label><label class="check"><input data-k="valVersaoAtualizada" type="checkbox"/> Validei a versão final/atualizada do guião.</label></div>
 <h3>Registo na lista Repositório de Práticas Pedagógicas</h3>
 <p class="intro">Depois de marcar <strong>Validado = Sim</strong> e guardar, teste o comportamento de acordo com a autorização assinalada no item.</p>
 <p><a class="btn secondary" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Repositrio%20de%20Prticas%20Pedaggicas/AllItems.aspx" target="_blank">Abrir lista Repositório de Práticas Pedagógicas</a></p>
+<p class="note">Se o guião tiver sido atualizado antes da validação, confirme se o item enviado para o repositório corresponde à versão final atualizada e se não foi criado registo duplicado por causa da edição.</p>
 <h3>Caso A — Autoriza Repositório = Sim</h3>
 <div class="checks"><label class="check"><input data-k="repoAutorizado" type="checkbox"/> Autoriza Repositório estava marcado como Sim.</label><label class="check"><input data-k="repoEmailSim" type="checkbox"/> E-mail de validação foi enviado ao docente.</label><label class="check"><input data-k="repoEmailFlagSim" type="checkbox"/> E-mail Validação Enviado ficou como Sim.</label><label class="check"><input data-k="repoStatusSim" type="checkbox"/> Status de Validação ficou como Validado.</label><label class="check"><input data-k="repoPublicado" type="checkbox"/> Publicado no Repositório ficou como Sim.</label><label class="check"><input data-k="repoEstado" type="checkbox"/> Estado Repositório ficou como Disponível.</label><label class="check"><input data-k="repoItem" type="checkbox"/> Foi criado item na lista Repositório de Práticas Pedagógicas.</label></div>
 <h3>Caso B — Autoriza Repositório = Não</h3>
@@ -880,6 +888,9 @@ ${d.obsPDF||'—'}
 
 Submissão/e-mail inicial:
 ${d.obsSub||'—'}
+
+Edição do guião:
+${d.obsEdicao||'—'}
 
 Notificação Teams:
 ${d.obsTeams||'—'}
