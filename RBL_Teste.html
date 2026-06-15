@@ -10438,14 +10438,14 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 
 
 <script id="guioes-itemid-loader-v5">
-/* Camada institucional v5 — edição por itemId.
+/* Camada institucional v6 — edição por itemId.
    Corrige: chamada real ao fluxo sem passar pelos fetch-patches do template,
    leitura de respostas aninhadas do Power Automate, preenchimento por IDs/estruturaPedagogica,
    chips de Curso(s), dropdown fechada e manutenção do itemId no submit. */
 (function(){
   'use strict';
-  if(window.__guioesItemIdLoaderV5) return;
-  window.__guioesItemIdLoaderV5 = true;
+  if(window.__guioesItemIdLoaderV6) return;
+  window.__guioesItemIdLoaderV6 = true;
   window.__guioesCarregamentoPorItemIdV2Instalado = true;
 
   var OBTER_GUIAO_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
@@ -10762,26 +10762,27 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     return {ok:true, itemId:itemId, cursos:cursos, unidade:unidade, ucs:ucs};
   }
   function requestGuiao(itemId){
-    return new Promise(function(resolve, reject){
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', OBTER_GUIAO_URL, true);
-      xhr.timeout = 30000;
-      try { xhr.setRequestHeader('Content-Type','application/json'); } catch(e){}
-      xhr.onload = function(){
-        var text = xhr.responseText || '';
+    /* V6: usa a mesma forma de chamada dos templates que funcionam (PBL/SBL/CBL):
+       fetch + Content-Type application/json + body apenas com {itemId}. */
+    return fetch(OBTER_GUIAO_URL, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({itemId: String(itemId)})
+    }).then(function(res){
+      return res.text().then(function(text){
         var data = parseMaybeJson(text) || {raw:text};
-        if(xhr.status < 200 || xhr.status >= 300){ reject(new Error('HTTP ' + xhr.status + (text ? ': ' + text.slice(0,280) : ''))); return; }
-        resolve(unwrapResponse(data));
-      };
-      xhr.onerror = function(){ reject(new Error('Falha de rede/CORS ao chamar o fluxo Obter guião por ID')); };
-      xhr.ontimeout = function(){ reject(new Error('Timeout ao chamar o fluxo Obter guião por ID')); };
-      xhr.send(JSON.stringify({itemId:String(itemId), id:String(itemId), ID:String(itemId)}));
+        if(!res.ok || data.ok === false || data.success === false){
+          var msg = (data && (data.message || data.error || data.errorMessage)) || text || ('HTTP ' + res.status);
+          throw new Error(msg);
+        }
+        return unwrapResponse(data);
+      });
     });
   }
   async function loadFromItemId(){
     var itemId = getItemId();
-    if(!itemId || window.__guioesCarregamentoPorItemIdExecutadoV5) return;
-    window.__guioesCarregamentoPorItemIdExecutadoV5 = true;
+    if(!itemId || window.__guioesCarregamentoPorItemIdExecutadoV6) return;
+    window.__guioesCarregamentoPorItemIdExecutadoV6 = true;
     window.__guioesCarregamentoPorItemIdExecutado = true;
     window.__guioesIsLoadingFromItemId = true;
     if(document.body) document.body.classList.add('guioes-loading-from-itemid');
