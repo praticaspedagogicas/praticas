@@ -17139,7 +17139,9 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
       if(!res.ok || data.ok === false || data.success === false){
         throw new Error((data && (data.message || data.error)) || text || ('HTTP ' + res.status));
       }
+      window.__guioesDadosCarregadosPorItemId = data;
       preencherFormulario(data);
+      if(typeof window.__sblPreencherQuadroAcaoFromGuiao === 'function') window.__sblPreencherQuadroAcaoFromGuiao(data);
       notify('Dados do guião carregados para edição.', 'ok', 4500);
     } catch(e) {
       console.error('Erro ao carregar guião por itemId:', e);
@@ -17149,6 +17151,163 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   function init(){ setTimeout(carregarGuiaoPorId, 450); }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
+})();
+</script>
+
+
+<script id="sbl-quadro-acao-edicao-itemid-fix">
+/* ===== PATCH SBL — edição por itemId: quadro Ação/Reação =====
+   Garante IDs estáveis nas linhas dinâmicas e repõe valores guardados em estruturaPedagogica. */
+(function(){
+  'use strict';
+  if(window.__sblQuadroAcaoEdicaoItemIdFix) return;
+  window.__sblQuadroAcaoEdicaoItemIdFix = true;
+
+  function clean(v){ return String(v == null ? '' : v).trim(); }
+  function norm(v){
+    return clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+      .replace(/[º°ª()|\\/\-_.:;,[\]]/g,' ')
+      .replace(/\s+/g,' ').trim().toLowerCase();
+  }
+  function parseEstrutura(raw){
+    if(!raw) return {};
+    if(typeof raw === 'object') return raw;
+    try { return JSON.parse(String(raw)); } catch(e){ return {}; }
+  }
+  function table(){ return document.getElementById('quadroAcao'); }
+  function dataRows(){
+    var t = table();
+    if(!t) return [];
+    return Array.prototype.slice.call(t.querySelectorAll('tr')).filter(function(row){
+      return row.querySelectorAll('textarea').length >= 2 && !row.classList.contains('sbl-acoes-footer-row') && !row.querySelector('.btn-plus,.btn-minus');
+    });
+  }
+  function ensureSblActionRowIds(){
+    dataRows().forEach(function(row, idx){
+      var i = idx + 1;
+      var tas = row.querySelectorAll('textarea');
+      if(tas[0]){
+        tas[0].id = 'sbl_acao_' + i;
+        tas[0].name = 'sbl_acao_' + i;
+      }
+      if(tas[1]){
+        tas[1].id = 'sbl_reacao_' + i;
+        tas[1].name = 'sbl_reacao_' + i;
+      }
+    });
+  }
+  function addRowsUntil(count){
+    var t = table();
+    if(!t) return;
+    var rows = dataRows();
+    while(rows.length < count){
+      if(typeof window.addRow === 'function') window.addRow();
+      else {
+        var controls = t.querySelector('.sbl-acoes-footer-row') || t.querySelector('tr:last-child');
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td style="padding:10px;border-bottom:1px solid #ddd;"><textarea rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td><td style="padding:10px;border-bottom:1px solid #ddd;border-left:1px solid #ddd;"><textarea rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td>';
+        if(controls && controls.parentNode) controls.parentNode.insertBefore(tr, controls);
+        else t.appendChild(tr);
+      }
+      rows = dataRows();
+      if(rows.length > 60) break;
+    }
+    ensureSblActionRowIds();
+  }
+  function dispatch(el){
+    if(!el) return;
+    try { el.dispatchEvent(new Event('input', {bubbles:true})); } catch(e){}
+    try { el.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
+  }
+  function setVal(id, val){
+    var el = document.getElementById(id);
+    if(!el) return false;
+    el.value = clean(val);
+    dispatch(el);
+    return true;
+  }
+  function valueFromKeys(values, keys){
+    for(var i=0;i<keys.length;i++){
+      if(clean(values[keys[i]])) return clean(values[keys[i]]);
+    }
+    return '';
+  }
+  function lineValuesByLabel(estrutura){
+    var lines = [];
+    if(Array.isArray(estrutura && estrutura.lines)) lines = estrutura.lines;
+    else if(typeof (estrutura && estrutura.resumoCampos) === 'string') lines = estrutura.resumoCampos.split(/\n+/);
+    var out = [];
+    lines.forEach(function(line){
+      line = clean(line);
+      if(!line) return;
+      var idx = line.indexOf(':');
+      if(idx < 0) return;
+      var label = line.slice(0, idx);
+      var value = line.slice(idx + 1).trim();
+      var n = norm(label);
+      if(!value) return;
+      // Nos SBL anteriores, as células sem id do quadro eram guardadas como linhas repetidas com o rótulo "Guião para ator".
+      if(n === 'guiao para ator' || n === 'guiao ator' || n.indexOf('guiao para ator') !== -1){
+        out.push(value);
+      }
+    });
+    return out;
+  }
+  function preencherSblQuadroAcao(data){
+    var t = table();
+    if(!t || !data) return;
+    ensureSblActionRowIds();
+    var estrutura = parseEstrutura(data.estruturaPedagogica);
+    var values = (estrutura && estrutura.values && typeof estrutura.values === 'object') ? estrutura.values : {};
+    var pares = [];
+
+    for(var i=1;i<=60;i++){
+      var acao = valueFromKeys(values, ['sbl_acao_'+i, 'acao_'+i, 'acaoAtor_'+i, 'acaoAtorPersonagem_'+i, 'ator_acao_'+i]);
+      var reacao = valueFromKeys(values, ['sbl_reacao_'+i, 'reacao_'+i, 'reacaoTecnico_'+i, 'reacaoTecnicoProfissional_'+i, 'tecnico_reacao_'+i]);
+      if(!acao && !reacao) continue;
+      pares.push({acao:acao, reacao:reacao});
+    }
+
+    if(!pares.length){
+      var seq = lineValuesByLabel(estrutura);
+      for(var j=0;j<seq.length;j+=2){
+        pares.push({acao: seq[j] || '', reacao: seq[j+1] || ''});
+      }
+    }
+
+    pares = pares.filter(function(p){ return clean(p.acao) || clean(p.reacao); });
+    if(!pares.length) return;
+
+    addRowsUntil(Math.max(5, pares.length));
+    pares.forEach(function(p, idx){
+      var i = idx + 1;
+      setVal('sbl_acao_' + i, p.acao);
+      setVal('sbl_reacao_' + i, p.reacao);
+    });
+    try { if(typeof window.renderProgress === 'function') window.renderProgress(); } catch(e){}
+  }
+
+  window.__sblEnsureActionRowIds = ensureSblActionRowIds;
+  window.__sblPreencherQuadroAcaoFromGuiao = preencherSblQuadroAcao;
+
+  function wrapAddRow(){
+    if(typeof window.addRow !== 'function' || window.addRow.__sblIdsWrapped) return;
+    var original = window.addRow;
+    window.addRow = function(){
+      var ret = original.apply(this, arguments);
+      setTimeout(ensureSblActionRowIds, 0);
+      return ret;
+    };
+    window.addRow.__sblIdsWrapped = true;
+  }
+  function init(){
+    ensureSblActionRowIds();
+    wrapAddRow();
+    if(window.__guioesDadosCarregadosPorItemId) preencherSblQuadroAcao(window.__guioesDadosCarregadosPorItemId);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+  [200, 700, 1500, 3000].forEach(function(ms){ setTimeout(init, ms); });
 })();
 </script>
 
