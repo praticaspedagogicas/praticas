@@ -1,4 +1,3 @@
-/* SBL LIMPAR DATA HORA E VALIDACAO CIRURGICA 2026-06-16 */
 
 (function(){
 'use strict';
