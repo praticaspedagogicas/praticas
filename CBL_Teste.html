@@ -2995,11 +2995,11 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 <div class="header-grid">
 <div class="header-card">
 <label>Unidade Orgânica</label>
-<select id="unidadeOrganica"><option value="">Selecionar</option><option>FCST</option><option>FCS</option><option selected="selected">IADE</option><option>IPAM Porto</option><option>IPAM Lisboa</option></select>
+<select id="unidadeOrganica" required="required" aria-required="true"><option value="">Selecionar</option><option>FCST</option><option>FCS</option><option selected="selected">IADE</option><option>IPAM Porto</option><option>IPAM Lisboa</option></select>
 </div>
 <div class="header-card">
 <label>Modalidade</label>
-<select id="modalidade">
+<select id="modalidade" required="required" aria-required="true">
 <option value="">Selecionar</option>
 <option>Presencial</option>
 <option selected="selected">EaD</option>
@@ -3007,7 +3007,7 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 </div>
 <div class="header-card">
 <label>Semestre</label>
-<select id="semestre">
+<select id="semestre" required="required" aria-required="true">
 <option value="">Selecionar</option>
 <option selected="selected">1.º semestre</option>
 <option>2.º semestre</option>
@@ -3016,7 +3016,7 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 </div>
 <div class="header-card">
 <label>Turma/Edição</label>
-<select id="turmaEdicao" placeholder="Ex.: Turma A">
+<select id="turmaEdicao" placeholder="Ex.: Turma A" required="required" aria-required="true">
 <option value="">Selecionar</option>
 <option selected="selected">Turma 1</option>
 <option>Turma 2</option>
@@ -3031,7 +3031,7 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 <td class="cbl-course-cell" colspan="3"><div class="cbl-course-picker" data-multicourse="true">
 <input id="curso" type="hidden" value="Licenciatura em Design Visual EaD"/>
 <div class="cbl-course-search-row">
-<input autocomplete="off" id="cursoBusca" list="cblCursosList" placeholder="Digite para procurar e selecione um curso" type="text"/>
+<input autocomplete="off" id="cursoBusca" list="cblCursosList" placeholder="Digite para procurar e selecione um curso" type="text" required="required" aria-required="true"/>
 </div>
 <div aria-live="polite" class="cbl-course-chips" id="cblCursosSelecionados"></div>
 <div class="cbl-course-helper">Selecione um curso na lista. Para adicionar mais cursos, repita a seleção.</div>
@@ -3039,17 +3039,17 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 </tr>
 <tr>
 <th class="cbl-uc-label">Unidade(s) Curricular(es):</th>
-<td class="cbl-uc-cell" colspan="3"><textarea class="cbl-expandable-field" id="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado">Design de Interfaces Digitais; Projeto de Comunicação Visual; Experiência do Utilizador</textarea></td>
+<td class="cbl-uc-cell" colspan="3"><textarea class="cbl-expandable-field" id="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado" required="required" aria-required="true">Design de Interfaces Digitais; Projeto de Comunicação Visual; Experiência do Utilizador</textarea></td>
 </tr>
 <tr>
 <th>Ano letivo:</th>
-<td><input id="ano" placeholder="Ex.: 2026/2027" type="text" value="2026/2027"/></td>
+<td><input id="ano" placeholder="Ex.: 2026/2027" type="text" value="2026/2027" required="required" aria-required="true"/></td>
 <th>Docente(s):</th>
-<td><textarea class="cbl-expandable-field" id="professor" placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva">Prof.ª Ana Luiza Marques; Prof. Miguel Santos</textarea></td>
+<td><textarea class="cbl-expandable-field" id="professor" placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva" required="required" aria-required="true">Prof.ª Ana Luiza Marques; Prof. Miguel Santos</textarea></td>
 </tr>
 <tr class="cbl-email-numeric-row">
 <th>Email(s):</th>
-<td class="cbl-email-cell"><textarea class="cbl-expandable-field" id="emails" placeholder="Ex.: docente@universidadeeuropeia.pt">ana.luiza@universidade.pt; miguel.santos@universidade.pt</textarea></td>
+<td class="cbl-email-cell"><textarea class="cbl-expandable-field" id="emails" placeholder="Ex.: docente@universidadeeuropeia.pt" required="required" aria-required="true">ana.luiza@universidade.pt; miguel.santos@universidade.pt</textarea></td>
 <td class="cbl-numeric-pair-cell" colspan="2">
 <div aria-label="Dados numéricos da turma" class="cbl-numeric-pair">
 <div class="cbl-numeric-mini">
@@ -3069,11 +3069,11 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 <div class="cbl-meta-grid">
 <div class="cbl-meta-field">
 <label>Autoria:</label>
-<input id="autoria" placeholder="Ex.: Ana Luiza Marques" type="text" value="Ana Luiza Marques"/>
+<input id="autoria" placeholder="Ex.: Ana Luiza Marques" type="text" value="Ana Luiza Marques" required="required" aria-required="true"/>
 </div>
 <div class="cbl-meta-field">
 <label>Estado do guião:</label>
-<select id="estado">
+<select id="estado" required="required" aria-required="true">
 <option value="">Selecionar</option>
 <option selected="">Novo</option>
 <option>Atualizado</option>
@@ -3146,11 +3146,11 @@ Os estudantes deverão investigar necessidades reais, formular oportunidades de 
   </p>
 <div aria-label="Autorização para integração no repositório" class="cbl-repository-options" role="radiogroup">
 <label class="cbl-repository-option" for="autorizaRepositorioSim">
-<input checked="" id="autorizaRepositorioSim" name="autorizaRepositorio" type="radio" value="Sim"/>
+<input checked="" id="autorizaRepositorioSim" name="autorizaRepositorio" type="radio" value="Sim" required="required" aria-required="true"/>
 <span>Sim, autorizo a integração deste guião no repositório após validação.</span>
 </label>
 <label class="cbl-repository-option" for="autorizaRepositorioNao">
-<input id="autorizaRepositorioNao" name="autorizaRepositorio" type="radio" value="Não"/>
+<input id="autorizaRepositorioNao" name="autorizaRepositorio" type="radio" value="Não" required="required" aria-required="true"/>
 <span>Não autorizo a integração deste guião no repositório.</span>
 </label>
 </div>
@@ -4005,7 +4005,193 @@ function makePdfFileName(){
     }
     return el.id || el.name || 'Campo';
   }
-  function collectPayload(){
+  
+
+  /* PATCH INSTITUCIONAL — compatibilidade com edição via itemId (Power Automate Guiões) */
+  function getGuiaoItemIdFromUrl(){
+    try {
+      return new URLSearchParams(window.location.search).get('itemId') || '';
+    } catch(e) {
+      return '';
+    }
+  }
+
+  function normalizeGuiaoPowerAutomatePayload(payload){
+    payload = payload || {};
+    var formData = payload.formData || {};
+    function first(){
+      for(var i = 0; i < arguments.length; i++){
+        var value = arguments[i];
+        if(value !== undefined && value !== null && String(value).trim() !== '') return String(value).trim();
+      }
+      return '';
+    }
+
+    function domValue(selector){
+      try {
+        var el = document.querySelector(selector);
+        return el ? String(el.value || '').trim() : '';
+      } catch(e) {
+        return '';
+      }
+    }
+    function guiaoIntervaloHora(){
+      var inicio = first(formData.hora_inicio, formData.horaInicio, formData.hora, domValue('#hora_inicio'), domValue('#hora'), domValue('[name="hora"]'));
+      var fim = first(formData.hora_fim, formData.horaFim, domValue('#hora_fim'), domValue('[name="hora_fim"]'));
+      return (inicio && fim) ? (inicio + '–' + fim) : '';
+    }
+
+    payload.itemId = first(payload.itemId, getGuiaoItemIdFromUrl());
+    payload.title = first(payload.title, payload.tituloProjeto, payload.ucs, payload.cursos, 'Guião');
+    payload.templateType = first(payload.templateType, formData.templateType);
+    payload.submittedAt = first(payload.submittedAt, formData.submittedAt, new Date().toISOString());
+    payload.cursos = first(payload.cursos, payload.curso, formData.cursos, formData.curso);
+    payload.ucs = first(payload.ucs, payload.uc, formData.ucs, formData.uc);
+    payload.cenarioAprendizagem = first(payload.cenarioAprendizagem, payload.cenario, payload.scenario, formData.cenarioAprendizagem);
+    payload.docentes = first(payload.docentes, payload.docenteTexto, formData.docentes, formData.docente, formData.professor);
+    payload.nEstudantes = first(payload.nEstudantes, payload.numeroEstudantes, formData.nEstudantes, formData.numeroEstudantes, formData.n_estudantes, formData.numero_estudantes);
+    payload.nGrupos = first(payload.nGrupos, payload.numeroGrupos, formData.nGrupos, formData.numeroGrupos, formData.n_grupos, formData.numero_grupos);
+    payload.estadoGuiao = first(payload.estadoGuiao, formData.estadoGuiao, formData.estado);
+    payload.autorias = first(payload.autorias, payload.autoria, formData.autorias, formData.autoria);
+    payload.unidadeOrganica = first(payload.unidadeOrganica, formData.unidadeOrganica, formData.unidade_organica);
+    payload.modalidade = first(payload.modalidade, formData.modalidade);
+    payload.semestre = first(payload.semestre, formData.semestre);
+    payload.turmaEdicao = first(payload.turmaEdicao, payload.turma, formData.turmaEdicao, formData.turma_edicao, formData.turma);
+    payload.anoLetivo = first(payload.anoLetivo, payload.ano, formData.anoLetivo, formData.AnoLetivo, formData.ano);
+    payload.autorizaRepositorio = first(payload.autorizaRepositorio, payload.autorizaPartilhaInterna, payload.partilhaRepositorio, formData.autorizaRepositorio);
+    payload.data = first(payload.data, payload.Data, payload.date, formData.data, formData.Data, formData.date, formData.calendarizacao, formData.dataSessao, formData.data_simulacao, formData.aula1_data, domValue('#data'), domValue('[name="data"]'), domValue('#calendarizacao'), domValue('[id^="aula"][id$="_data"]'), domValue('#entregaveis input[type="date"]'), domValue('input[type="date"]'));
+    payload.hora = first(payload.hora, payload.Hora, formData.hora, formData.Hora, guiaoIntervaloHora(), formData.hora_inicio, formData.hora_fim, formData.aula1_duracao, domValue('#hora'), domValue('[name="hora"]'), domValue('#hora_inicio'), domValue('#hora_fim'), domValue('[id^="aula"][id$="_duracao"]'), domValue('input[type="time"]'));
+    payload.estruturaPedagogica = first(payload.estruturaPedagogica, formData.estruturaPedagogica);
+    payload.emails = first(payload.emails, payload.email, formData.emails, formData.email);
+    payload.organizacoesContacto = first(payload.organizacoesContacto, formData.organizacoesContacto, formData.organizacao, formData.organizacoes, formData.contacto, formData.contato);
+    payload.tituloProjeto = first(payload.tituloProjeto, formData.tituloProjeto, formData.titulo_projeto);
+    payload.pdfFileName = first(payload.pdfFileName);
+    payload.pdfBase64 = first(payload.pdfBase64);
+    payload.html = (payload.html === undefined || payload.html === null) ? '' : payload.html;
+    return payload;
+  }
+
+  /* PATCH INSTITUCIONAL — fecho seguro do modo edição via itemId (não altera layout/PDF) */
+  function guiaoFlowResponseToObject(text){
+    if(!text) return {};
+    try { return JSON.parse(text); } catch(e) { return { message: String(text || '') }; }
+  }
+
+  function getGuiaoFlowItemId(result){
+    result = result || {};
+    return String(result.itemId || result.ItemId || result.ID || result.id || '').trim();
+  }
+
+  function getGuiaoFlowMode(result){
+    result = result || {};
+    return String(result.mode || result.Mode || '').trim().toLowerCase();
+  }
+
+
+  function getGuiaoSubmissionMode(result){
+    var mode = getGuiaoFlowMode(result);
+    if(mode === 'updated' || mode === 'created') return mode;
+    return isGuiaoEditMode() ? 'updated' : 'created';
+  }
+
+  function getGuiaoSuccessMessage(result){
+    return getGuiaoSubmissionMode(result) === 'updated'
+      ? 'Guião atualizado com sucesso. As alterações foram enviadas para nova validação.'
+      : 'Guião submetido com sucesso. O seu guião foi enviado para validação.';
+  }
+
+  function persistGuiaoItemIdFromResponse(result){
+    var returnedItemId = getGuiaoFlowItemId(result);
+    if(!returnedItemId) return;
+    window.__lastGuiaoFlowResponse = result || {};
+    try { window.localStorage.setItem('guiao_itemId', returnedItemId); } catch(e) {}
+    try {
+      var url = new URL(window.location.href);
+      if(url.searchParams.get('itemId') !== returnedItemId){
+        url.searchParams.set('itemId', returnedItemId);
+        window.history.replaceState(window.history.state, document.title, url.toString());
+      }
+    } catch(e) {}
+    updateGuiaoSubmitButtonText();
+  }
+
+  function isGuiaoEditMode(){
+    return !!getGuiaoItemIdFromUrl();
+  }
+
+  function guiaoSubmitButtons(){
+    return Array.from(document.querySelectorAll('button, input[type="button"], input[type="submit"]')).filter(function(btn){
+      var txt = String(btn.textContent || btn.value || '').toLowerCase();
+      return btn.id === 'btnEnviarValidacao' || btn.id === 'btnValidacaoReal' ||
+        txt.indexOf('enviar para valida') !== -1 || txt.indexOf('submeter') !== -1 || txt.indexOf('submiss') !== -1 ||
+        txt.indexOf('atualizar guião') !== -1 || txt.indexOf('guardar alterações') !== -1;
+    });
+  }
+
+  function updateGuiaoSubmitButtonText(){
+    var editMode = isGuiaoEditMode();
+    guiaoSubmitButtons().forEach(function(btn){
+      var targetLabel = editMode ? 'Atualizar guião' : (btn.dataset.defaultSubmitLabel || btn.textContent || btn.value || 'Enviar para Validação');
+      if(!btn.dataset.defaultSubmitLabel){
+        var current = String(btn.textContent || btn.value || '').trim();
+        btn.dataset.defaultSubmitLabel = current && current !== 'Atualizar guião' ? current : 'Enviar para Validação';
+      }
+      if(btn.tagName === 'INPUT') btn.value = targetLabel;
+      else btn.textContent = targetLabel;
+    });
+  }
+
+  function isGuiaoPowerAutomateRequest(input, init){
+    try {
+      var url = typeof input === 'string' ? input : (input && input.url) || '';
+      var method = String((init && init.method) || (input && input.method) || 'GET').toUpperCase();
+      return method === 'POST' && url && (url.indexOf('powerautomate') !== -1 || url.indexOf('/workflows/') !== -1 || url.indexOf('powerplatform.com') !== -1);
+    } catch(e) { return false; }
+  }
+
+  function normalizeGuiaoFetchBody(init){
+    if(!init || !init.body || typeof init.body !== 'string') return init;
+    try {
+      var payload = JSON.parse(init.body);
+      if(payload && typeof payload === 'object' && !Array.isArray(payload)){
+        normalizeGuiaoPowerAutomatePayload(payload);
+        init.body = JSON.stringify(payload);
+      }
+    } catch(e) {}
+    return init;
+  }
+
+  function installGuiaoPowerAutomateFetchGuard(){
+    if(window.__guiaoPowerAutomateFetchGuardInstalled) return;
+    if(typeof window.fetch !== 'function') return;
+    window.__guiaoPowerAutomateFetchGuardInstalled = true;
+    var nativeFetch = window.fetch.bind(window);
+    window.fetch = async function(input, init){
+      var guarded = isGuiaoPowerAutomateRequest(input, init);
+      if(guarded){
+        init = Object.assign({}, init || {});
+        normalizeGuiaoFetchBody(init);
+      }
+      var response = await nativeFetch(input, init);
+      if(guarded){
+        try {
+          var clone = response.clone();
+          clone.text().then(function(text){
+            var result = guiaoFlowResponseToObject(text);
+            window.__lastGuiaoFlowResponse = result || {};
+            persistGuiaoItemIdFromResponse(result);
+          }).catch(function(){});
+        } catch(e) {}
+      }
+      return response;
+    };
+  }
+
+  installGuiaoPowerAutomateFetchGuard();
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', updateGuiaoSubmitButtonText);
+  else updateGuiaoSubmitButtonText();
+
+function collectPayload(){
     var values = collectValues();
     var cursosPayload = String(values.curso || (document.getElementById('curso') && document.getElementById('curso').value) || '').trim();
     var lines = allFields().map(function(el){
@@ -4123,14 +4309,17 @@ if(submitLock) return;
     toast('A enviar para validação...');
     try{
       var payload = collectPayload();
+      normalizeGuiaoPowerAutomatePayload(payload);
       payload.pdfFileName = makePdfFileName();
       payload.pdfBase64 = await generatePdfBase64();
       payload.html = ''; // PDF final é gerado no próprio HTML via jsPDF; não enviar HTML para conversão.
       var res = await fetch(FLOW_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
       var txt = await res.text();
+      var responseJson = guiaoFlowResponseToObject(txt);
+      persistGuiaoItemIdFromResponse(responseJson);
       if(!res.ok) throw new Error('Power Automate respondeu ' + res.status + '. ' + txt);
-      toast('Guião submetido com sucesso. O seu guião foi enviado para validação.', 'ok');
-      showSubmissionConfirmation();
+      toast(getGuiaoSuccessMessage(responseJson || window.__lastGuiaoFlowResponse), 'ok');
+      showSubmissionConfirmation(responseJson);
     }catch(e){
       console.error(e);
       toast('Não foi possível enviar para validação.', 'error');
@@ -4143,6 +4332,7 @@ if(submitLock) return;
   window.submitToGuiesPowerAutomate = submitValidation;
 
   function showSubmissionConfirmation(result){
+    result = result || window.__lastGuiaoFlowResponse || {};
     try {
       let panel = document.getElementById("powerAutomateSubmissionConfirmation");
       if (!panel) {
@@ -4160,8 +4350,11 @@ if(submitLock) return;
         if (actions && actions.parentNode) actions.parentNode.insertBefore(panel, actions);
         else document.body.appendChild(panel);
       }
-      const itemInfo = result && (result.itemId || result.ID || result.id) ? ` — ID ${result.itemId || result.ID || result.id}` : "";
-      panel.innerHTML = `<strong>✅ Guião submetido com sucesso.</strong><br>O seu guião foi enviado para validação${itemInfo}.<br>Pode fechar esta página.`;
+      const itemInfo = '';
+      var modo = getGuiaoSubmissionMode(result);
+      var titulo = modo === "updated" ? "✅ Guião atualizado com sucesso." : "✅ Guião submetido com sucesso.";
+      var texto = modo === "updated" ? "As alterações foram enviadas para nova validação" : "O seu guião foi enviado para validação";
+      panel.innerHTML = `<strong>${titulo}</strong><br>${texto}.<br>Pode fechar esta página.`;
       panel.scrollIntoView({behavior:"smooth", block:"center"});
     } catch(e) {}
   }
@@ -5375,5 +5568,769 @@ body.cbl-exporting .section:has(#calendarizacao),
 <style id="guiao-required-submit-validation-v1-style">
 .guiao-required-missing{ outline:3px solid rgba(227,30,36,.28) !important; outline-offset:2px !important; }
 </style>
+
+
+<script id="guioes-camada-padrao-titulo-anoletivo-cursos-v1">
+(function(){
+  'use strict';
+
+  function clean(v){
+    return String(v == null ? '' : v).replace(/\s+/g,' ').trim();
+  }
+
+  function strip(v){
+    try{
+      return clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    }catch(e){
+      return clean(v).toLowerCase();
+    }
+  }
+
+  function byId(ids){
+    for(var i=0;i<ids.length;i++){
+      var el=document.getElementById(ids[i]);
+      if(el){
+        var v = ('value' in el) ? el.value : el.textContent;
+        if(clean(v)) return clean(v);
+      }
+    }
+    return '';
+  }
+
+  function firstUnit(v){
+    var parts = String(v || '').split(/[;\n]+/).map(clean).filter(Boolean);
+    return parts[0] || clean(v);
+  }
+
+  function inferScenario(payload){
+    var raw = clean(payload && (payload.templateType || payload.cenarioAprendizagem)) ||
+              clean((document.querySelector('h1') || {}).textContent || document.title || '');
+    var s = strip(raw);
+    if(/\bproj\b|project[- ]?based|projeto interdisciplinar/.test(s)) return 'PROJ-BL';
+    if(/\bpbl\b|problem[- ]?based/.test(s)) return 'PBL';
+    if(/\bcbl\b|challenge[- ]?based/.test(s)) return 'CBL';
+    if(/\brbl\b|research[- ]?based|laboratorio de investigacao/.test(s)) return 'RBL';
+    if(/\bsbl\b|simulacao|simulacao complexa/.test(s)) return 'SBL';
+    return raw || 'Guião';
+  }
+
+  function buildTitle(payload){
+    var scenario = inferScenario(payload);
+    var ucs = clean(payload && payload.ucs) ||
+              byId(['uc','ucs','unidadeCurricular','unidadesCurriculares','unidades_curriculares']);
+    var ucPrincipal = firstUnit(ucs);
+    if(ucPrincipal) return scenario + ' - ' + ucPrincipal;
+    return clean(payload && payload.title) || scenario;
+  }
+
+  function normalizePayload(payload){
+    if(!payload || typeof payload !== 'object') return payload;
+
+    var looksLikeGuiao = payload.pdfBase64 || payload.templateType || payload.cenarioAprendizagem || payload.html;
+    if(!looksLikeGuiao) return payload;
+
+    payload.title = buildTitle(payload);
+
+    var anoDom = byId(['anoLetivo','anoLetivoProjeto','ano_letivo','ano','anoLetivoInput']);
+    if(anoDom) payload.anoLetivo = anoDom;
+    else if(!clean(payload.anoLetivo) && payload.values && typeof payload.values === 'object'){
+      payload.anoLetivo = clean(payload.values.anoLetivo || payload.values.ano_letivo || payload.values.ano || '');
+    }
+
+    var dataDom = byId(['data','calendarizacao','dataSimulacao','data_simulacao','dataSessao','data_sessao']);
+    if(dataDom && !clean(payload.data)) payload.data = dataDom;
+
+    var hi = byId(['hora_inicio','horaInicio','hora_inicial','horaInicial']);
+    var hf = byId(['hora_fim','horaFim','hora_final','horaFinal']);
+    var horaDom = byId(['hora']);
+    if((hi || hf) && !clean(payload.hora)) payload.hora = [hi,hf].filter(Boolean).join(' - ');
+    else if(horaDom && !clean(payload.hora)) payload.hora = horaDom;
+
+    return payload;
+  }
+
+  function installFetchPatch(){
+    if(window.__guioesPayloadPadraoTituloAnoCursosV1) return;
+    if(typeof window.fetch !== 'function') return;
+    window.__guioesPayloadPadraoTituloAnoCursosV1 = true;
+    var nativeFetch = window.fetch;
+    window.fetch = function(input, init){
+      try{
+        if(init && typeof init.body === 'string'){
+          var body = init.body.trim();
+          if(body.charAt(0)==='{'){
+            var payload = JSON.parse(body);
+            init.body = JSON.stringify(normalizePayload(payload));
+          }
+        }
+      }catch(e){}
+      return nativeFetch.apply(this, arguments);
+    };
+  }
+
+  function courseWordsMatch(valueNorm, queryNorm){
+    if(!queryNorm) return false;
+    var qWords = queryNorm.split(/\s+/).filter(Boolean);
+    var vWords = valueNorm.split(/\s+/).filter(Boolean);
+    if(!qWords.length) return false;
+    var pos = 0;
+    for(var i=0;i<qWords.length;i++){
+      var qw = qWords[i];
+      var found = false;
+      for(var j=pos;j<vWords.length;j++){
+        if(vWords[j].indexOf(qw) === 0){
+          found = true;
+          pos = j + 1;
+          break;
+        }
+      }
+      if(!found) return false;
+    }
+    return true;
+  }
+
+  function scoreCourse(value, query){
+    var v = strip(value);
+    var q = strip(query);
+    if(!q) return 0;
+    if(v === q) return 0;
+    if(v.indexOf(q) === 0) return 1;
+    if(courseWordsMatch(v, q)) return 2;
+    if(v.indexOf(q) >= 0) return 3;
+    var tokens = q.split(/\s+/).filter(Boolean);
+    if(tokens.length && tokens.every(function(t){ return v.indexOf(t) >= 0; })) return 4;
+    return 99;
+  }
+
+  function installCourseSearchFix(){
+    function initInput(input){
+      if(!input || input.dataset.guioesCursoFixV1 === '1') return;
+      var listId = input.getAttribute('list');
+      if(!listId) return;
+      var dl = document.getElementById(listId);
+      if(!dl) return;
+
+      var original = Array.prototype.slice.call(dl.querySelectorAll('option')).map(function(o, idx){
+        return { value: clean(o.value || o.textContent), label: o.getAttribute('label') || '', idx: idx };
+      }).filter(function(o){ return !!o.value; });
+
+      if(!original.length) return;
+      input.dataset.guioesCursoFixV1 = '1';
+
+      function reorder(){
+        var q = input.value || '';
+        var sorted = original.slice().sort(function(a,b){
+          var sa = scoreCourse(a.value, q);
+          var sb = scoreCourse(b.value, q);
+          if(sa !== sb) return sa - sb;
+          return a.idx - b.idx;
+        });
+        while(dl.firstChild) dl.removeChild(dl.firstChild);
+        sorted.forEach(function(item){
+          var opt = document.createElement('option');
+          opt.value = item.value;
+          if(item.label) opt.setAttribute('label', item.label);
+          dl.appendChild(opt);
+        });
+      }
+
+      input.addEventListener('input', reorder, true);
+      input.addEventListener('focus', reorder, true);
+      input.addEventListener('keydown', function(){ setTimeout(reorder, 0); }, true);
+      reorder();
+    }
+
+    function initAll(){
+      Array.prototype.slice.call(document.querySelectorAll('input[list]')).forEach(function(input){
+        var id = strip(input.id || '');
+        var ph = strip(input.getAttribute('placeholder') || '');
+        var name = strip(input.getAttribute('name') || '');
+        if(id.indexOf('curso') >= 0 || ph.indexOf('curso') >= 0 || name.indexOf('curso') >= 0) initInput(input);
+      });
+    }
+
+    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAll);
+    else initAll();
+    setTimeout(initAll, 300);
+    setTimeout(initAll, 1000);
+    setTimeout(initAll, 2000);
+  }
+
+  installFetchPatch();
+  installCourseSearchFix();
+
+  window.guioesPadronizarPayloadTituloAnoCursos = normalizePayload;
+})();
+</script>
+
+<script id="guiao-required-submit-validation-v2">
+/* Camada transversal v2 — bloqueio antes de chamar o Power Automate.
+   Impede submissão com Curso(s) apenas digitado e campos institucionais mínimos em branco. */
+(function(){
+  if(window.__guiaoRequiredSubmitValidationV2) return;
+  window.__guiaoRequiredSubmitValidationV2 = true;
+  var CURSOS_VALIDOS = ["Licenciatura em Animação e Criação Visual", "Licenciatura em Animação Global", "Licenciatura em Fotografia e Cultura Visual", "Mestrado em Animação e Criação Visual", "Mestrado em Design e Produção de Jogos", "Mestrado em Comunicação Audiovisual e Multimédia", "Licenciatura em Ciências da Comunicação", "Licenciatura em Marketing e Publicidade", "Mestrado em Marketing e Inovação", "Mestrado em Branding e Estratégia", "Mestrado em Comunicação Estratégica", "Doutoramento em Comunicação, Media e Ambientes Digitais", "Licenciatura em Design", "Licenciatura em Design Global", "Mestrado em Design e Cultura Visual", "Mestrado em Design & Publicidade", "Mestrado em Design Management", "Mestrado em Design de Produto, Espaço e Interações", "Mestrado em Branding e Design de Moda", "Mestrado em Design para a Sustentabilidade", "Doutoramento em Design", "Licenciatura em Desenvolvimento de Jogos", "Licenciatura em Creative Tech", "Licenciatura em Engenharia Informática", "Licenciatura em Informática de Gestão", "Mestrado em Computação Criativa e Inteligência Artificial", "Doutoramento em Jogos Digitais", "Mestrado em Direção de Arte EaD", "Mestrado em Comunicação Multimedia EaD", "Licenciatura em Ciências da Comunicação EaD", "Licenciatura em Design Visual EaD", "Licenciatura em Engenharia Informática EaD", "Licenciatura em Psicologia", "Mestrado em Psicologia Clínica e da Saúde", "Licenciatura em Ciências da Nutrição", "Licenciatura em Psicologia EaD", "Mestrado em Gestão da Saúde EaD", "Mestrado em Neuropsicologia EaD", "Licenciatura em Gestão Recursos Humanos", "Mestrado em Gestão Recursos Humanos", "Mestrado em Psicologia Social e das Organizações", "Licenciatura em Gestão de Recursos Humanos EaD", "Mestrado em Gestão de Recursos Humanos EaD", "Licenciatura em Marketing EAD", "Licenciatura em Ciências Sociais EaD", "Licenciatura em Contabilidade EaD", "Licenciatura em Gestão de Empresas EaD", "Mestrado em Cibersegurança EaD", "M-Ciências de Dados e Análise de Negócios EaD", "Mestrado em Direito e Segurança da Informação EaD", "Mestrado em Gestão de Empresas EaD", "Mestrado em Marketing estratégico EaD", "Mestrado em Psicologia Social e de Organizações EaD", "Licenciatura em Gestão", "Licenciatura em Management", "Mestrado I Management", "Mestrado em Gestão", "L-Direito", "M-Direito Judiciário", "L-Ciência Dados Gestão", "L-Gestão do Desporto", "L- Gestão Hoteleira", "L-Tourism", "L-Turismo", "L- Gestão de Marketing", "L-Marketing Global", "Licenciatura em Gestão de Negócios", "Licenciatura em Negócios Global", "Mestrado em Global Business", "Mestrado em Marketing", "Mestrado em Gestão de Marketing", "Mestrado em Gestão de Negócios", "Mestrado em Marketing e Tecnologia", "Marketing Digital", "Gestão de Negócios Internacionais", "M-Gestão de Marketing EaD", "L.Gestão de Marketing online antiga", "L-Gestão de Marketing EaD", "M-Gestão de Negócios EaD", "L-Gestão de Marketing", "L-Gestão de Negócios", "Licenciatura em Marketing Global", "Licenciatura em Global Business", "Gestão Comercial e Vendas", "Mestrado em Design &amp; Publicidade", "Licenciatura em Design Visual", "Licenciatura em Design de Moda", "Licenciatura em Gestão de Marketing", "Licenciatura em Marketing", "Licenciatura em Gestão do Turismo", "Pós-Graduação em Branding", "Pós-Graduação em Marketing Digital", "Mestrado em Neuropsicologia Aplicada", "Mestrado em Psicologia da Educação", "Doutoramento em Psicologia", "Licenciatura em Gestão de Recursos Humanos", "Licenciatura em Gestão de Empresas", "Licenciatura em Gestão Hoteleira", "Licenciatura em Turismo", "Licenciatura em Gestão do Desporto", "Licenciatura em Ciência de Dados para Gestão", "Licenciatura em Gestão de Marketing e Comunicação", "Mestrado em Gestão de Recursos Humanos", "Mestrado em Gestão Hoteleira", "Mestrado em Turismo", "Mestrado em Gestão do Desporto", "Mestrado em Business Analytics"];
+  function clean(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
+  function strip(v){ try{ return clean(v).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(); }catch(e){ return clean(v).toLowerCase(); } }
+  function isVisible(el){ return !!(el && (el.offsetWidth || el.offsetHeight || el.getClientRects().length)); }
+  function val(el){
+    if(!el) return '';
+    if(el.tagName === 'SELECT'){ var v=clean(el.value); if(v && !/^sele/i.test(v)) return v; }
+    return clean(('value' in el) ? el.value : el.textContent);
+  }
+  function first(selectors){
+    for(var i=0;i<selectors.length;i++){
+      var nodes = Array.prototype.slice.call(document.querySelectorAll(selectors[i]));
+      for(var j=0;j<nodes.length;j++){ var el=nodes[j]; var v=val(el); if(v) return {value:v, element:el}; }
+    }
+    return {value:'', element:null};
+  }
+  function selectedCourseChips(){
+    return Array.prototype.slice.call(document.querySelectorAll('#cblCursosSelecionados .cbl-course-chip, #cblCursosSelecionados .projbl-course-chip, .cbl-course-chip, .projbl-course-chip, [data-course-chip]'))
+      .map(function(x){ return clean((x.querySelector('span') || x).textContent || '').replace(/[×x]$/i,'').trim(); })
+      .filter(Boolean);
+  }
+  function allCourseOptions(){
+    var opts = CURSOS_VALIDOS.slice();
+    Array.prototype.slice.call(document.querySelectorAll('datalist option, select option')).forEach(function(o){
+      var v = clean(o.value || o.textContent); if(v) opts.push(v);
+    });
+    var seen={}, out=[];
+    opts.forEach(function(v){ var k=strip(v); if(k && !seen[k]){ seen[k]=true; out.push(v); } });
+    return out;
+  }
+  function courseExists(v){
+    var key = strip(v);
+    if(!key) return false;
+    return allCourseOptions().some(function(c){ return strip(c) === key; });
+  }
+  function courseValue(){
+    var chips = selectedCourseChips();
+    if(chips.length) return {value:chips.join('; '), element:document.querySelector('#cblCursosSelecionados') || document.querySelector('.cbl-course-chip,.projbl-course-chip')};
+    var hidden = document.querySelector('#curso[type="hidden"], input[name="curso"][type="hidden"]');
+    var hv = val(hidden);
+    if(hv) return {value:hv, element:hidden};
+    var direct = first(['#curso:not([type="hidden"])','[name="curso"]:not([type="hidden"])']);
+    if(direct.value && courseExists(direct.value)) return direct;
+    return {value:'', typed: direct.value || val(document.querySelector('#cursoBusca,[name="cursoBusca"]')), element: direct.element || document.querySelector('#cursoBusca,[name="cursoBusca"],#curso')};
+  }
+  function ucValue(){ return first(['#uc','#ucs','[name="uc"]','[name="ucs"]','#unidade_curricular','[name="unidade_curricular"]','.projbl-nome-uc-projeto-field','#ucProjeto','#nomeUCProjeto','#nomeUcProjeto','#nome_uc_projeto']); }
+  function docenteValue(){ return first(['#professor','#docentes','#docente','[name="professor"]','[name="docentes"]','[name="docente"]','.docente-nome','.proj-docente-field']); }
+  function emailValue(){ return first(['#emails','#email','[name="emails"]','[name="email"]','.docente-email','input[type="email"]']); }
+  function unidadeValue(){ return first(['#unidadeOrganica','#unidade_organica','#unidade-organica','[name="unidadeOrganica"]','[name="unidade_organica"]']); }
+  function autorizacaoValue(){
+    var checked = document.querySelector('input[name="autorizaRepositorio"]:checked, input[name="autorizaRepositorioOpcao"]:checked, input[name="autorizacaoRepositorio"]:checked');
+    if(checked) return {value:clean(checked.value), element:checked};
+    return first(['#autorizaRepositorio','#autorizacaoRepositorio','[name="autorizaRepositorio"]','[name="autorizacaoRepositorio"]']);
+  }
+  function validEmails(v){
+    var parts = clean(v).split(/\s*;\s*|\s*,\s*/).filter(Boolean);
+    return parts.length && parts.every(function(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); });
+  }
+  function mark(el){ try{ if(el){ el.classList.add('guiao-required-missing'); setTimeout(function(){ try{el.classList.remove('guiao-required-missing');}catch(e){} },5000); } }catch(e){} }
+  function notify(msg){
+    if(typeof toast === 'function') return toast(msg, 'error', 7500);
+    if(typeof showToast === 'function') return showToast(msg);
+    if(typeof mostrarToast === 'function') return mostrarToast(msg);
+    alert(msg);
+  }
+  window.guiaoValidarCamposObrigatoriosSubmissaoV2 = function(options){
+    var curso = courseValue(), email = emailValue();
+    var missing = [];
+    function add(label, obj){ if(!obj || !obj.value) missing.push([label, obj || {}]); }
+    add('Unidade Orgânica', unidadeValue());
+    add('Curso(s)', curso);
+    add('Unidade(s) Curricular(es)', ucValue());
+    add('Docente(s)', docenteValue());
+    add('Email(s)', email);
+    add('Autorização para integração no repositório', autorizacaoValue());
+    var invalid = [];
+    if(curso.value){
+      var partes = curso.value.split(/\s*;\s*/).filter(Boolean);
+      var invalidCourses = partes.filter(function(c){ return !courseExists(c); });
+      if(invalidCourses.length) invalid.push(['Curso(s)', curso, 'Selecione o curso a partir da lista de sugestões. Não deixe apenas texto digitado no campo Curso(s).']);
+    } else if(curso.typed){
+      invalid.push(['Curso(s)', curso, 'Selecione o curso a partir da lista de sugestões. O texto digitado ainda não conta como curso selecionado.']);
+    }
+    if(email.value && !validEmails(email.value)) invalid.push(['Email(s)', email, 'Verifique o(s) e-mail(s) do(s) docente(s). Use endereços válidos, separados por ponto e vírgula quando houver mais de um.']);
+    if(missing.length || invalid.length){
+      if(!options || !options.silent){
+        var msg = invalid.length ? invalid[0][2] : ('Antes de enviar para validação, preencha: ' + missing.map(function(c){return c[0];}).join(', ') + '.');
+        notify(msg);
+        var target = (invalid[0] && invalid[0][1] && invalid[0][1].element) || (missing[0] && missing[0][1] && missing[0][1].element);
+        mark(target); try{ target && target.focus && target.focus(); }catch(e){}
+      }
+      return {ok:false, missing:missing.map(function(c){return c[0];}), invalid:invalid.map(function(c){return c[0];})};
+    }
+    return {ok:true, missing:[], invalid:[]};
+  };
+  /* compatibilidade: substitui a função v1 usada por cliques antigos */
+  window.guiaoValidarCamposObrigatoriosSubmissaoV1 = window.guiaoValidarCamposObrigatoriosSubmissaoV2;
+  function isSubmitControl(el){
+    if(!el) return false; var txt=clean(el.textContent || el.value).toLowerCase();
+    return el.id === 'btnEnviarValidacao' || el.id === 'btnValidacaoReal' || txt.indexOf('enviar para valida') !== -1 || txt.indexOf('submeter') !== -1 || txt.indexOf('submiss') !== -1 || txt.indexOf('atualizar guião') !== -1;
+  }
+  ['click','mousedown','pointerdown'].forEach(function(evt){
+    document.addEventListener(evt, function(ev){
+      var btn = ev.target && ev.target.closest ? ev.target.closest('button,input[type="button"],input[type="submit"]') : null;
+      if(!isSubmitControl(btn)) return;
+      var result = window.guiaoValidarCamposObrigatoriosSubmissaoV2();
+      if(!result.ok){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); return false; }
+    }, true);
+  });
+})();
+</script>
+<style id="guiao-required-submit-validation-v2-style">
+.guiao-required-missing{ outline:3px solid rgba(227,30,36,.32) !important; outline-offset:2px !important; }
+</style>
+<style id="guioes-curso-dropdown-custom-v2-css">
+/* Dropdown personalizada de Curso(s) — v3 compacta e institucional */
+body:not(.guiao-pdf-mode) .guioes-curso-suggestions-v2{
+  position:absolute;
+  z-index:99999;
+  left:0;
+  right:0;
+  top:calc(100% + 3px);
+  max-height:220px;
+  overflow:auto;
+  background:#fff;
+  border:1px solid #c7cbd1;
+  border-radius:8px;
+  box-shadow:0 8px 18px rgba(0,0,0,.14);
+  padding:4px;
+  display:none;
+  font-family:'Century Gothic','Segoe UI',Arial,sans-serif;
+}
+body:not(.guiao-pdf-mode) .guioes-curso-suggestions-v2.is-open{ display:block; }
+body:not(.guiao-pdf-mode) .guioes-curso-suggestion-v2{
+  display:block;
+  width:100%;
+  text-align:left;
+  border:0;
+  background:#fff;
+  color:#111827;
+  padding:6px 8px;
+  border-radius:6px;
+  font-size:13px !important;
+  line-height:1.22 !important;
+  font-weight:500 !important;
+  cursor:pointer;
+}
+body:not(.guiao-pdf-mode) .guioes-curso-suggestion-v2:hover,
+body:not(.guiao-pdf-mode) .guioes-curso-suggestion-v2.is-active{ background:#f3f4f6; }
+body:not(.guiao-pdf-mode) .guioes-curso-suggestion-v2 strong{ font-weight:700; }
+body:not(.guiao-pdf-mode) .cbl-course-search-row,
+body:not(.guiao-pdf-mode) .cbl-course-picker,
+body:not(.guiao-pdf-mode) .projbl-curso-real-wrap,
+body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
+</style>
+<script id="guioes-curso-dropdown-custom-v2-js" data-v7-no-open-empty="1">
+(function(){
+  'use strict';
+
+  function clean(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
+  function strip(v){
+    try{ return clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
+    catch(e){ return clean(v).toLowerCase(); }
+  }
+  function wordsMatch(valueNorm, queryNorm){
+    if(!queryNorm) return false;
+    var qWords = queryNorm.split(/\s+/).filter(Boolean);
+    var vWords = valueNorm.split(/\s+/).filter(Boolean);
+    if(!qWords.length) return false;
+    var pos = 0;
+    for(var i=0;i<qWords.length;i++){
+      var found = false;
+      for(var j=pos;j<vWords.length;j++){
+        if(vWords[j].indexOf(qWords[i]) === 0){ found = true; pos = j + 1; break; }
+      }
+      if(!found) return false;
+    }
+    return true;
+  }
+  function score(value, query){
+    var v = strip(value), q = strip(query);
+    if(!q) return 0;
+    if(v === q) return 0;
+    if(v.indexOf(q) === 0) return 1;
+    if(wordsMatch(v, q)) return 2;
+    if(v.indexOf(q) >= 0) return 3;
+    var tokens = q.split(/\s+/).filter(Boolean);
+    if(tokens.length && tokens.every(function(t){ return v.indexOf(t) >= 0; })) return 4;
+    return 99;
+  }
+  function getOptions(listId){
+    var dl = document.getElementById(listId);
+    if(!dl) return [];
+    var seen = {};
+    return Array.prototype.slice.call(dl.querySelectorAll('option')).map(function(o, idx){
+      return {value: clean(o.value || o.textContent), idx: idx};
+    }).filter(function(o){
+      var key = strip(o.value);
+      if(!o.value || seen[key]) return false;
+      seen[key] = true;
+      return true;
+    });
+  }
+  function escapeHtml(v){
+    return String(v).replace(/[&<>"']/g, function(ch){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+    });
+  }
+  function selectCourse(input, value){
+    input.value = value;
+    input.dispatchEvent(new Event('input', {bubbles:true}));
+    input.dispatchEvent(new Event('change', {bubbles:true}));
+    setTimeout(function(){ input.value = ''; }, 120);
+  }
+  function initInput(input){
+    if(!input || input.dataset.guioesCustomCursoV2 === '1') return;
+    var listId = input.getAttribute('list') || input.dataset.nativeList || 'cblCursosList';
+    var options = getOptions(listId);
+    if(!options.length) return;
+
+    input.dataset.nativeList = listId;
+    input.removeAttribute('list');
+    input.setAttribute('autocomplete','off');
+    input.dataset.guioesCustomCursoV2 = '1';
+
+    var wrap = input.closest('.cbl-course-search-row') || input.parentElement;
+    if(!wrap) return;
+    if(getComputedStyle(wrap).position === 'static') wrap.style.position = 'relative';
+
+    var box = document.createElement('div');
+    box.className = 'guioes-curso-suggestions-v2';
+    box.setAttribute('role','listbox');
+    box.setAttribute('aria-label','Sugestões de cursos');
+    wrap.appendChild(box);
+
+    var active = -1;
+    function close(){ box.classList.remove('is-open'); active = -1; }
+    function open(){ if(box.children.length) box.classList.add('is-open'); }
+    function render(){
+      var q = clean(input.value);
+      if(q.length < 2){ box.innerHTML = ''; close(); return; }
+      var qNorm = strip(q);
+      var matches = options.map(function(o){ return {value:o.value, idx:o.idx, score:score(o.value, q)}; })
+        .filter(function(o){ return qNorm && o.score < 99; })
+        .sort(function(a,b){ return (a.score - b.score) || (a.idx - b.idx); })
+        .slice(0, 10);
+
+      box.innerHTML = '';
+      active = -1;
+      if(!matches.length){ close(); return; }
+      matches.forEach(function(item, i){
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'guioes-curso-suggestion-v2';
+        btn.setAttribute('role','option');
+        btn.textContent = item.value;
+        btn.addEventListener('mousedown', function(ev){ ev.preventDefault(); });
+        btn.addEventListener('click', function(){ selectCourse(input, item.value); close(); input.focus(); });
+        box.appendChild(btn);
+      });
+      open();
+    }
+    function setActive(idx){
+      var items = Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));
+      items.forEach(function(el){ el.classList.remove('is-active'); });
+      if(!items.length){ active = -1; return; }
+      active = Math.max(0, Math.min(idx, items.length - 1));
+      items[active].classList.add('is-active');
+      items[active].scrollIntoView({block:'nearest'});
+    }
+
+    input.addEventListener('input', render, true);
+    input.addEventListener('focus', function(){ if(clean(input.value).length < 2) close(); else render(); }, true);
+    input.addEventListener('keydown', function(ev){
+      var items = Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));
+      if(ev.key === 'ArrowDown'){
+        ev.preventDefault();
+        if(!box.classList.contains('is-open')){ if(clean(input.value).length < 2) return; render(); }
+        setActive(active + 1);
+      }else if(ev.key === 'ArrowUp'){
+        ev.preventDefault();
+        setActive(active <= 0 ? items.length - 1 : active - 1);
+      }else if(ev.key === 'Enter'){
+        if(box.classList.contains('is-open') && items.length){
+          ev.preventDefault();
+          var chosen = items[active >= 0 ? active : 0];
+          selectCourse(input, chosen.textContent || '');
+          close();
+        }
+      }else if(ev.key === 'Escape'){
+        close();
+      }
+    }, true);
+    document.addEventListener('click', function(ev){ if(!wrap.contains(ev.target)) close(); }, true);
+  }
+  function initAll(){
+    Array.prototype.slice.call(document.querySelectorAll('input#cursoBusca, input[name="cursoBusca"], input[id*="curso" i][list], input[placeholder*="curso" i]')).forEach(initInput);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAll);
+  else initAll();
+  [200, 600, 1200, 2500].forEach(function(ms){ setTimeout(initAll, ms); });
+})();
+</script>
+
+
+<script id="cbl-carregar-guiao-por-id-v1">
+/* ===== CBL — carregamento institucional por itemId =====
+   Permite abrir CBL.html?itemId=123, obter dados do SharePoint pelo fluxo
+   “Obter guião por ID” e preencher automaticamente o formulário.
+   Não altera PDF, submissão principal, botões ou estrutura visual. */
+(function(){
+  'use strict';
+
+  var OBTER_GUIAO_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
+
+  function $(id){ return document.getElementById(id); }
+  function clean(v){ return String(v == null ? '' : v).trim(); }
+  function getItemId(){
+    try { return clean(new URLSearchParams(window.location.search).get('itemId')); }
+    catch(e){ return ''; }
+  }
+  function notify(message, type, duration){
+    if(typeof window.toast === 'function') return window.toast(message, type || '', duration || 4500);
+    if(typeof window.showToast === 'function') return window.showToast(message, type || '', duration || 4500);
+    if(type === 'error') alert(message);
+  }
+  function dispatch(el){
+    if(!el) return;
+    try { el.dispatchEvent(new Event('input', {bubbles:true})); } catch(e){}
+    try { el.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
+  }
+  function setField(id, value){
+    var el = $(id);
+    if(!el) return false;
+    value = clean(value);
+    if(el.type === 'radio') return false;
+    if(el.tagName === 'SELECT'){
+      var found = false;
+      Array.prototype.forEach.call(el.options || [], function(opt){
+        if(clean(opt.value || opt.text) === value || clean(opt.text) === value){
+          el.value = opt.value || opt.text;
+          found = true;
+        }
+      });
+      if(!found) el.value = value;
+    } else {
+      el.value = value;
+    }
+    dispatch(el);
+    return true;
+  }
+  function setRadio(name, value){
+    value = clean(value);
+    if(!value) return false;
+    var done = false;
+    Array.prototype.forEach.call(document.querySelectorAll('input[type="radio"][name="' + name + '"]'), function(radio){
+      var same = clean(radio.value).toLowerCase() === value.toLowerCase();
+      radio.checked = same;
+      if(same) done = true;
+      dispatch(radio);
+    });
+    return done;
+  }
+  function setCursos(value){
+    value = clean(value);
+    var hidden = $('curso');
+    var search = $('cursoBusca');
+    var chips = $('cblCursosSelecionados');
+    if(hidden){
+      hidden.value = value;
+      dispatch(hidden);
+    }
+    if(search){
+      search.value = '';
+      dispatch(search);
+    }
+    /* Fallback visual caso o render dos chips ainda não esteja pronto. */
+    if(chips && value && !chips.querySelector('.cbl-course-chip')){
+      chips.innerHTML = '';
+      value.split(';').map(clean).filter(Boolean).forEach(function(curso){
+        var chip = document.createElement('span');
+        chip.className = 'cbl-course-chip';
+        var span = document.createElement('span');
+        span.textContent = curso;
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = '×';
+        btn.setAttribute('aria-label','Remover curso');
+        btn.addEventListener('click', function(){
+          var restantes = clean(hidden && hidden.value).split(';').map(clean).filter(Boolean).filter(function(v){ return v !== curso; });
+          if(hidden) hidden.value = restantes.join('; ');
+          dispatch(hidden);
+        });
+        chip.appendChild(span);
+        chip.appendChild(btn);
+        chips.appendChild(chip);
+      });
+    }
+  }
+  function parseEstrutura(raw){
+    if(!raw) return {};
+    if(typeof raw === 'object') return raw;
+    try { return JSON.parse(String(raw)); } catch(e) { return {}; }
+  }
+  function splitHoraIntervalo(hora){
+    hora = clean(hora);
+    if(!hora) return {};
+    var parts = hora.split(/\s*[–—-]\s*/).map(clean).filter(Boolean);
+    return {inicio: parts[0] || '', fim: parts[1] || ''};
+  }
+  function addStatusBox(itemId){
+    if($('cblModoEdicaoBox')) return;
+    var ref = document.querySelector('.premium-status') || document.querySelector('.header') || document.querySelector('.page');
+    if(!ref || !ref.parentNode) return;
+    var box = document.createElement('div');
+    box.id = 'cblModoEdicaoBox';
+    box.className = 'no-print';
+    box.style.margin = '0 0 16px 0';
+    box.style.padding = '12px 14px';
+    box.style.border = '1.5px solid #1f4d2b';
+    box.style.borderRadius = '14px';
+    box.style.background = '#f3fff6';
+    box.style.color = '#1f4d2b';
+    box.style.fontSize = '13px';
+    box.innerHTML = '<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.';
+    ref.parentNode.insertBefore(box, ref.nextSibling);
+  }
+  function preencherFormulario(data){
+    data = data || {};
+    var estrutura = parseEstrutura(data.estruturaPedagogica);
+    var values = (estrutura && estrutura.values && typeof estrutura.values === 'object') ? estrutura.values : {};
+    var hora = splitHoraIntervalo(data.hora);
+
+    setField('unidadeOrganica', values.unidadeOrganica || data.unidadeOrganica);
+    setField('modalidade', values.modalidade || data.modalidade);
+    setField('semestre', values.semestre || data.semestre);
+    setField('turmaEdicao', values.turmaEdicao || data.turmaEdicao);
+    setCursos(values.curso || data.cursos);
+    setField('uc', values.uc || data.ucs);
+    setField('ano', values.ano || values.anoLetivo || data.anoLetivo);
+    setField('professor', values.professor || data.docentes);
+    setField('emails', values.emails || data.emails);
+    setField('n_estudantes', values.n_estudantes || data.nEstudantes);
+    setField('n_grupos', values.n_grupos || data.nGrupos);
+    setField('autoria', values.autoria || data.autorias);
+    setField('estado', values.estado || 'Atualizado');
+    setField('organizacao', values.organizacao || data.organizacoesContacto);
+    setField('conteudos', values.conteudos);
+    setField('desafio', values.desafio);
+    setField('objetivos', values.objetivos);
+    setField('doc_escrito', values.doc_escrito);
+    setField('apresentacao', values.apresentacao);
+    setField('pond_total', values.pond_total);
+    setField('pond_doc', values.pond_doc);
+    setField('pond_apres', values.pond_apres);
+    setField('calendarizacao', values.calendarizacao || data.data);
+    setField('hora_inicio', values.hora_inicio || hora.inicio);
+    setField('hora_fim', values.hora_fim || hora.fim);
+    setRadio('autorizaRepositorio', values.autorizaRepositorio || data.autorizaRepositorio);
+
+    try { if(typeof window.renderProgress === 'function') window.renderProgress(); } catch(e){}
+    document.body.classList.add('cbl-guiao-carregado-por-id');
+  }
+  async function carregarGuiaoPorId(){
+    var itemId = getItemId();
+    if(!itemId || window.__cblCarregamentoItemIdExecutado) return;
+    window.__cblCarregamentoItemIdExecutado = true;
+    addStatusBox(itemId);
+    notify('A carregar dados do guião...', '', 2500);
+    try {
+      var res = await fetch(OBTER_GUIAO_URL, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({itemId: itemId})
+      });
+      var text = await res.text();
+      var data = {};
+      try { data = JSON.parse(text); } catch(e) { data = {raw:text}; }
+      if(!res.ok || data.ok === false || data.success === false){
+        throw new Error((data && (data.message || data.error)) || text || ('HTTP ' + res.status));
+      }
+      preencherFormulario(data);
+      notify('Dados do guião carregados para edição.', 'ok', 4500);
+    } catch(e) {
+      console.error('Erro ao carregar guião por itemId:', e);
+      notify('Não foi possível carregar automaticamente os dados deste guião. Confirme o link de edição ou tente novamente.', 'error', 8000);
+    }
+  }
+  function init(){
+    /* Dá tempo aos patches de Curso(s), botões e validações de inicializarem. */
+    setTimeout(carregarGuiaoPorId, 350);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
+
+<script id="guioes-fechar-dropdown-cursos-edicao-v2">
+(function(){
+  'use strict';
+  if(window.__guioesFecharDropdownCursosEdicaoV2) return;
+  window.__guioesFecharDropdownCursosEdicaoV2 = true;
+  function hasItemId(){ try { return !!new URLSearchParams(window.location.search).get('itemId'); } catch(e){ return false; } }
+  function closeCourseDropdowns(){
+    if(!hasItemId()) return;
+    var selectors = [
+      '.guioes-curso-suggestions-v2',
+      '.curso-suggestions', '.course-suggestions',
+      '[id*="curso" i][class*="suggest" i]',
+      '[class*="curso" i][class*="suggest" i]',
+      '[class*="course" i][class*="suggest" i]',
+      '[id*="curso" i][class*="dropdown" i]',
+      '[class*="curso" i][class*="dropdown" i]'
+    ];
+    selectors.forEach(function(sel){
+      try {
+        Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){
+          el.style.display = 'none';
+          el.classList.remove('open','active','show','visible');
+          el.setAttribute('aria-hidden','true');
+        });
+      } catch(e){}
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('input#cursoBusca, input[name="cursoBusca"], input[placeholder*="curso" i]'), function(input){
+      if(document.activeElement === input){ try { input.blur(); } catch(e){} }
+    });
+  }
+  window.__guioesFecharDropdownCursos = closeCourseDropdowns;
+  function schedule(){ [0,80,200,500,900,1500,2500,4000].forEach(function(ms){ setTimeout(closeCourseDropdowns, ms); }); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', schedule); else schedule();
+  window.addEventListener('load', schedule);
+})();
+</script>
+
+<script id="validacao-obrigatoria-cabecalho-20260617">
+/* VALIDACAO OBRIGATORIA CABECALHO 2026-06-17 — CBL_Teste */
+(function(){
+  'use strict';
+  var REQUIRED_GROUPS = [{"label": "Unidade Orgânica", "selectors": ["#unidadeOrganica"]}, {"label": "Modalidade", "selectors": ["#modalidade"]}, {"label": "Semestre", "selectors": ["#semestre"]}, {"label": "Turma/Edição", "selectors": ["#turmaEdicao"]}, {"label": "Curso(s)", "selectors": ["#curso", "#cursoBusca"]}, {"label": "Unidade(s) Curricular(es)", "selectors": ["#uc"]}, {"label": "Docente(s)", "selectors": ["#professor"]}, {"label": "Email(s)", "selectors": ["#emails"]}, {"label": "Autoria", "selectors": ["#autoria"]}, {"label": "Ano letivo", "selectors": ["#ano"]}, {"label": "Estado do guião", "selectors": ["#estado"]}, {"label": "Autorização para repositório", "selectors": ["input[name=\"autorizaRepositorio\"]"]}];
+  var VALIDAR_SESSOES_RBL = false;
+  function norm(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
+  function qsAll(sel){ try{ return Array.prototype.slice.call(document.querySelectorAll(sel)); }catch(e){ return []; } }
+  function elementsFor(group){ var out = []; (group.selectors || []).forEach(function(sel){ out = out.concat(qsAll(sel)); }); return out.filter(Boolean); }
+  function isRadioGroup(elements){ return elements.some(function(el){ return el && el.type === 'radio'; }); }
+  function valueOf(el){ if(!el) return ''; if(el.type === 'radio') return el.checked ? (el.value || 'checked') : ''; if(el.type === 'checkbox') return el.checked ? (el.value || 'checked') : ''; return norm(el.value); }
+  function groupFilled(group){ var elements = elementsFor(group); if(!elements.length) return true; if(isRadioGroup(elements)) return elements.some(function(el){ return !!el.checked; }); return elements.some(function(el){ return valueOf(el) !== ''; }); }
+  function firstFocusable(group){ var elements = elementsFor(group); return elements.find(function(el){ return el.type !== 'hidden' && !el.disabled; }) || elements[0] || null; }
+  function setRequiredOn(el){ if(!el || el.disabled) return; if(el.type === 'hidden') return; el.setAttribute('aria-required','true'); if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT'){ el.required = true; el.setAttribute('required','required'); } }
+  function markRequired(){ REQUIRED_GROUPS.forEach(function(group){ var elements = elementsFor(group); if(isRadioGroup(elements)){ elements.forEach(function(el){ el.required = true; el.setAttribute('required','required'); el.setAttribute('aria-required','true'); }); } else { elements.forEach(setRequiredOn); } }); if(VALIDAR_SESSOES_RBL){ qsAll('input[id^="aula"][id$="_data"], input[id^="aula"][id$="_duracao"]').forEach(setRequiredOn); } }
+  function missingSessionsRBL(){ if(!VALIDAR_SESSOES_RBL) return []; var missing = []; qsAll('input[id^="aula"][id$="_data"]').forEach(function(dataEl){ var m = String(dataEl.id || '').match(/^aula(\d+)_data$/); var n = m ? m[1] : ''; if(!norm(dataEl.value)) missing.push({label:'Data da sessão ' + n, el:dataEl}); var durEl = n ? document.getElementById('aula' + n + '_duracao') : null; if(durEl && !norm(durEl.value)) missing.push({label:'Duração da sessão ' + n, el:durEl}); }); return missing; }
+  function validateObrigatorios(){ markRequired(); var missing = []; REQUIRED_GROUPS.forEach(function(group){ if(!groupFilled(group)) missing.push({label:group.label, el:firstFocusable(group)}); }); missing = missing.concat(missingSessionsRBL()); if(!missing.length) return true; var names = missing.map(function(x){ return '• ' + x.label; }).join('\n'); var msg = 'Antes de enviar para validação, preencha os campos obrigatórios:\n\n' + names; try{ var old = document.querySelector('.toast-message, .ux-toast'); if(old && old.parentNode) old.parentNode.removeChild(old); var d = document.createElement('div'); d.className = 'toast-message'; d.style.whiteSpace = 'pre-line'; d.style.maxWidth = '620px'; d.style.textAlign = 'left'; d.textContent = msg; document.body.appendChild(d); setTimeout(function(){ if(d && d.parentNode) d.parentNode.removeChild(d); }, 5000); }catch(e){} alert(msg); var focusEl = missing.find(function(x){ return x.el && x.el.type !== 'hidden'; }); if(focusEl && focusEl.el){ try{ focusEl.el.focus({preventScroll:false}); focusEl.el.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} } return false; }
+  function isValidationTrigger(el){ if(!el) return false; var id = (el.id || '').toLowerCase(); var txt = norm(el.innerText || el.value || el.getAttribute('aria-label') || '').toLowerCase(); return id === 'btnenviarvalidacao' || id === 'btnvalidacaoreal' || /enviar\s+para\s+valida/.test(txt) || /submeter/.test(txt) || /submiss/.test(txt) || /atualizar\s+gui/.test(txt); }
+  document.addEventListener('click', function(ev){ var el = ev.target && ev.target.closest ? ev.target.closest('button, input[type="button"], input[type="submit"], a') : null; if(!isValidationTrigger(el)) return; if(!validateObrigatorios()){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); return false; } }, true);
+  document.addEventListener('submit', function(ev){ if(!validateObrigatorios()){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); return false; } }, true);
+  function patchFunction(name){ var original = window[name]; if(typeof original !== 'function' || original.__validacaoObrigatoriaPatch) return; var wrapped = function(){ if(!validateObrigatorios()) return false; return original.apply(this, arguments); }; wrapped.__validacaoObrigatoriaPatch = true; window[name] = wrapped; }
+  function patchKnownFunctions(){ ['submitValidacao','enviarParaValidacao','validarEEnviar','sendForValidation','submeterValidacao'].forEach(patchFunction); }
+  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', function(){ markRequired(); patchKnownFunctions(); }); } else { markRequired(); patchKnownFunctions(); }
+  setTimeout(function(){ markRequired(); patchKnownFunctions(); }, 250);
+  setTimeout(function(){ markRequired(); patchKnownFunctions(); }, 1000);
+  if(VALIDAR_SESSOES_RBL && window.MutationObserver){ try{ new MutationObserver(function(){ markRequired(); }).observe(document.body, {childList:true, subtree:true}); }catch(e){} }
+})();
+</script>
 </body>
 </html>
