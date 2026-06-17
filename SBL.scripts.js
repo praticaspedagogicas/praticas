@@ -1,3 +1,5 @@
+/* SBL HORA FIM FOCO PDF ANO FINAL VERIFIED V2 2026-06-17 */
+/* SBL PDF IDENTIFICACAO ANO LETIVO FINAL 2026-06-17 */
 
 (function(){
 'use strict';
@@ -1454,18 +1456,18 @@ function collectFormData(){
         ],
         [
           ['Unidade(s) Curricular(es)', val('uc')],
-          ['Ano letivo', val('ano_letivo') || val('ano')]
+          ['Número de estudantes', val('n_estudantes')]
         ],
         [
-          ['Número de estudantes', val('n_estudantes')],
-          ['Número de grupos', val('n_grupos')]
+          ['Número de grupos', val('n_grupos')],
+          ['Data da simulação', val('data')]
         ],
         [
-          ['Data da simulação', val('data')],
-          ['Hora de início', val('hora')]
+          ['Hora de início', val('hora')],
+          ['Hora de fim', val('hora_fim') || val('horaFim') || val('hora_final')]
         ]
       ];
-      const singleRow = ['Hora de fim', val('hora_fim') || val('horaFim') || val('hora_final')];
+      const singleRow = ['Ano letivo', val('ano_letivo') || val('ano')];
 
       const rowHeights = pairRows.map(function(pair){
         return Math.max.apply(null, pair.map(function(item, idx){
@@ -3025,11 +3027,12 @@ async function downloadCurrentGuiesPdf(){
     }
 
     grid.appendChild(makeField('Email(s):', emails, {forId:'emails', cls:'sbl-oferta-span-2'}));
-    grid.appendChild(makeField('Ano letivo:', ano, {forId:ano.id, cls:'sbl-oferta-span-2'}));
 
     if(data) grid.appendChild(makeField('Data da simulação', data, {forId:'data', cls:'sbl-oferta-date-field sbl-oferta-span-2'}));
     if(hora) grid.appendChild(makeField('Hora de início', hora, {forId:'hora', cls:'sbl-oferta-time-field'}));
     if(horaFim) grid.appendChild(makeField('Hora de fim', horaFim, {forId:'hora_fim', cls:'sbl-oferta-time-field'}));
+
+    grid.appendChild(makeField('Ano letivo:', ano, {forId:ano.id, cls:'sbl-oferta-span-2'}));
 
     var anchor = oldContainers.find(Boolean);
     var block = anchor ? (anchor.closest('.sbl47-v53-header-cards') || anchor.closest('table') || anchor) : null;
@@ -4174,6 +4177,7 @@ async function downloadCurrentGuiesPdf(){
       ['Docente(s)', docenteValue()],
       ['Email(s)', emailValue()],
       ['Estado do guião', estadoValue()],
+      ['Autoria', first(['#autoria','#autorias','[name="autoria"]','[name="autorias"]'])],
       ['Autorização para integração no repositório', autorizacaoValue()]
     ];
     var missing = checks.filter(function(c){ return !c[1].value; });
@@ -4480,6 +4484,7 @@ async function downloadCurrentGuiesPdf(){
     add('Unidade(s) Curricular(es)', ucValue());
     add('Docente(s)', docenteValue());
     add('Email(s)', email);
+    add('Autoria', first(['#autoria','#autorias','[name="autoria"]','[name="autorias"]']));
     add('Autorização para integração no repositório', autorizacaoValue());
     var invalid = [];
     if(curso.value){
@@ -5120,3 +5125,68 @@ async function downloadCurrentGuiesPdf(){
 })();
 
 
+
+
+/* ===== SBL LIMPO DATA HORA E AUTORIA OBRIGATORIA 2026-06-16 =====
+   Normal SBL: mantém Data/Hora limpas quando não há itemId.
+   Não interfere em modo edição (?itemId=...), nem no SBL_Teste, nem no rascunho manual. */
+(function(){
+  'use strict';
+  if(window.__sblCleanDateHoraAutoriaObrigatoria20260616) return;
+  window.__sblCleanDateHoraAutoriaObrigatoria20260616 = true;
+  function hasItemId(){ return /(?:^|[?&])itemId=\d+/i.test(location.search || ''); }
+  function isTeste(){ return /SBL_Teste/i.test(location.pathname || '') || /_Teste/i.test(document.title || ''); }
+  function q(id){ return document.getElementById(id); }
+  function setAutoriaRequired(){
+    var a = q('autoria');
+    if(a){
+      a.setAttribute('required','required');
+      a.setAttribute('aria-required','true');
+    }
+  }
+  function clearDateHoraIfCleanNormal(){
+    setAutoriaRequired();
+    if(hasItemId() || isTeste()) return;
+    ['data','hora','hora_fim'].forEach(function(id){
+      var el = q(id);
+      if(!el) return;
+      el.setAttribute('autocomplete','off');
+      if(document.activeElement === el) return;
+      el.value = '';
+      try{ el.removeAttribute('value'); }catch(e){}
+      try{ el.dispatchEvent(new Event('input', {bubbles:true})); }catch(e){}
+      try{ el.dispatchEvent(new Event('change', {bubbles:true})); }catch(e){}
+    });
+  }
+  function validateAutoria(ev){
+    var btn = ev.target && ev.target.closest ? ev.target.closest('button,input[type="button"],input[type="submit"]') : null;
+    if(!btn) return;
+    var txt = String(btn.textContent || btn.value || '').toLowerCase();
+    if(btn.id !== 'btnEnviarValidacao' && btn.id !== 'btnValidacaoReal' && txt.indexOf('enviar para valida') === -1 && txt.indexOf('submeter') === -1 && txt.indexOf('submiss') === -1 && txt.indexOf('atualizar guião') === -1) return;
+    var a = q('autoria');
+    if(a && !String(a.value || '').trim()){
+      ev.preventDefault();
+      ev.stopPropagation();
+      if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+      try{ a.classList.add('guiao-required-missing'); setTimeout(function(){a.classList.remove('guiao-required-missing');},5000); }catch(e){}
+      try{ a.focus(); }catch(e){}
+      var msg = 'Antes de enviar para validação, preencha: Autoria.';
+      if(typeof toast === 'function') toast(msg, 'error', 6500);
+      else if(typeof showToast === 'function') showToast(msg);
+      else if(typeof mostrarToast === 'function') mostrarToast(msg);
+      else alert(msg);
+      return false;
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', clearDateHoraIfCleanNormal);
+  else clearDateHoraIfCleanNormal();
+  window.addEventListener('pageshow', clearDateHoraIfCleanNormal);
+  setTimeout(clearDateHoraIfCleanNormal, 80);
+  setTimeout(clearDateHoraIfCleanNormal, 350);
+  document.addEventListener('click', validateAutoria, true);
+  document.addEventListener('mousedown', validateAutoria, true);
+  document.addEventListener('pointerdown', validateAutoria, true);
+})();
+
+
+/* SBL DATA HORA COMPORTAMENTO CBL EXATO 2026-06-16 */
