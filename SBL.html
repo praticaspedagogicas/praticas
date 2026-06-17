@@ -2,7 +2,6 @@
 
 <html lang="pt">
 <head>
-<!-- SBL HORA FIM FOCO PDF ANO FINAL VERIFIED V2 2026-06-17 -->
 <!-- SBL HORA FIM FOCO E PDF ANO FINAL 2026-06-17 -->
 
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -10397,7 +10396,7 @@ body:not(.guiao-pdf-mode) .sbl-oferta-section #uc{
 
 <style id="sbl-datahora-layout-alinhamento-final-fix-css">
 /* SBL — correção final de alinhamento: números com largura padrão e sem rótulo quebrado.
-   Mantém a estrutura aprovada: Curso/UC; Docente+números; Email/Ano; Data/Hora início/Hora fim. */
+   Mantém a estrutura do formulário web: Curso/UC; Docente+números; Email/Ano; Data/Hora início/Hora fim. O ajuste Ano letivo no final é apenas no PDF. */
 body:not(.guiao-pdf-mode) .sbl-oferta-section.sbl-oferta-simulacao-section .sbl-oferta-grid{
   grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
   gap:12px 16px !important;
@@ -10962,21 +10961,7 @@ body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field input[ty
 }
 </style>
 
-
-<style id="sbl-hora-fim-focus-exact-final-20260617">
-/* SBL HORA FIM FOCO PDF ANO FINAL VERIFIED V2 2026-06-17
-   Regra final explícita: hora_fim deve ter o mesmo foco vermelho institucional da hora de início. */
-body:not(.guiao-pdf-mode) #hora:focus,
-body:not(.guiao-pdf-mode) #hora_fim:focus,
-body:not(.guiao-pdf-mode) #hora:focus-visible,
-body:not(.guiao-pdf-mode) #hora_fim:focus-visible {
-  border-color: var(--sbl-red, #E31E24) !important;
-  outline: 3px solid rgba(227,30,36,.12) !important;
-  box-shadow: 0 3px 10px rgba(227,30,36,.08) !important;
-  background: #fff !important;
-}
-</style>
-
+<!-- SBL WEB LAYOUT REVERTIDO PDF ANO FINAL 2026-06-17 -->
 </head>
 <body>
 <div class="page">
@@ -11040,7 +11025,7 @@ body:not(.guiao-pdf-mode) #hora_fim:focus-visible {
 </div>
 <div aria-live="polite" class="cbl-course-chips" id="cblCursosSelecionados"></div>
 <div class="cbl-course-helper">Selecione um curso na lista. Para adicionar mais cursos, repita a seleção.</div>
-</div></div><div class="sbl47-v53-card"><label for="uc">Unidade(s) Curricular(es)</label><textarea id="uc" name="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado"></textarea></div><div class="sbl47-v53-card"><label for="professor">Docente(s)</label><textarea id="professor" name="professor" placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva"></textarea></div><div class="sbl47-v53-card wide"><label for="emails">Email(s)</label><textarea id="emails" name="emails" placeholder="Ex.: docente@universidadeeuropeia.pt"></textarea></div><div class="sbl47-v53-card"><label for="data">Data da simulação</label><input id="data" name="data" placeholder="AAAA-MM-DD" type="date" autocomplete="off" required aria-required="true"></div><div class="sbl47-v53-card"><label for="hora">Hora de início</label><input id="hora" name="hora" placeholder="HH:MM" type="time" autocomplete="off" required aria-required="true"></div><div class="sbl47-v53-card"><label for="hora_fim">Hora de fim</label><input id="hora_fim" name="hora_fim" placeholder="HH:MM" type="time" autocomplete="off" required aria-required="true"></div><div class="sbl47-v53-card"><label for="ano_letivo">Ano letivo</label><input id="ano_letivo" name="ano_letivo" placeholder="Ex.: 2026/2027" type="text"/></div><div class="sbl47-v53-card"><label for="n_estudantes">Nº de estudantes</label><input id="n_estudantes" inputmode="numeric" min="0" name="n_estudantes" placeholder="Ex.: 32" step="1" type="number"/></div><div class="sbl47-v53-card"><label for="n_grupos">Nº de grupos</label><input id="n_grupos" inputmode="numeric" min="0" name="n_grupos" placeholder="Ex.: 6" step="1" type="number"/></div></div><div class="sbl-autoria-estado-panel"><div class="sbl-autoria-estado-title">Autoria e estado do guião</div><div class="sbl-autoria-estado-grid"><div class="sbl47-v53-card sbl-autoria-card"><label for="autoria">Autoria</label><textarea id="autoria" name="autoria" placeholder="Ex.: Ana Luiza Marques" required="required" aria-required="true"></textarea></div><div class="sbl47-v53-card sbl-estado-card"><label for="estado">Estado do guião</label><select id="estado" name="estado"><option selected="selected" value="">Selecionar</option><option value="Novo">Novo</option><option value="Atualizado">Atualizado</option><option value="Reutilizado">Reutilizado</option></select></div></div></div>
+</div></div><div class="sbl47-v53-card"><label for="uc">Unidade(s) Curricular(es)</label><textarea id="uc" name="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado"></textarea></div><div class="sbl47-v53-card"><label for="professor">Docente(s)</label><textarea id="professor" name="professor" placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva"></textarea></div><div class="sbl47-v53-card wide"><label for="emails">Email(s)</label><textarea id="emails" name="emails" placeholder="Ex.: docente@universidadeeuropeia.pt"></textarea></div><div class="sbl47-v53-card"><label for="ano_letivo">Ano letivo</label><input id="ano_letivo" name="ano_letivo" placeholder="Ex.: 2026/2027" type="text"/></div><div class="sbl47-v53-card"><label for="data">Data da simulação</label><input id="data" name="data" placeholder="AAAA-MM-DD" type="date" autocomplete="off" required aria-required="true"></div><div class="sbl47-v53-card"><label for="hora">Hora de início</label><input id="hora" name="hora" placeholder="HH:MM" type="time" autocomplete="off" required aria-required="true"></div><div class="sbl47-v53-card"><label for="hora_fim">Hora de fim</label><input id="hora_fim" name="hora_fim" placeholder="HH:MM" type="time" autocomplete="off" required aria-required="true"></div><div class="sbl47-v53-card"><label for="n_estudantes">Nº de estudantes</label><input id="n_estudantes" inputmode="numeric" min="0" name="n_estudantes" placeholder="Ex.: 32" step="1" type="number"/></div><div class="sbl47-v53-card"><label for="n_grupos">Nº de grupos</label><input id="n_grupos" inputmode="numeric" min="0" name="n_grupos" placeholder="Ex.: 6" step="1" type="number"/></div></div><div class="sbl-autoria-estado-panel"><div class="sbl-autoria-estado-title">Autoria e estado do guião</div><div class="sbl-autoria-estado-grid"><div class="sbl47-v53-card sbl-autoria-card"><label for="autoria">Autoria</label><textarea id="autoria" name="autoria" placeholder="Ex.: Ana Luiza Marques" required="required" aria-required="true"></textarea></div><div class="sbl47-v53-card sbl-estado-card"><label for="estado">Estado do guião</label><select id="estado" name="estado"><option selected="selected" value="">Selecionar</option><option value="Novo">Novo</option><option value="Atualizado">Atualizado</option><option value="Reutilizado">Reutilizado</option></select></div></div></div>
 <div class="section sbl47-v68-red-print-card">
 <label>Objetivos:</label>
 <textarea id="objetivos" placeholder="Indique os objetivos de aprendizagem..."></textarea>
@@ -15417,12 +15402,11 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
     }
 
     grid.appendChild(makeField('Email(s):', emails, {forId:'emails', cls:'sbl-oferta-span-2'}));
+    grid.appendChild(makeField('Ano letivo:', ano, {forId:ano.id, cls:'sbl-oferta-span-2'}));
 
     if(data) grid.appendChild(makeField('Data da simulação', data, {forId:'data', cls:'sbl-oferta-date-field sbl-oferta-span-2'}));
     if(hora) grid.appendChild(makeField('Hora de início', hora, {forId:'hora', cls:'sbl-oferta-time-field'}));
     if(horaFim) grid.appendChild(makeField('Hora de fim', horaFim, {forId:'hora_fim', cls:'sbl-oferta-time-field'}));
-
-    grid.appendChild(makeField('Ano letivo:', ano, {forId:ano.id, cls:'sbl-oferta-span-2'}));
 
     var anchor = oldContainers.find(Boolean);
     var block = anchor ? (anchor.closest('.sbl47-v53-header-cards') || anchor.closest('table') || anchor) : null;

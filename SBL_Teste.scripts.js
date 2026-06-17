@@ -1,3 +1,4 @@
+/* SBL WEB LAYOUT REVERTIDO PDF ANO FINAL 2026-06-17 */
 /* SBL HORA FIM FOCO PDF ANO FINAL VERIFIED V2 2026-06-17 */
 /* SBL PDF IDENTIFICACAO ANO LETIVO FINAL 2026-06-17 */
 
@@ -3027,12 +3028,11 @@ async function downloadCurrentGuiesPdf(){
     }
 
     grid.appendChild(makeField('Email(s):', emails, {forId:'emails', cls:'sbl-oferta-span-2'}));
+    grid.appendChild(makeField('Ano letivo:', ano, {forId:ano.id, cls:'sbl-oferta-span-2'}));
 
     if(data) grid.appendChild(makeField('Data da simulação', data, {forId:'data', cls:'sbl-oferta-date-field sbl-oferta-span-2'}));
     if(hora) grid.appendChild(makeField('Hora de início', hora, {forId:'hora', cls:'sbl-oferta-time-field'}));
     if(horaFim) grid.appendChild(makeField('Hora de fim', horaFim, {forId:'hora_fim', cls:'sbl-oferta-time-field'}));
-
-    grid.appendChild(makeField('Ano letivo:', ano, {forId:ano.id, cls:'sbl-oferta-span-2'}));
 
     var anchor = oldContainers.find(Boolean);
     var block = anchor ? (anchor.closest('.sbl47-v53-header-cards') || anchor.closest('table') || anchor) : null;
