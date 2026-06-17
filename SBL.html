@@ -2,6 +2,9 @@
 
 <html lang="pt">
 <head>
+<!-- SBL HORA FIM FOCO PDF ANO FINAL VERIFIED V2 2026-06-17 -->
+<!-- SBL HORA FIM FOCO E PDF ANO FINAL 2026-06-17 -->
+
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta charset="utf-8"/>
 <style id="template-clean-style">
@@ -1714,6 +1717,8 @@ select:focus,
   background: #fff !important;
 }
 
+
+/* SBL SAFARI DATE TIME REQUIRED FIX 2026-06-17 */
 </style>
 <style id="sbl-cbl-rbl-v2-css-final">
 /* ===== SBL V2 — correções reais herdadas do CBL/RBL ===== */
@@ -5329,23 +5334,51 @@ input[type="time"]::-webkit-calendar-picker-indicator{
   cursor:pointer !important;
 }
 
-/* Safari: esconde o texto interno dos campos data/hora quando estão vazios.
-   O Chrome não mostra esse texto em campos vazios, mas o Safari sim.
-   :not(:valid) apanha os campos sem valor preenchido. */
-input[type="date"]:not(:valid)::-webkit-datetime-edit,
-input[type="time"]:not(:valid)::-webkit-datetime-edit,
-input[type="date"]:not(:valid)::-webkit-datetime-edit-fields-wrapper,
-input[type="time"]:not(:valid)::-webkit-datetime-edit-fields-wrapper,
-input[type="date"]:not(:valid)::-webkit-datetime-edit-text,
-input[type="time"]:not(:valid)::-webkit-datetime-edit-text,
-input[type="date"]:not(:valid)::-webkit-datetime-edit-day-field,
-input[type="date"]:not(:valid)::-webkit-datetime-edit-month-field,
-input[type="date"]:not(:valid)::-webkit-datetime-edit-year-field,
-input[type="time"]:not(:valid)::-webkit-datetime-edit-hour-field,
-input[type="time"]:not(:valid)::-webkit-datetime-edit-minute-field,
-input[type="time"]:not(:valid)::-webkit-datetime-edit-ampm-field{
+/* SBL SAFARI TIME FOCUS FIX 2026-06-17
+   Safari: esconder o texto interno nativo de data/hora somente quando o campo está vazio E sem foco.
+   Ao focar/clicar para preencher, os subcampos voltam a ficar visíveis para o utilizador conseguir introduzir a hora. */
+input[type="date"]:not(:valid):not(:focus)::-webkit-datetime-edit,
+input[type="time"]:not(:valid):not(:focus)::-webkit-datetime-edit,
+input[type="date"]:not(:valid):not(:focus)::-webkit-datetime-edit-fields-wrapper,
+input[type="time"]:not(:valid):not(:focus)::-webkit-datetime-edit-fields-wrapper,
+input[type="date"]:not(:valid):not(:focus)::-webkit-datetime-edit-text,
+input[type="time"]:not(:valid):not(:focus)::-webkit-datetime-edit-text,
+input[type="date"]:not(:valid):not(:focus)::-webkit-datetime-edit-day-field,
+input[type="date"]:not(:valid):not(:focus)::-webkit-datetime-edit-month-field,
+input[type="date"]:not(:valid):not(:focus)::-webkit-datetime-edit-year-field,
+input[type="time"]:not(:valid):not(:focus)::-webkit-datetime-edit-hour-field,
+input[type="time"]:not(:valid):not(:focus)::-webkit-datetime-edit-minute-field,
+input[type="time"]:not(:valid):not(:focus)::-webkit-datetime-edit-ampm-field{
   color:transparent !important;
   -webkit-text-fill-color:transparent !important;
+}
+
+input[type="date"]:focus::-webkit-datetime-edit,
+input[type="time"]:focus::-webkit-datetime-edit,
+input[type="date"]:valid::-webkit-datetime-edit,
+input[type="time"]:valid::-webkit-datetime-edit,
+input[type="date"]:focus::-webkit-datetime-edit-fields-wrapper,
+input[type="time"]:focus::-webkit-datetime-edit-fields-wrapper,
+input[type="date"]:valid::-webkit-datetime-edit-fields-wrapper,
+input[type="time"]:valid::-webkit-datetime-edit-fields-wrapper,
+input[type="date"]:focus::-webkit-datetime-edit-text,
+input[type="time"]:focus::-webkit-datetime-edit-text,
+input[type="date"]:valid::-webkit-datetime-edit-text,
+input[type="time"]:valid::-webkit-datetime-edit-text,
+input[type="date"]:focus::-webkit-datetime-edit-day-field,
+input[type="date"]:focus::-webkit-datetime-edit-month-field,
+input[type="date"]:focus::-webkit-datetime-edit-year-field,
+input[type="date"]:valid::-webkit-datetime-edit-day-field,
+input[type="date"]:valid::-webkit-datetime-edit-month-field,
+input[type="date"]:valid::-webkit-datetime-edit-year-field,
+input[type="time"]:focus::-webkit-datetime-edit-hour-field,
+input[type="time"]:focus::-webkit-datetime-edit-minute-field,
+input[type="time"]:focus::-webkit-datetime-edit-ampm-field,
+input[type="time"]:valid::-webkit-datetime-edit-hour-field,
+input[type="time"]:valid::-webkit-datetime-edit-minute-field,
+input[type="time"]:valid::-webkit-datetime-edit-ampm-field{
+  color:#3f3f3f !important;
+  -webkit-text-fill-color:#3f3f3f !important;
 }
 
 /* Textareas sem resize/scroll visual estranho */
@@ -10845,6 +10878,105 @@ body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field input[ty
 }
 </style>
 
+
+<style id="sbl-safari-time-focus-final-20260617">
+/* SBL SAFARI HORA FOCO + PDF FINAL 2026-06-17
+   Campos vazios continuam limpos no Safari; ao focar/preencher, hora início e hora fim têm o mesmo realce vermelho institucional. */
+#data,
+#hora,
+#hora_fim{
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+#data:focus,
+#hora:focus,
+#hora_fim:focus,
+#data:focus-visible,
+#hora:focus-visible,
+#hora_fim:focus-visible{
+  border-color: var(--sbl-red, #E31E24) !important;
+  outline: 3px solid rgba(227,30,36,.12) !important;
+  box-shadow: 0 3px 10px rgba(227,30,36,.08) !important;
+  background: #fff !important;
+}
+#data:focus::-webkit-datetime-edit,
+#hora:focus::-webkit-datetime-edit,
+#hora_fim:focus::-webkit-datetime-edit,
+#data:valid::-webkit-datetime-edit,
+#hora:valid::-webkit-datetime-edit,
+#hora_fim:valid::-webkit-datetime-edit,
+#data:focus::-webkit-datetime-edit-fields-wrapper,
+#hora:focus::-webkit-datetime-edit-fields-wrapper,
+#hora_fim:focus::-webkit-datetime-edit-fields-wrapper,
+#data:valid::-webkit-datetime-edit-fields-wrapper,
+#hora:valid::-webkit-datetime-edit-fields-wrapper,
+#hora_fim:valid::-webkit-datetime-edit-fields-wrapper,
+#data:focus::-webkit-datetime-edit-text,
+#hora:focus::-webkit-datetime-edit-text,
+#hora_fim:focus::-webkit-datetime-edit-text,
+#data:valid::-webkit-datetime-edit-text,
+#hora:valid::-webkit-datetime-edit-text,
+#hora_fim:valid::-webkit-datetime-edit-text,
+#data:focus::-webkit-datetime-edit-day-field,
+#data:focus::-webkit-datetime-edit-month-field,
+#data:focus::-webkit-datetime-edit-year-field,
+#data:valid::-webkit-datetime-edit-day-field,
+#data:valid::-webkit-datetime-edit-month-field,
+#data:valid::-webkit-datetime-edit-year-field,
+#hora:focus::-webkit-datetime-edit-hour-field,
+#hora:focus::-webkit-datetime-edit-minute-field,
+#hora:focus::-webkit-datetime-edit-ampm-field,
+#hora:valid::-webkit-datetime-edit-hour-field,
+#hora:valid::-webkit-datetime-edit-minute-field,
+#hora:valid::-webkit-datetime-edit-ampm-field,
+#hora_fim:focus::-webkit-datetime-edit-hour-field,
+#hora_fim:focus::-webkit-datetime-edit-minute-field,
+#hora_fim:focus::-webkit-datetime-edit-ampm-field,
+#hora_fim:valid::-webkit-datetime-edit-hour-field,
+#hora_fim:valid::-webkit-datetime-edit-minute-field,
+#hora_fim:valid::-webkit-datetime-edit-ampm-field{
+  color:#3f3f3f !important;
+  -webkit-text-fill-color:#3f3f3f !important;
+  background: transparent !important;
+}
+#data:not(:valid):not(:focus)::-webkit-datetime-edit,
+#hora:not(:valid):not(:focus)::-webkit-datetime-edit,
+#hora_fim:not(:valid):not(:focus)::-webkit-datetime-edit,
+#data:not(:valid):not(:focus)::-webkit-datetime-edit-fields-wrapper,
+#hora:not(:valid):not(:focus)::-webkit-datetime-edit-fields-wrapper,
+#hora_fim:not(:valid):not(:focus)::-webkit-datetime-edit-fields-wrapper,
+#data:not(:valid):not(:focus)::-webkit-datetime-edit-text,
+#hora:not(:valid):not(:focus)::-webkit-datetime-edit-text,
+#hora_fim:not(:valid):not(:focus)::-webkit-datetime-edit-text,
+#data:not(:valid):not(:focus)::-webkit-datetime-edit-day-field,
+#data:not(:valid):not(:focus)::-webkit-datetime-edit-month-field,
+#data:not(:valid):not(:focus)::-webkit-datetime-edit-year-field,
+#hora:not(:valid):not(:focus)::-webkit-datetime-edit-hour-field,
+#hora:not(:valid):not(:focus)::-webkit-datetime-edit-minute-field,
+#hora:not(:valid):not(:focus)::-webkit-datetime-edit-ampm-field,
+#hora_fim:not(:valid):not(:focus)::-webkit-datetime-edit-hour-field,
+#hora_fim:not(:valid):not(:focus)::-webkit-datetime-edit-minute-field,
+#hora_fim:not(:valid):not(:focus)::-webkit-datetime-edit-ampm-field{
+  color:transparent !important;
+  -webkit-text-fill-color:transparent !important;
+}
+</style>
+
+
+<style id="sbl-hora-fim-focus-exact-final-20260617">
+/* SBL HORA FIM FOCO PDF ANO FINAL VERIFIED V2 2026-06-17
+   Regra final explícita: hora_fim deve ter o mesmo foco vermelho institucional da hora de início. */
+body:not(.guiao-pdf-mode) #hora:focus,
+body:not(.guiao-pdf-mode) #hora_fim:focus,
+body:not(.guiao-pdf-mode) #hora:focus-visible,
+body:not(.guiao-pdf-mode) #hora_fim:focus-visible {
+  border-color: var(--sbl-red, #E31E24) !important;
+  outline: 3px solid rgba(227,30,36,.12) !important;
+  box-shadow: 0 3px 10px rgba(227,30,36,.08) !important;
+  background: #fff !important;
+}
+</style>
+
 </head>
 <body>
 <div class="page">
@@ -10908,7 +11040,7 @@ body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field input[ty
 </div>
 <div aria-live="polite" class="cbl-course-chips" id="cblCursosSelecionados"></div>
 <div class="cbl-course-helper">Selecione um curso na lista. Para adicionar mais cursos, repita a seleção.</div>
-</div></div><div class="sbl47-v53-card"><label for="uc">Unidade(s) Curricular(es)</label><textarea id="uc" name="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado"></textarea></div><div class="sbl47-v53-card"><label for="professor">Docente(s)</label><textarea id="professor" name="professor" placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva"></textarea></div><div class="sbl47-v53-card wide"><label for="emails">Email(s)</label><textarea id="emails" name="emails" placeholder="Ex.: docente@universidadeeuropeia.pt"></textarea></div><div class="sbl47-v53-card"><label for="ano_letivo">Ano letivo</label><input id="ano_letivo" name="ano_letivo" placeholder="Ex.: 2026/2027" type="text"/></div><div class="sbl47-v53-card"><label for="data">Data da simulação</label><input id="data" name="data" placeholder="AAAA-MM-DD" type="date" autocomplete="off"></div><div class="sbl47-v53-card"><label for="hora">Hora de início</label><input id="hora" name="hora" placeholder="HH:MM" type="time" autocomplete="off"></div><div class="sbl47-v53-card"><label for="hora_fim">Hora de fim</label><input id="hora_fim" name="hora_fim" placeholder="HH:MM" type="time" autocomplete="off"></div><div class="sbl47-v53-card"><label for="n_estudantes">Nº de estudantes</label><input id="n_estudantes" inputmode="numeric" min="0" name="n_estudantes" placeholder="Ex.: 32" step="1" type="number"/></div><div class="sbl47-v53-card"><label for="n_grupos">Nº de grupos</label><input id="n_grupos" inputmode="numeric" min="0" name="n_grupos" placeholder="Ex.: 6" step="1" type="number"/></div></div><div class="sbl-autoria-estado-panel"><div class="sbl-autoria-estado-title">Autoria e estado do guião</div><div class="sbl-autoria-estado-grid"><div class="sbl47-v53-card sbl-autoria-card"><label for="autoria">Autoria</label><textarea id="autoria" name="autoria" placeholder="Ex.: Ana Luiza Marques" required="required" aria-required="true"></textarea></div><div class="sbl47-v53-card sbl-estado-card"><label for="estado">Estado do guião</label><select id="estado" name="estado"><option selected="selected" value="">Selecionar</option><option value="Novo">Novo</option><option value="Atualizado">Atualizado</option><option value="Reutilizado">Reutilizado</option></select></div></div></div>
+</div></div><div class="sbl47-v53-card"><label for="uc">Unidade(s) Curricular(es)</label><textarea id="uc" name="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado"></textarea></div><div class="sbl47-v53-card"><label for="professor">Docente(s)</label><textarea id="professor" name="professor" placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva"></textarea></div><div class="sbl47-v53-card wide"><label for="emails">Email(s)</label><textarea id="emails" name="emails" placeholder="Ex.: docente@universidadeeuropeia.pt"></textarea></div><div class="sbl47-v53-card"><label for="data">Data da simulação</label><input id="data" name="data" placeholder="AAAA-MM-DD" type="date" autocomplete="off" required aria-required="true"></div><div class="sbl47-v53-card"><label for="hora">Hora de início</label><input id="hora" name="hora" placeholder="HH:MM" type="time" autocomplete="off" required aria-required="true"></div><div class="sbl47-v53-card"><label for="hora_fim">Hora de fim</label><input id="hora_fim" name="hora_fim" placeholder="HH:MM" type="time" autocomplete="off" required aria-required="true"></div><div class="sbl47-v53-card"><label for="ano_letivo">Ano letivo</label><input id="ano_letivo" name="ano_letivo" placeholder="Ex.: 2026/2027" type="text"/></div><div class="sbl47-v53-card"><label for="n_estudantes">Nº de estudantes</label><input id="n_estudantes" inputmode="numeric" min="0" name="n_estudantes" placeholder="Ex.: 32" step="1" type="number"/></div><div class="sbl47-v53-card"><label for="n_grupos">Nº de grupos</label><input id="n_grupos" inputmode="numeric" min="0" name="n_grupos" placeholder="Ex.: 6" step="1" type="number"/></div></div><div class="sbl-autoria-estado-panel"><div class="sbl-autoria-estado-title">Autoria e estado do guião</div><div class="sbl-autoria-estado-grid"><div class="sbl47-v53-card sbl-autoria-card"><label for="autoria">Autoria</label><textarea id="autoria" name="autoria" placeholder="Ex.: Ana Luiza Marques" required="required" aria-required="true"></textarea></div><div class="sbl47-v53-card sbl-estado-card"><label for="estado">Estado do guião</label><select id="estado" name="estado"><option selected="selected" value="">Selecionar</option><option value="Novo">Novo</option><option value="Atualizado">Atualizado</option><option value="Reutilizado">Reutilizado</option></select></div></div></div>
 <div class="section sbl47-v68-red-print-card">
 <label>Objetivos:</label>
 <textarea id="objetivos" placeholder="Indique os objetivos de aprendizagem..."></textarea>
@@ -12195,17 +12327,27 @@ function collectFormData(){
               <td class="pdf-cell-value">${valueHtml(fieldText("n_estudantes"))}</td>
             </tr>
             <tr>
-              <td class="pdf-cell-label" colspan="2" style="text-align:center;">Ano letivo:</td>
-              <td class="pdf-cell-value" colspan="2" style="text-align:center;">${valueHtml(fieldText("ano_letivo"))}</td>
+              <td class="pdf-cell-label">Número de grupos:</td>
+              <td class="pdf-cell-value">${valueHtml(fieldText("n_grupos"))}</td>
+              <td class="pdf-cell-label">Data da simulação:</td>
+              <td class="pdf-cell-value">${valueHtml(fieldText("data"))}</td>
+            </tr>
+            <tr>
+              <td class="pdf-cell-label">Hora de início:</td>
+              <td class="pdf-cell-value">${valueHtml(fieldText("hora"))}</td>
+              <td class="pdf-cell-label">Hora de fim:</td>
+              <td class="pdf-cell-value">${valueHtml(fieldText("hora_fim") || fieldText("horaFim") || fieldText("hora_final"))}</td>
+            </tr>
+            <tr>
+              <td class="pdf-cell-label" colspan="4" style="text-align:center;">Ano letivo:</td>
+            </tr>
+            <tr>
+              <td class="pdf-cell-value" colspan="4" style="text-align:center;">${valueHtml(fieldText("ano_letivo") || fieldText("ano"))}</td>
             </tr>
           </table>
           <div class="pdf-ident-grid">
             ${field("Autoria", fieldText("autoria"), "full")}
             ${field("Estado do guião", fieldText("estado"))}
-            <div class="pdf-two-mini">
-              ${field("Data", fieldText("data"))}
-              ${field("Hora", fieldText("hora"))}
-            </div>
           </div>
         `)}
 
@@ -12464,18 +12606,18 @@ function collectFormData(){
         ],
         [
           ['Unidade(s) Curricular(es)', val('uc')],
-          ['Ano letivo', val('ano_letivo') || val('ano')]
+          ['Número de estudantes', val('n_estudantes')]
         ],
         [
-          ['Número de estudantes', val('n_estudantes')],
-          ['Número de grupos', val('n_grupos')]
+          ['Número de grupos', val('n_grupos')],
+          ['Data da simulação', val('data')]
         ],
         [
-          ['Data da simulação', val('data')],
-          ['Hora de início', val('hora')]
+          ['Hora de início', val('hora')],
+          ['Hora de fim', val('hora_fim') || val('horaFim') || val('hora_final')]
         ]
       ];
-      const singleRow = ['Hora de fim', val('hora_fim') || val('horaFim') || val('hora_final')];
+      const singleRow = ['Ano letivo', val('ano_letivo') || val('ano')];
 
       const rowHeights = pairRows.map(function(pair){
         return Math.max.apply(null, pair.map(function(item, idx){
@@ -15275,11 +15417,12 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
     }
 
     grid.appendChild(makeField('Email(s):', emails, {forId:'emails', cls:'sbl-oferta-span-2'}));
-    grid.appendChild(makeField('Ano letivo:', ano, {forId:ano.id, cls:'sbl-oferta-span-2'}));
 
     if(data) grid.appendChild(makeField('Data da simulação', data, {forId:'data', cls:'sbl-oferta-date-field sbl-oferta-span-2'}));
     if(hora) grid.appendChild(makeField('Hora de início', hora, {forId:'hora', cls:'sbl-oferta-time-field'}));
     if(horaFim) grid.appendChild(makeField('Hora de fim', horaFim, {forId:'hora_fim', cls:'sbl-oferta-time-field'}));
+
+    grid.appendChild(makeField('Ano letivo:', ano, {forId:ano.id, cls:'sbl-oferta-span-2'}));
 
     var anchor = oldContainers.find(Boolean);
     var block = anchor ? (anchor.closest('.sbl47-v53-header-cards') || anchor.closest('table') || anchor) : null;
