@@ -10740,7 +10740,7 @@ async function submitValidacao(){
   } catch(e) {}
 
   try{
-    var r = await fetch('/api/guioes/submit?templateType=PROJ-BL', {
+    var r = await fetch('https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e204529fc1f342fc87cd935dfa2a58f1/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=twiVi70IgSoNelyf9E_StjR8n6gtjcasJu3ULIuXErc', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(dados)
@@ -12551,7 +12551,7 @@ textarea#tituloProjeto{
 <script id="proj-powerautomate-cbl-final-sync">
 (function(){
   "use strict";
-  var FLOW_URL = "/api/guioes/submit?templateType=PROJ-BL";
+  var FLOW_URL = "https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e204529fc1f342fc87cd935dfa2a58f1/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=twiVi70IgSoNelyf9E_StjR8n6gtjcasJu3ULIuXErc";
   var submitLock = false;
 
   function notify(message, type, duration){
@@ -19592,7 +19592,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   if(window.__guioesCarregamentoPorItemIdV2Instalado) return;
   window.__guioesCarregamentoPorItemIdV2Instalado = true;
 
-  var OBTER_GUIAO_URL = '/api/guioes/load?templateType=PROJ-BL';
+  var OBTER_GUIAO_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
 
   function clean(v){ return String(v == null ? '' : v).trim(); }
   function lower(v){ return clean(v).toLowerCase(); }
