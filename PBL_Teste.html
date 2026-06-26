@@ -5682,7 +5682,7 @@ function makePdfFileName(){
       pdf.setFont('helvetica','normal');
       pdf.setFontSize(7);
       pdf.setTextColor(120,120,120);
-      pdf.text('Plano Problem-Based Learning — Universidade Europeia | IADE | IPAM', margin, pageH - 7);
+      pdf.text('Guião Problem-Based Learning · Universidade Europeia | IADE | IPAM Página ' + String(n), margin, pageH - 7);
       pdf.text(String(n), pageW - margin, pageH - 7, {align:'right'});
       setTextColor(dark);
     }
@@ -5721,32 +5721,19 @@ function makePdfFileName(){
       if(LOGO_SRC){
         try{ pdf.addImage(LOGO_SRC, LOGO_FORMAT, margin, y, 43, 10); }catch(e){}
       }
-      pdf.setFont('helvetica','bold');
-      pdf.setFontSize(8);
-      setTextColor(grey);
-      pdf.text('GUIÃO PEDAGÓGICO INSTITUCIONAL', pageW - margin, y + 3.5, {align:'right'});
-      pdf.setFontSize(7.2);
-      pdf.setFont('helvetica','normal');
-      pdf.text('Universidade Europeia | IADE | IPAM', pageW - margin, y + 8, {align:'right'});
-      y += 20;
+      y += 16;
 
-      setFillColor([255,255,255]);
-      setDrawColor(border);
-      pdf.roundedRect(margin, y, pageW - margin*2, 33, 2.8, 2.8, 'S');
       pdf.setFont('helvetica','bold');
-      pdf.setFontSize(19);
+      pdf.setFontSize(18);
       setTextColor(dark);
-      pdf.text('Plano Problem-Based Learning', pageW/2, y + 11.5, {align:'center'});
+      pdf.text('Guião Problem-Based Learning', margin, y);
+      y += 8;
+
       pdf.setFont('helvetica','normal');
-      pdf.setFontSize(8.6);
-      setTextColor(grey);
-      pdf.text('PDF espelho documental para arquivo, validação e partilha institucional', pageW/2, y + 18, {align:'center'});
-      rule(margin + 18, y + 23, pageW - margin - 18, red, 0.45);
-      pdf.setFont('helvetica','bold');
-      pdf.setFontSize(10);
+      pdf.setFontSize(9);
       setTextColor(dark);
-      pdf.text(emptyDash(val('titulo')), pageW/2, y + 29, {align:'center'});
-      y += 41;
+      pdf.text('Autoria: ' + emptyDash(val('autoria')), margin, y);
+      y += 10;
 
       sectionTitle('Identificação do guião', true);
       metaGrid();
@@ -5777,13 +5764,13 @@ function makePdfFileName(){
     function metaGrid(){
       var items = [
         ['Unidade Orgânica', val('unidadeOrganica')],
-        ['Modalidade', val('modalidade')],
-        ['Curso', val('curso')],
-        ['Unidade(s) Curricular(es)', val('uc')],
-        ['Ano Letivo', val('ano')],
+        ['Curso(s)', val('curso')],
         ['Docente(s)', val('docentes')],
         ['Email(s)', val('emails')],
-        ['Autoria', val('autoria')],
+        ['Unidade(s) Curricular(es)', val('uc')],
+        ['Número de estudantes', val('numeroEstudantes')],
+        ['Ano letivo', val('ano')],
+        ['Modalidade', val('modalidade')],
         ['Estado do guião', val('estadoGuiao')],
         ['Data de geração', new Date().toLocaleDateString('pt-PT')]
       ];

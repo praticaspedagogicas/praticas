@@ -4510,6 +4510,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   const TEMPLATE_TYPE = "RBL";
   const TEMPLATE_SCENARIO = "RBL";
+  const TEMPLATE_SCENARIO_NAME = "Research-Based Learning";
   const FLOW_URL = "https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e204529fc1f342fc87cd935dfa2a58f1/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=twiVi70IgSoNelyf9E_StjR8n6gtjcasJu3ULIuXErc";
   const HTML2PDF_CDN = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
   let activeSubmission = false;
@@ -4857,6 +4858,9 @@ function collectFormData(){
       pageTitle,
       templateType: TEMPLATE_TYPE,
       cenarioAprendizagem: TEMPLATE_SCENARIO,
+      cenario: TEMPLATE_SCENARIO_NAME,
+      scenario: TEMPLATE_SCENARIO_NAME,
+      templateScenario: TEMPLATE_SCENARIO_NAME,
       estadoGuiao: "Submetido",
       estadoGuiaoFormulario,
       docentes,
@@ -4884,6 +4888,9 @@ function collectFormData(){
       estruturaPedagogica: JSON.stringify({
         templateType: TEMPLATE_TYPE,
         cenarioAprendizagem: TEMPLATE_SCENARIO,
+        cenario: TEMPLATE_SCENARIO_NAME,
+        scenario: TEMPLATE_SCENARIO_NAME,
+        templateScenario: TEMPLATE_SCENARIO_NAME,
         pageTitle,
         values,
         lines
