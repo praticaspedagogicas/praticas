@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# Bloquear endpoints internos
+Disallow: /api/guioes/
+Disallow: /api/legacy/

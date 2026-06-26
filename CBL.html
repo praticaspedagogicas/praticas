@@ -2130,8 +2130,8 @@ body:not(.cbl-exporting) .cbl-repository-option{
   line-height:1.26 !important;
 }
 body:not(.cbl-exporting) .cbl-repository-option input[type="radio"]{
-  -webkit-appearance:none !important;
-  appearance:none !important;
+  -webkit-appearance:auto !important;
+  appearance:auto !important;
   width:14px !important;
   min-width:14px !important;
   max-width:14px !important;
@@ -2306,8 +2306,8 @@ body:not(.cbl-exporting) .header-card{
   min-width:0 !important;
   max-width:100% !important;
   display:block !important;
-  -webkit-appearance:none !important;
-  appearance:none !important;
+  -webkit-appearance:auto !important;
+  appearance:auto !important;
   min-height:40px !important;
   height:40px !important;
   padding:8px 10px !important;
@@ -2977,8 +2977,31 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 }
 </style>
 
+<style id="guioes-date-time-native-20260625">
+input[type="date"],
+input[type="time"]{
+  -webkit-appearance:auto !important;
+  appearance:auto !important;
+  background:#fff !important;
+  color:#242424 !important;
+  -webkit-text-fill-color:#242424 !important;
+  color-scheme:light !important;
+  min-height:42px !important;
+  line-height:normal !important;
+}
+</style>
+
+<style id="guioes-home-button-20260626">
+.guioes-home-link{position:fixed;left:1.25rem;top:1.15rem;z-index:9999;display:inline-flex;align-items:center;gap:.45rem;border:1px solid rgba(0,0,0,.08);border-radius:999px;background:rgba(255,255,255,.95);box-shadow:0 14px 34px rgba(26,34,44,.09);color:#20242c;text-decoration:none;font:700 14px/1.1 "Segoe UI",Arial,sans-serif;padding:.85rem 1.05rem;backdrop-filter:blur(8px)}
+.guioes-home-link:hover{background:#fff;border-color:rgba(0,0,0,.16)}
+@media(max-width:800px){.guioes-home-link{left:.85rem;top:.85rem;font-size:13px;padding:.7rem .9rem}}
+@media print{.guioes-home-link{display:none!important}}
+</style>
+
 </head>
 <body>
+<a class="guioes-home-link" href="./index.html" aria-label="Voltar à página inicial">← Página inicial</a>
+
 <div class="page">
 <div class="premium-status no-print">
 <div class="progress-label" id="progressLabel">Guião preenchido: 0%</div>
@@ -3082,18 +3105,18 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 </div>
 <div class="cbl-meta-field cbl-meta-org">
 <label>Organização(ões), parceiro(s) ou contexto do desafio:</label>
-<textarea class="cbl-expandable-field" id="organizacao" placeholder="Ex.: Município de Lisboa — Divisão de Comunicação Digital e Participação Cidadã; contacto institucional real ou fictício. Se não aplicável, indique o contexto do desafio ou escreva Sem organização externa."></textarea>
+<textarea class="cbl-expandable-field" id="organizacao" placeholder="Ex.: Município de Lisboa — Divisão de Comunicação Digital e Participação Cidadã; contacto institucional real ou fictício. Se não aplicável, indique o contexto do desafio ou escreva Sem organização externa." required="required" aria-required="true"></textarea>
 </div>
 <div class="cbl-meta-field cbl-meta-wide">
 <label>Conteúdo(s) alinhados com os Conteúdos Programáticos da FUC:</label>
-<textarea class="cbl-expandable-field" id="conteudos" placeholder="Liste os conteúdos programáticos alinhados com o desafio..."></textarea>
+<textarea class="cbl-expandable-field" id="conteudos" placeholder="Liste os conteúdos programáticos alinhados com o desafio..." required="required" aria-required="true"></textarea>
 </div>
 </div>
 </div>
 <div class="section">
 <h3>Desafio</h3>
 <label>Desafio:</label>
-<textarea class="cbl-expandable-field" id="desafio" placeholder="Descreva o problema real que os estudantes vão resolver..."></textarea>
+<textarea class="cbl-expandable-field" id="desafio" placeholder="Descreva o problema real que os estudantes vão resolver..." required="required" aria-required="true"></textarea>
 <label>Objetivos de Aprendizagem (ponderações) alinhados com os Objetivos da FUC:</label>
 <textarea class="cbl-expandable-field" id="objetivos" placeholder="• Objetivo 1 (XX%) - verbo
 • Objetivo 2 (XX%) - verbo"></textarea>
@@ -3119,15 +3142,15 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 <div class="cbl-calendar-grid">
 <div class="cbl-calendar-field">
 <label for="calendarizacao">Data:</label>
-<input id="calendarizacao" type="date">
+<input autocomplete="off" id="calendarizacao" type="date" value="">
 </input></div>
 <div class="cbl-calendar-field">
 <label for="hora_inicio">Hora de início:</label>
-<input id="hora_inicio" type="time">
+<input autocomplete="off" id="hora_inicio" type="time" value="">
 </input></div>
 <div class="cbl-calendar-field">
 <label for="hora_fim">Hora de fim:</label>
-<input id="hora_fim" type="time">
+<input autocomplete="off" id="hora_fim" type="time" value="">
 </input></div>
 </div>
 </div>
@@ -3160,7 +3183,7 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 <div class="ux-menu" id="uxMenuMaisOpcoes"></div>
 </div>
 <button class="ux-btn ux-btn-primary" id="btnEnviarValidacao" type="button">Enviar para Validação</button>
-<div class="ux-ai-guidance">Use o Assistente IA para esclarecer dúvidas sobre o preenchimento do guião*.</div>
+<div class="ux-ai-guidance">Use o Assistente IA para esclarecer dúvidas sobre o preenchimento do guião.</div>
 </div>
 <div class="ux-info-panel no-print">
 <div class="ux-info-item"><span class="ux-info-dot"></span><span><strong>Assistente IA institucional</strong>Disponível conforme as permissões Microsoft 365.</span></div>
@@ -3184,7 +3207,7 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
   var TEMPLATE_TYPE = 'CBL';
   var TEMPLATE_SCENARIO = 'CBL';
   var STORAGE_KEY = 'template_autosave_CBL_v3';
-  var FLOW_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e204529fc1f342fc87cd935dfa2a58f1/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=twiVi70IgSoNelyf9E_StjR8n6gtjcasJu3ULIuXErc';
+  var FLOW_URL = '/api/guioes/submit?templateType=CBL';
   var HTML2PDF_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
   var JSPDF_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
   var BOT_URL = 'https://teams.microsoft.com/l/app/?titleId=T_3563aa57-a2da-f9ec-f15e-40e313566c90';
@@ -5154,7 +5177,6 @@ body.cbl-exporting .cbl-meta-panel .cbl-meta-field,
       hidden.value=cursos.join('; ');
       chips.innerHTML='';
       if(cursos.length === 0){
-        chips.innerHTML='<span class="cbl-course-helper">Nenhum curso selecionado ainda.</span>';
         return;
       }
       cursos.forEach(function(curso, idx){
@@ -5188,6 +5210,7 @@ body.cbl-exporting .cbl-meta-panel .cbl-meta-field,
       typed.split(';').map(norm).filter(Boolean).forEach(function(item){ current.push(item); });
       hidden.value=uniq(current).join('; ');
       search.value='';
+      search.removeAttribute('aria-invalid');
       hidden.dispatchEvent(new Event('input', {bubbles:true}));
       hidden.dispatchEvent(new Event('change', {bubbles:true}));
       render();
@@ -5860,7 +5883,16 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     input.value = value;
     input.dispatchEvent(new Event('input', {bubbles:true}));
     input.dispatchEvent(new Event('change', {bubbles:true}));
-    setTimeout(function(){ input.value = ''; }, 120);
+    var isSearchOnly = input.id === 'cursoBusca' || input.name === 'cursoBusca' || input.getAttribute('data-pbl-aux') === 'true';
+    var payload = document.getElementById('curso');
+    if(payload && payload !== input){
+      payload.value = value;
+      payload.dispatchEvent(new Event('input', {bubbles:true}));
+      payload.dispatchEvent(new Event('change', {bubbles:true}));
+    }
+    if(isSearchOnly && (payload && payload !== input)){
+      setTimeout(function(){ input.value = ''; }, 120);
+    }
   }
   function initInput(input){
     if(!input || input.dataset.guioesCustomCursoV2 === '1') return;
@@ -5961,7 +5993,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 (function(){
   'use strict';
 
-  var OBTER_GUIAO_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
+  var OBTER_GUIAO_URL = '/api/guioes/load?templateType=CBL';
 
   function $(id){ return document.getElementById(id); }
   function clean(v){ return String(v == null ? '' : v).trim(); }
@@ -6187,7 +6219,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 /* VALIDACAO OBRIGATORIA CABECALHO 2026-06-17 — CBL */
 (function(){
   'use strict';
-  var REQUIRED_GROUPS = [{"label": "Unidade Orgânica", "selectors": ["#unidadeOrganica"]}, {"label": "Modalidade", "selectors": ["#modalidade"]}, {"label": "Semestre", "selectors": ["#semestre"]}, {"label": "Turma/Edição", "selectors": ["#turmaEdicao"]}, {"label": "Curso(s)", "selectors": ["#curso", "#cursoBusca"]}, {"label": "Unidade(s) Curricular(es)", "selectors": ["#uc"]}, {"label": "Docente(s)", "selectors": ["#professor"]}, {"label": "Email(s)", "selectors": ["#emails"]}, {"label": "Autoria", "selectors": ["#autoria"]}, {"label": "Ano letivo", "selectors": ["#ano"]}, {"label": "Estado do guião", "selectors": ["#estado"]}, {"label": "Autorização para repositório", "selectors": ["input[name=\"autorizaRepositorio\"]"]}];
+  var REQUIRED_GROUPS = [{"label": "Unidade Orgânica", "selectors": ["#unidadeOrganica"]}, {"label": "Modalidade", "selectors": ["#modalidade"]}, {"label": "Semestre", "selectors": ["#semestre"]}, {"label": "Turma/Edição", "selectors": ["#turmaEdicao"]}, {"label": "Curso(s)", "selectors": ["#curso", "#cursoBusca"]}, {"label": "Unidade(s) Curricular(es)", "selectors": ["#uc"]}, {"label": "Docente(s)", "selectors": ["#professor"]}, {"label": "Email(s)", "selectors": ["#emails"]}, {"label": "Autoria", "selectors": ["#autoria"]}, {"label": "Ano letivo", "selectors": ["#ano"]}, {"label": "Estado do guião", "selectors": ["#estado"]}, {"label": "Organização(ões), parceiro(s) ou contexto do desafio", "selectors": ["#organizacao"]}, {"label": "Conteúdo(s) alinhados com os Conteúdos Programáticos da FUC", "selectors": ["#conteudos"]}, {"label": "Desafio", "selectors": ["#desafio"]}, {"label": "Autorização para repositório", "selectors": ["input[name=\"autorizaRepositorio\"]"]}];
   var VALIDAR_SESSOES_RBL = false;
   function norm(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
   function qsAll(sel){ try{ return Array.prototype.slice.call(document.querySelectorAll(sel)); }catch(e){ return []; } }
@@ -6199,7 +6231,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   function setRequiredOn(el){ if(!el || el.disabled) return; if(el.type === 'hidden') return; el.setAttribute('aria-required','true'); if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT'){ el.required = true; el.setAttribute('required','required'); } }
   function markRequired(){ REQUIRED_GROUPS.forEach(function(group){ var elements = elementsFor(group); if(isRadioGroup(elements)){ elements.forEach(function(el){ el.required = true; el.setAttribute('required','required'); el.setAttribute('aria-required','true'); }); } else { elements.forEach(setRequiredOn); } }); if(VALIDAR_SESSOES_RBL){ qsAll('input[id^="aula"][id$="_data"], input[id^="aula"][id$="_duracao"]').forEach(setRequiredOn); } }
   function missingSessionsRBL(){ if(!VALIDAR_SESSOES_RBL) return []; var missing = []; qsAll('input[id^="aula"][id$="_data"]').forEach(function(dataEl){ var m = String(dataEl.id || '').match(/^aula(\d+)_data$/); var n = m ? m[1] : ''; if(!norm(dataEl.value)) missing.push({label:'Data da sessão ' + n, el:dataEl}); var durEl = n ? document.getElementById('aula' + n + '_duracao') : null; if(durEl && !norm(durEl.value)) missing.push({label:'Duração da sessão ' + n, el:durEl}); }); return missing; }
-  function validateObrigatorios(){ markRequired(); var missing = []; REQUIRED_GROUPS.forEach(function(group){ if(!groupFilled(group)) missing.push({label:group.label, el:firstFocusable(group)}); }); missing = missing.concat(missingSessionsRBL()); if(!missing.length) return true; var names = missing.map(function(x){ return '• ' + x.label; }).join('\n'); var msg = 'Antes de enviar para validação, preencha os campos obrigatórios:\n\n' + names; try{ var old = document.querySelector('.toast-message, .ux-toast'); if(old && old.parentNode) old.parentNode.removeChild(old); var d = document.createElement('div'); d.className = 'toast-message'; d.style.whiteSpace = 'pre-line'; d.style.maxWidth = '620px'; d.style.textAlign = 'left'; d.textContent = msg; document.body.appendChild(d); setTimeout(function(){ if(d && d.parentNode) d.parentNode.removeChild(d); }, 5000); }catch(e){} alert(msg); var focusEl = missing.find(function(x){ return x.el && x.el.type !== 'hidden'; }); if(focusEl && focusEl.el){ try{ focusEl.el.focus({preventScroll:false}); focusEl.el.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} } return false; }
+  function validateObrigatorios(){ markRequired(); var missing = []; REQUIRED_GROUPS.forEach(function(group){ if(!groupFilled(group)) missing.push({label:group.label, el:firstFocusable(group)}); }); missing = missing.concat(missingSessionsRBL()); if(!missing.length) return true; var msg = 'Antes de enviar para validação, preencha: ' + missing.map(function(x){ return x.label; }).join(', ') + '.'; try{ var old = document.querySelector('.toast-message, .ux-toast'); if(old && old.parentNode) old.parentNode.removeChild(old); var d = document.createElement('div'); d.className = 'toast-message'; d.style.whiteSpace = 'pre-line'; d.style.maxWidth = '620px'; d.style.textAlign = 'left'; d.textContent = msg; document.body.appendChild(d); setTimeout(function(){ if(d && d.parentNode) d.parentNode.removeChild(d); }, 5000); }catch(e){} alert(msg); var focusEl = missing.find(function(x){ return x.el && x.el.type !== 'hidden'; }); if(focusEl && focusEl.el){ try{ focusEl.el.focus({preventScroll:false}); focusEl.el.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} } return false; }
   function isValidationTrigger(el){ if(!el) return false; var id = (el.id || '').toLowerCase(); var txt = norm(el.innerText || el.value || el.getAttribute('aria-label') || '').toLowerCase(); return id === 'btnenviarvalidacao' || id === 'btnvalidacaoreal' || /enviar\s+para\s+valida/.test(txt) || /submeter/.test(txt) || /submiss/.test(txt) || /atualizar\s+gui/.test(txt); }
   document.addEventListener('click', function(ev){ var el = ev.target && ev.target.closest ? ev.target.closest('button, input[type="button"], input[type="submit"], a') : null; if(!isValidationTrigger(el)) return; if(!validateObrigatorios()){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); return false; } }, true);
   document.addEventListener('submit', function(ev){ if(!validateObrigatorios()){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); return false; } }, true);
@@ -6211,5 +6243,71 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   if(VALIDAR_SESSOES_RBL && window.MutationObserver){ try{ new MutationObserver(function(){ markRequired(); }).observe(document.body, {childList:true, subtree:true}); }catch(e){} }
 })();
 </script>
+<script id="guioes-empty-date-time-on-new-20260626">
+(function(){
+  'use strict';
+  var userTouched = false;
+  function hasItemId(){ try{ return !!new URLSearchParams(window.location.search).get('itemId'); }catch(e){ return false; } }
+  function controls(){ return Array.prototype.slice.call(document.querySelectorAll('input[type="date"], input[type="time"]')); }
+  function syncEmptyState(){ controls().forEach(function(el){ el.toggleAttribute('data-guioes-empty-date-time', !String(el.value || '').trim()); }); }
+  function markTouched(){ userTouched = true; syncEmptyState(); }
+  function clearInitialDateTime(){
+    if(hasItemId() || userTouched) return;
+    controls().forEach(function(el){
+      el.setAttribute('autocomplete', 'off');
+      el.value = '';
+      el.removeAttribute('value');
+    });
+    syncEmptyState();
+  }
+  function init(){
+    controls().forEach(function(el){
+      if(el.dataset.guioesDateTimeBound === '1') return;
+      el.dataset.guioesDateTimeBound = '1';
+      el.addEventListener('input', markTouched);
+      el.addEventListener('change', markTouched);
+    });
+    clearInitialDateTime();
+    setTimeout(clearInitialDateTime, 80);
+    setTimeout(clearInitialDateTime, 300);
+    setTimeout(syncEmptyState, 500);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<style id="guioes-date-time-native-final-20260625">
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"],
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"]{
+  -webkit-appearance:auto !important;
+  appearance:auto !important;
+  background:#fff !important;
+  color:#242424 !important;
+  -webkit-text-fill-color:#242424 !important;
+  color-scheme:light !important;
+  min-height:42px !important;
+  line-height:normal !important;
+}
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time],
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]{
+  color:#9a9a9a !important;
+  -webkit-text-fill-color:#9a9a9a !important;
+}
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time]::-webkit-datetime-edit,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]::-webkit-datetime-edit,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time]::-webkit-datetime-edit-fields-wrapper,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]::-webkit-datetime-edit-fields-wrapper,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time]::-webkit-datetime-edit-text,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]::-webkit-datetime-edit-text,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time]::-webkit-datetime-edit-day-field,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time]::-webkit-datetime-edit-month-field,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time]::-webkit-datetime-edit-year-field,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]::-webkit-datetime-edit-hour-field,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]::-webkit-datetime-edit-minute-field,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]::-webkit-datetime-edit-ampm-field{
+  color:#9a9a9a !important;
+  -webkit-text-fill-color:#9a9a9a !important;
+}
+</style>
 </body>
 </html>

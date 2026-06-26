@@ -5333,25 +5333,6 @@ input[type="time"]::-webkit-calendar-picker-indicator{
   cursor:pointer !important;
 }
 
-/* SBL SAFARI TIME FOCUS FIX 2026-06-17
-   Safari: esconder o texto interno nativo de data/hora somente quando o campo está vazio E sem foco.
-   Ao focar/clicar para preencher, os subcampos voltam a ficar visíveis para o utilizador conseguir introduzir a hora. */
-input[type="date"]:not(:valid):not(:focus)::-webkit-datetime-edit,
-input[type="time"]:not(:valid):not(:focus)::-webkit-datetime-edit,
-input[type="date"]:not(:valid):not(:focus)::-webkit-datetime-edit-fields-wrapper,
-input[type="time"]:not(:valid):not(:focus)::-webkit-datetime-edit-fields-wrapper,
-input[type="date"]:not(:valid):not(:focus)::-webkit-datetime-edit-text,
-input[type="time"]:not(:valid):not(:focus)::-webkit-datetime-edit-text,
-input[type="date"]:not(:valid):not(:focus)::-webkit-datetime-edit-day-field,
-input[type="date"]:not(:valid):not(:focus)::-webkit-datetime-edit-month-field,
-input[type="date"]:not(:valid):not(:focus)::-webkit-datetime-edit-year-field,
-input[type="time"]:not(:valid):not(:focus)::-webkit-datetime-edit-hour-field,
-input[type="time"]:not(:valid):not(:focus)::-webkit-datetime-edit-minute-field,
-input[type="time"]:not(:valid):not(:focus)::-webkit-datetime-edit-ampm-field{
-  color:transparent !important;
-  -webkit-text-fill-color:transparent !important;
-}
-
 input[type="date"]:focus::-webkit-datetime-edit,
 input[type="time"]:focus::-webkit-datetime-edit,
 input[type="date"]:valid::-webkit-datetime-edit,
@@ -9877,7 +9858,8 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field #cursoBusca::placeholder,
 body:not(.guiao-pdf-mode) .sbl-oferta-field input#ano_letivo::placeholder,
 body:not(.guiao-pdf-mode) .sbl-oferta-field input#ano::placeholder,
 body:not(.guiao-pdf-mode) .sbl-oferta-field textarea#uc::placeholder,
-body:not(.guiao-pdf-mode) .sbl-oferta-field textarea#emails::placeholder{
+body:not(.guiao-pdf-mode) .sbl-oferta-field textarea#emails::placeholder,
+body:not(.guiao-pdf-mode) .sbl-oferta-field textarea#professor::placeholder{
   font-size:13px !important;
   line-height:1.25 !important;
 }
@@ -10884,8 +10866,8 @@ body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field input[ty
 #data,
 #hora,
 #hora_fim{
-  -webkit-appearance: none !important;
-  appearance: none !important;
+  -webkit-appearance: auto !important;
+  appearance: auto !important;
 }
 #data:focus,
 #hora:focus,
@@ -10938,32 +10920,34 @@ body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field input[ty
   -webkit-text-fill-color:#3f3f3f !important;
   background: transparent !important;
 }
-#data:not(:valid):not(:focus)::-webkit-datetime-edit,
-#hora:not(:valid):not(:focus)::-webkit-datetime-edit,
-#hora_fim:not(:valid):not(:focus)::-webkit-datetime-edit,
-#data:not(:valid):not(:focus)::-webkit-datetime-edit-fields-wrapper,
-#hora:not(:valid):not(:focus)::-webkit-datetime-edit-fields-wrapper,
-#hora_fim:not(:valid):not(:focus)::-webkit-datetime-edit-fields-wrapper,
-#data:not(:valid):not(:focus)::-webkit-datetime-edit-text,
-#hora:not(:valid):not(:focus)::-webkit-datetime-edit-text,
-#hora_fim:not(:valid):not(:focus)::-webkit-datetime-edit-text,
-#data:not(:valid):not(:focus)::-webkit-datetime-edit-day-field,
-#data:not(:valid):not(:focus)::-webkit-datetime-edit-month-field,
-#data:not(:valid):not(:focus)::-webkit-datetime-edit-year-field,
-#hora:not(:valid):not(:focus)::-webkit-datetime-edit-hour-field,
-#hora:not(:valid):not(:focus)::-webkit-datetime-edit-minute-field,
-#hora:not(:valid):not(:focus)::-webkit-datetime-edit-ampm-field,
-#hora_fim:not(:valid):not(:focus)::-webkit-datetime-edit-hour-field,
-#hora_fim:not(:valid):not(:focus)::-webkit-datetime-edit-minute-field,
-#hora_fim:not(:valid):not(:focus)::-webkit-datetime-edit-ampm-field{
-  color:transparent !important;
-  -webkit-text-fill-color:transparent !important;
-}
 </style>
 
 <!-- SBL WEB LAYOUT REVERTIDO PDF ANO FINAL 2026-06-17 -->
+<style id="guioes-date-time-native-20260625">
+input[type="date"],
+input[type="time"]{
+  -webkit-appearance:auto !important;
+  appearance:auto !important;
+  background:#fff !important;
+  color:#242424 !important;
+  -webkit-text-fill-color:#242424 !important;
+  color-scheme:light !important;
+  min-height:42px !important;
+  line-height:normal !important;
+}
+</style>
+
+<style id="guioes-home-button-20260626">
+.guioes-home-link{position:fixed;left:1.25rem;top:1.15rem;z-index:9999;display:inline-flex;align-items:center;gap:.45rem;border:1px solid rgba(0,0,0,.08);border-radius:999px;background:rgba(255,255,255,.95);box-shadow:0 14px 34px rgba(26,34,44,.09);color:#20242c;text-decoration:none;font:700 14px/1.1 "Segoe UI",Arial,sans-serif;padding:.85rem 1.05rem;backdrop-filter:blur(8px)}
+.guioes-home-link:hover{background:#fff;border-color:rgba(0,0,0,.16)}
+@media(max-width:800px){.guioes-home-link{left:.85rem;top:.85rem;font-size:13px;padding:.7rem .9rem}}
+@media print{.guioes-home-link{display:none!important}}
+</style>
+
 </head>
 <body>
+<a class="guioes-home-link" href="./index.html" aria-label="Voltar à página inicial">← Página inicial</a>
+
 <div class="page">
 <div class="premium-status no-print">
 <div class="progress-label" id="progressLabel">
@@ -11124,7 +11108,7 @@ body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field input[ty
 <div class="ux-menu" id="uxMenuMaisOpcoes"></div>
 </div>
 <button class="ux-btn ux-btn-primary" id="btnEnviarValidacao" type="button">Enviar para Validação</button>
-<div class="ux-ai-guidance">Use o Assistente IA para esclarecer dúvidas sobre o preenchimento do guião*.</div>
+<div class="ux-ai-guidance">Use o Assistente IA para esclarecer dúvidas sobre o preenchimento do guião.</div>
 </div><div class="ux-info-panel sbl47-v57-ux-info-panel no-print"><div class="ux-info-item"><span><strong>Assistente IA institucional</strong><span>Disponível conforme as permissões Microsoft 365.</span></span></div><div class="ux-info-item"><span><strong>Rascunhos locais</strong><span>Guardados apenas localmente no seu navegador e computador.</span></span></div></div></div>
 <script>
 (function(){
@@ -11240,7 +11224,7 @@ async function submitValidacao(){
   } catch(e) {}
 
   try{
-    var r = await fetch('https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e204529fc1f342fc87cd935dfa2a58f1/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=twiVi70IgSoNelyf9E_StjR8n6gtjcasJu3ULIuXErc', {
+    var r = await fetch('/api/guioes/submit?templateType=SBL', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(dados)
@@ -11788,7 +11772,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   const TEMPLATE_TYPE = "SBL";
   const TEMPLATE_SCENARIO = "SBL";
-  const FLOW_URL = "https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e204529fc1f342fc87cd935dfa2a58f1/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=twiVi70IgSoNelyf9E_StjR8n6gtjcasJu3ULIuXErc";
+  const FLOW_URL = "/api/guioes/submit?templateType=SBL";
   const HTML2PDF_CDN = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
   const JSPDF_CDN = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
   let activeSubmission = false;
@@ -12229,7 +12213,7 @@ function collectFormData(){
       if(!safe) return "";
       // transforma URLs em links reais no PDF, quando possível
       return safe.replace(/(https?:\/\/[^\s<]+)/g, function(url){
-        return '<a href="' + url + '" target="_blank">' + url + '</a>';
+        return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
       }).replace(/\n/g, "<br>");
     }
 
@@ -16533,7 +16517,9 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
       ['Email(s)', emailValue()],
       ['Estado do guião', estadoValue()],
       ['Autoria', first(['#autoria','#autorias','[name="autoria"]','[name="autorias"]'])],
-      ['Autorização para integração no repositório', autorizacaoValue()]
+      ['Autorização para integração no repositório', autorizacaoValue()],
+      ['Caso', valueBySelectors(['#cenario','#caso','[name="cenario"]','[name="caso"]'])],
+      ['Informação inicial', valueBySelectors(['#oq_simulacao','#info_inicial','[name="oq_simulacao"]','[name="info_inicial"]'])]
     ];
     var missing = checks.filter(function(c){ return !c[1].value; });
     if(missing.length){
@@ -16983,7 +16969,16 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     input.value = value;
     input.dispatchEvent(new Event('input', {bubbles:true}));
     input.dispatchEvent(new Event('change', {bubbles:true}));
-    setTimeout(function(){ input.value = ''; }, 120);
+    var isSearchOnly = input.id === 'cursoBusca' || input.name === 'cursoBusca' || input.getAttribute('data-pbl-aux') === 'true';
+    var payload = document.getElementById('curso');
+    if(payload && payload !== input){
+      payload.value = value;
+      payload.dispatchEvent(new Event('input', {bubbles:true}));
+      payload.dispatchEvent(new Event('change', {bubbles:true}));
+    }
+    if(isSearchOnly && (payload && payload !== input)){
+      setTimeout(function(){ input.value = ''; }, 120);
+    }
   }
   function initInput(input){
     if(!input || input.dataset.guioesCustomCursoV2 === '1') return;
@@ -17085,7 +17080,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   if(window.__guioesCarregamentoPorItemIdV2Instalado) return;
   window.__guioesCarregamentoPorItemIdV2Instalado = true;
 
-  var OBTER_GUIAO_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
+  var OBTER_GUIAO_URL = '/api/guioes/load?templateType=SBL';
 
   function clean(v){ return String(v == null ? '' : v).trim(); }
   function lower(v){ return clean(v).toLowerCase(); }
@@ -17829,7 +17824,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 /* VALIDACAO OBRIGATORIA CABECALHO 2026-06-17 — SBL */
 (function(){
   'use strict';
-  var REQUIRED_GROUPS = [{"label": "Unidade Orgânica", "selectors": ["#unidadeOrganica"]}, {"label": "Modalidade", "selectors": ["#modalidade"]}, {"label": "Semestre", "selectors": ["#semestre"]}, {"label": "Turma/Edição", "selectors": ["#turmaEdicao"]}, {"label": "Curso(s)", "selectors": ["#curso", "#cursoBusca"]}, {"label": "Unidade(s) Curricular(es)", "selectors": ["#uc"]}, {"label": "Docente(s)", "selectors": ["#professor"]}, {"label": "Email(s)", "selectors": ["#emails"]}, {"label": "Autoria", "selectors": ["#autoria"]}, {"label": "Data da simulação", "selectors": ["#data"]}, {"label": "Hora de início", "selectors": ["#hora"]}, {"label": "Hora de fim", "selectors": ["#hora_fim"]}, {"label": "Estado do guião", "selectors": ["#estado"]}, {"label": "Autorização para repositório", "selectors": ["input[name=\"autorizaRepositorio\"]"]}];
+  var REQUIRED_GROUPS = [{"label": "Unidade Orgânica", "selectors": ["#unidadeOrganica"]}, {"label": "Modalidade", "selectors": ["#modalidade"]}, {"label": "Semestre", "selectors": ["#semestre"]}, {"label": "Turma/Edição", "selectors": ["#turmaEdicao"]}, {"label": "Curso(s)", "selectors": ["#curso", "#cursoBusca"]}, {"label": "Unidade(s) Curricular(es)", "selectors": ["#uc"]}, {"label": "Docente(s)", "selectors": ["#professor"]}, {"label": "Email(s)", "selectors": ["#emails"]}, {"label": "Autoria", "selectors": ["#autoria"]}, {"label": "Data da simulação", "selectors": ["#data"]}, {"label": "Hora de início", "selectors": ["#hora"]}, {"label": "Hora de fim", "selectors": ["#hora_fim"]}, {"label": "Estado do guião", "selectors": ["#estado"]}, {"label": "Autorização para repositório", "selectors": ["input[name=\"autorizaRepositorio\"]"]}, {"label": "Caso", "selectors": ["#cenario", "#caso"]}, {"label": "Informação inicial", "selectors": ["#oq_simulacao", "#info_inicial"]}];
   var VALIDAR_SESSOES_RBL = false;
   function norm(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
   function qsAll(sel){ try{ return Array.prototype.slice.call(document.querySelectorAll(sel)); }catch(e){ return []; } }
@@ -17841,7 +17836,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   function setRequiredOn(el){ if(!el || el.disabled) return; if(el.type === 'hidden') return; el.setAttribute('aria-required','true'); if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT'){ el.required = true; el.setAttribute('required','required'); } }
   function markRequired(){ REQUIRED_GROUPS.forEach(function(group){ var elements = elementsFor(group); if(isRadioGroup(elements)){ elements.forEach(function(el){ el.required = true; el.setAttribute('required','required'); el.setAttribute('aria-required','true'); }); } else { elements.forEach(setRequiredOn); } }); if(VALIDAR_SESSOES_RBL){ qsAll('input[id^="aula"][id$="_data"], input[id^="aula"][id$="_duracao"]').forEach(setRequiredOn); } }
   function missingSessionsRBL(){ if(!VALIDAR_SESSOES_RBL) return []; var missing = []; qsAll('input[id^="aula"][id$="_data"]').forEach(function(dataEl){ var m = String(dataEl.id || '').match(/^aula(\d+)_data$/); var n = m ? m[1] : ''; if(!norm(dataEl.value)) missing.push({label:'Data da sessão ' + n, el:dataEl}); var durEl = n ? document.getElementById('aula' + n + '_duracao') : null; if(durEl && !norm(durEl.value)) missing.push({label:'Duração da sessão ' + n, el:durEl}); }); return missing; }
-  function validateObrigatorios(){ markRequired(); var missing = []; REQUIRED_GROUPS.forEach(function(group){ if(!groupFilled(group)) missing.push({label:group.label, el:firstFocusable(group)}); }); missing = missing.concat(missingSessionsRBL()); if(!missing.length) return true; var names = missing.map(function(x){ return '• ' + x.label; }).join('\n'); var msg = 'Antes de enviar para validação, preencha os campos obrigatórios:\n\n' + names; try{ var old = document.querySelector('.toast-message, .ux-toast'); if(old && old.parentNode) old.parentNode.removeChild(old); var d = document.createElement('div'); d.className = 'toast-message'; d.style.whiteSpace = 'pre-line'; d.style.maxWidth = '620px'; d.style.textAlign = 'left'; d.textContent = msg; document.body.appendChild(d); setTimeout(function(){ if(d && d.parentNode) d.parentNode.removeChild(d); }, 5000); }catch(e){} alert(msg); var focusEl = missing.find(function(x){ return x.el && x.el.type !== 'hidden'; }); if(focusEl && focusEl.el){ try{ focusEl.el.focus({preventScroll:false}); focusEl.el.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} } return false; }
+  function validateObrigatorios(){ markRequired(); var missing = []; REQUIRED_GROUPS.forEach(function(group){ if(!groupFilled(group)) missing.push({label:group.label, el:firstFocusable(group)}); }); missing = missing.concat(missingSessionsRBL()); if(!missing.length) return true; var msg = 'Antes de enviar para validação, preencha: ' + missing.map(function(x){ return x.label; }).join(', ') + '.'; try{ var old = document.querySelector('.toast-message, .ux-toast'); if(old && old.parentNode) old.parentNode.removeChild(old); var d = document.createElement('div'); d.className = 'toast-message'; d.style.whiteSpace = 'pre-line'; d.style.maxWidth = '620px'; d.style.textAlign = 'left'; d.textContent = msg; document.body.appendChild(d); setTimeout(function(){ if(d && d.parentNode) d.parentNode.removeChild(d); }, 5000); }catch(e){} alert(msg); var focusEl = missing.find(function(x){ return x.el && x.el.type !== 'hidden'; }); if(focusEl && focusEl.el){ try{ focusEl.el.focus({preventScroll:false}); focusEl.el.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} } return false; }
   function isValidationTrigger(el){ if(!el) return false; var id = (el.id || '').toLowerCase(); var txt = norm(el.innerText || el.value || el.getAttribute('aria-label') || '').toLowerCase(); return id === 'btnenviarvalidacao' || id === 'btnvalidacaoreal' || /enviar\s+para\s+valida/.test(txt) || /submeter/.test(txt) || /submiss/.test(txt) || /atualizar\s+gui/.test(txt); }
   document.addEventListener('click', function(ev){ var el = ev.target && ev.target.closest ? ev.target.closest('button, input[type="button"], input[type="submit"], a') : null; if(!isValidationTrigger(el)) return; if(!validateObrigatorios()){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); return false; } }, true);
   document.addEventListener('submit', function(ev){ if(!validateObrigatorios()){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); return false; } }, true);
@@ -17853,5 +17848,91 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   if(VALIDAR_SESSOES_RBL && window.MutationObserver){ try{ new MutationObserver(function(){ markRequired(); }).observe(document.body, {childList:true, subtree:true}); }catch(e){} }
 })();
 </script>
+<script id="guioes-empty-date-time-on-new-20260626">
+(function(){
+  'use strict';
+  var userTouched = false;
+  function hasItemId(){ try{ return !!new URLSearchParams(window.location.search).get('itemId'); }catch(e){ return false; } }
+  function controls(){ return Array.prototype.slice.call(document.querySelectorAll('input[type="date"], input[type="time"]')); }
+  function syncEmptyState(){ controls().forEach(function(el){ el.toggleAttribute('data-guioes-empty-date-time', !String(el.value || '').trim()); }); }
+  function markTouched(){ userTouched = true; syncEmptyState(); }
+  function clearInitialDateTime(){
+    if(hasItemId() || userTouched) return;
+    controls().forEach(function(el){
+      el.setAttribute('autocomplete', 'off');
+      el.value = '';
+      el.removeAttribute('value');
+    });
+    syncEmptyState();
+  }
+  function init(){
+    controls().forEach(function(el){
+      if(el.dataset.guioesDateTimeBound === '1') return;
+      el.dataset.guioesDateTimeBound = '1';
+      el.addEventListener('input', markTouched);
+      el.addEventListener('change', markTouched);
+    });
+    clearInitialDateTime();
+    setTimeout(clearInitialDateTime, 80);
+    setTimeout(clearInitialDateTime, 300);
+    setTimeout(syncEmptyState, 500);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<style id="guioes-date-time-native-final-20260625">
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"],
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"]{
+  -webkit-appearance:auto !important;
+  appearance:auto !important;
+  background:#fff !important;
+  color:#242424 !important;
+  -webkit-text-fill-color:#242424 !important;
+  color-scheme:light !important;
+  min-height:42px !important;
+  line-height:normal !important;
+}
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl47-v53-card input,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl47-v53-card textarea,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl47-v53-card select,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl-autoria-estado-panel input,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl-autoria-estado-panel textarea,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl-autoria-estado-panel select{
+  font-size:13px !important;
+  line-height:1.35 !important;
+  font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;
+  font-weight:500 !important;
+}
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl47-v53-card input::placeholder,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl47-v53-card textarea::placeholder,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl-autoria-estado-panel input::placeholder,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl-autoria-estado-panel textarea::placeholder{
+  font-size:13px !important;
+  color:#9a9a9a !important;
+  -webkit-text-fill-color:#9a9a9a !important;
+  opacity:1 !important;
+}
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time],
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]{
+  color:#9a9a9a !important;
+  -webkit-text-fill-color:#9a9a9a !important;
+}
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time]::-webkit-datetime-edit,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]::-webkit-datetime-edit,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time]::-webkit-datetime-edit-fields-wrapper,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]::-webkit-datetime-edit-fields-wrapper,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time]::-webkit-datetime-edit-text,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]::-webkit-datetime-edit-text,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time]::-webkit-datetime-edit-day-field,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time]::-webkit-datetime-edit-month-field,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time]::-webkit-datetime-edit-year-field,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]::-webkit-datetime-edit-hour-field,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]::-webkit-datetime-edit-minute-field,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]::-webkit-datetime-edit-ampm-field{
+  color:#9a9a9a !important;
+  -webkit-text-fill-color:#9a9a9a !important;
+}
+</style>
 </body>
 </html>

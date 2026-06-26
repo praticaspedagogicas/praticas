@@ -10989,8 +10989,86 @@ body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field input[ty
 </style>
 
 <!-- SBL WEB LAYOUT REVERTIDO PDF ANO FINAL 2026-06-17 -->
+
+<style id="guioes-date-time-native-20260625">
+input[type="date"],
+input[type="time"]{
+  -webkit-appearance:auto !important;
+  appearance:auto !important;
+  background:#fff !important;
+  color:#242424 !important;
+  -webkit-text-fill-color:#242424 !important;
+  color-scheme:light !important;
+  min-height:42px !important;
+  line-height:normal !important;
+}
+</style>
+
+<style id="guioes-date-time-native-final-20260625">
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"],
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"]{
+  -webkit-appearance:auto !important;
+  appearance:auto !important;
+  background:#fff !important;
+  color:#242424 !important;
+  -webkit-text-fill-color:#242424 !important;
+  color-scheme:light !important;
+  min-height:42px !important;
+  line-height:normal !important;
+}
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl47-v53-card input,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl47-v53-card textarea,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl47-v53-card select,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl-autoria-estado-panel input,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl-autoria-estado-panel textarea,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl-autoria-estado-panel select{
+  font-size:13px !important;
+  line-height:1.35 !important;
+  font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;
+  font-weight:500 !important;
+}
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl47-v53-card input::placeholder,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl47-v53-card textarea::placeholder,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl-autoria-estado-panel input::placeholder,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) .sbl-autoria-estado-panel textarea::placeholder{
+  font-size:13px !important;
+  color:#9a9a9a !important;
+  -webkit-text-fill-color:#9a9a9a !important;
+  opacity:1 !important;
+}
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time],
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]{
+  color:#9a9a9a !important;
+  -webkit-text-fill-color:#9a9a9a !important;
+}
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time]::-webkit-datetime-edit,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]::-webkit-datetime-edit,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time]::-webkit-datetime-edit-fields-wrapper,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]::-webkit-datetime-edit-fields-wrapper,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time]::-webkit-datetime-edit-text,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]::-webkit-datetime-edit-text,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time]::-webkit-datetime-edit-day-field,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time]::-webkit-datetime-edit-month-field,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"][data-guioes-empty-date-time]::-webkit-datetime-edit-year-field,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]::-webkit-datetime-edit-hour-field,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]::-webkit-datetime-edit-minute-field,
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"][data-guioes-empty-date-time]::-webkit-datetime-edit-ampm-field{
+  color:#9a9a9a !important;
+  -webkit-text-fill-color:#9a9a9a !important;
+}
+</style>
+
+<style id="guioes-home-button-20260626">
+.guioes-home-link{position:fixed;left:1.25rem;top:1.15rem;z-index:9999;display:inline-flex;align-items:center;gap:.45rem;border:1px solid rgba(0,0,0,.08);border-radius:999px;background:rgba(255,255,255,.95);box-shadow:0 14px 34px rgba(26,34,44,.09);color:#20242c;text-decoration:none;font:700 14px/1.1 "Segoe UI",Arial,sans-serif;padding:.85rem 1.05rem;backdrop-filter:blur(8px)}
+.guioes-home-link:hover{background:#fff;border-color:rgba(0,0,0,.16)}
+@media(max-width:800px){.guioes-home-link{left:.85rem;top:.85rem;font-size:13px;padding:.7rem .9rem}}
+@media print{.guioes-home-link{display:none!important}}
+</style>
+
 </head>
 <body>
+<a class="guioes-home-link" href="./index.html" aria-label="Voltar à página inicial">← Página inicial</a>
+
 <div class="page">
 <div class="premium-status no-print">
 <div class="progress-label" id="progressLabel">
@@ -11151,7 +11229,7 @@ body:not(.guiao-pdf-mode) .sbl-oferta-section .sbl-oferta-numeric-field input[ty
 <div class="ux-menu" id="uxMenuMaisOpcoes"></div>
 </div>
 <button class="ux-btn ux-btn-primary" id="btnEnviarValidacao" type="button">Enviar para Validação</button>
-<div class="ux-ai-guidance">Use o Assistente IA para esclarecer dúvidas sobre o preenchimento do guião*.</div>
+<div class="ux-ai-guidance">Use o Assistente IA para esclarecer dúvidas sobre o preenchimento do guião.</div>
 </div><div class="ux-info-panel sbl47-v57-ux-info-panel no-print"><div class="ux-info-item"><span><strong>Assistente IA institucional</strong><span>Disponível conforme as permissões Microsoft 365.</span></span></div><div class="ux-info-item"><span><strong>Rascunhos locais</strong><span>Guardados apenas localmente no seu navegador e computador.</span></span></div></div></div>
 <script>
 (function(){
@@ -11267,7 +11345,7 @@ async function submitValidacao(){
   } catch(e) {}
 
   try{
-    var r = await fetch('https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e204529fc1f342fc87cd935dfa2a58f1/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=twiVi70IgSoNelyf9E_StjR8n6gtjcasJu3ULIuXErc', {
+    var r = await fetch('/api/guioes/submit?templateType=SBL', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(dados)
@@ -11815,7 +11893,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   const TEMPLATE_TYPE = "SBL";
   const TEMPLATE_SCENARIO = "SBL";
-  const FLOW_URL = "https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e204529fc1f342fc87cd935dfa2a58f1/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=twiVi70IgSoNelyf9E_StjR8n6gtjcasJu3ULIuXErc";
+  const FLOW_URL = "/api/guioes/submit?templateType=SBL";
   const HTML2PDF_CDN = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
   const JSPDF_CDN = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
   let activeSubmission = false;
@@ -12256,7 +12334,7 @@ function collectFormData(){
       if(!safe) return "";
       // transforma URLs em links reais no PDF, quando possível
       return safe.replace(/(https?:\/\/[^\s<]+)/g, function(url){
-        return '<a href="' + url + '" target="_blank">' + url + '</a>';
+        return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
       }).replace(/\n/g, "<br>");
     }
 
@@ -17445,7 +17523,16 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     input.value = value;
     input.dispatchEvent(new Event('input', {bubbles:true}));
     input.dispatchEvent(new Event('change', {bubbles:true}));
-    setTimeout(function(){ input.value = ''; }, 120);
+    var isSearchOnly = input.id === 'cursoBusca' || input.name === 'cursoBusca' || input.getAttribute('data-pbl-aux') === 'true';
+    var payload = document.getElementById('curso');
+    if(payload && payload !== input){
+      payload.value = value;
+      payload.dispatchEvent(new Event('input', {bubbles:true}));
+      payload.dispatchEvent(new Event('change', {bubbles:true}));
+    }
+    if(isSearchOnly && (payload && payload !== input)){
+      setTimeout(function(){ input.value = ''; }, 120);
+    }
   }
   function initInput(input){
     if(!input || input.dataset.guioesCustomCursoV2 === '1') return;
@@ -17556,7 +17643,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   if(window.__guioesCarregamentoPorItemIdV2Instalado) return;
   window.__guioesCarregamentoPorItemIdV2Instalado = true;
 
-  var OBTER_GUIAO_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
+  var OBTER_GUIAO_URL = '/api/guioes/load?templateType=SBL';
 
   function clean(v){ return String(v == null ? '' : v).trim(); }
   function lower(v){ return clean(v).toLowerCase(); }
@@ -18116,7 +18203,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 /* VALIDACAO OBRIGATORIA CABECALHO 2026-06-17 — SBL_Teste */
 (function(){
   'use strict';
-  var REQUIRED_GROUPS = [{"label": "Unidade Orgânica", "selectors": ["#unidadeOrganica"]}, {"label": "Modalidade", "selectors": ["#modalidade"]}, {"label": "Semestre", "selectors": ["#semestre"]}, {"label": "Turma/Edição", "selectors": ["#turmaEdicao"]}, {"label": "Curso(s)", "selectors": ["#curso", "#cursoBusca"]}, {"label": "Unidade(s) Curricular(es)", "selectors": ["#uc"]}, {"label": "Docente(s)", "selectors": ["#professor"]}, {"label": "Email(s)", "selectors": ["#emails"]}, {"label": "Autoria", "selectors": ["#autoria"]}, {"label": "Data da simulação", "selectors": ["#data"]}, {"label": "Hora de início", "selectors": ["#hora"]}, {"label": "Hora de fim", "selectors": ["#hora_fim"]}, {"label": "Estado do guião", "selectors": ["#estado"]}, {"label": "Autorização para repositório", "selectors": ["input[name=\"autorizaRepositorio\"]"]}];
+  var REQUIRED_GROUPS = [{"label": "Unidade Orgânica", "selectors": ["#unidadeOrganica"]}, {"label": "Modalidade", "selectors": ["#modalidade"]}, {"label": "Semestre", "selectors": ["#semestre"]}, {"label": "Turma/Edição", "selectors": ["#turmaEdicao"]}, {"label": "Curso(s)", "selectors": ["#curso", "#cursoBusca"]}, {"label": "Unidade(s) Curricular(es)", "selectors": ["#uc"]}, {"label": "Docente(s)", "selectors": ["#professor"]}, {"label": "Email(s)", "selectors": ["#emails"]}, {"label": "Autoria", "selectors": ["#autoria"]}, {"label": "Data da simulação", "selectors": ["#data"]}, {"label": "Hora de início", "selectors": ["#hora"]}, {"label": "Hora de fim", "selectors": ["#hora_fim"]}, {"label": "Estado do guião", "selectors": ["#estado"]}, {"label": "Autorização para repositório", "selectors": ["input[name=\"autorizaRepositorio\"]"]}, {"label": "Caso", "selectors": ["#cenario", "#caso"]}, {"label": "Informação inicial", "selectors": ["#oq_simulacao", "#info_inicial"]}];
   var VALIDAR_SESSOES_RBL = false;
   function norm(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
   function qsAll(sel){ try{ return Array.prototype.slice.call(document.querySelectorAll(sel)); }catch(e){ return []; } }

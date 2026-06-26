@@ -3708,8 +3708,31 @@ input#n_estudantes{
 }
 </style>
 
+<style id="guioes-date-time-native-20260625">
+input[type="date"],
+input[type="time"]{
+  -webkit-appearance:auto !important;
+  appearance:auto !important;
+  background:#fff !important;
+  color:#242424 !important;
+  -webkit-text-fill-color:#242424 !important;
+  color-scheme:light !important;
+  min-height:42px !important;
+  line-height:normal !important;
+}
+</style>
+
+<style id="guioes-home-button-20260626">
+.guioes-home-link{position:fixed;left:1.25rem;top:1.15rem;z-index:9999;display:inline-flex;align-items:center;gap:.45rem;border:1px solid rgba(0,0,0,.08);border-radius:999px;background:rgba(255,255,255,.95);box-shadow:0 14px 34px rgba(26,34,44,.09);color:#20242c;text-decoration:none;font:700 14px/1.1 "Segoe UI",Arial,sans-serif;padding:.85rem 1.05rem;backdrop-filter:blur(8px)}
+.guioes-home-link:hover{background:#fff;border-color:rgba(0,0,0,.16)}
+@media(max-width:800px){.guioes-home-link{left:.85rem;top:.85rem;font-size:13px;padding:.7rem .9rem}}
+@media print{.guioes-home-link{display:none!important}}
+</style>
+
 </head>
 <body>
+<a class="guioes-home-link" href="./index.html" aria-label="Voltar à página inicial">← Página inicial</a>
+
 <div class="page">
 <div class="premium-status no-print">
 <div class="progress-label" id="progressLabel">Guião preenchido: 0%</div>
@@ -3837,7 +3860,7 @@ input#n_estudantes{
 <div class="ux-menu" id="uxMenuMaisOpcoes"></div>
 </div>
 <button class="ux-btn ux-btn-primary" id="btnEnviarValidacao" type="button">Enviar para Validação</button>
-<div class="ux-ai-guidance">Use o Assistente IA para esclarecer dúvidas sobre o preenchimento do guião*.</div>
+<div class="ux-ai-guidance">Use o Assistente IA para esclarecer dúvidas sobre o preenchimento do guião.</div>
 </div>
 <div class="ux-info-panel no-print">
 <div class="ux-info-item"><span class="ux-info-dot"></span><span><strong>Assistente IA institucional</strong>Disponível conforme as permissões Microsoft 365.</span></div>
@@ -3977,7 +4000,7 @@ async function submitValidacao(){
   } catch(e) {}
 
   try{
-    var r = await fetch('https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e204529fc1f342fc87cd935dfa2a58f1/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=twiVi70IgSoNelyf9E_StjR8n6gtjcasJu3ULIuXErc', {
+    var r = await fetch('/api/guioes/submit?templateType=RBL', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(dados)
@@ -4450,7 +4473,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   const TEMPLATE_TYPE = "RBL";
   const TEMPLATE_SCENARIO = "RBL";
-  const FLOW_URL = "https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e204529fc1f342fc87cd935dfa2a58f1/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=twiVi70IgSoNelyf9E_StjR8n6gtjcasJu3ULIuXErc";
+  const FLOW_URL = "/api/guioes/submit?templateType=RBL";
   const HTML2PDF_CDN = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
   let activeSubmission = false;
 
@@ -10171,7 +10194,16 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     input.value = value;
     input.dispatchEvent(new Event('input', {bubbles:true}));
     input.dispatchEvent(new Event('change', {bubbles:true}));
-    setTimeout(function(){ input.value = ''; }, 120);
+    var isSearchOnly = input.id === 'cursoBusca' || input.name === 'cursoBusca' || input.getAttribute('data-pbl-aux') === 'true';
+    var payload = document.getElementById('curso');
+    if(payload && payload !== input){
+      payload.value = value;
+      payload.dispatchEvent(new Event('input', {bubbles:true}));
+      payload.dispatchEvent(new Event('change', {bubbles:true}));
+    }
+    if(isSearchOnly && (payload && payload !== input)){
+      setTimeout(function(){ input.value = ''; }, 120);
+    }
   }
   function initInput(input){
     if(!input || input.dataset.guioesCustomCursoV2 === '1') return;
@@ -10273,7 +10305,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   if(window.__guioesCarregamentoPorItemIdV2Instalado) return;
   window.__guioesCarregamentoPorItemIdV2Instalado = true;
 
-  var OBTER_GUIAO_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
+  var OBTER_GUIAO_URL = '/api/guioes/load?templateType=RBL';
 
   function clean(v){ return String(v == null ? '' : v).trim(); }
   function lower(v){ return clean(v).toLowerCase(); }
@@ -10587,9 +10619,9 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   function groupFilled(group){ var elements = elementsFor(group); if(!elements.length) return true; if(isRadioGroup(elements)) return elements.some(function(el){ return !!el.checked; }); return elements.some(function(el){ return valueOf(el) !== ''; }); }
   function firstFocusable(group){ var elements = elementsFor(group); return elements.find(function(el){ return el.type !== 'hidden' && !el.disabled; }) || elements[0] || null; }
   function setRequiredOn(el){ if(!el || el.disabled) return; if(el.type === 'hidden') return; el.setAttribute('aria-required','true'); if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT'){ el.required = true; el.setAttribute('required','required'); } }
-  function markRequired(){ REQUIRED_GROUPS.forEach(function(group){ var elements = elementsFor(group); if(isRadioGroup(elements)){ elements.forEach(function(el){ el.required = true; el.setAttribute('required','required'); el.setAttribute('aria-required','true'); }); } else { elements.forEach(setRequiredOn); } }); if(VALIDAR_SESSOES_RBL){ qsAll('input[id^="aula"][id$="_data"], input[id^="aula"][id$="_duracao"]').forEach(setRequiredOn); } }
-  function missingSessionsRBL(){ if(!VALIDAR_SESSOES_RBL) return []; var missing = []; qsAll('input[id^="aula"][id$="_data"]').forEach(function(dataEl){ var m = String(dataEl.id || '').match(/^aula(\d+)_data$/); var n = m ? m[1] : ''; if(!norm(dataEl.value)) missing.push({label:'Data da sessão ' + n, el:dataEl}); var durEl = n ? document.getElementById('aula' + n + '_duracao') : null; if(durEl && !norm(durEl.value)) missing.push({label:'Duração da sessão ' + n, el:durEl}); }); return missing; }
-  function validateObrigatorios(){ markRequired(); var missing = []; REQUIRED_GROUPS.forEach(function(group){ if(!groupFilled(group)) missing.push({label:group.label, el:firstFocusable(group)}); }); missing = missing.concat(missingSessionsRBL()); if(!missing.length) return true; var names = missing.map(function(x){ return '• ' + x.label; }).join('\n'); var msg = 'Antes de enviar para validação, preencha os campos obrigatórios:\n\n' + names; try{ var old = document.querySelector('.toast-message, .ux-toast'); if(old && old.parentNode) old.parentNode.removeChild(old); var d = document.createElement('div'); d.className = 'toast-message'; d.style.whiteSpace = 'pre-line'; d.style.maxWidth = '620px'; d.style.textAlign = 'left'; d.textContent = msg; document.body.appendChild(d); setTimeout(function(){ if(d && d.parentNode) d.parentNode.removeChild(d); }, 5000); }catch(e){} alert(msg); var focusEl = missing.find(function(x){ return x.el && x.el.type !== 'hidden'; }); if(focusEl && focusEl.el){ try{ focusEl.el.focus({preventScroll:false}); focusEl.el.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} } return false; }
+  function markRequired(){ REQUIRED_GROUPS.forEach(function(group){ var elements = elementsFor(group); if(isRadioGroup(elements)){ elements.forEach(function(el){ el.required = true; el.setAttribute('required','required'); el.setAttribute('aria-required','true'); }); } else { elements.forEach(setRequiredOn); } }); }
+  function missingSessionsRBL(){ if(!VALIDAR_SESSOES_RBL) return []; var controls = qsAll('.aula-dinamica input, .aula-dinamica textarea, .aula-dinamica select, input[id^="aula"][id$="_data"], input[id^="aula"][id$="_duracao"]'); var hasFilled = controls.some(function(el){ return !el.disabled && el.type !== 'hidden' && norm(el.value); }); return hasFilled ? [] : [{label:'pelo menos uma sessão', el:controls[0] || null}]; }
+  function validateObrigatorios(){ markRequired(); var missing = []; REQUIRED_GROUPS.forEach(function(group){ if(!groupFilled(group)) missing.push({label:group.label, el:firstFocusable(group)}); }); missing = missing.concat(missingSessionsRBL()); if(!missing.length) return true; var msg = 'Antes de enviar para validação, preencha: ' + missing.map(function(x){ return x.label; }).join(', ') + '.'; try{ var old = document.querySelector('.toast-message, .ux-toast'); if(old && old.parentNode) old.parentNode.removeChild(old); var d = document.createElement('div'); d.className = 'toast-message'; d.style.whiteSpace = 'pre-line'; d.style.maxWidth = '620px'; d.style.textAlign = 'left'; d.textContent = msg; document.body.appendChild(d); setTimeout(function(){ if(d && d.parentNode) d.parentNode.removeChild(d); }, 5000); }catch(e){} alert(msg); var focusEl = missing.find(function(x){ return x.el && x.el.type !== 'hidden'; }); if(focusEl && focusEl.el){ try{ focusEl.el.focus({preventScroll:false}); focusEl.el.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} } return false; }
   function isValidationTrigger(el){ if(!el) return false; var id = (el.id || '').toLowerCase(); var txt = norm(el.innerText || el.value || el.getAttribute('aria-label') || '').toLowerCase(); return id === 'btnenviarvalidacao' || id === 'btnvalidacaoreal' || /enviar\s+para\s+valida/.test(txt) || /submeter/.test(txt) || /submiss/.test(txt) || /atualizar\s+gui/.test(txt); }
   document.addEventListener('click', function(ev){ var el = ev.target && ev.target.closest ? ev.target.closest('button, input[type="button"], input[type="submit"], a') : null; if(!isValidationTrigger(el)) return; if(!validateObrigatorios()){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); return false; } }, true);
   document.addEventListener('submit', function(ev){ if(!validateObrigatorios()){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); return false; } }, true);
@@ -10601,5 +10633,18 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   if(VALIDAR_SESSOES_RBL && window.MutationObserver){ try{ new MutationObserver(function(){ markRequired(); }).observe(document.body, {childList:true, subtree:true}); }catch(e){} }
 })();
 </script>
+<style id="guioes-date-time-native-final-20260625">
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"],
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"]{
+  -webkit-appearance:auto !important;
+  appearance:auto !important;
+  background:#fff !important;
+  color:#242424 !important;
+  -webkit-text-fill-color:#242424 !important;
+  color-scheme:light !important;
+  min-height:42px !important;
+  line-height:normal !important;
+}
+</style>
 </body>
 </html>
