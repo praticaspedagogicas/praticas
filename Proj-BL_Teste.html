@@ -19595,6 +19595,16 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 })();
 </script>
 
+<script id="projbl-teste-disable-old-itemid-loader-20260629">
+(function(){
+  'use strict';
+  try {
+    if(new URLSearchParams(window.location.search).get('itemId')){
+      window.__guioesCarregamentoPorItemIdV2Instalado = true;
+    }
+  } catch(e) {}
+})();
+</script>
 
 <script id="guioes-carregar-guiao-por-id-v2">
 /* ===== Camada institucional — carregamento de guião para edição por itemId =====
@@ -19907,6 +19917,248 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 })();
 </script>
 
+<script id="projbl-teste-carregar-guiao-por-id-robusto-20260629">
+/* Carregamento robusto por itemId para PROJ-BL_Teste, sem remover o preenchimento de teste quando não há itemId. */
+(function(){
+  'use strict';
+  if(window.__projblTesteCarregarGuiaoPorIdRobusto20260629) return;
+  window.__projblTesteCarregarGuiaoPorIdRobusto20260629 = true;
+
+  var OBTER_GUIAO_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
+
+  function clean(v){ return String(v == null ? '' : v).trim(); }
+  function $(id){ return document.getElementById(id); }
+  function itemId(){ try { return clean(new URLSearchParams(window.location.search).get('itemId')); } catch(e){ return ''; } }
+  function valueOf(v){
+    if(v == null) return '';
+    if(typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') return clean(v);
+    if(Array.isArray(v)) return v.map(valueOf).filter(Boolean).join('; ');
+    if(typeof v === 'object'){
+      if(v.Value != null) return valueOf(v.Value);
+      if(v.value != null) return valueOf(v.value);
+      if(v.Title != null) return valueOf(v.Title);
+      if(v.Label != null) return valueOf(v.Label);
+      if(v.DisplayName != null) return valueOf(v.DisplayName);
+      if(v.Email != null) return valueOf(v.Email);
+      try { return clean(JSON.stringify(v)); } catch(e){ return ''; }
+    }
+    return clean(v);
+  }
+  function parseMaybe(v, depth){
+    depth = depth || 0;
+    if(depth > 5) return v;
+    if(typeof v === 'string'){
+      var s = v.trim();
+      if(!s) return '';
+      if((s.charAt(0)==='{' && s.charAt(s.length-1)==='}') || (s.charAt(0)==='[' && s.charAt(s.length-1)===']')){
+        try { return parseMaybe(JSON.parse(s), depth + 1); } catch(e){ return v; }
+      }
+    }
+    if(v && typeof v === 'object') Object.keys(v).forEach(function(k){ v[k] = parseMaybe(v[k], depth + 1); });
+    return v;
+  }
+  function mergeObjects(){
+    var out = {};
+    Array.prototype.forEach.call(arguments, function(obj){
+      if(!obj || typeof obj !== 'object' || Array.isArray(obj)) return;
+      Object.keys(obj).forEach(function(k){ if(out[k] == null || out[k] === '') out[k] = obj[k]; });
+    });
+    return out;
+  }
+  function normalizeResponse(raw){
+    raw = parseMaybe(raw);
+    var root = raw && typeof raw === 'object' ? raw : {raw: raw};
+    var body = parseMaybe(root.body);
+    var result = parseMaybe(root.result);
+    var data = parseMaybe(root.data);
+    return mergeObjects(root, body, result, data);
+  }
+  function extractValues(data){
+    var estrutura = parseMaybe(data.estruturaPedagogica || data.EstruturaPedagogica || data['EstruturaPedag_x00f3_gica'] || data.values || {});
+    if(estrutura && estrutura.values && typeof estrutura.values === 'object') return estrutura.values;
+    if(estrutura && typeof estrutura === 'object') return estrutura;
+    return {};
+  }
+  function pick(){
+    for(var i=0;i<arguments.length;i++){ var v = valueOf(arguments[i]); if(v) return v; }
+    return '';
+  }
+  function dispatch(el){
+    if(!el) return;
+    try { el.dispatchEvent(new Event('input', {bubbles:true})); } catch(e){}
+    try { el.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
+  }
+  function setElementValue(el, value){
+    if(!el) return false;
+    value = valueOf(value);
+    if(!value) return false;
+    var tag = String(el.tagName || '').toUpperCase();
+    var type = String(el.type || '').toLowerCase();
+    if(type === 'radio'){
+      var same = valueOf(el.value).toLowerCase() === value.toLowerCase();
+      el.checked = same;
+      dispatch(el);
+      return same;
+    }
+    if(type === 'checkbox'){
+      el.checked = /^(sim|true|1|yes)$/i.test(value);
+    } else if(tag === 'SELECT'){
+      var found = false;
+      Array.prototype.forEach.call(el.options || [], function(opt){
+        if(valueOf(opt.value).toLowerCase() === value.toLowerCase() || valueOf(opt.text).toLowerCase() === value.toLowerCase()){
+          el.value = opt.value;
+          found = true;
+        }
+      });
+      if(!found) el.value = value;
+    } else {
+      el.value = value;
+    }
+    dispatch(el);
+    return true;
+  }
+  function setFirst(ids, value){
+    for(var i=0;i<ids.length;i++){ if(setElementValue($(ids[i]), value)) return true; }
+    return false;
+  }
+  function setFirstSelector(selectors, value){
+    for(var i=0;i<selectors.length;i++){
+      try { if(setElementValue(document.querySelector(selectors[i]), value)) return true; } catch(e) {}
+    }
+    return false;
+  }
+  function setRadioGroup(name, value){
+    value = valueOf(value);
+    if(!value) return false;
+    var done = false;
+    Array.prototype.forEach.call(document.querySelectorAll('input[type="radio"][name="' + name + '"]'), function(radio){
+      var same = valueOf(radio.value).toLowerCase() === value.toLowerCase();
+      radio.checked = same;
+      if(same) done = true;
+      dispatch(radio);
+    });
+    return done;
+  }
+  function setAuthorization(value){
+    value = valueOf(value);
+    if(!value) return;
+    setFirst(['autorizaRepositorio','autorizacaoRepositorio'], value);
+    ['autorizaRepositorio','autorizaRepositorioOpcao','autorizacaoRepositorio'].forEach(function(name){ setRadioGroup(name, value); });
+  }
+  function splitMultiValue(value){ return valueOf(value).split(/;|\n|\|/).map(clean).filter(Boolean); }
+  function setRepeatedValues(selector, value){
+    var parts = splitMultiValue(value);
+    if(!parts.length) return false;
+    var els = [];
+    try { els = Array.prototype.slice.call(document.querySelectorAll(selector)); } catch(e) {}
+    if(!els.length) return false;
+    els.forEach(function(el, i){ if(parts[i]) setElementValue(el, parts[i]); });
+    return true;
+  }
+  function renderCourseFallback(container, value){
+    if(!container || !valueOf(value)) return;
+    container.innerHTML = '';
+    splitMultiValue(value).forEach(function(curso){
+      var chip = document.createElement('span');
+      chip.className = 'projbl-course-chip';
+      var span = document.createElement('span');
+      span.textContent = curso;
+      chip.appendChild(span);
+      container.appendChild(chip);
+    });
+  }
+  function setCursos(value){
+    value = valueOf(value);
+    if(!value) return;
+    setFirst(['curso','cursos'], value);
+    if($('cursoBusca')){ $('cursoBusca').value = ''; dispatch($('cursoBusca')); }
+    renderCourseFallback($('cblCursosSelecionados') || $('pblCursosSelecionados') || document.querySelector('.cbl-course-chips,.pbl-course-chips,.projbl-course-chips'), value);
+  }
+  function splitHoraIntervalo(hora){
+    hora = valueOf(hora);
+    if(!hora) return {};
+    var parts = hora.split(/\s*[–—-]\s*/).map(clean).filter(Boolean);
+    return {inicio: parts[0] || '', fim: parts[1] || ''};
+  }
+  function applyValuesByKey(values){
+    values = values || {};
+    Object.keys(values).forEach(function(key){ if($(key)) setElementValue($(key), values[key]); });
+  }
+  function statusBox(text, kind){
+    var box = $('guioesModoEdicaoBox');
+    if(!box){
+      var ref = document.querySelector('.premium-status') || document.querySelector('.header') || document.querySelector('.page') || document.body.firstElementChild;
+      if(!ref || !ref.parentNode) return null;
+      box = document.createElement('div');
+      box.id = 'guioesModoEdicaoBox';
+      box.className = 'no-print';
+      box.style.margin = '0 0 16px 0';
+      box.style.padding = '12px 14px';
+      box.style.borderRadius = '14px';
+      box.style.fontSize = '13px';
+      ref.parentNode.insertBefore(box, ref.nextSibling);
+    }
+    box.style.border = kind === 'error' ? '1.5px solid #8a1f1f' : '1.5px solid #1f4d2b';
+    box.style.background = kind === 'error' ? '#fff3f3' : '#f3fff6';
+    box.style.color = kind === 'error' ? '#8a1f1f' : '#1f4d2b';
+    box.innerHTML = text;
+    return box;
+  }
+  function preencherFormulario(data){
+    data = normalizeResponse(data || {});
+    var values = extractValues(data);
+    var hora = splitHoraIntervalo(pick(values.hora, data.hora, data.Hora));
+    applyValuesByKey(values);
+    setFirst(['unidadeOrganica','unidade_organica'], pick(values.unidadeOrganica, values.unidade_organica, data.unidadeOrganica, data['UnidadeOrg_x00e2_nica']));
+    setFirst(['modalidade'], pick(values.modalidade, data.modalidade, data.Modalidade));
+    setFirst(['semestre'], pick(values.semestre, data.semestre, data.Semestre));
+    setFirst(['turmaEdicao','turma_edicao','turma'], pick(values.turmaEdicao, values.turma, data.turmaEdicao, data.TurmaEdicao, data['Turma_x0028_s_x0029__x002f_Edi_x']));
+    setFirst(['titulo','tituloProjeto'], pick(values.tituloProjeto, values.titulo, data.tituloProjeto, data.title, data.Title));
+    setCursos(pick(values.curso, values.cursos, data.curso, data.cursos, data.Curso, data['Curso_x0028_s_x0029_']));
+    setFirst(['uc','ucs','unidade_curricular'], pick(values.uc, values.ucs, data.uc, data.ucs, data.UC));
+    setFirstSelector(['.projbl-nome-uc-projeto-field','#ucProjeto','#nomeUCProjeto','#nomeUcProjeto','#nome_uc_projeto'], pick(values.ucProjeto, values.nomeUCProjeto, values.nomeUcProjeto, values.ucs, data.ucs, data.UC));
+    setFirst(['ano','ano_letivo','anoLetivo','anoLetivoProjeto'], pick(values.anoLetivoProjeto, values.anoLetivo, values.ano_letivo, values.ano, data.anoLetivo, data.AnoLetivo));
+    setFirst(['professor','docentes'], pick(values.docentes, values.docente, data.docentes, data.Docentes, data.Docentestexto));
+    setRepeatedValues('#docentesTable .docente-nome, #docentesTable .proj-docente-nome', pick(values.docentes, values.docente, data.docentes, data.Docentes, data.Docentestexto));
+    setFirst(['emails','email'], pick(values.emails, values.email, data.emails, data.email, data.Email));
+    setRepeatedValues('#docentesTable .docente-email, #docentesTable .proj-docente-email', pick(values.emails, values.email, data.emails, data.email, data.Email));
+    setFirst(['n_estudantes','numeroEstudantes'], pick(values.numeroEstudantes, values.nEstudantes, values.n_estudantes, values.numero_estudantes, data.numeroEstudantes, data.nEstudantes, data['N_x00ba_deestudantes']));
+    setFirst(['n_grupos','numeroGrupos'], pick(values.numeroGrupos, values.nGrupos, values.n_grupos, values.numero_grupos, data.numeroGrupos, data.nGrupos, data['N_x00ba_deGrupos']));
+    setFirst(['autoria','autorias'], pick(values.autoria, values.autorias, data.autoria, data.autorias, data.Autoria));
+    setFirst(['estado','estado_guiao','estadoGuiao'], pick(values.estadoGuiao, values.estado, data.estadoGuiao, data.EstadoGuiao, data.Estado) || 'Atualizado');
+    setFirst(['organizacao','organizacoes','contacto'], pick(values.organizacoesContacto, values.organizacao, values.organizacoes, data.organizacoesContacto, data['Organiza_x00e7__x00e3_o_x0028__x']));
+    setFirst(['calendarizacao','data','dataSimulacao'], pick(values.data, values.calendarizacao, data.data, data.Data));
+    setFirst(['hora_inicio','horaInicio','hora'], pick(values.hora_inicio, values.horaInicio, hora.inicio, data.hora, data.Hora));
+    setFirst(['hora_fim','horaFim'], pick(values.hora_fim, values.horaFim, hora.fim));
+    setAuthorization(pick(values.autorizaRepositorio, values.autorizacaoRepositorio, data.autorizaRepositorio, data.AutorizaRepositorio, data['AutorizaReposit_x00f3_rio']));
+    ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso','syncCourseChips','renderCursosSelecionados'].forEach(function(fn){ try { if(typeof window[fn] === 'function') window[fn](); } catch(e){} });
+    document.body.classList.add('guiao-carregado-por-id','projbl-guiao-carregado-por-id');
+  }
+  async function carregar(){
+    var id = itemId();
+    if(!id || window.__projblTesteCarregarGuiaoPorIdRobustoExecutado20260629) return;
+    window.__projblTesteCarregarGuiaoPorIdRobustoExecutado20260629 = true;
+    statusBox('<strong>Edição de guião submetido</strong><br>A carregar os dados deste guião para edição...');
+    try{
+      var endpoint = window.GUIOES_LOAD_URL || window.OBTER_GUIAO_URL || OBTER_GUIAO_URL;
+      var res = await fetch(endpoint, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({itemId:id})});
+      var text = await res.text();
+      var data = normalizeResponse(parseMaybe(text));
+      if(!res.ok || data.ok === false || data.success === false) throw new Error(pick(data.message, data.error, data.raw, text) || ('HTTP ' + res.status));
+      preencherFormulario(data);
+      statusBox('<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.');
+    }catch(e){
+      console.error('Erro ao carregar guião por itemId:', e);
+      statusBox('<strong>Não foi possível carregar automaticamente os dados deste guião.</strong><br>Confirme o link de edição ou tente novamente. Detalhe: ' + clean(e && e.message), 'error');
+      try { if(typeof window.showToast === 'function') window.showToast('Não foi possível carregar automaticamente os dados deste guião.', 'error', 8000); } catch(err) {}
+    }
+  }
+  function init(){ setTimeout(carregar, 450); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
 
 <script id="guioes-fechar-dropdown-cursos-edicao-v2">
 (function(){
@@ -19996,7 +20248,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 /* VALIDACAO OBRIGATORIA CABECALHO 2026-06-17 — PROJ-BL_Teste */
 (function(){
   'use strict';
-  var REQUIRED_GROUPS = [{"label": "Unidade Orgânica", "selectors": ["#unidadeOrganica"]}, {"label": "Modalidade", "selectors": ["#modalidade"]}, {"label": "Semestre", "selectors": ["#semestre"]}, {"label": "Turma/Edição", "selectors": ["#turmaEdicao"]}, {"label": "Curso(s)", "selectors": ["#curso", "#cursoBusca"]}, {"label": "Autoria", "selectors": ["#autoria"]}, {"label": "Ano letivo", "selectors": ["#anoLetivoProjeto"]}, {"label": "Estado do guião", "selectors": ["#estadoGuiao"]}, {"label": "Autorização para repositório", "selectors": ["input[name=\"autorizaRepositorio\"]"]}];
+  var REQUIRED_GROUPS = [{"label": "Unidade Orgânica", "selectors": ["#unidadeOrganica"]}, {"label": "Modalidade", "selectors": ["#modalidade"]}, {"label": "Semestre", "selectors": ["#semestre"]}, {"label": "Turma/Edição", "selectors": ["#turmaEdicao"]}, {"label": "Curso(s)", "selectors": ["#curso", "#cursoBusca"]}, {"label": "Autoria", "selectors": ["#autoria"]}, {"label": "Ano letivo", "selectors": ["#anoLetivoProjeto"]}, {"label": "Estado do guião", "selectors": ["#estadoGuiao"]}, {"label": "Autorização para repositório", "selectors": ["input[name=\"autorizaRepositorio\"]", "input[name=\"autorizacaoRepositorio\"]", "#autorizacaoRepositorio"]}];
   var VALIDAR_SESSOES_RBL = false;
   function norm(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
   function qsAll(sel){ try{ return Array.prototype.slice.call(document.querySelectorAll(sel)); }catch(e){ return []; } }
