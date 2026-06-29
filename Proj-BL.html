@@ -20001,6 +20001,260 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
 })();
 </script>
 
+
+<style id="projbl-itemid-visual-fix-20260629">
+body.projbl-itemid-final-loaded .page,
+body.guiao-carregado-por-id .page{
+  overflow: visible !important;
+}
+body.projbl-itemid-final-loaded .header-info,
+body.guiao-carregado-por-id .header-info{
+  align-items: stretch !important;
+}
+</style>
+
+
+<script id="projbl-itemid-loader-final-20260629">
+/* PATCH FINAL PROJ-BL — carregamento robusto por itemId
+   Corrige: link abre mas formulário fica vazio; campos PROJ-BL sem id/name não eram reconstituídos de forma fiável.
+   Mantém o payload Power Automate existente e só atua quando há ?itemId=. */
+(function(){
+  'use strict';
+  if(window.__projblItemIdLoaderFinal20260629) return;
+  window.__projblItemIdLoaderFinal20260629 = true;
+
+  var OBTER_GUIAO_URL_FINAL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
+
+  function clean(v){ return String(v == null ? '' : v).trim(); }
+  function norm(v){
+    try { return clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
+    catch(e){ return clean(v).toLowerCase(); }
+  }
+  function $(id){ return document.getElementById(id); }
+  function itemId(){
+    try { return clean(new URLSearchParams(window.location.search).get('itemId')); }
+    catch(e){ return ''; }
+  }
+  function dispatch(el){
+    if(!el) return;
+    try { el.dispatchEvent(new Event('input', {bubbles:true})); } catch(e){}
+    try { el.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
+  }
+  function setVal(el, val){
+    if(!el) return false;
+    val = clean(val);
+    if(el.type === 'radio'){
+      el.checked = norm(el.value) === norm(val);
+    } else if(el.type === 'checkbox'){
+      el.checked = /^(sim|true|1|yes|checked)$/i.test(val);
+    } else if(el.tagName === 'SELECT'){
+      var found = false;
+      Array.prototype.forEach.call(el.options || [], function(opt){
+        if(norm(opt.value) === norm(val) || norm(opt.textContent) === norm(val)){
+          el.value = opt.value; found = true;
+        }
+      });
+      if(!found) el.value = val;
+    } else {
+      el.value = val;
+    }
+    dispatch(el);
+    return true;
+  }
+  function setById(ids, val){
+    val = clean(val);
+    if(!val) return false;
+    for(var i=0;i<ids.length;i++){
+      var el = $(ids[i]);
+      if(el){ setVal(el, val); return true; }
+    }
+    return false;
+  }
+  function parseEstrutura(raw){
+    if(!raw) return {};
+    if(typeof raw === 'object') return raw;
+    try { return JSON.parse(String(raw)); } catch(e){ return {}; }
+  }
+  function mergedValues(data){
+    data = data || {};
+    var estrutura = parseEstrutura(data.estruturaPedagogica);
+    var values = {};
+    function merge(obj){
+      if(!obj || typeof obj !== 'object') return;
+      Object.keys(obj).forEach(function(k){
+        if(obj[k] !== undefined && obj[k] !== null && clean(obj[k]) !== '') values[k] = obj[k];
+      });
+    }
+    merge(estrutura.values);
+    merge(estrutura.formData);
+    merge(estrutura);
+    merge(data);
+    return values;
+  }
+  function allFieldsLikeSubmit(){
+    return Array.prototype.slice.call(document.querySelectorAll('input, textarea, select'))
+      .filter(function(el){ return !el.disabled && el.type !== 'hidden' && !el.closest('.no-print'); });
+  }
+  function fillCampoKeys(values){
+    var fields = allFieldsLikeSubmit();
+    Object.keys(values || {}).forEach(function(k){
+      var m = k.match(/^(?:campo|field)_(\d+)$/i);
+      if(!m) return;
+      var idx = parseInt(m[1],10) - 1;
+      if(fields[idx]) setVal(fields[idx], values[k]);
+    });
+  }
+  function firstNonEmpty(){
+    for(var i=0;i<arguments.length;i++){
+      var v = arguments[i];
+      if(v !== undefined && v !== null && clean(v) !== '') return v;
+    }
+    return '';
+  }
+  function setCourse(value){
+    value = clean(value);
+    if(!value) return;
+    setById(['curso'], value);
+    var busca = $('cursoBusca');
+    if(busca){ busca.value = ''; dispatch(busca); }
+    var chips = $('cblCursosSelecionados') || document.querySelector('.cbl-course-chips,.projbl-course-chips,.course-chips');
+    if(chips){
+      chips.innerHTML = '';
+      value.split(/\s*;\s*|\s*\|\s*|\n+/).map(clean).filter(Boolean).forEach(function(curso){
+        var chip = document.createElement('span');
+        chip.className = 'cbl-course-chip projbl-course-chip';
+        chip.setAttribute('data-course-chip','1');
+        chip.style.display = 'inline-flex';
+        chip.style.alignItems = 'center';
+        chip.style.gap = '6px';
+        chip.style.padding = '7px 10px';
+        chip.style.margin = '6px 6px 0 0';
+        chip.style.border = '1px solid rgba(0,0,0,.22)';
+        chip.style.borderRadius = '999px';
+        chip.style.background = '#fff';
+        chip.style.fontSize = '12px';
+        var span = document.createElement('span');
+        span.textContent = curso;
+        chip.appendChild(span);
+        chips.appendChild(chip);
+      });
+    }
+  }
+  function setDocentes(docentes, emails){
+    var nomes = clean(docentes).split(/\s*;\s*|\n+/).filter(Boolean);
+    var mails = clean(emails).split(/\s*;\s*|\n+/).filter(Boolean);
+    var rows = Array.prototype.slice.call(document.querySelectorAll('#docentesTable tr')).filter(function(r){
+      return r.querySelector('.docente-nome,.docente-email');
+    });
+    var needed = Math.max(nomes.length, mails.length, 1);
+    while(rows.length < needed){
+      var add = document.querySelector('#docentesTable .proj-add, button[onclick*="Docente"], button[onclick*="docente"]');
+      if(add){ try { add.click(); } catch(e){} }
+      rows = Array.prototype.slice.call(document.querySelectorAll('#docentesTable tr')).filter(function(r){
+        return r.querySelector('.docente-nome,.docente-email');
+      });
+      if(!add) break;
+    }
+    rows.forEach(function(row, i){
+      var n = row.querySelector('.docente-nome');
+      var e = row.querySelector('.docente-email');
+      if(n && nomes[i]) setVal(n, nomes[i]);
+      if(e && mails[i]) setVal(e, mails[i]);
+    });
+  }
+  function setAutorizacao(value){
+    value = clean(value);
+    if(!value) return;
+    setById(['autorizacaoRepositorio'], value);
+    Array.prototype.forEach.call(document.querySelectorAll('input[name="autorizacaoRepositorio"], input[name="autorizaRepositorio"]'), function(r){
+      if(r.type === 'radio') { r.checked = norm(r.value) === norm(value); dispatch(r); }
+    });
+  }
+  function setStatus(ok, msg){
+    var box = $('projblItemIdStatusFinal');
+    if(!box){
+      var page = document.querySelector('.page') || document.body;
+      box = document.createElement('div');
+      box.id = 'projblItemIdStatusFinal';
+      box.className = 'no-print';
+      box.style.margin = '0 0 14px 0';
+      box.style.padding = '12px 14px';
+      box.style.borderRadius = '14px';
+      box.style.fontSize = '13px';
+      box.style.fontWeight = '700';
+      page.insertBefore(box, page.firstChild);
+    }
+    box.style.border = ok ? '1.5px solid #1f7a3a' : '1.5px solid #b3261e';
+    box.style.background = ok ? '#f2fff5' : '#fff4f2';
+    box.style.color = ok ? '#1f7a3a' : '#b3261e';
+    box.textContent = msg;
+  }
+  function applyData(data){
+    var v = mergedValues(data);
+    fillCampoKeys(v);
+
+    setById(['unidadeOrganica'], firstNonEmpty(v.unidadeOrganica, data.unidadeOrganica));
+    setById(['modalidade'], firstNonEmpty(v.modalidade, data.modalidade));
+    setById(['semestre'], firstNonEmpty(v.semestre, data.semestre));
+    setById(['turmaEdicao'], firstNonEmpty(v.turmaEdicao, v.turma, data.turmaEdicao));
+    setById(['tituloProjeto','titulo'], firstNonEmpty(v.tituloProjeto, v.titulo, data.title));
+    setCourse(firstNonEmpty(v.cursos, v.curso, data.cursos));
+    setById(['anoLetivoProjeto','anoLetivo','ano'], firstNonEmpty(v.anoLetivoProjeto, v.anoLetivo, v.ano, data.anoLetivo));
+    setById(['numeroEstudantes'], firstNonEmpty(v.numeroEstudantes, v.n_estudantes, v.nEstudantes, data.nEstudantes));
+    setById(['numeroGrupos'], firstNonEmpty(v.numeroGrupos, v.n_grupos, v.nGrupos, data.nGrupos));
+    setById(['autoria'], firstNonEmpty(v.autoria, v.autorias, data.autorias));
+    setById(['estadoGuiao'], firstNonEmpty(v.estadoGuiao, v.estado, data.estadoGuiao, 'Atualizado'));
+    setById(['recursos'], firstNonEmpty(v.recursos, data.recursos));
+    setAutorizacao(firstNonEmpty(v.autorizaRepositorio, v.autorizacaoRepositorio, data.autorizaRepositorio));
+
+    var uc = firstNonEmpty(v.ucs, v.uc, data.ucs);
+    if(uc){
+      var ucField = document.querySelector('.projbl-nome-uc-projeto-field') || $('uc') || $('ucs');
+      if(ucField) setVal(ucField, uc);
+    }
+    setDocentes(firstNonEmpty(v.docentes, v.professor, data.docentes), firstNonEmpty(v.emails, v.email, data.emails));
+
+    try { if(typeof window.__guioesFecharDropdownCursos === 'function') window.__guioesFecharDropdownCursos(); } catch(e){}
+    ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso','autoResizeAllTextareas','syncCourseChips','renderCursosSelecionados'].forEach(function(fn){
+      try { if(typeof window[fn] === 'function') window[fn](); } catch(e){}
+    });
+
+    document.body.classList.add('guiao-carregado-por-id','projbl-itemid-final-loaded');
+    setStatus(true, 'Dados do guião carregados para edição.');
+  }
+  async function load(){
+    var id = itemId();
+    if(!id) return;
+    /* bloqueia a camada antiga, que marcava executado mas podia não preencher PROJ-BL */
+    window.__guioesCarregamentoPorItemIdExecutado = true;
+    setStatus(true, 'A carregar dados do guião...');
+    try {
+      var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+      var timeout = controller ? setTimeout(function(){ try{ controller.abort(); }catch(e){} }, 20000) : null;
+      var res = await fetch(OBTER_GUIAO_URL_FINAL, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({itemId:id}),
+        signal: controller ? controller.signal : undefined
+      });
+      if(timeout) clearTimeout(timeout);
+      var text = await res.text();
+      var data = {};
+      try { data = JSON.parse(text); } catch(e){ throw new Error('Resposta não JSON: ' + text.slice(0,160)); }
+      if(!res.ok || data.ok === false || data.success === false) throw new Error(data.message || data.error || ('HTTP ' + res.status));
+      applyData(data);
+      /* reaplica depois dos scripts tardios que podem limpar/reescrever campos */
+      [250, 900, 1800, 3500].forEach(function(ms){ setTimeout(function(){ applyData(data); }, ms); });
+    } catch(e){
+      console.error('PROJ-BL itemId loader final:', e);
+      setStatus(false, 'Não foi possível carregar automaticamente os dados do guião. Detalhe: ' + (e && e.message ? e.message : e));
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', load);
+  else load();
+})();
+</script>
+
 </body>
 </html>
 <!-- projbl-camada15-curso-autosave-progress-selects -->
