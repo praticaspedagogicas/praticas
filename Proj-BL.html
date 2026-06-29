@@ -2,16 +2,76 @@
 
 <html lang="pt">
 <head>
-<script id="projbl-normal-early-no-test-autofill">
+<script id="projbl-edicao-itemid-cbl-modelo-v3">
 (function(){
-  try {
-    ['PROJ-BL_Teste','Proj-BL_Teste','projbl_teste','PROJ_BL_TESTE','PROJ-BL','Proj-BL'].forEach(function(k){ localStorage.removeItem(k); });
-    Object.keys(localStorage).forEach(function(k){
-      if (/proj[-_ ]?bl/i.test(k) && /teste|autosave|draft|rascunho/i.test(k)) localStorage.removeItem(k);
+  "use strict";
+  if(window.__projblEdicaoItemIdCblModeloV3) return;
+  window.__projblEdicaoItemIdCblModeloV3 = true;
+
+  function itemId(){
+    try { return String(new URLSearchParams(window.location.search).get("itemId") || "").trim(); }
+    catch(e){ return ""; }
+  }
+  function isEdit(){ return !!itemId(); }
+
+  function clearTestAndDemoState(){
+    if(!isEdit()) return;
+    window.__PROJBL_EDICAO_ITEMID_ATIVA = true;
+    try{
+      [
+        "PROJ-BL_Teste", "Proj-BL_Teste", "projbl_teste", "projbl_test", "PROJ_BL_TESTE",
+        "template_autosave_PROJ_DEMO_COMPLETO", "template_autosave_PROJ_DEMO_COMPLETO_EAD"
+      ].forEach(function(k){ localStorage.removeItem(k); });
+      Object.keys(localStorage).forEach(function(k){
+        if(/proj[-_ ]?bl/i.test(k) && /teste|demo|draft|rascunho/i.test(k)){
+          localStorage.removeItem(k);
+        }
+      });
+    }catch(e){}
+  }
+
+  function addEditBox(){
+    if(!isEdit()) return;
+    if(document.getElementById("guioesModoEdicaoBox") || document.getElementById("projblModoEdicaoBox")) return;
+
+    var ref = document.querySelector(".premium-status") ||
+              document.querySelector(".header") ||
+              document.querySelector(".logo") ||
+              document.querySelector(".page") ||
+              document.body.firstElementChild;
+    if(!ref || !ref.parentNode) return;
+
+    var box = document.createElement("div");
+    box.id = "guioesModoEdicaoBox";
+    box.className = "no-print";
+    box.style.margin = "0 0 16px 0";
+    box.style.padding = "12px 14px";
+    box.style.border = "1.5px solid #1f4d2b";
+    box.style.borderRadius = "14px";
+    box.style.background = "#f3fff6";
+    box.style.color = "#1f4d2b";
+    box.style.fontSize = "13px";
+    box.style.lineHeight = "1.45";
+    box.innerHTML = "<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.";
+    ref.parentNode.insertBefore(box, ref.nextSibling);
+    document.body.classList.add("guiao-carregado-por-id", "projbl-guiao-carregado-por-id");
+  }
+
+  function init(){
+    if(!isEdit()) return;
+    clearTestAndDemoState();
+    addEditBox();
+    [100, 350, 800, 1500, 3000, 6000].forEach(function(ms){
+      setTimeout(function(){ clearTestAndDemoState(); addEditBox(); }, ms);
     });
-  } catch(e) {}
+  }
+
+  clearTestAndDemoState();
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
 })();
 </script>
+
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta charset="utf-8"/>
 <style id="template-clean-style">
@@ -10824,7 +10884,7 @@ document.addEventListener('DOMContentLoaded', function(){
   try{ localStorage.removeItem('template_autosave_PROJ_DEMO_COMPLETO'); }catch(e){}
   try{ localStorage.removeItem('template_autosave_PROJ_DEMO_COMPLETO_EAD'); }catch(e){}
   renderProgress();
-  renderAutosave('Versão de teste preenchida.');
+  if(!window.__PROJBL_EDICAO_ITEMID_ATIVA){ renderAutosave(''); }
   bindFields();
   initMenu();
   initButtons();
@@ -19739,6 +19799,11 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     var itemId = getItemId();
     if(!itemId || window.__guioesCarregamentoPorItemIdExecutado) return;
     window.__guioesCarregamentoPorItemIdExecutado = true;
+    window.__PROJBL_EDICAO_ITEMID_ATIVA = true;
+    try{
+      ['PROJ-BL_Teste','Proj-BL_Teste','projbl_teste','projbl_test','PROJ_BL_TESTE','template_autosave_PROJ_DEMO_COMPLETO','template_autosave_PROJ_DEMO_COMPLETO_EAD'].forEach(function(k){ localStorage.removeItem(k); });
+      Object.keys(localStorage).forEach(function(k){ if(/proj[-_ ]?bl/i.test(k) && /teste|demo|draft|rascunho/i.test(k)) localStorage.removeItem(k); });
+    }catch(e){}
     addStatusBox();
     notify('A carregar dados do guião...', '', 2500);
     try {
@@ -19998,275 +20063,6 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
       return originalFetch.apply(this, arguments.length === 1 ? [input] : [input, init]);
     };
   }
-})();
-</script>
-
-
-<!-- PATCH DEFINITIVO PROJ-BL — carregamento por itemId baseado na lógica funcional do CBL -->
-<script id="projbl-carregar-guiao-por-id-cbl-based-final-20260629">
-(function(){
-  'use strict';
-
-  var OBTER_GUIAO_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
-
-  function clean(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
-  function raw(v){ return String(v == null ? '' : v); }
-  function $(id){ return document.getElementById(id); }
-  function qs(sel){ try { return document.querySelector(sel); } catch(e){ return null; } }
-  function qsa(sel){ try { return Array.prototype.slice.call(document.querySelectorAll(sel)); } catch(e){ return []; } }
-  function getItemId(){ try { return clean(new URLSearchParams(window.location.search).get('itemId')); } catch(e){ return ''; } }
-  function dispatch(el){
-    if(!el) return;
-    try { el.dispatchEvent(new Event('input', {bubbles:true})); } catch(e){}
-    try { el.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
-    try { el.dispatchEvent(new Event('blur', {bubbles:true})); } catch(e){}
-  }
-  function notify(message, type, duration){
-    try { if(typeof window.toast === 'function') return window.toast(message, type || '', duration || 3500); } catch(e){}
-    try { if(typeof window.showToast === 'function') return window.showToast(message, type || '', duration || 3500); } catch(e){}
-    console.log('[PROJ-BL itemId]', message);
-  }
-  function statusBox(){
-    var box = $('projblItemIdStatusFinal');
-    if(box) return box;
-    var ref = qs('.premium-status') || qs('.page') || document.body.firstElementChild || document.body;
-    box = document.createElement('div');
-    box.id = 'projblItemIdStatusFinal';
-    box.className = 'no-print';
-    box.style.cssText = 'margin:0 0 16px 0;padding:12px 14px;border:1.5px solid #1f4d2b;border-radius:14px;background:#f3fff6;color:#1f4d2b;font-size:13px;font-family:Century Gothic,Segoe UI,sans-serif;';
-    box.innerHTML = '<strong>Edição de guião submetido</strong><br>A carregar dados do guião...';
-    if(ref && ref.parentNode) ref.parentNode.insertBefore(box, ref.nextSibling);
-    else document.body.insertBefore(box, document.body.firstChild);
-    return box;
-  }
-  function setStatus(msg, isError){
-    var box = statusBox();
-    box.style.borderColor = isError ? '#b00020' : '#1f4d2b';
-    box.style.background = isError ? '#fff4f4' : '#f3fff6';
-    box.style.color = isError ? '#8a0018' : '#1f4d2b';
-    box.innerHTML = msg;
-  }
-  function parseMaybeJson(v){
-    if(!v) return {};
-    if(typeof v === 'object') return v;
-    try { return JSON.parse(String(v)); } catch(e){ return {}; }
-  }
-  function setEl(el, value){
-    if(!el) return false;
-    value = raw(value);
-    if(value === '') return false;
-    if(el.type === 'radio'){
-      var wanted = clean(value).toLowerCase();
-      var same = clean(el.value).toLowerCase() === wanted || (wanted === 'sim' && /sim/i.test(el.value)) || (wanted === 'não' && /não|nao/i.test(el.value));
-      if(same) el.checked = true;
-    } else if(el.type === 'checkbox'){
-      el.checked = /^(sim|true|1|yes)$/i.test(clean(value));
-    } else if(el.tagName === 'SELECT'){
-      var found = false;
-      Array.prototype.forEach.call(el.options || [], function(opt){
-        var ov = clean(opt.value), ot = clean(opt.textContent || opt.innerText);
-        if(ov.toLowerCase() === clean(value).toLowerCase() || ot.toLowerCase() === clean(value).toLowerCase()){
-          el.value = opt.value;
-          found = true;
-        }
-      });
-      if(!found) el.value = clean(value);
-    } else {
-      el.value = value;
-      try { el.setAttribute('value', value); } catch(e){}
-    }
-    dispatch(el);
-    return true;
-  }
-  function setId(id, value){ return setEl($(id), value); }
-  function setFirst(selectors, value){
-    value = raw(value);
-    if(value === '') return false;
-    for(var i=0;i<selectors.length;i++){
-      var nodes = qsa(selectors[i]);
-      for(var j=0;j<nodes.length;j++){
-        if(setEl(nodes[j], value)) return true;
-      }
-    }
-    return false;
-  }
-  function controls(){
-    return qsa('input, textarea, select').filter(function(el){
-      return el && !el.disabled && el.type !== 'hidden' && !el.closest('.no-print');
-    });
-  }
-  function applyByExactKeys(values){
-    Object.keys(values || {}).forEach(function(k){
-      if(/^campo_\d+$/.test(k) || /^field_\d+$/.test(k)) return;
-      var el = $(k) || qs('[name="' + k.replace(/"/g,'\\"') + '"]');
-      if(el) setEl(el, values[k]);
-    });
-  }
-  function applyByCampoOrder(values){
-    var ctrls = controls();
-    Object.keys(values || {}).forEach(function(k){
-      var m = k.match(/^(?:campo|field)_(\d+)$/);
-      if(!m) return;
-      var idx = parseInt(m[1],10) - 1;
-      var el = ctrls[idx];
-      if(el) setEl(el, values[k]);
-    });
-  }
-  function splitList(v){
-    return clean(v).split(/\s*;\s*|\s*\|\s*|\n+/).map(clean).filter(Boolean);
-  }
-  function renderCourse(curso){
-    curso = clean(curso);
-    if(!curso) return;
-    setId('curso', curso);
-    setId('cursoBusca', '');
-    var holder = $('cblCursosSelecionados') || qs('.cbl-course-chips,.projbl-course-chips,.projbl-curso-real-wrap');
-    if(holder){
-      var chipArea = $('cblCursosSelecionados') || holder;
-      chipArea.innerHTML = '';
-      splitList(curso).forEach(function(c){
-        var chip = document.createElement('span');
-        chip.className = 'cbl-course-chip projbl-course-chip';
-        chip.style.cssText = 'display:inline-flex;align-items:center;gap:6px;max-width:100%;padding:6px 9px;border:1px solid rgba(0,0,0,.16);border-radius:999px;background:#f7f7f7;color:#333;font-size:11.6px;line-height:1.2;font-weight:600;margin:3px;';
-        var span = document.createElement('span');
-        span.textContent = c;
-        chip.appendChild(span);
-        chipArea.appendChild(chip);
-      });
-    }
-    try { if(typeof window.syncCourseChips === 'function') window.syncCourseChips(); } catch(e){}
-    try { if(typeof window.renderCursosSelecionados === 'function') window.renderCursosSelecionados(); } catch(e){}
-  }
-  function fillDocentes(docentes, emails){
-    var nomes = splitList(docentes);
-    var mails = splitList(emails);
-    var rows = qsa('#docentesTable tr').filter(function(tr){ return tr.querySelector('input,textarea'); });
-    var max = Math.max(nomes.length, mails.length);
-    for(var i=0;i<max;i++){
-      if(!rows[i]){
-        var add = qs('#docentesTable .proj-add, #docentesTable button[onclick*="adicionar"], button[onclick*="Docente"]');
-        try { if(add) add.click(); } catch(e){}
-        rows = qsa('#docentesTable tr').filter(function(tr){ return tr.querySelector('input,textarea'); });
-      }
-      var fields = rows[i] ? qsa.call ? [] : [] : [];
-      if(rows[i]){
-        fields = Array.prototype.slice.call(rows[i].querySelectorAll('input,textarea'));
-        if(fields[0] && nomes[i]) setEl(fields[0], nomes[i]);
-        if(fields[1] && mails[i]) setEl(fields[1], mails[i]);
-      }
-    }
-  }
-  function stripProjectTitle(title){
-    title = clean(title);
-    return title.replace(/^PROJ[-\s]*BL\s*[-–—]\s*/i,'').trim() || title;
-  }
-  function preencherProjBL(data){
-    data = data && data.body && typeof data.body === 'object' ? data.body : data;
-    data = data || {};
-    var estrutura = parseMaybeJson(data.estruturaPedagogica);
-    var values = {};
-    if(estrutura && typeof estrutura === 'object'){
-      values = estrutura.values || estrutura.formData || estrutura.campos || {};
-    }
-    if(!values || typeof values !== 'object') values = {};
-    var curso = values.curso || values.cursos || data.cursos;
-    var ucs = values.uc || values.ucs || values.unidadeCurricular || data.ucs;
-    var docentes = values.professor || values.docentes || data.docentes;
-    var emails = values.emails || values.email || data.emails;
-
-    /* 1) Preenchimento direto, igual ao CBL para o cabeçalho institucional. */
-    setId('unidadeOrganica', values.unidadeOrganica || data.unidadeOrganica);
-    setId('modalidade', values.modalidade || data.modalidade);
-    setId('semestre', values.semestre || data.semestre);
-    setId('turmaEdicao', values.turmaEdicao || values.turma || data.turmaEdicao);
-    setId('tituloProjeto', values.tituloProjeto || values.titulo || stripProjectTitle(data.title));
-    setFirst(['.projbl-nome-uc-projeto-field','textarea[placeholder*="Projeto Aplicado" i]'], ucs);
-    renderCourse(curso);
-    setId('anoLetivoProjeto', values.anoLetivoProjeto || values.anoLetivo || values.ano || data.anoLetivo);
-    setId('numeroEstudantes', values.numeroEstudantes || values.n_estudantes || values.nEstudantes || data.nEstudantes);
-    setId('numeroGrupos', values.numeroGrupos || values.n_grupos || values.nGrupos || data.nGrupos);
-    setId('autoria', values.autoria || values.autorias || data.autorias);
-    setId('estadoGuiao', values.estadoGuiao || values.estado || 'Atualizado');
-    setId('bibliografia', values.bibliografia || values.referencias || values.refs);
-    setId('recursos', values.recursos || values.recursosNecessarios);
-    fillDocentes(docentes, emails);
-
-    var auth = clean(values.autorizaRepositorio || values.autorizacaoRepositorio || data.autorizaRepositorio);
-    if(auth){
-      qsa('input[type="radio"][name="autorizaRepositorio"], input[type="radio"][name="autorizacaoRepositorio"], #autorizacaoRepositorioSim, #autorizacaoRepositorioNao').forEach(function(r){
-        var v = clean(r.value).toLowerCase();
-        var a = auth.toLowerCase();
-        if((a === 'sim' && /sim|yes|true|1/.test(v)) || ((a === 'não' || a === 'nao') && /não|nao|no|false|0/.test(v))){
-          r.checked = true; dispatch(r);
-        }
-      });
-      setId('autorizacaoRepositorio', auth);
-    }
-
-    /* 2) Preenchimento massivo pela estrutura original do payload. */
-    applyByExactKeys(values);
-    applyByCampoOrder(values);
-
-    /* 3) Reforço final para campos sem id do cabeçalho e curso/docentes, caso algum script tenha limpo. */
-    setTimeout(function(){
-      setId('unidadeOrganica', values.unidadeOrganica || data.unidadeOrganica);
-      setId('modalidade', values.modalidade || data.modalidade);
-      setId('semestre', values.semestre || data.semestre);
-      setId('turmaEdicao', values.turmaEdicao || values.turma || data.turmaEdicao);
-      setId('tituloProjeto', values.tituloProjeto || values.titulo || stripProjectTitle(data.title));
-      setFirst(['.projbl-nome-uc-projeto-field','textarea[placeholder*="Projeto Aplicado" i]'], ucs);
-      renderCourse(curso);
-      fillDocentes(docentes, emails);
-      applyByCampoOrder(values);
-      ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso','projblOpenPercentages'].forEach(function(fn){
-        try { if(typeof window[fn] === 'function') window[fn](); } catch(e){}
-      });
-    }, 250);
-
-    document.body.classList.add('projbl-guiao-carregado-por-id-final');
-    setStatus('<strong>Edição de guião submetido</strong><br>Dados carregados automaticamente para edição. Faça as alterações necessárias e submeta novamente para atualizar o mesmo item.');
-  }
-  async function carregar(){
-    var itemId = getItemId();
-    if(!itemId || window.__projblItemIdCblBasedFinalDone) return;
-    window.__projblItemIdCblBasedFinalDone = true;
-    setStatus('<strong>Edição de guião submetido</strong><br>A carregar dados do guião #' + itemId + '...');
-    notify('A carregar dados do guião...', '', 2500);
-    var controller = null, timeout = null;
-    try{
-      if(typeof AbortController !== 'undefined'){
-        controller = new AbortController();
-        timeout = setTimeout(function(){ try{ controller.abort(); }catch(e){} }, 12000);
-      }
-      var res = await fetch(OBTER_GUIAO_URL, {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({itemId:itemId}),
-        cache:'no-store',
-        signal: controller ? controller.signal : undefined
-      });
-      if(timeout) clearTimeout(timeout);
-      var text = await res.text();
-      var data = {};
-      try { data = JSON.parse(text); } catch(e){ data = {raw:text}; }
-      if(!res.ok || data.ok === false || data.success === false){
-        throw new Error((data && (data.message || data.error)) || text || ('HTTP ' + res.status));
-      }
-      preencherProjBL(data);
-      notify('Dados do guião carregados para edição.', 'ok', 4500);
-    } catch(e){
-      if(timeout) clearTimeout(timeout);
-      console.error('[PROJ-BL itemId] Erro ao carregar:', e);
-      setStatus('<strong>Não foi possível carregar automaticamente os dados deste guião.</strong><br>O fluxo foi chamado, mas a página não conseguiu aplicar os dados. Detalhe: ' + clean(e && e.message), true);
-      notify('Não foi possível carregar automaticamente os dados deste guião.', 'error', 8000);
-    }
-  }
-  function schedule(){
-    [0,250,700,1500,3000].forEach(function(ms){ setTimeout(carregar, ms); });
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', schedule);
-  else schedule();
-  window.addEventListener('load', schedule);
 })();
 </script>
 
