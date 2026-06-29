@@ -10648,7 +10648,7 @@ input[type="time"]{
 (function(){
 'use strict';
 
-var STORAGE_KEY = 'template_autosave_PROJ_TESTE_COMPLETO_DESIGN_VISUAL_EAD_V5';
+var STORAGE_KEY = 'template_autosave_PROJ_BL_NORMAL_V9';
 var aulaCount = 1;
 
 /* ── TOAST ── */
@@ -20151,6 +20151,340 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
       return originalFetch.apply(this, arguments.length === 1 ? [input] : [input, init]);
     };
   }
+})();
+</script>
+
+
+<script id="projbl-final-edit-autosave-loader-fix-v1">
+(function(){
+  "use strict";
+  if(window.__projblFinalEditAutosaveLoaderFixV1) return;
+  window.__projblFinalEditAutosaveLoaderFixV1 = true;
+
+  var IS_TESTE = /_Teste\.html/i.test(location.pathname) || /Proj-BL_Teste/i.test(document.title || '');
+  var STORAGE_KEY = IS_TESTE ? 'template_autosave_PROJ_BL_TESTE_V9' : 'template_autosave_PROJ_BL_NORMAL_V9';
+  var LEGACY_KEYS = [
+    'template_autosave_PROJ_TESTE_COMPLETO_DESIGN_VISUAL_EAD_V5',
+    'template_autosave_PROJ_DEMO_COMPLETO',
+    'template_autosave_PROJ_DEMO_COMPLETO_EAD'
+  ];
+  var LOAD_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
+
+  function clean(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
+  function hasItemId(){ try { return !!new URLSearchParams(location.search).get('itemId'); } catch(e){ return false; } }
+  function itemId(){ try { return clean(new URLSearchParams(location.search).get('itemId')); } catch(e){ return ''; } }
+  function byId(id){ return document.getElementById(id); }
+  function parseMaybe(v){
+    for(var i=0;i<6;i++){
+      if(typeof v === 'string'){
+        var s = v.trim();
+        if(!s) return '';
+        if((s[0] === '{' && s[s.length-1] === '}') || (s[0] === '[' && s[s.length-1] === ']')){
+          try { v = JSON.parse(s); continue; } catch(e){ return v; }
+        }
+      }
+      break;
+    }
+    return v;
+  }
+  function normResponse(raw){
+    raw = parseMaybe(raw);
+    var out = (raw && typeof raw === 'object' && !Array.isArray(raw)) ? raw : {raw: raw};
+    ['body','result','data','value'].forEach(function(k){
+      var sub = parseMaybe(out[k]);
+      if(sub && typeof sub === 'object' && !Array.isArray(sub)){
+        Object.keys(sub).forEach(function(sk){ if(out[sk] == null || out[sk] === '') out[sk] = sub[sk]; });
+      }
+    });
+    var ep = parseMaybe(out.estruturaPedagogica || out.EstruturaPedag_x00f3_gica || out.EstruturaPedagogica || {});
+    if(ep && typeof ep === 'object'){
+      var vals = ep.values && typeof ep.values === 'object' ? ep.values : ep;
+      out.__values = vals;
+      Object.keys(vals).forEach(function(k){ if(out[k] == null || out[k] === '') out[k] = vals[k]; });
+    }
+    return out;
+  }
+  function valueOf(v){
+    v = parseMaybe(v);
+    if(v == null) return '';
+    if(Array.isArray(v)) return v.map(valueOf).filter(Boolean).join('; ');
+    if(typeof v === 'object'){
+      if(v.Value != null) return valueOf(v.Value);
+      if(v.value != null) return valueOf(v.value);
+      if(v.Title != null) return valueOf(v.Title);
+      if(v.Label != null) return valueOf(v.Label);
+      if(v.DisplayName != null) return valueOf(v.DisplayName);
+      if(v.Email != null) return valueOf(v.Email);
+      return '';
+    }
+    return clean(v);
+  }
+  function pick(){
+    for(var i=0;i<arguments.length;i++){
+      var v = valueOf(arguments[i]);
+      if(v) return v;
+    }
+    return '';
+  }
+  function dispatch(el){
+    if(!el) return;
+    try { el.dispatchEvent(new Event('input', {bubbles:true})); } catch(e){}
+    try { el.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
+  }
+  function setEl(el, value){
+    value = valueOf(value);
+    if(!el || !value) return false;
+    var tag = (el.tagName || '').toUpperCase();
+    var type = (el.type || '').toLowerCase();
+    if(type === 'radio'){
+      el.checked = clean(el.value).toLowerCase() === value.toLowerCase();
+      dispatch(el);
+      return el.checked;
+    }
+    if(type === 'checkbox'){
+      el.checked = /^(sim|true|1|yes|checked)$/i.test(value);
+      dispatch(el);
+      return true;
+    }
+    if(tag === 'SELECT'){
+      var found = false;
+      Array.prototype.forEach.call(el.options || [], function(opt){
+        if(clean(opt.value).toLowerCase() === value.toLowerCase() || clean(opt.text).toLowerCase() === value.toLowerCase()){
+          el.value = opt.value;
+          found = true;
+        }
+      });
+      if(!found) el.value = value;
+    } else {
+      el.value = value;
+      if(tag === 'TEXTAREA') el.textContent = value;
+    }
+    dispatch(el);
+    return true;
+  }
+  function setById(ids, value){
+    value = valueOf(value);
+    if(!value) return false;
+    if(typeof ids === 'string') ids = [ids];
+    for(var i=0;i<ids.length;i++){ if(setEl(byId(ids[i]), value)) return true; }
+    return false;
+  }
+  function setBySelector(selectors, value){
+    value = valueOf(value);
+    if(!value) return false;
+    if(typeof selectors === 'string') selectors = [selectors];
+    for(var i=0;i<selectors.length;i++){
+      try { if(setEl(document.querySelector(selectors[i]), value)) return true; } catch(e){}
+    }
+    return false;
+  }
+  function splitMulti(v){ return valueOf(v).split(/;|\n|\|/).map(clean).filter(Boolean); }
+  function setRepeated(selector, value){
+    var vals = splitMulti(value);
+    if(!vals.length) return;
+    var els = Array.prototype.slice.call(document.querySelectorAll(selector));
+    if(!els.length) return;
+    els.forEach(function(el,i){ if(vals[i]) setEl(el, vals[i]); });
+  }
+  function setRadioGroup(name, value){
+    value = valueOf(value);
+    if(!value) return;
+    Array.prototype.forEach.call(document.querySelectorAll('input[type="radio"][name="'+name+'"]'), function(r){
+      r.checked = clean(r.value).toLowerCase() === value.toLowerCase();
+      dispatch(r);
+    });
+  }
+  function setCursos(value){
+    value = valueOf(value);
+    if(!value) return;
+    setById(['curso','cursos'], value);
+    if(byId('cursoBusca')){ byId('cursoBusca').value = ''; dispatch(byId('cursoBusca')); }
+    var chips = byId('cblCursosSelecionados') || byId('projCursosSelecionados') || document.querySelector('.projbl-course-chips,.cbl-course-chips');
+    if(chips){
+      chips.innerHTML = '';
+      splitMulti(value).forEach(function(c){
+        var chip = document.createElement('span');
+        chip.className = 'projbl-course-chip cbl-course-chip';
+        chip.textContent = c;
+        chips.appendChild(chip);
+      });
+    }
+  }
+  function forceEditBox(text, kind){
+    if(!hasItemId()) return;
+    window.__PROJBL_EDICAO_ITEMID_ATIVA = true;
+    if(document.body) document.body.classList.add('guiao-carregado-por-id','projbl-guiao-carregado-por-id');
+    var box = byId('guioesModoEdicaoBox') || byId('projblModoEdicaoBox');
+    if(!box){
+      box = document.createElement('div');
+      box.id = 'guioesModoEdicaoBox';
+      box.setAttribute('data-projbl-forced-edit-box','true');
+      var status = document.querySelector('.premium-status');
+      var page = document.querySelector('.page');
+      if(status && status.parentNode) status.parentNode.insertBefore(box, status.nextSibling);
+      else if(page && page.parentNode) page.parentNode.insertBefore(box, page);
+      else document.body.insertBefore(box, document.body.firstChild);
+    }
+    box.className = 'projbl-edit-box-runtime';
+    box.style.cssText = 'display:block!important;visibility:visible!important;opacity:1!important;max-width:940px;margin:14px auto 16px auto;padding:14px 16px;border:1.5px solid '+(kind==='error'?'#8a1f1f':'#1f4d2b')+';border-radius:14px;background:'+(kind==='error'?'#fff3f3':'#f3fff6')+';color:'+(kind==='error'?'#8a1f1f':'#1f4d2b')+';font-family:Century Gothic,Arial,sans-serif;font-size:13px;line-height:1.45;box-sizing:border-box;position:relative;z-index:99999;';
+    box.innerHTML = text || '<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.';
+  }
+  function controls(){
+    return Array.prototype.slice.call(document.querySelectorAll('input, textarea, select')).filter(function(el){
+      var t = (el.type || '').toLowerCase();
+      return t !== 'button' && t !== 'submit' && t !== 'reset' && !el.disabled;
+    });
+  }
+  function keyFor(el, i){
+    if(el.type === 'radio' && el.name) return 'radio:' + el.name;
+    return el.id || el.name || ('field:' + i);
+  }
+  function collectDraft(){
+    var data = {};
+    controls().forEach(function(el, i){
+      var key = keyFor(el, i);
+      if(el.type === 'radio'){
+        if(el.checked) data[key] = el.value;
+      } else if(el.type === 'checkbox') {
+        data[key] = el.checked ? 'Sim' : 'Não';
+      } else {
+        data[key] = el.value || '';
+      }
+    });
+    return data;
+  }
+  function applyDraft(data){
+    if(!data || typeof data !== 'object') return false;
+    var count = 0;
+    controls().forEach(function(el, i){
+      var key = keyFor(el, i);
+      if(!Object.prototype.hasOwnProperty.call(data, key)) return;
+      var val = data[key];
+      if(el.type === 'radio'){
+        el.checked = clean(el.value) === clean(val);
+      } else if(el.type === 'checkbox') {
+        el.checked = /^(sim|true|1|yes)$/i.test(clean(val));
+      } else {
+        el.value = val;
+        if(el.tagName === 'TEXTAREA') el.textContent = val;
+      }
+      dispatch(el);
+      count++;
+    });
+    try { if(typeof window.renderProgress === 'function') window.renderProgress(); } catch(e){}
+    return count > 0;
+  }
+  function saveDraftNow(){
+    if(hasItemId()) return; /* edição vem do SharePoint; rascunho local só para normal/teste */
+    try {
+      var payload = {timestamp: new Date().toLocaleTimeString('pt-PT'), data: collectDraft()};
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      var st = byId('autosaveStatus');
+      if(st) st.textContent = 'Última gravação automática: ' + payload.timestamp;
+    } catch(e){}
+  }
+  function loadSavedDraft(){
+    if(hasItemId()) return false;
+    var raw = null;
+    try { raw = localStorage.getItem(STORAGE_KEY); } catch(e){}
+    if(!raw){
+      /* Migração apenas para quem já tinha rascunho antigo. */
+      for(var i=0;i<LEGACY_KEYS.length && !raw;i++){ try { raw = localStorage.getItem(LEGACY_KEYS[i]); } catch(e){} }
+    }
+    if(!raw) return false;
+    try {
+      var p = JSON.parse(raw);
+      var ok = applyDraft(p.data || p);
+      if(ok){
+        var st = byId('autosaveStatus');
+        if(st) st.textContent = 'Última gravação automática: ' + (p.timestamp || '--');
+      }
+      return ok;
+    } catch(e){ return false; }
+  }
+  var saveTimer = null;
+  function bindAutosave(){
+    controls().forEach(function(el){
+      if(el.dataset.projblFinalAutosaveBound === '1') return;
+      el.dataset.projblFinalAutosaveBound = '1';
+      ['input','change'].forEach(function(evt){
+        el.addEventListener(evt, function(){
+          clearTimeout(saveTimer);
+          saveTimer = setTimeout(saveDraftNow, 350);
+        }, true);
+      });
+    });
+  }
+  function applyPayloadToForm(raw){
+    var d = normResponse(raw || {});
+    var v = d.__values || {};
+    Object.keys(v).forEach(function(k){ if(byId(k)) setEl(byId(k), v[k]); });
+    Object.keys(d).forEach(function(k){ if(byId(k)) setEl(byId(k), d[k]); });
+
+    setById(['unidadeOrganica','unidade_organica'], pick(v.unidadeOrganica, d.unidadeOrganica, d.UnidadeOrganica, d['UnidadeOrg_x00e2_nica']));
+    setById(['modalidade'], pick(v.modalidade, d.modalidade, d.Modalidade));
+    setById(['semestre'], pick(v.semestre, d.semestre, d.Semestre));
+    setById(['turmaEdicao','turma','turma_edicao'], pick(v.turmaEdicao, d.turmaEdicao, d.TurmaEdicao, d['Turma_x0028_s_x0029__x002f_Edi_x']));
+    setById(['tituloProjeto','titulo'], pick(v.tituloProjeto, d.tituloProjeto, d.title, d.Title));
+    setCursos(pick(v.curso, v.cursos, d.curso, d.cursos, d.Curso));
+    setById(['uc','ucs','ucProjeto','nomeUCProjeto'], pick(v.uc, v.ucs, v.ucProjeto, v.nomeUCProjeto, d.uc, d.ucs, d.UC));
+    setBySelector(['.projbl-nome-uc-projeto-field','#ucProjeto','#nomeUCProjeto','#nomeUcProjeto'], pick(v.ucProjeto, v.nomeUCProjeto, v.ucs, d.ucs, d.UC));
+    setById(['anoLetivoProjeto','anoLetivo','ano','ano_letivo'], pick(v.anoLetivoProjeto, v.anoLetivo, d.anoLetivo, d.AnoLetivo));
+    setById(['numeroEstudantes','n_estudantes'], pick(v.numeroEstudantes, v.nEstudantes, d.numeroEstudantes, d.nEstudantes, d['N_x00ba_deestudantes']));
+    setById(['numeroGrupos','n_grupos'], pick(v.numeroGrupos, v.nGrupos, d.numeroGrupos, d.nGrupos, d['N_x00ba_deGrupos']));
+    setById(['autoria','autorias'], pick(v.autoria, v.autorias, d.autoria, d.autorias, d.Autoria));
+    setById(['estadoGuiao','estado','estado_guiao'], pick(v.estadoGuiao, v.estado, d.estadoGuiao, d.EstadoGuiao, d.Estado));
+    setById(['emails','email'], pick(v.emails, v.email, d.emails, d.email, d.Email));
+    setRepeated('#docentesTable .docente-email, #docentesTable .proj-docente-email', pick(v.emails, v.email, d.emails, d.email, d.Email));
+    setById(['docentes','professor'], pick(v.docentes, v.docente, d.docentes, d.Docentes, d.Docentestexto));
+    setRepeated('#docentesTable .docente-nome, #docentesTable .proj-docente-nome', pick(v.docentes, v.docente, d.docentes, d.Docentes, d.Docentestexto));
+    setById(['organizacao','organizacoes','contacto'], pick(v.organizacoesContacto, d.organizacoesContacto, d['Organiza_x00e7__x00e3_o_x0028__x']));
+    setById(['calendarizacao','data','dataSimulacao'], pick(v.data, d.data, d.Data));
+    setById(['hora_inicio','horaInicio','hora'], pick(v.hora_inicio, v.horaInicio, v.hora, d.hora, d.Hora));
+    setById(['hora_fim','horaFim'], pick(v.hora_fim, v.horaFim));
+    var auth = pick(v.autorizaRepositorio, v.autorizacaoRepositorio, d.autorizaRepositorio, d.autorizacaoRepositorio, d.AutorizaRepositorio, d['AutorizaReposit_x00f3_rio']);
+    setById(['autorizaRepositorio','autorizacaoRepositorio'], auth);
+    ['autorizaRepositorio','autorizacaoRepositorio','autorizaRepositorioOpcao'].forEach(function(n){ setRadioGroup(n, auth); });
+
+    try { if(typeof window.renderProgress === 'function') window.renderProgress(); } catch(e){}
+    try { if(typeof window.updateProgress === 'function') window.updateProgress(); } catch(e){}
+  }
+  async function loadItemForEdit(){
+    if(!hasItemId() || window.__projblFinalItemLoaderDone) return;
+    window.__projblFinalItemLoaderDone = true;
+    forceEditBox('<strong>Edição de guião submetido</strong><br>A carregar os dados deste guião para edição...');
+    try {
+      var res = await fetch((window.GUIOES_LOAD_URL || window.OBTER_GUIAO_URL || LOAD_URL), {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({itemId: itemId()})
+      });
+      var text = await res.text();
+      var data = normResponse(text);
+      if(!res.ok || data.ok === false || data.success === false){
+        throw new Error(pick(data.message, data.error, text) || ('HTTP ' + res.status));
+      }
+      applyPayloadToForm(data);
+      forceEditBox('<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.');
+    } catch(e){
+      console.error('PROJ-BL final loader:', e);
+      forceEditBox('<strong>Não foi possível carregar automaticamente os dados deste guião.</strong><br>A página continua editável. Detalhe: ' + clean(e && e.message), 'error');
+    }
+  }
+  function start(){
+    bindAutosave();
+    if(hasItemId()){
+      forceEditBox();
+      [0,150,450,900,1600,2600,4200,7000].forEach(function(ms){ setTimeout(forceEditBox, ms); });
+      setTimeout(loadItemForEdit, 650);
+    } else {
+      /* No teste há scripts que reaplicam o exemplo até 3,6s; restauramos o rascunho depois disso também. */
+      [0,200,700,1400,2800,4300].forEach(function(ms){ setTimeout(function(){ bindAutosave(); loadSavedDraft(); }, ms); });
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+  window.addEventListener('load', start);
 })();
 </script>
 
