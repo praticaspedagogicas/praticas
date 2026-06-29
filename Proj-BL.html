@@ -18257,11 +18257,11 @@ html body .page button[data-proj-tooltip]::after {
     sectionTitle(4, 'Metodologia', 68); paragraph(data.metodologia);
     premiumTable(['UC', 'Objetivos', 'Procedimentos', 'Entregáveis esperados'], data.metodologiaRows, [31,49,50,48]);
     sectionTitle(5, 'Entregáveis', 60);
-    premiumTable(['Semana', 'Entrega', 'Tipo de avaliação', 'Data', '% da nota final'], data.entregaveis, [21,62,39,26,30], 'Total', sumPercent(data.entregaveis, 4));
+    premiumTable(['Semana', 'Entrega', 'Tipo de avaliação', 'Data', '% da nota final'], data.entregaveis, [21,62,39,26,30]);
     sectionTitle(6, 'Critérios de avaliação', 55);
     premiumTable(['Nome da UC', 'Critérios'], data.avaliacao, [54,124]);
     sectionTitle(7, 'Contribuições das Unidades Curriculares', 70);
-    premiumTable(['ECTS', 'Unidade Curricular', 'Horas de contacto', 'Contribuição', 'Docente(s)/Email', '%'], data.contribuicoes, [14,32,22,40,56,14], 'Total', sumPercent(data.contribuicoes, 5));
+    premiumTable(['ECTS', 'Unidade Curricular', 'Horas de contacto', 'Contribuição', 'Docente(s)/Email', '%'], data.contribuicoes, [14,32,22,40,56,14]);
     sectionTitle(8, 'Bibliografia', 36); bibliografia(data.bibliografia);
     sectionTitle(9, 'Recursos', 36); paragraph(data.recursos);
     fillIndex();
@@ -19069,13 +19069,18 @@ html body:not(.guiao-pdf-mode) .page #uxMenuMaisOpcoes button {
     return clean(payload && payload.title) || scenario;
   }
 
+  function limitSharePointTitle(v){
+    v = clean(v || 'PROJ-BL');
+    return v.length > 250 ? v.slice(0,250) : v;
+  }
+
   function normalizePayload(payload){
     if(!payload || typeof payload !== 'object') return payload;
 
     var looksLikeGuiao = payload.pdfBase64 || payload.templateType || payload.cenarioAprendizagem || payload.html;
     if(!looksLikeGuiao) return payload;
 
-    payload.title = buildTitle(payload);
+    payload.title = limitSharePointTitle(buildTitle(payload));
 
     var anoDom = byId(['anoLetivo','anoLetivoProjeto','ano_letivo','ano','anoLetivoInput']);
     if(anoDom) payload.anoLetivo = anoDom;
@@ -19909,6 +19914,85 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
   line-height:normal !important;
 }
 </style>
+
+
+<!-- PATCH FINAL PROJ-BL — percentagens abertas + título SharePoint seguro -->
+<style id="projbl-percentagens-abertas-title-safe-css">
+  /* Entregáveis e Contribuições são percentagens abertas; não há total obrigatório. */
+  #entregaveis .projbliso-total-row,
+  #entregaveis .proj-entregaveis-total,
+  #ucs .proj-contrib-total,
+  #contribuicoes .proj-contrib-total,
+  #contribuicoes .projblz7g-total-row,
+  .projbliso-total-row,
+  .projblz7g-total-row,
+  .proj-entregaveis-total,
+  .proj-contrib-total{
+    display:none !important;
+    visibility:hidden !important;
+  }
+  #entregaveis .projbliso-percent-warn,
+  #ucs .projbliso-percent-warn,
+  #contribuicoes .projbliso-percent-warn,
+  #ucs .projblz7g-warn,
+  #contribuicoes .projblz7g-warn,
+  #entregaveis .is-warn,
+  #ucs .is-warn,
+  #contribuicoes .is-warn{
+    border-color:#333 !important;
+    outline:none !important;
+    box-shadow:none !important;
+    color:inherit !important;
+    background:#fff !important;
+  }
+</style>
+<script id="projbl-percentagens-abertas-title-safe-js">
+(function(){
+  'use strict';
+  function cleanText(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
+  function limitTitle(v){
+    v = cleanText(v || 'PROJ-BL');
+    return v.length > 250 ? v.slice(0,250) : v;
+  }
+  window.projblSafeSharePointTitle = limitTitle;
+
+  function openPercentages(){
+    try{
+      document.querySelectorAll('.projbliso-total-row,.projblz7g-total-row,.proj-entregaveis-total,.proj-contrib-total').forEach(function(el){
+        if(el && el.parentNode) el.parentNode.removeChild(el);
+      });
+      document.querySelectorAll('.projbliso-percent-warn,.projblz7g-warn,.is-warn,.warn').forEach(function(el){
+        el.classList.remove('projbliso-percent-warn','projblz7g-warn','is-warn','warn');
+        try{ el.style.borderColor=''; el.style.outline=''; el.style.boxShadow=''; }catch(e){}
+      });
+    }catch(e){}
+  }
+  window.projblOpenPercentages = openPercentages;
+  ['DOMContentLoaded','load','input','change','click'].forEach(function(evt){
+    window.addEventListener(evt, function(){ setTimeout(openPercentages, 0); setTimeout(openPercentages, 120); }, true);
+  });
+  [0,100,300,800,1500,3000].forEach(function(ms){ setTimeout(openPercentages, ms); });
+
+  /* Blindagem final: qualquer payload enviado ao Power Automate respeita o limite do campo Title do SharePoint. */
+  if(!window.__projblFetchTitleSafePatch){
+    window.__projblFetchTitleSafePatch = true;
+    var originalFetch = window.fetch;
+    window.fetch = function(input, init){
+      try{
+        if(init && typeof init.body === 'string' && init.body.indexOf('"title"') !== -1){
+          var payload = JSON.parse(init.body);
+          if(payload && typeof payload === 'object' && payload.title){
+            payload.title = limitTitle(payload.title);
+            init = Object.assign({}, init, { body: JSON.stringify(payload) });
+          }
+        }
+      }catch(e){}
+      return originalFetch.apply(this, arguments.length === 1 ? [input] : [input, init]);
+    };
+  }
+})();
+</script>
+
 </body>
 </html>
 <!-- projbl-camada15-curso-autosave-progress-selects -->
