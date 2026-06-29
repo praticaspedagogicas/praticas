@@ -12902,7 +12902,7 @@ function collectPayload(){
     values.submittedAt = new Date().toISOString();
 
     return {
-      templateType: "PROJ-BL",
+      templateType: "Proj-BL",
       scenario: "PROJ-BL",
       cenarioAprendizagem: "PROJ-BL",
       title: "PROJ-BL - " + (ucsPayload || cursosPayload || ((document.title || "Guião").trim())),
@@ -12975,7 +12975,7 @@ function collectPayload(){
       linhas: linhas,
       resumoCampos: linhas.join("\n"),
       plainText: linhas.join("\n"),
-      estruturaPedagogica: JSON.stringify({templateType:"PROJ-BL", cenarioAprendizagem:"PROJ-BL", values:values, linhas:linhas}, null, 2),
+      estruturaPedagogica: JSON.stringify({templateType:"Proj-BL", cenarioAprendizagem:"PROJ-BL", values:values, linhas:linhas}, null, 2),
       pdfFileName: makeFileName()
     };
   }
@@ -19079,6 +19079,14 @@ html body:not(.guiao-pdf-mode) .page #uxMenuMaisOpcoes button {
 
     var looksLikeGuiao = payload.pdfBase64 || payload.templateType || payload.cenarioAprendizagem || payload.html;
     if(!looksLikeGuiao) return payload;
+
+    // GitHub Pages é sensível a maiúsculas/minúsculas.
+    // O Power Automate usa templateType para construir o link de edição.
+    // Mantemos o cenário como PROJ-BL, mas o ficheiro real é Proj-BL.html.
+    payload.templateType = "Proj-BL";
+    payload.cenarioAprendizagem = "PROJ-BL";
+    payload.scenario = "PROJ-BL";
+    payload.templateScenario = "PROJ-BL";
 
     payload.title = limitSharePointTitle(buildTitle(payload));
 
