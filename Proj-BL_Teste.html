@@ -12933,7 +12933,7 @@ function collectPayload(){
     values.submittedAt = new Date().toISOString();
 
     return {
-      templateType: "Proj-BL_Teste",
+      templateType: "PROJ-BL",
       scenario: "PROJ-BL",
       cenarioAprendizagem: "PROJ-BL",
       title: tituloGuiaoPayload,
@@ -13004,7 +13004,7 @@ function collectPayload(){
       linhas: linhas,
       resumoCampos: linhas.join("\n"),
       plainText: linhas.join("\n"),
-      estruturaPedagogica: JSON.stringify({templateType:"Proj-BL_Teste", cenarioAprendizagem:"PROJ-BL", values:values, linhas:linhas}, null, 2),
+      estruturaPedagogica: JSON.stringify({templateType: "PROJ-BL", cenarioAprendizagem:"PROJ-BL", values:values, linhas:linhas}, null, 2),
       pdfFileName: makeFileName()
     };
   }
@@ -19135,9 +19135,9 @@ html body:not(.guiao-pdf-mode) .page #uxMenuMaisOpcoes button {
     if(!looksLikeGuiao) return payload;
 
     // GitHub Pages é sensível a maiúsculas/minúsculas.
-    // O Power Automate usa templateType para construir o link de edição.
-    // Mantemos o cenário como PROJ-BL, mas o ficheiro real é Proj-BL_Teste.html.
-    payload.templateType = "Proj-BL_Teste";
+    // O Power Automate espera templateType PROJ-BL para processar e enviar e-mails corretamente.
+    // Para o link de edição, publicamos também uma cópia PROJ-BL_Teste.html no GitHub Pages.
+    payload.templateType = "PROJ-BL";
     payload.cenarioAprendizagem = "PROJ-BL";
     payload.scenario = "PROJ-BL";
     payload.templateScenario = "PROJ-BL";
