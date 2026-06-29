@@ -19739,6 +19739,92 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
       }
     });
   }
+  function firstValue(){
+    for(var i=0;i<arguments.length;i++){
+      var value = arguments[i];
+      if(value !== undefined && value !== null && clean(value) !== '') return clean(value);
+    }
+    return '';
+  }
+  function setElementValue(el, value){
+    if(!el) return false;
+    value = clean(value);
+    if(!value) return false;
+    var tag = String(el.tagName || '').toUpperCase();
+    var type = String(el.type || '').toLowerCase();
+    if(type === 'radio'){
+      var same = clean(el.value).toLowerCase() === value.toLowerCase();
+      el.checked = same;
+      dispatch(el);
+      return same;
+    }
+    if(type === 'checkbox'){
+      el.checked = /^(sim|true|1|yes)$/i.test(value);
+    } else if(tag === 'SELECT'){
+      var found = false;
+      Array.prototype.forEach.call(el.options || [], function(opt){
+        if(clean(opt.value).toLowerCase() === value.toLowerCase() || clean(opt.text).toLowerCase() === value.toLowerCase()){
+          el.value = opt.value;
+          found = true;
+        }
+      });
+      if(!found) el.value = value;
+    } else {
+      el.value = value;
+    }
+    dispatch(el);
+    return true;
+  }
+  function setFirstSelector(selectors, value){
+    value = clean(value);
+    if(!value) return false;
+    for(var i=0;i<selectors.length;i++){
+      try {
+        var el = document.querySelector(selectors[i]);
+        if(setElementValue(el, value)) return true;
+      } catch(e) {}
+    }
+    return false;
+  }
+  function splitMultiValue(value){
+    return clean(value).split(/;|\n|\|/).map(clean).filter(Boolean);
+  }
+  function setRepeatedValues(selector, value){
+    var parts = splitMultiValue(value);
+    if(!parts.length) return false;
+    var els = [];
+    try { els = Array.prototype.slice.call(document.querySelectorAll(selector)); } catch(e) {}
+    if(!els.length) return false;
+    els.forEach(function(el, i){ if(parts[i]) setElementValue(el, parts[i]); });
+    return true;
+  }
+  function preencherCamposProjBl(data, values){
+    data = data || {};
+    values = values || {};
+    var curso = firstValue(values.curso, values.cursos, data.curso, data.cursos);
+    var ucs = firstValue(values.ucs, values.uc, values.unidade_curricular, values.ucProjeto, values.nomeUCProjeto, values.nomeUcProjeto, values.nome_uc_projeto, data.ucs, data.uc);
+    var docentes = firstValue(values.docentes, values.Docentes, values.docente, values.professor, values.docenteTexto, data.docentes, data.Docentes, data.docente, data.professor);
+    var emails = firstValue(values.emails, values.email, values.Email, values.EmailDocente, values.emailDocente, data.emails, data.email, data.Email, data.EmailDocente);
+    var ano = firstValue(values.anoLetivoProjeto, values.anoLetivo, values.AnoLetivo, values.ano, data.anoLetivo, data.AnoLetivo, data.ano);
+    var nEstudantes = firstValue(values.numeroEstudantes, values.nEstudantes, values.n_estudantes, values.numero_estudantes, data.numeroEstudantes, data.nEstudantes, data.n_estudantes);
+    var nGrupos = firstValue(values.numeroGrupos, values.nGrupos, values.n_grupos, values.numero_grupos, data.numeroGrupos, data.nGrupos, data.n_grupos);
+    var estado = firstValue(values.estadoGuiao, values.EstadoGuiao, values.estado, data.estadoGuiao, data.EstadoGuiao, data.estado);
+    var autorizacao = firstValue(values.autorizacaoRepositorio, values.autorizaRepositorio, values.autorizaPartilhaInterna, values.partilhaRepositorio, data.autorizacaoRepositorio, data.autorizaRepositorio);
+
+    if(curso){
+      setField('curso', curso);
+      setElementValue($('cursoBusca'), curso);
+      renderCourseFallback($('cblCursosSelecionados'), curso, 'projbl-course-chip');
+    }
+    setFirstSelector(['.projbl-nome-uc-projeto-field','#ucProjeto','#nomeUCProjeto','#nomeUcProjeto','#nome_uc_projeto'], ucs);
+    setRepeatedValues('#docentesTable .docente-nome', docentes);
+    setRepeatedValues('#docentesTable .docente-email', emails);
+    setFirstSelector(['#anoLetivoProjeto'], ano);
+    setFirstSelector(['#numeroEstudantes'], nEstudantes);
+    setFirstSelector(['#numeroGrupos'], nGrupos);
+    setFirstSelector(['#estadoGuiao'], estado);
+    if(autorizacao) setAuthorization(autorizacao);
+  }
   function addStatusBox(){
     if($('guioesModoEdicaoBox')) return;
     var ref = document.querySelector('.premium-status') || document.querySelector('.header') || document.querySelector('.page') || document.body.firstElementChild;
@@ -19783,6 +19869,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     setFirst(['hora_inicio','horaInicio','hora'], values.hora_inicio || values.horaInicio || hora.inicio || data.hora);
     setFirst(['hora_fim','horaFim'], values.hora_fim || values.horaFim || hora.fim);
     setAuthorization(values.autorizaRepositorio || values.autorizacaoRepositorio || data.autorizaRepositorio);
+    preencherCamposProjBl(data, values);
 
     ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso','syncCourseChips','renderCursosSelecionados'].forEach(function(fn){
       try { if(typeof window[fn] === 'function') window[fn](); } catch(e){}

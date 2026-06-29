@@ -19602,68 +19602,159 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 </script>
 
 
-<script id="guioes-carregar-guiao-por-id-v2">
-/* ===== Camada institucional — carregamento de guião para edição por itemId =====
-   Abre o template com ?itemId=..., obtém os dados do fluxo “Obter guião por ID”
-   e preenche o formulário sem alterar PDF, layout, submissão principal ou botões. */
+<script id="guioes-carregar-guiao-por-id-v3-robusto">
+/* ===== Camada institucional — carregamento robusto de guião para edição por itemId =====
+   Corrige PROJ-BL: normaliza respostas do Power Automate/body/result/data/string JSON
+   e aplica aliases específicos do Project antes de preencher o formulário. */
 (function(){
   'use strict';
-  if(window.__guioesCarregamentoPorItemIdV2Instalado) return;
-  window.__guioesCarregamentoPorItemIdV2Instalado = true;
+  if(window.__guioesCarregamentoPorItemIdV3Robusto) return;
+  window.__guioesCarregamentoPorItemIdV3Robusto = true;
 
   var OBTER_GUIAO_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
 
   function clean(v){ return String(v == null ? '' : v).trim(); }
-  function lower(v){ return clean(v).toLowerCase(); }
   function $(id){ return document.getElementById(id); }
   function getItemId(){
     try { return clean(new URLSearchParams(window.location.search).get('itemId')); }
     catch(e){ return ''; }
   }
+  function valueOf(v){
+    if(v == null) return '';
+    if(typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') return clean(v);
+    if(Array.isArray(v)) return v.map(valueOf).filter(Boolean).join('; ');
+    if(typeof v === 'object'){
+      if(v.Value != null) return valueOf(v.Value);
+      if(v.value != null) return valueOf(v.value);
+      if(v.Title != null) return valueOf(v.Title);
+      if(v.Label != null) return valueOf(v.Label);
+      if(v.DisplayName != null) return valueOf(v.DisplayName);
+      if(v.Email != null) return valueOf(v.Email);
+      try { return clean(JSON.stringify(v)); } catch(e){ return ''; }
+    }
+    return clean(v);
+  }
+  function parseMaybe(v, depth){
+    depth = depth || 0;
+    if(depth > 5) return v;
+    if(typeof v === 'string'){
+      var s = v.trim();
+      if(!s) return '';
+      if((s.charAt(0)==='{' && s.charAt(s.length-1)==='}') || (s.charAt(0)==='[' && s.charAt(s.length-1)===']')){
+        try { return parseMaybe(JSON.parse(s), depth + 1); } catch(e){ return v; }
+      }
+    }
+    if(v && typeof v === 'object'){
+      Object.keys(v).forEach(function(k){ v[k] = parseMaybe(v[k], depth + 1); });
+    }
+    return v;
+  }
+  function mergeObjects(){
+    var out = {};
+    Array.prototype.forEach.call(arguments, function(obj){
+      if(!obj || typeof obj !== 'object' || Array.isArray(obj)) return;
+      Object.keys(obj).forEach(function(k){ if(out[k] == null || out[k] === '') out[k] = obj[k]; });
+    });
+    return out;
+  }
+  function normalizeResponse(raw){
+    raw = parseMaybe(raw);
+    var root = (raw && typeof raw === 'object') ? raw : {raw: raw};
+    var body = parseMaybe(root.body);
+    var result = parseMaybe(root.result);
+    var data = parseMaybe(root.data);
+    var payload = mergeObjects(root, body, result, data);
+    if(body && typeof body === 'object') payload.body = body;
+    if(result && typeof result === 'object') payload.result = result;
+    if(data && typeof data === 'object') payload.data = data;
+    return payload;
+  }
+  function extractValues(data){
+    var estrutura = parseMaybe(data.estruturaPedagogica || data.EstruturaPedagogica || data['EstruturaPedag_x00f3_gica'] || data.values || {});
+    if(estrutura && estrutura.values && typeof estrutura.values === 'object') return estrutura.values;
+    if(estrutura && typeof estrutura === 'object') return estrutura;
+    return {};
+  }
+  function pick(){
+    for(var i=0;i<arguments.length;i++){
+      var v = valueOf(arguments[i]);
+      if(v) return v;
+    }
+    return '';
+  }
+  function pickKey(obj, keys){
+    obj = obj || {};
+    for(var i=0;i<keys.length;i++){
+      if(Object.prototype.hasOwnProperty.call(obj, keys[i])){
+        var v = valueOf(obj[keys[i]]);
+        if(v) return v;
+      }
+    }
+    return '';
+  }
   function notify(message, type, duration){
-    if(typeof window.toast === 'function') return window.toast(message, type || '', duration || 4500);
-    if(typeof window.showToast === 'function') return window.showToast(message, type || '', duration || 4500);
-    if(type === 'error') alert(message);
+    try{
+      if(typeof window.toast === 'function') return window.toast(message, type || '', duration || 4500);
+      if(typeof window.showToast === 'function') return window.showToast(message, type || '', duration || 4500);
+      if(typeof window.projFinalToast === 'function') return window.projFinalToast(message, type || '', duration || 4500);
+    }catch(e){}
+    if(type === 'error') console.error(message);
   }
   function dispatch(el){
     if(!el) return;
     try { el.dispatchEvent(new Event('input', {bubbles:true})); } catch(e){}
     try { el.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
   }
-  function setField(id, value){
-    var el = $(id);
+  function setElementValue(el, value){
     if(!el) return false;
-    value = clean(value);
-    if(el.type === 'radio') return false;
-    if(el.type === 'checkbox'){
+    value = valueOf(value);
+    if(!value) return false;
+    var tag = String(el.tagName || '').toUpperCase();
+    var type = String(el.type || '').toLowerCase();
+    if(type === 'radio'){
+      var same = valueOf(el.value).toLowerCase() === value.toLowerCase();
+      el.checked = same;
+      dispatch(el);
+      return same;
+    }
+    if(type === 'checkbox'){
       el.checked = /^(sim|true|1|yes)$/i.test(value);
-    } else if(el.tagName === 'SELECT'){
+    } else if(tag === 'SELECT'){
       var found = false;
       Array.prototype.forEach.call(el.options || [], function(opt){
-        if(clean(opt.value).toLowerCase() === value.toLowerCase() || clean(opt.text).toLowerCase() === value.toLowerCase()){
+        if(valueOf(opt.value).toLowerCase() === value.toLowerCase() || valueOf(opt.text).toLowerCase() === value.toLowerCase()){
           el.value = opt.value;
           found = true;
         }
       });
-      if(!found && value) el.value = value;
+      if(!found) el.value = value;
     } else {
       el.value = value;
     }
     dispatch(el);
     return true;
   }
+  function setField(id, value){ return setElementValue($(id), value); }
   function setFirst(ids, value){
-    value = clean(value);
+    value = valueOf(value);
     if(!value) return false;
     for(var i=0;i<ids.length;i++){ if(setField(ids[i], value)) return true; }
     return false;
   }
+  function setFirstSelector(selectors, value){
+    value = valueOf(value);
+    if(!value) return false;
+    for(var i=0;i<selectors.length;i++){
+      try { if(setElementValue(document.querySelector(selectors[i]), value)) return true; } catch(e){}
+    }
+    return false;
+  }
   function setRadioGroup(name, value){
-    value = clean(value);
+    value = valueOf(value);
     if(!value) return false;
     var done = false;
     Array.prototype.forEach.call(document.querySelectorAll('input[type="radio"][name="' + name + '"]'), function(radio){
-      var same = clean(radio.value).toLowerCase() === value.toLowerCase();
+      var same = valueOf(radio.value).toLowerCase() === value.toLowerCase();
       radio.checked = same;
       if(same) done = true;
       dispatch(radio);
@@ -19671,25 +19762,28 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     return done;
   }
   function setAuthorization(value){
-    value = clean(value);
+    value = valueOf(value);
     if(!value) return;
     setField('autorizaRepositorio', value);
     setField('autorizacaoRepositorio', value);
     ['autorizaRepositorio','autorizaRepositorioOpcao','autorizacaoRepositorio'].forEach(function(name){ setRadioGroup(name, value); });
   }
-  function splitCourses(value){
-    return clean(value).split(/;|\n|\|/).map(clean).filter(Boolean).filter(function(v,i,a){
-      return a.findIndex(function(x){ return x.toLowerCase() === v.toLowerCase(); }) === i;
-    });
+  function splitMultiValue(value){ return valueOf(value).split(/;|\n|\|/).map(clean).filter(Boolean); }
+  function setRepeatedValues(selector, value){
+    var parts = splitMultiValue(value);
+    if(!parts.length) return false;
+    var els = [];
+    try { els = Array.prototype.slice.call(document.querySelectorAll(selector)); } catch(e){}
+    if(!els.length) return false;
+    els.forEach(function(el, i){ if(parts[i]) setElementValue(el, parts[i]); });
+    return true;
   }
   function renderCourseFallback(container, value, chipClass){
-    if(!container || !clean(value)) return;
-    var existing = container.querySelector('.cbl-course-chip,.pbl-course-chip,.projbl-course-chip,.rbl-course-chip,.sbl-course-chip');
-    if(existing) return;
+    if(!container || !valueOf(value)) return;
     container.innerHTML = '';
-    splitCourses(value).forEach(function(curso){
+    splitMultiValue(value).forEach(function(curso){
       var chip = document.createElement('span');
-      chip.className = chipClass || 'cbl-course-chip';
+      chip.className = chipClass || 'projbl-course-chip';
       var span = document.createElement('span');
       span.textContent = curso;
       chip.appendChild(span);
@@ -19697,26 +19791,14 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     });
   }
   function setCursos(value){
-    value = clean(value);
+    value = valueOf(value);
     if(!value) return;
     setFirst(['curso','cursos'], value);
-    var search = $('cursoBusca');
-    if(search){ search.value = ''; dispatch(search); }
-    var chips = $('cblCursosSelecionados') || $('pblCursosSelecionados') || document.querySelector('.cbl-course-chips,.pbl-course-chips,.rbl-course-chip-area,.sbl-course-chips');
-    if(chips){
-      setTimeout(function(){
-        dispatch($('curso'));
-        renderCourseFallback(chips, value, chips.id === 'pblCursosSelecionados' ? 'pbl-course-chip' : 'cbl-course-chip');
-      }, 80);
-    }
-  }
-  function parseEstrutura(raw){
-    if(!raw) return {};
-    if(typeof raw === 'object') return raw;
-    try { return JSON.parse(String(raw)); } catch(e){ return {}; }
+    if($('cursoBusca')){ $('cursoBusca').value = ''; dispatch($('cursoBusca')); }
+    renderCourseFallback($('cblCursosSelecionados') || $('pblCursosSelecionados') || document.querySelector('.cbl-course-chips,.pbl-course-chips,.projbl-course-chips'), value, 'projbl-course-chip');
   }
   function splitHoraIntervalo(hora){
-    hora = clean(hora);
+    hora = valueOf(hora);
     if(!hora) return {};
     var parts = hora.split(/\s*[–—-]\s*/).map(clean).filter(Boolean);
     return {inicio: parts[0] || '', fim: parts[1] || ''};
@@ -19739,89 +19821,94 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
       if(!m) return;
       var idx = parseInt(m[1],10) - 1;
       var el = controls[idx];
-      if(el && !el.id && !el.name){
-        el.value = clean(values[key]);
-        dispatch(el);
-      }
+      if(el && !el.id && !el.name) setElementValue(el, values[key]);
     });
   }
-  function addStatusBox(){
-    if($('guioesModoEdicaoBox')) return;
-    var ref = document.querySelector('.premium-status') || document.querySelector('.header') || document.querySelector('.page') || document.body.firstElementChild;
-    if(!ref || !ref.parentNode) return;
+  function addStatusBox(text, kind){
+    var existing = $('guioesModoEdicaoBox');
+    if(existing){ if(text) existing.innerHTML = text; return existing; }
+    var ref = document.querySelector('.premium-status') || document.querySelector('.header') || document.querySelector('.logo') || document.querySelector('.page') || document.body.firstElementChild;
+    if(!ref || !ref.parentNode) return null;
     var box = document.createElement('div');
     box.id = 'guioesModoEdicaoBox';
     box.className = 'no-print';
     box.style.margin = '0 0 16px 0';
     box.style.padding = '12px 14px';
-    box.style.border = '1.5px solid #1f4d2b';
+    box.style.border = kind === 'error' ? '1.5px solid #8a1f1f' : '1.5px solid #1f4d2b';
     box.style.borderRadius = '14px';
-    box.style.background = '#f3fff6';
-    box.style.color = '#1f4d2b';
+    box.style.background = kind === 'error' ? '#fff3f3' : '#f3fff6';
+    box.style.color = kind === 'error' ? '#8a1f1f' : '#1f4d2b';
     box.style.fontSize = '13px';
-    box.innerHTML = '<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.';
+    box.style.lineHeight = '1.45';
+    box.innerHTML = text || '<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.';
     ref.parentNode.insertBefore(box, ref.nextSibling);
+    return box;
   }
   function preencherFormulario(data){
-    data = data || {};
-    var estrutura = parseEstrutura(data.estruturaPedagogica);
-    var values = (estrutura && estrutura.values && typeof estrutura.values === 'object') ? estrutura.values : {};
-    var hora = splitHoraIntervalo(data.hora);
+    data = normalizeResponse(data || {});
+    var values = extractValues(data);
+    var hora = splitHoraIntervalo(pick(values.hora, data.hora, data.Hora));
 
     applyValuesByKey(values);
 
-    setFirst(['unidadeOrganica','unidade_organica'], values.unidadeOrganica || data.unidadeOrganica);
-    setFirst(['modalidade'], values.modalidade || data.modalidade);
-    setFirst(['semestre'], values.semestre || data.semestre);
-    setFirst(['turmaEdicao','turma_edicao','turma'], values.turmaEdicao || values.turma || data.turmaEdicao);
-    setCursos(values.curso || values.cursos || data.cursos);
-    setFirst(['uc','ucs','unidade_curricular'], values.uc || values.ucs || data.ucs);
-    setFirst(['titulo','tituloProjeto'], values.titulo || values.tituloProjeto || data.title);
-    setFirst(['ano','ano_letivo','anoLetivo','anoLetivoProjeto'], values.ano || values.ano_letivo || values.anoLetivo || data.anoLetivo);
-    setFirst(['professor','docentes'], values.professor || values.docentes || data.docentes);
-    setFirst(['emails','email'], values.emails || values.email || data.emails);
-    setFirst(['n_estudantes','numeroEstudantes'], values.n_estudantes || values.numeroEstudantes || data.nEstudantes);
-    setFirst(['n_grupos','numeroGrupos'], values.n_grupos || values.numeroGrupos || data.nGrupos);
-    setFirst(['autoria','autorias'], values.autoria || values.autorias || data.autorias);
-    setFirst(['estado','estado_guiao','estadoGuiao'], values.estado || values.estadoGuiao || 'Atualizado');
-    setFirst(['organizacao','organizacoes','contacto'], values.organizacao || values.organizacoesContacto || data.organizacoesContacto);
-    setFirst(['calendarizacao','data','dataSimulacao'], values.calendarizacao || values.data || data.data);
-    setFirst(['hora_inicio','horaInicio','hora'], values.hora_inicio || values.horaInicio || hora.inicio || data.hora);
-    setFirst(['hora_fim','horaFim'], values.hora_fim || values.horaFim || hora.fim);
-    setAuthorization(values.autorizaRepositorio || values.autorizacaoRepositorio || data.autorizaRepositorio);
+    setFirst(['unidadeOrganica','unidade_organica'], pick(values.unidadeOrganica, values.unidade_organica, data.unidadeOrganica, data['UnidadeOrg_x00e2_nica']));
+    setFirst(['modalidade'], pick(values.modalidade, data.modalidade, data.Modalidade));
+    setFirst(['semestre'], pick(values.semestre, data.semestre, data.Semestre));
+    setFirst(['turmaEdicao','turma_edicao','turma'], pick(values.turmaEdicao, values.turma, data.turmaEdicao, data.TurmaEdicao, data['Turma_x0028_s_x0029__x002f_Edi_x']));
+    setFirst(['titulo','tituloProjeto'], pick(values.tituloProjeto, values.titulo, data.tituloProjeto, data.title, data.Title));
+    setCursos(pick(values.curso, values.cursos, data.curso, data.cursos, data.Curso));
+    setFirst(['uc','ucs','unidade_curricular'], pick(values.uc, values.ucs, values.unidadeCurricular, data.uc, data.ucs, data.UC));
+    setFirstSelector(['.projbl-nome-uc-projeto-field','#ucProjeto','#nomeUCProjeto','#nomeUcProjeto','#nome_uc_projeto'], pick(values.ucProjeto, values.nomeUCProjeto, values.nomeUcProjeto, values.ucs, data.ucs, data.UC));
+    setFirst(['ano','ano_letivo','anoLetivo','anoLetivoProjeto'], pick(values.anoLetivoProjeto, values.anoLetivo, values.ano_letivo, values.ano, data.anoLetivo, data.AnoLetivo));
+    setFirst(['professor','docentes'], pick(values.docentes, values.docente, data.docentes, data.Docentes, data.Docentestexto));
+    setRepeatedValues('#docentesTable .docente-nome, #docentesTable .proj-docente-nome', pick(values.docentes, values.docente, data.docentes, data.Docentes, data.Docentestexto));
+    setFirst(['emails','email'], pick(values.emails, values.email, data.emails, data.email, data.Email));
+    setRepeatedValues('#docentesTable .docente-email, #docentesTable .proj-docente-email', pick(values.emails, values.email, data.emails, data.email, data.Email));
+    setFirst(['n_estudantes','numeroEstudantes'], pick(values.numeroEstudantes, values.nEstudantes, values.n_estudantes, values.numero_estudantes, data.numeroEstudantes, data.nEstudantes, data['N_x00ba_deestudantes']));
+    setFirst(['n_grupos','numeroGrupos'], pick(values.numeroGrupos, values.nGrupos, values.n_grupos, values.numero_grupos, data.numeroGrupos, data.nGrupos, data['N_x00ba_deGrupos']));
+    setFirst(['autoria','autorias'], pick(values.autoria, values.autorias, data.autoria, data.autorias, data.Autoria));
+    setFirst(['estado','estado_guiao','estadoGuiao'], pick(values.estadoGuiao, values.estado, data.estadoGuiao, data.EstadoGuiao, data.Estado) || 'Atualizado');
+    setFirst(['organizacao','organizacoes','contacto'], pick(values.organizacoesContacto, values.organizacao, values.organizacoes, data.organizacoesContacto, data['Organiza_x00e7__x00e3_o_x0028__x']));
+    setFirst(['calendarizacao','data','dataSimulacao'], pick(values.data, values.calendarizacao, data.data, data.Data));
+    setFirst(['hora_inicio','horaInicio','hora'], pick(values.hora_inicio, values.horaInicio, hora.inicio, data.hora, data.Hora));
+    setFirst(['hora_fim','horaFim'], pick(values.hora_fim, values.horaFim, hora.fim));
+    setAuthorization(pick(values.autorizaRepositorio, values.autorizacaoRepositorio, data.autorizaRepositorio, data.AutorizaRepositorio, data['AutorizaReposit_x00f3_rio']));
 
     ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso','syncCourseChips','renderCursosSelecionados'].forEach(function(fn){
       try { if(typeof window[fn] === 'function') window[fn](); } catch(e){}
     });
-    document.body.classList.add('guiao-carregado-por-id');
+    document.body.classList.add('guiao-carregado-por-id','projbl-guiao-carregado-por-id');
   }
   async function carregarGuiaoPorId(){
     var itemId = getItemId();
-    if(!itemId || window.__guioesCarregamentoPorItemIdExecutado) return;
-    window.__guioesCarregamentoPorItemIdExecutado = true;
+    if(!itemId || window.__guioesCarregamentoPorItemIdExecutadoV3) return;
+    window.__guioesCarregamentoPorItemIdExecutadoV3 = true;
     window.__PROJBL_EDICAO_ITEMID_ATIVA = true;
     try{
       ['PROJ-BL_Teste','Proj-BL_Teste','projbl_teste','projbl_test','PROJ_BL_TESTE','template_autosave_PROJ_DEMO_COMPLETO','template_autosave_PROJ_DEMO_COMPLETO_EAD'].forEach(function(k){ localStorage.removeItem(k); });
       Object.keys(localStorage).forEach(function(k){ if(/proj[-_ ]?bl/i.test(k) && /teste|demo|draft|rascunho/i.test(k)) localStorage.removeItem(k); });
     }catch(e){}
-    addStatusBox();
+    addStatusBox('<strong>Edição de guião submetido</strong><br>A carregar os dados deste guião para edição...');
     notify('A carregar dados do guião...', '', 2500);
     try {
-      var res = await fetch(OBTER_GUIAO_URL, {
+      var endpoint = window.GUIOES_LOAD_URL || window.OBTER_GUIAO_URL || OBTER_GUIAO_URL;
+      var res = await fetch(endpoint, {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify({itemId: itemId})
       });
       var text = await res.text();
-      var data = {};
-      try { data = JSON.parse(text); } catch(e){ data = {raw:text}; }
+      var parsed = parseMaybe(text);
+      var data = normalizeResponse(parsed);
       if(!res.ok || data.ok === false || data.success === false){
-        throw new Error((data && (data.message || data.error)) || text || ('HTTP ' + res.status));
+        throw new Error(pick(data.message, data.error, data.raw, text) || ('HTTP ' + res.status));
       }
       preencherFormulario(data);
+      addStatusBox('<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.');
       notify('Dados do guião carregados para edição.', 'ok', 4500);
     } catch(e) {
       console.error('Erro ao carregar guião por itemId:', e);
+      addStatusBox('<strong>Não foi possível carregar automaticamente os dados deste guião.</strong><br>Confirme o link de edição ou tente novamente. Detalhe: ' + clean(e && e.message), 'error');
       notify('Não foi possível carregar automaticamente os dados deste guião. Confirme o link de edição ou tente novamente.', 'error', 8000);
     }
   }
@@ -19830,6 +19917,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   else init();
 })();
 </script>
+
 
 
 <script id="guioes-fechar-dropdown-cursos-edicao-v2">
