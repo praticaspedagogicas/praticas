@@ -6,13 +6,23 @@
 <title>Redirecionar PROJ-BL</title>
 <script>
 (function(){
-  var target = 'Proj-BL.html' + window.location.search + window.location.hash;
-  window.location.replace(target);
+  var target = new URL('Proj-BL.html', window.location.href);
+  target.search = window.location.search;
+  target.hash = window.location.hash;
+  window.location.replace(target.href);
 })();
 </script>
-<meta http-equiv="refresh" content="0; url=Proj-BL.html">
 </head>
 <body>
-  <p>A redirecionar para <a href="Proj-BL.html">Proj-BL.html</a>...</p>
+  <p>A redirecionar para <a id="fallback" href="Proj-BL.html">Proj-BL.html</a>...</p>
+  <script>
+  (function(){
+    var target = new URL('Proj-BL.html', window.location.href);
+    target.search = window.location.search;
+    target.hash = window.location.hash;
+    var a = document.getElementById('fallback');
+    if (a) a.href = target.href;
+  })();
+  </script>
 </body>
 </html>
