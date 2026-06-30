@@ -2,6 +2,18 @@
 
 <html lang="pt">
 <head>
+<script id="projbl-edit-flow-endpoint-config-20260630">
+/* PROJ-BL — endpoint único para edição por itemId.
+   Não altera layout. Garante que todos os loaders usam o fluxo HTTP correto: Obter guião por ID. */
+(function(){
+  "use strict";
+  var URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
+  window.PROJBL_LOAD_URL = URL;
+  window.GUIOES_LOAD_URL = URL;
+  window.OBTER_GUIAO_URL = URL;
+})();
+</script>
+
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta charset="utf-8"/>
 <style id="template-clean-style">
@@ -20138,7 +20150,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     var id = itemId();
     if(!id || window.__projblTesteCarregarGuiaoPorIdRobustoExecutado20260629) return;
     window.__projblTesteCarregarGuiaoPorIdRobustoExecutado20260629 = true;
-    statusBox('<strong>Edição de guião submetido</strong><br>A carregar os dados deste guião para edição...');
+    statusBox('<strong>Edição de guião submetido</strong><br>A chamar fluxo de edição…');
     try{
       var endpoint = window.GUIOES_LOAD_URL || window.OBTER_GUIAO_URL || OBTER_GUIAO_URL;
       var res = await fetch(endpoint, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({itemId:id})});
@@ -20366,6 +20378,9 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     'template_autosave_PROJ_DEMO_COMPLETO_EAD'
   ];
   var LOAD_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
+  window.PROJBL_LOAD_URL = LOAD_URL;
+  window.GUIOES_LOAD_URL = LOAD_URL;
+  window.OBTER_GUIAO_URL = LOAD_URL;
 
   function clean(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
   function hasItemId(){ try { return !!new URLSearchParams(location.search).get('itemId'); } catch(e){ return false; } }
@@ -20524,7 +20539,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     }
     box.className = 'projbl-edit-box-runtime';
     box.style.cssText = 'display:block!important;visibility:visible!important;opacity:1!important;max-width:940px;margin:14px auto 16px auto;padding:14px 16px;border:1.5px solid '+(kind==='error'?'#8a1f1f':'#1f4d2b')+';border-radius:14px;background:'+(kind==='error'?'#fff3f3':'#f3fff6')+';color:'+(kind==='error'?'#8a1f1f':'#1f4d2b')+';font-family:Century Gothic,Arial,sans-serif;font-size:13px;line-height:1.45;box-sizing:border-box;position:relative;z-index:99999;';
-    box.innerHTML = text || '<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.';
+    box.innerHTML = text || ('<strong>Edição de guião submetido</strong><br>A chamar fluxo de edição…<br><span style="font-size:12px;opacity:.85">itemId: ' + clean(itemId()) + '</span>');
   }
   function controls(){
     return Array.prototype.slice.call(document.querySelectorAll('input, textarea, select')).filter(function(el){
@@ -20649,12 +20664,16 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   async function loadItemForEdit(){
     if(!hasItemId() || window.__projblFinalItemLoaderDone) return;
     window.__projblFinalItemLoaderDone = true;
-    forceEditBox('<strong>Edição de guião submetido</strong><br>A carregar os dados deste guião para edição...');
+    var id = itemId();
+    var endpoint = window.PROJBL_LOAD_URL || window.GUIOES_LOAD_URL || window.OBTER_GUIAO_URL || LOAD_URL;
+    forceEditBox('<strong>Edição de guião submetido</strong><br>A chamar fluxo de edição…<br><span style="font-size:12px;opacity:.85">itemId: ' + clean(id) + '</span>');
     try {
-      var res = await fetch((window.GUIOES_LOAD_URL || window.OBTER_GUIAO_URL || LOAD_URL), {
+      console.info('[PROJ-BL itemId] chamar fluxo Obter guião por ID', { itemId: id, endpointWorkflow: String(endpoint).match(/workflows\/([^/]+)/)?.[1] || '' });
+      var res = await fetch(endpoint, {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({itemId: itemId()})
+        cache: 'no-store',
+        body: JSON.stringify({itemId: id})
       });
       var text = await res.text();
       var data = normResponse(text);
@@ -20662,10 +20681,10 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
         throw new Error(pick(data.message, data.error, text) || ('HTTP ' + res.status));
       }
       applyPayloadToForm(data);
-      forceEditBox('<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.');
+      forceEditBox('<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.<br><span style="font-size:12px;opacity:.85">itemId: ' + clean(id) + '</span>');
     } catch(e){
       console.error('PROJ-BL final loader:', e);
-      forceEditBox('<strong>Não foi possível carregar automaticamente os dados deste guião.</strong><br>A página continua editável. Detalhe: ' + clean(e && e.message), 'error');
+      forceEditBox('<strong>Não foi possível carregar automaticamente os dados deste guião.</strong><br>A página continua editável.<br><span style="font-size:12px;opacity:.85">itemId: ' + clean(id) + '</span><br>Detalhe: ' + clean(e && e.message), 'error');
     }
   }
   function start(){
