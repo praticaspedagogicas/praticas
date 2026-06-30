@@ -20421,19 +20421,27 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
   }
   async function carregarGuiaoPorId(){
     var itemId = getItemId();
-    if(!itemId || window.__guioesCarregamentoPorItemIdExecutado) return;
+    console.log('[PROJBL-DIAG] carregarGuiaoPorId() chamado. itemId=', itemId, 'jaExecutado=', window.__guioesCarregamentoPorItemIdExecutado);
+    if(!itemId || window.__guioesCarregamentoPorItemIdExecutado) {
+      console.log('[PROJBL-DIAG] A sair sem fazer fetch. Motivo:', !itemId ? 'itemId vazio' : 'ja executado antes');
+      return;
+    }
     window.__guioesCarregamentoPorItemIdExecutado = true;
     installLoadingCss();
     document.body.classList.add('guioes-itemid-loading');
-    statusBox('<strong>Edição de guião submetido</strong><br>A carregar os dados deste guião para edição...', 'loading');
-    notify('A carregar dados do guião...', '', 2500);
+    statusBox('<strong>[DIAG] Script de edição arrancou.</strong><br>itemId=' + itemId + ' — a tentar contactar o fluxo "Obter guião por ID"...', 'loading');
+    notify('[DIAG] A carregar dados do guião...', '', 2500);
     try {
+      console.log('[PROJBL-DIAG] A chamar fetch para', OBTER_GUIAO_URL);
       var res = await fetch(OBTER_GUIAO_URL, {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify({ itemId: itemId })
       });
+      console.log('[PROJBL-DIAG] fetch respondeu. status=', res.status, 'ok=', res.ok);
+      statusBox('<strong>[DIAG] Resposta recebida do fluxo.</strong><br>HTTP status: ' + res.status + ' — a processar dados...', 'loading');
       var text = await res.text();
+      console.log('[PROJBL-DIAG] corpo da resposta (primeiros 500 chars):', String(text).slice(0,500));
       var raw = {};
       try { raw = text ? JSON.parse(text) : {}; } catch(e){ raw = {raw:text}; }
       var data = buildData(raw);
@@ -20453,13 +20461,15 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
       notify('Dados do guião carregados para edição.', 'ok', 4500);
       scheduleAntiReset(raw);
     } catch(e) {
-      console.error('Erro ao carregar guião por itemId:', e);
+      console.error('[PROJBL-DIAG] ERRO ao carregar guião por itemId:', e, '| nome do erro:', e && e.name, '| mensagem:', e && e.message);
       document.body.classList.remove('guioes-itemid-loading');
-      statusBox('<strong>Edição de guião submetido</strong><br>Não foi possível carregar automaticamente os dados deste guião. Detalhe técnico: ' + clean(e && e.message ? e.message : e), 'error');
-      notify('Não foi possível carregar automaticamente os dados deste guião. Confirme o link de edição ou tente novamente.', 'error', 8000);
+      var diagDetalhe = clean(e && e.message ? e.message : e) || 'erro desconhecido';
+      var diagNome = (e && e.name) ? (' [' + e.name + ']') : '';
+      statusBox('<strong>[DIAG] FALHA antes/durante o fetch' + diagNome + '</strong><br>Detalhe técnico: ' + diagDetalhe + '<br><small>Se isto disser "Failed to fetch" ou "TypeError", o pedido foi bloqueado no browser (ex: CORS) e NUNCA chegou ao Power Automate — por isso não aparece no histórico do fluxo.</small>', 'error');
+      notify('[DIAG] Falha: ' + diagDetalhe, 'error', 8000);
     }
   }
-  function init(){ setTimeout(carregarGuiaoPorId, 450); }
+  function init(){ console.log('[PROJBL-DIAG] Loader iniciado. readyState=', document.readyState, 'itemId na URL=', getItemId()); setTimeout(carregarGuiaoPorId, 450); }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
