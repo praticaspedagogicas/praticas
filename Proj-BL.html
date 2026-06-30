@@ -10430,6 +10430,72 @@ input[type="time"]{
 
 </head>
 <body>
+<script id="projbl-visible-debug-force-fetch-20260630">
+(function(){
+  "use strict";
+  if(window.__PROJBL_VISIBLE_DEBUG_FORCE_FETCH_20260630) return;
+  window.__PROJBL_VISIBLE_DEBUG_FORCE_FETCH_20260630 = true;
+
+  var ENDPOINT = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
+  window.PROJBL_LOAD_URL = ENDPOINT;
+  window.GUIOES_LOAD_URL = ENDPOINT;
+  window.OBTER_GUIAO_URL = ENDPOINT;
+
+  function clean(v){ return String(v == null ? "" : v).replace(/\s+/g," ").trim(); }
+  function getItemId(){
+    try { return clean(new URLSearchParams(location.search).get("itemId")); }
+    catch(e){ return ""; }
+  }
+  function show(msg, kind){
+    var id = "projblVisibleDebugForceFetch20260630";
+    var box = document.getElementById(id);
+    if(!box){
+      box = document.createElement("div");
+      box.id = id;
+      box.setAttribute("data-projbl-debug", "force-fetch-20260630");
+      box.style.cssText = "position:fixed!important;top:10px!important;left:50%!important;transform:translateX(-50%)!important;z-index:2147483647!important;width:calc(100% - 32px)!important;max-width:980px!important;padding:14px 16px!important;border-radius:14px!important;box-shadow:0 8px 30px rgba(0,0,0,.22)!important;font-family:Arial,sans-serif!important;font-size:14px!important;line-height:1.4!important;text-align:left!important;background:#fff7d6!important;color:#3a2a00!important;border:2px solid #b88700!important;";
+      document.body.insertBefore(box, document.body.firstChild);
+    }
+    if(kind === "ok"){ box.style.background = "#eaffea"; box.style.borderColor = "#1f7a1f"; box.style.color = "#114411"; }
+    if(kind === "error"){ box.style.background = "#fff0f0"; box.style.borderColor = "#a40000"; box.style.color = "#7a0000"; }
+    box.innerHTML = msg;
+  }
+
+  var id = getItemId();
+  if(!id) return;
+
+  show("<strong>PROJ-BL debug ativo</strong><br>Script novo executou. itemId: <strong>" + clean(id) + "</strong><br>A chamar fluxo de edição agora…");
+
+  try {
+    var controller = (typeof AbortController !== "undefined") ? new AbortController() : null;
+    var timeout = controller ? setTimeout(function(){ controller.abort(); }, 25000) : null;
+    fetch(ENDPOINT, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({itemId: id}),
+      signal: controller ? controller.signal : undefined
+    })
+    .then(function(res){
+      return res.text().then(function(text){
+        if(timeout) clearTimeout(timeout);
+        window.__PROJBL_VISIBLE_DEBUG_RESPONSE_STATUS = res.status;
+        window.__PROJBL_VISIBLE_DEBUG_RESPONSE_TEXT = text;
+        if(!res.ok) throw new Error("HTTP " + res.status + " — " + text.slice(0,240));
+        show("<strong>PROJ-BL debug ativo</strong><br>O fluxo respondeu com sucesso. HTTP " + res.status + ".<br>itemId enviado: <strong>" + clean(id) + "</strong><br>Se os campos ainda não preencherem, o problema já não é chamada ao fluxo; é mapeamento/preenchimento do formulário.", "ok");
+      });
+    })
+    .catch(function(err){
+      if(timeout) clearTimeout(timeout);
+      window.__PROJBL_VISIBLE_DEBUG_ERROR = String(err && err.message || err);
+      show("<strong>PROJ-BL debug ativo</strong><br>O script executou, mas o fetch falhou.<br>itemId enviado: <strong>" + clean(id) + "</strong><br>Erro: " + clean(err && err.message || err), "error");
+    });
+  } catch(e){
+    window.__PROJBL_VISIBLE_DEBUG_ERROR = String(e && e.message || e);
+    show("<strong>PROJ-BL debug ativo</strong><br>Erro antes do fetch: " + clean(e && e.message || e), "error");
+  }
+})();
+</script>
+
 <a class="guioes-home-link" href="./index.html" aria-label="Voltar à página inicial">← Página inicial</a>
 
 <div class="page"><div class="premium-status no-print">
