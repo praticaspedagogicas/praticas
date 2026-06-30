@@ -1,90 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="pt">
-<head>
-<script id="projbl-edit-flow-endpoint-config-20260630">
-/* PROJ-BL — endpoint único para edição por itemId.
-   Não altera layout. Garante que todos os loaders usam o fluxo HTTP correto: Obter guião por ID. */
-(function(){
-  "use strict";
-  var URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
-  window.PROJBL_LOAD_URL = URL;
-  window.GUIOES_LOAD_URL = URL;
-  window.OBTER_GUIAO_URL = URL;
-})();
-</script>
-
-<script id="projbl-edicao-itemid-cbl-modelo-v3">
-(function(){
-  "use strict";
-  if(window.__projblEdicaoItemIdCblModeloV3) return;
-  window.__projblEdicaoItemIdCblModeloV3 = true;
-
-  function itemId(){
-    try { return String(new URLSearchParams(window.location.search).get("itemId") || "").trim(); }
-    catch(e){ return ""; }
-  }
-  function isEdit(){ return !!itemId(); }
-
-  function clearTestAndDemoState(){
-    if(!isEdit()) return;
-    window.__PROJBL_EDICAO_ITEMID_ATIVA = true;
-    try{
-      [
-        "PROJ-BL_Teste", "Proj-BL_Teste", "projbl_teste", "projbl_test", "PROJ_BL_TESTE",
-        "template_autosave_PROJ_DEMO_COMPLETO", "template_autosave_PROJ_DEMO_COMPLETO_EAD"
-      ].forEach(function(k){ localStorage.removeItem(k); });
-      Object.keys(localStorage).forEach(function(k){
-        if(/proj[-_ ]?bl/i.test(k) && /teste|demo|draft|rascunho/i.test(k)){
-          localStorage.removeItem(k);
-        }
-      });
-    }catch(e){}
-  }
-
-  function addEditBox(){
-    if(!isEdit()) return;
-    if(document.getElementById("guioesModoEdicaoBox") || document.getElementById("projblModoEdicaoBox")) return;
-
-    var ref = document.querySelector(".premium-status") ||
-              document.querySelector(".header") ||
-              document.querySelector(".logo") ||
-              document.querySelector(".page") ||
-              document.body.firstElementChild;
-    if(!ref || !ref.parentNode) return;
-
-    var box = document.createElement("div");
-    box.id = "guioesModoEdicaoBox";
-    box.className = "no-print";
-    box.style.margin = "0 0 16px 0";
-    box.style.padding = "12px 14px";
-    box.style.border = "1.5px solid #1f4d2b";
-    box.style.borderRadius = "14px";
-    box.style.background = "#f3fff6";
-    box.style.color = "#1f4d2b";
-    box.style.fontSize = "13px";
-    box.style.lineHeight = "1.45";
-    box.innerHTML = "<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.";
-    ref.parentNode.insertBefore(box, ref.nextSibling);
-    document.body.classList.add("guiao-carregado-por-id", "projbl-guiao-carregado-por-id");
-  }
-
-  function init(){
-    if(!isEdit()) return;
-    clearTestAndDemoState();
-    addEditBox();
-    [100, 350, 800, 1500, 3000, 6000].forEach(function(ms){
-      setTimeout(function(){ clearTestAndDemoState(); addEditBox(); }, ms);
-    });
-  }
-
-  clearTestAndDemoState();
-  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
-  else init();
-})();
-</script>
-
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<head><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta charset="utf-8"/>
 <style id="template-clean-style">
 /* ===== TEMPLATE LIMPO - CSS consolidado ===== */
@@ -10430,72 +10347,6 @@ input[type="time"]{
 
 </head>
 <body>
-<script id="projbl-visible-debug-force-fetch-20260630">
-(function(){
-  "use strict";
-  if(window.__PROJBL_VISIBLE_DEBUG_FORCE_FETCH_20260630) return;
-  window.__PROJBL_VISIBLE_DEBUG_FORCE_FETCH_20260630 = true;
-
-  var ENDPOINT = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
-  window.PROJBL_LOAD_URL = ENDPOINT;
-  window.GUIOES_LOAD_URL = ENDPOINT;
-  window.OBTER_GUIAO_URL = ENDPOINT;
-
-  function clean(v){ return String(v == null ? "" : v).replace(/\s+/g," ").trim(); }
-  function getItemId(){
-    try { return clean(new URLSearchParams(location.search).get("itemId")); }
-    catch(e){ return ""; }
-  }
-  function show(msg, kind){
-    var id = "projblVisibleDebugForceFetch20260630";
-    var box = document.getElementById(id);
-    if(!box){
-      box = document.createElement("div");
-      box.id = id;
-      box.setAttribute("data-projbl-debug", "force-fetch-20260630");
-      box.style.cssText = "position:fixed!important;top:10px!important;left:50%!important;transform:translateX(-50%)!important;z-index:2147483647!important;width:calc(100% - 32px)!important;max-width:980px!important;padding:14px 16px!important;border-radius:14px!important;box-shadow:0 8px 30px rgba(0,0,0,.22)!important;font-family:Arial,sans-serif!important;font-size:14px!important;line-height:1.4!important;text-align:left!important;background:#fff7d6!important;color:#3a2a00!important;border:2px solid #b88700!important;";
-      document.body.insertBefore(box, document.body.firstChild);
-    }
-    if(kind === "ok"){ box.style.background = "#eaffea"; box.style.borderColor = "#1f7a1f"; box.style.color = "#114411"; }
-    if(kind === "error"){ box.style.background = "#fff0f0"; box.style.borderColor = "#a40000"; box.style.color = "#7a0000"; }
-    box.innerHTML = msg;
-  }
-
-  var id = getItemId();
-  if(!id) return;
-
-  show("<strong>PROJ-BL debug ativo</strong><br>Script novo executou. itemId: <strong>" + clean(id) + "</strong><br>A chamar fluxo de edição agora…");
-
-  try {
-    var controller = (typeof AbortController !== "undefined") ? new AbortController() : null;
-    var timeout = controller ? setTimeout(function(){ controller.abort(); }, 25000) : null;
-    fetch(ENDPOINT, {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({itemId: id}),
-      signal: controller ? controller.signal : undefined
-    })
-    .then(function(res){
-      return res.text().then(function(text){
-        if(timeout) clearTimeout(timeout);
-        window.__PROJBL_VISIBLE_DEBUG_RESPONSE_STATUS = res.status;
-        window.__PROJBL_VISIBLE_DEBUG_RESPONSE_TEXT = text;
-        if(!res.ok) throw new Error("HTTP " + res.status + " — " + text.slice(0,240));
-        show("<strong>PROJ-BL debug ativo</strong><br>O fluxo respondeu com sucesso. HTTP " + res.status + ".<br>itemId enviado: <strong>" + clean(id) + "</strong><br>Se os campos ainda não preencherem, o problema já não é chamada ao fluxo; é mapeamento/preenchimento do formulário.", "ok");
-      });
-    })
-    .catch(function(err){
-      if(timeout) clearTimeout(timeout);
-      window.__PROJBL_VISIBLE_DEBUG_ERROR = String(err && err.message || err);
-      show("<strong>PROJ-BL debug ativo</strong><br>O script executou, mas o fetch falhou.<br>itemId enviado: <strong>" + clean(id) + "</strong><br>Erro: " + clean(err && err.message || err), "error");
-    });
-  } catch(e){
-    window.__PROJBL_VISIBLE_DEBUG_ERROR = String(e && e.message || e);
-    show("<strong>PROJ-BL debug ativo</strong><br>Erro antes do fetch: " + clean(e && e.message || e), "error");
-  }
-})();
-</script>
-
 <a class="guioes-home-link" href="./index.html" aria-label="Voltar à página inicial">← Página inicial</a>
 
 <div class="page"><div class="premium-status no-print">
@@ -19678,129 +19529,97 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   [200, 600, 1200, 2500].forEach(function(ms){ setTimeout(initAll, ms); });
 })();
 </script>
-
-
-<script id="guioes-carregar-guiao-por-id-v3-robusto">
-/* ===== Camada institucional — carregamento robusto de guião para edição por itemId =====
-   Corrige PROJ-BL: normaliza respostas do Power Automate/body/result/data/string JSON
-   e aplica aliases específicos do Project antes de preencher o formulário. */
+<script id="guioes-carregar-guiao-por-id-v2" data-projbl-current-preserving="20260630">
+/* ===== Camada institucional — carregamento de guião para edição por itemId =====
+   Baseada no padrão funcional do PBL: fetch POST com { itemId }.
+   Esta versão só corrige o carregamento/mapeamento: não altera PDF, CSS visual, botões,
+   payload principal de submissão, Power Automate nem estrutura geral do template. */
 (function(){
   'use strict';
-  if(window.__guioesCarregamentoPorItemIdV3Robusto) return;
-  window.__guioesCarregamentoPorItemIdV3Robusto = true;
+  if(window.__guioesCarregamentoPorItemIdV3Definitivo) return;
+  window.__guioesCarregamentoPorItemIdV3Definitivo = true;
 
   var OBTER_GUIAO_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
 
-  function clean(v){ return String(v == null ? '' : v).trim(); }
+  function valueToString(v){
+    if(v == null) return '';
+    if(typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') return String(v);
+    if(Array.isArray(v)) return v.map(valueToString).map(clean).filter(Boolean).join('; ');
+    if(typeof v === 'object'){
+      var preferred = ['value','Value','label','Label','title','Title','text','Text','displayName','DisplayName','LookupValue','lookupValue','Email','email','Name','name'];
+      for(var i=0;i<preferred.length;i++){
+        if(v[preferred[i]] != null && clean(v[preferred[i]])) return valueToString(v[preferred[i]]);
+      }
+      try { return JSON.stringify(v); } catch(e){ return ''; }
+    }
+    return String(v);
+  }
+  function clean(v){ return valueToString(v).replace(/\s+/g,' ').trim(); }
+  function strip(v){
+    try { return clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
+    catch(e){ return clean(v).toLowerCase(); }
+  }
+  function normKey(v){ return strip(v).replace(/[^a-z0-9]+/g,''); }
   function $(id){ return document.getElementById(id); }
   function getItemId(){
     try { return clean(new URLSearchParams(window.location.search).get('itemId')); }
     catch(e){ return ''; }
   }
-  function valueOf(v){
-    if(v == null) return '';
-    if(typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') return clean(v);
-    if(Array.isArray(v)) return v.map(valueOf).filter(Boolean).join('; ');
-    if(typeof v === 'object'){
-      if(v.Value != null) return valueOf(v.Value);
-      if(v.value != null) return valueOf(v.value);
-      if(v.Title != null) return valueOf(v.Title);
-      if(v.Label != null) return valueOf(v.Label);
-      if(v.DisplayName != null) return valueOf(v.DisplayName);
-      if(v.Email != null) return valueOf(v.Email);
-      try { return clean(JSON.stringify(v)); } catch(e){ return ''; }
-    }
-    return clean(v);
-  }
-  function parseMaybe(v, depth){
-    depth = depth || 0;
-    if(depth > 5) return v;
-    if(typeof v === 'string'){
-      var s = v.trim();
-      if(!s) return '';
-      if((s.charAt(0)==='{' && s.charAt(s.length-1)==='}') || (s.charAt(0)==='[' && s.charAt(s.length-1)===']')){
-        try { return parseMaybe(JSON.parse(s), depth + 1); } catch(e){ return v; }
-      }
-    }
-    if(v && typeof v === 'object'){
-      Object.keys(v).forEach(function(k){ v[k] = parseMaybe(v[k], depth + 1); });
-    }
-    return v;
-  }
-  function mergeObjects(){
-    var out = {};
-    Array.prototype.forEach.call(arguments, function(obj){
-      if(!obj || typeof obj !== 'object' || Array.isArray(obj)) return;
-      Object.keys(obj).forEach(function(k){ if(out[k] == null || out[k] === '') out[k] = obj[k]; });
-    });
-    return out;
-  }
-  function normalizeResponse(raw){
-    raw = parseMaybe(raw);
-    var root = (raw && typeof raw === 'object') ? raw : {raw: raw};
-    var body = parseMaybe(root.body);
-    var result = parseMaybe(root.result);
-    var data = parseMaybe(root.data);
-    var payload = mergeObjects(root, body, result, data);
-    if(body && typeof body === 'object') payload.body = body;
-    if(result && typeof result === 'object') payload.result = result;
-    if(data && typeof data === 'object') payload.data = data;
-    return payload;
-  }
-  function extractValues(data){
-    var estrutura = parseMaybe(data.estruturaPedagogica || data.EstruturaPedagogica || data['EstruturaPedag_x00f3_gica'] || data.values || {});
-    if(estrutura && estrutura.values && typeof estrutura.values === 'object') return estrutura.values;
-    if(estrutura && typeof estrutura === 'object') return estrutura;
-    return {};
-  }
-  function pick(){
-    for(var i=0;i<arguments.length;i++){
-      var v = valueOf(arguments[i]);
-      if(v) return v;
-    }
-    return '';
-  }
-  function pickKey(obj, keys){
-    obj = obj || {};
-    for(var i=0;i<keys.length;i++){
-      if(Object.prototype.hasOwnProperty.call(obj, keys[i])){
-        var v = valueOf(obj[keys[i]]);
-        if(v) return v;
-      }
-    }
-    return '';
-  }
   function notify(message, type, duration){
-    try{
-      if(typeof window.toast === 'function') return window.toast(message, type || '', duration || 4500);
-      if(typeof window.showToast === 'function') return window.showToast(message, type || '', duration || 4500);
-      if(typeof window.projFinalToast === 'function') return window.projFinalToast(message, type || '', duration || 4500);
-    }catch(e){}
-    if(type === 'error') console.error(message);
+    if(typeof window.toast === 'function') return window.toast(message, type || '', duration || 4500);
+    if(typeof window.showToast === 'function') return window.showToast(message, type || '', duration || 4500);
+    if(type === 'error') alert(message);
   }
   function dispatch(el){
     if(!el) return;
     try { el.dispatchEvent(new Event('input', {bubbles:true})); } catch(e){}
     try { el.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
   }
-  function setElementValue(el, value){
-    if(!el) return false;
-    value = valueOf(value);
-    if(!value) return false;
-    var tag = String(el.tagName || '').toUpperCase();
-    var type = String(el.type || '').toLowerCase();
-    if(type === 'radio'){
-      var same = valueOf(el.value).toLowerCase() === value.toLowerCase();
-      el.checked = same;
-      dispatch(el);
-      return same;
+  function dateToInputValue(value){
+    var v = clean(value);
+    if(!v) return '';
+    var m = v.match(/\/Date\((\d+)\)\//);
+    if(m){
+      var dd = new Date(parseInt(m[1],10));
+      if(!isNaN(dd.getTime())) return dd.getFullYear() + '-' + String(dd.getMonth()+1).padStart(2,'0') + '-' + String(dd.getDate()).padStart(2,'0');
     }
-    if(type === 'checkbox'){
-      el.checked = /^(sim|true|1|yes)$/i.test(value);
-    } else if(tag === 'SELECT'){
+    // ISO/SharePoint: 2026-01-30, 2026/01/30, 2026-01-30T00:00:00Z
+    m = v.match(/(\d{4})[-/](\d{1,2})[-/](\d{1,2})/);
+    if(m) return m[1] + '-' + String(m[2]).padStart(2,'0') + '-' + String(m[3]).padStart(2,'0');
+    // PT/EU: 30/01/2026, 30-01-2026, 30.01.2026, também com hora a seguir
+    m = v.match(/(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})/);
+    if(m) return m[3] + '-' + String(m[2]).padStart(2,'0') + '-' + String(m[1]).padStart(2,'0');
+    // Compacto: 20260130
+    m = v.match(/^(\d{4})(\d{2})(\d{2})$/);
+    if(m) return m[1] + '-' + m[2] + '-' + m[3];
+    var d = new Date(v);
+    if(!isNaN(d.getTime())){
+      var y = d.getFullYear();
+      var mo = String(d.getMonth()+1).padStart(2,'0');
+      var da = String(d.getDate()).padStart(2,'0');
+      return y + '-' + mo + '-' + da;
+    }
+    return '';
+  }
+  function dateToDisplayValue(value){
+    var iso = dateToInputValue(value);
+    if(iso){
+      var p = iso.split('-');
+      return p[2] + '/' + p[1] + '/' + p[0];
+    }
+    return clean(value);
+  }
+  function assignControlValue(el, value){
+    if(!el) return false;
+    value = clean(value);
+    if(!value && value !== '0') return false;
+    if(el.type === 'date') value = dateToInputValue(value) || value;
+    if(el.type === 'checkbox'){
+      el.checked = /^(sim|true|1|yes|autorizo)$/i.test(value);
+    } else if(el.tagName === 'SELECT'){
       var found = false;
       Array.prototype.forEach.call(el.options || [], function(opt){
-        if(valueOf(opt.value).toLowerCase() === value.toLowerCase() || valueOf(opt.text).toLowerCase() === value.toLowerCase()){
+        if(strip(opt.value) === strip(value) || strip(opt.text) === strip(value)){
           el.value = opt.value;
           found = true;
         }
@@ -19808,31 +19627,208 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
       if(!found) el.value = value;
     } else {
       el.value = value;
+      try { el.setAttribute('value', value); } catch(e){}
     }
     dispatch(el);
     return true;
   }
-  function setField(id, value){ return setElementValue($(id), value); }
+  function parseMaybeJson(v){
+    if(v == null) return v;
+    if(typeof v !== 'string') return v;
+    var t = v.trim();
+    if(!t) return v;
+    if(!/^[\[{]/.test(t)) return v;
+    try { return JSON.parse(t); } catch(e){ return v; }
+  }
+  function clonePlain(obj){
+    if(!obj || typeof obj !== 'object' || Array.isArray(obj)) return {};
+    var out = {};
+    Object.keys(obj).forEach(function(k){ out[k] = obj[k]; });
+    return out;
+  }
+  function collectObjects(raw, list, depth){
+    if(depth > 7 || raw == null) return;
+    raw = parseMaybeJson(raw);
+    if(Array.isArray(raw)){
+      raw.forEach(function(item){ collectObjects(item, list, depth + 1); });
+      return;
+    }
+    if(typeof raw !== 'object') return;
+    list.push(raw);
+    ['body','data','item','guiao','guião','result','payload','response','value','d','formData','fields'].forEach(function(k){
+      if(Object.prototype.hasOwnProperty.call(raw, k)) collectObjects(raw[k], list, depth + 1);
+    });
+  }
+  function buildData(raw){
+    var objects = [];
+    collectObjects(raw, objects, 0);
+    var data = {};
+    objects.forEach(function(o){ Object.assign(data, clonePlain(o)); });
+    return data;
+  }
+  function parseEstrutura(raw){
+    raw = parseMaybeJson(raw);
+    if(raw && typeof raw === 'object') return raw;
+    return {};
+  }
+  function getAny(obj, keys){
+    obj = obj || {};
+    if(!keys || !keys.length) return '';
+    for(var i=0;i<keys.length;i++){
+      var k = keys[i];
+      if(obj[k] != null && clean(obj[k])) return obj[k];
+    }
+    var wanted = keys.map(normKey);
+    var found = '';
+    Object.keys(obj).some(function(k){
+      if(wanted.indexOf(normKey(k)) >= 0 && clean(obj[k])){ found = obj[k]; return true; }
+      return false;
+    });
+    return found;
+  }
+  function getAnyMany(sources, keys){
+    for(var i=0;i<(sources || []).length;i++){
+      var v = getAny(sources[i], keys);
+      if(clean(v)) return v;
+    }
+    return '';
+  }
+  function extractLineValues(rawData, estrutura){
+    var out = {};
+    function add(label, value){
+      label = clean(label).replace(/:$/,'');
+      value = clean(value);
+      if(!label || !value) return;
+      out[label] = value;
+      out[normKey(label)] = value;
+      if(/curricular|\buc\b/i.test(label)) out.ucs = out.ucs || value;
+      if(/ano\s*letivo/i.test(label)) out.anoLetivo = out.anoLetivo || value;
+      if(/estudantes/i.test(label)) out.numeroEstudantes = out.numeroEstudantes || value;
+      if(/grupos/i.test(label)) out.numeroGrupos = out.numeroGrupos || value;
+      if(/autoriza|reposit[oó]rio/i.test(label)) out.autorizaRepositorio = out.autorizaRepositorio || value;
+      if(/^data$/i.test(label) || /data/i.test(label)) out.data = out.data || value;
+    }
+    function fromLine(line){
+      line = clean(line);
+      if(!line) return;
+      var idx = line.indexOf(':');
+      if(idx > 0) add(line.slice(0, idx), line.slice(idx + 1));
+    }
+    function scan(obj){
+      obj = parseMaybeJson(obj);
+      if(!obj) return;
+      if(Array.isArray(obj)){ obj.forEach(scan); return; }
+      if(typeof obj === 'string'){
+        obj.split(/\n+/).forEach(fromLine);
+        return;
+      }
+      if(typeof obj !== 'object') return;
+      ['linhas','resumoCampos','plainText','texto','summary','fieldsText'].forEach(function(k){ if(obj[k]) scan(obj[k]); });
+    }
+    scan(rawData);
+    scan(estrutura);
+    return out;
+  }
+  function getLabelFor(el){
+    if(!el) return '';
+    var lab = null;
+    try { if(el.id) lab = document.querySelector('label[for="' + (window.CSS && CSS.escape ? CSS.escape(el.id) : el.id) + '"]'); } catch(e){}
+    if(lab) return clean(lab.textContent).replace(/:$/,'');
+    var parentLabel = el.closest && el.closest('label');
+    if(parentLabel) return clean(parentLabel.textContent).replace(clean(el.value || ''),'').replace(/:$/,'');
+    var cell = el.closest && el.closest('td');
+    if(cell){
+      var prev = cell.previousElementSibling;
+      if(prev && /^(TH|TD)$/i.test(prev.tagName || '')) return clean(prev.textContent).replace(/:$/,'');
+    }
+    var parent = el.closest && el.closest('.section,.header-card,.rbl-ident-card,.proj-top-field-card,td,.header-info,.proj-avaliacao-uc,.proj-criteria-block');
+    if(parent){
+      var l = parent.querySelector('label,h3,strong,b,th');
+      if(l) return clean(l.textContent).replace(/:$/,'');
+    }
+    return clean(el.id || el.name || el.placeholder || '');
+  }
+  function allControls(){
+    return Array.prototype.slice.call(document.querySelectorAll('input, textarea, select')).filter(function(el){
+      return !el.disabled && el.type !== 'hidden' && !(el.closest && el.closest('.no-print'));
+    });
+  }
+  function setField(id, value){
+    var el = $(id);
+    if(!el) return false;
+    value = clean(value);
+    if(!value && value !== '0') return false;
+    if(el.type === 'radio') return false;
+    window.__guioesItemIdApplying = true;
+    try {
+      assignControlValue(el, value);
+    } finally {
+      setTimeout(function(){ window.__guioesItemIdApplying = false; }, 0);
+    }
+    return true;
+  }
   function setFirst(ids, value){
-    value = valueOf(value);
-    if(!value) return false;
+    value = clean(value);
+    if(!value && value !== '0') return false;
     for(var i=0;i<ids.length;i++){ if(setField(ids[i], value)) return true; }
     return false;
   }
   function setFirstSelector(selectors, value){
-    value = valueOf(value);
-    if(!value) return false;
+    value = clean(value);
+    if(!value && value !== '0') return false;
     for(var i=0;i<selectors.length;i++){
-      try { if(setElementValue(document.querySelector(selectors[i]), value)) return true; } catch(e){}
+      try {
+        var el = document.querySelector(selectors[i]);
+        if(el && assignControlValue(el, value)) return true;
+      } catch(e){}
     }
     return false;
   }
+  function setAllSelector(selector, value){
+    value = clean(value);
+    if(!value && value !== '0') return false;
+    var done = false;
+    try { Array.prototype.forEach.call(document.querySelectorAll(selector), function(el){ if(assignControlValue(el, value)) done = true; }); } catch(e){}
+    return done;
+  }
+  function setByName(name, value){
+    value = clean(value);
+    if(!value && value !== '0') return false;
+    var done = false;
+    Array.prototype.forEach.call(document.querySelectorAll('[name="' + name + '"]'), function(el){
+      if(!done && el.type !== 'radio'){ assignControlValue(el, value); done = true; }
+    });
+    return done;
+  }
+  function setByKey(key, value){
+    value = clean(value);
+    if(!value && value !== '0') return false;
+    if($(key)) return setField(key, value);
+    if(setByName(key, value)) return true;
+    var nk = normKey(key);
+    var done = false;
+    allControls().some(function(el){
+      if(normKey(el.id) === nk || normKey(el.name) === nk){
+        assignControlValue(el, value); done = true; return true;
+      }
+      return false;
+    });
+    if(done) return true;
+    allControls().some(function(el){
+      var label = getLabelFor(el);
+      if(label && (normKey(label) === nk || normKey(label).indexOf(nk) >= 0 || nk.indexOf(normKey(label)) >= 0)){
+        assignControlValue(el, value); done = true; return true;
+      }
+      return false;
+    });
+    return done;
+  }
   function setRadioGroup(name, value){
-    value = valueOf(value);
+    value = clean(value);
     if(!value) return false;
     var done = false;
     Array.prototype.forEach.call(document.querySelectorAll('input[type="radio"][name="' + name + '"]'), function(radio){
-      var same = valueOf(radio.value).toLowerCase() === value.toLowerCase();
+      var same = strip(radio.value) === strip(value) || strip((radio.id || '').replace(name,'')) === strip(value);
       radio.checked = same;
       if(same) done = true;
       dispatch(radio);
@@ -19840,153 +19836,389 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     return done;
   }
   function setAuthorization(value){
-    value = valueOf(value);
+    value = clean(value);
     if(!value) return;
     setField('autorizaRepositorio', value);
     setField('autorizacaoRepositorio', value);
     ['autorizaRepositorio','autorizaRepositorioOpcao','autorizacaoRepositorio'].forEach(function(name){ setRadioGroup(name, value); });
   }
-  function splitMultiValue(value){ return valueOf(value).split(/;|\n|\|/).map(clean).filter(Boolean); }
-  function setRepeatedValues(selector, value){
-    var parts = splitMultiValue(value);
-    if(!parts.length) return false;
-    var els = [];
-    try { els = Array.prototype.slice.call(document.querySelectorAll(selector)); } catch(e){}
-    if(!els.length) return false;
-    els.forEach(function(el, i){ if(parts[i]) setElementValue(el, parts[i]); });
-    return true;
+  function splitList(value){
+    return clean(value).split(/;|\n|\|/).map(clean).filter(Boolean).filter(function(v,i,a){
+      return a.findIndex(function(x){ return strip(x) === strip(v); }) === i;
+    });
   }
   function renderCourseFallback(container, value, chipClass){
-    if(!container || !valueOf(value)) return;
+    if(!container || !clean(value)) return;
     container.innerHTML = '';
-    splitMultiValue(value).forEach(function(curso){
+    splitList(value).forEach(function(curso){
       var chip = document.createElement('span');
-      chip.className = chipClass || 'projbl-course-chip';
+      chip.className = chipClass || 'cbl-course-chip';
       var span = document.createElement('span');
       span.textContent = curso;
       chip.appendChild(span);
       container.appendChild(chip);
     });
   }
+  function closeCourseDropdowns(){
+    var selectors = [
+      '.guioes-curso-suggestions-v2','.curso-suggestions','.course-suggestions',
+      '.rbl-course-dropdown','.projbl-course-dropdown','.pbl-course-dropdown','.cbl-course-dropdown','.sbl-course-dropdown',
+      '[id*="curso" i][class*="suggest" i]','[class*="curso" i][class*="suggest" i]','[class*="course" i][class*="suggest" i]',
+      '[id*="curso" i][class*="dropdown" i]','[class*="curso" i][class*="dropdown" i]','[class*="course" i][class*="dropdown" i]'
+    ];
+    selectors.forEach(function(sel){
+      try {
+        Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){
+          el.classList.remove('is-open','open','active','show','visible');
+          if(el.matches && el.matches('.guioes-curso-suggestions-v2,.rbl-course-dropdown,.projbl-course-dropdown,.pbl-course-dropdown,.cbl-course-dropdown,.sbl-course-dropdown')){
+            el.style.display = '';
+          }
+        });
+      } catch(e){}
+    });
+  }
+  function forceRebuildRblCoursePicker(value){
+    var curso = $('curso');
+    if(!curso || !document.querySelector('.rbl-course-picker,.rbl-course-chip-area')) return;
+    try { curso.value = clean(value); curso.setAttribute('value', clean(value)); } catch(e){}
+    var card = curso.closest('.rbl-ident-card') || curso.parentElement;
+    if(card){
+      card.removeAttribute('data-rbl-course-ready');
+      try { document.dispatchEvent(new Event('rbl:identificacao-rebuilt')); } catch(e){}
+    }
+  }
   function setCursos(value){
-    value = valueOf(value);
-    if(!value) return;
-    setFirst(['curso','cursos'], value);
-    if($('cursoBusca')){ $('cursoBusca').value = ''; dispatch($('cursoBusca')); }
-    renderCourseFallback($('cblCursosSelecionados') || $('pblCursosSelecionados') || document.querySelector('.cbl-course-chips,.pbl-course-chips,.projbl-course-chips'), value, 'projbl-course-chip');
+    value = clean(value);
+    if(!value) return false;
+    var done = setFirst(['curso','cursos'], value);
+    var search = $('cursoBusca') || $('cursoSearch');
+    if(search){ search.value = ''; dispatch(search); }
+    forceRebuildRblCoursePicker(value);
+    setTimeout(function(){
+      var chips = $('cblCursosSelecionados') || $('pblCursosSelecionados') || document.querySelector('.rbl-course-chip-area,.cbl-course-chips,.pbl-course-chips,.sbl-course-chips');
+      if(chips && !chips.querySelector('.cbl-course-chip,.pbl-course-chip,.projbl-course-chip,.rbl-course-chip,.sbl-course-chip')){
+        var cls = 'cbl-course-chip';
+        if(chips.id === 'pblCursosSelecionados') cls = 'pbl-course-chip';
+        if(chips.classList.contains('rbl-course-chip-area')) cls = 'rbl-course-chip';
+        if($('tituloProjeto')) cls = 'cbl-course-chip projbl-course-chip';
+        renderCourseFallback(chips, value, cls);
+      }
+      closeCourseDropdowns();
+    }, 120);
+    setTimeout(closeCourseDropdowns, 350);
+    return done;
   }
   function splitHoraIntervalo(hora){
-    hora = valueOf(hora);
+    hora = clean(hora);
     if(!hora) return {};
     var parts = hora.split(/\s*[–—-]\s*/).map(clean).filter(Boolean);
     return {inicio: parts[0] || '', fim: parts[1] || ''};
   }
-  function visibleControlsForFallback(){
-    return Array.prototype.slice.call(document.querySelectorAll('input, textarea, select')).filter(function(el){
-      return !el.disabled && el.type !== 'hidden' && !el.closest('.no-print');
-    });
-  }
   function applyValuesByKey(values){
     values = values || {};
     Object.keys(values).forEach(function(key){
-      var val = values[key];
-      if(/^campo_\d+$/.test(key) || /^field_\d+$/.test(key)) return;
-      if($(key)) setField(key, val);
+      if(/^campo_\d+$/i.test(key) || /^field_\d+$/i.test(key)) return;
+      setByKey(key, values[key]);
     });
-    var controls = visibleControlsForFallback();
+    var controls = allControls();
     Object.keys(values).forEach(function(key){
-      var m = key.match(/^(?:campo|field)_(\d+)$/);
+      var m = key.match(/^(?:campo|field)_(\d+)$/i);
       if(!m) return;
       var idx = parseInt(m[1],10) - 1;
       var el = controls[idx];
-      if(el && !el.id && !el.name) setElementValue(el, values[key]);
+      if(el && !el.id && !el.name){
+        assignControlValue(el, values[key]);
+      }
     });
   }
-  function addStatusBox(text, kind){
-    var existing = $('guioesModoEdicaoBox');
-    if(existing){ if(text) existing.innerHTML = text; return existing; }
-    var ref = document.querySelector('.premium-status') || document.querySelector('.header') || document.querySelector('.logo') || document.querySelector('.page') || document.body.firstElementChild;
-    if(!ref || !ref.parentNode) return null;
-    var box = document.createElement('div');
-    box.id = 'guioesModoEdicaoBox';
-    box.className = 'no-print';
-    box.style.margin = '0 0 16px 0';
-    box.style.padding = '12px 14px';
-    box.style.border = kind === 'error' ? '1.5px solid #8a1f1f' : '1.5px solid #1f4d2b';
-    box.style.borderRadius = '14px';
-    box.style.background = kind === 'error' ? '#fff3f3' : '#f3fff6';
-    box.style.color = kind === 'error' ? '#8a1f1f' : '#1f4d2b';
-    box.style.fontSize = '13px';
-    box.style.lineHeight = '1.45';
-    box.innerHTML = text || ('<strong>Edição de guião submetido</strong><br>A chamar fluxo de edição…<br><span style="font-size:12px;opacity:.85">itemId: ' + clean(itemId()) + '</span>');
-    ref.parentNode.insertBefore(box, ref.nextSibling);
+  function setTableColumn(selector, value){
+    var items = splitList(value);
+    if(!items.length) return false;
+    var fields = Array.prototype.slice.call(document.querySelectorAll(selector));
+    if(!fields.length) return false;
+    fields.forEach(function(el, i){ if(items[i]){ el.value = items[i]; dispatch(el); } });
+    return true;
+  }
+  function projBlDateCandidateFromRow(row){
+    row = parseMaybeJson(row);
+    if(!row) return '';
+    if(Array.isArray(row)) return row.length > 3 ? row[3] : '';
+    if(typeof row === 'object') return getAny(row, ['data','Data','date','Date','prazo','Prazo','deadline','Deadline']);
+    return '';
+  }
+  function projBlPushDate(out, value){
+    var iso = dateToInputValue(value);
+    if(iso) out.push(iso);
+  }
+  function projBlCollectDatesFromEntregaveisNode(node, out, depth){
+    if(depth > 8 || node == null) return;
+    node = parseMaybeJson(node);
+    if(Array.isArray(node)){
+      node.forEach(function(row){
+        var rowDate = projBlDateCandidateFromRow(row);
+        if(rowDate) projBlPushDate(out, rowDate);
+        else projBlCollectDatesFromEntregaveisNode(row, out, depth + 1);
+      });
+      return;
+    }
+    if(typeof node === 'string'){
+      var re = /\bData\s*:\s*([^\n;|]+)/ig, m;
+      while((m = re.exec(node))){ projBlPushDate(out, m[1]); }
+      return;
+    }
+    if(typeof node !== 'object') return;
+    var direct = projBlDateCandidateFromRow(node);
+    if(direct) projBlPushDate(out, direct);
+    Object.keys(node).forEach(function(k){
+      if(normKey(k).indexOf('entreg') >= 0 || ['rows','linhas','items','value','data'].indexOf(normKey(k)) >= 0){
+        projBlCollectDatesFromEntregaveisNode(node[k], out, depth + 1);
+      }
+    });
+  }
+  function projBlDatesFromCampoIndex(sources){
+    var dates = [];
+    var controls = Array.prototype.slice.call(document.querySelectorAll('input, textarea, select')).filter(function(el){ return !el.disabled && el.type !== 'hidden'; });
+    var inputs = Array.prototype.slice.call(document.querySelectorAll('#entregaveis tbody tr:not(.projbliso-total-row) input[type="date"], #entregaveis .projbliso-date'));
+    inputs.forEach(function(input){
+      var idx = controls.indexOf(input);
+      if(idx < 0) return;
+      var keys = ['campo_' + (idx + 1), 'field_' + (idx + 1)];
+      var val = getAnyMany(sources, keys);
+      if(val) projBlPushDate(dates, val);
+    });
+    return dates;
+  }
+  function projBlDatesFromLinhas(sources){
+    var dates = [];
+    sources.forEach(function(src){
+      src = parseMaybeJson(src);
+      if(!src) return;
+      var linhas = getAny(src, ['linhas','resumoCampos','plainText','fieldsText']);
+      linhas = parseMaybeJson(linhas);
+      if(Array.isArray(linhas)) linhas = linhas.join('\n');
+      if(typeof linhas === 'string'){
+        var re = /\bData\s*:\s*([^\n;|]+)/ig, m;
+        while((m = re.exec(linhas))){ projBlPushDate(dates, m[1]); }
+      }
+    });
+    return dates;
+  }
+  function projBlApplyEntregaveisDates(rawData, sources){
+    var inputs = Array.prototype.slice.call(document.querySelectorAll('#entregaveis tbody tr:not(.projbliso-total-row) input[type="date"], #entregaveis .projbliso-date'));
+    if(!inputs.length) return 0;
+    var candidates = [];
+    (sources || []).forEach(function(src){
+      src = parseMaybeJson(src);
+      if(!src) return;
+      if(typeof src === 'object'){
+        Object.keys(src).forEach(function(k){
+          if(normKey(k).indexOf('entreg') >= 0) projBlCollectDatesFromEntregaveisNode(src[k], candidates, 0);
+        });
+      }
+    });
+    if(!candidates.length) candidates = projBlDatesFromCampoIndex(sources || []);
+    if(!candidates.length) candidates = projBlDatesFromLinhas(sources || []);
+    var written = 0;
+    inputs.forEach(function(input, i){
+      var existing = input.value || input.getAttribute('value') || '';
+      var candidate = candidates[i] || existing;
+      var iso = dateToInputValue(candidate);
+      if(iso){
+        var finalValue = ((input.type || '').toLowerCase() === 'date') ? iso : dateToDisplayValue(candidate);
+        input.value = finalValue;
+        try { input.setAttribute('value', finalValue); } catch(e){}
+        dispatch(input);
+        written++;
+      }
+    });
+    return written;
+  }
+
+  function statusBox(message, state){
+    var box = $('guioesModoEdicaoBox');
+    if(!box){
+      var ref = document.querySelector('.premium-status') || document.querySelector('.header') || document.querySelector('.page') || document.body.firstElementChild;
+      if(!ref || !ref.parentNode) return null;
+      box = document.createElement('div');
+      box.id = 'guioesModoEdicaoBox';
+      box.className = 'no-print';
+      box.style.margin = '0 0 16px 0';
+      box.style.padding = '12px 14px';
+      box.style.borderRadius = '14px';
+      box.style.fontSize = '13px';
+      ref.parentNode.insertBefore(box, ref.nextSibling);
+    }
+    var isErr = state === 'error';
+    box.style.border = '1.5px solid ' + (isErr ? '#7a1f1f' : '#1f4d2b');
+    box.style.background = isErr ? '#fff5f5' : '#f3fff6';
+    box.style.color = isErr ? '#7a1f1f' : '#1f4d2b';
+    box.innerHTML = message;
     return box;
   }
-  function preencherFormulario(data){
-    data = normalizeResponse(data || {});
-    var values = extractValues(data);
-    var hora = splitHoraIntervalo(pick(values.hora, data.hora, data.Hora));
+  function hasValueByIds(ids){
+    for(var i=0;i<ids.length;i++){
+      var el = $(ids[i]);
+      if(el && clean(el.value)) return true;
+    }
+    return false;
+  }
+  function hasCourseChip(){ return !!document.querySelector('.cbl-course-chip,.pbl-course-chip,.projbl-course-chip,.rbl-course-chip,.sbl-course-chip'); }
+  function essentialReport(){
+    var docentes = hasValueByIds(['professor','docentes']) || !!clean(Array.prototype.slice.call(document.querySelectorAll('#docentesTable .docente-nome')).map(function(el){ return el.value; }).join(''));
+    var emails = hasValueByIds(['emails','email']) || !!clean(Array.prototype.slice.call(document.querySelectorAll('#docentesTable .docente-email')).map(function(el){ return el.value; }).join(''));
+    var ucTop = hasValueByIds(['uc','ucs','unidade_curricular','ucProjeto','nomeUCProjeto']) || !!clean(Array.prototype.slice.call(document.querySelectorAll('.projbl-nome-uc-projeto-field')).map(function(el){ return el.value; }).join(''));
+    var auth = !!document.querySelector('input[type="radio"][name="autorizacaoRepositorio"]:checked,input[type="radio"][name="autorizaRepositorio"]:checked,input[type="radio"][name="autorizaRepositorioOpcao"]:checked') || hasValueByIds(['autorizacaoRepositorio','autorizaRepositorio']);
+    var checks = [
+      ['Unidade Orgânica', hasValueByIds(['unidadeOrganica','unidade_organica'])],
+      ['Curso(s)', hasValueByIds(['curso','cursos']) || hasCourseChip()],
+      ['Unidade(s) Curricular(es)', ucTop],
+      ['Ano letivo', hasValueByIds(['ano','ano_letivo','anoLetivo','anoLetivoProjeto'])],
+      ['Nº de estudantes', hasValueByIds(['n_estudantes','numeroEstudantes'])],
+      ['Nº de grupos', hasValueByIds(['n_grupos','numeroGrupos'])],
+      ['Docente(s)/Email(s)', docentes || emails],
+      ['Autorização repositório', auth]
+    ];
+    var filled = checks.filter(function(c){ return !!c[1]; }).map(function(c){ return c[0]; });
+    var missing = checks.filter(function(c){ return !c[1]; }).map(function(c){ return c[0]; });
+    return {filled: filled, missing: missing, count: filled.length};
+  }
+  function preencherFormulario(rawData){
+    var data = buildData(rawData || {});
+    var estruturaRaw = getAny(data, ['estruturaPedagogica','EstruturaPedagogica','estrutura_pedagogica','estrutura','Structure']);
+    var estrutura = parseEstrutura(estruturaRaw);
+    var estruturaValues = (estrutura && estrutura.values && typeof estrutura.values === 'object') ? estrutura.values : {};
+    var estruturaFormData = (estrutura && estrutura.formData && typeof estrutura.formData === 'object') ? estrutura.formData : {};
+    var valuesTop = (data && data.values && typeof data.values === 'object') ? data.values : {};
+    var formData = (data && data.formData && typeof data.formData === 'object') ? data.formData : {};
+    var lineValues = extractLineValues(rawData || {}, estrutura || {});
+    var values = Object.assign({}, data, estrutura || {}, estruturaValues, estruturaFormData, valuesTop, formData, lineValues);
+    var hora = splitHoraIntervalo(getAny(data, ['hora','Hora']) || getAny(values, ['hora','Hora']));
 
-    applyValuesByKey(values);
+    window.__guioesItemIdApplying = true;
+    try {
+      applyValuesByKey(values);
+      var sources = [values, data, estrutura || {}, estruturaValues, estruturaFormData, valuesTop, formData];
+      var unidadeOrganica = getAnyMany(sources, ['unidadeOrganica','UnidadeOrganica','unidade_organica','Unidade Orgânica','UnidadeOrganicaValue','OU','ou','organicUnit','unidade','Unidade_x0020_Orgânica','Unidade_x0020_Organica']);
+      var modalidade = getAnyMany(sources, ['modalidade','Modalidade']);
+      var semestre = getAnyMany(sources, ['semestre','Semestre']);
+      var turma = getAnyMany(sources, ['turmaEdicao','turma_edicao','TurmaEdicao','Turma/Edição','Turma Edicao','Turma Edição','turma','Turma']);
+      var cursos = getAnyMany(sources, ['curso','cursos','Curso','Cursos','Curso(s)','cursoTexto','CursoTexto']);
+      var ucs = getAnyMany(sources, ['uc','ucs','UC','UCs','UC(s)','Unidade Curricular','Unidade(s) Curricular(es)','Unidade Curricular(es)','unidade_curricular','unidades_curriculares','UnidadeCurricular','UnidadesCurriculares','nomeUCProjeto','ucProjeto','Nome da UC de Projeto','Nome UC Projeto','nomeUnidadeCurricular','Unidade_x0020_Curricular','Title','title']);
+      var titulo = getAnyMany(sources, ['tituloProjeto','titulo_projeto','Título do Projeto','Titulo do Projeto','titulo','title','Title']);
+      var ano = getAnyMany(sources, ['anoLetivoProjeto','anoLetivo','AnoLetivo','ano_letivo','Ano letivo','Ano Letivo','Ano','ano','Ano_x0020_letivo','Ano_x0020_Letivo','AnoLetivoProjeto']);
+      var docentes = getAnyMany(sources, ['professor','docentes','Docentes','docente','docenteTexto','DocentesTexto','Docentestexto']);
+      var emails = getAnyMany(sources, ['emails','email','Email','Email(s)','E-mail','E-mail(s)','EmailDocente','emailDocente','E-mails']);
+      var nEstudantes = getAnyMany(sources, ['n_estudantes','numeroEstudantes','numero_estudantes','nEstudantes','numEstudantes','NumeroEstudantes','Número de estudantes','Numero de estudantes','Nº de estudantes','N.º de estudantes','Nº estudantes','N de estudantes','Estudantes','estudantes','N_x00ba__x0020_de_x0020_estudantes']);
+      var nGrupos = getAnyMany(sources, ['n_grupos','numeroGrupos','numero_grupos','nGrupos','numGrupos','NumeroGrupos','Número de grupos','Numero de grupos','Nº de grupos','N.º de grupos','Nº grupos','N de grupos','Grupos','grupos','N_x00ba__x0020_de_x0020_grupos']);
+      var autoria = getAnyMany(sources, ['autoria','autorias','Autoria','Autorias','autor','Autor','nomeAutor','NomeAutor']);
+      var estado = getAnyMany(sources, ['estado','estadoGuiao','EstadoGuiao','estado_guiao','Estado do guião','Estado do guiao']);
+      var organizacao = getAnyMany(sources, ['organizacao','organizacoes','contacto','contato','organizacoesContacto']);
+      var dataSessao = getAnyMany(sources, ['calendarizacao','data','Data','date','Date','dataSimulacao','data_sessao','dataSessao','Data da sessão','Data da sessao','Data de simulação','Data de simulacao','aula1_data','Data_x0020_Sessao','Data_x0020_da_x0020_sessao']);
+      var horaInicio = getAnyMany(sources, ['hora_inicio','horaInicio','Hora início','Hora inicio']) || hora.inicio;
+      var horaFim = getAnyMany(sources, ['hora_fim','horaFim','Hora fim']) || hora.fim;
+      var autorizacao = getAnyMany(sources, ['autorizaRepositorio','AutorizaRepositorio','autorizacaoRepositorio','AutorizacaoRepositorio','Autoriza Repositório','Autoriza Repositorio','Autorização Repositório','Autorizacao Repositorio','autorizaPartilhaInterna','partilhaRepositorio','Autoriza_x0020_Repositório','Autoriza_x0020_Repositorio']);
 
-    setFirst(['unidadeOrganica','unidade_organica'], pick(values.unidadeOrganica, values.unidade_organica, data.unidadeOrganica, data['UnidadeOrg_x00e2_nica']));
-    setFirst(['modalidade'], pick(values.modalidade, data.modalidade, data.Modalidade));
-    setFirst(['semestre'], pick(values.semestre, data.semestre, data.Semestre));
-    setFirst(['turmaEdicao','turma_edicao','turma'], pick(values.turmaEdicao, values.turma, data.turmaEdicao, data.TurmaEdicao, data['Turma_x0028_s_x0029__x002f_Edi_x']));
-    setFirst(['titulo','tituloProjeto'], pick(values.tituloProjeto, values.titulo, data.tituloProjeto, data.title, data.Title));
-    setCursos(pick(values.curso, values.cursos, data.curso, data.cursos, data.Curso));
-    setFirst(['uc','ucs','unidade_curricular'], pick(values.uc, values.ucs, values.unidadeCurricular, data.uc, data.ucs, data.UC));
-    setFirstSelector(['.projbl-nome-uc-projeto-field','#ucProjeto','#nomeUCProjeto','#nomeUcProjeto','#nome_uc_projeto'], pick(values.ucProjeto, values.nomeUCProjeto, values.nomeUcProjeto, values.ucs, data.ucs, data.UC));
-    setFirst(['ano','ano_letivo','anoLetivo','anoLetivoProjeto'], pick(values.anoLetivoProjeto, values.anoLetivo, values.ano_letivo, values.ano, data.anoLetivo, data.AnoLetivo));
-    setFirst(['professor','docentes'], pick(values.docentes, values.docente, data.docentes, data.Docentes, data.Docentestexto));
-    setRepeatedValues('#docentesTable .docente-nome, #docentesTable .proj-docente-nome', pick(values.docentes, values.docente, data.docentes, data.Docentes, data.Docentestexto));
-    setFirst(['emails','email'], pick(values.emails, values.email, data.emails, data.email, data.Email));
-    setRepeatedValues('#docentesTable .docente-email, #docentesTable .proj-docente-email', pick(values.emails, values.email, data.emails, data.email, data.Email));
-    setFirst(['n_estudantes','numeroEstudantes'], pick(values.numeroEstudantes, values.nEstudantes, values.n_estudantes, values.numero_estudantes, data.numeroEstudantes, data.nEstudantes, data['N_x00ba_deestudantes']));
-    setFirst(['n_grupos','numeroGrupos'], pick(values.numeroGrupos, values.nGrupos, values.n_grupos, values.numero_grupos, data.numeroGrupos, data.nGrupos, data['N_x00ba_deGrupos']));
-    setFirst(['autoria','autorias'], pick(values.autoria, values.autorias, data.autoria, data.autorias, data.Autoria));
-    setFirst(['estado','estado_guiao','estadoGuiao'], pick(values.estadoGuiao, values.estado, data.estadoGuiao, data.EstadoGuiao, data.Estado) || 'Atualizado');
-    setFirst(['organizacao','organizacoes','contacto'], pick(values.organizacoesContacto, values.organizacao, values.organizacoes, data.organizacoesContacto, data['Organiza_x00e7__x00e3_o_x0028__x']));
-    setFirst(['calendarizacao','data','dataSimulacao'], pick(values.data, values.calendarizacao, data.data, data.Data));
-    setFirst(['hora_inicio','horaInicio','hora'], pick(values.hora_inicio, values.horaInicio, hora.inicio, data.hora, data.Hora));
-    setFirst(['hora_fim','horaFim'], pick(values.hora_fim, values.horaFim, hora.fim));
-    setAuthorization(pick(values.autorizaRepositorio, values.autorizacaoRepositorio, data.autorizaRepositorio, data.AutorizaRepositorio, data['AutorizaReposit_x00f3_rio']));
+      setFirst(['unidadeOrganica','unidade_organica'], unidadeOrganica);
+      setFirst(['modalidade'], modalidade);
+      setFirst(['semestre'], semestre);
+      setFirst(['turmaEdicao','turma_edicao','turma'], turma);
+      setCursos(cursos);
+      setFirst(['uc','ucs','unidade_curricular'], ucs);
+      setFirstSelector(['.projbl-nome-uc-projeto-field','textarea[placeholder*="Projeto Aplicado" i]'], ucs);
+      setFirst(['tituloProjeto','titulo'], titulo || ucs);
+      setFirst(['ano','ano_letivo','anoLetivo','anoLetivoProjeto'], ano);
+      setFirstSelector(['#anoLetivoProjeto','.projbl-ano-letivo-field','input[placeholder*="2026/2027" i]'], ano);
+      setFirst(['professor','docentes'], docentes);
+      setFirst(['emails','email'], emails);
+      setTableColumn('#docentesTable .docente-nome', docentes);
+      setTableColumn('#docentesTable .docente-email', emails);
+      setFirst(['n_estudantes','numeroEstudantes'], nEstudantes);
+      setFirstSelector(['#numeroEstudantes','.projbl-numero-estudantes-field'], nEstudantes);
+      setFirst(['n_grupos','numeroGrupos'], nGrupos);
+      setFirstSelector(['#numeroGrupos','.projbl-numero-grupos-field'], nGrupos);
+      setFirst(['autoria','autorias'], autoria);
+      setFirst(['estado','estado_guiao','estadoGuiao'], estado || 'Atualizado');
+      setFirst(['organizacao','organizacoes','contacto'], organizacao);
+      setFirst(['calendarizacao','data','dataSimulacao'], dataSessao);
+      if(dataSessao){ /* PROJ-BL DATAS ENTREGAVEIS TARGETED FINAL CORRIGIDO 2026-06-15: não aplicar dataSessao global em #entregaveis */ setFirstSelector(['#data','#calendarizacao','#dataSessao','#dataSimulacao','input[name="data"]','input[name="calendarizacao"]','input[name="dataSessao"]','input[name="dataSimulacao"]'], dataSessao); }
+      projBlApplyEntregaveisDates(rawData || {}, [values, data, estrutura || {}, estruturaValues, estruturaFormData, valuesTop, formData, rawData || {}]);
+      setFirst(['hora_inicio','horaInicio','hora'], horaInicio || getAny(values, ['hora','Hora']) || getAny(data, ['hora','Hora']));
+      setFirst(['hora_fim','horaFim'], horaFim);
+      setAuthorization(autorizacao);
 
-    ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso','syncCourseChips','renderCursosSelecionados'].forEach(function(fn){
-      try { if(typeof window[fn] === 'function') window[fn](); } catch(e){}
+      ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso','syncCourseChips','renderCursosSelecionados','rblSyncHeaderVisual'].forEach(function(fn){
+        try { if(typeof window[fn] === 'function') window[fn](); } catch(e){}
+      });
+      document.body.classList.add('guiao-carregado-por-id');
+    } finally {
+      setTimeout(function(){ window.__guioesItemIdApplying = false; }, 0);
+    }
+    return {data:data, values:values, report: essentialReport()};
+  }
+  function installLoadingCss(){
+    if($('guioes-itemid-loading-css')) return;
+    var st = document.createElement('style');
+    st.id = 'guioes-itemid-loading-css';
+    st.textContent = 'body.guioes-itemid-loading .guioes-curso-suggestions-v2,body.guioes-itemid-loading .rbl-course-dropdown,body.guioes-itemid-loading .projbl-course-dropdown,body.guioes-itemid-loading .cbl-course-dropdown,body.guioes-itemid-loading .pbl-course-dropdown,body.guioes-itemid-loading .sbl-course-dropdown{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;}';
+    document.head.appendChild(st);
+  }
+  function scheduleAntiReset(rawData){
+    var userTouched = false;
+    function mark(ev){ if(!window.__guioesItemIdApplying && ev && ev.isTrusted && ev.target && /^(INPUT|TEXTAREA|SELECT)$/i.test(ev.target.tagName || '')) userTouched = true; }
+    document.addEventListener('input', mark, true);
+    document.addEventListener('change', mark, true);
+    [300,900,1800,3200,5200,7200].forEach(function(ms){
+      setTimeout(function(){
+        if(userTouched) return;
+        var before = essentialReport().count;
+        var info = preencherFormulario(rawData);
+        var after = info.report.count;
+        if(after < before) preencherFormulario(rawData);
+        closeCourseDropdowns();
+      }, ms);
     });
-    document.body.classList.add('guiao-carregado-por-id','projbl-guiao-carregado-por-id');
+    setTimeout(function(){
+      document.removeEventListener('input', mark, true);
+      document.removeEventListener('change', mark, true);
+    }, 8200);
   }
   async function carregarGuiaoPorId(){
     var itemId = getItemId();
-    if(!itemId || window.__guioesCarregamentoPorItemIdExecutadoV3) return;
-    window.__guioesCarregamentoPorItemIdExecutadoV3 = true;
-    window.__PROJBL_EDICAO_ITEMID_ATIVA = true;
-    try{
-      ['PROJ-BL_Teste','Proj-BL_Teste','projbl_teste','projbl_test','PROJ_BL_TESTE','template_autosave_PROJ_DEMO_COMPLETO','template_autosave_PROJ_DEMO_COMPLETO_EAD'].forEach(function(k){ localStorage.removeItem(k); });
-      Object.keys(localStorage).forEach(function(k){ if(/proj[-_ ]?bl/i.test(k) && /teste|demo|draft|rascunho/i.test(k)) localStorage.removeItem(k); });
-    }catch(e){}
-    addStatusBox('<strong>Edição de guião submetido</strong><br>A chamar fluxo de edição…');
+    if(!itemId || window.__guioesCarregamentoPorItemIdExecutado) return;
+    window.__guioesCarregamentoPorItemIdExecutado = true;
+    installLoadingCss();
+    document.body.classList.add('guioes-itemid-loading');
+    statusBox('<strong>Edição de guião submetido</strong><br>A carregar os dados deste guião para edição...', 'loading');
     notify('A carregar dados do guião...', '', 2500);
     try {
-      var endpoint = window.GUIOES_LOAD_URL || window.OBTER_GUIAO_URL || OBTER_GUIAO_URL;
-      var res = await fetch(endpoint, {
+      var res = await fetch(OBTER_GUIAO_URL, {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({itemId: itemId})
+        body: JSON.stringify({ itemId: itemId })
       });
       var text = await res.text();
-      var parsed = parseMaybe(text);
-      var data = normalizeResponse(parsed);
+      var raw = {};
+      try { raw = text ? JSON.parse(text) : {}; } catch(e){ raw = {raw:text}; }
+      var data = buildData(raw);
       if(!res.ok || data.ok === false || data.success === false){
-        throw new Error(pick(data.message, data.error, data.raw, text) || ('HTTP ' + res.status));
+        throw new Error(clean(getAny(data, ['message','error','Error','erro'])) || text || ('HTTP ' + res.status));
       }
-      preencherFormulario(data);
-      addStatusBox('<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.');
+      var result = preencherFormulario(raw);
+      setTimeout(closeCourseDropdowns, 60);
+      setTimeout(function(){ document.body.classList.remove('guioes-itemid-loading'); closeCourseDropdowns(); }, 500);
+      if(result.report.missing && result.report.missing.length){
+        console.error('Resposta recebida do fluxo, mas os campos essenciais não foram preenchidos.', {rawResponse: raw, unwrappedData: result.data, values: result.values, essentialReport: result.report});
+        statusBox('<strong>Edição de guião submetido</strong><br>O fluxo respondeu, mas os campos essenciais não foram preenchidos. Verifique o console para a estrutura recebida.', 'error');
+        notify('O fluxo respondeu, mas o formulário não foi preenchido. Verifique o mapeamento da resposta.', 'error', 8000);
+        return;
+      }
+      statusBox('<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.', 'ok');
       notify('Dados do guião carregados para edição.', 'ok', 4500);
+      scheduleAntiReset(raw);
     } catch(e) {
       console.error('Erro ao carregar guião por itemId:', e);
-      addStatusBox('<strong>Não foi possível carregar automaticamente os dados deste guião.</strong><br>Confirme o link de edição ou tente novamente. Detalhe: ' + clean(e && e.message), 'error');
+      document.body.classList.remove('guioes-itemid-loading');
+      statusBox('<strong>Edição de guião submetido</strong><br>Não foi possível carregar automaticamente os dados deste guião. Detalhe técnico: ' + clean(e && e.message ? e.message : e), 'error');
       notify('Não foi possível carregar automaticamente os dados deste guião. Confirme o link de edição ou tente novamente.', 'error', 8000);
     }
   }
@@ -19994,10 +20226,8 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
+
 </script>
-
-
-
 <script id="guioes-fechar-dropdown-cursos-edicao-v2">
 (function(){
   'use strict';
@@ -20247,9 +20477,6 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
     'template_autosave_PROJ_DEMO_COMPLETO_EAD'
   ];
   var LOAD_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
-  window.PROJBL_LOAD_URL = LOAD_URL;
-  window.GUIOES_LOAD_URL = LOAD_URL;
-  window.OBTER_GUIAO_URL = LOAD_URL;
 
   function clean(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
   function hasItemId(){ try { return !!new URLSearchParams(location.search).get('itemId'); } catch(e){ return false; } }
@@ -20408,7 +20635,7 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
     }
     box.className = 'projbl-edit-box-runtime';
     box.style.cssText = 'display:block!important;visibility:visible!important;opacity:1!important;max-width:940px;margin:14px auto 16px auto;padding:14px 16px;border:1.5px solid '+(kind==='error'?'#8a1f1f':'#1f4d2b')+';border-radius:14px;background:'+(kind==='error'?'#fff3f3':'#f3fff6')+';color:'+(kind==='error'?'#8a1f1f':'#1f4d2b')+';font-family:Century Gothic,Arial,sans-serif;font-size:13px;line-height:1.45;box-sizing:border-box;position:relative;z-index:99999;';
-    box.innerHTML = text || ('<strong>Edição de guião submetido</strong><br>A chamar fluxo de edição…<br><span style="font-size:12px;opacity:.85">itemId: ' + clean(itemId()) + '</span>');
+    box.innerHTML = text || '<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.';
   }
   function controls(){
     return Array.prototype.slice.call(document.querySelectorAll('input, textarea, select')).filter(function(el){
@@ -20533,16 +20760,12 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
   async function loadItemForEdit(){
     if(!hasItemId() || window.__projblFinalItemLoaderDone) return;
     window.__projblFinalItemLoaderDone = true;
-    var id = itemId();
-    var endpoint = window.PROJBL_LOAD_URL || window.GUIOES_LOAD_URL || window.OBTER_GUIAO_URL || LOAD_URL;
-    forceEditBox('<strong>Edição de guião submetido</strong><br>A chamar fluxo de edição…<br><span style="font-size:12px;opacity:.85">itemId: ' + clean(id) + '</span>');
+    forceEditBox('<strong>Edição de guião submetido</strong><br>A carregar os dados deste guião para edição...');
     try {
-      console.info('[PROJ-BL itemId] chamar fluxo Obter guião por ID', { itemId: id, endpointWorkflow: String(endpoint).match(/workflows\/([^/]+)/)?.[1] || '' });
-      var res = await fetch(endpoint, {
+      var res = await fetch((window.GUIOES_LOAD_URL || window.OBTER_GUIAO_URL || LOAD_URL), {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
-        cache: 'no-store',
-        body: JSON.stringify({itemId: id})
+        body: JSON.stringify({itemId: itemId()})
       });
       var text = await res.text();
       var data = normResponse(text);
@@ -20550,18 +20773,18 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
         throw new Error(pick(data.message, data.error, text) || ('HTTP ' + res.status));
       }
       applyPayloadToForm(data);
-      forceEditBox('<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.<br><span style="font-size:12px;opacity:.85">itemId: ' + clean(id) + '</span>');
+      forceEditBox('<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.');
     } catch(e){
       console.error('PROJ-BL final loader:', e);
-      forceEditBox('<strong>Não foi possível carregar automaticamente os dados deste guião.</strong><br>A página continua editável.<br><span style="font-size:12px;opacity:.85">itemId: ' + clean(id) + '</span><br>Detalhe: ' + clean(e && e.message), 'error');
+      forceEditBox('<strong>Não foi possível carregar automaticamente os dados deste guião.</strong><br>A página continua editável. Detalhe: ' + clean(e && e.message), 'error');
     }
   }
   function start(){
     bindAutosave();
     if(hasItemId()){
-      forceEditBox();
-      [0,150,450,900,1600,2600,4200,7000].forEach(function(ms){ setTimeout(forceEditBox, ms); });
-      setTimeout(loadItemForEdit, 650);
+      /* Modo edição por itemId fica exclusivamente a cargo de guioes-carregar-guiao-por-id-v2.
+         Evita duas chamadas concorrentes ao Power Automate e impede que o autosave local sobrescreva dados. */
+      return;
     } else {
       /* No teste há scripts que reaplicam o exemplo até 3,6s; restauramos o rascunho depois disso também. */
       [0,200,700,1400,2800,4300].forEach(function(ms){ setTimeout(function(){ bindAutosave(); loadSavedDraft(); }, ms); });
