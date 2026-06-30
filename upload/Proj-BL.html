@@ -19530,243 +19530,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   [200, 600, 1200, 2500].forEach(function(ms){ setTimeout(initAll, ms); });
 })();
 </script>
-<script id="guioes-fechar-dropdown-cursos-edicao-v2">
-(function(){
-  'use strict';
-  if(window.__guioesFecharDropdownCursosEdicaoV2) return;
-  window.__guioesFecharDropdownCursosEdicaoV2 = true;
-  function hasItemId(){ try { return !!new URLSearchParams(window.location.search).get('itemId'); } catch(e){ return false; } }
-  function closeCourseDropdowns(){
-    if(!hasItemId()) return;
-    var selectors = [
-      '.guioes-curso-suggestions-v2',
-      '.curso-suggestions', '.course-suggestions',
-      '[id*="curso" i][class*="suggest" i]',
-      '[class*="curso" i][class*="suggest" i]',
-      '[class*="course" i][class*="suggest" i]',
-      '[id*="curso" i][class*="dropdown" i]',
-      '[class*="curso" i][class*="dropdown" i]'
-    ];
-    selectors.forEach(function(sel){
-      try {
-        Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){
-          el.style.display = 'none';
-          el.classList.remove('open','active','show','visible');
-          el.setAttribute('aria-hidden','true');
-        });
-      } catch(e){}
-    });
-    Array.prototype.forEach.call(document.querySelectorAll('input#cursoBusca, input[name="cursoBusca"], input[placeholder*="curso" i]'), function(input){
-      if(document.activeElement === input){ try { input.blur(); } catch(e){} }
-    });
-  }
-  window.__guioesFecharDropdownCursos = closeCourseDropdowns;
-  function schedule(){ [0,80,200,500,900,1500,2500,4000].forEach(function(ms){ setTimeout(closeCourseDropdowns, ms); }); }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', schedule); else schedule();
-  window.addEventListener('load', schedule);
-})();
-</script>
-
-
-<script id="guioes-fechar-dropdown-cursos-edicao-v3-hardening">
-(function(){
-  'use strict';
-  if(window.__guioesFecharDropdownCursosEdicaoV3) return;
-  window.__guioesFecharDropdownCursosEdicaoV3 = true;
-  function hasItemId(){ try { return !!new URLSearchParams(window.location.search).get('itemId'); } catch(e){ return false; } }
-  if(!hasItemId()) return;
-  var selectors = [
-    '.guioes-curso-suggestions-v2', '.curso-suggestions', '.course-suggestions',
-    '.rbl-course-dropdown', '.projbl-course-dropdown', '.pbl-course-dropdown', '.cbl-course-dropdown', '.sbl-course-dropdown',
-    '[id*="curso" i][class*="suggest" i]', '[class*="curso" i][class*="suggest" i]', '[class*="course" i][class*="suggest" i]',
-    '[id*="curso" i][class*="dropdown" i]', '[class*="curso" i][class*="dropdown" i]', '[class*="course" i][class*="dropdown" i]'
-  ];
-  var style = document.createElement('style');
-  style.id = 'guioes-fechar-dropdown-cursos-edicao-v3-css';
-  style.textContent = selectors.join(',') + '{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;}';
-  document.head.appendChild(style);
-  function close(){
-    selectors.forEach(function(sel){
-      try { Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){
-        el.style.display='none'; el.style.visibility='hidden'; el.style.opacity='0';
-        el.classList.remove('open','active','show','visible','is-open');
-        el.setAttribute('aria-hidden','true');
-      }); } catch(e){}
-    });
-    Array.prototype.forEach.call(document.querySelectorAll('input#cursoBusca, input[name="cursoBusca"], input[placeholder*="curso" i], input[placeholder*="procurar" i]'), function(input){
-      if(document.activeElement === input){ try { input.blur(); } catch(e){} }
-    });
-  }
-  var released = false;
-  var obs = null;
-  function release(){
-    if(released) return;
-    released = true;
-    try { if(style && style.parentNode) style.parentNode.removeChild(style); } catch(e){}
-    try { if(obs) obs.disconnect(); } catch(e){}
-  }
-  function isCourseTarget(t){ return !!(t && t.closest && t.closest('[id*="curso" i], [class*="curso" i], [class*="course" i]')); }
-  document.addEventListener('pointerdown', function(e){ if(isCourseTarget(e.target)) release(); }, true);
-  document.addEventListener('keydown', function(e){ if(isCourseTarget(e.target)) release(); }, true);
-  [0,50,120,250,500,900,1500,2500,4000,6500,9000,12000].forEach(function(ms){ setTimeout(function(){ if(!released) close(); }, ms); });
-  try { obs = new MutationObserver(function(){ if(!released) close(); }); obs.observe(document.documentElement, {childList:true,subtree:true,attributes:true,attributeFilter:['class','style']}); } catch(e){}
-  setTimeout(release, 14000);
-})();
-</script>
-
-<script id="validacao-obrigatoria-cabecalho-20260617">
-/* VALIDACAO OBRIGATORIA CABECALHO 2026-06-17 — PROJ-BL */
-(function(){
-  'use strict';
-  var REQUIRED_GROUPS = [{"label": "Unidade Orgânica", "selectors": ["#unidadeOrganica"]}, {"label": "Modalidade", "selectors": ["#modalidade"]}, {"label": "Semestre", "selectors": ["#semestre"]}, {"label": "Turma/Edição", "selectors": ["#turmaEdicao"]}, {"label": "Curso(s)", "selectors": ["#curso", "#cursoBusca"]}, {"label": "Autoria", "selectors": ["#autoria"]}, {"label": "Ano letivo", "selectors": ["#anoLetivoProjeto"]}, {"label": "Estado do guião", "selectors": ["#estadoGuiao"]}, {"label": "Autorização para repositório", "selectors": ["input[name=\"autorizaRepositorio\"]", "input[name=\"autorizacaoRepositorio\"]", "#autorizacaoRepositorio"]}];
-  var VALIDAR_SESSOES_RBL = false;
-  function norm(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
-  function qsAll(sel){ try{ return Array.prototype.slice.call(document.querySelectorAll(sel)); }catch(e){ return []; } }
-  function elementsFor(group){ var out = []; (group.selectors || []).forEach(function(sel){ out = out.concat(qsAll(sel)); }); return out.filter(Boolean); }
-  function isRadioGroup(elements){ return elements.some(function(el){ return el && el.type === 'radio'; }); }
-  function valueOf(el){ if(!el) return ''; if(el.type === 'radio') return el.checked ? (el.value || 'checked') : ''; if(el.type === 'checkbox') return el.checked ? (el.value || 'checked') : ''; return norm(el.value); }
-  function groupFilled(group){ var elements = elementsFor(group); if(!elements.length) return true; if(isRadioGroup(elements)) return elements.some(function(el){ return !!el.checked; }); return elements.some(function(el){ return valueOf(el) !== ''; }); }
-  function firstFocusable(group){ var elements = elementsFor(group); return elements.find(function(el){ return el.type !== 'hidden' && !el.disabled; }) || elements[0] || null; }
-  function setRequiredOn(el){ if(!el || el.disabled) return; if(el.type === 'hidden') return; el.setAttribute('aria-required','true'); if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT'){ el.required = true; el.setAttribute('required','required'); } }
-  function markRequired(){ REQUIRED_GROUPS.forEach(function(group){ var elements = elementsFor(group); if(isRadioGroup(elements)){ elements.forEach(function(el){ el.required = true; el.setAttribute('required','required'); el.setAttribute('aria-required','true'); }); } else { elements.forEach(setRequiredOn); } }); if(VALIDAR_SESSOES_RBL){ qsAll('input[id^="aula"][id$="_data"], input[id^="aula"][id$="_duracao"]').forEach(setRequiredOn); } }
-  function missingSessionsRBL(){ if(!VALIDAR_SESSOES_RBL) return []; var missing = []; qsAll('input[id^="aula"][id$="_data"]').forEach(function(dataEl){ var m = String(dataEl.id || '').match(/^aula(\d+)_data$/); var n = m ? m[1] : ''; if(!norm(dataEl.value)) missing.push({label:'Data da sessão ' + n, el:dataEl}); var durEl = n ? document.getElementById('aula' + n + '_duracao') : null; if(durEl && !norm(durEl.value)) missing.push({label:'Duração da sessão ' + n, el:durEl}); }); return missing; }
-  function validateObrigatorios(){ markRequired(); var missing = []; REQUIRED_GROUPS.forEach(function(group){ if(!groupFilled(group)) missing.push({label:group.label, el:firstFocusable(group)}); }); missing = missing.concat(missingSessionsRBL()); if(!missing.length) return true; var msg = 'Antes de enviar para validação, preencha: ' + missing.map(function(x){ return x.label; }).join(', ') + '.'; try{ var old = document.querySelector('.toast-message, .ux-toast'); if(old && old.parentNode) old.parentNode.removeChild(old); var d = document.createElement('div'); d.className = 'toast-message'; d.style.whiteSpace = 'pre-line'; d.style.maxWidth = '620px'; d.style.textAlign = 'left'; d.textContent = msg; document.body.appendChild(d); setTimeout(function(){ if(d && d.parentNode) d.parentNode.removeChild(d); }, 5000); }catch(e){} alert(msg); var focusEl = missing.find(function(x){ return x.el && x.el.type !== 'hidden'; }); if(focusEl && focusEl.el){ try{ focusEl.el.focus({preventScroll:false}); focusEl.el.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} } return false; }
-  function isValidationTrigger(el){ if(!el) return false; var id = (el.id || '').toLowerCase(); var txt = norm(el.innerText || el.value || el.getAttribute('aria-label') || '').toLowerCase(); return id === 'btnenviarvalidacao' || id === 'btnvalidacaoreal' || /enviar\s+para\s+valida/.test(txt) || /submeter/.test(txt) || /submiss/.test(txt) || /atualizar\s+gui/.test(txt); }
-  document.addEventListener('click', function(ev){ var el = ev.target && ev.target.closest ? ev.target.closest('button, input[type="button"], input[type="submit"], a') : null; if(!isValidationTrigger(el)) return; if(!validateObrigatorios()){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); return false; } }, true);
-  document.addEventListener('submit', function(ev){ if(!validateObrigatorios()){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); return false; } }, true);
-  function patchFunction(name){ var original = window[name]; if(typeof original !== 'function' || original.__validacaoObrigatoriaPatch) return; var wrapped = function(){ if(!validateObrigatorios()) return false; return original.apply(this, arguments); }; wrapped.__validacaoObrigatoriaPatch = true; window[name] = wrapped; }
-  function patchKnownFunctions(){ ['submitValidacao','enviarParaValidacao','validarEEnviar','sendForValidation','submeterValidacao'].forEach(patchFunction); }
-  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', function(){ markRequired(); patchKnownFunctions(); }); } else { markRequired(); patchKnownFunctions(); }
-  setTimeout(function(){ markRequired(); patchKnownFunctions(); }, 250);
-  setTimeout(function(){ markRequired(); patchKnownFunctions(); }, 1000);
-  if(VALIDAR_SESSOES_RBL && window.MutationObserver){ try{ new MutationObserver(function(){ markRequired(); }).observe(document.body, {childList:true, subtree:true}); }catch(e){} }
-})();
-</script>
-<script id="guioes-empty-date-time-on-new-20260626">
-(function(){
-  'use strict';
-  var userTouched = false;
-  function hasItemId(){ try{ return !!new URLSearchParams(window.location.search).get('itemId'); }catch(e){ return false; } }
-  function controls(){ return Array.prototype.slice.call(document.querySelectorAll('input[type="date"], input[type="time"]')); }
-  function markTouched(){ userTouched = true; }
-  function clearInitialDateTime(){
-    if(hasItemId() || userTouched) return;
-    controls().forEach(function(el){
-      el.setAttribute('autocomplete', 'off');
-      el.value = '';
-      el.removeAttribute('value');
-    });
-  }
-  function init(){
-    controls().forEach(function(el){
-      if(el.dataset.guioesDateTimeBound === '1') return;
-      el.dataset.guioesDateTimeBound = '1';
-      el.addEventListener('input', markTouched);
-      el.addEventListener('change', markTouched);
-    });
-    clearInitialDateTime();
-    setTimeout(clearInitialDateTime, 80);
-    setTimeout(clearInitialDateTime, 300);
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
-})();
-</script>
-<style id="guioes-date-time-native-final-20260625">
-body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"],
-body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"]{
-  -webkit-appearance:auto !important;
-  appearance:auto !important;
-  background:#fff !important;
-  color:#242424 !important;
-  -webkit-text-fill-color:#242424 !important;
-  color-scheme:light !important;
-  min-height:42px !important;
-  line-height:normal !important;
-}
-</style>
-
-
-<!-- PATCH FINAL PROJ-BL — percentagens abertas + título SharePoint seguro -->
-<style id="projbl-percentagens-abertas-title-safe-css">
-  /* Entregáveis e Contribuições são percentagens abertas; não há total obrigatório. */
-  #entregaveis .projbliso-total-row,
-  #entregaveis .proj-entregaveis-total,
-  #ucs .proj-contrib-total,
-  #contribuicoes .proj-contrib-total,
-  #contribuicoes .projblz7g-total-row,
-  .projbliso-total-row,
-  .projblz7g-total-row,
-  .proj-entregaveis-total,
-  .proj-contrib-total{
-    display:none !important;
-    visibility:hidden !important;
-  }
-  #entregaveis .projbliso-percent-warn,
-  #ucs .projbliso-percent-warn,
-  #contribuicoes .projbliso-percent-warn,
-  #ucs .projblz7g-warn,
-  #contribuicoes .projblz7g-warn,
-  #entregaveis .is-warn,
-  #ucs .is-warn,
-  #contribuicoes .is-warn{
-    border-color:#333 !important;
-    outline:none !important;
-    box-shadow:none !important;
-    color:inherit !important;
-    background:#fff !important;
-  }
-</style>
-<script id="projbl-percentagens-abertas-title-safe-js">
-(function(){
-  'use strict';
-  function cleanText(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
-  function limitTitle(v){
-    v = cleanText(v || 'PROJ-BL');
-    return v.length > 250 ? v.slice(0,250) : v;
-  }
-  window.projblSafeSharePointTitle = limitTitle;
-
-  function openPercentages(){
-    try{
-      document.querySelectorAll('.projbliso-total-row,.projblz7g-total-row,.proj-entregaveis-total,.proj-contrib-total').forEach(function(el){
-        if(el && el.parentNode) el.parentNode.removeChild(el);
-      });
-      document.querySelectorAll('.projbliso-percent-warn,.projblz7g-warn,.is-warn,.warn').forEach(function(el){
-        el.classList.remove('projbliso-percent-warn','projblz7g-warn','is-warn','warn');
-        try{ el.style.borderColor=''; el.style.outline=''; el.style.boxShadow=''; }catch(e){}
-      });
-    }catch(e){}
-  }
-  window.projblOpenPercentages = openPercentages;
-  ['DOMContentLoaded','load','input','change','click'].forEach(function(evt){
-    window.addEventListener(evt, function(){ setTimeout(openPercentages, 0); setTimeout(openPercentages, 120); }, true);
-  });
-  [0,100,300,800,1500,3000].forEach(function(ms){ setTimeout(openPercentages, ms); });
-
-  /* Blindagem final: qualquer payload enviado ao Power Automate respeita o limite do campo Title do SharePoint. */
-  if(!window.__projblFetchTitleSafePatch){
-    window.__projblFetchTitleSafePatch = true;
-    var originalFetch = window.fetch;
-    window.fetch = function(input, init){
-      try{
-        if(init && typeof init.body === 'string' && init.body.indexOf('"title"') !== -1){
-          var payload = JSON.parse(init.body);
-          if(payload && typeof payload === 'object' && payload.title){
-            payload.title = limitTitle(payload.title);
-            init = Object.assign({}, init, { body: JSON.stringify(payload) });
-          }
-        }
-      }catch(e){}
-      return originalFetch.apply(this, arguments.length === 1 ? [input] : [input, init]);
-    };
-  }
-})();
-</script>
-
-
-<!-- PROJ-BL itemId loader final limpo — preserva visual atual e template teste -->
-<script id="guioes-carregar-guiao-por-id-v2" data-final-cbl-clean="20260630">
+<script id="guioes-carregar-guiao-por-id-v2">
 /* ===== Camada institucional — carregamento de guião para edição por itemId =====
    Baseada no padrão funcional do PBL: fetch POST com { itemId }.
    Esta versão só corrige o carregamento/mapeamento: não altera PDF, CSS visual, botões,
@@ -20421,27 +20185,19 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
   }
   async function carregarGuiaoPorId(){
     var itemId = getItemId();
-    console.log('[PROJBL-DIAG] carregarGuiaoPorId() chamado. itemId=', itemId, 'jaExecutado=', window.__guioesCarregamentoPorItemIdExecutado);
-    if(!itemId || window.__guioesCarregamentoPorItemIdExecutado) {
-      console.log('[PROJBL-DIAG] A sair sem fazer fetch. Motivo:', !itemId ? 'itemId vazio' : 'ja executado antes');
-      return;
-    }
+    if(!itemId || window.__guioesCarregamentoPorItemIdExecutado) return;
     window.__guioesCarregamentoPorItemIdExecutado = true;
     installLoadingCss();
     document.body.classList.add('guioes-itemid-loading');
-    statusBox('<strong>[DIAG] Script de edição arrancou.</strong><br>itemId=' + itemId + ' — a tentar contactar o fluxo "Obter guião por ID"...', 'loading');
-    notify('[DIAG] A carregar dados do guião...', '', 2500);
+    statusBox('<strong>Edição de guião submetido</strong><br>A carregar os dados deste guião para edição...', 'loading');
+    notify('A carregar dados do guião...', '', 2500);
     try {
-      console.log('[PROJBL-DIAG] A chamar fetch para', OBTER_GUIAO_URL);
       var res = await fetch(OBTER_GUIAO_URL, {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify({ itemId: itemId })
       });
-      console.log('[PROJBL-DIAG] fetch respondeu. status=', res.status, 'ok=', res.ok);
-      statusBox('<strong>[DIAG] Resposta recebida do fluxo.</strong><br>HTTP status: ' + res.status + ' — a processar dados...', 'loading');
       var text = await res.text();
-      console.log('[PROJBL-DIAG] corpo da resposta (primeiros 500 chars):', String(text).slice(0,500));
       var raw = {};
       try { raw = text ? JSON.parse(text) : {}; } catch(e){ raw = {raw:text}; }
       var data = buildData(raw);
@@ -20461,19 +20217,364 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
       notify('Dados do guião carregados para edição.', 'ok', 4500);
       scheduleAntiReset(raw);
     } catch(e) {
-      console.error('[PROJBL-DIAG] ERRO ao carregar guião por itemId:', e, '| nome do erro:', e && e.name, '| mensagem:', e && e.message);
+      console.error('Erro ao carregar guião por itemId:', e);
       document.body.classList.remove('guioes-itemid-loading');
-      var diagDetalhe = clean(e && e.message ? e.message : e) || 'erro desconhecido';
-      var diagNome = (e && e.name) ? (' [' + e.name + ']') : '';
-      statusBox('<strong>[DIAG] FALHA antes/durante o fetch' + diagNome + '</strong><br>Detalhe técnico: ' + diagDetalhe + '<br><small>Se isto disser "Failed to fetch" ou "TypeError", o pedido foi bloqueado no browser (ex: CORS) e NUNCA chegou ao Power Automate — por isso não aparece no histórico do fluxo.</small>', 'error');
-      notify('[DIAG] Falha: ' + diagDetalhe, 'error', 8000);
+      statusBox('<strong>Edição de guião submetido</strong><br>Não foi possível carregar automaticamente os dados deste guião. Detalhe técnico: ' + clean(e && e.message ? e.message : e), 'error');
+      notify('Não foi possível carregar automaticamente os dados deste guião. Confirme o link de edição ou tente novamente.', 'error', 8000);
     }
   }
-  function init(){ console.log('[PROJBL-DIAG] Loader iniciado. readyState=', document.readyState, 'itemId na URL=', getItemId()); setTimeout(carregarGuiaoPorId, 450); }
+  function init(){ setTimeout(carregarGuiaoPorId, 450); }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
 
+</script>
+<script id="guioes-itemid-course-dropdown-fix-final">
+(function(){
+  'use strict';
+  if(window.__guioesItemIdCourseDropdownFixFinal) return;
+  window.__guioesItemIdCourseDropdownFixFinal = true;
+
+  function hasItemId(){
+    try { return !!new URLSearchParams(window.location.search).get('itemId'); }
+    catch(e){ return /[?&]itemId=/.test(window.location.search || ''); }
+  }
+  if(!hasItemId()) return;
+
+  var suppress = true;
+  var dropdownSelectors = [
+    '.guioes-curso-suggestions-v2',
+    '.rbl-course-dropdown',
+    '.proj-cursos-sugestoes',
+    '.projbl-course-dropdown',
+    '.cbl-course-dropdown',
+    '.pbl-course-dropdown',
+    '.sbl-course-dropdown',
+    '[id*="curso" i][class*="suggest" i]',
+    '[class*="curso" i][class*="suggest" i]',
+    '[class*="course" i][class*="suggest" i]',
+    '[id*="curso" i][class*="dropdown" i]',
+    '[class*="curso" i][class*="dropdown" i]',
+    '[class*="course" i][class*="dropdown" i]'
+  ];
+
+  function clean(v){ return String(v || '').replace(/\s+/g,' ').trim(); }
+  function isCourseSearch(el){
+    if(!el || !el.matches) return false;
+    return el.matches('#cursoBusca,#cursoSearch,.rbl-course-search,input[name="cursoBusca"],input[placeholder*="curso" i]');
+  }
+  function eachDropdown(cb){
+    dropdownSelectors.forEach(function(sel){
+      try { Array.prototype.forEach.call(document.querySelectorAll(sel), cb); } catch(e){}
+    });
+  }
+  function hideDropdown(el, clear){
+    if(!el) return;
+    try { el.classList.remove('is-open','open','active','show','visible'); } catch(e){}
+    if(clear){ try { el.innerHTML = ''; } catch(e){} }
+    el.style.display = 'none';
+    el.style.visibility = 'hidden';
+    el.style.opacity = '0';
+    el.style.pointerEvents = 'none';
+  }
+  function closeCourseDropdowns(clear){
+    eachDropdown(function(el){ hideDropdown(el, clear !== false); });
+    Array.prototype.forEach.call(document.querySelectorAll('#cursoBusca,#cursoSearch,.rbl-course-search'), function(input){
+      if(!suppress) return;
+      if(clean(input.value)){
+        input.value = '';
+        try { input.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
+      }
+      try { input.setAttribute('autocomplete','new-password'); } catch(e){}
+    });
+  }
+  function restoreDropdownStyles(){
+    eachDropdown(function(el){
+      el.style.display = '';
+      el.style.visibility = '';
+      el.style.opacity = '';
+      el.style.pointerEvents = '';
+    });
+  }
+  function unlockForUser(){
+    if(!suppress) return;
+    suppress = false;
+    try { document.body.classList.remove('guioes-itemid-course-suppressed'); } catch(e){}
+    restoreDropdownStyles();
+  }
+
+  function keepSuppressed(){
+    if(!suppress) return;
+    try { document.body.classList.add('guioes-itemid-course-suppressed'); } catch(e){}
+    closeCourseDropdowns(true);
+  }
+
+  try { document.body.classList.add('guioes-itemid-course-suppressed'); } catch(e){}
+
+  document.addEventListener('focusin', function(ev){
+    if(!isCourseSearch(ev.target) || !suppress) return;
+    setTimeout(keepSuppressed, 0);
+    setTimeout(keepSuppressed, 80);
+  }, true);
+
+  document.addEventListener('keydown', function(ev){
+    if(!isCourseSearch(ev.target)) return;
+    if(ev.isTrusted) unlockForUser();
+  }, true);
+
+  document.addEventListener('input', function(ev){
+    if(!isCourseSearch(ev.target)) return;
+    if(ev.isTrusted && clean(ev.target.value).length > 0){
+      unlockForUser();
+    } else if(suppress) {
+      setTimeout(keepSuppressed, 0);
+    }
+  }, true);
+
+  document.addEventListener('click', function(ev){
+    if(!suppress) return;
+    if(isCourseSearch(ev.target)){
+      setTimeout(keepSuppressed, 0);
+      setTimeout(keepSuppressed, 80);
+    }
+  }, true);
+
+  window.guioesFecharDropdownCursosItemId = keepSuppressed;
+  [0,60,140,300,600,1000,1600,2400,3600,5200,7600,9200].forEach(function(ms){ setTimeout(keepSuppressed, ms); });
+})();
+</script>
+<script id="guioes-fechar-dropdown-cursos-edicao-v2">
+(function(){
+  'use strict';
+  if(window.__guioesFecharDropdownCursosEdicaoV2) return;
+  window.__guioesFecharDropdownCursosEdicaoV2 = true;
+  function hasItemId(){ try { return !!new URLSearchParams(window.location.search).get('itemId'); } catch(e){ return false; } }
+  function closeCourseDropdowns(){
+    if(!hasItemId()) return;
+    var selectors = [
+      '.guioes-curso-suggestions-v2',
+      '.curso-suggestions', '.course-suggestions',
+      '[id*="curso" i][class*="suggest" i]',
+      '[class*="curso" i][class*="suggest" i]',
+      '[class*="course" i][class*="suggest" i]',
+      '[id*="curso" i][class*="dropdown" i]',
+      '[class*="curso" i][class*="dropdown" i]'
+    ];
+    selectors.forEach(function(sel){
+      try {
+        Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){
+          el.style.display = 'none';
+          el.classList.remove('open','active','show','visible');
+          el.setAttribute('aria-hidden','true');
+        });
+      } catch(e){}
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('input#cursoBusca, input[name="cursoBusca"], input[placeholder*="curso" i]'), function(input){
+      if(document.activeElement === input){ try { input.blur(); } catch(e){} }
+    });
+  }
+  window.__guioesFecharDropdownCursos = closeCourseDropdowns;
+  function schedule(){ [0,80,200,500,900,1500,2500,4000].forEach(function(ms){ setTimeout(closeCourseDropdowns, ms); }); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', schedule); else schedule();
+  window.addEventListener('load', schedule);
+})();
+</script>
+
+
+<script id="guioes-fechar-dropdown-cursos-edicao-v3-hardening">
+(function(){
+  'use strict';
+  if(window.__guioesFecharDropdownCursosEdicaoV3) return;
+  window.__guioesFecharDropdownCursosEdicaoV3 = true;
+  function hasItemId(){ try { return !!new URLSearchParams(window.location.search).get('itemId'); } catch(e){ return false; } }
+  if(!hasItemId()) return;
+  var selectors = [
+    '.guioes-curso-suggestions-v2', '.curso-suggestions', '.course-suggestions',
+    '.rbl-course-dropdown', '.projbl-course-dropdown', '.pbl-course-dropdown', '.cbl-course-dropdown', '.sbl-course-dropdown',
+    '[id*="curso" i][class*="suggest" i]', '[class*="curso" i][class*="suggest" i]', '[class*="course" i][class*="suggest" i]',
+    '[id*="curso" i][class*="dropdown" i]', '[class*="curso" i][class*="dropdown" i]', '[class*="course" i][class*="dropdown" i]'
+  ];
+  var style = document.createElement('style');
+  style.id = 'guioes-fechar-dropdown-cursos-edicao-v3-css';
+  style.textContent = selectors.join(',') + '{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;}';
+  document.head.appendChild(style);
+  function close(){
+    selectors.forEach(function(sel){
+      try { Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){
+        el.style.display='none'; el.style.visibility='hidden'; el.style.opacity='0';
+        el.classList.remove('open','active','show','visible','is-open');
+        el.setAttribute('aria-hidden','true');
+      }); } catch(e){}
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('input#cursoBusca, input[name="cursoBusca"], input[placeholder*="curso" i], input[placeholder*="procurar" i]'), function(input){
+      if(document.activeElement === input){ try { input.blur(); } catch(e){} }
+    });
+  }
+  var released = false;
+  var obs = null;
+  function release(){
+    if(released) return;
+    released = true;
+    try { if(style && style.parentNode) style.parentNode.removeChild(style); } catch(e){}
+    try { if(obs) obs.disconnect(); } catch(e){}
+  }
+  function isCourseTarget(t){ return !!(t && t.closest && t.closest('[id*="curso" i], [class*="curso" i], [class*="course" i]')); }
+  document.addEventListener('pointerdown', function(e){ if(isCourseTarget(e.target)) release(); }, true);
+  document.addEventListener('keydown', function(e){ if(isCourseTarget(e.target)) release(); }, true);
+  [0,50,120,250,500,900,1500,2500,4000,6500,9000,12000].forEach(function(ms){ setTimeout(function(){ if(!released) close(); }, ms); });
+  try { obs = new MutationObserver(function(){ if(!released) close(); }); obs.observe(document.documentElement, {childList:true,subtree:true,attributes:true,attributeFilter:['class','style']}); } catch(e){}
+  setTimeout(release, 14000);
+})();
+</script>
+
+<script id="validacao-obrigatoria-cabecalho-20260617">
+/* VALIDACAO OBRIGATORIA CABECALHO 2026-06-17 — PROJ-BL */
+(function(){
+  'use strict';
+  var REQUIRED_GROUPS = [{"label": "Unidade Orgânica", "selectors": ["#unidadeOrganica"]}, {"label": "Modalidade", "selectors": ["#modalidade"]}, {"label": "Semestre", "selectors": ["#semestre"]}, {"label": "Turma/Edição", "selectors": ["#turmaEdicao"]}, {"label": "Curso(s)", "selectors": ["#curso", "#cursoBusca"]}, {"label": "Autoria", "selectors": ["#autoria"]}, {"label": "Ano letivo", "selectors": ["#anoLetivoProjeto"]}, {"label": "Estado do guião", "selectors": ["#estadoGuiao"]}, {"label": "Autorização para repositório", "selectors": ["input[name=\"autorizaRepositorio\"]", "input[name=\"autorizacaoRepositorio\"]", "#autorizacaoRepositorio"]}];
+  var VALIDAR_SESSOES_RBL = false;
+  function norm(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
+  function qsAll(sel){ try{ return Array.prototype.slice.call(document.querySelectorAll(sel)); }catch(e){ return []; } }
+  function elementsFor(group){ var out = []; (group.selectors || []).forEach(function(sel){ out = out.concat(qsAll(sel)); }); return out.filter(Boolean); }
+  function isRadioGroup(elements){ return elements.some(function(el){ return el && el.type === 'radio'; }); }
+  function valueOf(el){ if(!el) return ''; if(el.type === 'radio') return el.checked ? (el.value || 'checked') : ''; if(el.type === 'checkbox') return el.checked ? (el.value || 'checked') : ''; return norm(el.value); }
+  function groupFilled(group){ var elements = elementsFor(group); if(!elements.length) return true; if(isRadioGroup(elements)) return elements.some(function(el){ return !!el.checked; }); return elements.some(function(el){ return valueOf(el) !== ''; }); }
+  function firstFocusable(group){ var elements = elementsFor(group); return elements.find(function(el){ return el.type !== 'hidden' && !el.disabled; }) || elements[0] || null; }
+  function setRequiredOn(el){ if(!el || el.disabled) return; if(el.type === 'hidden') return; el.setAttribute('aria-required','true'); if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT'){ el.required = true; el.setAttribute('required','required'); } }
+  function markRequired(){ REQUIRED_GROUPS.forEach(function(group){ var elements = elementsFor(group); if(isRadioGroup(elements)){ elements.forEach(function(el){ el.required = true; el.setAttribute('required','required'); el.setAttribute('aria-required','true'); }); } else { elements.forEach(setRequiredOn); } }); if(VALIDAR_SESSOES_RBL){ qsAll('input[id^="aula"][id$="_data"], input[id^="aula"][id$="_duracao"]').forEach(setRequiredOn); } }
+  function missingSessionsRBL(){ if(!VALIDAR_SESSOES_RBL) return []; var missing = []; qsAll('input[id^="aula"][id$="_data"]').forEach(function(dataEl){ var m = String(dataEl.id || '').match(/^aula(\d+)_data$/); var n = m ? m[1] : ''; if(!norm(dataEl.value)) missing.push({label:'Data da sessão ' + n, el:dataEl}); var durEl = n ? document.getElementById('aula' + n + '_duracao') : null; if(durEl && !norm(durEl.value)) missing.push({label:'Duração da sessão ' + n, el:durEl}); }); return missing; }
+  function validateObrigatorios(){ markRequired(); var missing = []; REQUIRED_GROUPS.forEach(function(group){ if(!groupFilled(group)) missing.push({label:group.label, el:firstFocusable(group)}); }); missing = missing.concat(missingSessionsRBL()); if(!missing.length) return true; var msg = 'Antes de enviar para validação, preencha: ' + missing.map(function(x){ return x.label; }).join(', ') + '.'; try{ var old = document.querySelector('.toast-message, .ux-toast'); if(old && old.parentNode) old.parentNode.removeChild(old); var d = document.createElement('div'); d.className = 'toast-message'; d.style.whiteSpace = 'pre-line'; d.style.maxWidth = '620px'; d.style.textAlign = 'left'; d.textContent = msg; document.body.appendChild(d); setTimeout(function(){ if(d && d.parentNode) d.parentNode.removeChild(d); }, 5000); }catch(e){} alert(msg); var focusEl = missing.find(function(x){ return x.el && x.el.type !== 'hidden'; }); if(focusEl && focusEl.el){ try{ focusEl.el.focus({preventScroll:false}); focusEl.el.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} } return false; }
+  function isValidationTrigger(el){ if(!el) return false; var id = (el.id || '').toLowerCase(); var txt = norm(el.innerText || el.value || el.getAttribute('aria-label') || '').toLowerCase(); return id === 'btnenviarvalidacao' || id === 'btnvalidacaoreal' || /enviar\s+para\s+valida/.test(txt) || /submeter/.test(txt) || /submiss/.test(txt) || /atualizar\s+gui/.test(txt); }
+  document.addEventListener('click', function(ev){ var el = ev.target && ev.target.closest ? ev.target.closest('button, input[type="button"], input[type="submit"], a') : null; if(!isValidationTrigger(el)) return; if(!validateObrigatorios()){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); return false; } }, true);
+  document.addEventListener('submit', function(ev){ if(!validateObrigatorios()){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); return false; } }, true);
+  function patchFunction(name){ var original = window[name]; if(typeof original !== 'function' || original.__validacaoObrigatoriaPatch) return; var wrapped = function(){ if(!validateObrigatorios()) return false; return original.apply(this, arguments); }; wrapped.__validacaoObrigatoriaPatch = true; window[name] = wrapped; }
+  function patchKnownFunctions(){ ['submitValidacao','enviarParaValidacao','validarEEnviar','sendForValidation','submeterValidacao'].forEach(patchFunction); }
+  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', function(){ markRequired(); patchKnownFunctions(); }); } else { markRequired(); patchKnownFunctions(); }
+  setTimeout(function(){ markRequired(); patchKnownFunctions(); }, 250);
+  setTimeout(function(){ markRequired(); patchKnownFunctions(); }, 1000);
+  if(VALIDAR_SESSOES_RBL && window.MutationObserver){ try{ new MutationObserver(function(){ markRequired(); }).observe(document.body, {childList:true, subtree:true}); }catch(e){} }
+})();
+</script>
+<script id="guioes-empty-date-time-on-new-20260626">
+(function(){
+  'use strict';
+  var userTouched = false;
+  function hasItemId(){ try{ return !!new URLSearchParams(window.location.search).get('itemId'); }catch(e){ return false; } }
+  function controls(){ return Array.prototype.slice.call(document.querySelectorAll('input[type="date"], input[type="time"]')); }
+  function markTouched(){ userTouched = true; }
+  function clearInitialDateTime(){
+    if(hasItemId() || userTouched) return;
+    controls().forEach(function(el){
+      el.setAttribute('autocomplete', 'off');
+      el.value = '';
+      el.removeAttribute('value');
+    });
+  }
+  function init(){
+    controls().forEach(function(el){
+      if(el.dataset.guioesDateTimeBound === '1') return;
+      el.dataset.guioesDateTimeBound = '1';
+      el.addEventListener('input', markTouched);
+      el.addEventListener('change', markTouched);
+    });
+    clearInitialDateTime();
+    setTimeout(clearInitialDateTime, 80);
+    setTimeout(clearInitialDateTime, 300);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<style id="guioes-date-time-native-final-20260625">
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"],
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"]{
+  -webkit-appearance:auto !important;
+  appearance:auto !important;
+  background:#fff !important;
+  color:#242424 !important;
+  -webkit-text-fill-color:#242424 !important;
+  color-scheme:light !important;
+  min-height:42px !important;
+  line-height:normal !important;
+}
+</style>
+
+
+<!-- PATCH FINAL PROJ-BL — percentagens abertas + título SharePoint seguro -->
+<style id="projbl-percentagens-abertas-title-safe-css">
+  /* Entregáveis e Contribuições são percentagens abertas; não há total obrigatório. */
+  #entregaveis .projbliso-total-row,
+  #entregaveis .proj-entregaveis-total,
+  #ucs .proj-contrib-total,
+  #contribuicoes .proj-contrib-total,
+  #contribuicoes .projblz7g-total-row,
+  .projbliso-total-row,
+  .projblz7g-total-row,
+  .proj-entregaveis-total,
+  .proj-contrib-total{
+    display:none !important;
+    visibility:hidden !important;
+  }
+  #entregaveis .projbliso-percent-warn,
+  #ucs .projbliso-percent-warn,
+  #contribuicoes .projbliso-percent-warn,
+  #ucs .projblz7g-warn,
+  #contribuicoes .projblz7g-warn,
+  #entregaveis .is-warn,
+  #ucs .is-warn,
+  #contribuicoes .is-warn{
+    border-color:#333 !important;
+    outline:none !important;
+    box-shadow:none !important;
+    color:inherit !important;
+    background:#fff !important;
+  }
+</style>
+<script id="projbl-percentagens-abertas-title-safe-js">
+(function(){
+  'use strict';
+  function cleanText(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
+  function limitTitle(v){
+    v = cleanText(v || 'PROJ-BL');
+    return v.length > 250 ? v.slice(0,250) : v;
+  }
+  window.projblSafeSharePointTitle = limitTitle;
+
+  function openPercentages(){
+    try{
+      document.querySelectorAll('.projbliso-total-row,.projblz7g-total-row,.proj-entregaveis-total,.proj-contrib-total').forEach(function(el){
+        if(el && el.parentNode) el.parentNode.removeChild(el);
+      });
+      document.querySelectorAll('.projbliso-percent-warn,.projblz7g-warn,.is-warn,.warn').forEach(function(el){
+        el.classList.remove('projbliso-percent-warn','projblz7g-warn','is-warn','warn');
+        try{ el.style.borderColor=''; el.style.outline=''; el.style.boxShadow=''; }catch(e){}
+      });
+    }catch(e){}
+  }
+  window.projblOpenPercentages = openPercentages;
+  ['DOMContentLoaded','load','input','change','click'].forEach(function(evt){
+    window.addEventListener(evt, function(){ setTimeout(openPercentages, 0); setTimeout(openPercentages, 120); }, true);
+  });
+  [0,100,300,800,1500,3000].forEach(function(ms){ setTimeout(openPercentages, ms); });
+
+  /* Blindagem final: qualquer payload enviado ao Power Automate respeita o limite do campo Title do SharePoint. */
+  if(!window.__projblFetchTitleSafePatch){
+    window.__projblFetchTitleSafePatch = true;
+    var originalFetch = window.fetch;
+    window.fetch = function(input, init){
+      try{
+        if(init && typeof init.body === 'string' && init.body.indexOf('"title"') !== -1){
+          var payload = JSON.parse(init.body);
+          if(payload && typeof payload === 'object' && payload.title){
+            payload.title = limitTitle(payload.title);
+            init = Object.assign({}, init, { body: JSON.stringify(payload) });
+          }
+        }
+      }catch(e){}
+      return originalFetch.apply(this, arguments.length === 1 ? [input] : [input, init]);
+    };
+  }
+})();
 </script>
 </body>
 </html>
