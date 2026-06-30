@@ -2,6 +2,9 @@
 
 <html lang="pt">
 <head>
+<!-- PROJ-BL ENTREGAVEIS DATA TEXTO CROSSBROWSER 2026-06-15 -->
+<!-- PROJ-BL DATAS ENTREGAVEIS TARGETED FINAL CORRIGIDO 2026-06-15 -->
+<!-- PROJ-BL PAYLOAD DATAS MINIMO SEGURO 2026-06-15 -->
 <script id="projbl-normal-early-no-test-autofill">
 (function(){
   try {
@@ -10335,31 +10338,22 @@ body:not(.guiao-pdf-mode) .projbl-autoria-estado-heading{
 }
 </style>
 
-<style id="guioes-date-time-native-20260625">
-input[type="date"],
-input[type="time"]{
-  -webkit-appearance:auto !important;
-  appearance:auto !important;
-  background:#fff !important;
-  color:#242424 !important;
-  -webkit-text-fill-color:#242424 !important;
-  color-scheme:light !important;
-  min-height:42px !important;
-  line-height:normal !important;
+
+<style id="projbl-entregaveis-data-text-crossbrowser-css">
+/* PROJ-BL ENTREGAVEIS DATA TEXTO CROSSBROWSER 2026-06-15
+   Datas da Tabela 5 como texto dd/mm/aaaa para evitar divergência Safari/Chrome em input[type=date]. */
+#entregaveis input.projbliso-date{
+  appearance:none !important;
+  -webkit-appearance:none !important;
+  text-align:center !important;
+}
+#entregaveis input.projbliso-date::placeholder{
+  color:#777 !important;
+  -webkit-text-fill-color:#777 !important;
 }
 </style>
-
-<style id="guioes-home-button-20260626">
-.guioes-home-link{position:fixed;left:1.25rem;top:1.15rem;z-index:9999;display:inline-flex;align-items:center;gap:.45rem;border:1px solid rgba(0,0,0,.08);border-radius:999px;background:rgba(255,255,255,.95);box-shadow:0 14px 34px rgba(26,34,44,.09);color:#20242c;text-decoration:none;font:700 14px/1.1 "Segoe UI",Arial,sans-serif;padding:.85rem 1.05rem;backdrop-filter:blur(8px)}
-.guioes-home-link:hover{background:#fff;border-color:rgba(0,0,0,.16)}
-@media(max-width:800px){.guioes-home-link{left:.85rem;top:.85rem;font-size:13px;padding:.7rem .9rem}}
-@media print{.guioes-home-link{display:none!important}}
-</style>
-
 </head>
 <body>
-<a class="guioes-home-link" href="./index.html" aria-label="Voltar à página inicial">← Página inicial</a>
-
 <div class="page"><div class="premium-status no-print">
 <div class="progress-label" id="progressLabel">Guião preenchido: 0%</div>
 <div class="progress-bar">
@@ -10372,7 +10366,7 @@ input[type="time"]{
 </div><div class="header-grid" style="display:grid !important;gap:14px !important;margin:0 0 12px 0 !important;padding:0 !important;clear:none !important;display:grid !important;grid-template-columns:repeat(4, minmax(0, 1fr)) !important;gap:10px !important;margin:0 0 14px 0 !important;">
 <div class="header-card">
 <label style=" text-transform:none !important;">Unidade Orgânica</label>
-<select id="unidadeOrganica" style="font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" required="required" aria-required="true">
+<select id="unidadeOrganica" style="font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;">
 <option selected="selected" value="">Selecionar</option>
 <option value="FCST">FCST</option>
 <option value="FCS">FCS</option>
@@ -10382,19 +10376,19 @@ input[type="time"]{
 </select>
 </div><div class="header-card">
 <label style=" text-transform:none !important;">Modalidade</label>
-<select id="modalidade" style="font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" required="required" aria-required="true">
+<select id="modalidade" style="font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;">
 <option selected="selected" value="">Selecionar</option>
 <option value="Presencial">Presencial</option>
 <option value="EaD">EaD</option>
 </select>
-</div><div class="header-card projbl-header-selector-card"><label for="semestre">Semestre</label><select class="projbl-header-selector" id="semestre" required="required" aria-required="true"><option selected="selected" value="">Selecionar</option><option value="1.º semestre">1.º semestre</option><option value="2.º semestre">2.º semestre</option><option value="Anual">Anual</option></select></div><div class="header-card projbl-header-selector-card"><label for="turmaEdicao">Turma/Edição</label><select class="projbl-header-selector" id="turmaEdicao" placeholder="Ex.: Turma A" required="required" aria-required="true"><option selected="selected" value="">Selecionar</option><option value="Turma 1">Turma 1</option><option value="Turma 2">Turma 2</option><option value="Turma 3">Turma 3</option><option value="Turma 4">Turma 4</option></select></div></div>
+</div><div class="header-card projbl-header-selector-card"><label for="semestre">Semestre</label><select class="projbl-header-selector" id="semestre"><option selected="selected" value="">Selecionar</option><option value="1.º semestre">1.º semestre</option><option value="2.º semestre">2.º semestre</option><option value="Anual">Anual</option></select></div><div class="header-card projbl-header-selector-card"><label for="turmaEdicao">Turma/Edição</label><select class="projbl-header-selector" id="turmaEdicao" placeholder="Ex.: Turma A"><option selected="selected" value="">Selecionar</option><option value="Turma 1">Turma 1</option><option value="Turma 2">Turma 2</option><option value="Turma 3">Turma 3</option><option value="Turma 4">Turma 4</option></select></div></div>
 <div class="header-card proj-title-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:11px 13px !important;margin:0 0 12px 0 !important;box-sizing:border-box !important;clear:none !important;">
 <label for="tituloProjeto" style=" text-transform:none !important;">Título do Projeto</label>
 <input class="projbl-header-red-same-course projbl-titulo-projeto-field" id="tituloProjeto" placeholder="Ex.: Projeto de Desenvolvimento Web" style="font-family:;;;text-align:center !important;;font-size:12.5px !important;line-height:1.35 !important;font-weight:500 !important;text-align:center !important;'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" type="text" value=""/>
 </div>
 <div class="header-info" style="display:grid !important;grid-template-columns:1fr 1fr !important;gap:14px !important;margin:0 0 12px 0 !important;padding:0 !important;clear:none !important;">
 <div class="section header-card proj-top-field-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;"><label style="text-transform:none !important;letter-spacing:.01em !important;font-size:13px !important;line-height:1.2 !important;margin-bottom:6px !important;color:#222 !important;font-weight:800 !important;">Unidade(s) Curricular(es):</label><div class="projbl-js-resize-wrap" style="min-height:38px !important;height:38px !important;"><textarea class="projbl-native-resize projbl-native-header projbl-js-resizable projbl-nome-uc-projeto-field projbl-header-red-same-course projbl-campo-igual-curso" data-projbl-native-converted="1" placeholder="Ex.: Projeto Aplicado" style="background:#ffffff !important; background-color:#ffffff !important; background-image:none !important; border:1.25px solid rgba(0,0,0,.35) !important; border-radius:11px !important; min-height:38px !important; padding:8px 10px !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:13px !important; line-height:1.25 !important; font-weight:500 !important; color:#222 !important; text-transform:none !important; box-shadow:none !important; box-sizing:border-box !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;min-height:38px !important;height:38px !important;max-height:none !important;padding:8px 25px 8px 10px !important;font-size:12.1px !important;line-height:1.25 !important;text-align:left !important;overflow:hidden !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value=""></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></div>
-<div class="section header-card proj-top-field-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;"><label for="curso" style="text-transform:none !important;letter-spacing:.01em !important;font-size:13px !important;line-height:1.2 !important;margin-bottom:6px !important;color:#222 !important;font-weight:800 !important;">Curso(s):</label><div class="proj-curso-combobox-wrap" style="position:relative;width:100%;"><input autocomplete="off" class="projbl-curso-payload" id="curso" placeholder="Ex.: Licenciatura em Marketing" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.25px solid rgba(0,0,0,.35) !important;border-radius:11px !important;min-height:38px !important;height:auto !important;padding:8px 10px !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:13px !important;line-height:1.25 !important;font-weight:500 !important;color:#222 !important;text-transform:none !important;box-shadow:none !important;box-sizing:border-box !important;;display:none !important;" type="hidden" value=""/><div class="projbl-curso-real-wrap"><input autocomplete="off" class="projbl-campo-igual-curso" id="cursoBusca" list="cblCursosList" placeholder="Digite para procurar e selecione um curso" style="font-family:;font-size:12.5px !important;line-height:1.35 !important;font-weight:500 !important;'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;min-height:38px !important;height:38px !important;padding:8px 10px !important;font-size:12.1px !important;line-height:1.25 !important;font-weight:500 !important;text-align:left !important;" type="text" value="" required="required" aria-required="true"/><div class="cbl-course-chips" id="cblCursosSelecionados"></div></div><div aria-label="Sugestões de cursos" class="proj-cursos-sugestoes" id="projCursosSugestoes"></div></div><datalist id="projCursosList">
+<div class="section header-card proj-top-field-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;"><label for="curso" style="text-transform:none !important;letter-spacing:.01em !important;font-size:13px !important;line-height:1.2 !important;margin-bottom:6px !important;color:#222 !important;font-weight:800 !important;">Curso(s):</label><div class="proj-curso-combobox-wrap" style="position:relative;width:100%;"><input autocomplete="off" class="projbl-curso-payload" id="curso" placeholder="Ex.: Licenciatura em Marketing" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.25px solid rgba(0,0,0,.35) !important;border-radius:11px !important;min-height:38px !important;height:auto !important;padding:8px 10px !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:13px !important;line-height:1.25 !important;font-weight:500 !important;color:#222 !important;text-transform:none !important;box-shadow:none !important;box-sizing:border-box !important;;display:none !important;" type="hidden" value=""/><div class="projbl-curso-real-wrap"><input autocomplete="off" class="projbl-campo-igual-curso" id="cursoBusca" list="cblCursosList" placeholder="Digite para procurar e selecione um curso" style="font-family:;font-size:12.5px !important;line-height:1.35 !important;font-weight:500 !important;'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;min-height:38px !important;height:38px !important;padding:8px 10px !important;font-size:12.1px !important;line-height:1.25 !important;font-weight:500 !important;text-align:left !important;" type="text" value=""/><div class="cbl-course-chips" id="cblCursosSelecionados"></div></div><div aria-label="Sugestões de cursos" class="proj-cursos-sugestoes" id="projCursosSugestoes"></div></div><datalist id="projCursosList">
 <option value="Licenciatura em Animação e Criação Visual"></option>
 <option value="Licenciatura em Animação Global"></option>
 <option value="Licenciatura em Fotografia e Cultura Visual"></option>
@@ -10485,7 +10479,7 @@ input[type="time"]{
 <div class="header-info proj-header-extra-info" style="display:grid !important;grid-template-columns:1fr 1fr !important;gap:14px !important;margin:0 0 12px 0 !important;padding:0 !important;clear:none !important;">
 <div class="section header-card proj-top-field-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;">
 <label for="anoLetivoProjeto" style="text-transform:none !important;letter-spacing:.01em !important;font-size:13px !important;line-height:1.2 !important;margin-bottom:6px !important;color:#222 !important;font-weight:800 !important;">Ano letivo:</label>
-<input class="projbl-header-red-same-course projbl-ano-letivo-field projbl-campo-igual-curso" id="anoLetivoProjeto" placeholder="Ex.: 2026/2027" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.25px solid rgba(0,0,0,.35) !important;border-radius:11px !important;min-height:38px !important;height:auto !important;padding:8px 10px !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:13px !important;line-height:1.25 !important;font-weight:500 !important;color:#222 !important;text-transform:none !important;box-shadow:none !important;box-sizing:border-box !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" type="text" value="" required="required" aria-required="true"/>
+<input class="projbl-header-red-same-course projbl-ano-letivo-field projbl-campo-igual-curso" id="anoLetivoProjeto" placeholder="Ex.: 2026/2027" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.25px solid rgba(0,0,0,.35) !important;border-radius:11px !important;min-height:38px !important;height:auto !important;padding:8px 10px !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:13px !important;line-height:1.25 !important;font-weight:500 !important;color:#222 !important;text-transform:none !important;box-shadow:none !important;box-sizing:border-box !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" type="text" value=""/>
 </div>
 <div class="section header-card proj-top-field-card projbl-numeric-pair-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;">
 <div class="projbl-numeric-pair-field">
@@ -10506,7 +10500,7 @@ input[type="time"]{
 <tr style="background:#ffffff !important; background-image:none !important;"><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-bottom:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-nome projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: Prof.ª Ana Luiza Marques" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-right:0 !important;border-bottom:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-email projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: docente@universidadeeuropeia.pt" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td></tr>
 </table><div class="projbl-row-actions projbl-docentes-sbl-controls"><button aria-label="Adicionar linha" class="projbl-row-action-btn projbl-row-action-add projbl-docentes-sbl-add" data-sbl-tooltip="Adicionar linha" title="Adicionar linha" type="button">+</button><button aria-label="Remover linha" class="projbl-row-action-btn projbl-row-action-remove projbl-docentes-sbl-remove" data-sbl-tooltip="Remover linha" title="Remover linha" type="button">−</button><div class="projbl-row-action-legend">+ adicionar linha · − remover última linha</div></div>
 </div>
-<div class="projbl-autoria-estado-heading">Autoria e estado do guião</div><div class="section" style=" margin-top:0 !important;margin-bottom:12px !important;"><label for="autoria">Autoria:</label><div class="projbl-js-resize-wrap"><textarea class="projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" id="autoria" placeholder="Ex.: Ana Luiza Marques" style="font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;text-align:left !important;padding:8px 25px 14px 10px !important;overflow:auto !important;min-height:44px !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value="" required="required" aria-required="true"></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></div><div class="section projbl-estado-guiao-section" style="margin-top:0 !important;margin-bottom:12px !important;"><label for="estadoGuiao">Estado do guião:</label><select class="projbl-estado-guiao-select" id="estadoGuiao" required="required" aria-required="true"><option selected="selected" value="">Selecionar</option><option value="Novo">Novo</option><option value="Atualizado">Atualizado</option><option value="Reutilizado">Reutilizado</option></select></div>
+<div class="projbl-autoria-estado-heading">Autoria e estado do guião</div><div class="section" style=" margin-top:0 !important;margin-bottom:12px !important;"><label for="autoria">Autoria:</label><div class="projbl-js-resize-wrap"><textarea class="projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" id="autoria" placeholder="Ex.: Ana Luiza Marques" style="font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;text-align:left !important;padding:8px 25px 14px 10px !important;overflow:auto !important;min-height:44px !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value=""></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></div><div class="section projbl-estado-guiao-section" style="margin-top:0 !important;margin-bottom:12px !important;"><label for="estadoGuiao">Estado do guião:</label><select class="projbl-estado-guiao-select" id="estadoGuiao"><option selected="selected" value="">Selecionar</option><option value="Novo">Novo</option><option value="Atualizado">Atualizado</option><option value="Reutilizado">Reutilizado</option></select></div>
 <div class="tabs">
 <button class="tab active" onclick="openTab('descricao')">1. Descrição</button>
 <button class="tab" onclick="openTab('funcionamento')">2. Funcionamento</button>
@@ -10553,7 +10547,7 @@ input[type="time"]{
 </div>
 </div>
 <div class="tab-content" id="entregaveis">
-<div class="section projbliso-section projbliso-section-entregaveis"><label class="projbliso-title">ENTREGÁVEIS:</label><table class="projbliso-table projbliso-table-entregaveis"><colgroup><col style="width:19%"/><col style="width:20%"/><col style="width:20%"/><col style="width:21%"/><col style="width:20%"/></colgroup><thead><tr><th>Semana</th><th>Entrega</th><th>Tipo de avaliação</th><th>Data</th><th>% da nota final</th></tr></thead><tbody><tr class="projbliso-data-row"><td><input class="projbliso-field projbliso-input projbliso-compact projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" value=""/></td><td><div class="projbl-light-resize-wrap"><textarea class="projbliso-field projbliso-textarea projbliso-long projbliso-final-uniform projbl-light-resizable" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></td><td><div class="projbl-light-resize-wrap"><textarea class="projbliso-field projbliso-textarea projbliso-long projbliso-final-uniform projbl-light-resizable" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></td><td><input class="projbliso-field projbliso-input projbliso-date projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="date" value=""/></td><td><input class="projbliso-field projbliso-input projbliso-percent projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" value=""/></td></tr><tr class="projbliso-data-row"><td><input class="projbliso-field projbliso-input projbliso-compact projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" value=""/></td><td><div class="projbl-light-resize-wrap"><textarea class="projbliso-field projbliso-textarea projbliso-long projbliso-final-uniform projbl-light-resizable" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></td><td><div class="projbl-light-resize-wrap"><textarea class="projbliso-field projbliso-textarea projbliso-long projbliso-final-uniform projbl-light-resizable" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></td><td><input class="projbliso-field projbliso-input projbliso-date projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="date" value=""/></td><td><input class="projbliso-field projbliso-input projbliso-percent projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" value=""/></td></tr><tr class="projbliso-data-row"><td><input class="projbliso-field projbliso-input projbliso-compact projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" value=""/></td><td><div class="projbl-light-resize-wrap"><textarea class="projbliso-field projbliso-textarea projbliso-long projbliso-final-uniform projbl-light-resizable" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></td><td><div class="projbl-light-resize-wrap"><textarea class="projbliso-field projbliso-textarea projbliso-long projbliso-final-uniform projbl-light-resizable" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></td><td><input class="projbliso-field projbliso-input projbliso-date projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="date" value=""/></td><td><input class="projbliso-field projbliso-input projbliso-percent projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" value=""/></td></tr><tr class="projbliso-total-row"><td class="projbliso-total-label" colspan="4">Total da percentagem da nota final</td><td class="projbliso-total-value">100%</td></tr></tbody></table><div class="projbl-row-actions projbl-row-actions-entregaveis"><button aria-label="Adicionar linha" class="projbl-row-action-btn projbl-row-action-add projbliso-entregaveis-add" data-sbl-tooltip="Adicionar linha" title="Adicionar linha" type="button">+</button><button aria-label="Remover linha" class="projbl-row-action-btn projbl-row-action-remove projbliso-entregaveis-remove" data-sbl-tooltip="Remover linha" title="Remover linha" type="button">−</button><div class="projbl-row-action-legend">+ adicionar linha · − remover última linha</div></div></div></div>
+<div class="section projbliso-section projbliso-section-entregaveis"><label class="projbliso-title">ENTREGÁVEIS:</label><table class="projbliso-table projbliso-table-entregaveis"><colgroup><col style="width:19%"/><col style="width:20%"/><col style="width:20%"/><col style="width:21%"/><col style="width:20%"/></colgroup><thead><tr><th>Semana</th><th>Entrega</th><th>Tipo de avaliação</th><th>Data</th><th>% da nota final</th></tr></thead><tbody><tr class="projbliso-data-row"><td><input class="projbliso-field projbliso-input projbliso-compact projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" value=""/></td><td><div class="projbl-light-resize-wrap"><textarea class="projbliso-field projbliso-textarea projbliso-long projbliso-final-uniform projbl-light-resizable" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></td><td><div class="projbl-light-resize-wrap"><textarea class="projbliso-field projbliso-textarea projbliso-long projbliso-final-uniform projbl-light-resizable" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></td><td><input class="projbliso-field projbliso-input projbliso-date projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" inputmode="numeric" placeholder="dd/mm/aaaa" value=""/></td><td><input class="projbliso-field projbliso-input projbliso-percent projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" value=""/></td></tr><tr class="projbliso-data-row"><td><input class="projbliso-field projbliso-input projbliso-compact projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" value=""/></td><td><div class="projbl-light-resize-wrap"><textarea class="projbliso-field projbliso-textarea projbliso-long projbliso-final-uniform projbl-light-resizable" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></td><td><div class="projbl-light-resize-wrap"><textarea class="projbliso-field projbliso-textarea projbliso-long projbliso-final-uniform projbl-light-resizable" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></td><td><input class="projbliso-field projbliso-input projbliso-date projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" inputmode="numeric" placeholder="dd/mm/aaaa" value=""/></td><td><input class="projbliso-field projbliso-input projbliso-percent projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" value=""/></td></tr><tr class="projbliso-data-row"><td><input class="projbliso-field projbliso-input projbliso-compact projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" value=""/></td><td><div class="projbl-light-resize-wrap"><textarea class="projbliso-field projbliso-textarea projbliso-long projbliso-final-uniform projbl-light-resizable" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></td><td><div class="projbl-light-resize-wrap"><textarea class="projbliso-field projbliso-textarea projbliso-long projbliso-final-uniform projbl-light-resizable" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></td><td><input class="projbliso-field projbliso-input projbliso-date projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" inputmode="numeric" placeholder="dd/mm/aaaa" value=""/></td><td><input class="projbliso-field projbliso-input projbliso-percent projbliso-final-uniform" style="font-weight:500 !important;font-style:normal !important;background:#ffffff !important;background-color:#ffffff !important;box-shadow:none !important;outline:none !important;text-shadow:none !important;-webkit-text-fill-color:#222222 !important;" type="text" value=""/></td></tr><tr class="projbliso-total-row"><td class="projbliso-total-label" colspan="4">Total da percentagem da nota final</td><td class="projbliso-total-value">100%</td></tr></tbody></table><div class="projbl-row-actions projbl-row-actions-entregaveis"><button aria-label="Adicionar linha" class="projbl-row-action-btn projbl-row-action-add projbliso-entregaveis-add" data-sbl-tooltip="Adicionar linha" title="Adicionar linha" type="button">+</button><button aria-label="Remover linha" class="projbl-row-action-btn projbl-row-action-remove projbliso-entregaveis-remove" data-sbl-tooltip="Remover linha" title="Remover linha" type="button">−</button><div class="projbl-row-action-legend">+ adicionar linha · − remover última linha</div></div></div></div>
 <div class="tab-content" id="avaliacao"><div class="section projbl-avaliacao-clean-section"><label class="projbl-avaliacao-clean-title">CRITÉRIOS DE AVALIAÇÃO:</label><div class="projbl-avaliacao-clean-list"><div class="projbl-avaliacao-clean-card"><label class="projbl-avaliacao-clean-label projbl-avaliacao-nome-uc-label-uniforme">NOME DA UC:</label><div class="projbl-avaliacao-field-wrap"><div class="projbl-light-resize-wrap"><textarea class="projbl-avaliacao-field projbl-light-resizable" placeholder="Ex.: Marketing Digital" style="min-height:44px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projbl-avaliacao-clean-criteria"><div class="projbl-avaliacao-clean-criterion"><div class="projbl-avaliacao-field-wrap"><div class="projbl-light-resize-wrap"><textarea class="projbl-avaliacao-field projbl-light-resizable" placeholder="Descrição de critério" style="min-height:44px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div></div><div class="projbl-avaliacao-clean-criterion"><div class="projbl-avaliacao-field-wrap"><div class="projbl-light-resize-wrap"><textarea class="projbl-avaliacao-field projbl-light-resizable" placeholder="Descrição de critério" style="min-height:44px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div></div><div class="projbl-avaliacao-clean-criterion"><div class="projbl-avaliacao-field-wrap"><div class="projbl-light-resize-wrap"><textarea class="projbl-avaliacao-field projbl-light-resizable" placeholder="Descrição de critério" style="min-height:44px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div></div></div></div><div class="projbl-avaliacao-clean-card"><label class="projbl-avaliacao-clean-label projbl-avaliacao-nome-uc-label-uniforme">NOME DA UC:</label><div class="projbl-avaliacao-field-wrap"><div class="projbl-light-resize-wrap"><textarea class="projbl-avaliacao-field projbl-light-resizable" placeholder="Ex.: Marketing Digital" style="min-height:44px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projbl-avaliacao-clean-criteria"><div class="projbl-avaliacao-clean-criterion"><div class="projbl-avaliacao-field-wrap"><div class="projbl-light-resize-wrap"><textarea class="projbl-avaliacao-field projbl-light-resizable" placeholder="Descrição de critério" style="min-height:44px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div></div><div class="projbl-avaliacao-clean-criterion"><div class="projbl-avaliacao-field-wrap"><div class="projbl-light-resize-wrap"><textarea class="projbl-avaliacao-field projbl-light-resizable" placeholder="Descrição de critério" style="min-height:44px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div></div><div class="projbl-avaliacao-clean-criterion"><div class="projbl-avaliacao-field-wrap"><div class="projbl-light-resize-wrap"><textarea class="projbl-avaliacao-field projbl-light-resizable" placeholder="Descrição de critério" style="min-height:44px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div></div></div></div></div><div aria-label="Controlos da avaliação" class="projbl-row-actions projbl-avaliacao-clean-controls no-print"><button aria-label="Adicionar linha" class="projbl-row-action-btn projbl-row-action-add projbl-avaliacao-add" data-sbl-tooltip="Adicionar linha" title="Adicionar linha" type="button">+</button><button aria-label="Remover linha" class="projbl-row-action-btn projbl-row-action-remove projbl-avaliacao-remove" data-sbl-tooltip="Remover linha" title="Remover linha" type="button">−</button><div class="projbl-row-action-legend">+ adicionar linha · − remover última linha</div></div></div></div>
 <div class="tab-content" id="ucs" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado">
 <div class="section projblz7g-section"><label class="projblz7g-title">CONTRIBUIÇÕES DAS UNIDADES CURRICULARES:</label><div class="projblz7g-grid" id="projblz7gGrid" role="table"><div class="projblz7g-row projblz7g-header-row" role="row"><div class="projblz7g-cell projblz7g-header-cell" role="columnheader">ECTS</div><div class="projblz7g-cell projblz7g-header-cell" role="columnheader">Unidade Curricular</div><div class="projblz7g-cell projblz7g-header-cell" role="columnheader">Horas de contacto</div><div class="projblz7g-cell projblz7g-header-cell" role="columnheader">Contribuição</div><div class="projblz7g-cell projblz7g-header-cell" role="columnheader">Docente(s)/Email</div><div class="projblz7g-cell projblz7g-header-cell" role="columnheader">% do projeto final</div></div><div class="projblz7g-row projblz7g-data-row" role="row"><div class="projblz7g-cell" role="cell"><input class="projblz7g-field projblz7g-input" type="text" value=""/></div><div class="projblz7g-cell" role="cell"><div class="projbl-light-resize-wrap"><textarea class="projblz7g-field projblz7g-textarea projbl-light-resizable" style="min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projblz7g-cell" role="cell"><input class="projblz7g-field projblz7g-input" type="text" value=""/></div><div class="projblz7g-cell" role="cell"><div class="projbl-light-resize-wrap"><textarea class="projblz7g-field projblz7g-textarea projbl-light-resizable" style="min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projblz7g-cell" role="cell"><div class="projbl-light-resize-wrap"><textarea class="projblz7g-field projblz7g-textarea projblz7g-email projbl-light-resizable" style="min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projblz7g-cell" role="cell"><input class="projblz7g-field projblz7g-input projblz7g-percent" type="text" value=""/></div></div><div class="projblz7g-row projblz7g-data-row" role="row"><div class="projblz7g-cell" role="cell"><input class="projblz7g-field projblz7g-input" type="text" value=""/></div><div class="projblz7g-cell" role="cell"><div class="projbl-light-resize-wrap"><textarea class="projblz7g-field projblz7g-textarea projbl-light-resizable" style="min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projblz7g-cell" role="cell"><input class="projblz7g-field projblz7g-input" type="text" value=""/></div><div class="projblz7g-cell" role="cell"><div class="projbl-light-resize-wrap"><textarea class="projblz7g-field projblz7g-textarea projbl-light-resizable" style="min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projblz7g-cell" role="cell"><div class="projbl-light-resize-wrap"><textarea class="projblz7g-field projblz7g-textarea projblz7g-email projbl-light-resizable" style="min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projblz7g-cell" role="cell"><input class="projblz7g-field projblz7g-input projblz7g-percent" type="text" value=""/></div></div><div class="projblz7g-row projblz7g-data-row" role="row"><div class="projblz7g-cell" role="cell"><input class="projblz7g-field projblz7g-input" type="text" value=""/></div><div class="projblz7g-cell" role="cell"><div class="projbl-light-resize-wrap"><textarea class="projblz7g-field projblz7g-textarea projbl-light-resizable" style="min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projblz7g-cell" role="cell"><input class="projblz7g-field projblz7g-input" type="text" value=""/></div><div class="projblz7g-cell" role="cell"><div class="projbl-light-resize-wrap"><textarea class="projblz7g-field projblz7g-textarea projbl-light-resizable" style="min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projblz7g-cell" role="cell"><div class="projbl-light-resize-wrap"><textarea class="projblz7g-field projblz7g-textarea projblz7g-email projbl-light-resizable" style="min-height:52px !important;resize:vertical !important;overflow:auto !important;" title="Campo expansível: arraste o tracinho no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-light-resize-handle" role="presentation"></span></div></div><div class="projblz7g-cell" role="cell"><input class="projblz7g-field projblz7g-input projblz7g-percent" type="text" value=""/></div></div><div class="projblz7g-row projblz7g-total-row" role="row"><div class="projblz7g-cell projblz7g-total-label" role="cell">Total da percentagem do projeto final</div><div class="projblz7g-cell projblz7g-total-value" role="cell">100%</div></div></div><div class="projbl-row-actions projbl-row-actions-contribuicoes"><button aria-label="Adicionar linha" class="projbl-row-action-btn projbl-row-action-add projblz7g-add projbl-docentes-sbl-add" data-sbl-tooltip="Adicionar linha" title="Adicionar linha" type="button">+</button><button aria-label="Remover linha" class="projbl-row-action-btn projbl-row-action-remove projblz7g-remove projbl-docentes-sbl-remove" data-sbl-tooltip="Remover linha" title="Remover linha" type="button">−</button><div class="projbl-row-action-legend">+ adicionar linha · − remover última linha</div></div></div></div><div class="projbl-finalblocks-fixed-container" id="projblFinalBlocksFixedContainer"><div class="projbl-finalblock projbl-finalblock-bibliografia">
@@ -10574,7 +10568,7 @@ input[type="time"]{
 <div class="ux-menu" id="uxMenuMaisOpcoes"></div>
 </div>
 <button class="ux-btn ux-btn-primary" id="btnEnviarValidacao" type="button">Enviar para Validação</button>
-<div class="ux-ai-guidance">Use o Assistente IA para esclarecer dúvidas sobre o preenchimento do guião.</div>
+<div class="ux-ai-guidance">Use o Assistente IA para esclarecer dúvidas sobre o preenchimento do guião*.</div>
 </div></div>
 <div class="ux-info-panel no-print">
 <div class="ux-info-item"><span class="ux-info-dot"></span><span><strong>Assistente IA institucional</strong>Disponível conforme as permissões Microsoft 365.</span></div>
@@ -10824,7 +10818,7 @@ document.addEventListener('DOMContentLoaded', function(){
   try{ localStorage.removeItem('template_autosave_PROJ_DEMO_COMPLETO'); }catch(e){}
   try{ localStorage.removeItem('template_autosave_PROJ_DEMO_COMPLETO_EAD'); }catch(e){}
   renderProgress();
-  renderAutosave('Versão de teste preenchida.');
+  renderAutosave('Última gravação automática: --');
   bindFields();
   initMenu();
   initButtons();
@@ -12673,7 +12667,7 @@ function makeFileName(){
     payload.turmaEdicao = first(payload.turmaEdicao, payload.turma, formData.turmaEdicao, formData.turma_edicao, formData.turma);
     payload.anoLetivo = first(payload.anoLetivo, payload.ano, formData.anoLetivo, formData.AnoLetivo, formData.ano);
     payload.autorizaRepositorio = first(payload.autorizaRepositorio, payload.autorizaPartilhaInterna, payload.partilhaRepositorio, formData.autorizaRepositorio);
-    payload.data = first(payload.data, payload.Data, payload.date, formData.data, formData.Data, formData.date, formData.calendarizacao, formData.dataSessao, formData.data_simulacao, formData.aula1_data, domValue('#data'), domValue('[name="data"]'), domValue('#calendarizacao'), domValue('[id^="aula"][id$="_data"]'), domValue('#entregaveis input[type="date"]'), domValue('input[type="date"]'));
+    payload.data = first(payload.data, payload.Data, payload.date, formData.data, formData.Data, formData.date, formData.calendarizacao, formData.dataSessao, formData.data_simulacao, formData.aula1_data, domValue('#data'), domValue('[name="data"]'), domValue('#calendarizacao'), domValue('[id^="aula"][id$="_data"]'));
     payload.hora = first(payload.hora, payload.Hora, formData.hora, formData.Hora, guiaoIntervaloHora(), formData.hora_inicio, formData.hora_fim, formData.aula1_duracao, domValue('#hora'), domValue('[name="hora"]'), domValue('#hora_inicio'), domValue('#hora_fim'), domValue('[id^="aula"][id$="_duracao"]'), domValue('input[type="time"]'));
     payload.estruturaPedagogica = first(payload.estruturaPedagogica, formData.estruturaPedagogica);
     payload.emails = first(payload.emails, payload.email, formData.emails, formData.email);
@@ -12768,6 +12762,9 @@ function makeFileName(){
     try {
       var payload = JSON.parse(init.body);
       if(payload && typeof payload === 'object' && !Array.isArray(payload)){
+        var payloadKeys = Object.keys(payload).filter(function(k){ return !/^(itemId|id|ID)$/i.test(k); });
+        // Não transformar chamadas de carregamento por itemId em payloads vazios.
+        if(payloadKeys.length === 0) return init;
         normalizeGuiaoPowerAutomatePayload(payload);
         init.body = JSON.stringify(payload);
       }
@@ -12857,6 +12854,40 @@ function collectPayload(){
     var nEstudantesPayload = String(values.nEstudantes || values.numeroEstudantes || values.numEstudantes || values.n_estudantes || values.numero_estudantes || "").trim();
     var nGruposPayload = String(values.nGrupos || values.numeroGrupos || values.numGrupos || values.n_grupos || values.numero_grupos || "").trim();
 
+
+    /* PROJ-BL DATAS ENTREGAVEIS MINIMO SEGURO 2026-06-15
+       Correção mínima: guarda a tabela 5 (Entregáveis) explicitamente no payload.
+       Não altera layout, PDF, botões, loader geral nem Power Automate. */
+    function projBlCollectEntregaveisRowsForPayload(){
+      var rows = Array.prototype.slice.call(document.querySelectorAll('#entregaveis tbody tr.projbliso-data-row, #entregaveis tbody tr:not(.projbliso-total-row)'));
+      return rows.map(function(row){
+        var cells = Array.prototype.slice.call(row.querySelectorAll('td'));
+        function cellValue(index){
+          var cell = cells[index];
+          if(!cell) return '';
+          var el = cell.querySelector('input, textarea, select');
+          return String((el && el.value) || '').trim();
+        }
+        return {
+          semana: cellValue(0),
+          Semana: cellValue(0),
+          entrega: cellValue(1),
+          Entrega: cellValue(1),
+          tipoAvaliacao: cellValue(2),
+          tipo_de_avaliacao: cellValue(2),
+          'Tipo de avaliação': cellValue(2),
+          data: cellValue(3),
+          Data: cellValue(3),
+          date: cellValue(3),
+          percentagemNotaFinal: cellValue(4),
+          percentagem: cellValue(4),
+          '% da nota final': cellValue(4)
+        };
+      }).filter(function(row){
+        return Object.keys(row).some(function(k){ return String(row[k] || '').trim() !== ''; });
+      });
+    }
+
     /* PROJ-BL OU PAYLOAD FIX 2026-06-08
        Mantém a lógica de submissão existente e apenas garante que o valor selecionado
        em #unidadeOrganica chega ao Power Automate com aliases seguros. */
@@ -12901,6 +12932,22 @@ function collectPayload(){
     if(anoLetivoPayload){ values.anoLetivo = values.anoLetivo || anoLetivoPayload; values.AnoLetivo = values.AnoLetivo || anoLetivoPayload; values.ano = values.ano || anoLetivoPayload; }
     values.submittedAt = new Date().toISOString();
 
+    var entregaveisRowsPayload = projBlCollectEntregaveisRowsForPayload();
+    var entregaveisDatasPayload = entregaveisRowsPayload.map(function(row){ return String(row.data || row.Data || '').trim(); }).filter(Boolean);
+    values.entregaveis = entregaveisRowsPayload;
+    values.entregaveisTabela = entregaveisRowsPayload;
+    values.entregaveisRows = entregaveisRowsPayload;
+    values.entregaveisDatas = entregaveisDatasPayload;
+    values.entregaveisDatasTexto = entregaveisDatasPayload.join('; ');
+    entregaveisRowsPayload.forEach(function(row, idx){
+      var n = idx + 1;
+      if(row.semana) linhas.push('Entregável ' + n + ' - Semana: ' + row.semana);
+      if(row.entrega) linhas.push('Entregável ' + n + ' - Entrega: ' + row.entrega);
+      if(row.tipoAvaliacao) linhas.push('Entregável ' + n + ' - Tipo de avaliação: ' + row.tipoAvaliacao);
+      if(row.data) linhas.push('Entregável ' + n + ' - Data: ' + row.data);
+      if(row.percentagemNotaFinal) linhas.push('Entregável ' + n + ' - % da nota final: ' + row.percentagemNotaFinal);
+    });
+
     return {
       templateType: "PROJ-BL",
       scenario: "PROJ-BL",
@@ -12929,6 +12976,12 @@ function collectPayload(){
       n_grupos: nGruposPayload,
       numeroGrupos: nGruposPayload,
       numero_grupos: nGruposPayload,
+      entregaveis: entregaveisRowsPayload,
+      Entregaveis: entregaveisRowsPayload,
+      entregaveisTabela: entregaveisRowsPayload,
+      entregaveisRows: entregaveisRowsPayload,
+      entregaveisDatas: entregaveisDatasPayload,
+      entregaveisDatasTexto: entregaveisDatasPayload.join('; '),
       unidadeOrganica: unidadeOrganicaPayload,
       UnidadeOrganica: unidadeOrganicaPayload,
       unidade_organica: unidadeOrganicaPayload,
@@ -12975,7 +13028,7 @@ function collectPayload(){
       linhas: linhas,
       resumoCampos: linhas.join("\n"),
       plainText: linhas.join("\n"),
-      estruturaPedagogica: JSON.stringify({templateType:"PROJ-BL", cenarioAprendizagem:"PROJ-BL", values:values, linhas:linhas}, null, 2),
+      estruturaPedagogica: JSON.stringify({templateType:"PROJ-BL", cenarioAprendizagem:"PROJ-BL", entregaveis:entregaveisRowsPayload, entregaveisTabela:entregaveisRowsPayload, entregaveisDatas:entregaveisDatasPayload, values:values, linhas:linhas}, null, 2),
       pdfFileName: makeFileName()
     };
   }
@@ -19427,16 +19480,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     input.value = value;
     input.dispatchEvent(new Event('input', {bubbles:true}));
     input.dispatchEvent(new Event('change', {bubbles:true}));
-    var isSearchOnly = input.id === 'cursoBusca' || input.name === 'cursoBusca' || input.getAttribute('data-pbl-aux') === 'true';
-    var payload = document.getElementById('curso');
-    if(payload && payload !== input){
-      payload.value = value;
-      payload.dispatchEvent(new Event('input', {bubbles:true}));
-      payload.dispatchEvent(new Event('change', {bubbles:true}));
-    }
-    if(isSearchOnly && (payload && payload !== input)){
-      setTimeout(function(){ input.value = ''; }, 120);
-    }
+    setTimeout(function(){ input.value = ''; }, 120);
   }
   function initInput(input){
     if(!input || input.dataset.guioesCustomCursoV2 === '1') return;
@@ -19531,17 +19575,35 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 
 <script id="guioes-carregar-guiao-por-id-v2">
 /* ===== Camada institucional — carregamento de guião para edição por itemId =====
-   Abre o template com ?itemId=..., obtém os dados do fluxo “Obter guião por ID”
-   e preenche o formulário sem alterar PDF, layout, submissão principal ou botões. */
+   Baseada no padrão funcional do PBL: fetch POST com { itemId }.
+   Esta versão só corrige o carregamento/mapeamento: não altera PDF, CSS visual, botões,
+   payload principal de submissão, Power Automate nem estrutura geral do template. */
 (function(){
   'use strict';
-  if(window.__guioesCarregamentoPorItemIdV2Instalado) return;
-  window.__guioesCarregamentoPorItemIdV2Instalado = true;
+  if(window.__guioesCarregamentoPorItemIdV3Definitivo) return;
+  window.__guioesCarregamentoPorItemIdV3Definitivo = true;
 
   var OBTER_GUIAO_URL = 'https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9e455e5d804746acb1794984f196dcf3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JQzGhGc6DQBJr5bfeH_RRLKzxKyOpha9O0AJqreUS7A';
 
-  function clean(v){ return String(v == null ? '' : v).trim(); }
-  function lower(v){ return clean(v).toLowerCase(); }
+  function valueToString(v){
+    if(v == null) return '';
+    if(typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') return String(v);
+    if(Array.isArray(v)) return v.map(valueToString).map(clean).filter(Boolean).join('; ');
+    if(typeof v === 'object'){
+      var preferred = ['value','Value','label','Label','title','Title','text','Text','displayName','DisplayName','LookupValue','lookupValue','Email','email','Name','name'];
+      for(var i=0;i<preferred.length;i++){
+        if(v[preferred[i]] != null && clean(v[preferred[i]])) return valueToString(v[preferred[i]]);
+      }
+      try { return JSON.stringify(v); } catch(e){ return ''; }
+    }
+    return String(v);
+  }
+  function clean(v){ return valueToString(v).replace(/\s+/g,' ').trim(); }
+  function strip(v){
+    try { return clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
+    catch(e){ return clean(v).toLowerCase(); }
+  }
+  function normKey(v){ return strip(v).replace(/[^a-z0-9]+/g,''); }
   function $(id){ return document.getElementById(id); }
   function getItemId(){
     try { return clean(new URLSearchParams(window.location.search).get('itemId')); }
@@ -19557,40 +19619,260 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     try { el.dispatchEvent(new Event('input', {bubbles:true})); } catch(e){}
     try { el.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
   }
-  function setField(id, value){
-    var el = $(id);
+  function dateToInputValue(value){
+    var v = clean(value);
+    if(!v) return '';
+    var m = v.match(/\/Date\((\d+)\)\//);
+    if(m){
+      var dd = new Date(parseInt(m[1],10));
+      if(!isNaN(dd.getTime())) return dd.getFullYear() + '-' + String(dd.getMonth()+1).padStart(2,'0') + '-' + String(dd.getDate()).padStart(2,'0');
+    }
+    // ISO/SharePoint: 2026-01-30, 2026/01/30, 2026-01-30T00:00:00Z
+    m = v.match(/(\d{4})[-/](\d{1,2})[-/](\d{1,2})/);
+    if(m) return m[1] + '-' + String(m[2]).padStart(2,'0') + '-' + String(m[3]).padStart(2,'0');
+    // PT/EU: 30/01/2026, 30-01-2026, 30.01.2026, também com hora a seguir
+    m = v.match(/(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})/);
+    if(m) return m[3] + '-' + String(m[2]).padStart(2,'0') + '-' + String(m[1]).padStart(2,'0');
+    // Compacto: 20260130
+    m = v.match(/^(\d{4})(\d{2})(\d{2})$/);
+    if(m) return m[1] + '-' + m[2] + '-' + m[3];
+    var d = new Date(v);
+    if(!isNaN(d.getTime())){
+      var y = d.getFullYear();
+      var mo = String(d.getMonth()+1).padStart(2,'0');
+      var da = String(d.getDate()).padStart(2,'0');
+      return y + '-' + mo + '-' + da;
+    }
+    return '';
+  }
+  function dateToDisplayValue(value){
+    var iso = dateToInputValue(value);
+    if(iso){
+      var p = iso.split('-');
+      return p[2] + '/' + p[1] + '/' + p[0];
+    }
+    return clean(value);
+  }
+  function assignControlValue(el, value){
     if(!el) return false;
     value = clean(value);
-    if(el.type === 'radio') return false;
+    if(!value && value !== '0') return false;
+    if(el.type === 'date') value = dateToInputValue(value) || value;
     if(el.type === 'checkbox'){
-      el.checked = /^(sim|true|1|yes)$/i.test(value);
+      el.checked = /^(sim|true|1|yes|autorizo)$/i.test(value);
     } else if(el.tagName === 'SELECT'){
       var found = false;
       Array.prototype.forEach.call(el.options || [], function(opt){
-        if(clean(opt.value).toLowerCase() === value.toLowerCase() || clean(opt.text).toLowerCase() === value.toLowerCase()){
+        if(strip(opt.value) === strip(value) || strip(opt.text) === strip(value)){
           el.value = opt.value;
           found = true;
         }
       });
-      if(!found && value) el.value = value;
+      if(!found) el.value = value;
     } else {
       el.value = value;
+      try { el.setAttribute('value', value); } catch(e){}
     }
     dispatch(el);
     return true;
   }
+  function parseMaybeJson(v){
+    if(v == null) return v;
+    if(typeof v !== 'string') return v;
+    var t = v.trim();
+    if(!t) return v;
+    if(!/^[\[{]/.test(t)) return v;
+    try { return JSON.parse(t); } catch(e){ return v; }
+  }
+  function clonePlain(obj){
+    if(!obj || typeof obj !== 'object' || Array.isArray(obj)) return {};
+    var out = {};
+    Object.keys(obj).forEach(function(k){ out[k] = obj[k]; });
+    return out;
+  }
+  function collectObjects(raw, list, depth){
+    if(depth > 7 || raw == null) return;
+    raw = parseMaybeJson(raw);
+    if(Array.isArray(raw)){
+      raw.forEach(function(item){ collectObjects(item, list, depth + 1); });
+      return;
+    }
+    if(typeof raw !== 'object') return;
+    list.push(raw);
+    ['body','data','item','guiao','guião','result','payload','response','value','d','formData','fields'].forEach(function(k){
+      if(Object.prototype.hasOwnProperty.call(raw, k)) collectObjects(raw[k], list, depth + 1);
+    });
+  }
+  function buildData(raw){
+    var objects = [];
+    collectObjects(raw, objects, 0);
+    var data = {};
+    objects.forEach(function(o){ Object.assign(data, clonePlain(o)); });
+    return data;
+  }
+  function parseEstrutura(raw){
+    raw = parseMaybeJson(raw);
+    if(raw && typeof raw === 'object') return raw;
+    return {};
+  }
+  function getAny(obj, keys){
+    obj = obj || {};
+    if(!keys || !keys.length) return '';
+    for(var i=0;i<keys.length;i++){
+      var k = keys[i];
+      if(obj[k] != null && clean(obj[k])) return obj[k];
+    }
+    var wanted = keys.map(normKey);
+    var found = '';
+    Object.keys(obj).some(function(k){
+      if(wanted.indexOf(normKey(k)) >= 0 && clean(obj[k])){ found = obj[k]; return true; }
+      return false;
+    });
+    return found;
+  }
+  function getAnyMany(sources, keys){
+    for(var i=0;i<(sources || []).length;i++){
+      var v = getAny(sources[i], keys);
+      if(clean(v)) return v;
+    }
+    return '';
+  }
+  function extractLineValues(rawData, estrutura){
+    var out = {};
+    function add(label, value){
+      label = clean(label).replace(/:$/,'');
+      value = clean(value);
+      if(!label || !value) return;
+      out[label] = value;
+      out[normKey(label)] = value;
+      if(/curricular|\buc\b/i.test(label)) out.ucs = out.ucs || value;
+      if(/ano\s*letivo/i.test(label)) out.anoLetivo = out.anoLetivo || value;
+      if(/estudantes/i.test(label)) out.numeroEstudantes = out.numeroEstudantes || value;
+      if(/grupos/i.test(label)) out.numeroGrupos = out.numeroGrupos || value;
+      if(/autoriza|reposit[oó]rio/i.test(label)) out.autorizaRepositorio = out.autorizaRepositorio || value;
+      if(/^data$/i.test(label) || /data/i.test(label)) out.data = out.data || value;
+    }
+    function fromLine(line){
+      line = clean(line);
+      if(!line) return;
+      var idx = line.indexOf(':');
+      if(idx > 0) add(line.slice(0, idx), line.slice(idx + 1));
+    }
+    function scan(obj){
+      obj = parseMaybeJson(obj);
+      if(!obj) return;
+      if(Array.isArray(obj)){ obj.forEach(scan); return; }
+      if(typeof obj === 'string'){
+        obj.split(/\n+/).forEach(fromLine);
+        return;
+      }
+      if(typeof obj !== 'object') return;
+      ['linhas','resumoCampos','plainText','texto','summary','fieldsText'].forEach(function(k){ if(obj[k]) scan(obj[k]); });
+    }
+    scan(rawData);
+    scan(estrutura);
+    return out;
+  }
+  function getLabelFor(el){
+    if(!el) return '';
+    var lab = null;
+    try { if(el.id) lab = document.querySelector('label[for="' + (window.CSS && CSS.escape ? CSS.escape(el.id) : el.id) + '"]'); } catch(e){}
+    if(lab) return clean(lab.textContent).replace(/:$/,'');
+    var parentLabel = el.closest && el.closest('label');
+    if(parentLabel) return clean(parentLabel.textContent).replace(clean(el.value || ''),'').replace(/:$/,'');
+    var cell = el.closest && el.closest('td');
+    if(cell){
+      var prev = cell.previousElementSibling;
+      if(prev && /^(TH|TD)$/i.test(prev.tagName || '')) return clean(prev.textContent).replace(/:$/,'');
+    }
+    var parent = el.closest && el.closest('.section,.header-card,.rbl-ident-card,.proj-top-field-card,td,.header-info,.proj-avaliacao-uc,.proj-criteria-block');
+    if(parent){
+      var l = parent.querySelector('label,h3,strong,b,th');
+      if(l) return clean(l.textContent).replace(/:$/,'');
+    }
+    return clean(el.id || el.name || el.placeholder || '');
+  }
+  function allControls(){
+    return Array.prototype.slice.call(document.querySelectorAll('input, textarea, select')).filter(function(el){
+      return !el.disabled && el.type !== 'hidden' && !(el.closest && el.closest('.no-print'));
+    });
+  }
+  function setField(id, value){
+    var el = $(id);
+    if(!el) return false;
+    value = clean(value);
+    if(!value && value !== '0') return false;
+    if(el.type === 'radio') return false;
+    window.__guioesItemIdApplying = true;
+    try {
+      assignControlValue(el, value);
+    } finally {
+      setTimeout(function(){ window.__guioesItemIdApplying = false; }, 0);
+    }
+    return true;
+  }
   function setFirst(ids, value){
     value = clean(value);
-    if(!value) return false;
+    if(!value && value !== '0') return false;
     for(var i=0;i<ids.length;i++){ if(setField(ids[i], value)) return true; }
     return false;
+  }
+  function setFirstSelector(selectors, value){
+    value = clean(value);
+    if(!value && value !== '0') return false;
+    for(var i=0;i<selectors.length;i++){
+      try {
+        var el = document.querySelector(selectors[i]);
+        if(el && assignControlValue(el, value)) return true;
+      } catch(e){}
+    }
+    return false;
+  }
+  function setAllSelector(selector, value){
+    value = clean(value);
+    if(!value && value !== '0') return false;
+    var done = false;
+    try { Array.prototype.forEach.call(document.querySelectorAll(selector), function(el){ if(assignControlValue(el, value)) done = true; }); } catch(e){}
+    return done;
+  }
+  function setByName(name, value){
+    value = clean(value);
+    if(!value && value !== '0') return false;
+    var done = false;
+    Array.prototype.forEach.call(document.querySelectorAll('[name="' + name + '"]'), function(el){
+      if(!done && el.type !== 'radio'){ assignControlValue(el, value); done = true; }
+    });
+    return done;
+  }
+  function setByKey(key, value){
+    value = clean(value);
+    if(!value && value !== '0') return false;
+    if($(key)) return setField(key, value);
+    if(setByName(key, value)) return true;
+    var nk = normKey(key);
+    var done = false;
+    allControls().some(function(el){
+      if(normKey(el.id) === nk || normKey(el.name) === nk){
+        assignControlValue(el, value); done = true; return true;
+      }
+      return false;
+    });
+    if(done) return true;
+    allControls().some(function(el){
+      var label = getLabelFor(el);
+      if(label && (normKey(label) === nk || normKey(label).indexOf(nk) >= 0 || nk.indexOf(normKey(label)) >= 0)){
+        assignControlValue(el, value); done = true; return true;
+      }
+      return false;
+    });
+    return done;
   }
   function setRadioGroup(name, value){
     value = clean(value);
     if(!value) return false;
     var done = false;
     Array.prototype.forEach.call(document.querySelectorAll('input[type="radio"][name="' + name + '"]'), function(radio){
-      var same = clean(radio.value).toLowerCase() === value.toLowerCase();
+      var same = strip(radio.value) === strip(value) || strip((radio.id || '').replace(name,'')) === strip(value);
       radio.checked = same;
       if(same) done = true;
       dispatch(radio);
@@ -19604,17 +19886,15 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     setField('autorizacaoRepositorio', value);
     ['autorizaRepositorio','autorizaRepositorioOpcao','autorizacaoRepositorio'].forEach(function(name){ setRadioGroup(name, value); });
   }
-  function splitCourses(value){
+  function splitList(value){
     return clean(value).split(/;|\n|\|/).map(clean).filter(Boolean).filter(function(v,i,a){
-      return a.findIndex(function(x){ return x.toLowerCase() === v.toLowerCase(); }) === i;
+      return a.findIndex(function(x){ return strip(x) === strip(v); }) === i;
     });
   }
   function renderCourseFallback(container, value, chipClass){
     if(!container || !clean(value)) return;
-    var existing = container.querySelector('.cbl-course-chip,.pbl-course-chip,.projbl-course-chip,.rbl-course-chip,.sbl-course-chip');
-    if(existing) return;
     container.innerHTML = '';
-    splitCourses(value).forEach(function(curso){
+    splitList(value).forEach(function(curso){
       var chip = document.createElement('span');
       chip.className = chipClass || 'cbl-course-chip';
       var span = document.createElement('span');
@@ -19623,24 +19903,54 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
       container.appendChild(chip);
     });
   }
-  function setCursos(value){
-    value = clean(value);
-    if(!value) return;
-    setFirst(['curso','cursos'], value);
-    var search = $('cursoBusca');
-    if(search){ search.value = ''; dispatch(search); }
-    var chips = $('cblCursosSelecionados') || $('pblCursosSelecionados') || document.querySelector('.cbl-course-chips,.pbl-course-chips,.rbl-course-chip-area,.sbl-course-chips');
-    if(chips){
-      setTimeout(function(){
-        dispatch($('curso'));
-        renderCourseFallback(chips, value, chips.id === 'pblCursosSelecionados' ? 'pbl-course-chip' : 'cbl-course-chip');
-      }, 80);
+  function closeCourseDropdowns(){
+    var selectors = [
+      '.guioes-curso-suggestions-v2','.curso-suggestions','.course-suggestions',
+      '.rbl-course-dropdown','.projbl-course-dropdown','.pbl-course-dropdown','.cbl-course-dropdown','.sbl-course-dropdown',
+      '[id*="curso" i][class*="suggest" i]','[class*="curso" i][class*="suggest" i]','[class*="course" i][class*="suggest" i]',
+      '[id*="curso" i][class*="dropdown" i]','[class*="curso" i][class*="dropdown" i]','[class*="course" i][class*="dropdown" i]'
+    ];
+    selectors.forEach(function(sel){
+      try {
+        Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){
+          el.classList.remove('is-open','open','active','show','visible');
+          if(el.matches && el.matches('.guioes-curso-suggestions-v2,.rbl-course-dropdown,.projbl-course-dropdown,.pbl-course-dropdown,.cbl-course-dropdown,.sbl-course-dropdown')){
+            el.style.display = '';
+          }
+        });
+      } catch(e){}
+    });
+  }
+  function forceRebuildRblCoursePicker(value){
+    var curso = $('curso');
+    if(!curso || !document.querySelector('.rbl-course-picker,.rbl-course-chip-area')) return;
+    try { curso.value = clean(value); curso.setAttribute('value', clean(value)); } catch(e){}
+    var card = curso.closest('.rbl-ident-card') || curso.parentElement;
+    if(card){
+      card.removeAttribute('data-rbl-course-ready');
+      try { document.dispatchEvent(new Event('rbl:identificacao-rebuilt')); } catch(e){}
     }
   }
-  function parseEstrutura(raw){
-    if(!raw) return {};
-    if(typeof raw === 'object') return raw;
-    try { return JSON.parse(String(raw)); } catch(e){ return {}; }
+  function setCursos(value){
+    value = clean(value);
+    if(!value) return false;
+    var done = setFirst(['curso','cursos'], value);
+    var search = $('cursoBusca') || $('cursoSearch');
+    if(search){ search.value = ''; dispatch(search); }
+    forceRebuildRblCoursePicker(value);
+    setTimeout(function(){
+      var chips = $('cblCursosSelecionados') || $('pblCursosSelecionados') || document.querySelector('.rbl-course-chip-area,.cbl-course-chips,.pbl-course-chips,.sbl-course-chips');
+      if(chips && !chips.querySelector('.cbl-course-chip,.pbl-course-chip,.projbl-course-chip,.rbl-course-chip,.sbl-course-chip')){
+        var cls = 'cbl-course-chip';
+        if(chips.id === 'pblCursosSelecionados') cls = 'pbl-course-chip';
+        if(chips.classList.contains('rbl-course-chip-area')) cls = 'rbl-course-chip';
+        if($('tituloProjeto')) cls = 'cbl-course-chip projbl-course-chip';
+        renderCourseFallback(chips, value, cls);
+      }
+      closeCourseDropdowns();
+    }, 120);
+    setTimeout(closeCourseDropdowns, 350);
+    return done;
   }
   function splitHoraIntervalo(hora){
     hora = clean(hora);
@@ -19648,102 +19958,311 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     var parts = hora.split(/\s*[–—-]\s*/).map(clean).filter(Boolean);
     return {inicio: parts[0] || '', fim: parts[1] || ''};
   }
-  function visibleControlsForFallback(){
-    return Array.prototype.slice.call(document.querySelectorAll('input, textarea, select')).filter(function(el){
-      return !el.disabled && el.type !== 'hidden' && !el.closest('.no-print');
-    });
-  }
   function applyValuesByKey(values){
     values = values || {};
     Object.keys(values).forEach(function(key){
-      var val = values[key];
-      if(/^campo_\d+$/.test(key) || /^field_\d+$/.test(key)) return;
-      if($(key)) setField(key, val);
+      if(/^campo_\d+$/i.test(key) || /^field_\d+$/i.test(key)) return;
+      setByKey(key, values[key]);
     });
-    var controls = visibleControlsForFallback();
+    var controls = allControls();
     Object.keys(values).forEach(function(key){
-      var m = key.match(/^(?:campo|field)_(\d+)$/);
+      var m = key.match(/^(?:campo|field)_(\d+)$/i);
       if(!m) return;
       var idx = parseInt(m[1],10) - 1;
       var el = controls[idx];
       if(el && !el.id && !el.name){
-        el.value = clean(values[key]);
-        dispatch(el);
+        assignControlValue(el, values[key]);
       }
     });
   }
-  function addStatusBox(){
-    if($('guioesModoEdicaoBox')) return;
-    var ref = document.querySelector('.premium-status') || document.querySelector('.header') || document.querySelector('.page') || document.body.firstElementChild;
-    if(!ref || !ref.parentNode) return;
-    var box = document.createElement('div');
-    box.id = 'guioesModoEdicaoBox';
-    box.className = 'no-print';
-    box.style.margin = '0 0 16px 0';
-    box.style.padding = '12px 14px';
-    box.style.border = '1.5px solid #1f4d2b';
-    box.style.borderRadius = '14px';
-    box.style.background = '#f3fff6';
-    box.style.color = '#1f4d2b';
-    box.style.fontSize = '13px';
-    box.innerHTML = '<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.';
-    ref.parentNode.insertBefore(box, ref.nextSibling);
+  function setTableColumn(selector, value){
+    var items = splitList(value);
+    if(!items.length) return false;
+    var fields = Array.prototype.slice.call(document.querySelectorAll(selector));
+    if(!fields.length) return false;
+    fields.forEach(function(el, i){ if(items[i]){ el.value = items[i]; dispatch(el); } });
+    return true;
   }
-  function preencherFormulario(data){
-    data = data || {};
-    var estrutura = parseEstrutura(data.estruturaPedagogica);
-    var values = (estrutura && estrutura.values && typeof estrutura.values === 'object') ? estrutura.values : {};
-    var hora = splitHoraIntervalo(data.hora);
-
-    applyValuesByKey(values);
-
-    setFirst(['unidadeOrganica','unidade_organica'], values.unidadeOrganica || data.unidadeOrganica);
-    setFirst(['modalidade'], values.modalidade || data.modalidade);
-    setFirst(['semestre'], values.semestre || data.semestre);
-    setFirst(['turmaEdicao','turma_edicao','turma'], values.turmaEdicao || values.turma || data.turmaEdicao);
-    setCursos(values.curso || values.cursos || data.cursos);
-    setFirst(['uc','ucs','unidade_curricular'], values.uc || values.ucs || data.ucs);
-    setFirst(['titulo','tituloProjeto'], values.titulo || values.tituloProjeto || data.title);
-    setFirst(['ano','ano_letivo','anoLetivo','anoLetivoProjeto'], values.ano || values.ano_letivo || values.anoLetivo || data.anoLetivo);
-    setFirst(['professor','docentes'], values.professor || values.docentes || data.docentes);
-    setFirst(['emails','email'], values.emails || values.email || data.emails);
-    setFirst(['n_estudantes','numeroEstudantes'], values.n_estudantes || values.numeroEstudantes || data.nEstudantes);
-    setFirst(['n_grupos','numeroGrupos'], values.n_grupos || values.numeroGrupos || data.nGrupos);
-    setFirst(['autoria','autorias'], values.autoria || values.autorias || data.autorias);
-    setFirst(['estado','estado_guiao','estadoGuiao'], values.estado || values.estadoGuiao || 'Atualizado');
-    setFirst(['organizacao','organizacoes','contacto'], values.organizacao || values.organizacoesContacto || data.organizacoesContacto);
-    setFirst(['calendarizacao','data','dataSimulacao'], values.calendarizacao || values.data || data.data);
-    setFirst(['hora_inicio','horaInicio','hora'], values.hora_inicio || values.horaInicio || hora.inicio || data.hora);
-    setFirst(['hora_fim','horaFim'], values.hora_fim || values.horaFim || hora.fim);
-    setAuthorization(values.autorizaRepositorio || values.autorizacaoRepositorio || data.autorizaRepositorio);
-
-    ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso','syncCourseChips','renderCursosSelecionados'].forEach(function(fn){
-      try { if(typeof window[fn] === 'function') window[fn](); } catch(e){}
+  function projBlDateCandidateFromRow(row){
+    row = parseMaybeJson(row);
+    if(!row) return '';
+    if(Array.isArray(row)) return row.length > 3 ? row[3] : '';
+    if(typeof row === 'object') return getAny(row, ['data','Data','date','Date','prazo','Prazo','deadline','Deadline']);
+    return '';
+  }
+  function projBlPushDate(out, value){
+    var iso = dateToInputValue(value);
+    if(iso) out.push(iso);
+  }
+  function projBlCollectDatesFromEntregaveisNode(node, out, depth){
+    if(depth > 8 || node == null) return;
+    node = parseMaybeJson(node);
+    if(Array.isArray(node)){
+      node.forEach(function(row){
+        var rowDate = projBlDateCandidateFromRow(row);
+        if(rowDate) projBlPushDate(out, rowDate);
+        else projBlCollectDatesFromEntregaveisNode(row, out, depth + 1);
+      });
+      return;
+    }
+    if(typeof node === 'string'){
+      var re = /\bData\s*:\s*([^\n;|]+)/ig, m;
+      while((m = re.exec(node))){ projBlPushDate(out, m[1]); }
+      return;
+    }
+    if(typeof node !== 'object') return;
+    var direct = projBlDateCandidateFromRow(node);
+    if(direct) projBlPushDate(out, direct);
+    Object.keys(node).forEach(function(k){
+      if(normKey(k).indexOf('entreg') >= 0 || ['rows','linhas','items','value','data'].indexOf(normKey(k)) >= 0){
+        projBlCollectDatesFromEntregaveisNode(node[k], out, depth + 1);
+      }
     });
-    document.body.classList.add('guiao-carregado-por-id');
+  }
+  function projBlDatesFromCampoIndex(sources){
+    var dates = [];
+    var controls = Array.prototype.slice.call(document.querySelectorAll('input, textarea, select')).filter(function(el){ return !el.disabled && el.type !== 'hidden'; });
+    var inputs = Array.prototype.slice.call(document.querySelectorAll('#entregaveis tbody tr:not(.projbliso-total-row) input[type="date"], #entregaveis .projbliso-date'));
+    inputs.forEach(function(input){
+      var idx = controls.indexOf(input);
+      if(idx < 0) return;
+      var keys = ['campo_' + (idx + 1), 'field_' + (idx + 1)];
+      var val = getAnyMany(sources, keys);
+      if(val) projBlPushDate(dates, val);
+    });
+    return dates;
+  }
+  function projBlDatesFromLinhas(sources){
+    var dates = [];
+    sources.forEach(function(src){
+      src = parseMaybeJson(src);
+      if(!src) return;
+      var linhas = getAny(src, ['linhas','resumoCampos','plainText','fieldsText']);
+      linhas = parseMaybeJson(linhas);
+      if(Array.isArray(linhas)) linhas = linhas.join('\n');
+      if(typeof linhas === 'string'){
+        var re = /\bData\s*:\s*([^\n;|]+)/ig, m;
+        while((m = re.exec(linhas))){ projBlPushDate(dates, m[1]); }
+      }
+    });
+    return dates;
+  }
+  function projBlApplyEntregaveisDates(rawData, sources){
+    var inputs = Array.prototype.slice.call(document.querySelectorAll('#entregaveis tbody tr:not(.projbliso-total-row) input[type="date"], #entregaveis .projbliso-date'));
+    if(!inputs.length) return 0;
+    var candidates = [];
+    (sources || []).forEach(function(src){
+      src = parseMaybeJson(src);
+      if(!src) return;
+      if(typeof src === 'object'){
+        Object.keys(src).forEach(function(k){
+          if(normKey(k).indexOf('entreg') >= 0) projBlCollectDatesFromEntregaveisNode(src[k], candidates, 0);
+        });
+      }
+    });
+    if(!candidates.length) candidates = projBlDatesFromCampoIndex(sources || []);
+    if(!candidates.length) candidates = projBlDatesFromLinhas(sources || []);
+    var written = 0;
+    inputs.forEach(function(input, i){
+      var existing = input.value || input.getAttribute('value') || '';
+      var candidate = candidates[i] || existing;
+      var iso = dateToInputValue(candidate);
+      if(iso){
+        var finalValue = ((input.type || '').toLowerCase() === 'date') ? iso : dateToDisplayValue(candidate);
+        input.value = finalValue;
+        try { input.setAttribute('value', finalValue); } catch(e){}
+        dispatch(input);
+        written++;
+      }
+    });
+    return written;
+  }
+
+  function statusBox(message, state){
+    var box = $('guioesModoEdicaoBox');
+    if(!box){
+      var ref = document.querySelector('.premium-status') || document.querySelector('.header') || document.querySelector('.page') || document.body.firstElementChild;
+      if(!ref || !ref.parentNode) return null;
+      box = document.createElement('div');
+      box.id = 'guioesModoEdicaoBox';
+      box.className = 'no-print';
+      box.style.margin = '0 0 16px 0';
+      box.style.padding = '12px 14px';
+      box.style.borderRadius = '14px';
+      box.style.fontSize = '13px';
+      ref.parentNode.insertBefore(box, ref.nextSibling);
+    }
+    var isErr = state === 'error';
+    box.style.border = '1.5px solid ' + (isErr ? '#7a1f1f' : '#1f4d2b');
+    box.style.background = isErr ? '#fff5f5' : '#f3fff6';
+    box.style.color = isErr ? '#7a1f1f' : '#1f4d2b';
+    box.innerHTML = message;
+    return box;
+  }
+  function hasValueByIds(ids){
+    for(var i=0;i<ids.length;i++){
+      var el = $(ids[i]);
+      if(el && clean(el.value)) return true;
+    }
+    return false;
+  }
+  function hasCourseChip(){ return !!document.querySelector('.cbl-course-chip,.pbl-course-chip,.projbl-course-chip,.rbl-course-chip,.sbl-course-chip'); }
+  function essentialReport(){
+    var docentes = hasValueByIds(['professor','docentes']) || !!clean(Array.prototype.slice.call(document.querySelectorAll('#docentesTable .docente-nome')).map(function(el){ return el.value; }).join(''));
+    var emails = hasValueByIds(['emails','email']) || !!clean(Array.prototype.slice.call(document.querySelectorAll('#docentesTable .docente-email')).map(function(el){ return el.value; }).join(''));
+    var ucTop = hasValueByIds(['uc','ucs','unidade_curricular','ucProjeto','nomeUCProjeto']) || !!clean(Array.prototype.slice.call(document.querySelectorAll('.projbl-nome-uc-projeto-field')).map(function(el){ return el.value; }).join(''));
+    var auth = !!document.querySelector('input[type="radio"][name="autorizacaoRepositorio"]:checked,input[type="radio"][name="autorizaRepositorio"]:checked,input[type="radio"][name="autorizaRepositorioOpcao"]:checked') || hasValueByIds(['autorizacaoRepositorio','autorizaRepositorio']);
+    var checks = [
+      ['Unidade Orgânica', hasValueByIds(['unidadeOrganica','unidade_organica'])],
+      ['Curso(s)', hasValueByIds(['curso','cursos']) || hasCourseChip()],
+      ['Unidade(s) Curricular(es)', ucTop],
+      ['Ano letivo', hasValueByIds(['ano','ano_letivo','anoLetivo','anoLetivoProjeto'])],
+      ['Nº de estudantes', hasValueByIds(['n_estudantes','numeroEstudantes'])],
+      ['Nº de grupos', hasValueByIds(['n_grupos','numeroGrupos'])],
+      ['Docente(s)/Email(s)', docentes || emails],
+      ['Autorização repositório', auth]
+    ];
+    var filled = checks.filter(function(c){ return !!c[1]; }).map(function(c){ return c[0]; });
+    var missing = checks.filter(function(c){ return !c[1]; }).map(function(c){ return c[0]; });
+    return {filled: filled, missing: missing, count: filled.length};
+  }
+  function preencherFormulario(rawData){
+    var data = buildData(rawData || {});
+    var estruturaRaw = getAny(data, ['estruturaPedagogica','EstruturaPedagogica','estrutura_pedagogica','estrutura','Structure']);
+    var estrutura = parseEstrutura(estruturaRaw);
+    var estruturaValues = (estrutura && estrutura.values && typeof estrutura.values === 'object') ? estrutura.values : {};
+    var estruturaFormData = (estrutura && estrutura.formData && typeof estrutura.formData === 'object') ? estrutura.formData : {};
+    var valuesTop = (data && data.values && typeof data.values === 'object') ? data.values : {};
+    var formData = (data && data.formData && typeof data.formData === 'object') ? data.formData : {};
+    var lineValues = extractLineValues(rawData || {}, estrutura || {});
+    var values = Object.assign({}, data, estrutura || {}, estruturaValues, estruturaFormData, valuesTop, formData, lineValues);
+    var hora = splitHoraIntervalo(getAny(data, ['hora','Hora']) || getAny(values, ['hora','Hora']));
+
+    window.__guioesItemIdApplying = true;
+    try {
+      applyValuesByKey(values);
+      var sources = [values, data, estrutura || {}, estruturaValues, estruturaFormData, valuesTop, formData];
+      var unidadeOrganica = getAnyMany(sources, ['unidadeOrganica','UnidadeOrganica','unidade_organica','Unidade Orgânica','UnidadeOrganicaValue','OU','ou','organicUnit','unidade','Unidade_x0020_Orgânica','Unidade_x0020_Organica']);
+      var modalidade = getAnyMany(sources, ['modalidade','Modalidade']);
+      var semestre = getAnyMany(sources, ['semestre','Semestre']);
+      var turma = getAnyMany(sources, ['turmaEdicao','turma_edicao','TurmaEdicao','Turma/Edição','Turma Edicao','Turma Edição','turma','Turma']);
+      var cursos = getAnyMany(sources, ['curso','cursos','Curso','Cursos','Curso(s)','cursoTexto','CursoTexto']);
+      var ucs = getAnyMany(sources, ['uc','ucs','UC','UCs','UC(s)','Unidade Curricular','Unidade(s) Curricular(es)','Unidade Curricular(es)','unidade_curricular','unidades_curriculares','UnidadeCurricular','UnidadesCurriculares','nomeUCProjeto','ucProjeto','Nome da UC de Projeto','Nome UC Projeto','nomeUnidadeCurricular','Unidade_x0020_Curricular','Title','title']);
+      var titulo = getAnyMany(sources, ['tituloProjeto','titulo_projeto','Título do Projeto','Titulo do Projeto','titulo','title','Title']);
+      var ano = getAnyMany(sources, ['anoLetivoProjeto','anoLetivo','AnoLetivo','ano_letivo','Ano letivo','Ano Letivo','Ano','ano','Ano_x0020_letivo','Ano_x0020_Letivo','AnoLetivoProjeto']);
+      var docentes = getAnyMany(sources, ['professor','docentes','Docentes','docente','docenteTexto','DocentesTexto','Docentestexto']);
+      var emails = getAnyMany(sources, ['emails','email','Email','Email(s)','E-mail','E-mail(s)','EmailDocente','emailDocente','E-mails']);
+      var nEstudantes = getAnyMany(sources, ['n_estudantes','numeroEstudantes','numero_estudantes','nEstudantes','numEstudantes','NumeroEstudantes','Número de estudantes','Numero de estudantes','Nº de estudantes','N.º de estudantes','Nº estudantes','N de estudantes','Estudantes','estudantes','N_x00ba__x0020_de_x0020_estudantes']);
+      var nGrupos = getAnyMany(sources, ['n_grupos','numeroGrupos','numero_grupos','nGrupos','numGrupos','NumeroGrupos','Número de grupos','Numero de grupos','Nº de grupos','N.º de grupos','Nº grupos','N de grupos','Grupos','grupos','N_x00ba__x0020_de_x0020_grupos']);
+      var autoria = getAnyMany(sources, ['autoria','autorias','Autoria','Autorias','autor','Autor','nomeAutor','NomeAutor']);
+      var estado = getAnyMany(sources, ['estado','estadoGuiao','EstadoGuiao','estado_guiao','Estado do guião','Estado do guiao']);
+      var organizacao = getAnyMany(sources, ['organizacao','organizacoes','contacto','contato','organizacoesContacto']);
+      var dataSessao = getAnyMany(sources, ['calendarizacao','data','Data','date','Date','dataSimulacao','data_sessao','dataSessao','Data da sessão','Data da sessao','Data de simulação','Data de simulacao','aula1_data','Data_x0020_Sessao','Data_x0020_da_x0020_sessao']);
+      var horaInicio = getAnyMany(sources, ['hora_inicio','horaInicio','Hora início','Hora inicio']) || hora.inicio;
+      var horaFim = getAnyMany(sources, ['hora_fim','horaFim','Hora fim']) || hora.fim;
+      var autorizacao = getAnyMany(sources, ['autorizaRepositorio','AutorizaRepositorio','autorizacaoRepositorio','AutorizacaoRepositorio','Autoriza Repositório','Autoriza Repositorio','Autorização Repositório','Autorizacao Repositorio','autorizaPartilhaInterna','partilhaRepositorio','Autoriza_x0020_Repositório','Autoriza_x0020_Repositorio']);
+
+      setFirst(['unidadeOrganica','unidade_organica'], unidadeOrganica);
+      setFirst(['modalidade'], modalidade);
+      setFirst(['semestre'], semestre);
+      setFirst(['turmaEdicao','turma_edicao','turma'], turma);
+      setCursos(cursos);
+      setFirst(['uc','ucs','unidade_curricular'], ucs);
+      setFirstSelector(['.projbl-nome-uc-projeto-field','textarea[placeholder*="Projeto Aplicado" i]'], ucs);
+      setFirst(['tituloProjeto','titulo'], titulo || ucs);
+      setFirst(['ano','ano_letivo','anoLetivo','anoLetivoProjeto'], ano);
+      setFirstSelector(['#anoLetivoProjeto','.projbl-ano-letivo-field','input[placeholder*="2026/2027" i]'], ano);
+      setFirst(['professor','docentes'], docentes);
+      setFirst(['emails','email'], emails);
+      setTableColumn('#docentesTable .docente-nome', docentes);
+      setTableColumn('#docentesTable .docente-email', emails);
+      setFirst(['n_estudantes','numeroEstudantes'], nEstudantes);
+      setFirstSelector(['#numeroEstudantes','.projbl-numero-estudantes-field'], nEstudantes);
+      setFirst(['n_grupos','numeroGrupos'], nGrupos);
+      setFirstSelector(['#numeroGrupos','.projbl-numero-grupos-field'], nGrupos);
+      setFirst(['autoria','autorias'], autoria);
+      setFirst(['estado','estado_guiao','estadoGuiao'], estado || 'Atualizado');
+      setFirst(['organizacao','organizacoes','contacto'], organizacao);
+      setFirst(['calendarizacao','data','dataSimulacao'], dataSessao);
+      if(dataSessao){ /* PROJ-BL DATAS ENTREGAVEIS TARGETED FINAL CORRIGIDO 2026-06-15: não aplicar dataSessao global em #entregaveis */ setFirstSelector(['#data','#calendarizacao','#dataSessao','#dataSimulacao','input[name="data"]','input[name="calendarizacao"]','input[name="dataSessao"]','input[name="dataSimulacao"]'], dataSessao); }
+      projBlApplyEntregaveisDates(rawData || {}, [values, data, estrutura || {}, estruturaValues, estruturaFormData, valuesTop, formData, rawData || {}]);
+      setFirst(['hora_inicio','horaInicio','hora'], horaInicio || getAny(values, ['hora','Hora']) || getAny(data, ['hora','Hora']));
+      setFirst(['hora_fim','horaFim'], horaFim);
+      setAuthorization(autorizacao);
+
+      ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso','syncCourseChips','renderCursosSelecionados','rblSyncHeaderVisual'].forEach(function(fn){
+        try { if(typeof window[fn] === 'function') window[fn](); } catch(e){}
+      });
+      document.body.classList.add('guiao-carregado-por-id');
+    } finally {
+      setTimeout(function(){ window.__guioesItemIdApplying = false; }, 0);
+    }
+    return {data:data, values:values, report: essentialReport()};
+  }
+  function installLoadingCss(){
+    if($('guioes-itemid-loading-css')) return;
+    var st = document.createElement('style');
+    st.id = 'guioes-itemid-loading-css';
+    st.textContent = 'body.guioes-itemid-loading .guioes-curso-suggestions-v2,body.guioes-itemid-loading .rbl-course-dropdown,body.guioes-itemid-loading .projbl-course-dropdown,body.guioes-itemid-loading .cbl-course-dropdown,body.guioes-itemid-loading .pbl-course-dropdown,body.guioes-itemid-loading .sbl-course-dropdown{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;}';
+    document.head.appendChild(st);
+  }
+  function scheduleAntiReset(rawData){
+    var userTouched = false;
+    function mark(ev){ if(!window.__guioesItemIdApplying && ev && ev.isTrusted && ev.target && /^(INPUT|TEXTAREA|SELECT)$/i.test(ev.target.tagName || '')) userTouched = true; }
+    document.addEventListener('input', mark, true);
+    document.addEventListener('change', mark, true);
+    [300,900,1800,3200,5200,7200].forEach(function(ms){
+      setTimeout(function(){
+        if(userTouched) return;
+        var before = essentialReport().count;
+        var info = preencherFormulario(rawData);
+        var after = info.report.count;
+        if(after < before) preencherFormulario(rawData);
+        closeCourseDropdowns();
+      }, ms);
+    });
+    setTimeout(function(){
+      document.removeEventListener('input', mark, true);
+      document.removeEventListener('change', mark, true);
+    }, 8200);
   }
   async function carregarGuiaoPorId(){
     var itemId = getItemId();
     if(!itemId || window.__guioesCarregamentoPorItemIdExecutado) return;
     window.__guioesCarregamentoPorItemIdExecutado = true;
-    addStatusBox();
+    installLoadingCss();
+    document.body.classList.add('guioes-itemid-loading');
+    statusBox('<strong>Edição de guião submetido</strong><br>A carregar os dados deste guião para edição...', 'loading');
     notify('A carregar dados do guião...', '', 2500);
     try {
       var res = await fetch(OBTER_GUIAO_URL, {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({itemId: itemId})
+        body: JSON.stringify({ itemId: itemId })
       });
       var text = await res.text();
-      var data = {};
-      try { data = JSON.parse(text); } catch(e){ data = {raw:text}; }
+      var raw = {};
+      try { raw = text ? JSON.parse(text) : {}; } catch(e){ raw = {raw:text}; }
+      var data = buildData(raw);
       if(!res.ok || data.ok === false || data.success === false){
-        throw new Error((data && (data.message || data.error)) || text || ('HTTP ' + res.status));
+        throw new Error(clean(getAny(data, ['message','error','Error','erro'])) || text || ('HTTP ' + res.status));
       }
-      preencherFormulario(data);
+      var result = preencherFormulario(raw);
+      setTimeout(closeCourseDropdowns, 60);
+      setTimeout(function(){ document.body.classList.remove('guioes-itemid-loading'); closeCourseDropdowns(); }, 500);
+      if(result.report.missing && result.report.missing.length){
+        console.error('Resposta recebida do fluxo, mas os campos essenciais não foram preenchidos.', {rawResponse: raw, unwrappedData: result.data, values: result.values, essentialReport: result.report});
+        statusBox('<strong>Edição de guião submetido</strong><br>O fluxo respondeu, mas os campos essenciais não foram preenchidos. Verifique o console para a estrutura recebida.', 'error');
+        notify('O fluxo respondeu, mas o formulário não foi preenchido. Verifique o mapeamento da resposta.', 'error', 8000);
+        return;
+      }
+      statusBox('<strong>Edição de guião submetido</strong><br>Os dados deste guião foram carregados automaticamente. Faça as alterações necessárias e submeta novamente para atualizar a versão existente.', 'ok');
       notify('Dados do guião carregados para edição.', 'ok', 4500);
+      scheduleAntiReset(raw);
     } catch(e) {
       console.error('Erro ao carregar guião por itemId:', e);
+      document.body.classList.remove('guioes-itemid-loading');
+      statusBox('<strong>Edição de guião submetido</strong><br>Não foi possível carregar automaticamente os dados deste guião. Detalhe técnico: ' + clean(e && e.message ? e.message : e), 'error');
       notify('Não foi possível carregar automaticamente os dados deste guião. Confirme o link de edição ou tente novamente.', 'error', 8000);
     }
   }
@@ -19751,210 +20270,137 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
-</script>
 
-
-<script id="guioes-fechar-dropdown-cursos-edicao-v2">
-(function(){
-  'use strict';
-  if(window.__guioesFecharDropdownCursosEdicaoV2) return;
-  window.__guioesFecharDropdownCursosEdicaoV2 = true;
-  function hasItemId(){ try { return !!new URLSearchParams(window.location.search).get('itemId'); } catch(e){ return false; } }
-  function closeCourseDropdowns(){
-    if(!hasItemId()) return;
-    var selectors = [
-      '.guioes-curso-suggestions-v2',
-      '.curso-suggestions', '.course-suggestions',
-      '[id*="curso" i][class*="suggest" i]',
-      '[class*="curso" i][class*="suggest" i]',
-      '[class*="course" i][class*="suggest" i]',
-      '[id*="curso" i][class*="dropdown" i]',
-      '[class*="curso" i][class*="dropdown" i]'
-    ];
-    selectors.forEach(function(sel){
-      try {
-        Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){
-          el.style.display = 'none';
-          el.classList.remove('open','active','show','visible');
-          el.setAttribute('aria-hidden','true');
-        });
-      } catch(e){}
-    });
-    Array.prototype.forEach.call(document.querySelectorAll('input#cursoBusca, input[name="cursoBusca"], input[placeholder*="curso" i]'), function(input){
-      if(document.activeElement === input){ try { input.blur(); } catch(e){} }
-    });
-  }
-  window.__guioesFecharDropdownCursos = closeCourseDropdowns;
-  function schedule(){ [0,80,200,500,900,1500,2500,4000].forEach(function(ms){ setTimeout(closeCourseDropdowns, ms); }); }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', schedule); else schedule();
-  window.addEventListener('load', schedule);
-})();
 </script>
-
-
-<script id="guioes-fechar-dropdown-cursos-edicao-v3-hardening">
-(function(){
-  'use strict';
-  if(window.__guioesFecharDropdownCursosEdicaoV3) return;
-  window.__guioesFecharDropdownCursosEdicaoV3 = true;
-  function hasItemId(){ try { return !!new URLSearchParams(window.location.search).get('itemId'); } catch(e){ return false; } }
-  if(!hasItemId()) return;
-  var selectors = [
-    '.guioes-curso-suggestions-v2', '.curso-suggestions', '.course-suggestions',
-    '.rbl-course-dropdown', '.projbl-course-dropdown', '.pbl-course-dropdown', '.cbl-course-dropdown', '.sbl-course-dropdown',
-    '[id*="curso" i][class*="suggest" i]', '[class*="curso" i][class*="suggest" i]', '[class*="course" i][class*="suggest" i]',
-    '[id*="curso" i][class*="dropdown" i]', '[class*="curso" i][class*="dropdown" i]', '[class*="course" i][class*="dropdown" i]'
-  ];
-  var style = document.createElement('style');
-  style.id = 'guioes-fechar-dropdown-cursos-edicao-v3-css';
-  style.textContent = selectors.join(',') + '{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;}';
-  document.head.appendChild(style);
-  function close(){
-    selectors.forEach(function(sel){
-      try { Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){
-        el.style.display='none'; el.style.visibility='hidden'; el.style.opacity='0';
-        el.classList.remove('open','active','show','visible','is-open');
-        el.setAttribute('aria-hidden','true');
-      }); } catch(e){}
-    });
-    Array.prototype.forEach.call(document.querySelectorAll('input#cursoBusca, input[name="cursoBusca"], input[placeholder*="curso" i], input[placeholder*="procurar" i]'), function(input){
-      if(document.activeElement === input){ try { input.blur(); } catch(e){} }
-    });
-  }
-  var released = false;
-  var obs = null;
-  function release(){
-    if(released) return;
-    released = true;
-    try { if(style && style.parentNode) style.parentNode.removeChild(style); } catch(e){}
-    try { if(obs) obs.disconnect(); } catch(e){}
-  }
-  function isCourseTarget(t){ return !!(t && t.closest && t.closest('[id*="curso" i], [class*="curso" i], [class*="course" i]')); }
-  document.addEventListener('pointerdown', function(e){ if(isCourseTarget(e.target)) release(); }, true);
-  document.addEventListener('keydown', function(e){ if(isCourseTarget(e.target)) release(); }, true);
-  [0,50,120,250,500,900,1500,2500,4000,6500,9000,12000].forEach(function(ms){ setTimeout(function(){ if(!released) close(); }, ms); });
-  try { obs = new MutationObserver(function(){ if(!released) close(); }); obs.observe(document.documentElement, {childList:true,subtree:true,attributes:true,attributeFilter:['class','style']}); } catch(e){}
-  setTimeout(release, 14000);
-})();
-</script>
-
-<script id="validacao-obrigatoria-cabecalho-20260617">
-/* VALIDACAO OBRIGATORIA CABECALHO 2026-06-17 — PROJ-BL */
-(function(){
-  'use strict';
-  var REQUIRED_GROUPS = [{"label": "Unidade Orgânica", "selectors": ["#unidadeOrganica"]}, {"label": "Modalidade", "selectors": ["#modalidade"]}, {"label": "Semestre", "selectors": ["#semestre"]}, {"label": "Turma/Edição", "selectors": ["#turmaEdicao"]}, {"label": "Curso(s)", "selectors": ["#curso", "#cursoBusca"]}, {"label": "Autoria", "selectors": ["#autoria"]}, {"label": "Ano letivo", "selectors": ["#anoLetivoProjeto"]}, {"label": "Estado do guião", "selectors": ["#estadoGuiao"]}, {"label": "Autorização para repositório", "selectors": ["input[name=\"autorizaRepositorio\"]"]}];
-  var VALIDAR_SESSOES_RBL = false;
-  function norm(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
-  function qsAll(sel){ try{ return Array.prototype.slice.call(document.querySelectorAll(sel)); }catch(e){ return []; } }
-  function elementsFor(group){ var out = []; (group.selectors || []).forEach(function(sel){ out = out.concat(qsAll(sel)); }); return out.filter(Boolean); }
-  function isRadioGroup(elements){ return elements.some(function(el){ return el && el.type === 'radio'; }); }
-  function valueOf(el){ if(!el) return ''; if(el.type === 'radio') return el.checked ? (el.value || 'checked') : ''; if(el.type === 'checkbox') return el.checked ? (el.value || 'checked') : ''; return norm(el.value); }
-  function groupFilled(group){ var elements = elementsFor(group); if(!elements.length) return true; if(isRadioGroup(elements)) return elements.some(function(el){ return !!el.checked; }); return elements.some(function(el){ return valueOf(el) !== ''; }); }
-  function firstFocusable(group){ var elements = elementsFor(group); return elements.find(function(el){ return el.type !== 'hidden' && !el.disabled; }) || elements[0] || null; }
-  function setRequiredOn(el){ if(!el || el.disabled) return; if(el.type === 'hidden') return; el.setAttribute('aria-required','true'); if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT'){ el.required = true; el.setAttribute('required','required'); } }
-  function markRequired(){ REQUIRED_GROUPS.forEach(function(group){ var elements = elementsFor(group); if(isRadioGroup(elements)){ elements.forEach(function(el){ el.required = true; el.setAttribute('required','required'); el.setAttribute('aria-required','true'); }); } else { elements.forEach(setRequiredOn); } }); if(VALIDAR_SESSOES_RBL){ qsAll('input[id^="aula"][id$="_data"], input[id^="aula"][id$="_duracao"]').forEach(setRequiredOn); } }
-  function missingSessionsRBL(){ if(!VALIDAR_SESSOES_RBL) return []; var missing = []; qsAll('input[id^="aula"][id$="_data"]').forEach(function(dataEl){ var m = String(dataEl.id || '').match(/^aula(\d+)_data$/); var n = m ? m[1] : ''; if(!norm(dataEl.value)) missing.push({label:'Data da sessão ' + n, el:dataEl}); var durEl = n ? document.getElementById('aula' + n + '_duracao') : null; if(durEl && !norm(durEl.value)) missing.push({label:'Duração da sessão ' + n, el:durEl}); }); return missing; }
-  function validateObrigatorios(){ markRequired(); var missing = []; REQUIRED_GROUPS.forEach(function(group){ if(!groupFilled(group)) missing.push({label:group.label, el:firstFocusable(group)}); }); missing = missing.concat(missingSessionsRBL()); if(!missing.length) return true; var msg = 'Antes de enviar para validação, preencha: ' + missing.map(function(x){ return x.label; }).join(', ') + '.'; try{ var old = document.querySelector('.toast-message, .ux-toast'); if(old && old.parentNode) old.parentNode.removeChild(old); var d = document.createElement('div'); d.className = 'toast-message'; d.style.whiteSpace = 'pre-line'; d.style.maxWidth = '620px'; d.style.textAlign = 'left'; d.textContent = msg; document.body.appendChild(d); setTimeout(function(){ if(d && d.parentNode) d.parentNode.removeChild(d); }, 5000); }catch(e){} alert(msg); var focusEl = missing.find(function(x){ return x.el && x.el.type !== 'hidden'; }); if(focusEl && focusEl.el){ try{ focusEl.el.focus({preventScroll:false}); focusEl.el.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} } return false; }
-  function isValidationTrigger(el){ if(!el) return false; var id = (el.id || '').toLowerCase(); var txt = norm(el.innerText || el.value || el.getAttribute('aria-label') || '').toLowerCase(); return id === 'btnenviarvalidacao' || id === 'btnvalidacaoreal' || /enviar\s+para\s+valida/.test(txt) || /submeter/.test(txt) || /submiss/.test(txt) || /atualizar\s+gui/.test(txt); }
-  document.addEventListener('click', function(ev){ var el = ev.target && ev.target.closest ? ev.target.closest('button, input[type="button"], input[type="submit"], a') : null; if(!isValidationTrigger(el)) return; if(!validateObrigatorios()){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); return false; } }, true);
-  document.addEventListener('submit', function(ev){ if(!validateObrigatorios()){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); return false; } }, true);
-  function patchFunction(name){ var original = window[name]; if(typeof original !== 'function' || original.__validacaoObrigatoriaPatch) return; var wrapped = function(){ if(!validateObrigatorios()) return false; return original.apply(this, arguments); }; wrapped.__validacaoObrigatoriaPatch = true; window[name] = wrapped; }
-  function patchKnownFunctions(){ ['submitValidacao','enviarParaValidacao','validarEEnviar','sendForValidation','submeterValidacao'].forEach(patchFunction); }
-  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', function(){ markRequired(); patchKnownFunctions(); }); } else { markRequired(); patchKnownFunctions(); }
-  setTimeout(function(){ markRequired(); patchKnownFunctions(); }, 250);
-  setTimeout(function(){ markRequired(); patchKnownFunctions(); }, 1000);
-  if(VALIDAR_SESSOES_RBL && window.MutationObserver){ try{ new MutationObserver(function(){ markRequired(); }).observe(document.body, {childList:true, subtree:true}); }catch(e){} }
-})();
-</script>
-<script id="guioes-empty-date-time-on-new-20260626">
-(function(){
-  'use strict';
-  var userTouched = false;
-  function hasItemId(){ try{ return !!new URLSearchParams(window.location.search).get('itemId'); }catch(e){ return false; } }
-  function controls(){ return Array.prototype.slice.call(document.querySelectorAll('input[type="date"], input[type="time"]')); }
-  function markTouched(){ userTouched = true; }
-  function clearInitialDateTime(){
-    if(hasItemId() || userTouched) return;
-    controls().forEach(function(el){
-      el.setAttribute('autocomplete', 'off');
-      el.value = '';
-      el.removeAttribute('value');
-    });
-  }
-  function init(){
-    controls().forEach(function(el){
-      if(el.dataset.guioesDateTimeBound === '1') return;
-      el.dataset.guioesDateTimeBound = '1';
-      el.addEventListener('input', markTouched);
-      el.addEventListener('change', markTouched);
-    });
-    clearInitialDateTime();
-    setTimeout(clearInitialDateTime, 80);
-    setTimeout(clearInitialDateTime, 300);
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
-})();
-</script>
-<style id="guioes-date-time-native-final-20260625">
-body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"],
-body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"]{
-  -webkit-appearance:auto !important;
-  appearance:auto !important;
-  background:#fff !important;
-  color:#242424 !important;
-  -webkit-text-fill-color:#242424 !important;
-  color-scheme:light !important;
-  min-height:42px !important;
-  line-height:normal !important;
+<style id="guioes-itemid-course-dropdown-fix-final-style">
+body.guioes-itemid-course-suppressed .guioes-curso-suggestions-v2,
+body.guioes-itemid-course-suppressed .rbl-course-dropdown,
+body.guioes-itemid-course-suppressed .proj-cursos-sugestoes,
+body.guioes-itemid-course-suppressed .projbl-course-dropdown,
+body.guioes-itemid-course-suppressed .cbl-course-dropdown,
+body.guioes-itemid-course-suppressed .pbl-course-dropdown,
+body.guioes-itemid-course-suppressed .sbl-course-dropdown{
+  display:none !important;
+  visibility:hidden !important;
+  opacity:0 !important;
+  pointer-events:none !important;
 }
 </style>
-<script id="projbl-percentagens-abertas-title-safe-js">
+<script id="guioes-itemid-course-dropdown-fix-final">
 (function(){
   'use strict';
-  function cleanText(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
-  function limitTitle(v){
-    v = cleanText(v || 'PROJ-BL');
-    return v.length > 250 ? v.slice(0,250) : v;
-  }
-  window.projblSafeSharePointTitle = limitTitle;
+  if(window.__guioesItemIdCourseDropdownFixFinal) return;
+  window.__guioesItemIdCourseDropdownFixFinal = true;
 
-  function openPercentages(){
-    try{
-      document.querySelectorAll('.projbliso-total-row,.projblz7g-total-row,.proj-entregaveis-total,.proj-contrib-total').forEach(function(el){
-        if(el && el.parentNode) el.parentNode.removeChild(el);
-      });
-      document.querySelectorAll('.projbliso-percent-warn,.projblz7g-warn,.is-warn,.warn').forEach(function(el){
-        el.classList.remove('projbliso-percent-warn','projblz7g-warn','is-warn','warn');
-        try{ el.style.borderColor=''; el.style.outline=''; el.style.boxShadow=''; }catch(e){}
-      });
-    }catch(e){}
+  function hasItemId(){
+    try { return !!new URLSearchParams(window.location.search).get('itemId'); }
+    catch(e){ return /[?&]itemId=/.test(window.location.search || ''); }
   }
-  window.projblOpenPercentages = openPercentages;
-  ['DOMContentLoaded','load','input','change','click'].forEach(function(evt){
-    window.addEventListener(evt, function(){ setTimeout(openPercentages, 0); setTimeout(openPercentages, 120); }, true);
-  });
-  [0,100,300,800,1500,3000].forEach(function(ms){ setTimeout(openPercentages, ms); });
+  if(!hasItemId()) return;
 
-  /* Blindagem final: qualquer payload enviado ao Power Automate respeita o limite do campo Title do SharePoint. */
-  if(!window.__projblFetchTitleSafePatch){
-    window.__projblFetchTitleSafePatch = true;
-    var originalFetch = window.fetch;
-    window.fetch = function(input, init){
-      try{
-        if(init && typeof init.body === 'string' && init.body.indexOf('"title"') !== -1){
-          var payload = JSON.parse(init.body);
-          if(payload && typeof payload === 'object' && payload.title){
-            payload.title = limitTitle(payload.title);
-            init = Object.assign({}, init, { body: JSON.stringify(payload) });
-          }
-        }
-      }catch(e){}
-      return originalFetch.apply(this, arguments.length === 1 ? [input] : [input, init]);
-    };
+  var suppress = true;
+  var dropdownSelectors = [
+    '.guioes-curso-suggestions-v2',
+    '.rbl-course-dropdown',
+    '.proj-cursos-sugestoes',
+    '.projbl-course-dropdown',
+    '.cbl-course-dropdown',
+    '.pbl-course-dropdown',
+    '.sbl-course-dropdown',
+    '[id*="curso" i][class*="suggest" i]',
+    '[class*="curso" i][class*="suggest" i]',
+    '[class*="course" i][class*="suggest" i]',
+    '[id*="curso" i][class*="dropdown" i]',
+    '[class*="curso" i][class*="dropdown" i]',
+    '[class*="course" i][class*="dropdown" i]'
+  ];
+
+  function clean(v){ return String(v || '').replace(/\s+/g,' ').trim(); }
+  function isCourseSearch(el){
+    if(!el || !el.matches) return false;
+    return el.matches('#cursoBusca,#cursoSearch,.rbl-course-search,input[name="cursoBusca"],input[placeholder*="curso" i]');
   }
+  function eachDropdown(cb){
+    dropdownSelectors.forEach(function(sel){
+      try { Array.prototype.forEach.call(document.querySelectorAll(sel), cb); } catch(e){}
+    });
+  }
+  function hideDropdown(el, clear){
+    if(!el) return;
+    try { el.classList.remove('is-open','open','active','show','visible'); } catch(e){}
+    if(clear){ try { el.innerHTML = ''; } catch(e){} }
+    el.style.display = 'none';
+    el.style.visibility = 'hidden';
+    el.style.opacity = '0';
+    el.style.pointerEvents = 'none';
+  }
+  function closeCourseDropdowns(clear){
+    eachDropdown(function(el){ hideDropdown(el, clear !== false); });
+    Array.prototype.forEach.call(document.querySelectorAll('#cursoBusca,#cursoSearch,.rbl-course-search'), function(input){
+      if(!suppress) return;
+      if(clean(input.value)){
+        input.value = '';
+        try { input.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
+      }
+      try { input.setAttribute('autocomplete','new-password'); } catch(e){}
+    });
+  }
+  function restoreDropdownStyles(){
+    eachDropdown(function(el){
+      el.style.display = '';
+      el.style.visibility = '';
+      el.style.opacity = '';
+      el.style.pointerEvents = '';
+    });
+  }
+  function unlockForUser(){
+    if(!suppress) return;
+    suppress = false;
+    try { document.body.classList.remove('guioes-itemid-course-suppressed'); } catch(e){}
+    restoreDropdownStyles();
+  }
+
+  function keepSuppressed(){
+    if(!suppress) return;
+    try { document.body.classList.add('guioes-itemid-course-suppressed'); } catch(e){}
+    closeCourseDropdowns(true);
+  }
+
+  try { document.body.classList.add('guioes-itemid-course-suppressed'); } catch(e){}
+
+  document.addEventListener('focusin', function(ev){
+    if(!isCourseSearch(ev.target) || !suppress) return;
+    setTimeout(keepSuppressed, 0);
+    setTimeout(keepSuppressed, 80);
+  }, true);
+
+  document.addEventListener('keydown', function(ev){
+    if(!isCourseSearch(ev.target)) return;
+    if(ev.isTrusted) unlockForUser();
+  }, true);
+
+  document.addEventListener('input', function(ev){
+    if(!isCourseSearch(ev.target)) return;
+    if(ev.isTrusted && clean(ev.target.value).length > 0){
+      unlockForUser();
+    } else if(suppress) {
+      setTimeout(keepSuppressed, 0);
+    }
+  }, true);
+
+  document.addEventListener('click', function(ev){
+    if(!suppress) return;
+    if(isCourseSearch(ev.target)){
+      setTimeout(keepSuppressed, 0);
+      setTimeout(keepSuppressed, 80);
+    }
+  }, true);
+
+  window.guioesFecharDropdownCursosItemId = keepSuppressed;
+  [0,60,140,300,600,1000,1600,2400,3600,5200,7600,9200].forEach(function(ms){ setTimeout(keepSuppressed, ms); });
 })();
 </script>
+
 </body>
 </html>
 <!-- projbl-camada15-curso-autosave-progress-selects -->
