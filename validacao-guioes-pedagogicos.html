@@ -353,15 +353,12 @@ main,.topnav-inner{max-width:880px;}
 .message-grid .field{height:100%;margin-bottom:0;}
 .message-grid textarea{min-height:112px;height:112px;}
 #teams .field textarea,#validacao .field textarea{min-height:108px;}
-.flow-showcase{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 20px;}
+.flow-showcase{grid-template-columns:repeat(5,minmax(0,1fr));gap:14px 20px;}
 .flow-step{background:linear-gradient(180deg,#ffffff,#fbfbfb);border-color:#dedede;}
 .flow-step:before{height:4px;}
 .flow-step:not(:last-child):after{right:-18px;color:#b20d24;background:#fff;border:1px solid #ecd0d5;border-radius:999px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(178,13,36,.12);}
-.flow-step:nth-child(4):after{display:flex;}
-.flow-step:nth-child(4){margin-right:0;}
-.flow-step:nth-child(4)::after{content:'›';}
-.flow-step:nth-child(4n)::after{display:none;}
-.flow-step:nth-child(8)::after{display:none;}
+.flow-step:nth-child(5n)::after{display:none;}
+.flow-step:nth-child(10)::after{display:none;}
 .flow-step strong{color:#221f20;}
 .checks{align-items:stretch;}
 .check{min-height:56px;}
@@ -416,8 +413,8 @@ main,.topnav-inner{max-width:880px;}
   line-height:1!important;
   font-weight:900!important;
 }
-.flow-step:nth-child(4n)::after,
-.flow-step:nth-child(8)::after{display:none!important;}
+.flow-step:nth-child(5n)::after,
+.flow-step:nth-child(10)::after{display:none!important;}
 .step-number{
   width:auto!important;
   height:auto!important;
@@ -449,10 +446,17 @@ main,.topnav-inner{max-width:880px;}
 @media(max-width:620px){
   .flow-showcase{grid-template-columns:1fr!important;}
   .flow-step:not(:last-child):after{display:block!important;content:"↓"!important;left:50%!important;right:auto!important;bottom:-17px!important;top:auto!important;transform:translateX(-50%)!important;font-size:1.2rem!important;}
-  .flow-step:nth-child(4n)::after{display:block!important;}
-  .flow-step:nth-child(8)::after{display:none!important;}
+  .flow-step:nth-child(5n)::after{display:block!important;}
+  .flow-step:nth-child(10)::after{display:none!important;}
 }
 
+
+
+/* ===== v33 — modo guiado para testes: preparação, separadores e resultados esperados ===== */
+.guide-hero{border:1px solid #ead5da;background:linear-gradient(135deg,#fff8fa,#ffffff);border-radius:18px;padding:18px 20px;margin:18px 0;box-shadow:0 6px 20px rgba(178,13,36,.055)}
+.guide-hero h2{margin:0 0 8px;font-size:1.16rem;letter-spacing:-.01em}.guide-hero p{margin:0;color:#3d3d3d;font-size:.93rem}.guide-hero strong{color:#9f0a20}.guide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.guide-card{background:#fff;border:1px solid #e6ddda;border-radius:14px;padding:13px 14px;box-shadow:0 2px 8px rgba(0,0,0,.025)}.guide-card b{display:block;font-size:.92rem;margin-bottom:4px}.guide-card p{font-size:.84rem;color:#555;margin:0 0 8px}.guide-card .btn{padding:7px 10px;font-size:.78rem;border-radius:999px}.guide-card ul{margin:7px 0 0;padding-left:18px;color:#444;font-size:.84rem}.guide-card li{margin:4px 0}.test-route{counter-reset:route;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0 4px}.route-step{position:relative;background:#fff;border:1px solid #e6ddda;border-radius:14px;padding:13px 12px 12px;min-height:112px;box-shadow:0 2px 8px rgba(0,0,0,.025)}.route-step:before{counter-increment:route;content:counter(route);display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:999px;background:#b20d24;color:#fff;font-size:.72rem;font-weight:800;margin-bottom:7px}.route-step b{display:block;font-size:.88rem}.route-step span{display:block;color:#555;font-size:.78rem;line-height:1.35;margin-top:4px}.test-mode{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}.test-mode .mode{border:1px solid #e5d8d5;border-radius:13px;background:#fff;padding:12px 13px}.test-mode .mode b{display:block;margin-bottom:4px}.test-mode .mode p{margin:0;color:#555;font-size:.84rem}.section-kicker{display:inline-block;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:#8f0a1d;background:#fff4f6;border:1px solid #efd1d6;border-radius:999px;padding:3px 8px;margin-bottom:8px}.step-box{border:1px solid #e6ddda;background:#fff;border-radius:14px;padding:13px 14px;margin:12px 0}.step-box h3{margin:0 0 7px!important;font-size:.95rem!important}.step-box p{margin:4px 0;color:#444}.step-box .mini-list{margin:6px 0 0;padding-left:18px;color:#444;font-size:.88rem}.step-box .mini-list li{margin:4px 0}.open-note{background:#f7fbfb;border:1px solid #d5e8e9;border-left:4px solid #087d80;border-radius:12px;padding:11px 13px;margin:12px 0;color:#333;font-size:.89rem}.open-note b{color:#086d70}.result-note{background:#fffaf2;border:1px solid #efdcb8;border-left:4px solid #b98328;border-radius:12px;padding:11px 13px;margin:12px 0;color:#333;font-size:.89rem}.quick-legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}.quick-legend .tag{background:#fff;border-color:#e5d8d5;color:#4a4a4a}
+@media(max-width:900px){.guide-grid,.test-mode{grid-template-columns:1fr}.test-route{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.guide-hero{padding:15px 14px}.test-route{grid-template-columns:1fr}.route-step{min-height:auto}}
 </style>
 </head>
 <body>
@@ -466,43 +470,102 @@ main,.topnav-inner{max-width:880px;}
 </div>
 </header>
 <nav class="topnav"><div class="topnav-inner">
-<a href="#recursos">Recursos</a><a href="#dados">Dados</a><a href="#templates">Templates</a><a href="#interface">Interface</a><a href="#pdf">PDF</a><a href="#submissao">Submissão</a><a href="#validacao">Validação</a><a href="#julho">Continuação do projeto</a><a href="#feedback">Feedback</a>
+<a href="#preparacao">Preparar teste</a><a href="#recursos">Recursos</a><a href="#dados">Dados</a><a href="#templates">Templates</a><a href="#interface">Interface</a><a href="#pdf">PDF</a><a href="#submissao">Submissão</a><a href="#edicao">Edição</a><a href="#validacao">Validação</a><a href="#julho">Continuação do projeto</a><a href="#feedback">Feedback</a>
 <div class="progress-wrap"><div class="progress-line"><div class="progress-bar" id="progressBar" style="width:0%"></div></div><div class="progress-text" id="progressText">0% percorrido</div></div>
 </div></nav>
 <main>
-<div class="notice">
-<strong>Objetivo do teste:</strong> seguir a ordem do fluxo real — confirmar dados de coordenação, abrir template, gerar PDF, submeter, acompanhar a lista Guiões, verificar Teams/e-mails e validar o item. Enquanto estes testes decorrem em junho, a área de Práticas Pedagógicas continuará a preparar a etapa seguinte: consolidação do Repositório de Práticas Pedagógicas e desenvolvimento/alimentação do Assistente IA, prevista para julho.
-  </div>
+<div class="notice"><strong>Objetivo do teste:</strong> validar o percurso completo dos guiões pedagógicos, desde o preenchimento do template até à submissão, edição, notificação Teams, e-mail automático, validação na lista <strong>Guiões</strong> e eventual criação do registo no <strong>Repositório de Práticas Pedagógicas</strong>. Este guia foi organizado para que acompanhe o teste com as listas abertas em paralelo, sem ter de procurar os links manualmente.</div>
+<section class="guide-hero" id="preparacao">
+<span class="section-kicker">Preparação obrigatória</span>
+<h2>Antes de começar: abra os separadores necessários</h2>
+<p>Para o teste não ficar confuso, trabalhe com estes separadores abertos em simultâneo. Assim consegue preencher o template, confirmar o SharePoint, verificar o e-mail e acompanhar o Teams sem perder o percurso.</p>
+<div class="guide-grid">
+<div class="guide-card">
+<b>1. Esta página de validação</b>
+<p>Mantenha este guia aberto para seguir os passos e marcar as verificações.</p>
+<ul><li>Use esta página como roteiro.</li><li>Não precisa preencher tudo de uma vez; siga por etapas.</li></ul>
+</div>
+<div class="guide-card">
+<b>2. Lista Coordenadores MA</b>
+<p>Confirme antes do teste quais cursos estão associados à sua coordenação e se o seu e-mail está correto.</p>
+<a class="btn secondary" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Coordenadores%20de%20Modelo%20Acadmico/AllItems.aspx" rel="noopener noreferrer" target="_blank">Abrir Coordenadores MA</a>
+</div>
+<div class="guide-card">
+<b>3. Template a testar</b>
+<p>Abra o template normal ou o template de teste na secção “Abrir templates”. Para testar envio real, use preferencialmente a versão de teste.</p>
+<a class="btn secondary" href="#templates">Ir para templates</a>
+</div>
+<div class="guide-card">
+<b>4. Lista Guiões</b>
+<p>Deixe aberta para confirmar se o item foi criado, se o PDF ficou anexado, se o link de edição existe e se a validação foi registada.</p>
+<a class="btn secondary" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Guies/AllItems.aspx" rel="noopener noreferrer" target="_blank">Abrir lista Guiões</a>
+</div>
+<div class="guide-card">
+<b>5. E-mail e Teams</b>
+<p>Use o seu e-mail institucional no campo E-mail(s). Se testar dois destinatários, separe os e-mails por ponto e vírgula (;).</p>
+<ul><li>Confirme o e-mail automático.</li><li>Confirme a notificação no Teams em “Fluxos de trabalho”.</li></ul>
+</div>
+<div class="guide-card">
+<b>6. Lista Repositório</b>
+<p>Só precisa verificar esta lista depois da validação, quando o guião tiver autorização para integrar o repositório.</p>
+<a class="btn secondary" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Repositrio%20de%20Prticas%20Pedaggicas/AllItems.aspx" rel="noopener noreferrer" target="_blank">Abrir lista Repositório</a>
+</div>
+</div>
+<div class="open-note"><b>Dados a usar no teste:</b> escolha curso(s) associados à sua coordenação, escreva o seu e-mail institucional no campo E-mail(s) e, quando testar múltiplos e-mails, use o formato <strong>ana.silva@universidadeeuropeia.pt; joao.santos@universidadeeuropeia.pt</strong>.</div>
+<div class="result-note"><b>Ordem recomendada:</b> primeiro teste 1 curso + 1 e-mail. Só depois teste 2 cursos + 2 e-mails. Isto ajuda a perceber onde falha, caso algo não funcione.</div>
+</section>
+<section class="card" id="percurso-teste">
+<span class="section-kicker">Percurso do teste</span>
+<h2>O que vai fazer, pela ordem certa</h2>
+<p class="intro">Este é o percurso completo. As secções seguintes mantêm as verificações detalhadas para confirmar cada ponto.</p>
+<div class="test-route">
+<div class="route-step"><b>Confirmar dados</b><span>Verifique na lista Coordenadores MA se o curso e o e-mail estão corretos.</span></div>
+<div class="route-step"><b>Abrir template</b><span>Escolha o cenário e use a versão de teste para simular submissão.</span></div>
+<div class="route-step"><b>Preencher e gerar PDF</b><span>Use curso(s) da sua coordenação e o seu e-mail institucional.</span></div>
+<div class="route-step"><b>Submeter</b><span>Confirme mensagem de sucesso, e-mail automático, Teams e item na lista Guiões.</span></div>
+<div class="route-step"><b>Editar por link</b><span>Abra o link de edição, altere um campo e confirme que atualiza o mesmo item.</span></div>
+<div class="route-step"><b>Validar</b><span>Na lista Guiões, marque Validado = Sim e confirme o e-mail de validação.</span></div>
+<div class="route-step"><b>Repositório</b><span>Se autorizado, confirme o registo na lista Repositório de Práticas Pedagógicas.</span></div>
+<div class="route-step"><b>Feedback</b><span>Registe o que funcionou, o que falhou e anexe capturas de ecrã quando necessário.</span></div>
+</div>
+<div class="test-mode">
+<div class="mode"><b>Teste simples</b><p>Use 1 curso e 1 e-mail. Deve ser o primeiro teste em cada template.</p></div>
+<div class="mode"><b>Teste avançado</b><p>Use 2 cursos e 2 e-mails separados por ponto e vírgula (;), depois de o teste simples funcionar.</p></div>
+</div>
+</section>
+
 <section class="card" id="fluxo">
 <h2>Como o fluxo deve funcionar</h2>
 <p class="intro">Use este esquema como referência durante os testes de junho. Nesta fase, o foco é confirmar o percurso da submissão até à validação, ao e-mail automático ao docente e ao registo na lista Repositório de Práticas Pedagógicas, quando autorizado.</p>
-<div class="flow-showcase" aria-label="Fluxo de teste dos guiões">
-  <div class="flow-step is-active"><span class="step-number">01</span><strong>Docente</strong><span>preenche o template</span></div>
-  <div class="flow-step"><span class="step-number">02</span><strong>PDF</strong><span>gera cópia do guião</span></div>
-  <div class="flow-step"><span class="step-number">03</span><strong>SharePoint</strong><span>cria item na lista Guiões</span></div>
-  <div class="flow-step"><span class="step-number">04</span><strong>Teams</strong><span>notifica em Fluxos de trabalho</span></div>
-  <div class="flow-step"><span class="step-number">05</span><strong>Coordenação</strong><span>altera Validado = Sim</span></div>
-  <div class="flow-step"><span class="step-number">06</span><strong>E-mail</strong><span>docente recebe validação</span></div>
-  <div class="flow-step"><span class="step-number">07</span><strong>Lista Repositório</strong><span>cria registo, se autorizado</span></div>
-  <div class="flow-step is-future"><span class="step-number">08</span><strong>Julho</strong><span>continuidade do projeto</span></div>
+<div aria-label="Fluxo de teste dos guiões" class="flow-showcase">
+<div class="flow-step is-active"><span class="step-number">01</span><strong>Docente</strong><span>preenche o template</span></div>
+<div class="flow-step"><span class="step-number">02</span><strong>PDF</strong><span>gera cópia do guião</span></div>
+<div class="flow-step"><span class="step-number">03</span><strong>SharePoint</strong><span>cria item na lista Guiões</span></div>
+<div class="flow-step"><span class="step-number">04</span><strong>Link de edição</strong><span>abre o guião já preenchido</span></div>
+<div class="flow-step"><span class="step-number">05</span><strong>Atualização</strong><span>docente altera e reenvia</span></div>
+<div class="flow-step"><span class="step-number">06</span><strong>Teams</strong><span>notifica em Fluxos de trabalho</span></div>
+<div class="flow-step"><span class="step-number">07</span><strong>Coordenação</strong><span>altera Validado = Sim</span></div>
+<div class="flow-step"><span class="step-number">08</span><strong>E-mail</strong><span>docente recebe validação</span></div>
+<div class="flow-step"><span class="step-number">09</span><strong>Lista Repositório</strong><span>cria registo, se autorizado</span></div>
+<div class="flow-step is-future"><span class="step-number">10</span><strong>Julho</strong><span>continuidade do projeto</span></div>
 </div>
 </section>
 <section class="card" id="recursos">
 <h2>Recursos úteis</h2>
 <p class="intro">Abra estes recursos à medida que for testando. O primeiro passo é confirmar os dados na lista de Coordenadores MA. Durante o teste de fluxo, mantenha também a lista Guiões aberta para acompanhar a criação e atualização do item, sem ter de procurar a lista manualmente no SharePoint.</p>
 <div class="resources">
-<a class="res" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas" target="_blank"><strong>Página Práticas Pedagógicas</strong><span>Site principal do projeto</span></a>
-<a class="res" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Coordenadores%20de%20Modelo%20Acadmico/AllItems.aspx" target="_blank"><strong>Coordenadores de Modelo Académico</strong><span>Confirmar curso(s), nome e e-mail</span></a>
-<a class="res" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Guies/AllItems.aspx" target="_blank"><strong>Lista Guiões</strong><span>Ver submissões e validar guiões</span></a>
-<a class="res" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Repositrio%20de%20Prticas%20Pedaggicas/AllItems.aspx" target="_blank"><strong>Lista Repositório de Práticas Pedagógicas</strong><span>Confirmar se o registo foi criado quando autorizado</span></a>
-<a class="res" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Contactos%20Acadmicos/AllItems.aspx" target="_blank"><strong>Contactos Académicos</strong><span>Docentes, diretores e coordenações</span></a>
-<a class="res" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Documentos%20Partilhados/Forms/AllItems.aspx" target="_blank"><strong>Documentos institucionais</strong><span>Espaço para materiais que poderão alimentar o Assistente IA</span></a>
+<a class="res" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas" rel="noopener noreferrer" target="_blank"><strong>Página Práticas Pedagógicas</strong><span>Site principal do projeto</span></a>
+<a class="res" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Coordenadores%20de%20Modelo%20Acadmico/AllItems.aspx" rel="noopener noreferrer" target="_blank"><strong>Coordenadores de Modelo Académico</strong><span>Confirmar curso(s), nome e e-mail</span></a>
+<a class="res" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Guies/AllItems.aspx" rel="noopener noreferrer" target="_blank"><strong>Lista Guiões</strong><span>Ver submissões e validar guiões</span></a>
+<a class="res" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Repositrio%20de%20Prticas%20Pedaggicas/AllItems.aspx" rel="noopener noreferrer" target="_blank"><strong>Lista Repositório de Práticas Pedagógicas</strong><span>Confirmar se o registo foi criado quando autorizado</span></a>
+<a class="res" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Contactos%20Acadmicos/AllItems.aspx" rel="noopener noreferrer" target="_blank"><strong>Contactos Académicos</strong><span>Docentes, diretores e coordenações</span></a>
+<a class="res" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Documentos%20Partilhados/Forms/AllItems.aspx" rel="noopener noreferrer" target="_blank"><strong>Documentos institucionais</strong><span>Espaço para materiais que poderão alimentar o Assistente IA</span></a>
 </div>
 </section>
 <section class="card" id="dados">
-<h2>1. Confirmar dados de coordenação</h2>
+<h2>1. Confirmar dados de coordenação</h2><div class="step-box"><h3>Antes de preencher o template</h3><p>Esta etapa evita que o Teams seja enviado para a pessoa errada. Confirme aqui o curso e o e-mail que serão usados no teste.</p><ul class="mini-list"><li>Abra a lista Coordenadores MA num novo separador.</li><li>Utilize apenas curso(s) que estejam associados à sua coordenação.</li><li>Se o curso ou e-mail estiver incorreto, registe nas observações antes de continuar.</li></ul></div>
 <ol class="steps-list"><li>Abra a lista <strong>Coordenadores de Modelo Académico</strong>.</li><li>Confirme se o seu nome e e-mail estão corretos.</li><li>Confirme se está associado/a ao(s) curso(s) certo(s).</li><li>Nos cursos com mais de um coordenador, confirme se todos estão identificados.</li></ol>
-<p><a class="btn primary compact" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Coordenadores%20de%20Modelo%20Acadmico/AllItems.aspx" target="_blank">Abrir lista Coordenadores MA</a></p>
+<p><a class="btn primary compact" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Coordenadores%20de%20Modelo%20Acadmico/AllItems.aspx" rel="noopener noreferrer" target="_blank">Abrir lista Coordenadores MA</a></p>
 <div class="checks">
 <label class="check"><input data-k="coordDados" type="checkbox"/> Dados de coordenação corretos.</label>
 <label class="check"><input data-k="coordCursos" type="checkbox"/> Curso(s) sob minha responsabilidade corretos.</label>
@@ -514,11 +577,11 @@ main,.topnav-inner{max-width:880px;}
 <div class="field"><label>E-mail</label><input data-k="email" placeholder="O seu e-mail institucional" type="email"/></div>
 <div class="field"><label>Unidade Orgânica</label><select data-k="uo"><option></option><option>FCS</option><option>FCST</option><option>IADE</option><option>IPAM Lisboa</option><option>IPAM Porto</option></select></div>
 <div class="field course-field"><label>Curso(s) associado(s) ao teste</label>
-  <input data-k="curso" id="cursoHidden" type="hidden"/>
-  <div class="course-picker">
-    <input id="cursoSearch" list="listaCursosPortal" placeholder="Pesquisar e selecionar curso" type="text" autocomplete="off" aria-label="Pesquisar e selecionar curso"/>
-  </div>
-  <datalist id="listaCursosPortal"><option value="Licenciatura em Animação e Criação Visual"></option>
+<input data-k="curso" id="cursoHidden" type="hidden"/>
+<div class="course-picker">
+<input aria-label="Pesquisar e selecionar curso" autocomplete="off" id="cursoSearch" list="listaCursosPortal" placeholder="Pesquisar e selecionar curso" type="text"/>
+</div>
+<datalist id="listaCursosPortal"><option value="Licenciatura em Animação e Criação Visual"></option>
 <option value="Licenciatura em Animação Global"></option>
 <option value="Licenciatura em Fotografia e Cultura Visual"></option>
 <option value="Mestrado em Animação e Criação Visual"></option>
@@ -583,28 +646,28 @@ main,.topnav-inner{max-width:880px;}
 <option value="Mestrado em Marketing e Tecnologia"></option>
 <option value="Licenciatura em Marketing Global"></option>
 <option value="Licenciatura em Global Business"></option></datalist>
-  <div class="course-tags" id="cursoTags" aria-live="polite"></div>
-  <p class="hint">Pesquise e selecione os cursos sob a sua responsabilidade. Ao escolher um curso, ele fica automaticamente registado como etiqueta.</p>
+<div aria-live="polite" class="course-tags" id="cursoTags"></div>
+<p class="hint">Pesquise e selecione os cursos sob a sua responsabilidade. Ao escolher um curso, ele fica automaticamente registado como etiqueta.</p>
 </div>
 </div>
 <div class="field"><label>Observações sobre os dados de coordenação</label><textarea data-k="obsCoord" placeholder="Indique correções necessárias, se existirem."></textarea></div>
 </section>
 <section class="card" id="templates">
 <h2>2. Abrir templates</h2>
-<p class="intro">Cada coordenador deve verificar a versão institucional e a versão de teste. A versão institucional permite observar o guião como será disponibilizado aos docentes. A versão de teste deve ser usada para simular submissão, e-mail e notificação.</p>
+<p class="intro">Cada coordenador deve verificar a versão institucional e a versão de teste. A versão institucional permite observar o guião como será disponibilizado aos docentes. A versão de teste deve ser usada para simular submissão, e-mail e notificação.</p><div class="step-box"><h3>Como escolher a versão certa</h3><p><strong>Versão institucional:</strong> serve para ver como o guião ficará disponível aos docentes. <strong>Versão de teste:</strong> serve para testar submissão, PDF, e-mail, Teams e edição.</p><ul class="mini-list"><li>Para testar o fluxo completo, use a versão de teste.</li><li>No campo E-mail(s), coloque o seu e-mail institucional.</li><li>Em primeiro lugar, teste 1 curso + 1 e-mail. Depois teste múltiplos cursos/e-mails.</li></ul></div>
 <div class="note"><strong>Orientação de teste:</strong> sempre que possível, teste pelo menos uma versão institucional e uma versão de teste. Se não for possível testar todos os guiões, indique no feedback quais foram efetivamente testados.</div>
 <div class="warning"><strong>Para testar o fluxo:</strong> use a <strong>versão de teste</strong> do template. Antes de submeter, altere o campo <strong>E-mail(s)</strong> para o seu próprio e-mail e selecione apenas curso(s) pelos quais é responsável. Este ponto é essencial para confirmar se os e-mails e as notificações estão a chegar às pessoas certas.</div>
 <div class="note"><strong>Nota:</strong> utilize esta secção para aceder às versões institucionais e às versões de teste dos guiões pedagógicos.</div>
 <div class="template-grid">
-<div class="tpl"><b>CBL — Challenge-Based Learning</b><div class="btns"><a class="btn secondary" href="https://praticaspedagogicas.github.io/praticas/CBL.html" target="_blank" rel="noopener">Versão institucional</a><a class="btn primary" href="https://praticaspedagogicas.github.io/praticas/CBL_Teste.html" target="_blank" rel="noopener">Versão de teste</a></div></div>
-<div class="tpl"><b>PBL — Problem-Based Learning</b><div class="btns"><a class="btn secondary" href="https://praticaspedagogicas.github.io/praticas/PBL.html" target="_blank" rel="noopener">Versão institucional</a><a class="btn primary" href="https://praticaspedagogicas.github.io/praticas/PBL_Teste.html" target="_blank" rel="noopener">Versão de teste</a></div></div>
-<div class="tpl"><b>PROJ-BL — Project-Based Learning</b><div class="btns"><a class="btn secondary" href="https://praticaspedagogicas.github.io/praticas/Proj-BL.html" target="_blank" rel="noopener">Versão institucional</a><a class="btn primary" href="https://praticaspedagogicas.github.io/praticas/Proj-BL_Teste.html" target="_blank" rel="noopener">Versão de teste</a></div></div>
-<div class="tpl"><b>RBL — Research-Based Learning</b><div class="btns"><a class="btn secondary" href="https://praticaspedagogicas.github.io/praticas/RBL.html" target="_blank" rel="noopener">Versão institucional</a><a class="btn primary" href="https://praticaspedagogicas.github.io/praticas/RBL_Teste.html" target="_blank" rel="noopener">Versão de teste</a></div></div>
-<div class="tpl"><b>SBL — Simulation-Based Learning</b><div class="btns"><a class="btn secondary" href="https://praticaspedagogicas.github.io/praticas/SBL.html" target="_blank" rel="noopener">Versão institucional</a><a class="btn primary" href="https://praticaspedagogicas.github.io/praticas/SBL_Teste.html" target="_blank" rel="noopener">Versão de teste</a></div></div>
+<div class="tpl"><b>CBL — Challenge-Based Learning</b><div class="btns"><a class="btn secondary" href="https://praticaspedagogicas.github.io/praticas/CBL.html" rel="noopener noreferrer" target="_blank">Versão institucional</a><a class="btn primary" href="https://praticaspedagogicas.github.io/praticas/CBL_Teste.html" rel="noopener noreferrer" target="_blank">Versão de teste</a></div></div>
+<div class="tpl"><b>PBL — Problem-Based Learning</b><div class="btns"><a class="btn secondary" href="https://praticaspedagogicas.github.io/praticas/PBL.html" rel="noopener noreferrer" target="_blank">Versão institucional</a><a class="btn primary" href="https://praticaspedagogicas.github.io/praticas/PBL_Teste.html" rel="noopener noreferrer" target="_blank">Versão de teste</a></div></div>
+<div class="tpl"><b>PROJ-BL — Project-Based Learning</b><div class="btns"><a class="btn secondary" href="https://praticaspedagogicas.github.io/praticas/Proj-BL.html" rel="noopener noreferrer" target="_blank">Versão institucional</a><a class="btn primary" href="https://praticaspedagogicas.github.io/praticas/Proj-BL_Teste.html" rel="noopener noreferrer" target="_blank">Versão de teste</a></div></div>
+<div class="tpl"><b>RBL — Research-Based Learning</b><div class="btns"><a class="btn secondary" href="https://praticaspedagogicas.github.io/praticas/RBL.html" rel="noopener noreferrer" target="_blank">Versão institucional</a><a class="btn primary" href="https://praticaspedagogicas.github.io/praticas/RBL_Teste.html" rel="noopener noreferrer" target="_blank">Versão de teste</a></div></div>
+<div class="tpl"><b>SBL — Simulation-Based Learning</b><div class="btns"><a class="btn secondary" href="https://praticaspedagogicas.github.io/praticas/SBL.html" rel="noopener noreferrer" target="_blank">Versão institucional</a><a class="btn primary" href="https://praticaspedagogicas.github.io/praticas/SBL_Teste.html" rel="noopener noreferrer" target="_blank">Versão de teste</a></div></div>
 </div>
 <div class="field"><label>Template(s) testado(s)</label>
 <input data-k="templates" id="templatesHidden" type="hidden"/>
-<div class="template-checks" role="group" aria-label="Template(s) testado(s)">
+<div aria-label="Template(s) testado(s)" class="template-checks" role="group">
 <label class="template-choice"><input class="template-check" type="checkbox" value="CBL"/> CBL</label>
 <label class="template-choice"><input class="template-check" type="checkbox" value="PBL"/> PBL</label>
 <label class="template-choice"><input class="template-check" type="checkbox" value="PROJ-BL"/> PROJ-BL</label>
@@ -624,7 +687,7 @@ main,.topnav-inner{max-width:880px;}
 <label class="check"><input data-k="intBotoes" type="checkbox"/> Botões + e – funcionam.</label>
 <label class="check"><input data-k="intMobile" type="checkbox"/> Testado em telemóvel/tablet, quando possível.</label>
 </div>
-<div class="note"><strong>Nota para teste mobile:</strong> no telemóvel/tablet, confirme se os campos básicos do cabeçalho não ficam cortados. Curso(s), Unidade(s) Curricular(es), Docente(s), Email(s), Número de estudantes e Número de grupos devem permanecer legíveis. Em tabelas largas, pode existir scroll/adaptação mobile, mas os campos não devem ficar impossíveis de preencher.</div>
+<div class="note"><strong>Nota para teste em telemóvel/tablet:</strong> no telemóvel/tablet, confirme se os campos básicos do cabeçalho não ficam cortados. Curso(s), Unidade(s) Curricular(es), Docente(s), E-mail(s), Número de estudantes e Número de grupos devem permanecer legíveis. Em tabelas largas, pode existir scroll/adaptação para telemóvel/tablet, mas os campos não devem ficar impossíveis de preencher.</div>
 <h3>Ajustes indispensáveis aos campos do guião</h3>
 <p class="intro">Os templates seguem a estrutura institucional definida para cada cenário de aprendizagem. Nesta fase, o objetivo não é redesenhar o guião, mas identificar apenas ajustes indispensáveis à clareza, ao preenchimento ou ao funcionamento.</p>
 <div class="checks">
@@ -647,11 +710,11 @@ main,.topnav-inner{max-width:880px;}
 <h2>5. Submissão e e-mail ao docente</h2>
 <div class="warning"><strong>Atenção:</strong> para testar o fluxo, use a <strong>versão de teste</strong> do template. Antes de submeter, altere o campo <strong>E-mail(s)</strong> para o seu próprio e-mail e selecione apenas curso(s) pelos quais é responsável.</div>
 <div class="note"><strong>Remetente temporário:</strong> durante estes testes iniciais, os e-mails automáticos podem chegar pela caixa de Ana Luiza Marques. Já foi solicitado ao IT a ativação/configuração do endereço <strong>praticas_pedagogicas@universidadeeuropeia.pt</strong>; após a ativação, os fluxos serão ajustados para usar esse remetente institucional.</div>
-<p><a class="btn secondary" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Guies/AllItems.aspx" target="_blank">Abrir lista Guiões em paralelo</a></p>
-<ol class="steps-list"><li>Abra a lista <strong>Guiões</strong> em paralelo, para acompanhar se o item aparece após a submissão.</li><li>Na versão de teste do template, confirme se o curso selecionado corresponde a um curso sob sua coordenação.</li><li>Submeta o guião para validação.</li><li>Confirme se aparece mensagem de sucesso no template.</li><li>Verifique se recebeu o e-mail automático com cópia do PDF.</li><li>Na lista Guiões, confirme se foi criado um novo item com curso, UC, docente/e-mail, ano letivo, estado e demais campos aplicáveis ao cenário preenchidos. Nos templates que tenham calendarização ou simulação, confirme também data e hora.</li><li>Se encontrar erro, guarde prints ou PDFs de apoio. Ao enviar o feedback, anexe-os manualmente na janela de e-mail que será aberta.</li></ol>
-<div class="checks"><label class="check"><input data-k="subOk" type="checkbox"/> Submissão concluída.</label><label class="check"><input data-k="subEmail" type="checkbox"/> Recebi o e-mail automático.</label><label class="check"><input data-k="subPDF" type="checkbox"/> PDF chegou/anexo corretamente.</label><label class="check"><input data-k="subSharepoint" type="checkbox"/> Item apareceu na lista Guiões.</label><label class="check"><input data-k="subCurso" type="checkbox"/> Curso submetido corresponde à minha coordenação.</label><label class="check"><input data-k="subMsgSucesso" type="checkbox"/> Mensagem de sucesso apareceu no template.</label></div>
+<p><a class="btn secondary" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Guies/AllItems.aspx" rel="noopener noreferrer" target="_blank">Abrir lista Guiões em paralelo</a></p>
+<ol class="steps-list"><li>Abra a lista <strong>Guiões</strong> em paralelo, para acompanhar se o item aparece após a submissão.</li><li>Na versão de teste do template, confirme se o curso selecionado corresponde a um curso sob a sua coordenação.</li><li>Submeta o guião para validação.</li><li>Confirme se aparece mensagem de sucesso no template.</li><li>Verifique se recebeu o e-mail automático com cópia do PDF.</li><li>Na lista Guiões, confirme se foi criado um novo item com curso, UC, docente/e-mail, ano letivo, estado e demais campos aplicáveis ao cenário preenchidos. Nos templates que tenham calendarização ou simulação, confirme também data e hora.</li><li>Se encontrar erro, guarde capturas de ecrã ou PDFs de apoio. Ao enviar o feedback, anexe-os manualmente na janela de e-mail que será aberta.</li></ol>
+<div class="checks"><label class="check"><input data-k="subOk" type="checkbox"/> Submissão concluída.</label><label class="check"><input data-k="subEmail" type="checkbox"/> Recebi o e-mail automático.</label><label class="check"><input data-k="subPDF" type="checkbox"/> PDF chegou/anexo corretamente.</label><label class="check"><input data-k="subSharepoint" type="checkbox"/> Item apareceu na lista Guiões.</label><label class="check"><input data-k="subCurso" type="checkbox"/> Curso submetido corresponde à minha coordenação.</label><label class="check"><input data-k="subMsgSucesso" type="checkbox"/> Mensagem de sucesso apareceu no template.</label><label class="check"><input data-k="subLinkEdicao" type="checkbox"/> Link de edição foi gerado no item SharePoint.</label><label class="check"><input data-k="subLinkItemId" type="checkbox"/> Link de edição contém ?itemId=.</label></div>
 <h3>Verificação específica do SBL</h3>
-<p class="intro">Quando testar o template SBL — Simulation-Based Learning, confirme também os campos próprios da simulação.</p>
+<p class="intro">Quando testar o template SBL — Simulation-Based Learning, confirme também os campos próprios da simulação.</p><div class="step-box"><h3>O que deve ficar aberto enquanto submete</h3><p>Antes de clicar em enviar, mantenha abertas a lista Guiões, o seu e-mail e o Teams. Assim consegue confirmar imediatamente se o fluxo funcionou.</p><ul class="mini-list"><li>Template aberto para submeter.</li><li>Lista Guiões aberta para ver o novo item.</li><li>E-mail aberto para confirmar mensagem automática.</li><li>Teams aberto para confirmar a notificação em Fluxos de trabalho.</li></ul></div>
 <div class="checks"><label class="check"><input data-k="sblTurma" type="checkbox"/> Turma/Edição apresenta Turma 1, Turma 2, Turma 3 ou Turma 4.</label><label class="check"><input data-k="sblData" type="checkbox"/> Data da simulação preenchida e registada corretamente.</label><label class="check"><input data-k="sblHoraInicio" type="checkbox"/> Hora de início preenchida e registada corretamente.</label><label class="check"><input data-k="sblHoraFim" type="checkbox"/> Hora de fim preenchida e registada corretamente.</label></div>
 <h3>Mensagem automática recebida nesta etapa</h3>
 <p class="intro">Ao submeter, o docente recebe o primeiro e-mail automático com a confirmação da submissão e uma cópia do PDF. Avalie a mensagem no momento em que ela chega.</p>
@@ -666,21 +729,30 @@ main,.topnav-inner{max-width:880px;}
 <div class="field"><label>Observações sobre submissão/e-mail inicial</label><textarea data-k="obsSub" placeholder="Registe apenas problemas ou dúvidas relevantes."></textarea></div>
 </div>
 </section>
+<section class="card" id="edicao">
+<h2>6. Edição do guião submetido</h2>
+<p class="intro">Após a submissão inicial, teste o link de edição gerado para o guião. O objetivo é confirmar que o docente consegue abrir novamente o template já preenchido, alterar informação e reenviar sem criar um item duplicado na lista Guiões.</p><div class="step-box"><h3>Objetivo deste teste</h3><p>Confirmar se o docente consegue voltar ao guião já submetido, alterar informação e reenviar sem criar uma nova submissão duplicada.</p><ul class="mini-list"><li>Utilize o link de edição recebido por e-mail ou disponível na lista Guiões.</li><li>Confirme se a URL contém <strong>?itemId=</strong>.</li><li>Altere apenas um campo simples e reenvie.</li></ul></div>
+<ol class="steps-list"><li>Na lista <strong>Guiões</strong>, confirme se o campo <strong>Link de edição</strong> está preenchido.</li><li>Abra o link de edição, que deve conter <strong>?itemId=</strong>.</li><li>Confirme se o formulário abre já preenchido com os dados anteriormente submetidos.</li><li>Confirme se também foram carregados os campos pedagógicos específicos do cenário.</li><li>Altere um campo simples, por exemplo número de estudantes, ano letivo ou uma observação textual.</li><li>Submeta novamente o guião.</li><li>Volte à lista Guiões e confirme se o mesmo item foi atualizado, sem criação de item duplicado.</li><li>Se o guião já estava validado antes da alteração, confirme se voltou a requerer nova validação.</li></ol>
+<div class="checks"><label class="check"><input data-k="editLinkCriado" type="checkbox"/> Link de edição criado.</label><label class="check"><input data-k="editLinkItemId" type="checkbox"/> Link abre com ?itemId=.</label><label class="check"><input data-k="editCarregouDados" type="checkbox"/> Formulário carregou os dados anteriores.</label><label class="check"><input data-k="editCamposPedagogicos" type="checkbox"/> Campos pedagógicos também carregaram.</label><label class="check"><input data-k="editAlteracao" type="checkbox"/> Alteração simples foi guardada.</label><label class="check"><input data-k="editMesmoItem" type="checkbox"/> Mesmo item SharePoint foi atualizado.</label><label class="check"><input data-k="editSemDuplicado" type="checkbox"/> Não foi criado item duplicado.</label><label class="check"><input data-k="editPdfAtualizado" type="checkbox"/> PDF atualizado foi anexado/gerado.</label><label class="check"><input data-k="editEmailAtualizacao" type="checkbox"/> E-mail de atualização foi recebido.</label><label class="check"><input data-k="editTeamsAtualizacao" type="checkbox"/> Teams notificou a atualização.</label><label class="check"><input data-k="editRequerValidacao" type="checkbox"/> Se já estava validado, voltou a requerer nova validação.</label></div>
+<div class="warning"><strong>Atenção:</strong> este teste deve ser feito antes da validação final. Se o docente alterar um guião já validado, a nova versão deve voltar a exigir revisão da coordenação.</div>
+<div class="field"><label>Observações sobre a edição do guião</label><textarea data-k="obsEdicao" placeholder="Indique se o link não abriu, se algum campo não carregou, se houve duplicação ou se a atualização não voltou a requerer validação."></textarea></div>
+</section>
 <section class="card" id="teams">
-<h2>6. Notificação Teams</h2>
-<ol class="steps-list"><li>Após a submissão, abra o Teams.</li><li>Procure a notificação na área/chamada <strong>Fluxos de trabalho</strong>.</li><li>Confirme se o cartão apresenta cenário, docente, e-mail e link para abrir o guião.</li><li>Clique em <strong>Abrir guião no SharePoint</strong> e confirme se abre o item correto.</li><li>Nos cursos com mais de um coordenador, confirme se todos receberam notificação separada.</li></ol>
+<h2>7. Notificação Teams</h2>
+<ol class="steps-list"><li>Após a submissão, abra o Teams.</li><li>Procure a notificação na área/chamada <strong>Fluxos de trabalho</strong>.</li><li>Confirme se o cartão apresenta cenário, docente, e-mail e link para abrir o guião.</li><li>Clique em <strong>Abrir guião no SharePoint</strong> e confirme se abre o item correto.</li><li>Após uma atualização pelo link de edição, confirme se a notificação permite distinguir atualização de submissão nova.</li><li>Nos cursos com mais de um coordenador, confirme se todos receberam notificação separada.</li></ol>
 <div class="checks"><label class="check"><input data-k="teamsRecebi" type="checkbox"/> Recebi notificação em Fluxos de trabalho.</label><label class="check"><input data-k="teamsLink" type="checkbox"/> Link abriu o item correto da lista Guiões.</label><label class="check"><input data-k="teamsDados" type="checkbox"/> Dados da notificação estavam corretos.</label><label class="check"><input data-k="teamsMulti" type="checkbox"/> Cursos com múltiplos coordenadores receberam notificação separada.</label></div>
 <div class="field"><label>Observações sobre a notificação Teams</label><textarea data-k="obsTeams" placeholder="Indique apenas se houve falha, atraso, erro no link ou problema em cursos com vários coordenadores."></textarea></div>
 </section>
 <section class="card" id="validacao">
-<h2>7. Validação do guião na lista Guiões</h2>
-<p class="intro">Este passo confirma se o fluxo de validação realmente dispara o e-mail automático ao docente.</p>
-<p><a class="btn secondary" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Guies/AllItems.aspx" target="_blank">Abrir lista Guiões</a></p>
-<ol class="steps-list"><li>Abra a lista <strong>Guiões</strong>.</li><li>Abra o item submetido no teste.</li><li>Altere apenas o campo <strong>Validado</strong> para <strong>Sim</strong>.</li><li><strong>Não</strong> marque manualmente <strong>E-mail Validação Enviado</strong>. O fluxo deve marcar isto sozinho.</li><li>Guarde o item.</li><li>Verifique se o docente recebeu o e-mail automático de validação.</li><li>Volte à lista Guiões e confirme se <strong>E-mail Validação Enviado</strong> ficou marcado automaticamente e se <strong>Status de Validação</strong> ficou como <strong>Validado</strong>.</li></ol>
-<div class="checks"><label class="check"><input data-k="valMarquei" type="checkbox"/> Marquei Validado = Sim.</label><label class="check"><input data-k="valNaoMarqueiEmail" type="checkbox"/> Não marquei manualmente E-mail Validação Enviado.</label><label class="check"><input data-k="valEmailDocente" type="checkbox"/> Docente recebeu e-mail de validação.</label><label class="check"><input data-k="valEmailFlag" type="checkbox"/> E-mail Validação Enviado ficou marcado automaticamente.</label><label class="check"><input data-k="valStatus" type="checkbox"/> Status de Validação ficou como Validado.</label><label class="check"><input data-k="valItemGuardado" type="checkbox"/> Item guardado sem erro na lista Guiões.</label></div>
+<h2>8. Validação do guião na lista Guiões</h2>
+<p class="intro">Este passo confirma se o fluxo de validação realmente dispara o e-mail automático ao docente.</p><div class="step-box"><h3>Antes de validar</h3><p>Valide apenas depois de testar a submissão e a edição. A validação deve ser feita na lista Guiões, não no template.</p><ul class="mini-list"><li>Marque apenas <strong>Validado = Sim</strong>.</li><li>Não marque manualmente <strong>E-mail Validação Enviado</strong>.</li><li>Depois de guardar, confirme e-mail de validação e comportamento do repositório.</li></ul></div>
+<p><a class="btn secondary" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Guies/AllItems.aspx" rel="noopener noreferrer" target="_blank">Abrir lista Guiões</a></p>
+<ol class="steps-list"><li>Abra a lista <strong>Guiões</strong>.</li><li>Abra o item submetido no teste e confirme que corresponde à última versão atualizada pelo docente.</li><li>Altere apenas o campo <strong>Validado</strong> para <strong>Sim</strong>.</li><li><strong>Não</strong> marque manualmente <strong>E-mail Validação Enviado</strong>. O fluxo deve marcar isto sozinho.</li><li>Guarde o item.</li><li>Verifique se o docente recebeu o e-mail automático de validação.</li><li>Volte à lista Guiões e confirme se <strong>E-mail Validação Enviado</strong> ficou marcado automaticamente e se <strong>Status de Validação</strong> ficou como <strong>Validado</strong>.</li></ol>
+<div class="checks"><label class="check"><input data-k="valMarquei" type="checkbox"/> Marquei Validado = Sim.</label><label class="check"><input data-k="valNaoMarqueiEmail" type="checkbox"/> Não marquei manualmente E-mail Validação Enviado.</label><label class="check"><input data-k="valEmailDocente" type="checkbox"/> Docente recebeu e-mail de validação.</label><label class="check"><input data-k="valEmailFlag" type="checkbox"/> E-mail Validação Enviado ficou marcado automaticamente.</label><label class="check"><input data-k="valStatus" type="checkbox"/> Status de Validação ficou como Validado.</label><label class="check"><input data-k="valItemGuardado" type="checkbox"/> Item guardado sem erro na lista Guiões.</label><label class="check"><input data-k="valVersaoAtualizada" type="checkbox"/> Validei a versão final/atualizada do guião.</label></div>
 <h3>Registo na lista Repositório de Práticas Pedagógicas</h3>
 <p class="intro">Depois de marcar <strong>Validado = Sim</strong> e guardar, teste o comportamento de acordo com a autorização assinalada no item.</p>
-<p><a class="btn secondary" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Repositrio%20de%20Prticas%20Pedaggicas/AllItems.aspx" target="_blank">Abrir lista Repositório de Práticas Pedagógicas</a></p>
+<p><a class="btn secondary" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Lists/Repositrio%20de%20Prticas%20Pedaggicas/AllItems.aspx" rel="noopener noreferrer" target="_blank">Abrir lista Repositório de Práticas Pedagógicas</a></p>
+<p class="note">Se o guião tiver sido atualizado antes da validação, confirme se o item enviado para o repositório corresponde à versão final atualizada e se não foi criado registo duplicado por causa da edição.</p>
 <h3>Caso A — Autoriza Repositório = Sim</h3>
 <div class="checks"><label class="check"><input data-k="repoAutorizado" type="checkbox"/> Autoriza Repositório estava marcado como Sim.</label><label class="check"><input data-k="repoEmailSim" type="checkbox"/> E-mail de validação foi enviado ao docente.</label><label class="check"><input data-k="repoEmailFlagSim" type="checkbox"/> E-mail Validação Enviado ficou como Sim.</label><label class="check"><input data-k="repoStatusSim" type="checkbox"/> Status de Validação ficou como Validado.</label><label class="check"><input data-k="repoPublicado" type="checkbox"/> Publicado no Repositório ficou como Sim.</label><label class="check"><input data-k="repoEstado" type="checkbox"/> Estado Repositório ficou como Disponível.</label><label class="check"><input data-k="repoItem" type="checkbox"/> Foi criado item na lista Repositório de Práticas Pedagógicas.</label></div>
 <h3>Caso B — Autoriza Repositório = Não</h3>
@@ -708,21 +780,21 @@ main,.topnav-inner{max-width:880px;}
 <strong>Não é necessário testar agora:</strong> a consulta/reutilização dos guiões validados e a alimentação do Assistente IA serão trabalhadas na continuidade do projeto, em julho.
     </div>
 <div class="action-strip">
-  <div>
-    <strong>Materiais para o Assistente IA</strong>
-    <span>Quando fizer sentido, os coordenadores poderão colocar documentos institucionais neste espaço para apoiar a fase seguinte.</span>
-  </div>
-  <a class="btn secondary compact" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Documentos%20Partilhados/Forms/AllItems.aspx" target="_blank">Abrir documentos institucionais</a>
+<div>
+<strong>Materiais para o Assistente IA</strong>
+<span>Quando fizer sentido, os coordenadores poderão colocar documentos institucionais neste espaço para apoiar a fase seguinte.</span>
+</div>
+<a class="btn secondary compact" href="https://univeuropeiapt.sharepoint.com/sites/praticas_pedagogicas/Documentos%20Partilhados/Forms/AllItems.aspx" rel="noopener noreferrer" target="_blank">Abrir documentos institucionais</a>
 </div>
 <div class="note"><strong>Comunicações gerais futuras:</strong> foi criada a lista <strong>Contactos Académicos</strong> para apoiar, numa fase seguinte, comunicações a docentes, diretores de curso e coordenações. A intenção é que mensagens institucionais, como divulgações de formações ou eventos académicos institucionais, possam ser enviadas de forma uniforme pelo endereço <strong>praticas_pedagogicas@universidadeeuropeia.pt</strong>, sem depender sempre de pedidos ao Suporte Académico.</div>
 </section>
 <section class="card" id="feedback">
-<h2>9. Feedback final</h2>
+<h2>9. Feedback final</h2><div class="step-box"><h3>Como dar feedback útil</h3><p>Quando algo falhar, indique o template, a versão usada, o curso, o e-mail e o momento em que o erro aconteceu.</p><ul class="mini-list"><li>Anexe capturas de ecrã quando possível.</li><li>Diga se testou versão normal, versão de teste ou ambas.</li><li>Indique se o problema foi no PDF, SharePoint, e-mail, Teams, edição, validação ou repositório.</li></ul></div>
 <div class="grid"><div class="field"><label>O sistema está pronto para avançar?</label><select data-k="pronto"><option></option><option>Sim</option><option>Sim, com pequenos ajustes</option><option>Não</option></select></div><div class="field"><label>Prioridade dos ajustes</label><select data-k="prioridade"><option></option><option>Baixa</option><option>Média</option><option>Alta</option></select></div></div>
 <div class="grid"><div class="field"><label>O que manteria?</label><textarea data-k="manteria"></textarea></div><div class="field"><label>O que melhoraria primeiro?</label><textarea data-k="melhoraria"></textarea></div></div>
 <div class="field"><label>Outras observações</label><textarea data-k="obsFinal"></textarea></div>
-<h3>Espelho do feedback</h3><p class="muted">O resumo abaixo é atualizado automaticamente. Ao clicar em <strong>Preparar e-mail de feedback</strong>, será aberto um e-mail já preenchido. Confirme depois o envio no Outlook/Mail. Se estiver no telemóvel ou no Safari e o e-mail não abrir, use <strong>Copiar resumo</strong> e cole o conteúdo manualmente.</p>
-<div class="note"><strong>Envio de evidências:</strong> caso identifique algum erro ou comportamento inesperado, descreva-o no e-mail de feedback e, sempre que possível, anexe prints, PDFs ou outros documentos diretamente na janela de e-mail antes de enviar.</div>
+<h3>Espelho do feedback</h3><p class="muted">O resumo abaixo é atualizado automaticamente. Ao clicar em <strong>Preparar e-mail de feedback</strong>, será aberto um e-mail já preenchido. Confirme depois o envio no Outlook/Mail. Se estiver no telemóvel ou no Safari e o e-mail não abrir, utilize <strong>Copiar resumo</strong> e cole o conteúdo manualmente.</p>
+<div class="note"><strong>Envio de evidências:</strong> caso identifique algum erro ou comportamento inesperado, descreva-o no e-mail de feedback e, sempre que possível, anexe capturas de ecrã, PDFs ou outros documentos diretamente na janela de e-mail antes de enviar.</div>
 <div class="summary" id="summary">Esta versão está preenchida para teste. O espelho será atualizado automaticamente ao abrir a página.</div>
 <div class="btns"><button class="primary" onclick="sendFeedback()" type="button">Preparar e-mail de feedback</button><button class="secondary" onclick="copySummary()" type="button">Copiar resumo</button><button class="ghost" onclick="clearAll()" type="button">Limpar respostas</button></div><div class="note" id="sendStatus" style="display:none;margin-top:12px;"></div>
 </section>
@@ -731,7 +803,7 @@ main,.topnav-inner{max-width:880px;}
 <script>
 const STORE='portal_testes_guioes_coordenadores_v30_final_profissional';
 const labels={
-coordDados:'Dados de coordenação corretos',coordCursos:'Curso(s) corretos',coordEmails:'E-mail(s) corretos',coordMulti:'Todos os coordenadores listados',intFonte:'Fontes adequadas',intCampos:'Campos claros',intTabs:'Separadores funcionam',intExpand:'Campos expansíveis funcionam',intBotoes:'Botões +/– funcionam',intMobile:'Testado em mobile/tablet',campoOk:'Manteria os campos como estão',campoFaltaIndispensavel:'Falta um campo indispensável',campoRetirarSimplificar:'Retiraria ou simplificaria um campo',campoProblemaUso:'Campo dificulta o preenchimento',pdfGerou:'Gerou PDF',pdfLegivel:'PDF legível',pdfDados:'Dados no PDF corretos',pdfSemCortes:'PDF sem cortes',subOk:'Submissão concluída',subEmail:'Recebeu e-mail inicial',subPDF:'PDF/anexo correto',subSharepoint:'Item apareceu em Guiões',subCurso:'Curso corresponde à coordenação',teamsRecebi:'Recebeu Teams/Fluxos de trabalho',teamsLink:'Link abriu item correto',teamsDados:'Dados Teams corretos',teamsMulti:'Múltiplos coordenadores notificados',valMarquei:'Marcou Validado = Sim',valNaoMarqueiEmail:'Não marcou e-mail manualmente',valEmailDocente:'Docente recebeu e-mail de validação',valEmailFlag:'E-mail Validação Enviado marcado automaticamente',valStatus:'Status = Validado',repoAutorizado:'Autoriza Repositório = Sim',repoEmailSim:'E-mail de validação enviado (repositório Sim)',repoEmailFlagSim:'E-mail Validação Enviado = Sim (repositório Sim)',repoStatusSim:'Status = Validado (repositório Sim)',repoPublicado:'Publicado no Repositório = Sim',repoEstado:'Estado Repositório = Disponível',repoItem:'Item criado no Repositório',repoNaoAutorizado:'Autoriza Repositório = Não',repoEmailNao:'E-mail de validação enviado (repositório Não)',repoEmailFlagNao:'E-mail Validação Enviado = Sim (repositório Não)',repoStatusNao:'Status = Validado (repositório Não)',repoPublicadoNao:'Publicado no Repositório = Não',repoEstadoNao:'Estado Repositório = Indisponível',repoSemItem:'Item não criado no Repositório',sblTurma:'SBL Turma/Edição correta',sblData:'SBL Data da simulação registada',sblHoraInicio:'SBL Hora de início registada',sblHoraFim:'SBL Hora de fim registada',msgSubmissaoOk:'Concorda com a mensagem de submissão',msgSubmissaoCamposOk:'Mensagem de submissão com informação necessária',msgSubmissaoTomOk:'Tom da mensagem de submissão adequado',msgValidacaoOk:'Concorda com a mensagem de validação',msgTomOk:'Tom da mensagem de validação adequado',msgCamposOk:'Campos da mensagem de validação suficientes'
+coordDados:'Dados de coordenação corretos',coordCursos:'Curso(s) corretos',coordEmails:'E-mail(s) corretos',coordMulti:'Todos os coordenadores listados',intFonte:'Fontes adequadas',intCampos:'Campos claros',intTabs:'Separadores funcionam',intExpand:'Campos expansíveis funcionam',intBotoes:'Botões +/– funcionam',intMobile:'Testado em telemóvel/tablet',campoOk:'Manteria os campos como estão',campoFaltaIndispensavel:'Falta um campo indispensável',campoRetirarSimplificar:'Retiraria ou simplificaria um campo',campoProblemaUso:'Campo dificulta o preenchimento',pdfGerou:'Gerou PDF',pdfLegivel:'PDF legível',pdfDados:'Dados no PDF corretos',pdfSemCortes:'PDF sem cortes',subOk:'Submissão concluída',subEmail:'Recebeu e-mail inicial',subPDF:'PDF/anexo correto',subSharepoint:'Item apareceu em Guiões',subCurso:'Curso corresponde à coordenação',teamsRecebi:'Recebeu Teams/Fluxos de trabalho',teamsLink:'Link abriu item correto',teamsDados:'Dados Teams corretos',teamsMulti:'Múltiplos coordenadores notificados',valMarquei:'Marcou Validado = Sim',valNaoMarqueiEmail:'Não marcou e-mail manualmente',valEmailDocente:'Docente recebeu e-mail de validação',valEmailFlag:'E-mail Validação Enviado marcado automaticamente',valStatus:'Status = Validado',repoAutorizado:'Autoriza Repositório = Sim',repoEmailSim:'E-mail de validação enviado (repositório Sim)',repoEmailFlagSim:'E-mail Validação Enviado = Sim (repositório Sim)',repoStatusSim:'Status = Validado (repositório Sim)',repoPublicado:'Publicado no Repositório = Sim',repoEstado:'Estado Repositório = Disponível',repoItem:'Item criado no Repositório',repoNaoAutorizado:'Autoriza Repositório = Não',repoEmailNao:'E-mail de validação enviado (repositório Não)',repoEmailFlagNao:'E-mail Validação Enviado = Sim (repositório Não)',repoStatusNao:'Status = Validado (repositório Não)',repoPublicadoNao:'Publicado no Repositório = Não',repoEstadoNao:'Estado Repositório = Indisponível',repoSemItem:'Item não criado no Repositório',sblTurma:'SBL Turma/Edição correta',sblData:'SBL Data da simulação registada',sblHoraInicio:'SBL Hora de início registada',sblHoraFim:'SBL Hora de fim registada',msgSubmissaoOk:'Concorda com a mensagem de submissão',msgSubmissaoCamposOk:'Mensagem de submissão com informação necessária',msgSubmissaoTomOk:'Tom da mensagem de submissão adequado',msgValidacaoOk:'Concorda com a mensagem de validação',msgTomOk:'Tom da mensagem de validação adequado',msgCamposOk:'Campos da mensagem de validação suficientes'
 };
 
 const CURSOS_PORTAL=[
@@ -881,6 +953,9 @@ ${d.obsPDF||'—'}
 Submissão/e-mail inicial:
 ${d.obsSub||'—'}
 
+Edição do guião:
+${d.obsEdicao||'—'}
+
 Notificação Teams:
 ${d.obsTeams||'—'}
 
@@ -910,13 +985,13 @@ ${d.obsFinal||'—'}`;}
 function updateUI(){renderCursoTags();document.querySelectorAll('.check').forEach(l=>{const cb=l.querySelector('input');l.classList.toggle('done',cb&&cb.checked);});const p=pct();document.getElementById('progressBar').style.width=p+'%';document.getElementById('progressText').textContent=p+'% percorrido';document.getElementById('summary').textContent=summaryText();}
 function sendFeedback(){
   const d=getData();
-  const summary=summaryText()+"\n\nNota: anexar prints/documentos manualmente antes de enviar, se aplicável.";
+  const summary=summaryText()+"\n\nNota: anexar capturas de ecrã/documentos manualmente antes de enviar, se aplicável.";
   const subject='[Testes Guiões] Feedback - '+(d.templates||'templates')+' - '+(d.nome||'Coordenador/a');
   const mailto='mailto:luiza.marques@universidadeeuropeia.pt?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(summary);
   const status=document.getElementById('sendStatus');
   if(status){
     status.style.display='block';
-    status.innerHTML='✅ O e-mail de feedback foi preparado. Confirme o envio no Outlook/Mail. Se a aplicação de e-mail não abrir automaticamente, use <strong>Copiar resumo</strong> e cole o conteúdo num novo e-mail para <strong>luiza.marques@universidadeeuropeia.pt</strong>. Pode anexar prints antes de enviar.';
+    status.innerHTML='✅ O e-mail de feedback foi preparado. Confirme o envio no Outlook/Mail. Se a aplicação de e-mail não abrir automaticamente, utilize <strong>Copiar resumo</strong> e cole o conteúdo num novo e-mail para <strong>luiza.marques@universidadeeuropeia.pt</strong>. Pode anexar capturas de ecrã antes de enviar.';
     status.scrollIntoView({behavior:'smooth', block:'center'});
   }
   // Em alguns telemóveis/navegadores, mailto pode ser bloqueado. A mensagem acima aparece sempre como confirmação.
@@ -928,7 +1003,7 @@ function sendFeedback(){
 function copySummary(){
   const txt=summaryText();
   const status=document.getElementById('sendStatus');
-  function showCopied(){ if(status){status.style.display='block'; status.innerHTML='✅ Resumo copiado. Abra um novo e-mail para <strong>luiza.marques@universidadeeuropeia.pt</strong>, cole o resumo e anexe prints, se necessário.'; status.scrollIntoView({behavior:'smooth', block:'center'});} else {alert('Resumo copiado.');}}
+  function showCopied(){ if(status){status.style.display='block'; status.innerHTML='✅ Resumo copiado. Abra um novo e-mail para <strong>luiza.marques@universidadeeuropeia.pt</strong>, cole o resumo e anexe capturas de ecrã, se necessário.'; status.scrollIntoView({behavior:'smooth', block:'center'});} else {alert('Resumo copiado.');}}
   if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(showCopied).catch(function(){ fallbackCopy(txt); showCopied(); }); }
   else { fallbackCopy(txt); showCopied(); }
 }
