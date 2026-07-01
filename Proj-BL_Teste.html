@@ -20576,6 +20576,305 @@ body.guioes-itemid-course-suppressed .sbl-course-dropdown{
 })();
 </script>
 
+
+
+<script id="guioes-multicurso-emails-final-v1">
+/* ===== Correção institucional final — múltiplos cursos + normalização de e-mails =====
+   - Permite manter vários cursos selecionados como chips.
+   - Mantém o payload #curso como "Curso A; Curso B" para Power Automate.
+   - Recarrega vários cursos quando abre por itemId.
+   - Normaliza Email(s) para "email1; email2" antes de enviar.
+   - Não altera PDF, layout estrutural, endpoints, Teams ou Power Automate. */
+(function(){
+  'use strict';
+  if(window.__guioesMulticursoEmailsFinalV1) return;
+  window.__guioesMulticursoEmailsFinalV1 = true;
+
+  function clean(v){ return String(v == null ? '' : v).replace(/\s+/g, ' ').trim(); }
+  function normKey(v){
+    try { return clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
+    catch(e){ return clean(v).toLowerCase(); }
+  }
+  function splitCourses(v){
+    return String(v == null ? '' : v)
+      .split(/\s*;\s*|\s*\|\s*|\r?\n/)
+      .map(clean)
+      .filter(Boolean);
+  }
+  function uniqCourses(list){
+    var seen = {}, out = [];
+    (list || []).forEach(function(item){
+      item = clean(item);
+      var key = normKey(item);
+      if(item && key && !seen[key]){ seen[key] = true; out.push(item); }
+    });
+    return out;
+  }
+  function dispatch(el){
+    if(!el) return;
+    try { el.dispatchEvent(new Event('input', {bubbles:true})); } catch(e){}
+    try { el.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
+  }
+  function courseOptions(){
+    var out = [];
+    Array.prototype.slice.call(document.querySelectorAll('datalist option, select option')).forEach(function(o){
+      var v = clean(o.value || o.textContent);
+      if(v && !/^selecionar/i.test(v)) out.push(v);
+    });
+    return uniqCourses(out);
+  }
+  function isKnownCourse(v){
+    var key = normKey(v);
+    if(!key) return false;
+    return courseOptions().some(function(o){ return normKey(o) === key; });
+  }
+  function findExactCourse(v){
+    var key = normKey(v);
+    if(!key) return '';
+    var opts = courseOptions();
+    for(var i=0;i<opts.length;i++){ if(normKey(opts[i]) === key) return opts[i]; }
+    return '';
+  }
+  function chipText(chip){
+    if(!chip) return '';
+    var clone = chip.cloneNode(true);
+    Array.prototype.slice.call(clone.querySelectorAll('button,[aria-label*="Remover" i],.remove')).forEach(function(n){ n.remove(); });
+    return clean(clone.textContent).replace(/[×x]\s*$/i, '').trim();
+  }
+  function readExistingChips(container){
+    if(!container) return [];
+    return Array.prototype.slice.call(container.querySelectorAll('.cbl-course-chip,.pbl-course-chip,.projbl-course-chip,[data-course-chip]'))
+      .map(chipText).filter(Boolean);
+  }
+  function ensureChipContainer(courseEl, searchEl){
+    var existing = document.getElementById('cblCursosSelecionados') || document.getElementById('pblCursosSelecionados') || document.getElementById('rblCursosSelecionados') || document.querySelector('.cbl-course-chips,.pbl-course-chips,.rbl-course-chip-area,.sbl-course-chips,[data-course-chip-container]');
+    if(existing){ existing.setAttribute('data-course-chip-container','1'); return existing; }
+    var anchor = searchEl || courseEl;
+    if(!anchor || !anchor.parentNode) return null;
+    var div = document.createElement('div');
+    div.className = 'cbl-course-chips';
+    div.id = 'cblCursosSelecionados';
+    div.setAttribute('aria-live','polite');
+    div.setAttribute('data-course-chip-container','1');
+    anchor.parentNode.insertBefore(div, anchor.nextSibling);
+    return div;
+  }
+  function getCourseElements(){
+    var courseEl = document.getElementById('curso') || document.querySelector('[name="curso"]');
+    var searchEl = document.getElementById('cursoBusca') || document.querySelector('[name="cursoBusca"], input[data-pbl-aux="true"]');
+    if(!courseEl) return null;
+    var chips = ensureChipContainer(courseEl, searchEl);
+    return {course:courseEl, search:searchEl, chips:chips};
+  }
+  function setCourses(parts, source){
+    var els = getCourseElements();
+    if(!els) return [];
+    var courseEl = els.course, searchEl = els.search, chips = els.chips;
+    var cursos = uniqCourses(parts);
+    var joined = cursos.join('; ');
+    courseEl.dataset.guioesMulticursoList = joined;
+    courseEl.dataset.guioesMulticursoUpdating = '1';
+    courseEl.value = joined;
+    if(courseEl.type === 'text' && courseEl.getAttribute('aria-hidden') === 'true') courseEl.setAttribute('readonly','readonly');
+    renderChips(cursos, chips);
+    setTimeout(function(){
+      delete courseEl.dataset.guioesMulticursoUpdating;
+      if(source !== 'silent') dispatch(courseEl);
+    }, 0);
+    if(searchEl && searchEl !== courseEl && source === 'selection'){
+      setTimeout(function(){ searchEl.value = ''; }, 40);
+    }
+    try { if(typeof window.renderProgress === 'function') window.renderProgress(); } catch(e){}
+    return cursos;
+  }
+  function addCourse(raw){
+    var els = getCourseElements();
+    if(!els) return false;
+    var value = clean(raw);
+    if(!value) return false;
+    var exact = findExactCourse(value) || value;
+    var current = splitCourses(els.course.dataset.guioesMulticursoList || els.course.value).concat(readExistingChips(els.chips));
+    setCourses(current.concat(splitCourses(exact)), 'selection');
+    return true;
+  }
+  function renderChips(cursos, chips){
+    if(!chips) return;
+    chips.innerHTML = '';
+    cursos.forEach(function(curso, idx){
+      var chip = document.createElement('span');
+      chip.className = chips.className && chips.className.indexOf('pbl-course') >= 0 ? 'pbl-course-chip' : 'cbl-course-chip';
+      chip.setAttribute('data-course-chip','1');
+      var label = document.createElement('span');
+      label.textContent = curso;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = '×';
+      btn.title = 'Remover curso';
+      btn.setAttribute('aria-label', 'Remover curso ' + curso);
+      btn.addEventListener('click', function(ev){
+        ev.preventDefault(); ev.stopPropagation();
+        var atual = splitCourses((getCourseElements() || {}).course ? getCourseElements().course.dataset.guioesMulticursoList : '');
+        atual.splice(idx, 1);
+        setCourses(atual, 'remove');
+      });
+      chip.appendChild(label);
+      chip.appendChild(btn);
+      chips.appendChild(chip);
+    });
+    if(cursos.length) chips.classList.add('has-chips'); else chips.classList.remove('has-chips');
+  }
+  function reconcileFromCourseValue(){
+    var els = getCourseElements();
+    if(!els || !els.course) return;
+    var courseEl = els.course;
+    if(courseEl.dataset.guioesMulticursoUpdating === '1') return;
+    var newParts = splitCourses(courseEl.value);
+    var stored = splitCourses(courseEl.dataset.guioesMulticursoList || '').concat(readExistingChips(els.chips));
+    if(!newParts.length && stored.length){ setCourses(stored, 'silent'); return; }
+    if(!newParts.length) return;
+
+    var merged;
+    if(stored.length && newParts.length === 1 && !stored.some(function(x){ return normKey(x) === normKey(newParts[0]); })){
+      merged = stored.concat(newParts);
+    }else{
+      merged = newParts.concat(stored.filter(function(x){ return newParts.every(function(y){ return normKey(y) !== normKey(x); }); }));
+    }
+    setCourses(merged, 'silent');
+  }
+  function normalizarEmails(){
+    var el = document.getElementById('emails') || document.querySelector('[name="emails"], #email, [name="email"]');
+    if(!el) return '';
+    var raw = String(el.value || '');
+    if(!raw.trim()) return '';
+    var matches = raw.match(/[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,}/ig);
+    if(matches && matches.length){
+      var seen = {}, out = [];
+      matches.forEach(function(email){
+        email = email.trim();
+        var key = email.toLowerCase();
+        if(!seen[key]){ seen[key] = true; out.push(email); }
+      });
+      el.value = out.join('; ');
+      dispatch(el);
+      return el.value;
+    }
+    var fallback = raw.split(/[;,\s\/]+/).map(clean).filter(Boolean).join('; ');
+    if(fallback){ el.value = fallback; dispatch(el); }
+    return el.value;
+  }
+  function initMultiCourse(){
+    var els = getCourseElements();
+    if(!els || !els.course || els.course.dataset.guioesMulticursoFinalReady === '1'){
+      if(els && els.course) reconcileFromCourseValue();
+      return;
+    }
+    var courseEl = els.course, searchEl = els.search;
+    courseEl.dataset.guioesMulticursoFinalReady = '1';
+    var initial = splitCourses(courseEl.value).concat(readExistingChips(els.chips));
+    if(initial.length) setCourses(initial, 'silent');
+
+    function shouldReconcileCourseInput(){
+      var raw = clean(courseEl.value);
+      if(!raw) return false;
+      if(courseEl.type === 'hidden' || courseEl.readOnly || courseEl.getAttribute('aria-hidden') === 'true') return true;
+      if((searchEl && searchEl !== courseEl) || raw.indexOf(';') >= 0) return true;
+      if(splitCourses(courseEl.dataset.guioesMulticursoList || '').length) return true;
+      return isKnownCourse(raw);
+    }
+    courseEl.addEventListener('input', function(){
+      setTimeout(function(){ if(shouldReconcileCourseInput()) reconcileFromCourseValue(); }, 0);
+    }, true);
+    courseEl.addEventListener('change', function(){
+      setTimeout(function(){
+        var exact = findExactCourse(courseEl.value);
+        if(exact && exact !== clean(courseEl.value)) courseEl.value = exact;
+        if(shouldReconcileCourseInput()) reconcileFromCourseValue();
+      }, 0);
+    }, true);
+
+    if(searchEl && searchEl !== courseEl){
+      ['change','blur'].forEach(function(evt){
+        searchEl.addEventListener(evt, function(){
+          var v = clean(searchEl.value);
+          var exact = findExactCourse(v);
+          if(exact) addCourse(exact);
+        }, true);
+      });
+      searchEl.addEventListener('keydown', function(ev){
+        if(ev.key === 'Enter'){
+          var exact = findExactCourse(searchEl.value);
+          if(exact){ ev.preventDefault(); ev.stopPropagation(); addCourse(exact); }
+        }
+      }, true);
+    }
+  }
+  function beforeSubmit(){
+    reconcileFromCourseValue();
+    normalizarEmails();
+  }
+  ['click','mousedown','pointerdown','submit'].forEach(function(evt){
+    document.addEventListener(evt, function(ev){
+      var target = ev.target;
+      var btn = target && target.closest ? target.closest('button,input[type="button"],input[type="submit"]') : null;
+      var txt = clean(btn ? (btn.textContent || btn.value) : '').toLowerCase();
+      if(evt === 'submit' || (btn && (btn.id === 'btnEnviarValidacao' || btn.id === 'btnValidacaoReal' || txt.indexOf('enviar') >= 0 || txt.indexOf('submeter') >= 0 || txt.indexOf('atualizar guião') >= 0))){
+        beforeSubmit();
+      }
+    }, true);
+  });
+  document.addEventListener('blur', function(ev){ if(ev.target && (ev.target.id === 'emails' || ev.target.name === 'emails')) normalizarEmails(); }, true);
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initMultiCourse);
+  else initMultiCourse();
+  [100, 300, 800, 1500, 2500, 4000].forEach(function(ms){ setTimeout(initMultiCourse, ms); });
+
+  window.GUIOES_MULTICURSO_EMAILS_FINAL_V1 = {
+    init: initMultiCourse,
+    normalizarEmails: normalizarEmails,
+    cursos: function(){ var els = getCourseElements(); return els ? splitCourses(els.course.value) : []; }
+  };
+})();
+</script>
+<style id="guioes-multicurso-emails-final-v1-css">
+body:not(.guiao-pdf-mode) [data-course-chip-container],
+body:not(.guiao-pdf-mode) .cbl-course-chips,
+body:not(.guiao-pdf-mode) .pbl-course-chips{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:6px !important;
+  margin-top:7px !important;
+  width:100% !important;
+  max-width:100% !important;
+}
+body:not(.guiao-pdf-mode) [data-course-chip],
+body:not(.guiao-pdf-mode) .cbl-course-chip,
+body:not(.guiao-pdf-mode) .pbl-course-chip{
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:6px !important;
+  max-width:100% !important;
+  padding:4px 8px !important;
+  border:1px solid rgba(0,0,0,.25) !important;
+  border-radius:999px !important;
+  background:#fff !important;
+  font-size:12px !important;
+  line-height:1.25 !important;
+}
+body:not(.guiao-pdf-mode) [data-course-chip] button,
+body:not(.guiao-pdf-mode) .cbl-course-chip button,
+body:not(.guiao-pdf-mode) .pbl-course-chip button{
+  border:0 !important;
+  background:transparent !important;
+  color:#E31E24 !important;
+  cursor:pointer !important;
+  font-weight:700 !important;
+  padding:0 2px !important;
+  line-height:1 !important;
+}
+</style>
+
+
+
 </body>
 </html>
 <!-- projbl-camada15-curso-autosave-progress-selects -->
