@@ -11065,9 +11065,255 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
 @media print{.guioes-home-link{display:none!important}}
 </style>
 
+
+<style id="sbl-ajuste-final-limpo-css">
+/* ===== AJUSTE FINAL LIMPO SBL — feito a partir da versão inicial enviada ===== */
+body:not(.guiao-pdf-mode) .sbl-final-procedures{
+  margin:12px 0 16px 0 !important;
+  padding:0 !important;
+  background:#fff !important;
+}
+body:not(.guiao-pdf-mode) .sbl-final-procedures > label{
+  display:block !important;
+  margin:0 0 10px 0 !important;
+  font-size:18px !important;
+  line-height:1.25 !important;
+  font-weight:800 !important;
+  color:#2b2b2b !important;
+}
+body:not(.guiao-pdf-mode) .sbl-final-proc-grid{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:12px !important;
+  align-items:stretch !important;
+}
+body:not(.guiao-pdf-mode) .sbl-final-proc-card{
+  border:1px solid rgba(227,30,36,.26) !important;
+  border-radius:14px !important;
+  background:#fff !important;
+  padding:13px !important;
+  box-shadow:none !important;
+}
+body:not(.guiao-pdf-mode) .sbl-final-proc-title{
+  margin:0 0 8px 0 !important;
+  padding:0 0 7px 0 !important;
+  border-bottom:1px solid #eeeeee !important;
+  font-size:14px !important;
+  line-height:1.25 !important;
+  font-weight:800 !important;
+  color:#2b2b2b !important;
+}
+body:not(.guiao-pdf-mode) .sbl-final-proc-card ul{
+  margin:0 !important;
+  padding-left:18px !important;
+}
+body:not(.guiao-pdf-mode) .sbl-final-proc-card li{
+  margin:0 0 7px 0 !important;
+  font-size:12px !important;
+  line-height:1.42 !important;
+  color:#333 !important;
+}
+body:not(.guiao-pdf-mode) .sbl-final-proc-note{
+  margin-top:9px !important;
+  padding:9px 10px !important;
+  border:1px solid #eeeeee !important;
+  border-radius:10px !important;
+  background:#fafafa !important;
+  font-size:11.5px !important;
+  line-height:1.38 !important;
+  color:#444 !important;
+}
+body:not(.guiao-pdf-mode) .sbl-final-field{
+  display:block !important;
+  width:100% !important;
+  box-sizing:border-box !important;
+  margin:14px 0 !important;
+  padding:14px !important;
+  border:1px solid rgba(227,30,36,.28) !important;
+  border-radius:18px !important;
+  background:#fff !important;
+  box-shadow:none !important;
+}
+body:not(.guiao-pdf-mode) .sbl-final-field > label{
+  display:block !important;
+  margin:0 0 10px 0 !important;
+  padding:0 !important;
+  color:#2b2b2b !important;
+  font-size:18px !important;
+  line-height:1.25 !important;
+  font-weight:800 !important;
+}
+body:not(.guiao-pdf-mode) .sbl-final-field textarea{
+  display:block !important;
+  width:100% !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+  margin:0 !important;
+}
+body:not(.guiao-pdf-mode) .sbl-final-actor-section{
+  margin:14px 0 !important;
+  padding:0 !important;
+  border:0 !important;
+  background:#fff !important;
+  box-shadow:none !important;
+}
+body:not(.guiao-pdf-mode) .sbl-final-note{
+  margin:0 0 12px 0 !important;
+  padding:12px !important;
+  border:1px solid rgba(227,30,36,.24) !important;
+  border-left:1px solid rgba(227,30,36,.24) !important;
+  border-radius:14px !important;
+  background:#fff !important;
+  box-shadow:none !important;
+}
+body:not(.guiao-pdf-mode) .sbl-final-note-title{
+  margin:0 0 8px 0 !important;
+  padding:0 0 7px 0 !important;
+  border-bottom:1px solid #eeeeee !important;
+  color:#333 !important;
+  font-size:15px !important;
+  line-height:1.25 !important;
+  font-weight:800 !important;
+}
+body:not(.guiao-pdf-mode) .sbl-final-note p{
+  margin:0 0 8px 0 !important;
+  color:#333 !important;
+  font-size:12px !important;
+  line-height:1.42 !important;
+}
+body:not(.guiao-pdf-mode) .sbl-final-note ul{
+  margin:0 !important;
+  padding-left:18px !important;
+}
+body:not(.guiao-pdf-mode) .sbl-final-note li{
+  margin:0 0 6px 0 !important;
+  color:#333 !important;
+  font-size:12px !important;
+  line-height:1.42 !important;
+}
+body:not(.guiao-pdf-mode) .sbl-final-action-card{
+  background:#fff !important;
+  border:1px solid rgba(227,30,36,.28) !important;
+  border-radius:16px !important;
+  padding:14px !important;
+  margin:14px 0 !important;
+  box-shadow:none !important;
+}
+body:not(.guiao-pdf-mode) .sbl-final-action-card #quadroAcao{
+  margin:0 !important;
+}
+@media (max-width:1100px){
+  body:not(.guiao-pdf-mode) .sbl-final-proc-grid{ grid-template-columns:1fr !important; }
+}
+@media print{
+  .sbl-final-procedures{ break-inside:auto !important; page-break-inside:auto !important; }
+  .sbl-final-field, .sbl-final-action-card{ break-inside:auto !important; page-break-inside:auto !important; }
+}
+</style>
+
+
+<style id="sbl-ajuste-titulos-enquadramento-css">
+/* Ajuste pedido: títulos com a mesma escala visual de "Enquadramento pedagógico" */
+body:not(.guiao-pdf-mode) .sbl-final-procedures > label,
+body:not(.guiao-pdf-mode) .sbl-final-field > label{
+  font-size:16px !important;
+  line-height:1.25 !important;
+  font-weight:800 !important;
+  color:#2b2b2b !important;
+  margin:0 0 10px 0 !important;
+}
+
+/* Garante que os títulos dos blocos Caso, Informação Inicial e Informações
+   não herdam o tamanho maior aplicado nas tentativas anteriores. */
+body:not(.guiao-pdf-mode) .sbl-final-field label{
+  font-size:16px !important;
+}
+
+/* Mantém o título interno "Apoio à preparação..." menor, como nota/apoio,
+   para não competir com o título principal da secção. */
+body:not(.guiao-pdf-mode) .sbl-final-note-title{
+  font-size:14px !important;
+  line-height:1.25 !important;
+}
+</style>
+
+
+
+<style id="sbl-fix-final-bordas-info-ator-acao-css">
+/* Correção final sem alterar IDs/scripts:
+   1) força a borda externa de Informações para ator/personagem em rosa/vermelho;
+   2) restaura a caixa do quadro ação/reação para a estética forte original. */
+.section.sbl-final-field.sbl47-v68-info-ator-force-print,
+div.section.sbl-final-field.sbl47-v68-red-print-card.sbl47-v68-info-ator-force-print.sbl47-v73-essential-print-card{
+  border:1.2px solid rgba(227,30,36,.62) !important;
+  border-radius:18px !important;
+  background:#fff !important;
+  box-shadow:none !important;
+}
+
+.section.sbl-final-field.sbl47-v68-info-ator-force-print textarea#info_ator,
+div.section.sbl-final-field.sbl47-v68-red-print-card.sbl47-v68-info-ator-force-print.sbl47-v73-essential-print-card textarea#info_ator{
+  border:1px solid #ccc !important;
+  border-radius:8px !important;
+  background:#fff !important;
+}
+
+.sbl-final-action-card.sbl47-v73-essential-print-card{
+  background:#fff !important;
+  border:2px solid #E31E24 !important;
+  border-radius:12px !important;
+  padding:15px !important;
+  margin:15px 0 !important;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15) !important;
+}
+
+.sbl-final-action-card.sbl47-v73-essential-print-card #quadroAcao{
+  border-collapse:collapse !important;
+  font-size:13px !important;
+}
+</style>
+
+
+<style id="sbl-fix-campos-autoria-estado-objetivos-recursos-css">
+/* Correção pontual: Autoria, Estado do guião, Objetivos e Recursos
+   com a mesma lógica visual dos outros campos: borda externa rosa/vermelha
+   e campo interno cinza. Não altera IDs, scripts ou integração. */
+
+/* Campo interno cinza */
+body:not(.guiao-pdf-mode) textarea#autoria,
+body:not(.guiao-pdf-mode) select#estado,
+body:not(.guiao-pdf-mode) textarea#objetivos,
+body:not(.guiao-pdf-mode) textarea#recursos{
+  border:1px solid #ccc !important;
+  border-radius:8px !important;
+  background:#fff !important;
+}
+
+body:not(.guiao-pdf-mode) textarea#autoria:focus,
+body:not(.guiao-pdf-mode) select#estado:focus,
+body:not(.guiao-pdf-mode) textarea#objetivos:focus,
+body:not(.guiao-pdf-mode) textarea#recursos:focus{
+  border-color:#999 !important;
+  outline:none !important;
+}
+
+/* Borda externa rosa/vermelha dos cartões */
+body:not(.guiao-pdf-mode) .section:has(textarea#autoria),
+body:not(.guiao-pdf-mode) .section:has(select#estado),
+body:not(.guiao-pdf-mode) .section:has(textarea#objetivos),
+body:not(.guiao-pdf-mode) .section:has(textarea#recursos),
+body:not(.guiao-pdf-mode) .sbl-autoria-card,
+body:not(.guiao-pdf-mode) .sbl-estado-card{
+  border:1.2px solid rgba(227,30,36,.62) !important;
+  border-radius:18px !important;
+  background:#fff !important;
+  box-shadow:none !important;
+}
+</style>
+
 </head>
 <body>
-<a class="guioes-home-link" href="./index.html" aria-label="Voltar à página inicial">← Página inicial</a>
+<a class="guioes-home-link" href="https://praticaspedagogicas.github.io/praticas/" aria-label="Voltar à página inicial">← Página inicial</a>
 
 <div class="page">
 <div class="premium-status no-print">
@@ -11133,73 +11379,144 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
 </div></div><div class="sbl47-v53-card"><label for="uc">Unidade(s) Curricular(es)</label><textarea id="uc" name="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado" required="required" aria-required="true"></textarea></div><div class="sbl47-v53-card"><label for="professor">Docente(s)</label><textarea id="professor" name="professor" placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva" required="required" aria-required="true"></textarea></div><div class="sbl47-v53-card wide"><label for="emails">Email(s)</label><textarea id="emails" name="emails" placeholder="Ex.: ana.silva@universidadeeuropeia.pt; joao.santos@universidadeeuropeia.pt" required="required" aria-required="true"></textarea></div><div class="sbl47-v53-card"><label for="ano_letivo">Ano letivo</label><input id="ano_letivo" name="ano_letivo" placeholder="Ex.: 2026/2027" type="text"/></div><div class="sbl47-v53-card"><label for="data">Data da simulação</label><input id="data" name="data" placeholder="AAAA-MM-DD" type="date" autocomplete="off" required aria-required="true"></div><div class="sbl47-v53-card"><label for="hora">Hora de início</label><input id="hora" name="hora" placeholder="HH:MM" type="time" autocomplete="off" required aria-required="true"></div><div class="sbl47-v53-card"><label for="hora_fim">Hora de fim</label><input id="hora_fim" name="hora_fim" placeholder="HH:MM" type="time" autocomplete="off" required aria-required="true"></div><div class="sbl47-v53-card"><label for="n_estudantes">Nº de estudantes</label><input id="n_estudantes" inputmode="numeric" min="0" name="n_estudantes" placeholder="Ex.: 32" step="1" type="number"/></div><div class="sbl47-v53-card"><label for="n_grupos">Nº de grupos</label><input id="n_grupos" inputmode="numeric" min="0" name="n_grupos" placeholder="Ex.: 6" step="1" type="number"/></div></div><div class="sbl-autoria-estado-panel"><div class="sbl-autoria-estado-title">Autoria e estado do guião</div><div class="sbl-autoria-estado-grid"><div class="sbl47-v53-card sbl-autoria-card"><label for="autoria">Autoria</label><textarea id="autoria" name="autoria" placeholder="Ex.: Ana Luiza Marques"required="required" aria-required="true" required="required">Prof.ª Mariana Costa; Prof. João Almeida</textarea></div><div class="sbl47-v53-card sbl-estado-card"><label for="estado">Estado do guião</label><select id="estado" name="estado" required="required" aria-required="true"><option value="">Selecionar</option><option selected="selected" value="Novo">Novo</option><option value="Atualizado">Atualizado</option><option value="Reutilizado">Reutilizado</option></select></div></div></div>
 <div class="section sbl47-v68-red-print-card">
 <label>Objetivos:</label>
-<textarea id="objetivos" placeholder="Indique os objetivos de aprendizagem..."></textarea>
+<textarea id="objetivos" required aria-required="true" placeholder="Indique os objetivos de aprendizagem..."></textarea>
 </div>
 <div class="section sbl47-v68-red-print-card">
 <label>Recursos:</label>
-<textarea id="recursos" placeholder="Indique os recursos necessários..."></textarea>
+<textarea id="recursos" required aria-required="true" placeholder="Indique os recursos necessários..."></textarea>
 </div>
-<div class="section sbl47-v68-hide-print">
-<div style="border-top:2px solid #E31E24;margin:15px 0;"></div>
-<label style="display:inline;">Procedimentos</label><button onclick="var d=document.getElementById('hint_procedimentos');d.style.display=d.style.display=='block'?'none':'block'" style="background:#E31E24;color:#fff;font-weight:bold;border:1px solid #000;border-radius:3px;padding:2px 8px;margin-left:5px;font-size:11px;cursor:pointer;font-weight:bold;" title="Saiba mais" type="button">+</button><div id="hint_procedimentos" style="display:none;margin:10px 0;padding:10px;background:#f5f5f5;border-left:3px solid #E31E24;border-radius:4px;">
-<div style="font-size:12px;line-height:1.8;text-align:justify;">
-<b>1.</b> Calendarizar Simulação, indicando data, hora e perfil ator. Enviar para o/a Coordenador/a do Modelo Académico, com validação do/a Diretor/a de Curso até final da 1ª semana do semestre.<br/>
-<b>2.</b> Elaborar e enviar para o Guião Simulação, até 3 semanas antes da data da Simulação, bem como o link da sessão (no caso do Ensino à Distância) para o/a Coordenador/a do Modelo Académico.<br/>
- *Para o <b>Ensino à Distância</b> é necessário o preenchimento do termo de responsabilidade assinado pelos estudantes, o qual inclui a garantia de confidencialidade, compromisso de respeito e de conduta ética, assim como o compromisso de não gravação dos cenários de simulação (apenas é permitido gravar o briefing e o debriefing), por respeito a direitos de autor e direitos de imagem. Para poder participar nas aulas de SBL é condição obrigatória a assinatura do termo de responsabilidade. O termo deverá ser enviado para o/a coordenador/a do Modelo Académico, o termo de responsabilidade assinado pelos estudantes até 1 semana antes da Simulação.
+
+<div class="sbl-doc-separator-wrap"><div class="sbl-doc-block-title">Cenário de simulação</div><div class="sbl-doc-separator"></div></div>
+
+<div class="section sbl-final-procedures sbl47-v68-hide-print">
+  <label>Procedimentos e orientações para a simulação</label>
+  <div class="sbl-final-proc-grid">
+    <div class="sbl-final-proc-card">
+      <div class="sbl-final-proc-title">Antes da simulação</div>
+      <ul>
+        <li>Calendarizar a simulação, indicando <strong>data, hora e perfil do ator</strong>, e enviar ao/à Coordenador/a do Modelo Académico, com validação do/a Diretor/a de Curso, <strong>até ao final da 1.ª semana do semestre</strong>.</li>
+        <li>Elaborar e enviar o <strong>Guião de Simulação até 3 semanas antes da data da simulação</strong>, bem como o <strong>link da sessão</strong>, no caso do Ensino à Distância.</li>
+        <li>No Ensino à Distância, assegurar previamente os <strong>termos de responsabilidade*</strong> assinados pelos estudantes e enviá-los ao/à Coordenador/a do Modelo Académico responsável <strong>até 1 semana antes da simulação</strong>.</li>
+      </ul>
+      <div class="sbl-final-proc-note"><strong>*Nota Ensino à Distância:</strong> o termo de responsabilidade aplica-se ao Ensino à Distância e deve garantir confidencialidade, conduta ética e não gravação dos cenários de simulação. Apenas o <strong>briefing</strong> e o <strong>debriefing</strong> podem ser gravados.</div>
+    </div>
+    <div class="sbl-final-proc-card">
+      <div class="sbl-final-proc-title">Briefing e simulação</div>
+      <ul>
+        <li>Enquadrar a simulação como uma prática segura e controlada, semelhante ao contexto profissional.</li>
+        <li>Clarificar os objetivos de aprendizagem, os papéis dos intervenientes, as regras de participação, a confidencialidade e a conduta ética.</li>
+        <li>Informar que o/a docente atua como <strong>moderador/a ou facilitador/a</strong> do processo.</li>
+        <li>Fornecer a informação inicial do cenário, igual para todos os estudantes, e selecionar o(s)/a(s) estudante(s) voluntário(s)/a(s).</li>
+        <li>Durante a simulação, os restantes estudantes permanecem em observação, acompanhando a situação para posterior reflexão no debriefing.</li>
+      </ul>
+    </div>
+    <div class="sbl-final-proc-card">
+      <div class="sbl-final-proc-title">Debriefing e Ensino à Distância</div>
+      <ul>
+        <li>Após a simulação, os estudantes regressam à sala de debriefing com o/a docente/moderador/a.</li>
+        <li>O debriefing deve apoiar a análise da experiência, das decisões tomadas, da comunicação, do desempenho e das aprendizagens decorrentes da simulação.</li>
+        <li>No Ensino à Distância, o SBL decorre em <strong>sessão síncrona</strong>. A gravação é iniciada no <strong>briefing</strong>, interrompida durante a <strong>simulação</strong> e retomada no <strong>debriefing</strong>.</li>
+        <li>Durante a simulação em Ensino à Distância, vídeo e som ficam desligados para todos, exceto para o/a estudante voluntário/a e o/a ator/atriz.</li>
+      </ul>
+    </div>
+  </div>
 </div>
+
+<div class="section sbl-final-field sbl47-v68-red-print-card sbl47-v73-essential-print-card">
+  <label>Caso / identificação da personagem:</label>
+  <textarea id="cenario" required aria-required="true" placeholder="Ex.: Personagem: cliente da clínica fictícia Aurora Dermis; sexo/género: feminino; idade/faixa etária: 30-45 anos; papel do ator/personagem: potencial cliente interessada num serviço personalizado; papel do estudante/profissional: técnico/a ou consultor/a responsável por compreender necessidades, apresentar opções e responder a objeções. Descreva de seguida o cenário de simulação.">Atendimento comercial numa clínica fictícia de estética chamada Clínica Aurora Dermis. A atriz representa uma potencial cliente interessada numa avaliação facial e num plano de cuidado personalizado. A estudante assume o papel de técnica/consultora responsável por compreender necessidades, apresentar opções, responder a dúvidas e conduzir a comunicação de forma ética, clara e profissional.</textarea>
 </div>
+
+<div class="section sbl-final-field sbl47-v68-red-print-card sbl47-v73-essential-print-card">
+  <label>Informação inicial:</label>
+  <textarea id="oq_simulacao" required aria-required="true" placeholder="Informação inicial comum aos estudantes: descreva a empresa, marca, serviço/produto, situação de partida e contexto geral da simulação, sem antecipar todas as objeções, reações ou detalhes reservados ao ator/personagem.">A Clínica Aurora Dermis é uma empresa fictícia de estética e bem-estar que oferece consultas de avaliação, tratamentos faciais personalizados, acompanhamento de rotina de cuidados e produtos cosméticos de apoio. A situação inicial envolve uma potencial cliente que procura compreender que serviço se adequa melhor às suas necessidades, quais os benefícios esperados e que condições comerciais existem.
+
+Esta é a informação inicial comum aos estudantes: a sessão simula um primeiro atendimento, no qual o/a estudante deve recolher necessidades, explicar opções, esclarecer dúvidas e comunicar com rigor, sem conhecer antecipadamente todas as objeções ou reações da cliente.</textarea>
 </div>
-<div class="section sbl47-v68-red-print-card sbl47-v69-hide-briefing-print">
-<label style="display:inline;">Briefing para estudantes (máximo 5')</label><button onclick="var d=document.getElementById('hint_briefing');d.style.display=d.style.display=='block'?'none':'block'" style="background:#E31E24;color:#fff;font-weight:bold;border:1px solid #000;border-radius:3px;padding:2px 8px;margin-left:5px;font-size:11px;cursor:pointer;font-weight:bold;" title="Saiba mais" type="button">+</button><div class="sbl47-v68-red-print-card sbl47-v69-hide-briefing-print" id="hint_briefing" style="display:none;margin:10px 0;padding:10px;background:#f5f5f5;border-left:3px solid #E31E24;border-radius:4px;">
-<div class="sbl47-v68-red-print-card" style="font-size:12px;line-height:1.8;text-align:justify;">
-• O que é simulação: metodologia de ensino que possibilita aos estudantes realizar, de forma segura e controlada, uma prática semelhante à que realizará na prática profissional.<br/>
-• Explicar papel de todos: um estudante como profissional; todos devem ser 'inteligentes' e 'competentes': não criticar, não juzgar e querer aprender, erros são bem-vindos, fazem-nos evoluir; professor passa a ser moderador/facilitador.<br/>
-• Clarificar os objetivos de aprendizagem.<br/>
-• Selecionar voluntário(s) para ser(em) 'técnico(s)/profissional(is)'.<br/>
-• Fornecer aos estudantes Informação Inicial do cenário, igual para todos.<br/>
-• Duração do Cenário de Simulação 10'-12', após o qual seguir-se-á a sua análise e discussão (Debriefing).<br/>
-• Estudantes instalam-se na sala de observação, podendo apenas levar papel e caneta, e 'Técnico/Profissional', voluntário, ocupa o lugar na sala do cenário de simulação.<br/>
-• 'Técnico/Proficional' ocupa o seu lugar e prepara-se para a sessão de simulação.<br/>
-• Sessão de simulação (10'-12'): 'Ator/Personagem' bate à porta e 'Técnico/Profissional' recebe-o.<br/>
-• Debriefing: no final estudantes voltam à sala Debriefing, sentam-se em U, com Docente(s)/Moderador e 'Ator/Personagem' entre eles.<br/>
-*No Ensino à Distância, as sessões acontecem em formato online, com os mesmos procedimentos de briefing e debriefing. No entanto, no momento que a simulação inicia, todos desligam vídeo e som, exceto estudante/voluntário (neste momento a gravação é desativada) e o ator/atriz. Ao finalizar o cenário, todos ligam o vídeo e a gravação é ativada.
+
+<div class="sbl-doc-separator-wrap"><div class="sbl-doc-block-title">Guião para ator/personagem</div><div class="sbl-doc-separator"></div></div>
+
+
+<div class="section sbl-final-actor-section sbl47-v67-info-ator-print">
+  <div class="sbl-final-note">
+    <div class="sbl-final-note-title">Apoio à preparação do ator/personagem</div>
+    <p>Inclua a informação necessária para que o ator/personagem compreenda quem representa, em que contexto atua e como deve responder durante a simulação. Descreva os elementos principais da simulação, indicando como o cenário começa, sem fechar obrigatoriamente o desfecho. Oriente também como a personagem pode revelar informação progressivamente e reagir às intervenções dos estudantes, sem ter de seguir falas fixas.</p>
+    <ul>
+      <li><strong>Identificação da personagem:</strong> nome, sexo/género ou perfil pretendido (ex.: mulher, homem, pessoa não especificada), idade ou faixa etária, ocupação/cargo/função, papel no cenário e relação com os restantes intervenientes.</li>
+      <li><strong>Caracterização pessoal e comportamental:</strong> personalidade, estado emocional, postura, forma de comunicar, preocupações, expectativas, rotina, motivação e comportamentos relevantes.</li>
+      <li><strong>Contexto do cenário:</strong> empresa, marca, produto, serviço, tratamento, projeto ou situação em causa; características, benefícios, preços, condições, concorrência ou informação técnica relevante.</li>
+      <li><strong>Objetivos e intenções da personagem:</strong> o que pretende obter, o que valoriza, que dúvidas tem, que objeções pode levantar e que informação pode revelar progressivamente.</li>
+      <li><strong>Imagem e enquadramento social:</strong> linguagem, postura, estrato social ou outros aspetos que ajudem o ator/personagem a compor a representação.</li>
+      <li><strong>Materiais de apoio:</strong> documentos, links, fichas de produto/serviço, informação sobre marca/empresa ou outros recursos que ajudem na preparação da intervenção.</li>
+    </ul>
+  </div>
+
+  <div class="section sbl-final-field sbl47-v68-red-print-card sbl47-v68-info-ator-force-print sbl47-v73-essential-print-card" style="border:1.2px solid rgba(227,30,36,.62) !important;border-radius:18px !important;background:#fff !important;box-shadow:none !important;">
+    <label>Informações para ator/personagem:</label>
+    <textarea id="info_ator" required aria-required="true" placeholder="Ex.: Personagem: mulher adulta, 30-45 anos, potencial cliente da clínica fictícia Aurora Dermis, exigente, ponderada e sensível ao preço. Pretende comparar benefícios, condições, preço, alternativas e segurança da proposta. Pode levantar objeções e revelar informação progressivamente conforme a abordagem do/a estudante.">A atriz representa uma potencial cliente da Clínica Aurora Dermis, uma empresa fictícia de estética e bem-estar.
+
+Perfil da personagem: mulher adulta, entre 30 e 45 anos, com contexto socioeconómico médio-alto. Comunica de forma educada, observadora e exigente. Está interessada em cuidar da pele e melhorar a rotina de autocuidado, mas não está totalmente convencida de que o serviço justifica o investimento.
+
+Contexto e intenção: procura uma avaliação facial e quer perceber que tipo de tratamento ou plano de cuidado poderá fazer sentido. Valoriza qualidade, segurança, resultados realistas e explicações claras. Pode demonstrar curiosidade por produtos complementares, mas só considera avançar se sentir confiança na proposta apresentada.
+
+Informação sobre serviço/produto: a personagem pode pedir detalhes sobre etapas do atendimento, duração, frequência recomendada, benefícios esperados, limites do tratamento, cuidados posteriores, preços, campanhas, pacotes e diferenças face a outras opções do mercado.
+
+Comportamento durante a simulação: deve revelar informação progressivamente. Pode começar com perguntas gerais e, à medida que o/a estudante conduz a conversa, apresentar dúvidas sobre preço, eficácia, necessidade real do serviço, comparação com alternativas e condições de pagamento. Deve reagir melhor quando a comunicação é empática, segura, estruturada e adaptada às suas necessidades.
+
+Possíveis objeções: “Não sei se preciso mesmo deste serviço”, “O preço parece elevado”, “Como sei que vou notar resultados?”, “Há alguma opção mais simples?”, “O que diferencia esta proposta de outras clínicas?”, “Posso decidir mais tarde?”</textarea>
+  </div>
+
+  <div class="sbl-final-note">
+    <div class="sbl-final-note-title">Orientações para o quadro ação/reação</div>
+    <p>Preencha o quadro considerando que os estudantes podem reagir de formas diferentes à mesma situação.</p>
+    <ul>
+      <li>Indique possíveis ações do ator/personagem e a reação esperada do técnico/profissional, ou o inverso.</li>
+      <li>Para cada reação possível do estudante, registe como o ator/personagem deverá responder.</li>
+      <li>Especifique no cabeçalho a situação a que cada linha ou conjunto de linhas se refere.</li>
+    </ul>
+  </div>
+
+  <div class="sbl-final-action-card sbl47-v73-essential-print-card" style="background:#fff !important;border:2px solid #E31E24 !important;border-radius:12px !important;padding:15px !important;margin:15px 0 !important;box-shadow:0 4px 12px rgba(0,0,0,0.15) !important;">
+    <table class="sbl47-v73-quadro-acao-print" id="quadroAcao" style="width:100%;border-collapse:collapse;font-size:13px;">
+      <tr style="background:#E31E24;color:#000;font-weight:bold;">
+        <th style="padding:12px;text-align:left;width:50%;">AÇÃO – Ator/Personagem</th>
+        <th style="padding:12px;text-align:left;width:50%;">REAÇÃO – Técnico/Profissional</th>
+      </tr>
+      <tr style="background:#f8f8f8;">
+        <td style="padding:10px;border-bottom:1px solid #ddd;"><textarea placeholder="Ex.: Apresenta uma dúvida inicial ou uma necessidade específica." rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td>
+        <td style="padding:10px;border-bottom:1px solid #ddd;border-left:1px solid #ddd;"><textarea placeholder="Ex.: Recolhe informação, clarifica necessidades e enquadra a resposta." rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td>
+      </tr>
+      <tr style="background:#fff;">
+        <td style="padding:10px;border-bottom:1px solid #ddd;"><textarea placeholder="Ex.: Levanta uma objeção sobre preço, eficácia ou necessidade." rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td>
+        <td style="padding:10px;border-bottom:1px solid #ddd;border-left:1px solid #ddd;"><textarea placeholder="Ex.: Responde com argumentos claros, éticos e ajustados ao caso." rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td>
+      </tr>
+      <tr style="background:#f8f8f8;">
+        <td style="padding:10px;border-bottom:1px solid #ddd;"><textarea placeholder="Ex.: Revela informação adicional após uma boa abordagem." rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td>
+        <td style="padding:10px;border-bottom:1px solid #ddd;border-left:1px solid #ddd;"><textarea placeholder="Ex.: Integra a nova informação e reformula a proposta." rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td>
+      </tr>
+      <tr style="background:#fff;">
+        <td style="padding:10px;border-bottom:1px solid #ddd;"><textarea placeholder="Ex.: Demonstra hesitação ou compara com alternativa concorrente." rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td>
+        <td style="padding:10px;border-bottom:1px solid #ddd;border-left:1px solid #ddd;"><textarea placeholder="Ex.: Explora critérios de decisão e reforça valor sem pressionar." rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td>
+      </tr>
+      <tr style="background:#f8f8f8;">
+        <td style="padding:10px;"><textarea placeholder="Ex.: Aproxima-se de uma decisão ou pede tempo para decidir." rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td>
+        <td style="padding:10px;border-left:1px solid #ddd;"><textarea placeholder="Ex.: Sintetiza opções, confirma próximos passos e encerra profissionalmente." rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td>
+      </tr>
+      <tr class="sbl-acoes-footer-row">
+        <td class="sbl-acoes-footer-cell" colspan="2">
+          <div class="sbl-acoes-footer-bar">
+            <div class="sbl-acoes-footer-texto">Adicionar e remover linhas</div>
+            <div class="sbl-acoes-footer-botoes">
+              <button aria-label="Adicionar linha" class="btn-plus" onclick="addRow()" style="background:#E31E24;color:#fff;border:1px solid #000;border-radius:50%;width:30px;height:30px;font-size:14px;font-weight:bold;" title="Adicionar linha" type="button">+</button>
+              <button aria-label="Remover última linha" class="btn-minus" onclick="removeRow()" style="background:#E31E24;color:#fff;border:1px solid #000;border-radius:50%;width:30px;height:30px;font-size:14px;font-weight:bold;" title="Remover última linha" type="button">-</button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>
-</div>
-<div style="border-top:2px solid #E31E24;margin:15px 0;"></div>
-<div class="section sbl47-v68-red-print-card sbl47-v73-essential-print-card">
-<label>Caso:</label>
-<textarea id="cenario" placeholder="Descreva o cenário de simulação..."></textarea>
-</div>
-<div class="section sbl47-v68-red-print-card sbl47-v73-essential-print-card">
-<label>Informação inicial:</label>
-<textarea id="oq_simulacao" placeholder="Informação inicial sobre o caso que o ator deve saber para a simulação (contexto, situação, personagens envolvidos, etc.)"></textarea>
-</div>
-<div class="section sbl47-v67-info-ator-print sbl47-v68-red-print-card">
-<div class="section sbl47-v68-red-print-card">
-<div class="section sbl47-v68-red-print-card">
-<div class="section sbl47-v67-hide-print">
-<div style="border-top:2px solid #E31E24;margin:15px 0;"></div><label style="display:inline;">Guião para ator</label><button onclick="var d=document.getElementById('hint_ator');d.style.display=d.style.display=='block'?'none':'block'" style="background:#E31E24;color:#fff;font-weight:bold;border:1px solid #000;border-radius:3px;padding:2px 8px;margin-left:5px;font-size:11px;cursor:pointer;font-weight:bold;" title="Saiba mais" type="button">+</button><div id="hint_ator" style="display:none;margin:10px 0;padding:10px;background:#f5f5f5;border-left:3px solid #E31E24;border-radius:4px;"><div style="font-size:12px;line-height:1.8;text-align:justify;">O objetivo é apresentar diferentes elementos da história, indicando como começa e termina o cenário, descrevendo os estados emocionais da personagem ao longo da mesma; indicar informação prévia necessária; comportamento na sessão; comportamento no debriefing.</div></div>
-</div>
-<div class="section">
-<div class="sbl47-v55-quadro-explicativo" style="font-size:14px;font-weight:500;margin-bottom:10px;">O quadro seguinte deve ser preenchido para completar o guião para ator, indicando ações que o Técnico/Profissional possa adotar durante o cenário e reações respetivas que o Ator/Personagem deve seguir. Ou o inverso, ações que o Ator/Personagem possa adotar durante o cenário e reações respetivas que o Técnico/Profissional deve seguir. Especificar no cabeçalho a situação.</div>
-<div class="sbl47-v73-essential-print-card" style="background:#fff;border:2px solid #E31E24;border-radius:12px;padding:15px;margin:15px 0;box-shadow:0 4px 12px rgba(0,0,0,0.15);">
-<table class="sbl47-v73-quadro-acao-print" id="quadroAcao" style="width:100%;border-collapse:collapse;font-size:13px;">
-<tr style="background:#E31E24;color:#000;font-weight:bold;"><th style="padding:12px;text-align:left;width:50%;">AÇÃO – Ator/Personagem</th><th style="padding:12px;text-align:left;width:50%;">REAÇÃO – Técnico/Profissional</th></tr>
-<tr style="background:#f8f8f8;"><td style="padding:10px;border-bottom:1px solid #ddd;"><textarea placeholder="Ex.: Negociação - pede desconto" rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td><td style="padding:10px;border-bottom:1px solid #ddd;border-left:1px solid #ddd;"><textarea placeholder="Ex.: Oferece alternativas" rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td></tr>
-<tr style="background:#fff;"><td style="padding:10px;border-bottom:1px solid #ddd;"><textarea placeholder="Ex.: Objeções ao preço" rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td><td style="padding:10px;border-bottom:1px solid #ddd;border-left:1px solid #ddd;"><textarea placeholder="Ex.: Responde às objeções técnica" rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td></tr>
-<tr style="background:#f8f8f8;"><td style="padding:10px;border-bottom:1px solid #ddd;"><textarea placeholder="Ex.: Negociação - pede desconto" rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td><td style="padding:10px;border-bottom:1px solid #ddd;border-left:1px solid #ddd;"><textarea placeholder="Ex.: Oferece alternativas" rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td></tr>
-<tr style="background:#fff;"><td style="padding:10px;border-bottom:1px solid #ddd;"><textarea placeholder="Ex.: Objeções ao preço" rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td><td style="padding:10px;border-bottom:1px solid #ddd;border-left:1px solid #ddd;"><textarea placeholder="Ex.: Responde às objeções técnica" rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td></tr>
-<tr style="background:#f8f8f8;"><td style="padding:10px;"><textarea placeholder="Ex.: Compra mais. Mostra-se satisfeita." rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td><td style="padding:10px;border-left:1px solid #ddd;"><textarea placeholder="Ex.: Fecho da venda." rows="3" style="width:98%;border:1px solid #ccc;border-radius:6px;padding:8px;font-family:inherit;"></textarea></td></tr>
-<tr class="sbl-acoes-footer-row"><td class="sbl-acoes-footer-cell" colspan="2"><div class="sbl-acoes-footer-bar"><div class="sbl-acoes-footer-texto">Adicionar e remover linhas</div><div class="sbl-acoes-footer-botoes"><button aria-label="Adicionar linha" class="btn-plus" onclick="addRow()" style="background:#E31E24;color:#fff;border:1px solid #000;border-radius:50%;width:30px;height:30px;font-size:14px;font-weight:bold;" title="Adicionar linha" type="button">+</button><button aria-label="Remover última linha" class="btn-minus" onclick="removeRow()" style="background:#E31E24;color:#fff;border:1px solid #000;border-radius:50%;width:30px;height:30px;font-size:14px;font-weight:bold;" title="Remover última linha" type="button">-</button></div></div></td></tr>
-</table>
-</div>
-</div>
-<div class="btn-group sbl47-v68-red-print-card">
-<div class="section sbl47-v68-red-print-card sbl47-v68-info-ator-force-print sbl47-v73-essential-print-card">
-<label style="display:inline;">Informações para ator/personagem:</label><button onclick="var d=document.getElementById('hint_info_ator');d.style.display=d.style.display=='block'?'none':'block'" style="background:#E31E24;color:#fff;font-weight:bold;border:1px solid #000;border-radius:3px;padding:2px 8px;margin-left:5px;font-size:11px;cursor:pointer;" title="Saiba mais" type="button">+</button><div id="hint_info_ator" style="display:none;margin:10px 0;padding:10px;background:#f5f5f5;border-left:3px solid #E31E24;border-radius:4px;"><div style="font-size:12px;line-height:1.8;text-align:justify;">Para o ator é importante saber as respostas a todas as possíveis perguntas que os alunos possam fazer na simulação ou no debriefing para saber como responder/reagir às mesmas.<br/><br/><b>Como se caracteriza a personagem:</b><br/>• Que tipo de personalidade tem?<br/>• Como se sente consigo?<br/>• Como se sente com os outros?<br/>• Quais as relações com as pessoas à sua volta?<br/>• Quais as suas principais preocupações?<br/>• Qual a sua rotina? (p.ex.: um dia típico)<br/>• Qual o motivo de estar ali?<br/>• O discurso interior corresponde ao discurso exterior?<br/>• Qual o estado emocional mais vigente? (p.ex.: alegria, indiferença, medo)<br/>• Quais os seus comportamentos? (p.ex.: o que despoleta o quê?)<br/>• Informações relevantes em relação à imagem geral (roupa, cabelo, higiene, estrato social).<br/>• Informações relevantes em relação à cronologia de vida.<br/><br/><b>Consoante a disciplina e os objetivos da sessão de SBL, poderá ser importante fornecer:</b><br/>• informações sobre trabalho<br/>• informações sobre a família<br/>• informações sobre alguém específico<br/>• informações sobre um tema específico<br/>• informações médicas<br/>Estas informações podem ser facultadas através de documentos ou links.</div></div>
-<textarea id="info_ator" placeholder="Informação que o ator/personagem necessita saber..."></textarea>
-</div>
-</div></div></div></div></div>
+
 <div class="section no-print sbl-repository-authorization" id="partilhaRepositorio">
 <h3 class="sbl-repository-title">Autorização para integração no repositório</h3>
 <p class="sbl-repository-text">
@@ -16678,9 +16995,9 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
 
     setVal("objetivos", "Promover a tomada de decisão em contexto simulado, desenvolver comunicação clara e empática, aplicar protocolos de atuação e refletir criticamente sobre o desempenho individual e de grupo.");
     setVal("recursos", "Sala de simulação; briefing do caso; grelha de observação; cronómetro; computador; projetor; materiais de apoio à personagem; ficha de debriefing.");
-    setVal("cenario", "Atendimento simulado a uma utente ansiosa que procura esclarecimento sobre um procedimento. A equipa deve acolher, recolher informação relevante, explicar etapas e gerir a comunicação com segurança e empatia.");
-    setVal("oq_simulacao", "A simulação inicia com a apresentação breve do caso, distribuição de papéis e explicitação dos critérios de observação. Os estudantes devem atuar de forma colaborativa, respeitando o tempo definido e registando evidências para o debriefing.");
-    setVal("info_ator", "O ator representa uma utente ansiosa, colaborante mas apreensiva. Deve revelar informação progressivamente, reagindo melhor quando a comunicação da equipa é clara, empática e estruturada.");
+    setVal("cenario", "Atendimento comercial numa clínica fictícia de estética chamada Clínica Aurora Dermis. A atriz representa uma potencial cliente interessada numa avaliação facial e num plano de cuidado personalizado. A estudante assume o papel de técnica/consultora responsável por compreender necessidades, apresentar opções, responder a dúvidas e conduzir a comunicação de forma ética, clara e profissional.");
+    setVal("oq_simulacao", "A Clínica Aurora Dermis é uma empresa fictícia de estética e bem-estar que oferece consultas de avaliação, tratamentos faciais personalizados, acompanhamento de rotina de cuidados e produtos cosméticos de apoio. A situação inicial envolve uma potencial cliente que procura compreender que serviço se adequa melhor às suas necessidades, quais os benefícios esperados e que condições comerciais existem.\n\nEsta é a informação inicial comum aos estudantes: a sessão simula um primeiro atendimento, no qual o/a estudante deve recolher necessidades, explicar opções, esclarecer dúvidas e comunicar com rigor, sem conhecer antecipadamente todas as objeções ou reações da cliente.");
+    setVal("info_ator", "A atriz representa uma potencial cliente da Clínica Aurora Dermis, uma empresa fictícia de estética e bem-estar.\n\nPerfil da personagem: mulher adulta, entre 30 e 45 anos, com contexto socioeconómico médio-alto. Comunica de forma educada, observadora e exigente. Está interessada em cuidar da pele e melhorar a rotina de autocuidado, mas não está totalmente convencida de que o serviço justifica o investimento.\n\nContexto e intenção: procura uma avaliação facial e quer perceber que tipo de tratamento ou plano de cuidado poderá fazer sentido. Valoriza qualidade, segurança, resultados realistas e explicações claras. Pode demonstrar curiosidade por produtos complementares, mas só considera avançar se sentir confiança na proposta apresentada.\n\nInformação sobre serviço/produto: a personagem pode pedir detalhes sobre etapas do atendimento, duração, frequência recomendada, benefícios esperados, limites do tratamento, cuidados posteriores, preços, campanhas, pacotes e diferenças face a outras opções do mercado.\n\nComportamento durante a simulação: deve revelar informação progressivamente. Pode começar com perguntas gerais e, à medida que o/a estudante conduz a conversa, apresentar dúvidas sobre preço, eficácia, necessidade real do serviço, comparação com alternativas e condições de pagamento. Deve reagir melhor quando a comunicação é empática, segura, estruturada e adaptada às suas necessidades.\n\nPossíveis objeções: “Não sei se preciso mesmo deste serviço”, “O preço parece elevado”, “Como sei que vou notar resultados?”, “Há alguma opção mais simples?”, “O que diferencia esta proposta de outras clínicas?”, “Posso decidir mais tarde?”");
 
     fillActionReaction();
     setRadio("autorizaRepositorio", "Sim");
@@ -16866,9 +17183,9 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
 
     setVal("objetivos", "Promover a tomada de decisão em contexto simulado, desenvolver comunicação clara e empática, aplicar protocolos de atuação e refletir criticamente sobre o desempenho individual e de grupo.");
     setVal("recursos", "Sala de simulação; briefing do caso; grelha de observação; cronómetro; computador; projetor; materiais de apoio à personagem; ficha de debriefing.");
-    setVal("cenario", "Atendimento simulado a uma utente ansiosa que procura esclarecimento sobre um procedimento. A equipa deve acolher, recolher informação relevante, explicar etapas e gerir a comunicação com segurança e empatia.");
-    setVal("oq_simulacao", "A simulação inicia com a apresentação breve do caso, distribuição de papéis e explicitação dos critérios de observação. Os estudantes devem atuar de forma colaborativa, respeitando o tempo definido e registando evidências para o debriefing.");
-    setVal("info_ator", "O ator representa uma utente ansiosa, colaborante mas apreensiva. Deve revelar informação progressivamente, reagindo melhor quando a comunicação da equipa é clara, empática e estruturada.");
+    setVal("cenario", "Atendimento comercial numa clínica fictícia de estética chamada Clínica Aurora Dermis. A atriz representa uma potencial cliente interessada numa avaliação facial e num plano de cuidado personalizado. A estudante assume o papel de técnica/consultora responsável por compreender necessidades, apresentar opções, responder a dúvidas e conduzir a comunicação de forma ética, clara e profissional.");
+    setVal("oq_simulacao", "A Clínica Aurora Dermis é uma empresa fictícia de estética e bem-estar que oferece consultas de avaliação, tratamentos faciais personalizados, acompanhamento de rotina de cuidados e produtos cosméticos de apoio. A situação inicial envolve uma potencial cliente que procura compreender que serviço se adequa melhor às suas necessidades, quais os benefícios esperados e que condições comerciais existem.\n\nEsta é a informação inicial comum aos estudantes: a sessão simula um primeiro atendimento, no qual o/a estudante deve recolher necessidades, explicar opções, esclarecer dúvidas e comunicar com rigor, sem conhecer antecipadamente todas as objeções ou reações da cliente.");
+    setVal("info_ator", "A atriz representa uma potencial cliente da Clínica Aurora Dermis, uma empresa fictícia de estética e bem-estar.\n\nPerfil da personagem: mulher adulta, entre 30 e 45 anos, com contexto socioeconómico médio-alto. Comunica de forma educada, observadora e exigente. Está interessada em cuidar da pele e melhorar a rotina de autocuidado, mas não está totalmente convencida de que o serviço justifica o investimento.\n\nContexto e intenção: procura uma avaliação facial e quer perceber que tipo de tratamento ou plano de cuidado poderá fazer sentido. Valoriza qualidade, segurança, resultados realistas e explicações claras. Pode demonstrar curiosidade por produtos complementares, mas só considera avançar se sentir confiança na proposta apresentada.\n\nInformação sobre serviço/produto: a personagem pode pedir detalhes sobre etapas do atendimento, duração, frequência recomendada, benefícios esperados, limites do tratamento, cuidados posteriores, preços, campanhas, pacotes e diferenças face a outras opções do mercado.\n\nComportamento durante a simulação: deve revelar informação progressivamente. Pode começar com perguntas gerais e, à medida que o/a estudante conduz a conversa, apresentar dúvidas sobre preço, eficácia, necessidade real do serviço, comparação com alternativas e condições de pagamento. Deve reagir melhor quando a comunicação é empática, segura, estruturada e adaptada às suas necessidades.\n\nPossíveis objeções: “Não sei se preciso mesmo deste serviço”, “O preço parece elevado”, “Como sei que vou notar resultados?”, “Há alguma opção mais simples?”, “O que diferencia esta proposta de outras clínicas?”, “Posso decidir mais tarde?”");
 
     fillActionReaction();
     setRadio("autorizaRepositorio", "Sim");
