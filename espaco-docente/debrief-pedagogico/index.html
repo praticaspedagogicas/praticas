@@ -447,6 +447,15 @@ body.presentation .stage-footer{display:none!important}
 .presentation #notesBtn,.presentation #settingsBtn{display:none!important}
 @media(max-width:760px){.participation-access{grid-template-columns:1fr}.participation-qr{margin:auto}.participation-link{display:none}}
 </style>
+
+<style id="facilitator-live-controls">
+.live-control-toggle{position:fixed;right:18px;bottom:18px;z-index:130;width:50px;height:50px;border:0;border-radius:50%;background:#E31E24;color:#fff;font-weight:900;box-shadow:0 12px 30px rgba(0,0,0,.25);display:grid;place-items:center;cursor:pointer}
+.live-control-panel{position:fixed;right:18px;bottom:78px;z-index:129;width:min(360px,calc(100vw - 36px));background:rgba(255,255,255,.98);border:1px solid #d8d8d8;border-radius:20px;box-shadow:0 20px 55px rgba(0,0,0,.22);padding:16px;display:none}
+.live-control-panel.open{display:block}.live-control-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}.live-control-head strong{font-size:15px}.live-control-head small{display:block;color:#777;margin-top:3px}.live-control-close{border:0;background:#f2f2f2;border-radius:9px;width:31px;height:31px;cursor:pointer}.live-control-row{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:9px}.live-control-panel input{width:100%;border:1px solid #bbb;border-radius:10px;padding:10px}.live-control-panel button.action{border:1px solid #bbb;background:#fff;border-radius:10px;padding:10px 12px;font-weight:800;cursor:pointer}.live-control-panel button.primary{background:#111;color:#fff;border-color:#111}.live-control-panel button.red{background:#E31E24;color:#fff;border-color:#E31E24}.live-control-status{margin-top:10px;padding:10px 11px;border-left:4px solid #E31E24;background:#f7f7f7;border-radius:9px;font-size:12px;line-height:1.35}.live-control-chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.live-control-chips button{border:1px solid #ccc;background:#fff;border-radius:999px;padding:7px 10px;font-size:11px;font-weight:800;cursor:pointer}.live-control-chips button.active{background:#111;color:#fff;border-color:#111}.live-results{max-height:240px;overflow:auto;margin-top:10px;display:none}.live-results.show{display:block}.live-result{border-top:1px solid #e4e4e4;padding:9px 0;font-size:11px}.live-result b{display:block;margin-bottom:5px}.live-result-line{display:flex;justify-content:space-between;gap:10px;padding:2px 0}.presentation .live-control-panel,.presentation .live-control-toggle{display:none!important}
+@media(max-width:760px){.live-control-panel{right:10px;bottom:70px;width:calc(100vw - 20px)}.live-control-toggle{right:10px;bottom:10px}}
+</style>
+
+<script src="config_backend.js"></script>
 </head>
 <body>
 <div class="app">
@@ -806,6 +815,48 @@ const priorities=[
 const PARTICIPATION_BASE='https://praticaspedagogicas.github.io/praticas/espaco-docente/debrief-pedagogico/participar.html';
 const SESSION_LABELS={'UE-20260715-1000':'UE/FCST','IPAM-20260715-1600':'IPAM Lisboa','IADE-20260716-1000':'IADE'};
 const STORAGE_KEY='debriefPedagogicoV19';
+const LIVE_KEY_STORAGE='debriefFacilitatorKeyV19';
+const LIVE_STAGE_MOMENT={0:'aguardar',1:'cartaz',2:'aguardar',3:'aguardar',4:'dilema_1',5:'prioridades',6:'ultimo_frame'};
+let liveMoment='';
+async function liveApi(payload){
+ const ep=window.DEBRIEF_BACKEND?.endpoint;
+ if(!ep)throw new Error('Backend não configurado.');
+ const r=await fetch(ep,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+ let data=null;try{data=await r.json()}catch(_e){}
+ if(!r.ok)throw new Error(data?.error||`Erro ${r.status}`);
+ return data;
+}
+function liveKey(){return ($('#liveKey')?.value||localStorage.getItem(LIVE_KEY_STORAGE)||'').trim()}
+function liveStatus(text){const el=$('#liveStatus');if(el)el.textContent=text}
+function currentLiveMoment(){if(state.stage===4)return `dilema_${state.quiz+1}`;return LIVE_STAGE_MOMENT[state.stage]||'aguardar'}
+async function setLiveMoment(moment,{silent=false}={}){
+ if(!state.settings.sessionCode){if(!silent)toast('Selecione primeiro a sessão.');return false}
+ const key=liveKey();if(!key){if(!silent){openLiveControls();liveStatus('Introduza a chave da facilitadora para controlar os telemóveis.')}return false}
+ localStorage.setItem(LIVE_KEY_STORAGE,key);liveStatus('A atualizar os telemóveis…');
+ try{const x=await liveApi({acao:'alterarMomento',sessao:state.settings.sessionCode,chaveFacilitadora:key,momento:moment});liveMoment=x?.momentoAtivo||moment;paintLiveControls();liveStatus(`Participação: ${liveMoment==='aguardar'?'fechada / a aguardar':liveMoment}`);return true}catch(e){liveStatus(`Falha: ${e.message}`);return false}
+}
+function paintLiveControls(){$$('#liveMomentChips [data-live-moment]').forEach(b=>b.classList.toggle('active',b.dataset.liveMoment===liveMoment))}
+function openLiveControls(){$('#liveControlPanel')?.classList.add('open')}
+function closeLiveControls(){$('#liveControlPanel')?.classList.remove('open')}
+async function refreshLiveResults(){
+ if(!state.settings.sessionCode)return liveStatus('Selecione primeiro a sessão.');
+ liveStatus('A atualizar resultados…');
+ try{const raw=await liveApi({acao:'obterResultados',sessao:state.settings.sessionCode});const rows=Array.isArray(raw)?raw:(raw?.respostas||[]);applyLiveResults(rows);renderLiveResults(rows);liveStatus(`${rows.length} resposta(s) carregada(s).`)}catch(e){liveStatus(`Falha ao obter resultados: ${e.message}`)}
+}
+function countAnswers(rows,q){const out={};for(const r of rows){if((r.Pergunta||r.pergunta)!==q)continue;let a=r.Resposta??r.resposta??'';try{const v=JSON.parse(a);if(Array.isArray(v)){for(const x of v)out[x]=(out[x]||0)+1;continue}}catch(_e){}out[a]=(out[a]||0)+1}return out}
+function applyLiveResults(rows){
+ const posterKeys=['plot','plano','caos','surpresa','tempo','ajustes'];const plotKeys=['preparacao','envolvimento','tempo','grupos','avaliacao','articulacao','tecnologia'];const priorityKeys=['preparacao','percurso','avaliacao','acompanhamento','administrativo','recursos','articulacao','apoio','ia'];
+ let c=countAnswers(rows,'cartaz');state.posterVotes=posterKeys.map(k=>c[k]||0);state.posterRevealed=Object.values(c).some(Boolean);
+ c=countAnswers(rows,'plot_twist');state.plotVotes=plotKeys.map(k=>c[k]||0);state.plotRevealed=Object.values(c).some(Boolean);
+ c=countAnswers(rows,'prioridades');state.priorities=priorityKeys.map(k=>c[k]||0);
+ for(let i=0;i<4;i++){c=countAnswers(rows,`dilema_${i+1}`);state.quizVotes[i]=['A','B','C'].map(k=>c[k]||0)}
+ save();renderOpening();renderQuiz();renderPriorities();
+}
+function renderLiveResults(rows){const box=$('#liveResults');if(!box)return;const groups={};for(const r of rows){const q=r.Pergunta||r.pergunta||'Sem pergunta';let a=r.Resposta??r.resposta??'';try{const x=JSON.parse(a);if(Array.isArray(x))a=x.join(', ')}catch(_e){};(groups[q]??={});groups[q][a]=(groups[q][a]||0)+1}box.innerHTML=Object.entries(groups).map(([q,c])=>`<div class="live-result"><b>${escapeHtml(q)}</b>${Object.entries(c).map(([a,n])=>`<div class="live-result-line"><span>${escapeHtml(a)}</span><strong>${n}</strong></div>`).join('')}</div>`).join('')||'<div class="live-result">Ainda não há respostas.</div>';box.classList.add('show')}
+function mountLiveControls(){
+ const wrap=document.createElement('div');wrap.innerHTML=`<button class="live-control-toggle" id="liveControlToggle" title="Controlo ao vivo">AO</button><section class="live-control-panel" id="liveControlPanel"><div class="live-control-head"><div><strong>Controlo ao vivo</strong><small>Comande os telemóveis sem mudar de página.</small></div><button class="live-control-close" id="liveControlClose">×</button></div><div class="live-control-row"><input id="liveKey" type="password" placeholder="Chave da facilitadora"><button class="action primary" id="liveOpenCurrent">Abrir atual</button></div><div class="live-control-chips" id="liveMomentChips"><button data-live-moment="cartaz">Cartaz</button><button data-live-moment="plot_twist">Plot twist</button><button data-live-moment="prioridades">Prioridades</button><button data-live-moment="ultimo_frame">Último frame</button></div><div class="live-control-row"><button class="action red" id="liveCloseParticipation">Fechar / aguardar</button><button class="action" id="liveRefreshResults">Atualizar resultados</button></div><div class="live-control-status" id="liveStatus">Pronto para ligar à sessão.</div><div class="live-results" id="liveResults"></div></section>`;document.body.append(...wrap.childNodes);$('#liveKey').value=localStorage.getItem(LIVE_KEY_STORAGE)||'';$('#liveControlToggle').onclick=openLiveControls;$('#liveControlClose').onclick=closeLiveControls;$('#liveOpenCurrent').onclick=()=>setLiveMoment(currentLiveMoment());$('#liveCloseParticipation').onclick=()=>setLiveMoment('aguardar');$('#liveRefreshResults').onclick=refreshLiveResults;$$('#liveMomentChips [data-live-moment]').forEach(b=>b.onclick=()=>setLiveMoment(b.dataset.liveMoment));
+}
+
 
 const defaultState={
  stage:0, posterVotes:posterOptions.map(()=>0),posterRevealed:false,posterView:'posters',plotVotes:plotOptions.map(()=>0),plotRevealed:false, scenario:0, storyMode:'overview', storySuccessNote:'', storyFailNote:'', quiz:0, quizLensRevealed:false, quizVotes:quizCases.map(()=>[0,0,0]), priorities:priorities.map(()=>0), notes:'',
@@ -843,6 +894,7 @@ function setStage(i){
  $$('.stage').forEach((s,idx)=>s.classList.toggle('active',idx===i));
  renderPhaseList();renderProgress();renderTimers();window.scrollTo({top:0,behavior:'smooth'});
  if(state.settings.autoTimer && phases[i].minutes){startTimer()}
+ if(state.settings.prepared && liveKey()){setLiveMoment(currentLiveMoment(),{silent:true});setTimeout(refreshLiveResults,900)}
 }
 function renderTimers(){
  $$('[data-timer]').forEach((panel,idx)=>{
@@ -1000,7 +1052,7 @@ function initEvents(){
  $('#settingsBtn').onclick=openSettings;$('#heroPrimaryBtn').onclick=()=>{state.posterView='posters';save();state.settings.prepared?setStage(1):openSettings()};$('#heroSkipBtn').onclick=()=>{state.posterView='posters';save();setStage(1)};$('#saveSettingsBtn').onclick=()=>saveSettings(false);$('#saveAndStartBtn').onclick=()=>saveSettings(true);
  $$('[data-close]').forEach(b=>b.onclick=()=>closeModal(b.dataset.close));$$('.modal-backdrop').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal(m.id)}));
  $('#notesBtn').onclick=openNotes;$('#saveNotesBtn').onclick=saveNotes;
- $('#revealLensBtn').onclick=()=>{state.quizLensRevealed=!state.quizLensRevealed;save();renderQuiz()};$('#nextQuizBtn').onclick=()=>{state.quiz=(state.quiz+1)%quizCases.length;state.quizLensRevealed=false;save();renderQuiz()};$('#resetQuizVotesBtn').onclick=()=>{state.quizVotes[state.quiz]=[0,0,0];state.quizLensRevealed=false;save();renderQuiz()};
+ $('#revealLensBtn').onclick=()=>{state.quizLensRevealed=!state.quizLensRevealed;save();renderQuiz()};$('#nextQuizBtn').onclick=()=>{state.quiz=(state.quiz+1)%quizCases.length;state.quizLensRevealed=false;save();renderQuiz();if(liveKey())setLiveMoment(`dilema_${state.quiz+1}`,{silent:true})};$('#resetQuizVotesBtn').onclick=()=>{state.quizVotes[state.quiz]=[0,0,0];state.quizLensRevealed=false;save();renderQuiz()};
  $('#resetPrioritiesBtn').onclick=()=>{state.priorities=priorities.map(()=>0);save();renderPriorities()};$('#copyPrioritiesBtn').onclick=()=>copyText(priorityRanking().map((p,i)=>`${i+1}. ${p.name} — ${p.count}`).join('\n')).then(()=>toast('Ranking copiado.'));
  $$('[data-live-link]').forEach(b=>b.onclick=openLiveLink);
  $('#creditsBtn').onclick=()=>openModal('creditsModal');
@@ -1012,7 +1064,7 @@ function initEvents(){
 
 window.addEventListener('storage',e=>{if(e.key===STORAGE_KEY&&e.newValue){try{state=JSON.parse(e.newValue);renderAll();setStage(state.stage)}catch(_e){}}});
 window.debriefChannel?.addEventListener('message',e=>{if(e.data?.type==='state'&&e.data.state){state=e.data.state;renderAll();setStage(state.stage)}});
-initEvents();renderAll();setStage(state.stage);
+mountLiveControls();initEvents();renderAll();setStage(state.stage);
 })();
 </script>
 </body>
