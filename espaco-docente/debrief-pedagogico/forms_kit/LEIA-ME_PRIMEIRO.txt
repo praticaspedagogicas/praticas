@@ -1,0 +1,10 @@
+KIT MICROSOFT FORMS — V16
+
+Os quatro Forms já foram criados e as ligações estão integradas no painel.
+
+Use esta pasta apenas para:
+- consultar as perguntas;
+- rever a identidade visual;
+- recriar um formulário no futuro, se necessário.
+
+As ligações atuais estão em LIGACOES_PARA_COLAR_NO_PAINEL.txt.

@@ -1,0 +1,95 @@
+MICROSOFT FORMS — CONTEÚDO COMPLETO
+
+FORMULÁRIO 1 — Abertura — A Prática em Cartaz
+2 perguntas de escolha única
+
+1. Qual cartaz representa melhor a sua experiência com a prática pedagógica?
+   A. Plot twist: funcionou!
+   B. O plano era sólido.
+   C. Caos produtivo
+   D. Os estudantes surpreenderam-me
+   E. Boa prática. Pouco tempo.
+   F. Voltaria a implementar — com ajustes
+
+2. Onde esteve o verdadeiro “plot twist” da implementação?
+   A. Preparação e briefing
+   B. Envolvimento dos estudantes
+   C. Gestão do tempo
+   D. Funcionamento dos grupos
+   E. Avaliação e feedback
+   F. Articulação entre UCs e docentes
+   G. Recursos e tecnologia
+
+Configuração manual:
+- Tornar as duas perguntas obrigatórias.
+- Manter apenas uma resposta por pergunta.
+
+----------------------------------------------------------------------
+
+FORMULÁRIO 2 — Decisões em 90 segundos
+4 perguntas de escolha única
+
+1. Os estudantes estão muito envolvidos, mas não conseguem explicar o objetivo pedagógico da atividade. O que prioriza?
+   A. Interromper e tornar explícito o propósito antes de continuar.
+   B. Manter a atividade e esclarecer apenas no debriefing.
+   C. Pedir aos estudantes que formulem o propósito com base no que viveram.
+
+2. A maioria não leu o material prévio e a aula de flipped classroom começa a transformar-se numa exposição em PowerPoint. Como recupera a metodologia?
+   A. Explicar todo o conteúdo pelos slides e adiar a atividade para outra aula.
+   B. Manter a atividade sem adaptação e responsabilizar quem não se preparou.
+   C. Fazer um diagnóstico rápido, recuperar o essencial numa tarefa curta e retomar a aplicação ativa.
+
+3. A prática é pedagogicamente rica, mas o docente passa demasiado tempo em registos, organização e tarefas administrativas. Qual é o primeiro ajuste?
+   A. Reduzir a complexidade do problema ou desafio.
+   B. Simplificar ou automatizar registos e momentos de acompanhamento, preservando o núcleo pedagógico.
+   C. Manter o desenho e diminuir o feedback aos estudantes.
+
+4. Os estudantes pedem um exemplo completo antes de começar. O que faz?
+   A. Fornecer um modelo completo para reduzir insegurança.
+   B. Recusar qualquer exemplo para preservar autonomia.
+   C. Mostrar critérios, fragmentos ou contraexemplos sem entregar uma solução.
+
+Configuração manual:
+- Tornar as quatro perguntas obrigatórias.
+- Manter apenas uma resposta por pergunta.
+
+----------------------------------------------------------------------
+
+FORMULÁRIO 3 — O que merece prioridade?
+1 pergunta de escolha múltipla
+
+1. Que áreas devem ser priorizadas para melhorar as práticas pedagógicas? Escolha até três.
+   A. Preparação e envolvimento dos estudantes
+   B. Clareza do percurso de aprendizagem
+   C. Avaliação ao serviço da aprendizagem
+   D. Acompanhamento personalizado dos estudantes
+   E. Simplificação de processos e tarefas administrativas
+   F. Recursos para docentes e estudantes
+   G. Articulação entre UCs e equipas docentes
+   H. Desenvolvimento pedagógico e apoio docente
+   I. Tecnologia e IA com propósito pedagógico
+
+Configuração manual:
+- Ativar “Várias respostas”.
+- Tornar a pergunta obrigatória.
+- O Forms pode não bloquear uma quarta seleção; manter a instrução “escolha até três”.
+
+----------------------------------------------------------------------
+
+FORMULÁRIO 4 — O último frame
+4 perguntas de texto longo
+
+1. MANTER — Que prática, decisão ou condição favoreceu a aprendizagem e merece ser preservada?
+
+2. AJUSTAR — Que aspeto dificultou ou limitou a implementação e precisa de revisão?
+
+3. EXPERIMENTAR — Que melhoria, apoio ou inovação concreta gostaria de ver testada nas práticas pedagógicas?
+
+4. OUTRA SUGESTÃO — Que outra melhoria ou apoio considera importante?
+
+Configuração manual:
+- Ativar “Resposta longa” nas quatro perguntas.
+- Tornar obrigatórias Manter, Ajustar e Experimentar.
+- Deixar Outra sugestão como opcional.
+
+----------------------------------------------------------------------

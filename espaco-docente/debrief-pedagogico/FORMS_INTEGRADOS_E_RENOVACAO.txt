@@ -1,0 +1,16 @@
+DEBRIEF PEDAGÓGICO — FORMS INTEGRADOS
+
+ABERTURA: https://forms.cloud.microsoft/e/6UrLmTt92k
+DECISÕES: https://forms.cloud.microsoft/e/eZm6RvgNmg
+PRIORIDADES: https://forms.cloud.microsoft/e/v0xhg9NfeJ
+ÚLTIMO FRAME: https://forms.cloud.microsoft/e/xYT5WT7RPP
+
+UTILIZAÇÃO NAS TRÊS SESSÕES
+- Selecione a instituição no painel: Universidade Europeia, IADE ou IPAM.
+- Use os mesmos quatro Forms e os mesmos QR codes.
+- Depois de cada sessão, exporte as respostas dos quatro Forms.
+- Em seguida, elimine as respostas anteriores no Microsoft Forms.
+- No HTML, clique em “Preparar próxima sessão”, confirme os dois passos e selecione a instituição seguinte.
+
+LIMITAÇÃO IMPORTANTE
+O HTML não tem acesso administrativo à conta Microsoft e não pode verificar nem eliminar respostas. A renovação dos Forms depende da exportação e eliminação manual no Microsoft Forms.

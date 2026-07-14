@@ -1,0 +1,9 @@
+DEBRIEF PEDAGÓGICO — GUIA RÁPIDO V16
+
+1. Abra index.html e selecione a instituição.
+2. Abra facilitadora.html e partilhe apenas index.html?apresentacao=1.
+3. Os quatro Forms e QR codes já estão integrados.
+4. Conduza os seis momentos pelo roteiro completo.
+5. Entre sessões: exporte e elimine as respostas dos quatro Forms; depois use “Preparar próxima sessão”.
+
+Consulte ROTEIRO_FACILITADORA_PASSO_A_PASSO.txt para instruções detalhadas.

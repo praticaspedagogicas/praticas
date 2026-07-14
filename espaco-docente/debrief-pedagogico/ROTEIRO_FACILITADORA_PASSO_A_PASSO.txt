@@ -1,0 +1,128 @@
+DEBRIEF PEDAGÓGICO — PRÁTICAS EM BALANÇO
+ROTEIRO DA FACILITADORA · PASSO A PASSO · V16
+
+Este roteiro não deve ser partilhado com os docentes.
+
+============================================================
+A. FORMS JÁ INTEGRADOS
+============================================================
+1. Os quatro Microsoft Forms já estão criados e ligados ao painel.
+2. Os QR codes também estão incluídos localmente na pasta assets.
+3. Não volte a colar ligações nem altere os campos bloqueados do painel.
+4. Faça uma resposta de teste em cada Forms antes da primeira sessão.
+5. Confirme que as respostas aparecem em “Exibir respostas”.
+
+============================================================
+B. PREPARAÇÃO DO PAINEL
+============================================================
+1. Abra index.html.
+2. Clique em “Preparar e iniciar a sessão”.
+3. Introduza o nome da facilitadora e a data.
+4. Em “Instituição / sessão”, selecione Universidade Europeia, IADE ou IPAM.
+5. Introduza um subtítulo, se necessário.
+6. Confirme visualmente que os quatro campos dos Forms estão preenchidos. Não precisa de os editar.
+7. Clique em “Guardar preparação”.
+8. Abra facilitadora.html numa janela separada.
+9. Na consola, clique em “Abrir ecrã de apresentação”.
+10. Confirme que abriu index.html?apresentacao=1.
+11. Partilhe apenas esse separador no Teams. Não partilhe a consola.
+12. Teste os quatro QR codes com o telemóvel.
+
+============================================================
+C. INÍCIO DA SESSÃO
+============================================================
+1. Mantenha a capa visível enquanto as pessoas entram.
+2. Diga: “Hoje vamos fazer um balanço diferente: visual, focado e orientado para decisões concretas.”
+3. Na consola privada, clique em “Avançar →”.
+4. Inicie o cronómetro do Momento 1.
+
+============================================================
+MOMENTO 1 · A PRÁTICA EM CARTAZ · 8 MIN
+============================================================
+1. O QR code do Formulário 1 aparece automaticamente.
+2. Diga: “Leiam o QR code e respondam às duas perguntas. Na primeira, não escolham o cartaz mais bonito; escolham o mais honesto.”
+3. Aguarde as submissões.
+4. No Forms 1, clique em “Respostas”.
+5. Consulte a primeira pergunta e introduza os seis totais na consola.
+6. Clique em “Revelar cartaz da sala”.
+7. Convide uma pessoa que se reveja no mais votado e outra que tenha escolhido diferente; até 45 segundos cada.
+8. Clique em “Continuar para onde esteve o plot twist?”.
+9. No mesmo separador “Respostas”, consulte a segunda pergunta e introduza os sete totais.
+10. Clique em “Revelar leitura”.
+11. Faça uma ligação breve com o momento seguinte e clique em “Avançar →”.
+
+============================================================
+MOMENTO 2 · POR DENTRO DAS PRÁTICAS · 14 MIN
+============================================================
+1. Na consola, clique no cenário que pretende mostrar. A escolha é sua.
+2. Leia a primeira pergunta e convide uma ou duas intervenções breves.
+3. Use a segunda pergunta para aprofundar.
+4. Trabalhe preferencialmente dois ou três cenários representados.
+5. Registe uma ideia-chave nas notas e clique em “Avançar →”.
+
+============================================================
+MOMENTO 3 · DEU CERTO. E QUANDO NÃO DEU? · 14 MIN
+============================================================
+1. Clique em “Deu certo”.
+2. Peça uma partilha concreta de implementação e use as perguntas visíveis.
+3. Clique em “Não correu como previsto”.
+4. Peça uma partilha de um ajuste ou falha produtiva, sem avaliar pessoas.
+5. Registe uma conclusão em “Vale repetir” e outra em “Vale ajustar”.
+6. Clique em “Mostrar síntese” e depois em “Avançar →”.
+
+============================================================
+MOMENTO 4 · DECISÕES EM 90 SEGUNDOS · 10 MIN
+============================================================
+1. O QR code do Formulário 2 aparece automaticamente.
+2. Diga: “Respondam aos quatro dilemas e submetam. Depois vamos discutir um de cada vez.”
+3. Aguarde as submissões e abra o separador “Respostas” do Formulário 2.
+4. Para o dilema visível, introduza os totais A, B e C na consola.
+5. Revele a lente pedagógica e peça uma justificação breve.
+6. Clique em “Próximo dilema”, introduza os totais seguintes e repita.
+7. No dilema de flipped classroom, pergunte: “Que alteração na preparação prévia reduziria a probabilidade de isto voltar a acontecer?”
+8. Clique em “Avançar →”.
+
+============================================================
+MOMENTO 5 · O QUE MERECE PRIORIDADE? · 9 MIN
+============================================================
+1. O QR code do Formulário 3 aparece automaticamente.
+2. Diga: “Escolham até três áreas. Não é necessário justificar no formulário.”
+3. Abra “Respostas” no Formulário 3.
+4. Introduza os totais das nove áreas na consola.
+5. Observe o ranking no ecrã.
+6. Peça comentários apenas sobre as duas ou três prioridades mais votadas.
+7. Registe ações possíveis nas notas e clique em “Avançar →”.
+
+============================================================
+MOMENTO 6 · O ÚLTIMO FRAME · 5 MIN
+============================================================
+1. O QR code do Formulário 4 aparece automaticamente.
+2. Diga: “Antes de terminarmos, deixem três contributos breves: o que manter, o que ajustar e o que experimentar. Há ainda um campo opcional para outra sugestão.”
+3. Inicie o cronómetro e dê cerca de três minutos para responder.
+4. Não faça ronda oral nem peça respostas no chat.
+5. Clique em “Concluir”.
+6. Depois da sessão, exporte a síntese do painel e descarregue as respostas dos quatro Forms.
+
+
+============================================================
+G. ENTRE AS TRÊS SESSÕES — RENOVAÇÃO OBRIGATÓRIA
+============================================================
+1. Depois da sessão, abra cada um dos quatro Forms em “Exibir respostas”.
+2. Exporte as respostas para Excel e guarde-as numa pasta identificada com a instituição e a data.
+3. Confirme que os quatro ficheiros foram guardados.
+4. Elimine as respostas anteriores nos quatro Forms. Não elimine os formulários.
+5. Regresse ao HTML e clique em “Preparar próxima sessão”.
+6. Marque as duas confirmações: respostas exportadas e respostas eliminadas.
+7. Selecione a instituição seguinte, indique a data e clique em “Criar nova sessão limpa”.
+8. O painel limpa votos, notas, cronómetros e síntese, mas preserva as quatro ligações e os QR codes.
+9. Faça uma resposta rápida de teste e elimine-a antes de iniciar a sessão real.
+
+IMPORTANTE: o HTML não consegue verificar nem apagar respostas da conta Microsoft. A limpeza nos Forms é uma ação manual obrigatória para não misturar Universidade Europeia, IADE e IPAM.
+
+============================================================
+PLANO B TÉCNICO
+============================================================
+- QR code não abre: envie a ligação do Forms no chat.
+- Forms indisponível: peça reação numerada no chat apenas como contingência e registe os totais na consola.
+- Sincronização entre consola e apresentação falha: confirme que ambas estão no mesmo endereço do GitHub Pages e atualize as duas janelas.
+- Sessão seguinte: use o fluxo “Preparar próxima sessão” e cumpra a exportação/eliminação obrigatória descrita na secção G.
