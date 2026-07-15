@@ -161,23 +161,20 @@ window.DEBRIEF_DATA = {
   ]
 };
 
-
-/* Safari/macOS: encaminha o gesto de scroll feito sobre a barra lateral
-   para o scroll principal da página, evitando a sensação de bloqueio. */
+/* Safari/macOS: todo o gesto vertical feito sobre a barra lateral é
+   encaminhado para a página principal, inclusive sobre os botões. */
 (() => {
   function enableSidebarScrollForwarding() {
     const sidebar = document.querySelector('.sidebar');
-    if (!sidebar || sidebar.dataset.scrollForwarding === '1') return;
+    if (!sidebar || sidebar.dataset.scrollForwarding === '2') return;
 
-    sidebar.dataset.scrollForwarding = '1';
+    sidebar.dataset.scrollForwarding = '2';
     sidebar.addEventListener('wheel', (event) => {
-      const target = event.target;
-      if (target?.closest?.('button, a, input, textarea, select')) return;
       if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
-
       event.preventDefault();
+      event.stopPropagation();
       window.scrollBy({ top: event.deltaY, left: 0, behavior: 'auto' });
-    }, { passive: false });
+    }, { passive: false, capture: true });
   }
 
   if (document.readyState === 'loading') {
