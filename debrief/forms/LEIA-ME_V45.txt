@@ -1,0 +1,6 @@
+V45 — Recomeçar sessão
+
+- Adicionado botão permanente no topo para recomeçar a sessão.
+- Corrigida a limpeza do estado local.
+- A apresentação regressa à página inicial.
+- As respostas nos Microsoft Forms não são apagadas.

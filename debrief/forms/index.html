@@ -680,6 +680,7 @@ body.presentation .stage-footer{display:none!important}
       <button class="icon-btn" id="notesBtn" title="Notas da sessão" aria-label="Notas da sessão"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></button>
       <button class="icon-btn" id="presentationBtn" title="Modo de apresentação limpo" aria-label="Modo de apresentação limpo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H4z"/><path d="M8 20l4-4 4 4"/></svg></button>
       <button class="icon-btn" id="fullscreenBtn" title="Ecrã inteiro" aria-label="Ecrã inteiro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg></button>
+      <button class="icon-btn" id="restartSessionBtn" title="Recomeçar sessão do zero" aria-label="Recomeçar sessão do zero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4v6h6"/><path d="M5.5 15a8 8 0 1 0 1.7-8.6L4 10"/></svg></button>
       <button class="icon-btn" id="settingsBtn" title="Configuração" aria-label="Configuração"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4v-.2a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3V2.8h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1z"/></svg></button>
     </div>
   </header>
@@ -929,7 +930,7 @@ body.presentation .stage-footer{display:none!important}
 <div class="modal-backdrop" id="newSessionModal" role="dialog" aria-modal="true" aria-labelledby="newSessionTitle"><div class="modal">
   <div class="modal-head"><h2 id="newSessionTitle">Preparar a próxima sessão</h2><button class="close-btn" data-close="newSessionModal">×</button></div>
   <div class="modal-body">
-    <div class="setup-intro"><strong>Cada instituição possui um código de sessão próprio.</strong> Selecione a próxima sessão e o sistema manterá os resultados separados no SharePoint.</div>
+    <div class="setup-intro"><strong>Começar do zero.</strong> Esta ação limpa apenas o progresso guardado neste navegador: etapa atual, cronómetros, notas e dados locais. As respostas já submetidas nos Microsoft Forms não são apagadas.</div>
     <div class="field-grid">
       <div class="field"><label for="nextInstitutionInput">Próxima instituição</label><select id="nextInstitutionInput"><option value="">Selecione</option><option value="Universidade Europeia">Universidade Europeia</option><option value="IADE">IADE</option><option value="IPAM">IPAM</option></select></div>
       <div class="field"><label for="nextDateInput">Data</label><input id="nextDateInput" type="date"></div>
@@ -938,7 +939,7 @@ body.presentation .stage-footer{display:none!important}
     <hr class="section-rule">
     
     
-    <p class="help" style="margin-top:12px">Os resultados ficam separados pelo código da sessão. O botão limpa apenas os cronómetros, votos e notas locais desta apresentação.</p>
+    <p class="help" style="margin-top:12px">Depois de confirmar, a apresentação regressa à página inicial pronta para uma nova sessão.</p>
   </div>
   <div class="modal-actions"><button class="btn btn-ghost" data-close="newSessionModal">Cancelar</button><button class="btn btn-primary" id="confirmNewSessionBtn">Criar nova sessão limpa</button></div>
 </div></div>
@@ -1432,7 +1433,9 @@ ${state.notes||'Sem notas'}
 }
 function slug(v){return String(v||'sessao').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}function exportSummary(){const blob=new Blob([summaryText()],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`debrief-${slug(state.settings.institution)}-${state.settings.date||new Date().toISOString().slice(0,10)}.txt`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);toast('Síntese exportada.')}
 function aiPrompt(){return `Atua como especialista em desenho pedagógico e análise qualitativa. Analisa o balanço abaixo sem inventar informação. Produz: (1) síntese executiva em 5 pontos; (2) padrões positivos; (3) dificuldades recorrentes; (4) diferenças entre desenho, implementação e avaliação; (5) três prioridades operacionais; (6) perguntas que ainda precisam de resposta; (7) proposta de próximos passos com responsáveis e horizonte temporal. Usa português europeu e tom institucional.\n\n${summaryText()}`}
-function openNewSession(){stopTimer();$('#nextInstitutionInput').value='';$('#nextDateInput').value=new Date().toISOString().slice(0,10);$('#nextSessionTitleInput').value='Balanço das práticas pedagógicas';openModal('newSessionModal')}function confirmNewSession(){const institution=$('#nextInstitutionInput').value;if(!institution){toast('Selecione a próxima instituição.');return}if(!$('#exportedFormsCheck').checked||!$('#clearedFormsCheck').checked){toast('Confirme a exportação e a eliminação das respostas anteriores.');return}const facilitator=state.settings.facilitator;const sound=state.settings.sound;const autoTimer=state.settings.autoTimer;state=clone(defaultState);state.settings={...state.settings,facilitator,date:$('#nextDateInput').value,institution,sessionTitle:$('#nextSessionTitleInput').value.trim(),sound,autoTimer,prepared:true};save();closeModal('newSessionModal');renderAll();setStage(0);toast(`Nova sessão limpa: ${institution}.`)}
+function openNewSession(){stopTimer();const institution=$('#nextInstitutionInput');const date=$('#nextDateInput');const title=$('#nextSessionTitleInput');if(institution)institution.value=state.settings.institution||'';if(date)date.value=new Date().toISOString().slice(0,10);if(title)title.value=state.settings.sessionTitle||'Balanço das práticas pedagógicas';openModal('newSessionModal')}
+function confirmNewSession(){const facilitator=state.settings.facilitator;const sound=state.settings.sound;const autoTimer=state.settings.autoTimer;const institution=$('#nextInstitutionInput')?.value||'';const date=$('#nextDateInput')?.value||new Date().toISOString().slice(0,10);const sessionTitle=$('#nextSessionTitleInput')?.value.trim()||'Balanço das práticas pedagógicas';stopTimer();try{localStorage.removeItem(STORAGE_KEY)}catch(_e){}state=clone(defaultState);state.settings={...state.settings,facilitator,date,institution,sessionTitle,sound,autoTimer,prepared:false};save();closeModal('newSessionModal');renderAll();setStage(0);toast('Sessão limpa. Pode recomeçar do zero.')}
+function restartSessionNow(){openNewSession()}
 function loadDemo(){
  if(!confirm('Abrir uma pré-visualização da navegação?'))return;
  state.storySuccessNote='Checkpoints curtos tornaram a aprendizagem visível sem retirar autonomia.';
@@ -1468,7 +1471,7 @@ function initEvents(){
  $$('[data-live-link]').forEach(b=>b.onclick=openLiveLink);
  $('#creditsBtn').onclick=()=>openModal('creditsModal');
  $('#summaryBtn').onclick=openSummary;
- $('#exportBtn').onclick=exportSummary;$('#copyAiPromptBtn').onclick=()=>copyText(aiPrompt()).then(()=>toast('Briefing para análise por IA copiado.'));$('#resetAllBtn').onclick=openNewSession;$('#confirmNewSessionBtn').onclick=confirmNewSession;$('#finishBtn').onclick=()=>{state.finished=true;save();chime();setStage(7)};$('#returnHomeBtn').onclick=()=>setStage(0);$('#demoBtn').onclick=loadDemo;
+ $('#exportBtn').onclick=exportSummary;$('#copyAiPromptBtn').onclick=()=>copyText(aiPrompt()).then(()=>toast('Briefing para análise por IA copiado.'));$('#resetAllBtn').onclick=openNewSession;$('#restartSessionBtn').onclick=restartSessionNow;$('#confirmNewSessionBtn').onclick=confirmNewSession;$('#finishBtn').onclick=()=>{state.finished=true;save();chime();setStage(7)};$('#returnHomeBtn').onclick=()=>setStage(0);$('#demoBtn').onclick=loadDemo;
  $('#presentationBtn').onclick=()=>document.body.classList.toggle('presentation');$('#fullscreenBtn').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()};
  document.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName))return;if(e.key==='ArrowRight')advanceFlow();if(e.key==='ArrowLeft')setStage(state.stage-1);if(e.code==='Space'){e.preventDefault();toggleTimer()}if(e.key.toLowerCase()==='f')$('#fullscreenBtn').click();if(e.key.toLowerCase()==='p')$('#presentationBtn').click();if(e.key.toLowerCase()==='n')openNotes();});
  window.addEventListener('beforeunload',()=>{clearInterval(liveResultsHandle);save()});
