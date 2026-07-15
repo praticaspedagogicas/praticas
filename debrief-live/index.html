@@ -4,26 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Debrief Pedagógico — a carregar</title>
-<style>html,body{margin:0;min-height:100%;font-family:Arial,sans-serif;background:#f5f5f5;color:#222}.loading{min-height:100vh;display:grid;place-items:center;text-align:center;padding:24px}.loading strong{display:block;font-size:22px;margin-bottom:8px}.loading span{color:#666}.error{color:#9f1f2a;max-width:680px;line-height:1.5}</style>
+<style>html,body{margin:0;min-height:100%;font-family:Arial,sans-serif;background:#f5f5f5;color:#222}.loading{min-height:100vh;display:grid;place-items:center;text-align:center;padding:24px}.loading strong{display:block;font-size:22px;margin-bottom:8px}.loading span{color:#666}.error{color:#9f1f2a;max-width:680px;line-height:1.5}button{padding:10px 16px;border:0;border-radius:999px;background:#e31e24;color:#fff;font-weight:700;cursor:pointer}</style>
 </head>
 <body>
 <div class="loading" id="loading"><div><strong>Debrief Pedagógico</strong><span>A carregar a sessão…</span></div></div>
 <script>
 (async()=>{
-  const payloadUrl='index.v59.html.gz.b64?v=59';
-  const toBytes=b64=>{const raw=atob(b64.replace(/\s+/g,''));const bytes=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);return bytes};
-  const decodeNative=async bytes=>{
-    const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
-    return await new Response(stream).text();
-  };
-  const loadPako=()=>new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js';s.onload=resolve;s.onerror=()=>reject(new Error('Não foi possível carregar o descompressor.'));document.head.appendChild(s)});
+  const parts=Array.from({length:9},(_,i)=>`index.parts/part${String(i+1).padStart(2,'0')}.txt?v=59`);
   try{
-    const response=await fetch(payloadUrl,{cache:'no-store'});
-    if(!response.ok)throw new Error(`Ficheiro da aplicação indisponível (${response.status}).`);
-    const bytes=toBytes(await response.text());
-    let html;
-    if('DecompressionStream' in window) html=await decodeNative(bytes);
-    else {await loadPako();html=new TextDecoder().decode(window.pako.ungzip(bytes));}
+    const chunks=[];
+    for(const url of parts){
+      const response=await fetch(url,{cache:'no-store'});
+      if(!response.ok)throw new Error(`Parte da aplicação indisponível (${response.status}).`);
+      chunks.push(await response.text());
+    }
+    const html=chunks.join('');
+    if(!html.startsWith('<!doctype html>')||!html.includes('</html>'))throw new Error('A aplicação foi recebida de forma incompleta.');
     document.open();document.write(html);document.close();
   }catch(error){
     document.getElementById('loading').innerHTML=`<div class="error"><strong>Não foi possível abrir o Debrief.</strong><span>${String(error?.message||error)}</span><br><br><button onclick="location.reload()">Tentar novamente</button></div>`;
