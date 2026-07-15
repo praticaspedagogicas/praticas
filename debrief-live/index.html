@@ -6,40 +6,33 @@
 <meta name="theme-color" content="#111111">
 <title>Debrief Pedagógico — Práticas em Balanço</title>
 <style>
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f5f5f5;font-family:Arial,sans-serif;color:#222}
-#appFrame{position:fixed;inset:0;width:100%;height:100%;border:0;background:#fff;display:none}
-.loading{position:fixed;inset:0;display:grid;place-items:center;text-align:center;padding:24px}
-.loading strong{display:block;font-size:22px;margin-bottom:8px}.loading span{color:#666;line-height:1.5}
-.error{color:#9f1f2a;max-width:680px;line-height:1.5}
-button{padding:10px 16px;border:0;border-radius:999px;background:#e31e24;color:#fff;font-weight:700;cursor:pointer}
+html,body{margin:0;min-height:100%;font-family:"Century Gothic","Avenir Next","Segoe UI",Arial,sans-serif;background:#f5f5f5;color:#222}.loading{min-height:100vh;display:grid;place-items:center;text-align:center;padding:24px}.loading strong{display:block;font-size:23px;margin-bottom:9px}.loading span{display:block;color:#666;line-height:1.5}.error{color:#9f1f2a;max-width:680px;line-height:1.5}button{margin-top:18px;padding:11px 17px;border:0;border-radius:999px;background:#e31e24;color:#fff;font:inherit;font-weight:800;cursor:pointer}
 </style>
 </head>
 <body>
-<div class="loading" id="loading"><div><strong>Debrief Pedagógico</strong><span>A carregar a sessão…</span></div></div>
-<iframe id="appFrame" title="Debrief Pedagógico" allow="fullscreen; clipboard-write" allowfullscreen></iframe>
+<div class="loading" id="loading"><div><strong>Debrief Pedagógico</strong><span>A restaurar a versão estável…</span></div></div>
 <script>
 (async()=>{
-  const version='61';
-  const parts=Array.from({length:9},(_,i)=>`index.parts/part${String(i+1).padStart(2,'0')}.txt?v=${version}`);
   const loading=document.getElementById('loading');
-  const frame=document.getElementById('appFrame');
+  const target=new URL('app-v58-dilemas.html?v=58d',location.href);
+
   try{
-    const chunks=await Promise.all(parts.map(async url=>{
-      const response=await fetch(url,{cache:'no-store'});
-      if(!response.ok)throw new Error(`Parte da aplicação indisponível (${response.status}).`);
-      return response.text();
-    }));
-    let html=chunks.join('');
-    if(!html.startsWith('<!doctype html>')||!html.includes('</html>'))throw new Error('A aplicação foi recebida de forma incompleta.');
-    const baseHref=new URL('./',location.href).href;
-    html=html.replace('<head>',`<head><base href="${baseHref}">`);
-    frame.addEventListener('load',()=>{
-      loading.style.display='none';
-      frame.style.display='block';
-    },{once:true});
-    frame.srcdoc=html;
+    if(!('serviceWorker' in navigator))throw new Error('Este navegador não permite carregar a versão estável desta página.');
+
+    const registration=await navigator.serviceWorker.register('./sw_v58_restore.js?v=58d',{scope:'./',updateViaCache:'none'});
+    await registration.update();
+    await navigator.serviceWorker.ready;
+
+    if(!navigator.serviceWorker.controller){
+      await new Promise(resolve=>{
+        const timeout=setTimeout(resolve,1800);
+        navigator.serviceWorker.addEventListener('controllerchange',()=>{clearTimeout(timeout);resolve()},{once:true});
+      });
+    }
+
+    location.replace(target.href);
   }catch(error){
-    loading.innerHTML=`<div class="error"><strong>Não foi possível abrir o Debrief.</strong><span>${String(error?.message||error)}</span><br><br><button onclick="location.reload()">Tentar novamente</button></div>`;
+    loading.innerHTML=`<div class="error"><strong>Não foi possível abrir o Debrief.</strong><span>${String(error?.message||error)}</span><button onclick="location.reload()">Tentar novamente</button></div>`;
   }
 })();
 </script>
