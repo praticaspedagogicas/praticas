@@ -2,15 +2,27 @@
 <html lang="pt-PT">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Debrief Pedagógico — a carregar</title>
-<style>html,body{margin:0;min-height:100%;font-family:Arial,sans-serif;background:#f5f5f5;color:#222}.loading{min-height:100vh;display:grid;place-items:center;text-align:center;padding:24px}.loading strong{display:block;font-size:22px;margin-bottom:8px}.loading span{color:#666}.error{color:#9f1f2a;max-width:680px;line-height:1.5}button{padding:10px 16px;border:0;border-radius:999px;background:#e31e24;color:#fff;font-weight:700;cursor:pointer}</style>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<title>Debrief Pedagógico — Práticas em Balanço</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f5f5f5;font-family:Arial,sans-serif;color:#222}
+#appFrame{position:fixed;inset:0;width:100%;height:100%;border:0;background:#fff;display:none}
+.loading{position:fixed;inset:0;display:grid;place-items:center;text-align:center;padding:24px}
+.loading strong{display:block;font-size:22px;margin-bottom:8px}.loading span{color:#666;line-height:1.5}
+.error{color:#9f1f2a;max-width:680px;line-height:1.5}
+button{padding:10px 16px;border:0;border-radius:999px;background:#e31e24;color:#fff;font-weight:700;cursor:pointer}
+</style>
 </head>
 <body>
 <div class="loading" id="loading"><div><strong>Debrief Pedagógico</strong><span>A carregar a sessão…</span></div></div>
+<iframe id="appFrame" title="Debrief Pedagógico" allow="fullscreen; clipboard-write" allowfullscreen></iframe>
 <script>
 (async()=>{
-  const parts=Array.from({length:9},(_,i)=>`index.parts/part${String(i+1).padStart(2,'0')}.txt?v=60`);
+  const version='61';
+  const parts=Array.from({length:9},(_,i)=>`index.parts/part${String(i+1).padStart(2,'0')}.txt?v=${version}`);
+  const loading=document.getElementById('loading');
+  const frame=document.getElementById('appFrame');
   try{
     const chunks=await Promise.all(parts.map(async url=>{
       const response=await fetch(url,{cache:'no-store'});
@@ -19,11 +31,15 @@
     }));
     let html=chunks.join('');
     if(!html.startsWith('<!doctype html>')||!html.includes('</html>'))throw new Error('A aplicação foi recebida de forma incompleta.');
-    html=html.replace('</head>','<link rel="stylesheet" href="hotfix_v60.css?v=60"></head>');
-    html=html.replace('</body>','<script src="hotfix_v60.js?v=60"><\/script></body>');
-    document.open();document.write(html);document.close();
+    const baseHref=new URL('./',location.href).href;
+    html=html.replace('<head>',`<head><base href="${baseHref}">`);
+    frame.addEventListener('load',()=>{
+      loading.style.display='none';
+      frame.style.display='block';
+    },{once:true});
+    frame.srcdoc=html;
   }catch(error){
-    document.getElementById('loading').innerHTML=`<div class="error"><strong>Não foi possível abrir o Debrief.</strong><span>${String(error?.message||error)}</span><br><br><button onclick="location.reload()">Tentar novamente</button></div>`;
+    loading.innerHTML=`<div class="error"><strong>Não foi possível abrir o Debrief.</strong><span>${String(error?.message||error)}</span><br><br><button onclick="location.reload()">Tentar novamente</button></div>`;
   }
 })();
 </script>
