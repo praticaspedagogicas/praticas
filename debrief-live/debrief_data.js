@@ -89,16 +89,16 @@ window.DEBRIEF_DATA = {
       "opts": [
         "Explicar todo o conteúdo pelos slides e adiar a atividade para outra aula.",
         "Manter a atividade sem adaptação e responsabilizar quem não se preparou.",
-        "Fazer um breve resumo da aula e aplicar uma atividade experiencial depois."
+        "Fazer um diagnóstico rápido, recuperar o essencial numa tarefa curta e retomar a aplicação ativa."
       ],
       "lens": "A flipped classroom não se resume a enviar materiais antes da sessão, nem deve desaparecer quando a preparação falha. A exposição integral pode reforçar a não preparação; avançar sem qualquer ponte pode excluir parte da turma. Um diagnóstico rápido e uma recuperação curta — por exemplo, uma síntese guiada, uma pergunta-chave, leitura em blocos ou explicação entre pares — permitem preservar a aplicação, a discussão e o feedback. Numa próxima implementação, a preparação deve ser curta, orientada, verificável e claramente indispensável à atividade em aula."
     },
     {
-      "q": "A prática é pedagogicamente rica, mas o docente passa demasiado tempo em registos, organização e tarefas administrativas. Qual é o primeiro ajuste?",
+      "q": "A prática é pedagogicamente rica, mas a carga operacional do docente tornou-se excessiva. Qual é o primeiro ajuste?",
       "opts": [
         "Reduzir a complexidade do problema ou desafio.",
-        "Simplificar ou automatizar registos e momentos de acompanhamento, preservando o núcleo pedagógico.",
-        "Manter o planeamento e diminuir o feedback aos estudantes."
+        "Automatizar ou simplificar os momentos de acompanhamento.",
+        "Manter o desenho e diminuir o feedback aos estudantes."
       ],
       "lens": "Antes de reduzir ambição pedagógica, vale identificar tarefas repetitivas, pontos de decisão e feedback que podem ser estruturados, partilhados ou automatizados. A simplificação deve preservar o núcleo da aprendizagem."
     },
@@ -160,35 +160,3 @@ window.DEBRIEF_DATA = {
     }
   ]
 };
-
-/* Safari/macOS: encaminha o gesto de scroll feito sobre a barra lateral
-   para o scroll principal da página, evitando a sensação de bloqueio. */
-window.addEventListener('DOMContentLoaded', () => {
-  const sidebar = document.querySelector('.sidebar');
-
-  if (!sidebar || sidebar.dataset.scrollForwarding === '1') return;
-
-  sidebar.dataset.scrollForwarding = '1';
-
-  sidebar.addEventListener('wheel', (event) => {
-    const target = event.target;
-
-    if (
-      target &&
-      target.closest &&
-      target.closest('button, a, input, textarea, select')
-    ) {
-      return;
-    }
-
-    if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
-
-    event.preventDefault();
-
-    window.scrollBy({
-      top: event.deltaY,
-      left: 0,
-      behavior: 'auto'
-    });
-  }, { passive: false });
-});
