@@ -1,0 +1,219 @@
+<!doctype html>
+<!-- V55: base V54 validada; envio protegido e leitor dedicado de resultados no painel -->
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Debrief Pedagógico — Participar</title>
+<style>
+:root{--red:#E31E24;--black:#111;--line:#ddd;--soft:#f7f7f7}*{box-sizing:border-box}body{margin:0;font-family:"Century Gothic",Arial,sans-serif;background:#f4f4f4;color:#191919}.wrap{max-width:720px;margin:auto;min-height:100vh;background:#fff}.head{padding:18px 20px;border-bottom:3px solid var(--red);display:flex;gap:14px;align-items:center}.head img{width:180px;max-width:44vw}.head b{display:block}.main{padding:22px}.eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--red);text-transform:uppercase}.title{font-size:30px;line-height:1.08;margin:8px 0 8px}.desc{color:#666;line-height:1.5}.status{padding:14px;border:1px solid var(--line);border-left:5px solid var(--red);border-radius:12px;margin:18px 0;background:#fff}.choices{display:grid;gap:12px}.choice{border:2px solid #171717;background:white;border-radius:16px;padding:16px;text-align:left;font:inherit;cursor:pointer;transition:.15s}.choice:hover,.choice.selected{transform:translateY(-1px);border-color:var(--red);box-shadow:0 6px 18px #0001}.choice strong{display:block;font-size:17px}.choice span{display:block;color:#666;margin-top:5px}.submit{width:100%;margin-top:18px;padding:14px;border:0;border-radius:999px;background:var(--red);color:white;font-weight:800;font-size:16px;cursor:pointer}.submit:disabled{opacity:.4}.msg{margin-top:14px;padding:14px;border-radius:12px;background:var(--soft)}.hidden{display:none}.checkbox-choice{display:flex;gap:12px;align-items:flex-start}.long{width:100%;min-height:110px;padding:12px;border:1.5px solid #222;border-radius:12px;font:inherit}.foot{padding:20px;color:#777;font-size:12px;text-align:center}
+
+.choice strong{display:flex;align-items:center}.answer-key{display:inline-grid;place-items:center;min-width:28px;height:28px;margin-right:9px;border-radius:8px;background:#111;color:#fff;font-size:12px;font-weight:900}
+.choice.selected .answer-key{background:var(--red)}
+.current-answer{margin-top:14px;padding:14px;border:1px solid #ddd;border-radius:12px;background:#fafafa;font-size:13px;line-height:1.45}
+.current-answer strong{display:block;margin-bottom:5px;color:#111}
+.edit-note{color:#666;font-size:12px;margin-top:7px}
+.field-label{display:block;margin:15px 0 7px;font-weight:850}
+.submit.update{background:#111}
+
+
+/* V30 */
+.choice{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;align-items:center}
+.choice strong{display:block!important;font-size:17px}
+.choice>span:not(.answer-key){grid-column:2}
+.answer-key{grid-column:1;grid-row:1 / span 2;width:30px;min-width:30px;height:30px;margin:0!important;border-radius:9px;background:#111!important;color:#fff!important;display:grid!important;place-items:center!important;font-size:13px!important;line-height:1!important;font-weight:900!important}
+.choice-label{grid-column:2;min-width:0}
+.choice-label span{margin-top:5px}
+.current-answer{display:grid;gap:8px}
+.current-answer-title{font-weight:900;color:#111;margin-bottom:2px}
+.answer-line{display:grid;grid-template-columns:90px minmax(0,1fr);gap:8px;align-items:start}
+.answer-line b{display:block}.answer-line span{min-width:0}
+.answer-values{display:grid;gap:6px}
+.answer-value{padding:7px 9px;border-radius:9px;background:#fff;border:1px solid #e3e3e3}
+
+</style>
+</head><body><div class="wrap"><header class="head"><img src="assets/header_logos.png" alt="UE IADE IPAM"><div><b>Debrief Pedagógico</b><small>Práticas em Balanço</small></div></header><main class="main"><div class="eyebrow" id="institution">Sessão</div><h1 class="title" id="title">A aguardar a próxima atividade</h1><p class="desc" id="desc">Esta página acompanhará automaticamente o andamento da sessão.</p><div class="status" id="status">A ligar à sessão…</div><div id="content"></div><div id="message" class="msg hidden"></div></main><div class="foot">Mantenha esta página aberta durante a sessão.</div></div>
+<script src="debrief_data.js"></script>
+<script src="config_backend.js"></script>
+
+<script>
+const $=s=>document.querySelector(s);
+const params=new URLSearchParams(location.search);
+const session=params.get('sessao')||'';
+const run=params.get('run')||'';
+const diagnostic=params.get('diagnostico')==='1';
+const DATA=window.DEBRIEF_DATA;
+const SESSION_LABELS={'UE-20260715-1000':'UE/FCST','IPAM-20260715-1600':'IPAM Lisboa','IADE-20260716-1000':'IADE'};
+let state=null,selected=[];
+let submitBusy=false;
+let baseDevice=localStorage.getItem('debriefDeviceV37');
+if(!baseDevice){
+ baseDevice=(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random());
+ localStorage.setItem('debriefDeviceV37',baseDevice);
+}
+const device=`run:${run||'legacy'}:participant:${baseDevice}`;
+
+const moments={
+ aguardar:{title:'A aguardar a próxima atividade',desc:'Mantenha esta página aberta. O próximo momento aparecerá automaticamente.'},
+ cartaz:{title:'A Prática em Cartaz',desc:'Escolha o cartaz que melhor representa a sua experiência.',type:'single',question:'cartaz',options:DATA.posterOptions.map(x=>[x.key,x.title,x.subtitle])},
+ plot_twist:{title:'Onde esteve o verdadeiro “plot twist”?',desc:'Escolha a dimensão mais marcante.',type:'single',question:'plot_twist',options:DATA.plotOptions.map(x=>[x.key,x.name,x.sub])},
+ prioridades:{title:'O que merece prioridade?',desc:'Escolha até três áreas.',type:'multi',max:3,question:'prioridades',options:DATA.priorities.map(x=>[x.key,x.name,x.sub])},
+ ultimo_frame:{title:'O último frame',desc:'Registe uma ideia em cada campo.',type:'textset',question:'ultimo_frame'}
+};
+DATA.quizCases.forEach((q,i)=>{
+ moments[`dilema_${i+1}`]={
+   title:q.q,
+   desc:`Dilema ${i+1} de ${DATA.quizCases.length} · Escolha A, B ou C.`,
+   type:'single',
+   question:`dilema_${i+1}`,
+   options:q.opts.map((label,j)=>[String.fromCharCode(65+j),label,''])
+ };
+});
+
+async function api(payload){
+ const ep=window.DEBRIEF_BACKEND?.endpoint;
+ if(!ep||ep.includes('COLE_AQUI'))throw new Error('Ligação da sessão ainda não configurada.');
+ const r=await fetch(ep,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),cache:'no-store'});
+ let data=null;let raw='';
+ try{raw=await r.text();data=raw?JSON.parse(raw):null}catch(_e){data=raw?{message:raw}:null}
+ const backendError=data?.error||data?.erro||data?.message||data?.mensagem;
+ if(!r.ok||data?.ok===false)throw new Error(backendError||`Erro ${r.status}`);
+ return data;
+}
+
+async function stateApi(payload){
+ const ep=window.DEBRIEF_BACKEND?.readerEndpoint;
+ if(!ep||ep.includes('COLE_AQUI'))throw new Error('URL do fluxo leitor ainda não configurado.');
+ const r=await fetch(ep,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),cache:'no-store'});
+ let data=null;let raw='';
+ try{raw=await r.text();data=raw?JSON.parse(raw):null}catch(_e){data=raw?{message:raw}:null}
+ const backendError=data?.error||data?.erro||data?.message||data?.mensagem;
+ if(!r.ok||data?.ok===false)throw new Error(backendError||`Erro ${r.status}`);
+ return data;
+}
+function answerKey(question){return `debriefAnswerV39|${session}|${run||'legacy'}|${question}`}
+function loadAnswer(question){
+ try{return JSON.parse(localStorage.getItem(answerKey(question))||'null')}catch(_e){return null}
+}
+function saveAnswer(question,value){localStorage.setItem(answerKey(question),JSON.stringify(value))}
+function optionLabel(m,key){return m.options.find(o=>o[0]===key)?.[1]||key}
+function describeAnswer(m,value){
+ if(value==null)return '';
+ if(m.type==='textset'){
+   return `<div class="current-answer-title">A sua resposta atual</div><div class="answer-line"><b>Manter:</b><span>${escapeHtml(value.manter||'—')}</span></div><div class="answer-line"><b>Ajustar:</b><span>${escapeHtml(value.ajustar||'—')}</span></div><div class="answer-line"><b>Experimentar:</b><span>${escapeHtml(value.experimentar||'—')}</span></div><div class="edit-note">Pode alterar e voltar a registar enquanto a participação estiver aberta.</div>`;
+ }
+ const values=Array.isArray(value)?value:[value];
+ return `<div class="current-answer-title">A sua resposta atual</div><div class="answer-values">${values.map(v=>`<div class="answer-value">${escapeHtml(optionLabel(m,v))}</div>`).join('')}</div><div class="edit-note">Pode alterar e voltar a registar enquanto a participação estiver aberta.</div>`;
+}
+function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function show(t){const x=$('#message');x.innerHTML=t;x.classList.remove('hidden')}
+function hideMessage(){const x=$('#message');x.innerHTML='';x.classList.add('hidden')}
+
+function render(s){
+ state=s;
+ const m=moments[s.momentoAtivo]||moments.aguardar;
+ $('#institution').textContent=s.instituicao||'Sessão';
+ $('#title').textContent=m.title;
+ $('#desc').textContent=m.desc;
+ $('#status').textContent=s.momentoAtivo==='aguardar'?'Participação fechada':'Participação aberta';
+ const c=$('#content');c.innerHTML='';selected=[];hideMessage();
+ if(s.momentoAtivo==='aguardar'||!m.type)return;
+ const saved=loadAnswer(m.question);
+ if(m.type==='single'||m.type==='multi'){
+   selected=saved==null?[]:(Array.isArray(saved)?[...saved]:[saved]);
+   const box=document.createElement('div');box.className='choices';
+   m.options.forEach(o=>{
+     const b=document.createElement('button');b.className='choice';
+     if(selected.includes(o[0]))b.classList.add('selected');
+     const key=m.question.startsWith('dilema_')?`<span class="answer-key">${o[0]}</span>`:'';
+     b.innerHTML=`${key}<div class="choice-label"><strong>${escapeHtml(o[1])}</strong>${o[2]?`<span>${escapeHtml(o[2])}</span>`:''}</div>`;
+     b.onclick=()=>{
+       if(m.type==='single'){
+         selected=[o[0]];
+         box.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));
+         b.classList.add('selected');
+       }else if(selected.includes(o[0])){
+         selected=selected.filter(x=>x!==o[0]);b.classList.remove('selected');
+       }else if(selected.length<m.max){
+         selected.push(o[0]);b.classList.add('selected');
+       }else show(`Pode escolher no máximo ${m.max} opções.`);
+     };
+     box.appendChild(b);
+   });
+   c.appendChild(box);
+   const current=document.createElement('div');current.id='currentAnswer';current.className='current-answer'+(saved==null?' hidden':'');current.innerHTML=saved==null?'':describeAnswer(m,saved);c.appendChild(current);
+   const sub=document.createElement('button');sub.className='submit'+(saved==null?'':' update');sub.textContent=saved==null?'Registar resposta':'Atualizar resposta';sub.onclick=()=>submit(m);c.appendChild(sub);
+ }
+ if(m.type==='textset'){
+   const value=saved||{manter:'',ajustar:'',experimentar:''};
+   c.innerHTML=`<label class="field-label" for="manter">Manter</label><textarea class="long" id="manter" placeholder="Uma prática, decisão ou condição a preservar.">${escapeHtml(value.manter||'')}</textarea>
+   <label class="field-label" for="ajustar">Ajustar</label><textarea class="long" id="ajustar" placeholder="Um aspeto a rever ou melhorar.">${escapeHtml(value.ajustar||'')}</textarea>
+   <label class="field-label" for="experimentar">Experimentar</label><textarea class="long" id="experimentar" placeholder="Uma melhoria, apoio ou inovação a testar.">${escapeHtml(value.experimentar||'')}</textarea>
+   <div id="currentAnswer" class="current-answer ${saved==null?'hidden':''}">${saved==null?'':describeAnswer(m,saved)}</div>
+   <button class="submit ${saved==null?'':'update'}" id="sendText">${saved==null?'Registar respostas':'Atualizar respostas'}</button>`;
+   $('#sendText').onclick=()=>submit(m);
+ }
+}
+async function submit(m){
+ if(submitBusy)return;
+ let answer;
+ if(m.type==='textset'){
+   answer={manter:$('#manter').value.trim(),ajustar:$('#ajustar').value.trim(),experimentar:$('#experimentar').value.trim()};
+   if(!answer.manter||!answer.ajustar||!answer.experimentar)return show('Preencha os três campos.');
+ }else{
+   if(!selected.length)return show('Escolha uma opção.');
+   answer=m.type==='multi'?[...selected]:selected[0];
+ }
+ const previous=loadAnswer(m.question);
+ const payloadAnswer=typeof answer==='string'?answer:JSON.stringify(answer);
+ const submitButton=$('.submit');
+ submitBusy=true;
+ if(submitButton){submitButton.disabled=true;submitButton.textContent='A registar…'}
+ try{
+   await api({
+     acao:'registarResposta',
+     sessao:session,
+     momento:state.momentoAtivo,
+     pergunta:m.question,
+     resposta:payloadAnswer,
+     dispositivo:device,
+     chaveResposta:`${session}|${run||'legacy'}|${baseDevice}|${m.question}|${Date.now()}`,
+     run:run||'legacy'
+   });
+   saveAnswer(m.question,answer);
+   const current=$('#currentAnswer');if(current){current.innerHTML=describeAnswer(m,answer);current.classList.remove('hidden')}
+   if(submitButton){submitButton.textContent=m.type==='textset'?'Atualizar respostas':'Atualizar resposta';submitButton.classList.add('update')}
+   show(`<strong>Resposta ${previous==null?'registada':'atualizada'}.</strong><div class="edit-note">A seleção permanece acima e pode ser alterada enquanto a participação estiver aberta.</div>`);
+ }catch(e){show(escapeHtml(e.message))}
+ finally{
+   submitBusy=false;
+   if(submitButton){
+     submitButton.disabled=false;
+     if(!submitButton.classList.contains('update'))submitButton.textContent=m.type==='textset'?'Registar respostas':'Registar resposta';
+   }
+ }
+}
+let connectionFailures=0;
+async function poll(){
+ if(!session){show('Esta ligação não identifica a sessão. Leia novamente o QR code apresentado no ecrã.');return}
+ try{
+   const raw=await stateApi({sessao:session});
+   const momento=String(raw?.momentoAtivo||'aguardar');
+   const next={
+     ok:raw?.ok!==false,
+     sessao:raw?.sessao||session,
+     instituicao:raw?.instituicao||SESSION_LABELS[session]||'Sessão',
+     momentoAtivo:moments[momento]?momento:'aguardar',
+     estado:raw?.estado||''
+   };
+   connectionFailures=0;
+   if(!state||next.momentoAtivo!==state.momentoAtivo||next.estado!==state.estado)render(next);
+   $('#status').textContent=next.momentoAtivo==='aguardar'?'Participação fechada':'Participação aberta';
+ }catch(e){
+   connectionFailures++;
+   $('#status').textContent=diagnostic?`Falha: ${e.message}`:(connectionFailures<3?'A restabelecer a ligação…':`Falha de sincronização: ${e.message}`);
+ }
+ setTimeout(poll,window.DEBRIEF_BACKEND?.pollingMs||4000);
+}
+poll();
+</script>
+</body></html>

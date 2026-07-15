@@ -1,0 +1,5 @@
+DEBRIEF PEDAGÓGICO — V56
+
+Base: V55.
+Alteração única: o painel passa a interpretar corretamente a propriedade "respostas" quando o Power Automate a devolve como texto JSON.
+Não foram alterados endpoints, fluxos, navegação, participação, layout ou conteúdos.
