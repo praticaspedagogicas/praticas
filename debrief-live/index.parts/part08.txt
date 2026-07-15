@@ -1,0 +1,235 @@
+"></div></div></div>`}).join('');
+}
+function renderOpening(){renderPosters();renderPlot()}
+function renderScenarios(){
+ $('#scenarioGrid').innerHTML=scenarios.map((s,i)=>`<button class="scenario-card ${i===state.scenario?'active':''}" data-scenario="${i}"><div class="scenario-code">${escapeHtml(s.code)}</div><div class="scenario-name">${escapeHtml(s.name)}</div></button>`).join('');
+ $$('[data-scenario]').forEach(b=>b.onclick=()=>{state.scenario=+b.dataset.scenario;save();renderScenarios();renderScenarioDetail()});
+}
+function renderScenarioDetail(){const s=scenarios[state.scenario];$('#scenarioDetail').innerHTML=`<div><div class="scenario-badge">Foco de discussão</div><h3>${escapeHtml(s.name)}</h3><ul class="prompt-list">${s.prompts.map((p,i)=>`<li data-n="${i+1}">${escapeHtml(p)}</li>`).join('')}</ul></div>`}
+function renderStory(){
+ const mode=state.storyMode||'overview';
+ const success=$('#successMeme'), fail=$('#failMeme'), focus=$('#storyFocus'), summary=$('#storySummary');
+ success.classList.toggle('active',mode==='success');success.classList.toggle('muted',mode==='fail');
+ fail.classList.toggle('active',mode==='fail');fail.classList.toggle('muted',mode==='success');
+ focus.classList.toggle('hidden',!['success','fail'].includes(mode));summary.classList.toggle('hidden',mode!=='summary');
+ if(['success','fail'].includes(mode)){
+   const d=storyModes[mode];$('#storyFocusLabel').textContent=d.label;$('#storyFocusTitle').textContent=d.title;$('#storyFocusIntro').textContent=d.intro;
+   $('#storyFocusPrompts').innerHTML=d.prompts.map((p,i)=>`<div class="story-prompt"><b>${i+1}</b><span>${escapeHtml(p)}</span></div>`).join('');
+ }
+ $('#successTakeaway').textContent=(state.storySuccessNote||'').trim()||'Uma decisão que contribuiu para a aprendizagem.';
+ $('#failTakeaway').textContent=(state.storyFailNote||'').trim()||'Um ajuste concreto para futuras implementações.';
+}
+function renderQuiz(){
+ const q=quizCases[state.quiz];$('#quizIndex').textContent=`Dilema ${state.quiz+1} de ${quizCases.length}`;$('#quizTitle').textContent=q.q;$('#quizLens').textContent=q.lens;$('#quizLens').classList.toggle('show',!!state.quizLensRevealed);
+ $('#quizOptions').innerHTML=q.opts.map((o,i)=>`<button class="quiz-option" data-quiz-vote="${i}"><span class="quiz-letter">${String.fromCharCode(65+i)}</span><span class="quiz-option-text">${escapeHtml(o)}</span><span class="quiz-votes"><span>${state.quizVotes[state.quiz][i]}</span><span style="font-size:10px;color:#777">votos</span></span></button>`).join('');
+ $$('[data-quiz-vote]').forEach(b=>b.onclick=()=>{state.quizVotes[state.quiz][+b.dataset.quizVote]++;state.quizLensRevealed=false;save();renderQuiz()});
+ const prev=$('#prevQuizBtn'),next=$('#nextQuizBtn');
+ if(prev)prev.disabled=state.quiz===0;
+ if(next)next.disabled=state.quiz===quizCases.length-1;
+}
+function renderPriorities(){
+ $('#priorityGrid').innerHTML=priorities.map((p,i)=>`<div class="priority-item ${state.priorities[i]?'selected':''}"><div><div class="priority-label">${escapeHtml(p.name)}</div><div class="priority-sub">${escapeHtml(p.sub)}</div></div><div class="priority-controls"><button class="vote-btn" data-priority-minus="${i}">−</button><span class="priority-count">${state.priorities[i]}</span><button class="vote-btn" data-priority-plus="${i}">+</button></div></div>`).join('');
+ $$('[data-priority-plus]').forEach(b=>b.onclick=()=>{state.priorities[+b.dataset.priorityPlus]++;save();renderPriorities()});
+ $$('[data-priority-minus]').forEach(b=>b.onclick=()=>{const i=+b.dataset.priorityMinus;state.priorities[i]=Math.max(0,state.priorities[i]-1);save();renderPriorities()});
+ const ranked=priorities.map((p,i)=>({...p,count:state.priorities[i]})).sort((a,b)=>b.count-a.count||a.name.localeCompare(b.name));
+ $('#rankList').innerHTML=ranked.slice(0,5).map((p,i)=>`<div class="rank-row"><div class="rank-pos">${i+1}</div><div class="rank-name">${escapeHtml(p.name)}</div><div class="rank-score">${p.count}</div></div>`).join('');
+}
+function renderFinal(){
+ const settings=state.settings;$('#finalSignature').textContent='';$('#finalSignature').classList.add('hidden');
+ const box=$('#finalQrBox'),btn=$('#finalFormBtn'),link=$('#finalFormLink'),url=participationUrl();
+ if(url){const qr=qrImage(url,320);box.innerHTML=`<img src="${qr}" alt="QR code para a participação final" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'qr-placeholder',textContent:'Não foi possível carregar o QR code. Use a ligação abaixo.'}))">`;btn.href=url;btn.classList.remove('hidden');link.textContent=url}else{box.innerHTML='<div class="qr-placeholder">Selecione primeiro a sessão no ícone de definições.</div>';btn.classList.add('hidden');btn.removeAttribute('href');link.textContent=''}
+ renderLastFrameResults();
+}
+function renderLastFrameResults(){
+ const box=$('#lastFrameResults');if(!box)return;
+ const labels={manter:'Manter',ajustar:'Ajustar',experimentar:'Experimentar'};
+ box.innerHTML=Object.entries(labels).map(([key,label])=>{
+   const items=state.lastFrame?.[key]||[];
+   return `<details class="last-frame-column" ${items.length<=4?'open':''}>
+     <summary><strong>${label}</strong><span>${items.length} contributo(s)</span></summary>
+     ${items.length?`<ul class="last-frame-scroll">${items.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>`:'<div class="last-frame-empty">Ainda sem contributos.</div>'}
+   </details>`;
+ }).join('');
+}
+function rowsForSummary(items,labelFn){
+ return items.map((item,i)=>`<div class="summary-row"><span>${escapeHtml(labelFn(item,i))}</span><span class="summary-score">${item.count}</span></div>`).join('');
+}
+function renderSummaryContent(){
+ const box=$('#summaryContent');if(!box)return;
+ const posters=posterOptions.map((p,i)=>({label:p.title,count:state.posterVotes[i]}));
+ const plots=plotOptions.map((p,i)=>({label:p.name,count:state.plotVotes[i]}));
+ const rank=priorityRanking();
+ const dilemmas=quizCases.map((q,i)=>`<div class="summary-section"><h3>Dilema ${i+1}</h3><p style="font-size:12px;color:#555">${escapeHtml(q.q)}</p>${q.opts.map((o,j)=>`<div class="summary-row"><span>${String.fromCharCode(65+j)}. ${escapeHtml(o)}</span><span class="summary-score">${state.quizVotes[i][j]}</span></div>`).join('')}</div>`).join('');
+ const frame=(key,label)=>`<div class="summary-section"><h3>${label}</h3>${(state.lastFrame?.[key]||[]).length?`<ul class="summary-list">${state.lastFrame[key].map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>`:'<div class="last-frame-empty">Sem contributos.</div>'}</div>`;
+ box.innerHTML=`<div class="summary-grid">
+   <div class="summary-section"><h3>A Prática em Cartaz</h3>${rowsForSummary(posters,x=>x.label)}</div>
+   <div class="summary-section"><h3>Plot twist</h3>${rowsForSummary(plots,x=>x.label)}</div>
+   ${dilemmas}
+   <div class="summary-section full"><h3>Prioridades</h3>${rowsForSummary(rank,x=>x.name)}</div>
+   ${frame('manter','Manter')}${frame('ajustar','Ajustar')}${frame('experimentar','Experimentar')}
+ </div>`;
+}
+async function openSummary(){
+ await refreshLiveResults({silent:true});renderSummaryContent();openModal('summaryModal');
+}
+
+function renderSessionChoice(code=''){
+ $('#institutionInput').value=code||'';
+ $$('.session-choice').forEach(btn=>{
+   const selected=btn.dataset.sessionCode===code;
+   btn.classList.toggle('selected',selected);
+   btn.setAttribute('aria-pressed',selected?'true':'false');
+ });
+ const help=$('#sessionChoiceHelp');
+ if(help)help.textContent=code?`Selecionada: ${SESSION_LABELS[code]||code}`:'Selecione uma das três sessões.';
+}
+function selectSession(code){
+ renderSessionChoice(code);
+ const input=$('#facilitatorKeyInput');if(input)input.value=localStorage.getItem(controlStorageKey(code))||'';
+}
+
+function openSettings(){
+ const s=state.settings;
+ $('#facilitatorInput').value=s.facilitator||'';
+ $('#facilitatorKeyInput').value=s.facilitatorKey||localStorage.getItem(controlStorageKey(s.sessionCode))||'';
+ $('#dateInput').value=s.date||new Date().toISOString().slice(0,10);
+ renderSessionChoice(s.sessionCode||'');
+ $('#sessionTitleInput').value=s.sessionTitle||'';
+ $('#soundToggle').checked=s.sound!==false;
+ $('#autoTimerToggle').checked=!!s.autoTimer;
+ openModal('settingsModal');
+}
+
+async function saveSettings(startNow=false){
+ const sessionCode=$('#institutionInput').value;
+ if(!sessionCode){
+   toast('Selecione uma sessão.');
+   $('#sessionChoiceHelp').textContent='Selecione uma sessão para continuar.';
+   $$('.session-choice')[0]?.focus();
+   return;
+ }
+ const facilitator=$('#facilitatorInput').value.trim();
+ const facilitatorKey=$('#facilitatorKeyInput').value.trim();
+ if(!facilitatorKey){toast('Introduza a chave de controlo da sessão.');$('#facilitatorKeyInput').focus();return}
+ localStorage.setItem(controlStorageKey(sessionCode),facilitatorKey);
+ const date=$('#dateInput').value;
+ const sessionTitle=$('#sessionTitleInput').value.trim();
+ state.settings={
+   ...state.settings,
+   facilitator,
+   facilitatorKey,
+   date,
+   sessionCode,
+   institution:SESSION_LABELS[sessionCode]||sessionCode,
+   sessionTitle,
+   runId:state.settings.runId||newRunId(),
+   sound:$('#soundToggle').checked,
+   autoTimer:$('#autoTimerToggle').checked,
+   prepared:true
+ };
+ save();
+ if(startNow){
+   state.settings.runId=newRunId();
+   resetSessionResponses();
+   save();
+   closeModal('settingsModal');
+   renderAll();
+   await setStage(1);
+   initializeParticipationState();
+   toast('Nova sessão iniciada sem respostas anteriores. Abra a participação quando estiver pronta.');
+ }else{
+   closeModal('settingsModal');
+   renderAll();
+   initializeParticipationState();
+   toast('Preparação guardada.');
+ }
+}
+
+function renderHero(){
+ const btn=$('#heroPrimaryBtn'),status=$('#heroStatus'),s=state.settings;
+ if(!btn||!status)return;
+ if(s.prepared){
+   btn.textContent='Iniciar o debrief';
+   const details=[];
+   if(s.institution)details.push(escapeHtml(s.institution));
+   if(s.sessionTitle)details.push(escapeHtml(s.sessionTitle));
+   if(s.date){try{details.push(new Intl.DateTimeFormat('pt-PT',{day:'2-digit',month:'2-digit',year:'numeric'}).format(new Date(s.date+'T12:00:00')))}catch(e){details.push(escapeHtml(s.date))}}
+   if(s.facilitator)details.push(escapeHtml(s.facilitator));
+   status.innerHTML=`<strong>Sessão preparada.</strong>${details.length?' '+details.join(' · '):' Pode iniciar quando todos estiverem presentes.'}`;
+   status.classList.add('show');
+ }else{
+   btn.textContent='Preparar e iniciar a sessão';
+   status.textContent='';
+   status.classList.remove('show');
+ }
+}
+function currentFormUrl(){return participationUrl()}
+function openLiveLink(){const u=participationUrl();if(!u){openSettings();toast('Selecione primeiro a sessão.');return}window.open(u,'_blank','noopener')}
+function openNotes(){ $('#notesInput').value=state.notes;openModal('notesModal') }
+function saveNotes(){state.notes=$('#notesInput').value;save();closeModal('notesModal');toast('Notas guardadas.')}
+function copyText(text){return navigator.clipboard?.writeText(text).catch(()=>fallbackCopy(text))||fallbackCopy(text)}
+function fallbackCopy(text){const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();return Promise.resolve()}
+function priorityRanking(){return priorities.map((p,i)=>({name:p.name,count:state.priorities[i]})).sort((a,b)=>b.count-a.count)}
+function summaryText(){
+ const poster=posterOptions.map((p,i)=>`${p.title}: ${state.posterVotes[i]}`).join('\n');
+ const plot=plotOptions.map((p,i)=>`${p.name}: ${state.plotVotes[i]}`).join('\n');
+ const win=posterWinner().text;
+ const quiz=quizCases.map((q,i)=>`Dilema ${i+1}: ${q.q}\n${q.opts.map((o,j)=>`  ${String.fromCharCode(65+j)}. ${o} — ${state.quizVotes[i][j]} voto(s)`).join('\n')}`).join('\n\n');
+ const rank=priorityRanking().map((p,i)=>`${i+1}. ${p.name} — ${p.count}`).join('\n');
+ const frame=['manter','ajustar','experimentar'].map(k=>`${k.toUpperCase()}\n${(state.lastFrame?.[k]||[]).map(x=>`- ${x}`).join('\n')||'- Sem contributos'}`).join('\n\n');
+ return `DEBRIEF PEDAGÓGICO — PRÁTICAS EM BALANÇO\n\nInstituição: ${state.settings.institution||''}\nData: ${state.settings.date||''}\nResponsável pela sessão: ${state.settings.facilitator||''}\nSessão: ${state.settings.sessionTitle||''}\n\n1. A PRÁTICA EM CARTAZ\nCartaz da sala: ${win}\n${poster}\n\n2. ONDE ESTEVE O PLOT TWIST\n${plot}\n\n3. CENÁRIO EM FOCO\n${scenarios[state.scenario].name}\n\n4. ACERTOS E APRENDIZAGENS\nVale repetir: ${state.storySuccessNote||'Não registado'}\nVale ajustar: ${state.storyFailNote||'Não registado'}\n\n5. DECISÕES PEDAGÓGICAS\n${quiz}\n\n6. PRIORIDADES\n${rank}\n\n7. ÚLTIMO FRAME\n${frame}\n\n8. NOTAS DA SESSÃO\n${state.notes||'Sem notas'}\n`;
+}
+function slug(v){return String(v||'sessao').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}function exportSummary(){const blob=new Blob([summaryText()],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`debrief-${slug(state.settings.institution)}-${state.settings.date||new Date().toISOString().slice(0,10)}.txt`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);toast('Síntese exportada.')}
+function aiPrompt(){return `Atua como especialista em desenho pedagógico e análise qualitativa. Analisa o balanço abaixo sem inventar informação. Produz: (1) síntese executiva em 5 pontos; (2) padrões positivos; (3) dificuldades recorrentes; (4) diferenças entre desenho, implementação e avaliação; (5) três prioridades operacionais; (6) perguntas que ainda precisam de resposta; (7) proposta de próximos passos com responsáveis e horizonte temporal. Usa português europeu e tom institucional.\n\n${summaryText()}`}
+function openNewSession(){stopTimer();$('#nextInstitutionInput').value='';$('#nextDateInput').value=new Date().toISOString().slice(0,10);$('#nextSessionTitleInput').value='Balanço das práticas pedagógicas';openModal('newSessionModal')}
+function restartCurrentSession(){
+ if(!state.settings.sessionCode){toast('Selecione primeiro uma sessão.');return}
+ if(!confirm('Recomeçar esta sessão do zero? Os votos, resultados, notas e cronómetro locais serão limpos.'))return;
+ closeParticipationInBackground();
+ const settings={...state.settings,runId:newRunId(),prepared:true};
+ state=clone(defaultState);state.settings=settings;state.stage=0;state.timer={remaining:0,running:false,phase:0};
+ save();closeModal('settingsModal');renderAll();setStage(0);initializeParticipationState();toast('Sessão reiniciada do zero.');
+}
+function confirmNewSession(){
+ const selected=$('#nextInstitutionInput').value;
+ if(!selected){toast('Selecione a próxima instituição.');return}
+ const codes={'Universidade Europeia':'UE-20260715-1000','IPAM':'IPAM-20260715-1600','IADE':'IADE-20260716-1000'};
+ const sessionCode=codes[selected]||selected;
+ const facilitator=state.settings.facilitator,sound=state.settings.sound,autoTimer=state.settings.autoTimer,facilitatorKey=localStorage.getItem(controlStorageKey(sessionCode))||'';
+ if(!facilitatorKey){closeModal('newSessionModal');openSettings();renderSessionChoice(sessionCode);toast('Introduza a chave de controlo da próxima sessão.');return}
+ closeParticipationInBackground();
+ state=clone(defaultState);
+ state.settings={...state.settings,facilitator,facilitatorKey,date:$('#nextDateInput').value,sessionCode,institution:SESSION_LABELS[sessionCode]||selected,sessionTitle:$('#nextSessionTitleInput').value.trim(),runId:newRunId(),sound,autoTimer,prepared:true};
+ save();closeModal('newSessionModal');renderAll();setStage(0);initializeParticipationState();toast(`Nova sessão limpa: ${state.settings.institution}.`)
+}
+function loadDemo(){if(!confirm('Abrir uma pré-visualização com respostas fictícias? Estes dados servem apenas para ensaio.'))return;state.posterVotes=[5,7,9,6,8,12];state.posterRevealed=true;state.posterView='posters';state.plotVotes=[6,11,9,5,12,4,3];state.plotRevealed=true;state.priorities=[9,11,13,10,12,6,7,8,10];state.quizVotes=[[3,4,10],[1,13,2],[4,11,2],[2,1,14]];state.storySuccessNote='Checkpoints curtos tornaram a aprendizagem visível sem retirar autonomia.';state.storyFailNote='Reduzir o número de ferramentas e testar previamente os acessos.';state.notes='A turma valorizou a autonomia e pediu maior clareza nos critérios de avaliação. Surgiu como prioridade reduzir carga operacional sem perder acompanhamento.';state.lastFrame={manter:['Checkpoints curtos durante a atividade.'],ajustar:['Reduzir o número de ferramentas utilizadas.'],experimentar:['Criar um guião breve para os estudantes.']};save();renderAll();setStage(1);toast('Pré-visualização aberta com dados fictícios.');}
+function renderAll(){renderPhaseList();renderProgress();renderTimers();renderHero();renderOpening();renderScenarios();renderScenarioDetail();renderStory();renderQuiz();renderPriorities();renderStageForms();renderFinal();renderParticipationControls()}
+
+function refreshRevealedResultsInBackground(label){
+ const moment=currentLiveMoment();
+ closeParticipationInBackground();
+ scheduleResultsRefreshAfterClose(moment);
+ if(label)toast(label);
+}
+function advanceFlow(){
+ if(state.stage===1){
+   if(state.posterView==='posters'&&!state.posterRevealed){state.posterRevealed=true;save();renderOpening();refreshRevealedResultsInBackground('Resultados dos cartazes atualizados.');return}
+   if(state.posterView==='posters'){closeParticipationInBackground();state.posterView='plot';state.plotRevealed=false;save();renderOpening();renderParticipationControls();toast('Segunda pergunta preparada. Abra a participação quando estiver pronta.');window.scrollTo({top:0,behavior:'smooth'});return}
+   if(state.posterView==='plot'&&!state.plotRevealed){state.plotRevealed=true;save();renderOpening();refreshRevealedResultsInBackground('Resultados do plot twist atualizados.');return}
+   setStage(2);return
+ }
+ setStage(state.stage+1)
+}
+
+function initEvents(){
+ $$('.session-choice').forEach(btn=>btn.addEventListener('click',()=>selectSession(btn.dataset.sessionCode)));
+ $$('[data-next]').forEach(b=>b.onclick=advanceFlow);$$('[data-prev]').forEach(b=>b.onclick=()=>setStage(state.stage-1));
+ $$('[data-timer-toggle]').forEach(b=>b.onclick=toggleTimer);$$('[data-timer-add]').forEach(b=>b.onclick=addMinute);
+ $('#settingsBtn').onclick=openSettings;$('#heroPrimaryBtn').onclick=()=>{state.posterView='posters';save();state.settings.prepared?setStage(1):openSettings()};$('#heroSkipBtn').onclick=()=>{state.posterView='posters';save();setStage(1)};$('#saveSettingsBtn').onclick=()=>saveSettings(false);$('#saveAndStartBtn').onclick=()=>saveSettings(true);
+ $$('[data-close]').forEach(b=>b.onclick=()=>closeModal(b.dataset.close));$$('.modal-backdrop').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal(m.id)}));
+ $('#notesBtn').onclick=openNotes;$('#saveNotesBtn').onclick=saveNotes;
+ $('#revealLensBtn').onclick=()=>{state.quizLensRevealed=!state.quizLensRevealed;save();renderQuiz();refreshRevealedResultsInBackground('Resultados do dilema atualizados.')};
+ $('#prevQuizBtn').onclick=()=>{if(state.quiz<=0)return;closeParticipationInBackground();state.quiz--;state.quizLensRevealed=false;save();renderQuiz();renderParticipationControls();toast('Dilema anterior preparado. Abra a participação quando estiver pronta.')};
+ $('#nextQuizBtn').onclick=()=>{if(state.quiz>=quizCases.length-1)return;closeParticipationInBackground();state.quiz++;state.quizLensRevealed=false;save();renderQuiz();renderParticipationControls();toast('Próximo dilema preparado. Abra a participação quando estiver pronta.')};
+ $('#resetQuizVotesBtn').onclick=()=>{state.quizVotes[state.quiz]=[0,0,0];state.quizLensRevealed=false;save();renderQuiz()};
+ $('#resetPrioritiesBtn').onclick=()=>{state.priorities=priorities.map(()=>0);save();renderPriorities()};$('#copyPrioritiesBtn').onclick=()=>copyText(priorityRanking().map((p,i)=>`${i+1}. ${p.name} — ${p.count}`).join('\n')).then(()=>toast('Ranking copiado.'));
