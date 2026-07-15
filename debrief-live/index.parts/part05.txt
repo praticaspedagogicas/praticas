@@ -1,0 +1,187 @@
+>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/header_logos.png" alt="Universidade Europeia, IADE e IPAM">
+      <div class="brand-copy"><div class="brand-kicker">Práticas pedagógicas</div><div class="brand-title">Debrief Pedagógico</div></div>
+    </div>
+    <div class="top-progress">
+      <div class="progress-meta"><span id="progressLabel">Abertura</span><span id="progressTime">0 de 60 min</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn" id="notesBtn" title="Notas da sessão" aria-label="Notas da sessão"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></button>
+      <button class="icon-btn" id="presentationBtn" title="Modo de apresentação limpo" aria-label="Modo de apresentação limpo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H4z"/><path d="M8 20l4-4 4 4"/></svg></button>
+      <button class="icon-btn" id="fullscreenBtn" title="Ecrã inteiro" aria-label="Ecrã inteiro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg></button>
+      <button class="icon-btn" id="settingsBtn" title="Configuração" aria-label="Configuração"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4v-.2a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3V2.8h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1z"/></svg></button>
+    </div>
+  </header>
+
+  <aside class="sidebar">
+    <div class="sidebar-label">Percurso da sessão</div>
+    <div class="phase-list" id="phaseList"></div>
+    <div class="sidebar-footer"><strong>60 minutos.</strong><br>Uma experiência visual, reflexão focada e propostas concretas para aperfeiçoar as práticas pedagógicas.</div>
+  </aside>
+
+  <main class="main"><div class="stage-shell" id="stageShell">
+    <!-- 0 -->
+    <section class="stage active" data-stage="0">
+      <div class="hero">
+        <div class="hero-copy">
+          <img class="hero-logo" src="assets/header_logos.png" alt="Universidade Europeia, IADE e IPAM">
+          <div class="hero-kicker">Sessão síncrona · 60 minutos</div>
+          <h1>Debrief Pedagógico<br><span>Práticas em Balanço</span></h1>
+          <p class="hero-subtitle">Uma conversa participada sobre o que funcionou, o que exigiu mais de nós e o que queremos aperfeiçoar na próxima implementação.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="heroPrimaryBtn">Preparar e iniciar a sessão</button>
+          </div>
+          <div class="hero-actions-secondary" aria-label="Opções de ensaio">
+            <button class="btn-link" id="heroSkipBtn">Entrar sem configurar</button>
+            <span aria-hidden="true">•</span>
+            <button class="btn-link" id="demoBtn">Pré-visualizar com dados de exemplo</button>
+            <span aria-hidden="true">•</span>
+            <button class="btn-link" id="creditsBtn">Fontes e créditos</button>
+          </div>
+          <div class="hero-status" id="heroStatus" aria-live="polite"></div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="orbit">
+            <div class="orbit-center"><div><strong>60'</strong><span>sessão conduzida</span></div></div>
+            <div class="orbit-node node-1">EM CARTAZ</div>
+            <div class="orbit-node node-2">ACERTOS &amp; AJUSTES</div>
+            <div class="orbit-node node-3">DECISÕES</div>
+            <div class="orbit-node node-4">PRIORIDADES</div>
+            <div class="orbit-node node-5">CENÁRIOS</div>
+            <div class="orbit-node node-6">SÍNTESE</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1 · A Prática em Cartaz -->
+    <section class="stage" data-stage="1"><div class="stage-card">
+      <div class="stage-head">
+        <div><div class="stage-kicker">Momento 1 · Abertura visual</div><h2 class="stage-title">A Prática em Cartaz</h2><p class="stage-desc">Se a sua prática pedagógica fosse um filme, qual destes seria o cartaz? Não escolha o mais bonito: escolha o mais honesto.</p></div>
+        <div class="timer-panel" data-timer><div class="timer-label">Tempo deste momento</div><div class="timer-time">08:00</div><div class="timer-actions"><button data-timer-toggle>Iniciar</button><button data-timer-add>+1 min</button></div></div>
+      </div>
+
+      <div id="posterScene">
+        <div class="poster-stage-intro public-intro">
+          <div><strong>Uma escolha rápida para quebrar o gelo e abrir a conversa.</strong><span>Escolha o cartaz que melhor representa a sua experiência.</span></div>
+          <div class="poster-live-total results-only hidden" id="posterTotalWrap"><b id="posterTotal">0</b><small>respostas</small></div>
+        </div>
+
+        <div class="participation-access" id="participationAccess">
+          <div class="participation-copy"><small id="participationEyebrow">Participação pelo telemóvel</small><h3 id="participationTitle">Leia o QR code para participar nesta sessão.</h3><p id="participationText">A página dos docentes acompanha automaticamente o momento que está a ser conduzido. Use sempre esta mesma ligação durante toda a sessão.</p><a class="btn btn-primary hidden" id="openingFormBtn" target="_blank" rel="noopener">Abrir página de participação</a><div class="participation-link" id="participationLinkText"></div></div>
+          <div class="participation-qr" id="participationQrBox"><div class="qr-placeholder">Configure a ligação da página de participação.</div></div>
+        </div>
+        <div class="setup-notice hidden" id="participationSetupNotice">Configure a ligação da página de participação antes de partilhar o ecrã.</div>
+
+        <div class="poster-grid" id="posterGrid"></div>
+
+        <div class="conversation-panel hidden" id="posterVoices">
+          <small>Cartaz mais escolhido</small><h3 id="posterWinnerText">—</h3><p>Vamos ouvir duas perspetivas sobre este resultado.</p>
+        </div>
+      </div>
+
+      <div id="plotScene" class="plot-screen hidden">
+        <div class="plot-hero">
+          <div class="plot-question"><small>Segunda leitura · página de participação</small><h3>Onde esteve o verdadeiro “plot twist”?</h3><p>A segunda pergunta surge agora nos telemóveis dos participantes.</p></div>
+          <div class="plot-guide"><span class="poster-mini-tag">Leitura pedagógica</span><strong>Da reação visual para a análise.</strong><p>O resultado ajuda a localizar as condições que mais influenciaram a experiência.</p></div>
+        </div>
+        <div class="plot-grid" id="plotGrid"></div>
+      </div>
+
+      <div class="stage-footer"><div class="footer-left participation-control"><button class="btn btn-primary participation-toggle" data-participation-toggle>Abrir participação</button><span class="participation-state" data-participation-state>Participação fechada</span><span class="keyboard-hint">Abra a atividade, recolha as respostas e use “Avançar” para revelar os resultados.</span></div><div class="footer-right"><button class="btn btn-ghost" data-prev>Anterior</button><button class="btn btn-primary" data-next>Avançar</button></div></div>
+    </div></section>
+
+    <!-- 2 scenarios -->
+    <section class="stage" data-stage="2"><div class="stage-card">
+      <div class="stage-head">
+        <div><div class="stage-kicker">Momento 2 · Leitura por cenário</div><h2 class="stage-title">Por dentro das práticas</h2><p class="stage-desc">Vamos revisitar os cenários implementados nas unidades curriculares. Em cada um, duas perguntas orientam uma reflexão curta e focada.</p></div>
+        <div class="timer-panel" data-timer><div class="timer-label">Tempo deste momento</div><div class="timer-time">14:00</div><div class="timer-actions"><button data-timer-toggle>Iniciar</button><button data-timer-add>+1 min</button></div></div>
+      </div>
+      <div class="content-grid">
+        <div><div class="scenario-grid" id="scenarioGrid"></div></div>
+        <div class="panel scenario-detail" id="scenarioDetail"></div>
+      </div>
+      <div class="stage-footer"><div class="footer-left"><span class="keyboard-hint">Duas perguntas orientam a reflexão sobre cada cenário.</span></div><div class="footer-right"><button class="btn btn-ghost" data-prev>Anterior</button><button class="btn btn-primary" data-next>Avançar</button></div></div>
+    </div></section>
+
+    <!-- 3 acertos e aprendizagens -->
+    <section class="stage" data-stage="3"><div class="stage-card">
+      <div class="stage-head">
+        <div><div class="stage-kicker">Momento 3 · Partilha de implementação</div><h2 class="stage-title">Deu certo. E quando não deu?</h2><p class="stage-desc">Duas histórias breves: uma implementação que resultou e outra que exigiu ajustes. O foco está no que foi feito, nos sinais de aprendizagem observados e no que pode orientar futuras implementações.</p></div>
+        <div class="timer-panel" data-timer><div class="timer-label">Tempo deste momento</div><div class="timer-time">14:00</div><div class="timer-actions"><button data-timer-toggle>Iniciar</button><button data-timer-add>+1 min</button></div></div>
+      </div>
+      <div class="story-overview" id="storyOverview">
+        <article class="meme-card success" id="successMeme">
+          <div class="meme-format"><span>Como começou</span><span>Como está a correr</span></div>
+          <div class="meme-visual" aria-hidden="true">
+            <svg viewBox="0 0 640 260" role="img">
+              <rect width="640" height="260" fill="#111"/><line x1="320" y1="28" x2="320" y2="232" stroke="#555" stroke-width="2" stroke-dasharray="7 8"/>
+              <rect x="74" y="55" width="165" height="145" rx="13" fill="#f7f7f7" transform="rotate(-4 156 128)"/><rect x="92" y="77" width="90" height="12" rx="6" fill="#E31E24"/><rect x="92" y="104" width="118" height="7" rx="4" fill="#aaa"/><rect x="92" y="121" width="101" height="7" rx="4" fill="#bbb"/><rect x="92" y="138" width="124" height="7" rx="4" fill="#aaa"/><rect x="92" y="164" width="70" height="18" rx="9" fill="#111"/><text x="127" y="177" text-anchor="middle" fill="#fff" font-size="10" font-family="Arial" font-weight="700">BRIEFING</text>
+              <path d="M263 128 C292 103 304 104 329 117" fill="none" stroke="#E31E24" stroke-width="7" stroke-linecap="round"/><path d="M317 104 L335 117 L316 126" fill="none" stroke="#E31E24" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="394" y="45" width="170" height="100" rx="14" fill="#f4f4f4"/><path d="M420 119 L455 91 L484 101 L526 68" fill="none" stroke="#E31E24" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="420" cy="119" r="6" fill="#111"/><circle cx="455" cy="91" r="6" fill="#111"/><circle cx="484" cy="101" r="6" fill="#111"/><circle cx="526" cy="68" r="6" fill="#111"/>
+              <circle cx="414" cy="185" r="19" fill="#fff"/><rect x="395" y="204" width="38" height="28" rx="12" fill="#fff"/><circle cx="480" cy="180" r="19" fill="#E31E24"/><rect x="461" y="199" width="38" height="33" rx="12" fill="#E31E24"/><circle cx="548" cy="188" r="19" fill="#fff"/><rect x="529" y="207" width="38" height="25" rx="12" fill="#fff"/>
+              <circle cx="581" cy="49" r="5" fill="#E31E24"/><path d="M581 31v11M581 56v11M563 49h11M588 49h11" stroke="#E31E24" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="meme-copy"><small>Partilha 1 · Deu certo</small><h3>Quando a prática ganha vida própria — para melhor.</h3><p>Uma implementação que resultou e merece ser compreendida, não apenas celebrada.</p></div>
+        </article>
+        <article class="meme-card fail" id="failMeme">
+          <div class="meme-format"><span>Task failed</span><span>Successfully?</span></div>
+          <div class="meme-visual" aria-hidden="true">
+            <svg viewBox="0 0 640 260" role="img">
+              <rect width="640" height="260" fill="#111"/>
+              <rect x="52" y="48" width="195" height="154" rx="15" fill="#f5f5f5" transform="rotate(-3 150 125)"/><text x="84" y="79" fill="#111" font-size="18" font-family="Arial" font-weight="900">PLANO</text><path d="M84 104h118M84 127h103M84 150h123M84 173h88" stroke="#aaa" stroke-width="7" stroke-linecap="round"/><circle cx="218" cy="77" r="10" fill="#E31E24"/>
+              <rect x="316" y="46" width="238" height="136" rx="16" fill="#1d1d1d" stroke="#E31E24" stroke-width="3"/><rect x="336" y="65" width="198" height="92" rx="9" fill="#f4f4f4"/><path d="M355 134 L384 102 L408 124 L441 86 L470 117" fill="none" stroke="#E31E24" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M493 84l24 24M517 84l-24 24" stroke="#111" stroke-width="7" stroke-linecap="round"/>
+              <path d="M339 205c24-30 65-30 89 0" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M354 207c15-18 43-18 58 0" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><circle cx="383" cy="215" r="6" fill="#E31E24"/><path d="M336 194l94 29" stroke="#E31E24" stroke-width="7" stroke-linecap="round"/>
+              <circle cx="509" cy="211" r="34" fill="#f4f4f4"/><path d="M509 211l15-20M509 211l-16 10" stroke="#111" stroke-width="6" stroke-linecap="round"/><circle cx="509" cy="211" r="5" fill="#E31E24"/>
+              <rect x="82" y="214" width="183" height="28" rx="14" fill="#E31E24"/><text x="174" y="232" text-anchor="middle" fill="#fff" font-size="11" font-family="Arial" font-weight="900">REALIDADE TAMBÉM PARTICIPOU</text>
+            </svg>
+          </div>
+          <div class="meme-copy"><small>Partilha 2 · Não correu como previsto</small><h3>O plano estava impecável. A realidade também participou.</h3><p>Uma tentativa que revelou limites, condições ou decisões que agora podem ser melhoradas.</p></div>
+        </article>
+      </div>
+      <div class="story-focus hidden" id="storyFocus"><div class="story-focus-copy"><small id="storyFocusLabel">—</small><h3 id="storyFocusTitle">—</h3><p id="storyFocusIntro">—</p></div><div class="story-focus-prompts" id="storyFocusPrompts"></div></div>
+      <div class="story-summary hidden" id="storySummary"><div class="takeaway"><small>Vale repetir</small><strong id="successTakeaway">Uma decisão que contribuiu para a aprendizagem.</strong></div><div class="takeaway adjust"><small>Vale ajustar</small><strong id="failTakeaway">Um ajuste concreto para futuras implementações.</strong></div></div>
+      <div class="stage-footer"><div class="footer-left"><span class="keyboard-hint">Uma partilha de sucesso e uma partilha de aprendizagem a partir de um “fail”.</span></div><div class="footer-right"><button class="btn btn-ghost" data-prev>Anterior</button><button class="btn btn-primary" data-next>Avançar</button></div></div>
+    </div></section>
+
+    <!-- 4 quiz -->
+    <section class="stage" data-stage="4"><div class="stage-card">
+      <div class="stage-head">
+        <div><div class="stage-kicker">Momento 4 · Decisões em 90 segundos</div><h2 class="stage-title">O que faria a seguir?</h2><p class="stage-desc">Não há uma única resposta certa. O quiz torna visíveis os critérios que orientam decisões pedagógicas em situações reais.</p></div>
+        <div class="timer-panel" data-timer><div class="timer-label">Tempo deste momento</div><div class="timer-time">10:00</div><div class="timer-actions"><button data-timer-toggle>Iniciar</button><button data-timer-add>+1 min</button></div></div>
+      </div>
+      <div class="participation-access compact" id="decisionsParticipationAccess">
+        <div class="participation-copy"><small>Participação pelo telemóvel</small><h3>Use a mesma ligação para responder aos dilemas.</h3><p>Cada dilema aparecerá automaticamente no telemóvel à medida que a sessão avança.</p><a class="btn btn-primary hidden" id="decisionsFormBtn" target="_blank" rel="noopener">Abrir página de participação</a><div class="participation-link" id="decisionsLinkText"></div></div>
+        <div class="participation-qr" id="decisionsQrBox"><div class="qr-placeholder">Configure a ligação da página de participação.</div></div>
+      </div>
+      <div class="setup-notice hidden" id="decisionsSetupNotice">Configure a ligação do página de participação antes da sessão.</div>
+      <div class="quiz-wrap">
+        <div class="quiz-question"><div class="quiz-index" id="quizIndex"></div><div class="quiz-title" id="quizTitle"></div><div class="quiz-note">Escolha A, B ou C. A lente pedagógica será revelada depois da votação.</div></div>
+        <div><div class="quiz-options" id="quizOptions"></div><div class="lens" id="quizLens"></div><div class="small-tools"><button class="btn btn-primary" id="revealLensBtn">Revelar lente pedagógica</button><div class="quiz-nav"><button class="btn btn-ghost" id="prevQuizBtn">Dilema anterior</button><button class="btn btn-dark" id="nextQuizBtn">Próximo dilema</button></div><button class="btn btn-soft" id="resetQuizVotesBtn">Repor votos</button></div></div>
+      </div>
+      <div class="stage-footer"><div class="footer-left participation-control"><button class="btn btn-primary participation-toggle" data-participation-toggle>Abrir participação</button><span class="participation-state" data-participation-state>Participação fechada</span><span class="keyboard-hint">Pode voltar ao dilema anterior ou seguir para o seguinte sem percorrer o ciclo completo.</span></div><div class="footer-right"><button class="btn btn-ghost" data-prev>Anterior</button><button class="btn btn-primary" data-next>Avançar</button></div></div>
+    </div></section>
+
+    <!-- 5 priorities -->
+    <section class="stage" data-stage="5"><div class="stage-card">
+      <div class="stage-head">
+        <div><div class="stage-kicker">Momento 5 · Agenda de melhoria</div><h2 class="stage-title">O que merece prioridade?</h2><p class="stage-desc">Cada participante deve escolher até três áreas.</p></div>
+        <div class="timer-panel" data-timer><div class="timer-label">Tempo deste momento</div><div class="timer-time">09:00</div><div class="timer-actions"><button data-timer-toggle>Iniciar</button><button data-timer-add>+1 min</button></div></div>
+      </div>
+      <div class="participation-access compact" id="prioritiesParticipationAccess">
+        <div class="participation-copy"><small>Participação pelo telemóvel</small><h3>Use a mesma ligação e escolha até três áreas.</h3><p>A atividade aparecerá automaticamente quando este momento começar.</p><a class="btn btn-primary hidden" id="prioritiesFormBtn" target="_blank" rel="noopener">Abrir página de participação</a><div class="participation-link" id="prioritiesLinkText"></div></div>
+        <div class="participation-qr" id="prioritiesQrBox"><div class="qr-placeholder">Configure a ligação da página de participação.</div></div>
+      </div>
+      <div class="setup-notice hidden" id="prioritiesSetupNotice">Configure a ligação do página de participação antes da sessão.</div>
+      <div class="content-grid">
+        <div class="priority-grid" id="priorityGrid"></div>
+        <div class="panel dark"><h3 class="panel-title">Prioridades da sala</h3><p class="panel-copy">O ranking atualiza-se à medida que os votos são registados.</p><div class="rank-list" id="rankList"></div><hr class="section-rule"><button class="btn btn-primary" id="copyPrioritiesBtn">Copiar ranking</button></div>
+      </div>
+      <div class="stage-footer"><div class="foo
