@@ -1,0 +1,18 @@
+DEBRIEF PEDAGÓGICO — V41 FORMS · QR + LINK EM CADA MOMENTO
+
+Esta versão não usa Power Automate.
+
+Em cada momento participativo são apresentados simultaneamente:
+- QR code local;
+- botão para abrir o Microsoft Forms;
+- URL clicável visível no ecrã, inclusive em modo de apresentação.
+
+Formulários:
+1. Cartaz + Plot Twist: https://forms.cloud.microsoft/e/6UrLmTt92k
+2. Dilemas: https://forms.cloud.microsoft/e/eZm6RvgNmg
+3. Prioridades: https://forms.cloud.microsoft/e/v0xhg9NfeJ
+4. Último Frame: https://forms.cloud.microsoft/e/xYT5WT7RPP
+
+Teste local:
+python3 -m http.server 8000
+Abrir: http://localhost:8000/

@@ -1,0 +1,12 @@
+V43 — Microsoft Forms sem contabilização local
+
+Alterações:
+- Removida toda a contabilização local de votos.
+- Removidos contadores, percentagens, rankings e resultados fictícios.
+- Removidos os botões “Repor votos” e “Repor votos locais”.
+- Removido o botão “Copiar ranking”.
+- Cartazes, dilemas e prioridades permanecem apenas como conteúdo visual.
+- QR codes, botões e ligações diretas dos quatro Microsoft Forms foram preservados.
+- O resumo final encaminha para os resultados nos Microsoft Forms.
+
+Esta versão está preparada para publicação estática no GitHub Pages.

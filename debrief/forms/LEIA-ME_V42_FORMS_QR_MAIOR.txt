@@ -1,0 +1,14 @@
+V42 — Forms com QR maior e ligação visível
+
+Alterações aplicadas:
+- QR code aumentado nos blocos de participação.
+- Ligação curta visível por extenso em cada momento participativo.
+- Link mantido clicável.
+- Link também visível em ecrãs mais pequenos.
+- Visual do link reforçado para facilitar leitura/cópia.
+
+Momentos com acesso visível:
+- Cartaz + Plot Twist
+- Dilemas
+- Prioridades
+- Último frame
