@@ -648,6 +648,18 @@ body.presentation .stage-footer{display:none!important}
 /* No modo de apresentação, esconder ferramentas de bastidores do cabeçalho */
 .presentation #notesBtn,.presentation #settingsBtn{display:none!important}
 @media(max-width:760px){.participation-access{grid-template-columns:1fr}.participation-qr{margin:auto}.participation-link{display:block;font-size:13px}}
+
+/* V44 — página final e acesso aos Forms mais explícito */
+.access-instruction{margin-top:12px;font-size:14px;line-height:1.45;color:#333;font-weight:800}
+.access-instruction span{display:block;margin-top:5px;font-weight:600;color:#666}
+.thankyou-card{min-height:calc(100vh - var(--topbar) - 70px);display:grid;place-items:center;text-align:center;padding:56px;background:linear-gradient(145deg,#fff 0%,#fff7f7 55%,#f4f4f4 100%)}
+.thankyou-inner{max-width:820px}
+.thankyou-logo{width:240px;max-height:78px;object-fit:contain;margin:0 auto 34px;display:block}
+.thankyou-kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--red-dark);font-weight:900;margin-bottom:15px}
+.thankyou-title{font-size:clamp(56px,8vw,112px);line-height:.95;letter-spacing:-.055em;color:#111;margin:0 0 24px}
+.thankyou-copy{font-size:clamp(17px,1.8vw,24px);line-height:1.55;color:#555;margin:0 auto 32px;max-width:700px}
+.thankyou-rule{width:92px;height:6px;border-radius:999px;background:var(--red);margin:0 auto 30px}
+@media(max-width:760px){.thankyou-card{padding:34px 22px}.thankyou-logo{width:190px}.thankyou-title{font-size:58px}}
 </style>
 
 
@@ -864,6 +876,21 @@ body.presentation .stage-footer{display:none!important}
       <div class="last-frame-live"><h3>Respostas no Microsoft Forms</h3><p>Os contributos de Manter, Ajustar, Implementar e Outra sugestão ficam registados diretamente no formulário.</p></div>
       <div class="stage-footer"><div class="footer-left participation-control"><button class="btn btn-primary participation-toggle" data-participation-toggle>Abrir formulário</button><span class="participation-state" data-participation-state>Microsoft Forms</span><button class="btn btn-dark" id="summaryBtn">Ver resumo final</button><button class="btn btn-soft" id="copyAiPromptBtn">Copiar briefing para análise por IA</button><button class="btn btn-ghost" id="resetAllBtn">Preparar próxima sessão</button></div><div class="footer-right"><button class="btn btn-ghost" data-prev>Anterior</button><button class="btn btn-primary" id="finishBtn">Concluir</button></div></div>
     </div></section>
+
+    <!-- 7 encerramento -->
+    <section class="stage" data-stage="7"><div class="stage-card thankyou-card">
+      <div class="thankyou-inner">
+        <img class="thankyou-logo" src="assets/header_logos.png" alt="Logótipos institucionais">
+        <div class="thankyou-kicker">Debrief Pedagógico · Práticas em Balanço</div>
+        <div class="thankyou-rule"></div>
+        <h2 class="thankyou-title">Obrigada.</h2>
+        <p class="thankyou-copy">Pela participação, pela partilha e pelo compromisso com a melhoria contínua das práticas pedagógicas.</p>
+        <div class="stage-footer" style="justify-content:center;border-top:0;padding-top:0">
+          <button class="btn btn-ghost" data-prev>Anterior</button>
+          <button class="btn btn-primary" id="returnHomeBtn">Voltar ao início</button>
+        </div>
+      </div>
+    </div></section>
   </div></main>
 </div>
 
@@ -955,7 +982,8 @@ const phases=[
  {name:'Acertos e aprendizagens',minutes:14,label:'Partilhas'},
  {name:'Decisões',minutes:10,label:'Quiz'},
  {name:'Prioridades',minutes:9,label:'Agenda de melhoria'},
- {name:'Próximos passos',minutes:5,label:'Último frame'}
+ {name:'Próximos passos',minutes:5,label:'Último frame'},
+ {name:'Encerramento',minutes:0,label:'Obrigada'}
 ];
 const cumulative=phases.reduce((a,p,i)=>{a.push((a[i-1]||0)+p.minutes);return a},[]);
 
@@ -1184,7 +1212,7 @@ function renderFormAccess(cfg){
  if(!panel||!notice||!box||!link||!btn)return;
  if(u){
    box.innerHTML=`<img src="${cfg.qr}" alt="QR code para abrir o Microsoft Forms">`;
-   link.innerHTML=`<strong>Ligação direta:</strong> <a href="${u}" target="_blank" rel="noopener">${shortDisplayUrl(u)}</a>`;
+   link.innerHTML=`<div class="access-instruction">📱 Aponte a câmara para o QR Code<span>ou aceda diretamente:</span></div><a href="${u}" target="_blank" rel="noopener">${shortDisplayUrl(u)}</a>`;
    btn.href=u;
    btn.textContent=cfg.buttonText||'Abrir formulário';
    btn.classList.remove('hidden');
@@ -1202,7 +1230,7 @@ function renderParticipationQr(){
  renderFormAccess({panel:'#participationAccess',notice:'#participationSetupNotice',box:'#participationQrBox',link:'#participationLinkText',btn:'#openingFormBtn',url:FORM_URLS.opening,qr:FORM_QR.opening,buttonText:'Abrir formulário Cartaz + Plot Twist'});
  const plotBtn=$('#plotFormBtn'),plotLink=$('#plotLinkText'),plotQr=$('#plotQrBox');
  if(plotBtn){plotBtn.href=FORM_URLS.opening;}
- if(plotLink){plotLink.innerHTML=`<strong>Ligação direta:</strong> <a href="${FORM_URLS.opening}" target="_blank" rel="noopener">${shortDisplayUrl(FORM_URLS.opening)}</a>`;}
+ if(plotLink){plotLink.innerHTML=`<div class="access-instruction">📱 Aponte a câmara para o QR Code<span>ou aceda diretamente:</span></div><a href="${FORM_URLS.opening}" target="_blank" rel="noopener">${shortDisplayUrl(FORM_URLS.opening)}</a>`;}
  if(plotQr&&!plotQr.querySelector('img')){plotQr.innerHTML=`<img src="${FORM_QR.opening}" alt="QR code para o formulário Cartaz e Plot Twist">`;}
 }
 function renderStageForms(){
@@ -1256,7 +1284,7 @@ function renderFinal(){
  $('#finalSignature').textContent='';$('#finalSignature').classList.add('hidden');
  const box=$('#finalQrBox'),btn=$('#finalFormBtn'),link=$('#finalFormLink');
  box.innerHTML=`<img src="${FORM_QR.final}" alt="QR code para o formulário do último frame">`;
- btn.href=FORM_URLS.final;btn.textContent='Abrir formulário do último frame';btn.classList.remove('hidden');link.innerHTML=`<strong>Ligação direta:</strong> <a href="${FORM_URLS.final}" target="_blank" rel="noopener">${shortDisplayUrl(FORM_URLS.final)}</a>`;
+ btn.href=FORM_URLS.final;btn.textContent='Abrir formulário do último frame';btn.classList.remove('hidden');link.innerHTML=`<div class="access-instruction">📱 Aponte a câmara para o QR Code<span>ou aceda diretamente:</span></div><a href="${FORM_URLS.final}" target="_blank" rel="noopener">${shortDisplayUrl(FORM_URLS.final)}</a>`;
  const live=$('.last-frame-live');
  if(live)live.innerHTML=`<h3>Respostas no Microsoft Forms</h3><p>Os contributos ficam registados diretamente no formulário.</p><a class="btn btn-primary" href="${FORM_URLS.final}" target="_blank" rel="noopener">Abrir formulário</a>`;
 }
@@ -1440,7 +1468,7 @@ function initEvents(){
  $$('[data-live-link]').forEach(b=>b.onclick=openLiveLink);
  $('#creditsBtn').onclick=()=>openModal('creditsModal');
  $('#summaryBtn').onclick=openSummary;
- $('#exportBtn').onclick=exportSummary;$('#copyAiPromptBtn').onclick=()=>copyText(aiPrompt()).then(()=>toast('Briefing para análise por IA copiado.'));$('#resetAllBtn').onclick=openNewSession;$('#confirmNewSessionBtn').onclick=confirmNewSession;$('#finishBtn').onclick=()=>{state.finished=true;save();chime();renderSummaryContent();openModal('summaryModal');toast('Sessão concluída. Consulte os Microsoft Forms para as respostas dos participantes.')};$('#demoBtn').onclick=loadDemo;
+ $('#exportBtn').onclick=exportSummary;$('#copyAiPromptBtn').onclick=()=>copyText(aiPrompt()).then(()=>toast('Briefing para análise por IA copiado.'));$('#resetAllBtn').onclick=openNewSession;$('#confirmNewSessionBtn').onclick=confirmNewSession;$('#finishBtn').onclick=()=>{state.finished=true;save();chime();setStage(7)};$('#returnHomeBtn').onclick=()=>setStage(0);$('#demoBtn').onclick=loadDemo;
  $('#presentationBtn').onclick=()=>document.body.classList.toggle('presentation');$('#fullscreenBtn').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()};
  document.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName))return;if(e.key==='ArrowRight')advanceFlow();if(e.key==='ArrowLeft')setStage(state.stage-1);if(e.code==='Space'){e.preventDefault();toggleTimer()}if(e.key.toLowerCase()==='f')$('#fullscreenBtn').click();if(e.key.toLowerCase()==='p')$('#presentationBtn').click();if(e.key.toLowerCase()==='n')openNotes();});
  window.addEventListener('beforeunload',()=>{clearInterval(liveResultsHandle);save()});

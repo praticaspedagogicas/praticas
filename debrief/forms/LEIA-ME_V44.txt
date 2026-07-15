@@ -1,0 +1,14 @@
+V44 — Atualizações
+
+- Dilema 2, alternativa C:
+  Fazer um breve resumo da aula e aplicar uma atividade experiencial depois.
+- Dilema 3, alternativa C:
+  Manter o planeamento e diminuir o feedback aos estudantes.
+- Nova página final de encerramento com “Obrigada.”
+- Em todos os acessos aos Forms aparece:
+  📱 Aponte a câmara para o QR Code
+  ou aceda diretamente:
+  forms.cloud.microsoft/e/...
+- Mantidos QR codes maiores e ligações clicáveis.
+
+Atenção: as alternativas também devem ser alteradas dentro do Microsoft Forms dos dilemas, porque o formulário é externo ao HTML.
