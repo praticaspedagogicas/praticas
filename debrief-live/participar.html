@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- V55: base V54 validada; envio protegido e leitor dedicado de resultados no painel -->
+<!-- V57 Supabase: participação em tempo real -->
 <html lang="pt-PT">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -33,7 +33,9 @@
 </style>
 </head><body><div class="wrap"><header class="head"><img src="assets/header_logos.png" alt="UE IADE IPAM"><div><b>Debrief Pedagógico</b><small>Práticas em Balanço</small></div></header><main class="main"><div class="eyebrow" id="institution">Sessão</div><h1 class="title" id="title">A aguardar a próxima atividade</h1><p class="desc" id="desc">Esta página acompanhará automaticamente o andamento da sessão.</p><div class="status" id="status">A ligar à sessão…</div><div id="content"></div><div id="message" class="msg hidden"></div></main><div class="foot">Mantenha esta página aberta durante a sessão.</div></div>
 <script src="debrief_data.js"></script>
-<script src="config_backend.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config_supabase.js"></script>
+<script src="supabase_backend.js"></script>
 
 <script>
 const $=s=>document.querySelector(s);
@@ -45,10 +47,10 @@ const DATA=window.DEBRIEF_DATA;
 const SESSION_LABELS={'UE-20260715-1000':'UE/FCST','IPAM-20260715-1600':'IPAM Lisboa','IADE-20260716-1000':'IADE'};
 let state=null,selected=[];
 let submitBusy=false;
-let baseDevice=localStorage.getItem('debriefDeviceV37');
+let baseDevice=localStorage.getItem('debriefDeviceSupabaseV57');
 if(!baseDevice){
  baseDevice=(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random());
- localStorage.setItem('debriefDeviceV37',baseDevice);
+ localStorage.setItem('debriefDeviceSupabaseV57',baseDevice);
 }
 const device=`run:${run||'legacy'}:participant:${baseDevice}`;
 
@@ -70,27 +72,19 @@ DATA.quizCases.forEach((q,i)=>{
 });
 
 async function api(payload){
- const ep=window.DEBRIEF_BACKEND?.endpoint;
- if(!ep||ep.includes('COLE_AQUI'))throw new Error('Ligação da sessão ainda não configurada.');
- const r=await fetch(ep,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),cache:'no-store'});
- let data=null;let raw='';
- try{raw=await r.text();data=raw?JSON.parse(raw):null}catch(_e){data=raw?{message:raw}:null}
- const backendError=data?.error||data?.erro||data?.message||data?.mensagem;
- if(!r.ok||data?.ok===false)throw new Error(backendError||`Erro ${r.status}`);
- return data;
+ return window.DebriefSupabase.submitResponse({
+   sessionCode:payload.sessao,
+   runId:payload.run,
+   moment:payload.momento,
+   question:payload.pergunta,
+   participantId:payload.dispositivo,
+   answer:payload.resposta
+ });
 }
-
-async function stateApi(payload){
- const ep=window.DEBRIEF_BACKEND?.readerEndpoint;
- if(!ep||ep.includes('COLE_AQUI'))throw new Error('URL do fluxo leitor ainda não configurado.');
- const r=await fetch(ep,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),cache:'no-store'});
- let data=null;let raw='';
- try{raw=await r.text();data=raw?JSON.parse(raw):null}catch(_e){data=raw?{message:raw}:null}
- const backendError=data?.error||data?.erro||data?.message||data?.mensagem;
- if(!r.ok||data?.ok===false)throw new Error(backendError||`Erro ${r.status}`);
- return data;
+async function stateApi(){
+ return window.DebriefSupabase.getState(session);
 }
-function answerKey(question){return `debriefAnswerV39|${session}|${run||'legacy'}|${question}`}
+function answerKey(question){return `debriefAnswerSupabaseV57|${session}|${run||'legacy'}|${question}`}
 function loadAnswer(question){
  try{return JSON.parse(localStorage.getItem(answerKey(question))||'null')}catch(_e){return null}
 }
@@ -164,7 +158,7 @@ async function submit(m){
    answer=m.type==='multi'?[...selected]:selected[0];
  }
  const previous=loadAnswer(m.question);
- const payloadAnswer=typeof answer==='string'?answer:JSON.stringify(answer);
+ const payloadAnswer=answer;
  const submitButton=$('.submit');
  submitBusy=true;
  if(submitButton){submitButton.disabled=true;submitButton.textContent='A registar…'}
@@ -176,7 +170,6 @@ async function submit(m){
      pergunta:m.question,
      resposta:payloadAnswer,
      dispositivo:device,
-     chaveResposta:`${session}|${run||'legacy'}|${baseDevice}|${m.question}|${Date.now()}`,
      run:run||'legacy'
    });
    saveAnswer(m.question,answer);
@@ -193,27 +186,39 @@ async function submit(m){
  }
 }
 let connectionFailures=0;
-async function poll(){
+let stopStateSubscription=()=>{};
+let fallbackHandle=null;
+function applyRemoteState(raw){
+ const momento=(raw?.is_open&&raw?.run_id===run)?String(raw.active_moment||'aguardar'):'aguardar';
+ const next={
+   ok:true,
+   sessao:raw?.session_code||session,
+   instituicao:raw?.institution||SESSION_LABELS[session]||'Sessão',
+   momentoAtivo:moments[momento]?momento:'aguardar',
+   estado:raw?.updated_at||''
+ };
+ connectionFailures=0;
+ if(!state||next.momentoAtivo!==state.momentoAtivo||next.estado!==state.estado)render(next);
+ $('#status').textContent=next.momentoAtivo==='aguardar'?'Participação fechada':'Participação aberta';
+}
+async function refreshState(){
  if(!session){show('Esta ligação não identifica a sessão. Leia novamente o QR code apresentado no ecrã.');return}
- try{
-   const raw=await stateApi({sessao:session});
-   const momento=String(raw?.momentoAtivo||'aguardar');
-   const next={
-     ok:raw?.ok!==false,
-     sessao:raw?.sessao||session,
-     instituicao:raw?.instituicao||SESSION_LABELS[session]||'Sessão',
-     momentoAtivo:moments[momento]?momento:'aguardar',
-     estado:raw?.estado||''
-   };
-   connectionFailures=0;
-   if(!state||next.momentoAtivo!==state.momentoAtivo||next.estado!==state.estado)render(next);
-   $('#status').textContent=next.momentoAtivo==='aguardar'?'Participação fechada':'Participação aberta';
- }catch(e){
+ try{applyRemoteState(await stateApi())}
+ catch(e){
    connectionFailures++;
    $('#status').textContent=diagnostic?`Falha: ${e.message}`:(connectionFailures<3?'A restabelecer a ligação…':`Falha de sincronização: ${e.message}`);
  }
- setTimeout(poll,window.DEBRIEF_BACKEND?.pollingMs||4000);
 }
-poll();
+function startRealtime(){
+ try{
+   stopStateSubscription=window.DebriefSupabase.subscribeState(session,row=>applyRemoteState(row),status=>{
+     if(status==='SUBSCRIBED')$('#status').textContent=state?.momentoAtivo==='aguardar'?'Participação fechada':'Participação aberta';
+   });
+ }catch(e){console.warn('Realtime indisponível; será usada a atualização de segurança.',e)}
+ fallbackHandle=setInterval(refreshState,window.DEBRIEF_SUPABASE?.fallbackRefreshMs||15000);
+ refreshState();
+}
+window.addEventListener('beforeunload',()=>{clearInterval(fallbackHandle);stopStateSubscription()});
+startRealtime();
 </script>
 </body></html>
