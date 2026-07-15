@@ -10,16 +10,17 @@
 <div class="loading" id="loading"><div><strong>Debrief Pedagógico</strong><span>A carregar a sessão…</span></div></div>
 <script>
 (async()=>{
-  const parts=Array.from({length:9},(_,i)=>`index.parts/part${String(i+1).padStart(2,'0')}.txt?v=59`);
+  const parts=Array.from({length:9},(_,i)=>`index.parts/part${String(i+1).padStart(2,'0')}.txt?v=60`);
   try{
-    const chunks=[];
-    for(const url of parts){
+    const chunks=await Promise.all(parts.map(async url=>{
       const response=await fetch(url,{cache:'no-store'});
       if(!response.ok)throw new Error(`Parte da aplicação indisponível (${response.status}).`);
-      chunks.push(await response.text());
-    }
-    const html=chunks.join('');
+      return response.text();
+    }));
+    let html=chunks.join('');
     if(!html.startsWith('<!doctype html>')||!html.includes('</html>'))throw new Error('A aplicação foi recebida de forma incompleta.');
+    html=html.replace('</head>','<link rel="stylesheet" href="hotfix_v60.css?v=60"></head>');
+    html=html.replace('</body>','<script src="hotfix_v60.js?v=60"><\/script></body>');
     document.open();document.write(html);document.close();
   }catch(error){
     document.getElementById('loading').innerHTML=`<div class="error"><strong>Não foi possível abrir o Debrief.</strong><span>${String(error?.message||error)}</span><br><br><button onclick="location.reload()">Tentar novamente</button></div>`;
