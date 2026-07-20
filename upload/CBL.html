@@ -3139,19 +3139,15 @@ input[type="time"]{
 </div>
 <div class="section">
 <h3>Calendarização</h3>
-<div class="cbl-calendar-grid">
-<div class="cbl-calendar-field">
-<label for="calendarizacao">Data:</label>
-<input autocomplete="off" id="calendarizacao" type="date" value="">
-</input></div>
-<div class="cbl-calendar-field">
-<label for="hora_inicio">Hora de início:</label>
-<input autocomplete="off" id="hora_inicio" type="time" value="">
-</input></div>
-<div class="cbl-calendar-field">
-<label for="hora_fim">Hora de fim:</label>
-<input autocomplete="off" id="hora_fim" type="time" value="">
-</input></div>
+<div class="cbl-calendar-grid cbl-calendar-period-grid">
+<div class="cbl-calendar-field cbl-calendar-date-field">
+<label for="calendarizacao">Data de início prevista (opcional):</label>
+<input autocomplete="off" id="calendarizacao" type="date" value=""/>
+</div>
+<div class="cbl-calendar-field cbl-calendar-period-field">
+<label for="calendarizacao_periodo">Período/observações sobre a calendarização:</label>
+<textarea class="cbl-calendar-periodo-field" id="calendarizacao_periodo" placeholder="Ex.: atividade desenvolvida ao longo do semestre, de acordo com o cronograma da UC."></textarea>
+</div>
 </div>
 </div>
 <div class="section no-print cbl-repository-authorization" id="partilhaRepositorio">
@@ -3241,6 +3237,7 @@ input[type="time"]{
   window.mostrarToast = toast;
 
   function getTextareaMinHeight(el){
+    if(el && el.id === 'calendarizacao_periodo') return 74;
     return (el && (el.id === 'desafio' || el.id === 'objetivos' || el.id === 'conteudos')) ? 96 : 68;
   }
 
@@ -3632,13 +3629,9 @@ input[type="time"]{
 
     function calendarText(){
       var data = formatDatePt(val('calendarizacao'));
-      var hi = val('hora_inicio');
-      var hf = val('hora_fim');
-      if(data && hi && hf) return data + ', ' + hi + ' - ' + hf;
-      if(data && hi) return data + ', ' + hi;
-      if(data) return data;
-      if(hi && hf) return hi + ' - ' + hf;
-      return hi || hf || '';
+      var periodo = val('calendarizacao_periodo');
+      if(data && periodo) return data + ' — ' + periodo;
+      return data || periodo || '';
     }
 
     function split(text, width, size, style){
@@ -4053,6 +4046,8 @@ function makePdfFileName(){
       }
     }
     function guiaoIntervaloHora(){
+      var periodo = first(formData.calendarizacao_periodo, formData.periodoCalendarizacao, formData.calendarizacaoPeriodo, domValue('#calendarizacao_periodo'));
+      if(periodo) return periodo;
       var inicio = first(formData.hora_inicio, formData.horaInicio, formData.hora, domValue('#hora_inicio'), domValue('#hora'), domValue('[name="hora"]'));
       var fim = first(formData.hora_fim, formData.horaFim, domValue('#hora_fim'), domValue('[name="hora_fim"]'));
       return (inicio && fim) ? (inicio + '–' + fim) : '';
@@ -4077,7 +4072,7 @@ function makePdfFileName(){
     payload.anoLetivo = first(payload.anoLetivo, payload.ano, formData.anoLetivo, formData.AnoLetivo, formData.ano);
     payload.autorizaRepositorio = first(payload.autorizaRepositorio, payload.autorizaPartilhaInterna, payload.partilhaRepositorio, formData.autorizaRepositorio);
     payload.data = first(payload.data, payload.Data, payload.date, formData.data, formData.Data, formData.date, formData.calendarizacao, formData.dataSessao, formData.data_simulacao, formData.aula1_data, domValue('#data'), domValue('[name="data"]'), domValue('#calendarizacao'), domValue('[id^="aula"][id$="_data"]'), domValue('#entregaveis input[type="date"]'), domValue('input[type="date"]'));
-    payload.hora = first(payload.hora, payload.Hora, formData.hora, formData.Hora, guiaoIntervaloHora(), formData.hora_inicio, formData.hora_fim, formData.aula1_duracao, domValue('#hora'), domValue('[name="hora"]'), domValue('#hora_inicio'), domValue('#hora_fim'), domValue('[id^="aula"][id$="_duracao"]'), domValue('input[type="time"]'));
+    payload.hora = first(payload.hora, payload.Hora, formData.hora, formData.Hora, formData.calendarizacao_periodo, formData.periodoCalendarizacao, formData.calendarizacaoPeriodo, guiaoIntervaloHora(), formData.hora_inicio, formData.hora_fim, formData.aula1_duracao, domValue('#calendarizacao_periodo'), domValue('#hora'), domValue('[name="hora"]'), domValue('#hora_inicio'), domValue('#hora_fim'), domValue('[id^="aula"][id$="_duracao"]'), domValue('input[type="time"]'));
     payload.estruturaPedagogica = first(payload.estruturaPedagogica, formData.estruturaPedagogica);
     payload.emails = first(payload.emails, payload.email, formData.emails, formData.email);
     payload.organizacoesContacto = first(payload.organizacoesContacto, formData.organizacoesContacto, formData.organizacao, formData.organizacoes, formData.contacto, formData.contato);
@@ -4241,6 +4236,9 @@ function collectPayload(){
       autorizaRepositorio: values.autorizaRepositorio || '',
       partilhaRepositorio: values.autorizaRepositorio || '',
       autorizaPartilhaInterna: values.autorizaRepositorio || '',
+      data: values.calendarizacao || '',
+      hora: values.calendarizacao_periodo || '',
+      calendarizacaoPeriodo: values.calendarizacao_periodo || '',
       organizacoesContacto: values.organizacao || '',
       submittedAt: new Date().toISOString(),
       sourceUrl: window.location.href,
@@ -6135,8 +6133,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     setField('pond_doc', values.pond_doc);
     setField('pond_apres', values.pond_apres);
     setField('calendarizacao', values.calendarizacao || data.data);
-    setField('hora_inicio', values.hora_inicio || hora.inicio);
-    setField('hora_fim', values.hora_fim || hora.fim);
+    setField('calendarizacao_periodo', values.calendarizacao_periodo || values.calendarizacaoPeriodo || data.hora || hora.inicio || '');
     setRadio('autorizaRepositorio', values.autorizaRepositorio || data.autorizaRepositorio);
 
     try { if(typeof window.renderProgress === 'function') window.renderProgress(); } catch(e){}
@@ -6606,6 +6603,110 @@ body:not(.guiao-pdf-mode) .pbl-course-chip button{
 </style>
 
 
+
+
+<style id="cbl-calendarizacao-periodo-original-corrigido-final">
+/* ===== CBL — Calendarização sem horário, com campos equilibrados =====
+   Mantém o id calendarizacao para a Data no SharePoint/Power Automate.
+   Usa o campo calendarizacao_periodo para o período/observações, gravado como hora/duração textual. */
+.cbl-calendar-period-grid{
+  display:grid !important;
+  grid-template-columns:minmax(210px, .85fr) minmax(360px, 1.65fr) !important;
+  gap:12px !important;
+  align-items:stretch !important;
+  width:100% !important;
+  max-width:100% !important;
+}
+.cbl-calendar-period-grid .cbl-calendar-field{
+  display:flex !important;
+  flex-direction:column !important;
+  min-width:0 !important;
+  width:100% !important;
+}
+.cbl-calendar-period-grid label{
+  margin:0 0 6px 0 !important;
+  padding:0 !important;
+  font-size:13px !important;
+  font-weight:700 !important;
+  line-height:1.25 !important;
+}
+#calendarizacao,
+#calendarizacao_periodo{
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  height:74px !important;
+  min-height:74px !important;
+  box-sizing:border-box !important;
+  border:1px solid #d2d2d2 !important;
+  border-radius:10px !important;
+  background:#fff !important;
+  font-family:'Century Gothic','Segoe UI',sans-serif !important;
+  font-size:13px !important;
+}
+#calendarizacao{
+  padding:9px 10px 43px 10px !important;
+  line-height:1.35 !important;
+  text-align:center !important;
+}
+#calendarizacao::-webkit-datetime-edit{
+  padding:0 !important;
+}
+#calendarizacao::-webkit-date-and-time-value{
+  text-align:center !important;
+  margin:0 auto !important;
+}
+
+#calendarizacao_periodo{
+  padding:9px 10px !important;
+  line-height:1.35 !important;
+  resize:vertical !important;
+  overflow:auto !important;
+}
+#calendarizacao:focus,
+#calendarizacao_periodo:focus{
+  outline:3px solid rgba(233,93,48,.18) !important;
+  border-color:rgba(233,93,48,.72) !important;
+}
+body.cbl-exporting #calendarizacao,
+body.cbl-exporting #calendarizacao_periodo,
+.cbl-print-document #calendarizacao,
+.cbl-print-document #calendarizacao_periodo{
+  height:auto !important;
+  min-height:42px !important;
+}
+@media screen and (max-width:760px){
+  .cbl-calendar-period-grid{
+    grid-template-columns:1fr !important;
+  }
+  #calendarizacao{
+    height:44px !important;
+    min-height:44px !important;
+    padding:9px 10px !important;
+    line-height:1.35 !important;
+    text-align:center !important;
+  }
+  #calendarizacao_periodo{
+    height:78px !important;
+    min-height:78px !important;
+  }
+}
+@media print{
+  .cbl-calendar-period-grid{
+    grid-template-columns:1fr 1.8fr !important;
+  }
+  #calendarizacao,
+  #calendarizacao_periodo{
+    height:auto !important;
+    min-height:34px !important;
+  }
+  #calendarizacao{
+    padding:9px 10px !important;
+    line-height:1.35 !important;
+    text-align:center !important;
+  }
+}
+</style>
 
 </body>
 </html>
