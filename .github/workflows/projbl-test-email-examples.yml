@@ -1,0 +1,49 @@
+name: Atualizar exemplos de email PROJ-BL teste
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.projbl_test_email_update/**'
+      - '.github/workflows/projbl-test-email-examples.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  aplicar:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Instalar zstd
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zstd
+
+      - name: Atualizar apenas o template de teste
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object PROJ-BL_Teste.html)" = "ccbf0a75a0fb8f43c1339086fdf3a3a57eca718b"
+          zstd -q -d --patch-from=PROJ-BL_Teste.html \
+            .projbl_test_email_update/projbl_test_email_examples.zstpatch \
+            -o PROJ-BL_Teste.html.novo
+          echo "7899f70217007ea92ada3aba5e95fb378ce401ebb7463d62de060951a2ed6160  PROJ-BL_Teste.html.novo" | sha256sum -c -
+          mv PROJ-BL_Teste.html.novo PROJ-BL_Teste.html
+          rm -rf .projbl_test_email_update
+
+      - name: Publicar alteração
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- PROJ-BL_Teste.html .projbl_test_email_update
+          git commit -m "Uniformiza exemplos de email no PROJ-BL de teste"
+          git push
