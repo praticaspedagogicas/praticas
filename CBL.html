@@ -2,6 +2,7 @@
 
 <html lang="pt">
 <head>
+<!-- CBL EDIÇÃO MULTICURSO GARANTIDA 2026-07-23 -->
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <style id="template-clean-style">
@@ -1123,6 +1124,45 @@ table:not(.cbl-ident-table){
   .cbl-ident-table .cbl-course-cell,
   .cbl-ident-table .cbl-uc-cell{
     width: 100% !important;
+  }
+}
+
+
+/* ===== CBL — Ano + Semestre no mesmo bloco e Turma/Edição livre ===== */
+.cbl-year-semester-grid{
+  display:grid !important;
+  grid-template-columns:minmax(92px,.72fr) minmax(0,1.28fr) !important;
+  gap:12px !important;
+  align-items:end !important;
+  width:100% !important;
+}
+.cbl-header-subfield{
+  min-width:0 !important;
+  width:100% !important;
+}
+.header-card input[type="text"],
+.header-card select{
+  width:100% !important;
+  min-height:44px !important;
+  padding:10px 12px !important;
+  border:1px solid #d6d6d6 !important;
+  border-radius:10px !important;
+  background:#fff !important;
+  color:#222 !important;
+  font-family:'Century Gothic','Segoe UI',sans-serif !important;
+  font-size:13px !important;
+  line-height:1.35 !important;
+  box-sizing:border-box !important;
+}
+.header-card input[type="text"]:focus,
+.header-card select:focus{
+  outline:3px solid rgba(233,93,48,.14) !important;
+  border-color:rgba(233,93,48,.62) !important;
+}
+@media screen and (max-width:760px){
+  .cbl-year-semester-grid{
+    grid-template-columns:1fr !important;
+    gap:10px !important;
   }
 }
 
@@ -2806,7 +2846,6 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
 }
 
 </style>
-
 <style id="cbl-mobile-numeric-compact-final">
 /* ===== CBL — ajuste mobile definitivo dos campos Nº de estudantes / Nº de grupos =====
    Replica o comportamento compacto do PBL: cartão interno com dois campos lado a lado,
@@ -2895,8 +2934,6 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
   }
 }
 </style>
-
-
 <style id="cbl-mobile-identificacao-final-20260608">
 /* Correção mobile cirúrgica — apenas CBL: impede corte lateral da tabela de identificação. */
 @media (max-width: 760px){
@@ -2976,7 +3013,6 @@ body:not(.cbl-exporting) .cbl-repository-authorization.cbl-required-error{
   }
 }
 </style>
-
 <style id="guioes-date-time-native-20260625">
 input[type="date"],
 input[type="time"]{
@@ -2990,18 +3026,15 @@ input[type="time"]{
   line-height:normal !important;
 }
 </style>
-
 <style id="guioes-home-button-20260626">
 .guioes-home-link{position:fixed;left:1.25rem;top:1.15rem;z-index:9999;display:inline-flex;align-items:center;gap:.45rem;border:1px solid rgba(0,0,0,.08);border-radius:999px;background:rgba(255,255,255,.95);box-shadow:0 14px 34px rgba(26,34,44,.09);color:#20242c;text-decoration:none;font:700 14px/1.1 "Segoe UI",Arial,sans-serif;padding:.85rem 1.05rem;backdrop-filter:blur(8px)}
 .guioes-home-link:hover{background:#fff;border-color:rgba(0,0,0,.16)}
 @media(max-width:800px){.guioes-home-link{left:.85rem;top:.85rem;font-size:13px;padding:.7rem .9rem}}
 @media print{.guioes-home-link{display:none!important}}
 </style>
-
 </head>
 <body>
-<a class="guioes-home-link" href="./index.html" aria-label="Voltar à página inicial">← Página inicial</a>
-
+<a aria-label="Voltar à página inicial" class="guioes-home-link" href="./index.html">← Página inicial</a>
 <div class="page">
 <div class="premium-status no-print">
 <div class="progress-label" id="progressLabel">Guião preenchido: 0%</div>
@@ -3017,71 +3050,80 @@ input[type="time"]{
 </div>
 <div class="header-grid">
 <div class="header-card">
-<label>Unidade Orgânica</label>
-<select id="unidadeOrganica" required="required" aria-required="true"><option value="">Selecionar</option><option>FCST</option><option>FCS</option><option>IADE</option><option>IPAM Porto</option><option>IPAM Lisboa</option></select>
+<label>Unidade Orgânica <span class="cbl-required-mark">*</span></label>
+<select aria-required="true" id="unidadeOrganica" required="required"><option value="">Selecionar</option><option>FCST</option><option>FCS</option><option>IADE</option><option>IPAM Porto</option><option>IPAM Lisboa</option></select>
 </div>
 <div class="header-card">
-<label>Modalidade</label>
-<select id="modalidade" required="required" aria-required="true">
+<label>Modalidade <span class="cbl-required-mark">*</span></label>
+<select aria-required="true" id="modalidade" required="required">
 <option value="">Selecionar</option>
 <option>Presencial</option>
 <option>EaD</option>
 </select>
 </div>
-<div class="header-card">
-<label>Semestre</label>
-<select id="semestre" required="required" aria-required="true">
+<div class="header-card cbl-year-semester-card">
+<div class="cbl-year-semester-grid">
+<div class="cbl-header-subfield cbl-year-field">
+<label for="anoCurricular">Ano <span class="cbl-required-mark">*</span></label>
+<select aria-required="true" id="anoCurricular" required="required">
+<option value="">Selecionar</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+</select>
+</div>
+<div class="cbl-header-subfield cbl-semester-field">
+<label for="semestre">Semestre <span class="cbl-required-mark">*</span></label>
+<select aria-required="true" id="semestre" required="required">
 <option value="">Selecionar</option>
 <option>1.º semestre</option>
 <option>2.º semestre</option>
 <option>Anual</option>
 </select>
 </div>
+</div>
+</div>
 <div class="header-card">
-<label>Turma/Edição</label>
-<select id="turmaEdicao" placeholder="Ex.: Turma A" required="required" aria-required="true">
-<option value="">Selecionar</option>
-<option>Turma 1</option>
-<option>Turma 2</option>
-<option>Turma 3</option>
-<option>Turma 4</option>
-</select>
+<label for="turmaEdicao">Turma/Edição <span class="cbl-required-mark">*</span></label>
+<input aria-required="true" id="turmaEdicao" placeholder="Ex.: D01, E02, 1.ª edição" required="required" type="text"/>
 </div>
 </div>
 <div class="cbl-red-divider"></div><table class="cbl-ident-table">
 <tr>
-<th class="cbl-course-label">Curso(s):</th>
+<th class="cbl-course-label">Curso(s): <span class="cbl-required-mark">*</span></th>
 <td class="cbl-course-cell" colspan="3"><div class="cbl-course-picker" data-multicourse="true">
 <input id="curso" type="hidden"/>
 <div class="cbl-course-search-row">
-<input autocomplete="off" id="cursoBusca" list="cblCursosList" placeholder="Digite para procurar e selecione um curso" type="text" required="required" aria-required="true"/>
+<input aria-required="true" autocomplete="off" id="cursoBusca" list="cblCursosList" placeholder="Digite para procurar e selecione um curso" required="required" type="text"/>
 </div>
 <div aria-live="polite" class="cbl-course-chips" id="cblCursosSelecionados"></div>
 <div class="cbl-course-helper">Selecione um curso na lista. Para adicionar mais cursos, repita a seleção.</div>
 </div></td>
 </tr>
 <tr>
-<th class="cbl-uc-label">Unidade(s) Curricular(es):</th>
-<td class="cbl-uc-cell" colspan="3"><textarea class="cbl-expandable-field" id="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado" required="required" aria-required="true"></textarea></td>
+<th class="cbl-uc-label">Unidade(s) Curricular(es): <span class="cbl-required-mark">*</span></th>
+<td class="cbl-uc-cell" colspan="3"><textarea aria-required="true" class="cbl-expandable-field" id="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado" required="required"></textarea></td>
 </tr>
 <tr>
-<th>Ano letivo:</th>
-<td><input id="ano" placeholder="Ex.: 2026/2027" type="text" required="required" aria-required="true"/></td>
-<th>Docente(s):</th>
-<td><textarea class="cbl-expandable-field" id="professor" placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva" required="required" aria-required="true"></textarea></td>
+<th>Ano letivo: <span class="cbl-required-mark">*</span></th>
+<td><input aria-required="true" id="ano" placeholder="Ex.: 2026/2027" required="required" type="text"/></td>
+<th>Docente(s): <span class="cbl-required-mark">*</span></th>
+<td><textarea aria-required="true" class="cbl-expandable-field" id="professor" placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva" required="required"></textarea></td>
 </tr>
 <tr class="cbl-email-numeric-row">
-<th>Email(s):</th>
-<td class="cbl-email-cell"><textarea class="cbl-expandable-field" id="emails" placeholder="Ex.: ana.silva@universidadeeuropeia.pt; joao.santos@universidadeeuropeia.pt" required="required" aria-required="true"></textarea></td>
+<th>Email(s): <span class="cbl-required-mark">*</span></th>
+<td class="cbl-email-cell"><textarea aria-required="true" class="cbl-expandable-field" id="emails" placeholder="Ex.: ana.silva@universidadeeuropeia.pt; joao.santos@universidadeeuropeia.pt" required="required"></textarea></td>
 <td class="cbl-numeric-pair-cell" colspan="2">
 <div aria-label="Dados numéricos da turma" class="cbl-numeric-pair">
 <div class="cbl-numeric-mini">
-<label for="n_estudantes">Nº de estudantes</label>
-<input autocomplete="off" id="n_estudantes" inputmode="numeric" min="0" name="n_estudantes" pattern="[0-9]*" placeholder="Ex.: 32" step="1" type="number"/>
+<label for="n_estudantes">Nº de estudantes <span class="cbl-required-mark">*</span></label>
+<input aria-required="true" autocomplete="off" id="n_estudantes" inputmode="numeric" min="0" name="n_estudantes" pattern="[0-9]*" placeholder="Ex.: 32" required="required" step="1" type="number"/>
 </div>
 <div class="cbl-numeric-mini">
-<label for="n_grupos">Nº de grupos</label>
-<input autocomplete="off" id="n_grupos" inputmode="numeric" min="0" name="n_grupos" pattern="[0-9]*" placeholder="Ex.: 6" step="1" type="number"/>
+<label for="n_grupos">Nº de grupos <span class="cbl-required-mark">*</span></label>
+<input aria-required="true" autocomplete="off" id="n_grupos" inputmode="numeric" min="0" name="n_grupos" pattern="[0-9]*" placeholder="Ex.: 6" required="required" step="1" type="number"/>
 </div>
 </div>
 </td>
@@ -3091,12 +3133,12 @@ input[type="time"]{
 <div class="cbl-meta-title">Autoria, estado e contexto</div>
 <div class="cbl-meta-grid">
 <div class="cbl-meta-field">
-<label>Autoria:</label>
-<input id="autoria" placeholder="Ex.: Ana Luiza Marques" type="text" required="required" aria-required="true"/>
+<label>Autoria: <span class="cbl-required-mark">*</span></label>
+<input aria-required="true" id="autoria" placeholder="Ex.: Ana Luiza Marques" required="required" type="text"/>
 </div>
 <div class="cbl-meta-field">
-<label>Estado do guião:</label>
-<select id="estado" required="required" aria-required="true">
+<label>Estado do guião: <span class="cbl-required-mark">*</span></label>
+<select aria-required="true" id="estado" required="required">
 <option selected="" value="">Selecionar</option>
 <option>Novo</option>
 <option>Atualizado</option>
@@ -3104,25 +3146,25 @@ input[type="time"]{
 </select>
 </div>
 <div class="cbl-meta-field cbl-meta-org">
-<label>Organização(ões), parceiro(s) ou contexto do desafio:</label>
-<textarea class="cbl-expandable-field" id="organizacao" placeholder="Ex.: Município de Lisboa — Divisão de Comunicação Digital e Participação Cidadã; contacto institucional real ou fictício. Se não aplicável, indique o contexto do desafio ou escreva Sem organização externa." required="required" aria-required="true"></textarea>
+<label>Organização(ões), parceiro(s) ou contexto do desafio: <span class="cbl-required-mark">*</span></label>
+<textarea aria-required="true" class="cbl-expandable-field" id="organizacao" placeholder="Ex.: Município de Lisboa — Divisão de Comunicação Digital e Participação Cidadã; contacto institucional real ou fictício. Se não aplicável, indique o contexto do desafio ou escreva Sem organização externa." required="required"></textarea>
 </div>
 <div class="cbl-meta-field cbl-meta-wide">
-<label>Conteúdo(s) alinhados com os Conteúdos Programáticos da FUC:</label>
-<textarea class="cbl-expandable-field" id="conteudos" placeholder="Liste os conteúdos programáticos alinhados com o desafio..." required="required" aria-required="true"></textarea>
+<label>Conteúdo(s) alinhados com os Conteúdos Programáticos da FUC: <span class="cbl-required-mark">*</span></label>
+<textarea aria-required="true" class="cbl-expandable-field" id="conteudos" placeholder="Liste os conteúdos programáticos alinhados com o desafio..." required="required"></textarea>
 </div>
 </div>
 </div>
 <div class="section">
-<h3>Desafio</h3>
-<label>Desafio:</label>
-<textarea class="cbl-expandable-field" id="desafio" placeholder="Descreva o problema real que os estudantes vão resolver..." required="required" aria-required="true"></textarea>
-<label>Objetivos de Aprendizagem (ponderações) alinhados com os Objetivos da FUC:</label>
-<textarea class="cbl-expandable-field" id="objetivos" placeholder="• Objetivo 1 (XX%) - verbo
-• Objetivo 2 (XX%) - verbo"></textarea>
+<h3>Desafio <span class="cbl-required-mark">*</span></h3>
+<label>Desafio: <span class="cbl-required-mark">*</span></label>
+<textarea aria-required="true" class="cbl-expandable-field" id="desafio" placeholder="Descreva o problema real que os estudantes vão resolver..." required="required"></textarea>
+<label>Objetivos de Aprendizagem (ponderações) alinhados com os Objetivos da FUC: <span class="cbl-required-mark">*</span></label>
+<textarea aria-required="true" class="cbl-expandable-field" id="objetivos" placeholder="• Objetivo 1 (XX%) - verbo
+• Objetivo 2 (XX%) - verbo" required="required"></textarea>
 </div>
 <div class="section">
-<h3>Entregas</h3>
+<h3>Entregas <span class="cbl-required-mark">*</span></h3>
 <label>Documento Escrito:</label>
 <textarea class="cbl-expandable-field" id="doc_escrito" placeholder="Descrição do documento"></textarea>
 <label>Apresentação Final:</label>
@@ -3130,8 +3172,8 @@ input[type="time"]{
 </div>
 <div class="section">
 <h3>Avaliação</h3>
-<label>Ponderação do CBL na Avaliação Contínua:</label>
-<input id="pond_total" inputmode="numeric" max="100" min="0" placeholder="0 a 100" step="1" type="number"/>
+<label>Ponderação do CBL na Avaliação Contínua: <span class="cbl-required-mark">*</span></label>
+<input aria-required="true" id="pond_total" inputmode="numeric" max="100" min="0" placeholder="0 a 100" required="required" step="1" type="number"/>
 <label>Ponderação - Documento Escrito:</label>
 <input id="pond_doc" inputmode="numeric" max="100" min="0" placeholder="0 a 100" step="1" type="number"/>
 <label>Ponderação - Apresentação Final:</label>
@@ -3141,8 +3183,8 @@ input[type="time"]{
 <h3>Calendarização</h3>
 <div class="cbl-calendar-grid cbl-calendar-period-grid">
 <div class="cbl-calendar-field cbl-calendar-date-field">
-<label for="calendarizacao">Data de início prevista:</label>
-<input autocomplete="off" id="calendarizacao" type="date" value=""/>
+<label for="calendarizacao">Data de início prevista: <span class="cbl-required-mark">*</span></label>
+<input aria-required="true" autocomplete="off" id="calendarizacao" required="required" type="date" value=""/>
 </div>
 <div class="cbl-calendar-field cbl-calendar-period-field">
 <label for="calendarizacao_periodo">Período/observações sobre a calendarização:</label>
@@ -3151,7 +3193,7 @@ input[type="time"]{
 </div>
 </div>
 <div class="section no-print cbl-repository-authorization" id="partilhaRepositorio">
-<h3 class="cbl-repository-title">Autorização para integração no repositório</h3>
+<h3 class="cbl-repository-title">Autorização para integração no repositório <span class="cbl-required-mark">*</span></h3>
 <p class="cbl-repository-text">
     Caso este guião seja validado, autoriza a sua integração no
     <strong>Repositório Institucional de Práticas Pedagógicas</strong>, para consulta interna e possível
@@ -3159,11 +3201,11 @@ input[type="time"]{
   </p>
 <div aria-label="Autorização para integração no repositório" class="cbl-repository-options" role="radiogroup">
 <label class="cbl-repository-option" for="autorizaRepositorioSim">
-<input id="autorizaRepositorioSim" name="autorizaRepositorio" type="radio" value="Sim" required="required" aria-required="true"/>
+<input aria-required="true" id="autorizaRepositorioSim" name="autorizaRepositorio" required="required" type="radio" value="Sim"/>
 <span>Sim, autorizo a integração deste guião no repositório após validação.</span>
 </label>
 <label class="cbl-repository-option" for="autorizaRepositorioNao">
-<input id="autorizaRepositorioNao" name="autorizaRepositorio" type="radio" value="Não" required="required" aria-required="true"/>
+<input aria-required="true" id="autorizaRepositorioNao" name="autorizaRepositorio" required="required" type="radio" value="Não"/>
 <span>Não autorizo a integração deste guião no repositório.</span>
 </label>
 </div>
@@ -3436,7 +3478,7 @@ input[type="time"]{
       var saved = JSON.parse(raw);
       var data = saved.data || {};
       var headerKeys = [
-        'unidadeOrganica','modalidade','semestre','turmaEdicao',
+        'unidadeOrganica','modalidade','anoCurricular','semestre','turmaEdicao',
         'curso','uc','ano','professor','emails','n_estudantes','n_grupos','autoria','estado','organizacao'
       ];
       var parcial = {};
@@ -4068,6 +4110,11 @@ function makePdfFileName(){
     payload.unidadeOrganica = first(payload.unidadeOrganica, formData.unidadeOrganica, formData.unidade_organica);
     payload.modalidade = first(payload.modalidade, formData.modalidade);
     payload.semestre = first(payload.semestre, formData.semestre);
+    payload.anoCurricular = first(payload.anoCurricular, payload.AnoCurricular, payload.ano_curricular, payload["Ano curricular"], payload["Ano Curricular"], formData.anoCurricular, formData.AnoCurricular, formData.ano_curricular, formData["Ano curricular"], formData["Ano Curricular"], domValue('#anoCurricular'));
+    payload.AnoCurricular = first(payload.AnoCurricular, payload.anoCurricular);
+    payload.ano_curricular = first(payload.ano_curricular, payload.anoCurricular);
+    payload["Ano curricular"] = first(payload["Ano curricular"], payload.anoCurricular);
+    payload["Ano Curricular"] = first(payload["Ano Curricular"], payload.anoCurricular);
     payload.turmaEdicao = first(payload.turmaEdicao, payload.turma, formData.turmaEdicao, formData.turma_edicao, formData.turma);
     payload.anoLetivo = first(payload.anoLetivo, payload.ano, formData.anoLetivo, formData.AnoLetivo, formData.ano);
     payload.autorizaRepositorio = first(payload.autorizaRepositorio, payload.autorizaPartilhaInterna, payload.partilhaRepositorio, formData.autorizaRepositorio);
@@ -4229,6 +4276,11 @@ function collectPayload(){
       unidadeOrganica: values.unidadeOrganica || '',
       modalidade: values.modalidade || '',
       semestre: values.semestre || '',
+      anoCurricular: values.anoCurricular || '',
+      AnoCurricular: values.anoCurricular || '',
+      ano_curricular: values.anoCurricular || '',
+      "Ano curricular": values.anoCurricular || '',
+      "Ano Curricular": values.anoCurricular || '',
       turmaEdicao: values.turmaEdicao || '',
       turma: values.turmaEdicao || '',
       emails: values.emails || '',
@@ -5467,8 +5519,6 @@ body.cbl-exporting .cbl-meta-panel .cbl-meta-field,
 <style id="guiao-required-submit-validation-v1-style">
 .guiao-required-missing{ outline:3px solid rgba(227,30,36,.28) !important; outline-offset:2px !important; }
 </style>
-
-
 <script id="guioes-camada-padrao-titulo-anoletivo-cursos-v1">
 (function(){
   'use strict';
@@ -5661,7 +5711,6 @@ body.cbl-exporting .cbl-meta-panel .cbl-meta-field,
   window.guioesPadronizarPayloadTituloAnoCursos = normalizePayload;
 })();
 </script>
-
 <script id="guiao-required-submit-validation-v2">
 /* Camada transversal v2 — bloqueio antes de chamar o Power Automate.
    Impede submissão com Curso(s) apenas digitado e campos institucionais mínimos em branco. */
@@ -5823,7 +5872,7 @@ body:not(.guiao-pdf-mode) .cbl-course-picker,
 body:not(.guiao-pdf-mode) .projbl-curso-real-wrap,
 body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 </style>
-<script id="guioes-curso-dropdown-custom-v2-js" data-v7-no-open-empty="1">
+<script data-v7-no-open-empty="1" id="guioes-curso-dropdown-custom-v2-js">
 (function(){
   'use strict';
 
@@ -5980,8 +6029,6 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   [200, 600, 1200, 2500].forEach(function(ms){ setTimeout(initAll, ms); });
 })();
 </script>
-
-
 <script id="cbl-carregar-guiao-por-id-v1">
 /* ===== CBL — carregamento institucional por itemId =====
    Permite abrir CBL.html?itemId=123, obter dados do SharePoint pelo fluxo
@@ -6045,18 +6092,30 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     var hidden = $('curso');
     var search = $('cursoBusca');
     var chips = $('cblCursosSelecionados');
+
+    /* Ao abrir por itemId, os cursos guardados no SharePoint devem substituir
+       qualquer exemplo do template de teste. Depois do carregamento, o docente
+       continua livre para remover, trocar ou acrescentar outros cursos. */
+    if(chips) chips.innerHTML = '';
     if(hidden){
+      hidden.dataset.guioesMulticursoList = '';
+      hidden.dataset.guioesMulticursoUpdating = '1';
       hidden.value = value;
+      delete hidden.dataset.guioesMulticursoUpdating;
       dispatch(hidden);
     }
     if(search){
       search.value = '';
-      dispatch(search);
+      search.disabled = false;
+      search.readOnly = false;
+      search.removeAttribute('disabled');
+      search.removeAttribute('readonly');
+      search.removeAttribute('aria-disabled');
     }
+
     /* Fallback visual caso o render dos chips ainda não esteja pronto. */
     if(chips && value && !chips.querySelector('.cbl-course-chip')){
-      chips.innerHTML = '';
-      value.split(';').map(clean).filter(Boolean).forEach(function(curso){
+      value.split(/\s*;\s*|\s*\|\s*|\r?\n/).map(clean).filter(Boolean).forEach(function(curso){
         var chip = document.createElement('span');
         chip.className = 'cbl-course-chip';
         var span = document.createElement('span');
@@ -6066,7 +6125,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
         btn.textContent = '×';
         btn.setAttribute('aria-label','Remover curso');
         btn.addEventListener('click', function(){
-          var restantes = clean(hidden && hidden.value).split(';').map(clean).filter(Boolean).filter(function(v){ return v !== curso; });
+          var restantes = clean(hidden && hidden.value).split(/\s*;\s*|\s*\|\s*|\r?\n/).map(clean).filter(Boolean).filter(function(v){ return v !== curso; });
           if(hidden) hidden.value = restantes.join('; ');
           dispatch(hidden);
         });
@@ -6075,6 +6134,29 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
         chips.appendChild(chip);
       });
     }
+
+    /* Reconciliamos novamente após todos os scripts de chips estarem ativos.
+       Isto evita que o curso-exemplo do ficheiro de teste volte a ser agregado. */
+    [0, 120, 350].forEach(function(ms){
+      setTimeout(function(){
+        if(!hidden) return;
+        hidden.dataset.guioesMulticursoList = value;
+        hidden.value = value;
+        dispatch(hidden);
+        if(search){
+          search.disabled = false;
+          search.readOnly = false;
+          search.removeAttribute('disabled');
+          search.removeAttribute('readonly');
+          search.value = '';
+        }
+        try {
+          if(window.GUIOES_MULTICURSO_EMAILS_FINAL_V1 && typeof window.GUIOES_MULTICURSO_EMAILS_FINAL_V1.init === 'function'){
+            window.GUIOES_MULTICURSO_EMAILS_FINAL_V1.init();
+          }
+        } catch(e) {}
+      }, ms);
+    });
   }
   function parseEstrutura(raw){
     if(!raw) return {};
@@ -6112,9 +6194,10 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 
     setField('unidadeOrganica', values.unidadeOrganica || data.unidadeOrganica);
     setField('modalidade', values.modalidade || data.modalidade);
+    setField('anoCurricular', values.anoCurricular || values.AnoCurricular || values.ano_curricular || values['Ano curricular'] || values['Ano Curricular'] || data.anoCurricular || data.AnoCurricular || data.ano_curricular || data['Ano curricular'] || data['Ano Curricular'] || data.Ano_x0020_curricular || data.Ano_x0020_Curricular);
     setField('semestre', values.semestre || data.semestre);
-    setField('turmaEdicao', values.turmaEdicao || data.turmaEdicao);
-    setCursos(values.curso || data.cursos);
+    setField('turmaEdicao', values.turmaEdicao || values.turma || data.turmaEdicao || data.turma || data.TurmaEdicao || data['Turma/Edição']);
+    setCursos(values.curso || values.cursos || data.cursos || data.curso || data.Cursos || data.Curso);
     setField('uc', values.uc || data.ucs);
     setField('ano', values.ano || values.anoLetivo || data.anoLetivo);
     setField('professor', values.professor || data.docentes);
@@ -6172,8 +6255,6 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   else init();
 })();
 </script>
-
-
 <script id="guioes-fechar-dropdown-cursos-edicao-v2">
 (function(){
   'use strict';
@@ -6210,12 +6291,11 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   window.addEventListener('load', schedule);
 })();
 </script>
-
 <script id="validacao-obrigatoria-cabecalho-20260617">
 /* VALIDACAO OBRIGATORIA CABECALHO 2026-06-17 — CBL */
 (function(){
   'use strict';
-  var REQUIRED_GROUPS = [{"label": "Unidade Orgânica", "selectors": ["#unidadeOrganica"]}, {"label": "Modalidade", "selectors": ["#modalidade"]}, {"label": "Semestre", "selectors": ["#semestre"]}, {"label": "Turma/Edição", "selectors": ["#turmaEdicao"]}, {"label": "Curso(s)", "selectors": ["#curso", "#cursoBusca"]}, {"label": "Unidade(s) Curricular(es)", "selectors": ["#uc"]}, {"label": "Docente(s)", "selectors": ["#professor"]}, {"label": "Email(s)", "selectors": ["#emails"]}, {"label": "Autoria", "selectors": ["#autoria"]}, {"label": "Ano letivo", "selectors": ["#ano"]}, {"label": "Estado do guião", "selectors": ["#estado"]}, {"label": "Organização(ões), parceiro(s) ou contexto do desafio", "selectors": ["#organizacao"]}, {"label": "Conteúdo(s) alinhados com os Conteúdos Programáticos da FUC", "selectors": ["#conteudos"]}, {"label": "Desafio", "selectors": ["#desafio"]}, {"label": "Autorização para repositório", "selectors": ["input[name=\"autorizaRepositorio\"]"]}];
+  var REQUIRED_GROUPS = [{"label": "Unidade Orgânica", "selectors": ["#unidadeOrganica"]}, {"label": "Modalidade", "selectors": ["#modalidade"]}, {"label": "Ano", "selectors": ["#anoCurricular"]}, {"label": "Semestre", "selectors": ["#semestre"]}, {"label": "Turma/Edição", "selectors": ["#turmaEdicao"]}, {"label": "Curso(s)", "selectors": ["#curso", "#cursoBusca"]}, {"label": "Unidade(s) Curricular(es)", "selectors": ["#uc"]}, {"label": "Docente(s)", "selectors": ["#professor"]}, {"label": "Email(s)", "selectors": ["#emails"]}, {"label": "Autoria", "selectors": ["#autoria"]}, {"label": "Ano letivo", "selectors": ["#ano"]}, {"label": "Estado do guião", "selectors": ["#estado"]}, {"label": "Organização(ões), parceiro(s) ou contexto do desafio", "selectors": ["#organizacao"]}, {"label": "Conteúdo(s) alinhados com os Conteúdos Programáticos da FUC", "selectors": ["#conteudos"]}, {"label": "Desafio", "selectors": ["#desafio"]}, {"label": "Autorização para repositório", "selectors": ["input[name=\"autorizaRepositorio\"]"]}];
   var VALIDAR_SESSOES_RBL = false;
   function norm(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
   function qsAll(sel){ try{ return Array.prototype.slice.call(document.querySelectorAll(sel)); }catch(e){ return []; } }
@@ -6305,8 +6385,6 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
   -webkit-text-fill-color:#9a9a9a !important;
 }
 </style>
-
-
 <script id="guioes-multicurso-emails-final-v1">
 /* ===== Correção institucional final — múltiplos cursos + normalização de e-mails =====
    - Permite manter vários cursos selecionados como chips.
@@ -6601,10 +6679,6 @@ body:not(.guiao-pdf-mode) .pbl-course-chip button{
   line-height:1 !important;
 }
 </style>
-
-
-
-
 <style id="cbl-calendarizacao-periodo-original-corrigido-final">
 /* ===== CBL — Calendarização sem horário, com campos equilibrados =====
    Mantém o id calendarizacao para a Data no SharePoint/Power Automate.
@@ -6707,6 +6781,249 @@ body.cbl-exporting #calendarizacao_periodo,
   }
 }
 </style>
+<!-- CBL CABEÇALHO ANO CURRICULAR E TURMA LIVRE 2026-07-23 -->
+<style id="cbl-required-pedagogical-fields-v2-style">
+.cbl-required-mark{
+  color:#E31E24 !important;
+  font-weight:800 !important;
+}
+.guiao-required-missing,
+.guiao-required-missing-field{
+  outline:3px solid rgba(227,30,36,.28) !important;
+  outline-offset:2px !important;
+  border-color:#E31E24 !important;
+  background:#fffafa !important;
+}
+</style>
+<script id="cbl-required-pedagogical-fields-v2">
+(function(){
+  'use strict';
 
+  function norm(value){
+    return String(value == null ? '' : value).replace(/\s+/g, ' ').trim();
+  }
+
+  function field(id){
+    return document.getElementById(id);
+  }
+
+  function fieldValue(id){
+    var el = field(id);
+    return el ? norm(el.value) : '';
+  }
+
+  function numberValue(id){
+    var raw = fieldValue(id).replace(',', '.');
+    if(!raw) return null;
+    var num = Number(raw);
+    return Number.isFinite(num) ? num : null;
+  }
+
+  function mark(el){
+    if(!el) return;
+    try{
+      el.classList.add('guiao-required-missing-field');
+      setTimeout(function(){
+        try{ el.classList.remove('guiao-required-missing-field'); }catch(e){}
+      }, 5000);
+    }catch(e){}
+  }
+
+  function notify(message){
+    if(typeof toast === 'function') return toast(message, 'error', 7000);
+    if(typeof showToast === 'function') return showToast(message);
+    if(typeof mostrarToast === 'function') return mostrarToast(message);
+    alert(message);
+  }
+
+  function firstMissingBasic(){
+    var checks = [
+      ['Unidade Orgânica', 'unidadeOrganica'],
+      ['Modalidade', 'modalidade'],
+      ['Ano', 'anoCurricular'],
+      ['Semestre', 'semestre'],
+      ['Turma/Edição', 'turmaEdicao'],
+      ['Unidade(s) Curricular(es)', 'uc'],
+      ['Ano letivo', 'ano'],
+      ['Docente(s)', 'professor'],
+      ['Email(s)', 'emails'],
+      ['Nº de estudantes', 'n_estudantes'],
+      ['Nº de grupos', 'n_grupos'],
+      ['Autoria', 'autoria'],
+      ['Estado do guião', 'estado'],
+      ['Organização, parceiro ou contexto do desafio', 'organizacao'],
+      ['Conteúdos alinhados com a FUC', 'conteudos'],
+      ['Desafio', 'desafio'],
+      ['Objetivos de Aprendizagem', 'objetivos'],
+      ['Ponderação do CBL na Avaliação Contínua', 'pond_total'],
+      ['Data de início prevista', 'calendarizacao']
+    ];
+
+    for(var i = 0; i < checks.length; i++){
+      var label = checks[i][0];
+      var el = field(checks[i][1]);
+      if(!el) continue;
+      var value = norm(el.value);
+      if(!value || /^selecionar$/i.test(value)){
+        return {label:label, element:el};
+      }
+    }
+
+    var cursoHidden = field('curso');
+    if(!cursoHidden || !norm(cursoHidden.value)){
+      return {
+        label:'Curso(s)',
+        element:field('cursoBusca') || document.querySelector('.cbl-course-picker')
+      };
+    }
+
+    var auth = document.querySelector(
+      'input[name="autorizaRepositorio"]:checked,' +
+      'input[name="autorizaRepositorioOpcao"]:checked,' +
+      'input[name="autorizacaoRepositorio"]:checked'
+    );
+    if(!auth){
+      return {
+        label:'Autorização para integração no repositório',
+        element:document.querySelector('.cbl-repository-authorization')
+      };
+    }
+
+    return null;
+  }
+
+  function validatePositiveInteger(id, label){
+    var value = numberValue(id);
+    if(value === null || !Number.isInteger(value) || value <= 0){
+      return {
+        ok:false,
+        message:label + ' deve ser preenchido com um número inteiro superior a zero.',
+        element:field(id)
+      };
+    }
+    return {ok:true};
+  }
+
+  function validateWeight(id, label){
+    var value = numberValue(id);
+    if(value === null || value <= 0 || value > 100){
+      return {
+        ok:false,
+        message:label + ' deve ter um valor superior a 0 e igual ou inferior a 100.',
+        element:field(id)
+      };
+    }
+    return {ok:true, value:value};
+  }
+
+  function validateDeliverables(){
+    var documentText = fieldValue('doc_escrito');
+    var presentationText = fieldValue('apresentacao');
+    var documentWeight = numberValue('pond_doc');
+    var presentationWeight = numberValue('pond_apres');
+
+    if(!documentText && !presentationText){
+      return {
+        ok:false,
+        message:'Preencha pelo menos uma entrega: Documento Escrito ou Apresentação Final.',
+        element:field('doc_escrito') || field('apresentacao')
+      };
+    }
+
+    if(documentText){
+      var docCheck = validateWeight('pond_doc', 'A ponderação do Documento Escrito');
+      if(!docCheck.ok) return docCheck;
+    }else if(documentWeight !== null && documentWeight > 0){
+      return {
+        ok:false,
+        message:'Foi indicada uma ponderação para o Documento Escrito, mas a respetiva entrega não foi descrita.',
+        element:field('doc_escrito')
+      };
+    }
+
+    if(presentationText){
+      var presentationCheck = validateWeight('pond_apres', 'A ponderação da Apresentação Final');
+      if(!presentationCheck.ok) return presentationCheck;
+    }else if(presentationWeight !== null && presentationWeight > 0){
+      return {
+        ok:false,
+        message:'Foi indicada uma ponderação para a Apresentação Final, mas a respetiva entrega não foi descrita.',
+        element:field('apresentacao')
+      };
+    }
+
+    var total = 0;
+    if(documentText) total += numberValue('pond_doc') || 0;
+    if(presentationText) total += numberValue('pond_apres') || 0;
+
+    if(Math.abs(total - 100) > 0.001){
+      return {
+        ok:false,
+        message:'A soma das ponderações das entregas preenchidas deve totalizar 100%.',
+        element:documentText ? field('pond_doc') : field('pond_apres')
+      };
+    }
+
+    return {ok:true};
+  }
+
+  function validateEmailList(){
+    var raw = fieldValue('emails');
+    if(!raw) return {ok:true};
+
+    var emails = raw.split(/[;,\n]+/).map(function(item){
+      return norm(item);
+    }).filter(Boolean);
+
+    var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var invalid = emails.filter(function(email){
+      return !pattern.test(email);
+    });
+
+    if(invalid.length){
+      return {
+        ok:false,
+        message:'Verifique o formato do(s) email(s) indicado(s).',
+        element:field('emails')
+      };
+    }
+
+    return {ok:true};
+  }
+
+  window.guiaoValidarCamposObrigatoriosSubmissaoV1 = function(options){
+    var basic = firstMissingBasic();
+    if(basic){
+      if(!options || !options.silent){
+        notify('Antes de enviar para validação, preencha: ' + basic.label + '.');
+        mark(basic.element);
+        try{ basic.element && basic.element.focus && basic.element.focus(); }catch(e){}
+      }
+      return {ok:false, missing:[basic.label]};
+    }
+
+    var checks = [
+      validatePositiveInteger('n_estudantes', 'Nº de estudantes'),
+      validatePositiveInteger('n_grupos', 'Nº de grupos'),
+      validateEmailList(),
+      validateWeight('pond_total', 'A ponderação do CBL na Avaliação Contínua'),
+      validateDeliverables()
+    ];
+
+    for(var i = 0; i < checks.length; i++){
+      if(!checks[i].ok){
+        if(!options || !options.silent){
+          notify(checks[i].message);
+          mark(checks[i].element);
+          try{ checks[i].element && checks[i].element.focus && checks[i].element.focus(); }catch(e){}
+        }
+        return {ok:false, missing:[checks[i].message]};
+      }
+    }
+
+    return {ok:true, missing:[]};
+  };
+})();
+</script>
 </body>
 </html>
