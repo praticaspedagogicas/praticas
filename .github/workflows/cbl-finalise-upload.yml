@@ -1,0 +1,60 @@
+name: Finalizar atualização CBL
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.cbl_upload/**'
+
+permissions:
+  contents: write
+
+jobs:
+  aplicar:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Instalar zstd
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zstd
+
+      - name: Validar e reconstruir os templates
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test "$(git hash-object CBL.html)" = "e380fb8a2beb1ecdfb0ff3c11ad8dbd0124d2646"
+          test "$(git hash-object CBL_Teste.html)" = "eb61ddc5a2a5637fedc6b29b10a7c12d15730208"
+
+          zstd -q -d --patch-from=CBL.html \
+            .cbl_upload/CBL.zstpatch \
+            -o CBL.html.novo
+
+          zstd -q -d --patch-from=CBL_Teste.html \
+            .cbl_upload/CBL_Teste.zstpatch \
+            -o CBL_Teste.html.novo
+
+          echo "d150ebba735a685d2a24458902e7c5cf0e359c4d49b4de9d8c126d4b34c7701a  CBL.html.novo" | sha256sum -c -
+          echo "69d2cbf174b292c339ef7acaafa66f75a03272fc67c289e0746724eafb138178  CBL_Teste.html.novo" | sha256sum -c -
+
+          mv CBL.html.novo CBL.html
+          mv CBL_Teste.html.novo CBL_Teste.html
+          rm -rf .cbl_upload
+          rm -f .github/workflows/cbl-finalise-upload.yml
+
+      - name: Publicar atualização
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- CBL.html CBL_Teste.html .cbl_upload .github/workflows/cbl-finalise-upload.yml
+          git commit -m "Atualiza os templates CBL"
+          git push
