@@ -1,0 +1,59 @@
+name: Finalizar atualização PROJ-BL
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.projbl_upload/**'
+
+permissions:
+  contents: write
+
+jobs:
+  aplicar:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Instalar zstd
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zstd
+
+      - name: Validar base e reconstruir ficheiros
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test "$(git hash-object PROJ-BL.html)" = "f7c1d0cb8b361d8035680c310765178b6553dd75"
+          test "$(git hash-object PROJ-BL_Teste.html)" = "2cabf4c5850980dbaabc9a573223226d1d4cf6cc"
+
+          zstd -q -d --patch-from=PROJ-BL.html \
+            .projbl_upload/projbl_normal.zstpatch \
+            -o PROJ-BL.html.novo
+
+          zstd -q -d --patch-from=PROJ-BL_Teste.html \
+            .projbl_upload/projbl_test.zstpatch \
+            -o PROJ-BL_Teste.html.novo
+
+          echo "c8b43208354c9acc81475257480c8c87a911494b39cfa5f093b1960b65f7f05d  PROJ-BL.html.novo" | sha256sum -c -
+          echo "905ea7826386b52a8529fd7a12803c0fdf78fc8fd8cc72192e939a17bbb448eb  PROJ-BL_Teste.html.novo" | sha256sum -c -
+
+          mv PROJ-BL.html.novo PROJ-BL.html
+          mv PROJ-BL_Teste.html.novo PROJ-BL_Teste.html
+          rm -rf .projbl_upload
+
+      - name: Publicar atualização
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- PROJ-BL.html PROJ-BL_Teste.html .projbl_upload
+          git commit -m "Atualiza e finaliza o PROJ-BL"
+          git push
