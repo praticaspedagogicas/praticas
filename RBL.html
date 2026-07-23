@@ -1,4 +1,4 @@
-<html lang="pt">
+<html lang="pt" data-rbl-template-mode="normal">
 <head>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta charset="utf-8"/>
@@ -3598,7 +3598,6 @@ input#n_estudantes:focus,
   color:#ffffff !important;
 }
 </style>
-
 <style id="rbl-mobile-final-campos-identificacao-numericos-ok">
 /* Ajuste final RBL mobile — identificação compacta e segura.
    Não altera IDs, payload, PDF, botões, Curso(s), validações ou Power Automate. */
@@ -3707,7 +3706,6 @@ input#n_estudantes{
   margin:0 !important;
 }
 </style>
-
 <style id="guioes-date-time-native-20260625">
 input[type="date"],
 input[type="time"]{
@@ -3721,18 +3719,134 @@ input[type="time"]{
   line-height:normal !important;
 }
 </style>
-
+<style id="guioes-date-time-native-final-20260625">
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"],
+body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"]{
+  -webkit-appearance:auto !important;
+  appearance:auto !important;
+  background:#fff !important;
+  color:#242424 !important;
+  -webkit-text-fill-color:#242424 !important;
+  color-scheme:light !important;
+  min-height:42px !important;
+  line-height:normal !important;
+}
+</style>
 <style id="guioes-home-button-20260626">
 .guioes-home-link{position:fixed;left:1.25rem;top:1.15rem;z-index:9999;display:inline-flex;align-items:center;gap:.45rem;border:1px solid rgba(0,0,0,.08);border-radius:999px;background:rgba(255,255,255,.95);box-shadow:0 14px 34px rgba(26,34,44,.09);color:#20242c;text-decoration:none;font:700 14px/1.1 "Segoe UI",Arial,sans-serif;padding:.85rem 1.05rem;backdrop-filter:blur(8px)}
 .guioes-home-link:hover{background:#fff;border-color:rgba(0,0,0,.16)}
 @media(max-width:800px){.guioes-home-link{left:.85rem;top:.85rem;font-size:13px;padding:.7rem .9rem}}
 @media print{.guioes-home-link{display:none!important}}
 </style>
+<style id="rbl-ano-turma-project-layout-v1">
+.rbl-year-semester-card{
+  display:grid !important;
+  grid-template-columns:minmax(118px,.42fr) minmax(0,1fr) !important;
+  gap:12px !important;
+  align-items:start !important;
+}
+.rbl-year-semester-card .rbl-year-semester-field{
+  min-width:0 !important;
+}
+.rbl-year-semester-card label{
+  display:block !important;
+  margin:0 0 5px 0 !important;
+}
+.rbl-year-semester-card select,
+#turmaEdicao{
+  width:100% !important;
+  min-height:36px !important;
+  border:1px solid #cfcfcf !important;
+  border-radius:9px !important;
+  background:#fff !important;
+  padding:7px 9px !important;
+  font-family:'Century Gothic','Segoe UI',sans-serif !important;
+  font-size:12.4px !important;
+  line-height:1.28 !important;
+  box-sizing:border-box !important;
+}
+#turmaEdicao::placeholder{
+  color:#777 !important;
+  opacity:1 !important;
+}
+@media(max-width:680px){
+  .rbl-year-semester-card{
+    grid-template-columns:1fr !important;
+    gap:8px !important;
+  }
+}
+@media print{
+  .rbl-year-semester-card{
+    grid-template-columns:.42fr 1fr !important;
+    gap:5px !important;
+  }
+  .rbl-year-semester-card select,
+  #turmaEdicao{
+    min-height:auto !important;
+    border:0 !important;
+    padding:2px 0 !important;
+  }
+}
+</style>
 
+<style id="rbl-separar-ano-semestre-sem-alterar-cores-v2">
+/* Ajuste cirúrgico: preserva o cabeçalho anterior e apenas separa Ano e Semestre. */
+.rbl-top-row{
+  grid-column:1 / -1 !important;
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(82px,.52fr) minmax(0,1fr) minmax(0,1fr) !important;
+  gap:12px 14px !important;
+  width:100% !important;
+  max-width:100% !important;
+  margin:0 !important;
+  padding:0 !important;
+  align-items:stretch !important;
+  box-sizing:border-box !important;
+}
+.rbl-top-row > .rbl-ident-card{
+  width:100% !important;
+  min-width:0 !important;
+  box-sizing:border-box !important;
+}
+.rbl-top-row > .rbl-ident-card label{
+  white-space:nowrap !important;
+}
+@media screen and (max-width:680px){
+  .rbl-top-row{
+    grid-template-columns:1fr !important;
+    gap:10px !important;
+  }
+}
+@media print{
+  .rbl-top-row{
+    grid-template-columns:1fr 1fr .52fr 1fr 1fr !important;
+    gap:4px !important;
+  }
+}
+</style>
+
+
+<style id="rbl-course-first-paint-stable-v1">
+/* Curso(s): reserva o espaço desde o primeiro paint e evita a troca visual do input bruto pelo seletor de chips. */
+@media screen{
+  body:not(.guiao-pdf-mode) .rbl-ident-card:not([data-rbl-course-ready="1"]) > #curso{
+    visibility:hidden !important;
+    opacity:0 !important;
+  }
+  body:not(.guiao-pdf-mode) .rbl-ident-card:has(> #curso):not([data-rbl-course-ready="1"]){
+    min-height:124px !important;
+  }
+  body:not(.guiao-pdf-mode) .rbl-course-picker,
+  body:not(.guiao-pdf-mode) .rbl-course-chip-area,
+  body:not(.guiao-pdf-mode) .rbl-course-chip{
+    animation:none !important;
+    transition:none !important;
+  }
+}
+</style>
 </head>
 <body>
-<a class="guioes-home-link" href="https://praticaspedagogicas.github.io/praticas/" aria-label="Voltar à página inicial">← Página inicial</a>
-
+<a aria-label="Voltar à página inicial" class="guioes-home-link" href="https://praticaspedagogicas.github.io/praticas/">← Página inicial</a>
 <div class="page">
 <div class="premium-status no-print">
 <div class="progress-label" id="progressLabel">Guião preenchido: 0%</div>
@@ -3747,9 +3861,10 @@ input[type="time"]{
 <h1>Plano Research-Based Learning</h1>
 </div>
 <div aria-label="Identificação do guião RBL" class="rbl-ident-modern">
+<div class="rbl-top-row">
 <div class="rbl-ident-card">
 <label for="unidadeOrganica">Unidade Orgânica</label>
-<select id="unidadeOrganica" required="required" aria-required="true">
+<select aria-required="true" id="unidadeOrganica" required="required">
 <option selected="selected" value="">Selecionar</option>
 <option>FCST</option>
 <option>FCS</option>
@@ -3760,15 +3875,17 @@ input[type="time"]{
 </div>
 <div class="rbl-ident-card">
 <label for="modalidade">Modalidade</label>
-<select id="modalidade" required="required" aria-required="true">
+<select aria-required="true" id="modalidade" required="required">
 <option selected="selected" value="">Selecionar</option>
 <option>Presencial</option>
 <option>EaD</option>
 </select>
 </div>
-<div class="rbl-ident-card">
-<label for="semestre">Semestre</label>
-<select class="rbl-compact-field" id="semestre" required="required" aria-required="true">
+<div class="rbl-ident-card rbl-year-card">
+<label for="anoCurricular">Ano</label><select aria-required="true" class="rbl-compact-field" id="anoCurricular" name="anoCurricular" required="required"><option selected="selected" value="">Selecionar</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select>
+</div>
+<div class="rbl-ident-card rbl-semester-card">
+<label for="semestre">Semestre</label><select aria-required="true" class="rbl-compact-field" id="semestre" required="required">
 <option selected="selected" value="">Selecionar</option>
 <option>1.º Semestre</option>
 <option>2.º Semestre</option>
@@ -3777,23 +3894,24 @@ input[type="time"]{
 </div>
 <div class="rbl-ident-card">
 <label for="turmaEdicao">Turma/Edição</label>
-<select class="rbl-compact-field" id="turmaEdicao" placeholder="Ex.: Turma A" required="required" aria-required="true"><option selected="selected" value="">Selecionar</option><option value="Turma 1">Turma 1</option><option value="Turma 2">Turma 2</option><option value="Turma 3">Turma 3</option><option value="Turma 4">Turma 4</option><option value="Edição 2026">Edição 2026</option><option value="Edição 2026/2027">Edição 2026/2027</option><option value="Pós-laboral">Pós-laboral</option><option value="Diurno">Diurno</option></select>
+<input aria-required="true" class="rbl-compact-field" id="turmaEdicao" name="turmaEdicao" placeholder="Ex.: D01, E02, 1.ª edição" required="required" type="text" value=""/>
 </div>
+</div><!-- /.rbl-top-row -->
 <div class="rbl-ident-card">
 <label for="curso">Curso(s)</label>
-<input autocomplete="off" id="curso" list="rblCursosList" placeholder="Digite para procurar e selecione um curso" type="text" value="" required="required" aria-required="true"/>
+<input aria-required="true" autocomplete="off" id="curso" list="rblCursosList" placeholder="Digite para procurar e selecione um curso" required="required" type="text" value=""/>
 </div>
 <div class="rbl-ident-card rbl-uc-card">
 <label for="uc">Unidade(s) Curricular(es)</label>
-<textarea class="rbl-expand-field rbl-uc-expand-field rbl-header-expand-clean" id="uc" name="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado" required="required" aria-required="true"></textarea>
+<textarea aria-required="true" class="rbl-expand-field rbl-uc-expand-field rbl-header-expand-clean" id="uc" name="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado" required="required"></textarea>
 </div>
 <div class="rbl-ident-card">
 <label for="ano">Ano letivo</label>
-<input id="ano" placeholder="Ex.: 2026/2027" type="text" value="" required="required" aria-required="true"/>
+<input aria-required="true" id="ano" placeholder="Ex.: 2026/2027" required="required" type="text" value=""/>
 </div>
 <div class="rbl-ident-card">
 <label for="estado_guiao">Estado do guião</label>
-<select class="rbl-compact-field" id="estado_guiao" name="estado_guiao" required="required" aria-required="true">
+<select aria-required="true" class="rbl-compact-field" id="estado_guiao" name="estado_guiao" required="required">
 <option selected="selected" value="">Selecionar</option>
 <option>Novo</option>
 <option>Atualizado</option>
@@ -3802,53 +3920,55 @@ input[type="time"]{
 </div>
 <div class="rbl-ident-card">
 <label for="professor">Docente(s)</label>
-<textarea class="rbl-expand-field rbl-header-expand-clean" id="professor" name="professor" placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva" required="required" aria-required="true"></textarea>
+<textarea aria-required="true" class="rbl-expand-field rbl-header-expand-clean" id="professor" name="professor" placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva" required="required"></textarea>
 </div>
 <div class="rbl-ident-card rbl-numeric-pair-card">
 <div class="rbl-numeric-pair-field">
 <label for="n_estudantes">Nº de estudantes</label>
-<input type="text" autocomplete="off" id="n_estudantes" inputmode="numeric" name="n_estudantes" pattern="[0-9]*" placeholder="Ex.: 32" value=""/>
+<input autocomplete="off" id="n_estudantes" inputmode="numeric" min="1" name="n_estudantes" placeholder="Ex.: 32" step="1" type="number" value=""/>
 </div>
 <div class="rbl-numeric-pair-field">
 <label for="n_grupos">Nº de grupos</label>
-<input type="text" autocomplete="off" id="n_grupos" inputmode="numeric" name="n_grupos" pattern="[0-9]*" placeholder="Ex.: 6" value=""/>
+<input autocomplete="off" id="n_grupos" inputmode="numeric" min="1" name="n_grupos" placeholder="Ex.: 6" step="1" type="number" value=""/>
 </div>
 </div>
 <div class="rbl-ident-card rbl-ident-wide">
 <label for="emails">Email(s)</label>
-<textarea class="rbl-expand-field rbl-v38-email-expand rbl-header-expand-clean" id="emails" name="emails" placeholder="Ex.: ana.silva@universidadeeuropeia.pt; joao.santos@universidadeeuropeia.pt" required="required" aria-required="true"></textarea>
+<textarea aria-required="true" class="rbl-expand-field rbl-v38-email-expand rbl-header-expand-clean" id="emails" name="emails" placeholder="Ex.: ana.silva@universidadeeuropeia.pt; joao.santos@universidadeeuropeia.pt" required="required"></textarea>
 </div>
 <div class="rbl-ident-card rbl-ident-wide">
-<label for="autoria">Autoria</label>
-<textarea class="rbl-expand-field rbl-header-expand-clean" id="autoria" name="autoria" placeholder="Ex.: Ana Luiza Marques" required="required" aria-required="true"></textarea>
+<label for="autoria">Autoria(s)</label>
+<textarea aria-required="true" class="rbl-expand-field rbl-header-expand-clean" id="autoria" name="autoria" placeholder="Ex.: Ana Luiza Marques" required="required"></textarea>
 </div>
 </div>
 <div class="section">
 <label>Objetivos:</label>
-<textarea id="objetivos" placeholder="Indique os objetivos de aprendizagem..." required="required" aria-required="true"></textarea>
+<textarea aria-required="true" id="objetivos" placeholder="Indique os objetivos de aprendizagem..." required="required"></textarea>
 </div>
 <div class="section">
 <label>Recursos:</label>
-<textarea id="recursos" placeholder="Indique os recursos necessários..." required="required" aria-required="true"></textarea>
+<textarea aria-required="true" id="recursos" placeholder="Indique os recursos necessários..." required="required"></textarea>
 </div>
 <div aria-hidden="true" class="rbl-aula-divider"></div>
 <div class="section">
 <h3>Aula 1</h3>
 <label>Data:</label>
-<input id="aula1_data" type="date" value="" required="required" aria-required="true"/>
+<input aria-required="true" id="aula1_data" required="required" type="date" value=""/>
 <label>Tarefas:</label>
-<textarea id="aula1_tarefas" placeholder="Indique as tarefas..." required="required" aria-required="true"></textarea>
+<textarea aria-required="true" id="aula1_tarefas" placeholder="Indique as tarefas..." required="required"></textarea>
 <label>Descrição:</label>
-<textarea id="aula1_desc" placeholder="Descrição da aula..." required="required" aria-required="true"></textarea>
+<textarea aria-required="true" id="aula1_desc" placeholder="Descrição da aula..." required="required"></textarea>
 <label>Duração:</label>
-<input id="aula1_duracao" step="60" type="time" value="" required="required" aria-required="true"/>
+<input aria-required="true" id="aula1_duracao" required="required" step="60" type="time" value=""/>
 </div>
+
+
 <div aria-label="Autorização para integração no repositório" class="rbl-repo-auth no-print" id="rblRepoAuth">
 <h3 class="rbl-repo-auth-title">Autorização para integração no repositório</h3>
 <p class="rbl-repo-auth-text">Caso este guião seja validado, autoriza a sua integração no <strong>Repositório Institucional de Práticas Pedagógicas</strong>, para consulta interna e possível reutilização/adaptação por outros docentes?</p>
 <div aria-label="Autorização para repositório" class="rbl-repo-auth-options" role="radiogroup">
-<label class="rbl-repo-auth-option" for="autorizaRepositorioSim"><input data-rbl-aux="true" id="autorizaRepositorioSim" name="autorizaRepositorio" type="radio" value="Sim" required="required" aria-required="true"/><span>Sim, autorizo a integração deste guião no repositório após validação.</span></label>
-<label class="rbl-repo-auth-option" for="autorizaRepositorioNao"><input data-rbl-aux="true" id="autorizaRepositorioNao" name="autorizaRepositorio" type="radio" value="Não" required="required" aria-required="true"/><span>Não autorizo a integração deste guião no repositório.</span></label>
+<label class="rbl-repo-auth-option" for="autorizaRepositorioSim"><input aria-required="true" data-rbl-aux="true" id="autorizaRepositorioSim" name="autorizaRepositorio" required="required" type="radio" value="Sim"/><span>Sim, autorizo a integração deste guião no repositório após validação.</span></label>
+<label class="rbl-repo-auth-option" for="autorizaRepositorioNao"><input aria-required="true" data-rbl-aux="true" id="autorizaRepositorioNao" name="autorizaRepositorio" required="required" type="radio" value="Não"/><span>Não autorizo a integração deste guião no repositório.</span></label>
 </div>
 <p class="rbl-repo-auth-note">A integração no repositório não é automática e depende sempre de validação prévia.</p>
 </div>
@@ -3918,17 +4038,26 @@ function normalizeNumericTextFields(){
   ['n_estudantes','n_grupos'].forEach(function(id){
     var el = document.getElementById(id);
     if(!el) return;
-    try{ el.type = 'text'; }catch(e){ el.setAttribute('type','text'); }
+    try{ el.type = 'number'; }catch(e){ el.setAttribute('type','number'); }
     el.setAttribute('inputmode','numeric');
-    el.setAttribute('pattern','[0-9]*');
     el.setAttribute('autocomplete','off');
-    el.removeAttribute('min');
-    el.removeAttribute('step');
+    el.setAttribute('min','1');
+    el.setAttribute('step','1');
+    el.removeAttribute('pattern');
     if(el.dataset.rblNumericPreservado === '1') return;
     el.dataset.rblNumericPreservado = '1';
+    el.addEventListener('keydown', function(e){
+      if(['e','E','+','-','.',','].indexOf(e.key) !== -1) e.preventDefault();
+    });
     el.addEventListener('input', function(){
-      var limpo = String(el.value || '').replace(/\D+/g, '');
-      if(String(el.value || '') !== limpo) el.value = limpo;
+      var raw = String(el.value || '').trim();
+      if(!raw) return;
+      var numero = Number(raw);
+      if(!Number.isInteger(numero) || numero < 1) el.value = '';
+    });
+    el.addEventListener('blur', function(){
+      var numero = Number(el.value);
+      if(el.value !== '' && (!Number.isInteger(numero) || numero < 1)) el.value = '';
     });
   });
 }
@@ -4246,7 +4375,8 @@ function initButtons(){
 document.addEventListener('DOMContentLoaded', function(){
   normalizeNumericTextFields();
   markRblRequiredFields();
-  restoreDraft();
+  renderProgress();
+  renderAutosave('Última gravação automática: --');
   bindFields();
   initMenu();
   initButtons();
@@ -4345,7 +4475,7 @@ document.addEventListener('DOMContentLoaded', function(){
     old.className = 'rbl-meta-panel';
     old.removeAttribute('style');
     old.innerHTML =
-      '<div class="rbl-meta-title">Autoria</div>' +
+      '<div class="rbl-meta-title">Autoria(s)</div>' +
       '<div class="rbl-meta-grid">' +
         '<div class="rbl-meta-field">' +
           '<label>Nome do/a autor/a:</label>' +
@@ -4356,7 +4486,7 @@ document.addEventListener('DOMContentLoaded', function(){
           '<select id="estado_guiao" class="rbl-compact-field" required="required" aria-required="true">' +
             '<option value="">Selecionar</option>' +
             '<option>Novo</option>' +
-            '<option>Atualizado</option>' +
+            '<option selected>Atualizado</option>' +
             '<option>Reutilizado</option>' +
           '</select>' +
         '</div>' +
@@ -4521,7 +4651,7 @@ document.addEventListener('DOMContentLoaded', function(){
       professor:'Docente(s):',
       emails:'Email(s):',
       n_estudantes:'Número de estudantes:',
-      autoria:'Autoria:',
+      autoria:'Autoria(s):',
       estado_guiao:'Estado do guião:'
     };
     var ids = ['curso','uc','ano','professor','emails','n_estudantes','n_grupos','autoria','estado_guiao'];
@@ -4711,6 +4841,7 @@ document.addEventListener('DOMContentLoaded', function(){
     payload.unidadeOrganica = first(payload.unidadeOrganica, formData.unidadeOrganica, formData.unidade_organica);
     payload.modalidade = first(payload.modalidade, formData.modalidade);
     payload.semestre = first(payload.semestre, formData.semestre);
+    payload.anoCurricular = first(payload.anoCurricular, payload.AnoCurricular, formData.anoCurricular, formData.AnoCurricular, domValue('#anoCurricular'));
     payload.turmaEdicao = first(payload.turmaEdicao, payload.turma, formData.turmaEdicao, formData.turma_edicao, formData.turma);
     payload.anoLetivo = first(payload.anoLetivo, payload.ano, formData.anoLetivo, formData.AnoLetivo, formData.ano);
     payload.autorizaRepositorio = first(payload.autorizaRepositorio, payload.autorizaPartilhaInterna, payload.partilhaRepositorio, formData.autorizaRepositorio);
@@ -4922,6 +5053,7 @@ function collectFormData(){
     const nGrupos = firstById(["n_grupos","numero_grupos","grupos"]) || firstByLabel(["Nº de Grupos", "N.º de grupos", "Número de grupos"]);
     const unidadeOrganica = firstById(["unidade_organica","unidadeOrganica"]) || firstByLabel(["Unidade Orgânica", "Unidade Organica"]);
     const modalidade = firstById(["modalidade"]) || firstByLabel(["Modalidade"]);
+    const anoCurricular = firstById(["anoCurricular","AnoCurricular"]) || firstByLabel(["Ano"]);
     const semestre = firstById(["semestre"]) || firstByLabel(["Semestre"]);
     const turmaEdicao = firstById(["turmaEdicao","turma_edicao","turma"]) || firstByLabel(["Turma/Edição", "Turma", "Edição"]);
     const data = firstById(["data","date"]) || firstByLabel(["Data"]);
@@ -4958,6 +5090,7 @@ function collectFormData(){
       autorias: firstById(["autoria","autorias"]) || firstByLabel(["Autoria(s)", "Autoria"]),
       unidadeOrganica,
       modalidade,
+      anoCurricular,
       semestre,
       turmaEdicao,
       turma: turmaEdicao,
@@ -5224,7 +5357,7 @@ function collectFormData(){
       pdf.setFont("helvetica", "normal");
       pdf.setFontSize(7.7);
       setText(muted);
-      pdf.text("Autoria: " + show(val("autoria")), boxX + boxW - 6, y, {align:"right"});
+      pdf.text("Autoria(s): " + show(val("autoria")), boxX + boxW - 6, y, {align:"right"});
 
       y = boxY + boxH + 8;
     }
@@ -5787,8 +5920,8 @@ async function downloadCurrentGuiesPdf(){
   }
 
   function isValidNumber(v){
-    v = String(v || "").trim().replace(",", ".");
-    return v === "" || /^[0-9]+(\.[0-9]+)?$/.test(v);
+    v = String(v || "").trim();
+    return v === "" || /^[1-9][0-9]*$/.test(v);
   }
 
   function warn(label){
@@ -5815,7 +5948,8 @@ async function downloadCurrentGuiesPdf(){
     if(!el) return;
     const allIds = fields.flatMap(f => f.ids);
     if(allIds.includes(el.id) || allIds.includes(el.name)){
-      el.value = el.value.replace(/[^\d.,]/g, "");
+      var raw = String(el.value || "").trim();
+      if(raw && !/^[1-9][0-9]*$/.test(raw)) el.value = "";
     }
   }, true);
 
@@ -7040,19 +7174,29 @@ input:focus, textarea:focus, select:focus,
   }
   function mark(el,on){ if(el) el.classList.toggle("rbl-required-error", !!on); }
   function cleanStudents(){
-    var el=$("n_estudantes");
-    if(!el) return;
-    el.setAttribute("type","number");
-    el.setAttribute("min","0");
-    el.setAttribute("step","1");
-    el.setAttribute("inputmode","numeric");
-    el.setAttribute("pattern","[0-9]*");
-    el.setAttribute("autocomplete","off");
-    el.placeholder = el.placeholder || "Ex: 30";
-    el.addEventListener("input", function(){
-      var cleaned = String(el.value || "").replace(/\D+/g, "");
-      if(el.value !== cleaned) el.value = cleaned;
-      mark(el, !cleaned);
+    ["n_estudantes","n_grupos"].forEach(function(id){
+      var el=$(id);
+      if(!el) return;
+      el.setAttribute("type","number");
+      el.setAttribute("min","1");
+      el.setAttribute("step","1");
+      el.setAttribute("inputmode","numeric");
+      el.removeAttribute("pattern");
+      el.setAttribute("autocomplete","off");
+      el.placeholder = el.placeholder || (id === "n_estudantes" ? "Ex.: 30" : "Ex.: 6");
+      if(el.dataset.rblV44NumericBound === "1") return;
+      el.dataset.rblV44NumericBound = "1";
+      el.addEventListener("keydown", function(e){
+        if(["e","E","+","-",".",","].indexOf(e.key) !== -1) e.preventDefault();
+      });
+      el.addEventListener("input", function(){
+        var raw = String(el.value || "").trim();
+        if(raw){
+          var numero = Number(raw);
+          if(!Number.isInteger(numero) || numero < 1) el.value = "";
+        }
+        if(id === "n_estudantes") mark(el, !String(el.value || "").trim());
+      });
     });
   }
   function ensureCourseList(){
@@ -7222,6 +7366,7 @@ input:focus, textarea:focus, select:focus,
 <option value="Mestrado em Ciências de Dados e Gestão"></option>
 <option value="Mestrado em Gestão do Desporto"></option>
 </datalist>
+
 <script id="rbl-v53-identificacao-final-script">
 (function(){
   "use strict";
@@ -7268,6 +7413,22 @@ input:focus, textarea:focus, select:focus,
     return ta;
   }
 
+  function ensureTextInput(el, id){
+    if(el && el.tagName === "INPUT"){
+      el.type = "text";
+      el.id = id;
+      return el;
+    }
+    var input = document.createElement("input");
+    input.type = "text";
+    input.id = id;
+    input.name = (el && el.name) || id;
+    input.className = (el && el.className) || "";
+    input.placeholder = (el && el.getAttribute("placeholder")) || "";
+    input.value = (el && el.value) || "";
+    return input;
+  }
+
   function ensureSelectEstado(el){
     var value = (el && (el.value || el.getAttribute("data-rbl-estado-default"))) || "";
     var sel = document.createElement("select");
@@ -7291,6 +7452,26 @@ input:focus, textarea:focus, select:focus,
     l.textContent = labelText;
     c.appendChild(l);
     c.appendChild(field);
+    return c;
+  }
+
+  function yearSemesterCard(yearField, semesterField){
+    var c = document.createElement("div");
+    c.className = "rbl-ident-card rbl-year-semester-card";
+
+    function unit(labelText, field, extraClass){
+      var wrap = document.createElement("div");
+      wrap.className = "rbl-year-semester-field " + (extraClass || "");
+      var l = document.createElement("label");
+      l.setAttribute("for", field.id);
+      l.textContent = labelText;
+      wrap.appendChild(l);
+      wrap.appendChild(field);
+      return wrap;
+    }
+
+    c.appendChild(unit("Ano", yearField, "rbl-year-field"));
+    c.appendChild(unit("Semestre", semesterField, "rbl-semester-field"));
     return c;
   }
 
@@ -7321,16 +7502,22 @@ input:focus, textarea:focus, select:focus,
       var s = makeSelect('<option value="">Selecionar</option><option>Presencial</option><option>EaD</option>');
       return s;
     });
+    var anoCurricular = detachField("anoCurricular", function(){
+      var s = makeSelect('<option value="">Selecionar</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>');
+      s.id = "anoCurricular";
+      s.name = "anoCurricular";
+      return s;
+    });
     var semestre = detachField("semestre", function(){
       var s = makeSelect('<option value="">Selecionar</option><option>1.º Semestre</option><option>2.º Semestre</option><option>Anual</option>');
       s.id = "semestre";
       return s;
     });
-    var turma = detachField("turmaEdicao", function(){
+    var turma = ensureTextInput(detachField("turmaEdicao", function(){
       var t = makeInput("text");
       t.id = "turmaEdicao";
       return t;
-    });
+    }), "turmaEdicao");
     var curso = detachField("curso", function(){ return makeInput("text"); });
     var uc = detachField("uc", function(){ return makeInput("text"); });
     var ano = detachField("ano", function(){ return makeInput("text"); });
@@ -7346,9 +7533,15 @@ input:focus, textarea:focus, select:focus,
     var autoria = ensureTextarea(detachField("autoria", function(){ return makeTextarea(); }), "autoria");
     var estado = ensureSelectEstado(detachField("estado_guiao", function(){ return makeSelect(""); }));
 
+    anoCurricular.className = (anoCurricular.className || "") + " rbl-compact-field";
+    anoCurricular.required = true;
+    anoCurricular.setAttribute("aria-required", "true");
     semestre.className = (semestre.className || "") + " rbl-compact-field";
     turma.className = (turma.className || "") + " rbl-compact-field";
-    turma.placeholder = turma.placeholder || "Ex.: Turma 1 / Edição 2026";
+    turma.type = "text";
+    turma.required = true;
+    turma.setAttribute("aria-required", "true");
+    turma.placeholder = "Ex.: D01, E02, 1.ª edição";
     curso.setAttribute("list", "rblCursosList");
     curso.setAttribute("autocomplete", "off");
     curso.placeholder = curso.placeholder || "Digite para procurar e selecione um curso";
@@ -7358,21 +7551,21 @@ input:focus, textarea:focus, select:focus,
     n.placeholder = n.placeholder || "Ex.: 30";
     n.setAttribute("inputmode", "numeric");
     n.setAttribute("pattern", "[0-9]*");
-    n.setAttribute("min", "0");
+    n.setAttribute("min", "1");
     n.setAttribute("step", "1");
     n.setAttribute("autocomplete", "off");
     nGrupos.type = "number";
     nGrupos.placeholder = nGrupos.placeholder || "Ex.: 6";
     nGrupos.setAttribute("inputmode", "numeric");
     nGrupos.setAttribute("pattern", "[0-9]*");
-    nGrupos.setAttribute("min", "0");
+    nGrupos.setAttribute("min", "1");
     nGrupos.setAttribute("step", "1");
     nGrupos.setAttribute("autocomplete", "off");
     professor.placeholder = professor.placeholder || "Nome do/a docente ou equipa docente";
     emails.placeholder = emails.placeholder || "email@universidade.pt";
     autoria.placeholder = autoria.placeholder || "Nome do/a autor/a ou equipa autora do guião";
 
-    return {unidade, modalidade, semestre, turma, curso, uc, ano, n, nGrupos, professor, emails, autoria, estado};
+    return {unidade, modalidade, anoCurricular, semestre, turma, curso, uc, ano, n, nGrupos, professor, emails, autoria, estado};
   }
 
   function rebuild(){
@@ -7392,10 +7585,14 @@ input:focus, textarea:focus, select:focus,
       else document.body.insertBefore(grid, document.body.firstChild);
     }
     grid.innerHTML = "";
-    grid.appendChild(card("Unidade Orgânica", fields.unidade, false));
-    grid.appendChild(card("Modalidade", fields.modalidade, false));
-    grid.appendChild(card("Semestre", fields.semestre, false));
-    grid.appendChild(card("Turma/Edição", fields.turma, false));
+    var topRow = document.createElement("div");
+    topRow.className = "rbl-top-row";
+    topRow.appendChild(card("Unidade Orgânica", fields.unidade, false));
+    topRow.appendChild(card("Modalidade", fields.modalidade, false));
+    topRow.appendChild(card("Ano", fields.anoCurricular, false));
+    topRow.appendChild(card("Semestre", fields.semestre, false));
+    topRow.appendChild(card("Turma/Edição", fields.turma, false));
+    grid.appendChild(topRow);
 
     var courseUcRow = document.createElement("div");
     courseUcRow.className = "rbl-course-uc-row";
@@ -7413,7 +7610,7 @@ input:focus, textarea:focus, select:focus,
     divider.setAttribute("aria-hidden", "true");
     grid.appendChild(divider);
 
-    grid.appendChild(card("Autoria", fields.autoria, true));
+    grid.appendChild(card("Autoria(s)", fields.autoria, true));
     grid.appendChild(card("Estado do guião", fields.estado, true));
   }
 
@@ -7443,7 +7640,7 @@ input:focus, textarea:focus, select:focus,
   }
 
   function resetHeaderHeights(){
-    ["curso","uc","ano","n_estudantes","unidadeOrganica","modalidade"].forEach(function(id){
+    ["curso","uc","ano","n_estudantes","unidadeOrganica","modalidade","anoCurricular","semestre","turmaEdicao"].forEach(function(id){
       var c = getCardForField(id);
       if(c) c.style.minHeight = "";
     });
@@ -7457,6 +7654,7 @@ input:focus, textarea:focus, select:focus,
     equalizeCards(["curso","uc"]);
     equalizeCards(["ano","n_estudantes"]);
     equalizeCards(["unidadeOrganica","modalidade"]);
+    equalizeCards(["anoCurricular","turmaEdicao"]);
   }
 
   var rblHeaderSyncQueued = false;
@@ -7479,7 +7677,7 @@ input:focus, textarea:focus, select:focus,
     if(!window.ResizeObserver || window.rblHeaderVisualObserverReady) return;
     window.rblHeaderVisualObserverReady = true;
     var ro = new ResizeObserver(function(){ scheduleHeaderVisualSync(); });
-    ["curso","uc","ano","n_estudantes","unidadeOrganica","modalidade"].forEach(function(id){
+    ["curso","uc","ano","n_estudantes","unidadeOrganica","modalidade","anoCurricular","semestre","turmaEdicao"].forEach(function(id){
       var c = getCardForField(id);
       if(c) ro.observe(c);
       var el = document.getElementById(id);
@@ -7500,7 +7698,7 @@ input:focus, textarea:focus, select:focus,
   }
 
   document.addEventListener("input", function(e){
-    if(e && e.target && (e.target.id === "curso" || e.target.id === "uc" || e.target.id === "n_estudantes" || e.target.id === "ano")){
+    if(e && e.target && (e.target.id === "curso" || e.target.id === "uc" || e.target.id === "n_estudantes" || e.target.id === "ano" || e.target.id === "anoCurricular" || e.target.id === "semestre" || e.target.id === "turmaEdicao")){
       scheduleHeaderVisualSync();
     }
   }, true);
@@ -7511,6 +7709,7 @@ input:focus, textarea:focus, select:focus,
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
 })();
 </script>
+
 <script id="rbl-step1-curso-menu-limpo-js">
 (function(){
   "use strict";
@@ -7603,11 +7802,15 @@ input:focus, textarea:focus, select:focus,
     card.appendChild(helper);
     card.setAttribute("data-rbl-course-ready", "1");
 
+    var syncingHidden = false;
+
     function sync(){
+      syncingHidden = true;
       hidden.value = selected.join("; ");
       hidden.setAttribute("value", hidden.value);
       hidden.dispatchEvent(new Event("input", {bubbles:true}));
       hidden.dispatchEvent(new Event("change", {bubbles:true}));
+      syncingHidden = false;
     }
 
     function renderChips(){
@@ -7640,8 +7843,19 @@ input:focus, textarea:focus, select:focus,
       renderChips(); sync();
     }
 
-    function renderOptions(){
+    var userOpenedCourseSearch = false;
+
+    function renderOptions(forceOpenEmpty){
       var term = cleanText(search.value).toLowerCase();
+
+      // Não abrir a dropdown no carregamento/programmatic focus.
+      // Com termo vazio, só mostra a lista quando o clique/tecla vier do utilizador.
+      if(!term && !forceOpenEmpty){
+        dropdown.innerHTML = "";
+        dropdown.classList.remove("open");
+        return;
+      }
+
       var opts = getCourseOptions().filter(function(v){
         return selected.indexOf(v) === -1 && (!term || v.toLowerCase().indexOf(term) !== -1);
       }).slice(0, 30);
@@ -7653,11 +7867,13 @@ input:focus, textarea:focus, select:focus,
         opt.addEventListener("mousedown", function(e){ e.preventDefault(); addCourse(v); });
         dropdown.appendChild(opt);
       });
-      dropdown.classList.toggle("open", opts.length > 0 && (document.activeElement === search));
+      dropdown.classList.toggle("open", opts.length > 0 && document.activeElement === search && (!!term || !!forceOpenEmpty));
     }
 
-    search.addEventListener("input", renderOptions);
-    search.addEventListener("focus", renderOptions);
+    search.addEventListener("pointerdown", function(){ userOpenedCourseSearch = true; }, true);
+    search.addEventListener("keydown", function(){ userOpenedCourseSearch = true; }, true);
+    search.addEventListener("input", function(){ renderOptions(false); });
+    search.addEventListener("focus", function(){ renderOptions(userOpenedCourseSearch && !cleanText(search.value)); });
     search.addEventListener("keydown", function(e){
       if(e.key === "Enter"){
         e.preventDefault();
@@ -7677,6 +7893,24 @@ input:focus, textarea:focus, select:focus,
       renderChips();
       sync();
     });
+
+
+    function replaceFromHidden(){
+      if(syncingHidden) return;
+      var next = splitCourses(hidden.value || hidden.getAttribute('value') || '');
+      var unchanged = next.length === selected.length && next.every(function(v, i){ return v === selected[i]; });
+      if(unchanged) return;
+      selected = next;
+      renderChips();
+      if(typeof window.rblSyncHeaderVisual === "function") window.rblSyncHeaderVisual();
+    }
+    hidden.addEventListener('input', replaceFromHidden, true);
+    hidden.addEventListener('change', replaceFromHidden, true);
+    window.RBL_COURSE_PICKER_API = {
+      replaceFromField: replaceFromHidden,
+      getCourses: function(){ return selected.slice(); },
+      setCourses: function(values){ selected = splitCourses(Array.isArray(values) ? values.join('; ') : values); renderChips(); sync(); }
+    };
 
     renderChips(); sync();
     if(typeof window.rblSyncHeaderVisual === "function"){
@@ -8069,7 +8303,7 @@ textarea#autoria,
 
       var label = document.createElement("label");
       label.setAttribute("for", "autoria");
-      label.textContent = "Autoria";
+      label.textContent = "Autoria(s)";
 
       autoriaCard.appendChild(label);
       autoriaCard.appendChild(autoria);
@@ -8081,7 +8315,7 @@ textarea#autoria,
       }
     }else{
       var label = autoriaCard.querySelector("label");
-      if(label) label.textContent = "Autoria";
+      if(label) label.textContent = "Autoria(s)";
 
       if(estadoCard && grid.contains(estadoCard) && autoriaCard.nextElementSibling !== estadoCard){
         grid.insertBefore(autoriaCard, estadoCard);
@@ -8131,7 +8365,7 @@ textarea#autoria,
     if(!autoria) return;
     var card = autoria.closest(".rbl-ident-card, .rbl-meta-field, .rbl-meta-coupled-card");
     var label = card ? card.querySelector("label") : document.querySelector('label[for="autoria"]');
-    if(label) label.textContent = "Autoria";
+    if(label) label.textContent = "Autoria(s)";
   }
 
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", fixAutoriaLabel);
@@ -8198,7 +8432,7 @@ textarea#autoria{
 
     var label = card.querySelector("label") || document.querySelector('label[for="autoria"]');
     if(label){
-      label.textContent = "Autoria";
+      label.textContent = "Autoria(s)";
       label.setAttribute("for", "autoria");
       label.style.setProperty("display", "block", "important");
       label.style.setProperty("width", "100%", "important");
@@ -9562,7 +9796,7 @@ html body:not(.guiao-pdf-mode) .rbl-ident-modern + .section {
   .rbl-ident-modern .rbl-numeric-pair-card{grid-template-columns:1fr !important;}
 }
 </style>
-<script id="guiao-required-submit-validation-v1">
+<script id="guiao-required-submit-validation-v1" type="application/json">
 /* ===== Auditoria transversal — campos obrigatórios antes da submissão =====
    Camada cirúrgica: não altera IDs, payloads, botões, Curso(s), PDF, Power Automate ou estrutura pedagógica.
    Apenas bloqueia o clique em “Enviar para Validação” quando faltam dados mínimos institucionais. */
@@ -9593,9 +9827,9 @@ html body:not(.guiao-pdf-mode) .rbl-ident-modern + .section {
   function courseValue(){
     var direct = first(['#curso','[name="curso"]']);
     if(direct.value) return direct;
-    var chips = Array.from(document.querySelectorAll('#cblCursosSelecionados .cbl-course-chip, .cbl-course-chip, [data-course-chip]')).map(function(x){ return norm(x.textContent).replace(/[×x]$/i,'').trim(); }).filter(Boolean).join('; ');
-    if(chips) return {value:chips, element:document.querySelector('#cursoBusca') || document.querySelector('#cblCursosSelecionados')};
-    return {value:'', element:document.querySelector('#cursoBusca') || document.querySelector('#curso')};
+    var chips = Array.from(document.querySelectorAll('#cblCursosSelecionados .cbl-course-chip, .cbl-course-chip, .rbl-course-chip, [data-course-chip]')).map(function(x){ return norm(x.textContent).replace(/[×x]$/i,'').trim(); }).filter(Boolean).join('; ');
+    if(chips) return {value:chips, element:document.querySelector('#cursoSearch,#cursoBusca') || document.querySelector('#cblCursosSelecionados')};
+    return {value:'', element:document.querySelector('#cursoSearch,#cursoBusca') || document.querySelector('#curso')};
   }
   function ucValue(){
     return first(['#uc','#ucs','[name="uc"]','[name="ucs"]','#unidade_curricular','[name="unidade_curricular"]','.projbl-nome-uc-projeto-field','#ucProjeto','#nomeUCProjeto','#nomeUcProjeto','#nome_uc_projeto']);
@@ -9813,6 +10047,11 @@ input#n_grupos::-webkit-inner-spin-button{
 
     payload.title = buildTitle(payload);
 
+    var anoCurricularDom = byId(['anoCurricular','AnoCurricular']);
+    if(anoCurricularDom) payload.anoCurricular = anoCurricularDom;
+    if(payload.values && typeof payload.values === 'object' && anoCurricularDom) payload.values.anoCurricular = anoCurricularDom;
+    if(payload.formData && typeof payload.formData === 'object' && anoCurricularDom) payload.formData.anoCurricular = anoCurricularDom;
+
     var anoDom = byId(['anoLetivo','anoLetivoProjeto','ano_letivo','ano','anoLetivoInput']);
     if(anoDom) payload.anoLetivo = anoDom;
     else if(!clean(payload.anoLetivo) && payload.values && typeof payload.values === 'object'){
@@ -9944,8 +10183,7 @@ input#n_grupos::-webkit-inner-spin-button{
   window.guioesPadronizarPayloadTituloAnoCursos = normalizePayload;
 })();
 </script>
-
-<script id="guiao-required-submit-validation-v2">
+<script id="guiao-required-submit-validation-v2" type="application/json">
 /* Camada transversal v2 — bloqueio antes de chamar o Power Automate.
    Impede submissão com Curso(s) apenas digitado e campos institucionais mínimos em branco. */
 (function(){
@@ -9968,7 +10206,7 @@ input#n_grupos::-webkit-inner-spin-button{
     return {value:'', element:null};
   }
   function selectedCourseChips(){
-    return Array.prototype.slice.call(document.querySelectorAll('#cblCursosSelecionados .cbl-course-chip, #cblCursosSelecionados .projbl-course-chip, .cbl-course-chip, .projbl-course-chip, [data-course-chip]'))
+    return Array.prototype.slice.call(document.querySelectorAll('#cblCursosSelecionados .cbl-course-chip, #cblCursosSelecionados .projbl-course-chip, .cbl-course-chip, .projbl-course-chip, .rbl-course-chip, [data-course-chip]'))
       .map(function(x){ return clean((x.querySelector('span') || x).textContent || '').replace(/[×x]$/i,'').trim(); })
       .filter(Boolean);
   }
@@ -9994,7 +10232,7 @@ input#n_grupos::-webkit-inner-spin-button{
     if(hv) return {value:hv, element:hidden};
     var direct = first(['#curso:not([type="hidden"])','[name="curso"]:not([type="hidden"])']);
     if(direct.value && courseExists(direct.value)) return direct;
-    return {value:'', typed: direct.value || val(document.querySelector('#cursoBusca,[name="cursoBusca"]')), element: direct.element || document.querySelector('#cursoBusca,[name="cursoBusca"],#curso')};
+    return {value:'', typed: direct.value || val(document.querySelector('#cursoSearch,#cursoBusca,[name="cursoBusca"]')), element: direct.element || document.querySelector('#cursoSearch,#cursoBusca,[name="cursoBusca"],#curso')};
   }
   function ucValue(){ return first(['#uc','#ucs','[name="uc"]','[name="ucs"]','#unidade_curricular','[name="unidade_curricular"]','.projbl-nome-uc-projeto-field','#ucProjeto','#nomeUCProjeto','#nomeUcProjeto','#nome_uc_projeto']); }
   function docenteValue(){ return first(['#professor','#docentes','#docente','[name="professor"]','[name="docentes"]','[name="docente"]','.docente-nome','.proj-docente-field']); }
@@ -10106,7 +10344,7 @@ body:not(.guiao-pdf-mode) .cbl-course-picker,
 body:not(.guiao-pdf-mode) .projbl-curso-real-wrap,
 body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 </style>
-<script id="guioes-curso-dropdown-custom-v2-js" data-v7-no-open-empty="1">
+<script data-v7-no-open-empty="1" id="guioes-curso-dropdown-custom-v2-js">
 (function(){
   'use strict';
 
@@ -10196,9 +10434,10 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     wrap.appendChild(box);
 
     var active = -1;
+    var userOpenedCourseSearch = false;
     function close(){ box.classList.remove('is-open'); active = -1; }
     function open(){ if(box.children.length) box.classList.add('is-open'); }
-    function render(){
+    function render(allowOpen){
       var q = clean(input.value);
       if(q.length < 2){ box.innerHTML = ''; close(); return; }
       var qNorm = strip(q);
@@ -10220,7 +10459,8 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
         btn.addEventListener('click', function(){ selectCourse(input, item.value); close(); input.focus(); });
         box.appendChild(btn);
       });
-      open();
+      if(allowOpen) open();
+      else close();
     }
     function setActive(idx){
       var items = Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));
@@ -10231,13 +10471,20 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
       items[active].scrollIntoView({block:'nearest'});
     }
 
-    input.addEventListener('input', render, true);
-    input.addEventListener('focus', function(){ if(clean(input.value).length < 2) close(); else render(); }, true);
+    input.addEventListener('pointerdown', function(){ userOpenedCourseSearch = true; }, true);
+    input.addEventListener('input', function(){
+      render(userOpenedCourseSearch && document.activeElement === input);
+    }, true);
+    input.addEventListener('focus', function(){
+      if(!userOpenedCourseSearch || clean(input.value).length < 2) close();
+      else render(true);
+    }, true);
     input.addEventListener('keydown', function(ev){
+      userOpenedCourseSearch = true;
       var items = Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));
       if(ev.key === 'ArrowDown'){
         ev.preventDefault();
-        if(!box.classList.contains('is-open')){ if(clean(input.value).length < 2) return; render(); }
+        if(!box.classList.contains('is-open')){ if(clean(input.value).length < 2) return; render(true); }
         setActive(active + 1);
       }else if(ev.key === 'ArrowUp'){
         ev.preventDefault();
@@ -10263,8 +10510,6 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   [200, 600, 1200, 2500].forEach(function(ms){ setTimeout(initAll, ms); });
 })();
 </script>
-
-
 <script id="guioes-carregar-guiao-por-id-v2">
 /* ===== Camada institucional — carregamento de guião para edição por itemId =====
    Abre o template com ?itemId=..., obtém os dados do fluxo “Obter guião por ID”
@@ -10363,7 +10608,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     value = clean(value);
     if(!value) return;
     setFirst(['curso','cursos'], value);
-    var search = $('cursoBusca');
+    var search = $('cursoSearch') || $('cursoBusca');
     if(search){ search.value = ''; dispatch(search); }
     var chips = $('cblCursosSelecionados') || $('pblCursosSelecionados') || document.querySelector('.cbl-course-chips,.pbl-course-chips,.rbl-course-chip-area,.sbl-course-chips');
     if(chips){
@@ -10372,6 +10617,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
         renderCourseFallback(chips, value, chips.id === 'pblCursosSelecionados' ? 'pbl-course-chip' : 'cbl-course-chip');
       }, 80);
     }
+    try{ document.dispatchEvent(new CustomEvent('rbl:courses-loaded',{detail:{courses:splitCourses(value)}})); }catch(e){}
   }
   function parseEstrutura(raw){
     if(!raw) return {};
@@ -10435,6 +10681,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 
     setFirst(['unidadeOrganica','unidade_organica'], values.unidadeOrganica || data.unidadeOrganica);
     setFirst(['modalidade'], values.modalidade || data.modalidade);
+    setFirst(['anoCurricular','AnoCurricular'], values.anoCurricular || values.AnoCurricular || data.anoCurricular || data.AnoCurricular);
     setFirst(['semestre'], values.semestre || data.semestre);
     setFirst(['turmaEdicao','turma_edicao','turma'], values.turmaEdicao || values.turma || data.turmaEdicao);
     setCursos(values.curso || values.cursos || data.cursos);
@@ -10488,8 +10735,6 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   else init();
 })();
 </script>
-
-
 <script id="guioes-fechar-dropdown-cursos-edicao-v2">
 (function(){
   'use strict';
@@ -10526,8 +10771,6 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   window.addEventListener('load', schedule);
 })();
 </script>
-
-
 <script id="guioes-fechar-dropdown-cursos-edicao-v3-hardening">
 (function(){
   'use strict';
@@ -10573,12 +10816,11 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   setTimeout(release, 14000);
 })();
 </script>
-
-<script id="validacao-obrigatoria-cabecalho-20260617">
+<script id="validacao-obrigatoria-cabecalho-20260617" type="application/json">
 /* VALIDACAO OBRIGATORIA CABECALHO 2026-06-17 — RBL */
 (function(){
   'use strict';
-  var REQUIRED_GROUPS = [{"label": "Unidade Orgânica", "selectors": ["#unidadeOrganica"]}, {"label": "Modalidade", "selectors": ["#modalidade"]}, {"label": "Semestre", "selectors": ["#semestre"]}, {"label": "Turma/Edição", "selectors": ["#turmaEdicao"]}, {"label": "Curso(s)", "selectors": ["#curso", "#cursoBusca"]}, {"label": "Unidade(s) Curricular(es)", "selectors": ["#uc"]}, {"label": "Docente(s)", "selectors": ["#professor"]}, {"label": "Email(s)", "selectors": ["#emails"]}, {"label": "Autoria", "selectors": ["#autoria"]}, {"label": "Ano letivo", "selectors": ["#ano"]}, {"label": "Estado do guião", "selectors": ["#estado_guiao"]}, {"label": "Autorização para repositório", "selectors": ["input[name=\"autorizaRepositorio\"]"]}];
+  var REQUIRED_GROUPS = [{"label": "Unidade Orgânica", "selectors": ["#unidadeOrganica"]}, {"label": "Modalidade", "selectors": ["#modalidade"]}, {"label": "Ano", "selectors": ["#anoCurricular"]}, {"label": "Semestre", "selectors": ["#semestre"]}, {"label": "Turma/Edição", "selectors": ["#turmaEdicao"]}, {"label": "Curso(s)", "selectors": ["#curso", "#cursoBusca"]}, {"label": "Unidade(s) Curricular(es)", "selectors": ["#uc"]}, {"label": "Docente(s)", "selectors": ["#professor"]}, {"label": "Email(s)", "selectors": ["#emails"]}, {"label": "Autoria", "selectors": ["#autoria"]}, {"label": "Ano letivo", "selectors": ["#ano"]}, {"label": "Estado do guião", "selectors": ["#estado_guiao"]}, {"label": "Autorização para repositório", "selectors": ["input[name=\"autorizaRepositorio\"]"]}];
   var VALIDAR_SESSOES_RBL = true;
   function norm(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
   function qsAll(sel){ try{ return Array.prototype.slice.call(document.querySelectorAll(sel)); }catch(e){ return []; } }
@@ -10588,9 +10830,9 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   function groupFilled(group){ var elements = elementsFor(group); if(!elements.length) return true; if(isRadioGroup(elements)) return elements.some(function(el){ return !!el.checked; }); return elements.some(function(el){ return valueOf(el) !== ''; }); }
   function firstFocusable(group){ var elements = elementsFor(group); return elements.find(function(el){ return el.type !== 'hidden' && !el.disabled; }) || elements[0] || null; }
   function setRequiredOn(el){ if(!el || el.disabled) return; if(el.type === 'hidden') return; el.setAttribute('aria-required','true'); if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT'){ el.required = true; el.setAttribute('required','required'); } }
-  function markRequired(){ REQUIRED_GROUPS.forEach(function(group){ var elements = elementsFor(group); if(isRadioGroup(elements)){ elements.forEach(function(el){ el.required = true; el.setAttribute('required','required'); el.setAttribute('aria-required','true'); }); } else { elements.forEach(setRequiredOn); } }); }
-  function missingSessionsRBL(){ if(!VALIDAR_SESSOES_RBL) return []; var controls = qsAll('.aula-dinamica input, .aula-dinamica textarea, .aula-dinamica select, input[id^="aula"][id$="_data"], input[id^="aula"][id$="_duracao"]'); var hasFilled = controls.some(function(el){ return !el.disabled && el.type !== 'hidden' && norm(el.value); }); return hasFilled ? [] : [{label:'pelo menos uma sessão', el:controls[0] || null}]; }
-  function validateObrigatorios(){ markRequired(); var missing = []; REQUIRED_GROUPS.forEach(function(group){ if(!groupFilled(group)) missing.push({label:group.label, el:firstFocusable(group)}); }); missing = missing.concat(missingSessionsRBL()); if(!missing.length) return true; var msg = 'Antes de enviar para validação, preencha: ' + missing.map(function(x){ return x.label; }).join(', ') + '.'; try{ var old = document.querySelector('.toast-message, .ux-toast'); if(old && old.parentNode) old.parentNode.removeChild(old); var d = document.createElement('div'); d.className = 'toast-message'; d.style.whiteSpace = 'pre-line'; d.style.maxWidth = '620px'; d.style.textAlign = 'left'; d.textContent = msg; document.body.appendChild(d); setTimeout(function(){ if(d && d.parentNode) d.parentNode.removeChild(d); }, 5000); }catch(e){} alert(msg); var focusEl = missing.find(function(x){ return x.el && x.el.type !== 'hidden'; }); if(focusEl && focusEl.el){ try{ focusEl.el.focus({preventScroll:false}); focusEl.el.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} } return false; }
+  function markRequired(){ REQUIRED_GROUPS.forEach(function(group){ var elements = elementsFor(group); if(isRadioGroup(elements)){ elements.forEach(function(el){ el.required = true; el.setAttribute('required','required'); el.setAttribute('aria-required','true'); }); } else { elements.forEach(setRequiredOn); } }); if(VALIDAR_SESSOES_RBL){ qsAll('input[id^="aula"][id$="_data"], input[id^="aula"][id$="_duracao"]').forEach(setRequiredOn); } }
+  function missingSessionsRBL(){ if(!VALIDAR_SESSOES_RBL) return []; var missing = []; qsAll('input[id^="aula"][id$="_data"]').forEach(function(dataEl){ var m = String(dataEl.id || '').match(/^aula(\d+)_data$/); var n = m ? m[1] : ''; if(!norm(dataEl.value)) missing.push({label:'Data da sessão ' + n, el:dataEl}); var durEl = n ? document.getElementById('aula' + n + '_duracao') : null; if(durEl && !norm(durEl.value)) missing.push({label:'Duração da sessão ' + n, el:durEl}); }); return missing; }
+  function validateObrigatorios(){ markRequired(); var missing = []; REQUIRED_GROUPS.forEach(function(group){ if(!groupFilled(group)) missing.push({label:group.label, el:firstFocusable(group)}); }); missing = missing.concat(missingSessionsRBL()); if(!missing.length) return true; var names = missing.map(function(x){ return '• ' + x.label; }).join('\n'); var msg = 'Antes de enviar para validação, preencha os campos obrigatórios:\n\n' + names; try{ var old = document.querySelector('.toast-message, .ux-toast'); if(old && old.parentNode) old.parentNode.removeChild(old); var d = document.createElement('div'); d.className = 'toast-message'; d.style.whiteSpace = 'pre-line'; d.style.maxWidth = '620px'; d.style.textAlign = 'left'; d.textContent = msg; document.body.appendChild(d); setTimeout(function(){ if(d && d.parentNode) d.parentNode.removeChild(d); }, 5000); }catch(e){} alert(msg); var focusEl = missing.find(function(x){ return x.el && x.el.type !== 'hidden'; }); if(focusEl && focusEl.el){ try{ focusEl.el.focus({preventScroll:false}); focusEl.el.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} } return false; }
   function isValidationTrigger(el){ if(!el) return false; var id = (el.id || '').toLowerCase(); var txt = norm(el.innerText || el.value || el.getAttribute('aria-label') || '').toLowerCase(); return id === 'btnenviarvalidacao' || id === 'btnvalidacaoreal' || /enviar\s+para\s+valida/.test(txt) || /submeter/.test(txt) || /submiss/.test(txt) || /atualizar\s+gui/.test(txt); }
   document.addEventListener('click', function(ev){ var el = ev.target && ev.target.closest ? ev.target.closest('button, input[type="button"], input[type="submit"], a') : null; if(!isValidationTrigger(el)) return; if(!validateObrigatorios()){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); return false; } }, true);
   document.addEventListener('submit', function(ev){ if(!validateObrigatorios()){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); return false; } }, true);
@@ -10602,21 +10844,6 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   if(VALIDAR_SESSOES_RBL && window.MutationObserver){ try{ new MutationObserver(function(){ markRequired(); }).observe(document.body, {childList:true, subtree:true}); }catch(e){} }
 })();
 </script>
-<style id="guioes-date-time-native-final-20260625">
-body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="date"],
-body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[type="time"]{
-  -webkit-appearance:auto !important;
-  appearance:auto !important;
-  background:#fff !important;
-  color:#242424 !important;
-  -webkit-text-fill-color:#242424 !important;
-  color-scheme:light !important;
-  min-height:42px !important;
-  line-height:normal !important;
-}
-</style>
-
-
 <script id="guioes-multicurso-emails-final-v1">
 /* ===== Correção institucional final — múltiplos cursos + normalização de e-mails =====
    - Permite manter vários cursos selecionados como chips.
@@ -10682,7 +10909,7 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
   }
   function readExistingChips(container){
     if(!container) return [];
-    return Array.prototype.slice.call(container.querySelectorAll('.cbl-course-chip,.pbl-course-chip,.projbl-course-chip,[data-course-chip]'))
+    return Array.prototype.slice.call(container.querySelectorAll('.cbl-course-chip,.pbl-course-chip,.projbl-course-chip,.rbl-course-chip,[data-course-chip]'))
       .map(chipText).filter(Boolean);
   }
   function ensureChipContainer(courseEl, searchEl){
@@ -10700,7 +10927,7 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
   }
   function getCourseElements(){
     var courseEl = document.getElementById('curso') || document.querySelector('[name="curso"]');
-    var searchEl = document.getElementById('cursoBusca') || document.querySelector('[name="cursoBusca"], input[data-pbl-aux="true"]');
+    var searchEl = document.getElementById('cursoSearch') || document.getElementById('cursoBusca') || document.querySelector('[name="cursoBusca"], input[data-pbl-aux="true"]');
     if(!courseEl) return null;
     var chips = ensureChipContainer(courseEl, searchEl);
     return {course:courseEl, search:searchEl, chips:chips};
@@ -10711,6 +10938,12 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
     var courseEl = els.course, searchEl = els.search, chips = els.chips;
     var cursos = uniqCourses(parts);
     var joined = cursos.join('; ');
+    var currentJoined = clean(courseEl.dataset.guioesMulticursoList || courseEl.value);
+    var currentChips = uniqCourses(readExistingChips(chips)).join('; ');
+    if(currentJoined === joined && currentChips === joined){
+      courseEl.dataset.guioesMulticursoList = joined;
+      return cursos;
+    }
     courseEl.dataset.guioesMulticursoList = joined;
     courseEl.dataset.guioesMulticursoUpdating = '1';
     courseEl.value = joined;
@@ -10741,7 +10974,7 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
     chips.innerHTML = '';
     cursos.forEach(function(curso, idx){
       var chip = document.createElement('span');
-      chip.className = chips.className && chips.className.indexOf('pbl-course') >= 0 ? 'pbl-course-chip' : 'cbl-course-chip';
+      chip.className = chips.classList && chips.classList.contains('rbl-course-chip-area') ? 'rbl-course-chip' : (chips.className && chips.className.indexOf('pbl-course') >= 0 ? 'pbl-course-chip' : 'cbl-course-chip');
       chip.setAttribute('data-course-chip','1');
       var label = document.createElement('span');
       label.textContent = curso;
@@ -10768,17 +11001,9 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
     var courseEl = els.course;
     if(courseEl.dataset.guioesMulticursoUpdating === '1') return;
     var newParts = splitCourses(courseEl.value);
-    var stored = splitCourses(courseEl.dataset.guioesMulticursoList || '').concat(readExistingChips(els.chips));
-    if(!newParts.length && stored.length){ setCourses(stored, 'silent'); return; }
-    if(!newParts.length) return;
-
-    var merged;
-    if(stored.length && newParts.length === 1 && !stored.some(function(x){ return normKey(x) === normKey(newParts[0]); })){
-      merged = stored.concat(newParts);
-    }else{
-      merged = newParts.concat(stored.filter(function(x){ return newParts.every(function(y){ return normKey(y) !== normKey(x); }); }));
-    }
-    setCourses(merged, 'silent');
+    /* Um valor externo completo (autosave/itemId) substitui a lista anterior.
+       Novas seleções continuam a ser acrescentadas pela função addCourse(). */
+    setCourses(newParts, 'silent');
   }
   function normalizarEmails(){
     var el = document.getElementById('emails') || document.querySelector('[name="emails"], #email, [name="email"]');
@@ -10803,6 +11028,10 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
   }
   function initMultiCourse(){
     var els = getCourseElements();
+    if(els && els.course && window.RBL_COURSE_PICKER_API && document.querySelector('.rbl-course-picker')){
+      els.course.dataset.guioesMulticursoFinalReady = '1';
+      return;
+    }
     if(!els || !els.course || els.course.dataset.guioesMulticursoFinalReady === '1'){
       if(els && els.course) reconcileFromCourseValue();
       return;
@@ -10982,8 +11211,305 @@ body:not(.guiao-pdf-mode) .pbl-course-chip button{
 }
 
 </style>
+<script id="rbl-ano-turma-project-integration-v1">
+(function(){
+  "use strict";
+  if(window.__rblAnoTurmaProjectIntegrationV1) return;
+  window.__rblAnoTurmaProjectIntegrationV1 = true;
 
+  function byId(id){ return document.getElementById(id); }
+  function clean(v){ return String(v == null ? "" : v).trim(); }
 
+  function ensure(){
+    var year = byId("anoCurricular");
+    var turma = byId("turmaEdicao");
 
+    if(year){
+      year.required = true;
+      year.setAttribute("aria-required", "true");
+    }
+
+    if(turma){
+      turma.type = "text";
+      turma.required = true;
+      turma.setAttribute("aria-required", "true");
+      turma.placeholder = "Ex.: D01, E02, 1.ª edição";
+    }
+  }
+
+  function notify(message){
+    if(typeof window.toast === "function") return window.toast(message, "error", 6500);
+    if(typeof window.showToast === "function") return window.showToast(message);
+    alert(message);
+  }
+
+  document.addEventListener("click", function(event){
+    if(window.__rblCentralValidationV3) return;
+    var button = event.target && event.target.closest &&
+      event.target.closest("#btnEnviarValidacao,#btnValidacaoReal,.ux-btn-primary");
+
+    if(!button) return;
+
+    ensure();
+    var year = byId("anoCurricular");
+
+    if(year && !clean(year.value)){
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      year.focus();
+      notify("Antes de enviar para validação, preencha: Ano.");
+    }
+  }, true);
+
+  var nativeFetch = window.fetch;
+  if(typeof nativeFetch === "function"){
+    window.fetch = function(input, init){
+      try{
+        if(init && typeof init.body === "string"){
+          var payload = JSON.parse(init.body);
+          var year = clean(byId("anoCurricular") && byId("anoCurricular").value);
+
+          if(payload && typeof payload === "object" && !Array.isArray(payload) && year){
+            payload.anoCurricular = year;
+            payload.AnoCurricular = year;
+
+            payload.formData =
+              payload.formData && typeof payload.formData === "object"
+                ? payload.formData
+                : {};
+
+            payload.formData.anoCurricular = year;
+
+            if(payload.values && typeof payload.values === "object"){
+              payload.values.anoCurricular = year;
+            }
+
+            if(payload.estruturaPedagogica &&
+               typeof payload.estruturaPedagogica === "string"){
+              try{
+                var estrutura = JSON.parse(payload.estruturaPedagogica);
+                estrutura.values =
+                  estrutura.values && typeof estrutura.values === "object"
+                    ? estrutura.values
+                    : {};
+                estrutura.values.anoCurricular = year;
+                payload.estruturaPedagogica = JSON.stringify(estrutura, null, 2);
+              }catch(error){}
+            }
+
+            init.body = JSON.stringify(payload);
+          }
+        }
+      }catch(error){}
+
+      return nativeFetch.apply(this, arguments);
+    };
+  }
+
+  ensure();
+  document.addEventListener("rbl:identificacao-rebuilt", ensure);
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", ensure);
+  }
+
+  setTimeout(ensure, 100);
+  setTimeout(ensure, 700);
+})();
+</script>
+
+<script id="rbl-etapa1-multicurso-numericos-final-v1">
+(function(){
+  'use strict';
+  if(window.__rblEtapa1MulticursoNumericosFinalV1) return;
+  window.__rblEtapa1MulticursoNumericosFinalV1 = true;
+
+  function dispatch(el){
+    try{ el.dispatchEvent(new Event('input',{bubbles:true})); }catch(e){}
+    try{ el.dispatchEvent(new Event('change',{bubbles:true})); }catch(e){}
+  }
+  function enforceNumeric(){
+    ['n_estudantes','n_grupos'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(!el) return;
+      try{ el.type='number'; }catch(e){ el.setAttribute('type','number'); }
+      el.setAttribute('min','1');
+      el.setAttribute('step','1');
+      el.setAttribute('inputmode','numeric');
+      el.setAttribute('autocomplete','off');
+      el.removeAttribute('pattern');
+      if(el.dataset.rblEtapa1NumericReady==='1') return;
+      el.dataset.rblEtapa1NumericReady='1';
+      el.addEventListener('keydown',function(e){
+        if(['e','E','+','-','.',','].indexOf(e.key)!==-1) e.preventDefault();
+      },true);
+      el.addEventListener('input',function(){
+        var raw=String(el.value||'').trim();
+        if(!raw) return;
+        var n=Number(raw);
+        if(!Number.isInteger(n)||n<1) el.value='';
+      },true);
+      el.addEventListener('change',function(){
+        var raw=String(el.value||'').trim();
+        if(!raw) return;
+        var n=Number(raw);
+        if(!Number.isInteger(n)||n<1){ el.value=''; dispatch(el); }
+      },true);
+    });
+  }
+  function syncRblCourses(){
+    var hidden=document.getElementById('curso');
+    if(!hidden) return;
+    var api=window.RBL_COURSE_PICKER_API;
+    if(api && typeof api.replaceFromField==='function') api.replaceFromField();
+  }
+  function run(){ enforceNumeric(); syncRblCourses(); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',run);
+  else run();
+  document.addEventListener('rbl:identificacao-rebuilt',run);
+  document.addEventListener('rbl:courses-loaded',syncRblCourses);
+  [100,350,800,1600,3000].forEach(function(ms){ setTimeout(run,ms); });
+  var observer=new MutationObserver(function(){ enforceNumeric(); });
+  observer.observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>
+<style id="rbl-central-required-v3-style">
+.rbl-required-star{color:#c8141e;font-weight:700;margin-left:3px;}
+.rbl-conditional-note{color:#6b6b6b;font-size:11px;line-height:1.35;margin:5px 0 0;}
+.rbl-required-missing{outline:3px solid rgba(200,20,30,.28)!important;outline-offset:2px!important;}
+@media print{.rbl-conditional-note{font-size:9pt;}}
+</style>
+<script id="rbl-central-required-v3">
+(function(){
+  'use strict';
+  if(window.__rblCentralValidationV3) return;
+  window.__rblCentralValidationV3=true;
+
+  var BASE=[
+    ['Unidade Orgânica','#unidadeOrganica'],['Modalidade','#modalidade'],
+    ['Ano','#anoCurricular'],['Semestre','#semestre'],['Turma/Edição','#turmaEdicao'],
+    ['Curso(s)','#curso'],['Unidade(s) Curricular(es)','#uc'],['Ano letivo','#ano'],
+    ['Docente(s)','#professor'],['Email(s)','#emails'],
+    ['Número de estudantes','#n_estudantes'],['Autoria(s)','#autoria'],
+    ['Estado do guião','#estado_guiao'],['Objetivos','#objetivos'],['Recursos','#recursos']
+  ];
+  var PARTS=[
+    ['Data','data'],['Tarefas','tarefas'],['Descrição','desc'],['Duração','duracao']
+  ];
+  function clean(v){return String(v==null?'':v).replace(/\s+/g,' ').trim();}
+  function value(el){
+    if(!el)return '';
+    if(el.type==='radio'||el.type==='checkbox')return el.checked?clean(el.value||'1'):'';
+    var v=clean(el.value);
+    return /^selecionar$/i.test(v)?'':v;
+  }
+  function lessonNumbers(){
+    var nums=[];
+    document.querySelectorAll('[id^="aula"][id$="_data"],[id^="aula"][id$="_tarefas"],[id^="aula"][id$="_desc"],[id^="aula"][id$="_duracao"]').forEach(function(el){
+      var m=el.id.match(/^aula(\d+)_(?:data|tarefas|desc|duracao)$/);
+      if(m&&nums.indexOf(+m[1])<0)nums.push(+m[1]);
+    });
+    return nums.sort(function(a,b){return a-b;});
+  }
+  function lessonFields(n){
+    return PARTS.map(function(p){return {label:p[0]+' da Aula '+n,el:document.getElementById('aula'+n+'_'+p[1])};});
+  }
+  function repo(){
+    var els=Array.prototype.slice.call(document.querySelectorAll('input[name="autorizaRepositorio"]'));
+    return {label:'Autorização para integração no repositório',el:els[0]||null,filled:els.some(function(el){return el.checked;})};
+  }
+  function logicalRequired(){
+    var items=BASE.map(function(x){var el=document.querySelector(x[1]);return {label:x[0],el:el,filled:!!value(el)};});
+    var r=repo();items.push(r);
+    lessonNumbers().forEach(function(n){
+      var fs=lessonFields(n),started=n===1||fs.some(function(f){return !!value(f.el);});
+      if(started)fs.forEach(function(f){f.filled=!!value(f.el);items.push(f);});
+    });
+    return items;
+  }
+  function addStar(label){
+    if(!label||label.querySelector('.rbl-required-star'))return;
+    var s=document.createElement('span');s.className='rbl-required-star';s.textContent='*';s.setAttribute('aria-hidden','true');label.appendChild(s);
+  }
+  function labelFor(el){
+    if(!el)return null;
+    return document.querySelector('label[for="'+el.id+'"]')||(el.closest('.rbl-ident-card,.rbl-meta-field,.section')||document).querySelector('label');
+  }
+  function decorate(){
+    BASE.forEach(function(x){
+      var el=document.querySelector(x[1]);if(!el)return;
+      el.required=true;el.setAttribute('aria-required','true');addStar(labelFor(el));
+    });
+    document.querySelectorAll('input[name="autorizaRepositorio"]').forEach(function(el){el.required=true;el.setAttribute('aria-required','true');});
+    var repoBox=document.querySelector('.rbl-repo-auth');
+    if(repoBox){
+      var repoLabel=repoBox.querySelector('h2,h3,.section-title,.rbl-repo-auth-title,label');
+      if(repoLabel)addStar(repoLabel);
+    }
+    lessonNumbers().forEach(function(n){
+      lessonFields(n).forEach(function(f){if(f.el){f.el.setAttribute('aria-required',n===1?'true':'false');addStar(labelFor(f.el));}});
+      if(n>1){
+        var first=document.getElementById('aula'+n+'_data'),box=first&&first.closest('.aula-dinamica,.section');
+        if(box&&!box.querySelector('.rbl-conditional-note')){
+          var note=document.createElement('p');note.className='rbl-conditional-note';
+          note.textContent='* Obrigatório quando esta aula for utilizada.';
+          var heading=box.querySelector('h2,h3,.section-title');(heading||box).insertAdjacentElement(heading?'afterend':'afterbegin',note);
+        }
+      }
+    });
+    var groups=document.getElementById('n_grupos');
+    if(groups){groups.required=false;groups.removeAttribute('required');groups.setAttribute('aria-required','false');}
+    renderCentralProgress();
+  }
+  function renderCentralProgress(){
+    var items=logicalRequired(),filled=items.filter(function(x){return x.filled;}).length;
+    var pct=items.length?Math.round(filled/items.length*100):0;
+    var fill=document.getElementById('progressFill'),label=document.getElementById('progressLabel');
+    if(fill)fill.style.width=pct+'%';
+    if(label)label.textContent='Guião preenchido: '+pct+'%';
+    return pct;
+  }
+  window.renderProgress=renderCentralProgress;
+  function isTrigger(el){
+    if(!el)return false;
+    var txt=clean(el.textContent||el.value||'').toLowerCase(),id=(el.id||'').toLowerCase();
+    return id==='btnenviarvalidacao'||id==='btnvalidacaoreal'||txt.indexOf('enviar para valida')>=0||txt.indexOf('submeter')>=0;
+  }
+  function notify(missing){
+    var msg='Antes de enviar para validação, preencha os campos obrigatórios:\n\n'+missing.map(function(x){return '• '+x.label;}).join('\n');
+    if(typeof toast==='function')toast(msg);else alert(msg);
+  }
+  window.rblValidateRequired=function(options){
+    decorate();
+    var missing=logicalRequired().filter(function(x){return !x.filled;});
+    document.querySelectorAll('.rbl-required-missing').forEach(function(el){el.classList.remove('rbl-required-missing');});
+    if(!missing.length)return {ok:true,missing:[]};
+    missing.forEach(function(x){if(x.el)x.el.classList.add('rbl-required-missing');});
+    if(!options||!options.silent){
+      notify(missing);
+      var first=missing.find(function(x){return x.el;});
+      if(first){try{first.el.focus();first.el.scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}}
+    }
+    return {ok:false,missing:missing.map(function(x){return x.label;})};
+  };
+  document.addEventListener('click',function(ev){
+    var btn=ev.target&&ev.target.closest?ev.target.closest('button,input[type="button"],input[type="submit"],a'):null;
+    if(!isTrigger(btn))return;
+    if(!window.rblValidateRequired().ok){ev.preventDefault();ev.stopPropagation();if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();}
+  },true);
+  document.addEventListener('submit',function(ev){
+    if(!window.rblValidateRequired().ok){ev.preventDefault();ev.stopPropagation();if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();}
+  },true);
+  document.addEventListener('input',renderCentralProgress,true);
+  document.addEventListener('change',renderCentralProgress,true);
+  document.addEventListener('click',function(ev){
+    var add=ev.target&&ev.target.closest?ev.target.closest('#btnAdicionarAula,[title="Adicionar aula"],[aria-label="Adicionar aula"]'):null;
+    if(add)setTimeout(decorate,0);
+  },true);
+  function init(){decorate();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+  [100,400,1000,2500].forEach(function(ms){setTimeout(decorate,ms);});
+})();
+</script>
 </body>
 </html>
