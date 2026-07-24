@@ -11229,6 +11229,17 @@ body:not(.guiao-pdf-mode) .sbl-estado-card{
 </select>
 </div>
 <div class="header-card">
+<label for="anoCurricular">Ano</label>
+<select id="anoCurricular" name="anoCurricular" required="required" aria-required="true">
+<option value="">Selecionar</option>
+<option value="1.º Ano">1.º Ano</option>
+<option value="2.º Ano">2.º Ano</option>
+<option value="3.º Ano">3.º Ano</option>
+<option value="4.º Ano">4.º Ano</option>
+<option value="5.º Ano">5.º Ano</option>
+</select>
+</div>
+<div class="header-card">
 <label>Semestre</label>
 <select id="semestre" required="required" aria-required="true">
 <option value="">Selecionar</option>
@@ -11238,14 +11249,8 @@ body:not(.guiao-pdf-mode) .sbl-estado-card{
 </select>
 </div>
 <div class="header-card">
-<label>Turma/Edição</label>
-<select id="turmaEdicao" required="required" aria-required="true">
-<option value="">Selecionar</option>
-<option>Turma 1</option>
-<option>Turma 2</option>
-<option>Turma 3</option>
-<option>Turma 4</option>
-</select>
+<label for="turmaEdicao">Turma/Edição</label>
+<input id="turmaEdicao" name="turmaEdicao" type="text" placeholder="Ex.: Turma 2 / Edição Pós-Laboral" required="required" aria-required="true"/>
 </div>
 </div>
 <div class="sbl47-v53-header-cards"><div class="sbl47-v53-card sbl-course-cbl-card"><label for="cursoBusca">Curso(s)</label><div class="cbl-course-picker" data-multicourse="true">
@@ -11256,12 +11261,12 @@ body:not(.guiao-pdf-mode) .sbl-estado-card{
 <div aria-live="polite" class="cbl-course-chips" id="cblCursosSelecionados"></div>
 <div class="cbl-course-helper">Selecione um curso na lista. Para adicionar mais cursos, repita a seleção.</div>
 </div></div><div class="sbl47-v53-card"><label for="uc">Unidade(s) Curricular(es)</label><textarea id="uc" name="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado" required="required" aria-required="true"></textarea></div><div class="sbl47-v53-card"><label for="professor">Docente(s)</label><textarea id="professor" name="professor" placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva" required="required" aria-required="true"></textarea></div><div class="sbl47-v53-card wide"><label for="emails">Email(s)</label><textarea id="emails" name="emails" placeholder="Ex.: ana.silva@universidadeeuropeia.pt; joao.santos@universidadeeuropeia.pt" required="required" aria-required="true"></textarea></div><div class="sbl47-v53-card"><label for="ano_letivo">Ano letivo</label><input id="ano_letivo" name="ano_letivo" placeholder="Ex.: 2026/2027" type="text"/></div><div class="sbl47-v53-card"><label for="data">Data da simulação</label><input id="data" name="data" placeholder="AAAA-MM-DD" type="date" autocomplete="off" required aria-required="true"></div><div class="sbl47-v53-card"><label for="hora">Hora de início</label><input id="hora" name="hora" placeholder="HH:MM" type="time" autocomplete="off" required aria-required="true"></div><div class="sbl47-v53-card"><label for="hora_fim">Hora de fim</label><input id="hora_fim" name="hora_fim" placeholder="HH:MM" type="time" autocomplete="off" required aria-required="true"></div><div class="sbl47-v53-card"><label for="n_estudantes">Nº de estudantes</label><input id="n_estudantes" inputmode="numeric" min="0" name="n_estudantes" placeholder="Ex.: 32" step="1" type="number"/></div><div class="sbl47-v53-card"><label for="n_grupos">Nº de grupos</label><input id="n_grupos" inputmode="numeric" min="0" name="n_grupos" placeholder="Ex.: 6" step="1" type="number"/></div></div><div class="sbl-autoria-estado-panel"><div class="sbl-autoria-estado-title">Autoria e estado do guião</div><div class="sbl-autoria-estado-grid"><div class="sbl47-v53-card sbl-autoria-card"><label for="autoria">Autoria</label><textarea id="autoria" name="autoria" placeholder="Ex.: Ana Luiza Marques" required="required" aria-required="true"></textarea></div><div class="sbl47-v53-card sbl-estado-card"><label for="estado">Estado do guião</label><select id="estado" name="estado" required="required" aria-required="true"><option selected="selected" value="">Selecionar</option><option value="Novo">Novo</option><option value="Atualizado">Atualizado</option><option value="Reutilizado">Reutilizado</option></select></div></div></div>
-<div class="section sbl47-v68-red-print-card">
-<label>Objetivos:</label>
+<div class="section sbl47-v68-red-print-card" style="border-width:1.5px !important;">
+<label for="objetivos">Objetivos:</label>
 <textarea id="objetivos" required aria-required="true" placeholder="Indique os objetivos de aprendizagem..."></textarea>
 </div>
-<div class="section sbl47-v68-red-print-card">
-<label>Recursos:</label>
+<div class="section sbl47-v68-red-print-card" style="border-width:1.5px !important;">
+<label for="recursos">Recursos:</label>
 <textarea id="recursos" required aria-required="true" placeholder="Indique os recursos necessários..."></textarea>
 </div>
 
@@ -11302,12 +11307,12 @@ body:not(.guiao-pdf-mode) .sbl-estado-card{
 </div>
 
 <div class="section sbl-final-field sbl47-v68-red-print-card sbl47-v73-essential-print-card">
-  <label>Caso / identificação da personagem:</label>
+  <label for="cenario">Caso / identificação da personagem:</label>
   <textarea id="cenario" required aria-required="true" placeholder="Ex.: Personagem: cliente da clínica fictícia Aurora Dermis; sexo/género: feminino; idade/faixa etária: 30-45 anos; papel do ator/personagem: potencial cliente interessada num serviço personalizado; papel do estudante/profissional: técnico/a ou consultor/a responsável por compreender necessidades, apresentar opções e responder a objeções. Descreva de seguida o cenário de simulação."></textarea>
 </div>
 
 <div class="section sbl-final-field sbl47-v68-red-print-card sbl47-v73-essential-print-card">
-  <label>Informação inicial:</label>
+  <label for="oq_simulacao">Informação inicial:</label>
   <textarea id="oq_simulacao" required aria-required="true" placeholder="Informação inicial comum aos estudantes: descreva a empresa, marca, serviço/produto, situação de partida e contexto geral da simulação, sem antecipar todas as objeções, reações ou detalhes reservados ao ator/personagem."></textarea>
 </div>
 
@@ -11328,8 +11333,8 @@ body:not(.guiao-pdf-mode) .sbl-estado-card{
     </ul>
   </div>
 
-  <div class="section sbl-final-field sbl47-v68-red-print-card sbl47-v68-info-ator-force-print sbl47-v73-essential-print-card" style="border:1px solid rgba(227,30,36,.28) !important;border-radius:18px !important;background:#fff !important;box-shadow:none !important;">
-    <label>Informações para ator/personagem:</label>
+  <div class="section sbl-final-field sbl47-v68-red-print-card sbl47-v68-info-ator-force-print sbl47-v73-essential-print-card">
+    <label for="info_ator">Informações para ator/personagem:</label>
     <textarea id="info_ator" required aria-required="true" placeholder="Ex.: Personagem: mulher adulta, 30-45 anos, potencial cliente da clínica fictícia Aurora Dermis, exigente, ponderada e sensível ao preço. Pretende comparar benefícios, condições, preço, alternativas e segurança da proposta. Pode levantar objeções e revelar informação progressivamente conforme a abordagem do/a estudante."></textarea>
   </div>
 
@@ -11343,7 +11348,7 @@ body:not(.guiao-pdf-mode) .sbl-estado-card{
     </ul>
   </div>
 
-  <div class="sbl-final-action-card sbl47-v73-essential-print-card" style="background:#fff !important;border:2px solid #E31E24 !important;border-radius:12px !important;padding:15px !important;margin:15px 0 !important;box-shadow:0 4px 12px rgba(0,0,0,0.15) !important;">
+  <div class="sbl-final-action-card sbl47-v73-essential-print-card">
     <table class="sbl47-v73-quadro-acao-print" id="quadroAcao" style="width:100%;border-collapse:collapse;font-size:13px;">
       <tr style="background:#E31E24;color:#000;font-weight:bold;">
         <th style="padding:12px;text-align:left;width:50%;">AÇÃO – Ator/Personagem</th>
@@ -12199,6 +12204,7 @@ document.addEventListener('DOMContentLoaded', function(){
     payload.autorias = first(payload.autorias, payload.autoria, formData.autorias, formData.autoria);
     payload.unidadeOrganica = first(payload.unidadeOrganica, formData.unidadeOrganica, formData.unidade_organica);
     payload.modalidade = first(payload.modalidade, formData.modalidade);
+    payload.anoCurricular = first(payload.anoCurricular, payload.AnoCurricular, formData.anoCurricular, formData.AnoCurricular, domValue('#anoCurricular'));
     payload.semestre = first(payload.semestre, formData.semestre);
     payload.turmaEdicao = first(payload.turmaEdicao, payload.turma, formData.turmaEdicao, formData.turma_edicao, formData.turma);
     payload.anoLetivo = first(payload.anoLetivo, payload.ano, formData.anoLetivo, formData.AnoLetivo, formData.ano);
@@ -12443,6 +12449,7 @@ function collectFormData(){
       autorias: firstById(["autoria","autorias"]) || firstByLabel(["Autoria(s)", "Autoria"]),
       unidadeOrganica,
       modalidade,
+      anoCurricular: firstById(["anoCurricular","AnoCurricular"]) || firstByLabel(["Ano"]),
       semestre,
       turmaEdicao,
       turma: turmaEdicao,
@@ -12587,6 +12594,18 @@ function collectFormData(){
               <td class="pdf-cell-value">${valueHtml(fieldText("unidadeOrganica"))}</td>
               <td class="pdf-cell-label">Curso(s):</td>
               <td class="pdf-cell-value">${valueHtml(fieldText("curso"))}</td>
+            </tr>
+            <tr>
+              <td class="pdf-cell-label">Modalidade:</td>
+              <td class="pdf-cell-value">${valueHtml(fieldText("modalidade"))}</td>
+              <td class="pdf-cell-label">Ano:</td>
+              <td class="pdf-cell-value">${valueHtml(fieldText("anoCurricular"))}</td>
+            </tr>
+            <tr>
+              <td class="pdf-cell-label">Semestre:</td>
+              <td class="pdf-cell-value">${valueHtml(fieldText("semestre"))}</td>
+              <td class="pdf-cell-label">Turma/Edição:</td>
+              <td class="pdf-cell-value">${valueHtml(fieldText("turmaEdicao"))}</td>
             </tr>
             <tr>
               <td class="pdf-cell-label">Docente(s):</td>
@@ -12870,6 +12889,14 @@ function collectFormData(){
       const singleW = innerW;
 
       const pairRows = [
+        [
+          ['Modalidade', val('modalidade')],
+          ['Ano', val('anoCurricular')]
+        ],
+        [
+          ['Semestre', val('semestre')],
+          ['Turma/Edição', val('turmaEdicao')]
+        ],
         [
           ['Unidade Orgânica', val('unidadeOrganica') || val('unidade_organica')],
           ['Curso(s)', val('curso')]
@@ -13347,7 +13374,7 @@ async function downloadCurrentGuiesPdf(){
   };
 })();
 </script>
-<script>
+<script type="application/json">
 /* ===== Validação defensiva — campos numéricos ===== */
 (function(){
   const fields = [
@@ -13411,7 +13438,7 @@ async function downloadCurrentGuiesPdf(){
   }, true);
 })();
 </script>
-<script>
+<script type="application/json">
 /* ===== Validação SBL — Data e hora da simulação ===== */
 (function(){
   function toastSBL(message){
@@ -15919,8 +15946,8 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
       ]));
     }
 
-    // Garante a ordem desejada: Unidade Orgânica, Modalidade, Semestre, Turma/Edição.
-    var wanted = ['unidadeOrganica', 'modalidade', 'semestre', 'turmaEdicao'];
+    // Garante a ordem desejada: Unidade Orgânica, Modalidade, Ano, Semestre, Turma/Edição.
+    var wanted = ['unidadeOrganica', 'modalidade', 'anoCurricular', 'semestre', 'turmaEdicao'];
     wanted.forEach(function(id){
       var el = document.getElementById(id);
       var card = el ? el.closest('.header-card') : null;
@@ -15965,7 +15992,7 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
   };
 })();
 </script>
-<script id="sbl62-curso-multiplos-ilimitado-js">
+<script id="sbl62-curso-multiplos-ilimitado-js" type="application/json">
 (function(){
   'use strict';
 
@@ -16743,7 +16770,7 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
   };
 })();
 </script>
-<script id="guiao-required-submit-validation-v1">
+<script id="guiao-required-submit-validation-v1" type="application/json">
 /* ===== Auditoria transversal — campos obrigatórios antes da submissão =====
    Camada cirúrgica: não altera IDs, payloads, botões, Curso(s), PDF, Power Automate ou estrutura pedagógica.
    Apenas bloqueia o clique em “Enviar para Validação” quando faltam dados mínimos institucionais. */
@@ -17061,7 +17088,7 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
 })();
 </script>
 
-<script id="guiao-required-submit-validation-v2">
+<script id="guiao-required-submit-validation-v2" type="application/json">
 /* Camada transversal v2 — bloqueio antes de chamar o Power Automate.
    Impede submissão com Curso(s) apenas digitado e campos institucionais mínimos em branco. */
 (function(){
@@ -17552,6 +17579,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 
     setFirst(['unidadeOrganica','unidade_organica'], values.unidadeOrganica || data.unidadeOrganica);
     setFirst(['modalidade'], values.modalidade || data.modalidade);
+    setFirst(['anoCurricular','AnoCurricular'], values.anoCurricular || values.AnoCurricular || data.anoCurricular || data.AnoCurricular);
     setFirst(['semestre'], values.semestre || data.semestre);
     setFirst(['turmaEdicao','turma_edicao','turma'], values.turmaEdicao || values.turma || data.turmaEdicao);
     setCursos(values.curso || values.cursos || data.cursos);
@@ -17914,7 +17942,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 })();
 </script>
 
-<script>
+<script type="application/json">
 
 
 /* ===== SBL LIMPO DATA HORA E AUTORIA OBRIGATORIA 2026-06-16 =====
@@ -17982,7 +18010,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 <script>
 
 </script>
-<script>
+<script type="application/json">
 
 
 /* ===== SBL LIMPAR DATA HORA E VALIDACAO CIRURGICA 2026-06-16 =====
@@ -18131,7 +18159,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 })();
 
 </script>
-<script id="validacao-obrigatoria-cabecalho-20260617">
+<script id="validacao-obrigatoria-cabecalho-20260617" type="application/json">
 /* VALIDACAO OBRIGATORIA CABECALHO 2026-06-17 — SBL */
 (function(){
   'use strict';
@@ -18247,7 +18275,7 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
 </style>
 
 
-<script id="guioes-multicurso-emails-final-v1">
+<script id="guioes-multicurso-emails-final-v1" type="application/json">
 /* ===== Correção institucional final — múltiplos cursos + normalização de e-mails =====
    - Permite manter vários cursos selecionados como chips.
    - Mantém o payload #curso como "Curso A; Curso B" para Power Automate.
@@ -18544,5 +18572,724 @@ body:not(.guiao-pdf-mode) .pbl-course-chip button{
 
 
 
+<style id="sbl-final-unified-v1-style">
+.sbl-required-star{color:#E31E24!important;font-weight:800;margin-left:3px;}
+.sbl-table-required-star{display:inline-block;color:#E31E24!important;background:#fff;border-radius:4px;padding:0 3px;margin-left:4px;font-weight:900;}
+.sbl-required-table-note{margin:8px 0 10px;color:#5f5f5f;font-size:11px;line-height:1.4;}
+.sbl-central-validation-message{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:999999;max-width:700px;padding:14px 18px;border-radius:12px;background:#2f2f2f;color:#fff;font:13px/1.45 'Century Gothic','Segoe UI',Arial,sans-serif;white-space:pre-line;text-align:left;box-shadow:0 8px 26px rgba(0,0,0,.22);}
+@media screen{
+  body:not(.guiao-pdf-mode) .header-grid{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(108px,.65fr) minmax(0,1fr) minmax(0,1fr)!important;
+    gap:12px!important;
+    align-items:stretch!important;
+  }
+  body:not(.guiao-pdf-mode) .header-grid>.header-card{min-width:0!important;width:auto!important;}
+  body:not(.guiao-pdf-mode) .header-grid .header-card select,
+  body:not(.guiao-pdf-mode) .header-grid .header-card input{width:100%!important;max-width:100%!important;box-sizing:border-box!important;}
+  body:not(.guiao-pdf-mode) .header-card:hover,
+  body:not(.guiao-pdf-mode) .header-card:focus-within,
+  body:not(.guiao-pdf-mode) .sbl47-v53-card:hover,
+  body:not(.guiao-pdf-mode) .sbl47-v53-card:focus-within,
+  body:not(.guiao-pdf-mode) .section:has(input,textarea,select):hover,
+  body:not(.guiao-pdf-mode) .section:has(input,textarea,select):focus-within,
+  body:not(.guiao-pdf-mode) .sbl-final-action-card:hover,
+  body:not(.guiao-pdf-mode) .sbl-final-action-card:focus-within,
+  body:not(.guiao-pdf-mode) .sbl-repository-authorization:hover,
+  body:not(.guiao-pdf-mode) .sbl-repository-authorization:focus-within{
+    border-color:#E31E24!important;
+    box-shadow:0 4px 14px rgba(227,30,36,.08)!important;
+    background:#fff!important;
+  }
+  body:not(.guiao-pdf-mode) input:not([type="radio"]):not([type="checkbox"]):hover:not(:focus),
+  body:not(.guiao-pdf-mode) textarea:hover:not(:focus),
+  body:not(.guiao-pdf-mode) select:hover:not(:focus){
+    border-color:#4f4f4f!important;outline:none!important;box-shadow:none!important;background:#fff!important;
+  }
+  body:not(.guiao-pdf-mode) input:not([type="radio"]):not([type="checkbox"]):focus,
+  body:not(.guiao-pdf-mode) textarea:focus,
+  body:not(.guiao-pdf-mode) select:focus{
+    border-color:#4f4f4f!important;outline:3px solid rgba(79,79,79,.10)!important;outline-offset:0!important;box-shadow:none!important;background:#fff!important;
+  }
+  body:not(.guiao-pdf-mode) .sbl-required-error,
+  body:not(.guiao-pdf-mode) .guiao-required-missing{border-color:#E31E24!important;outline:3px solid rgba(227,30,36,.22)!important;outline-offset:1px!important;}
+  body:not(.guiao-pdf-mode) .sbl-required-error-wrap{border-color:#E31E24!important;box-shadow:0 4px 14px rgba(227,30,36,.10)!important;}
+  @media(max-width:1000px){body:not(.guiao-pdf-mode) .header-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}}
+  @media(max-width:620px){body:not(.guiao-pdf-mode) .header-grid{grid-template-columns:minmax(0,1fr)!important;}body:not(.guiao-pdf-mode) .header-grid>*{grid-column:auto!important;}}
+}
+@media print{
+  .sbl-required-table-note{display:none!important;}
+  .header-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(80px,.65fr) minmax(0,1fr) minmax(0,1fr)!important;}
+}
+</style>
+<script id="sbl-final-unified-v1">
+(function(){
+  'use strict';
+  if(window.__sblFinalUnifiedV1)return;
+  window.__sblFinalUnifiedV1=true;
+
+  var BASE=[
+    ['Unidade Orgânica','#unidadeOrganica'],
+    ['Modalidade','#modalidade'],
+    ['Ano','#anoCurricular'],
+    ['Semestre','#semestre'],
+    ['Turma/Edição','#turmaEdicao'],
+    ['Curso(s)','#curso'],
+    ['Unidade(s) Curricular(es)','#uc'],
+    ['Ano letivo','#ano_letivo'],
+    ['Docente(s)','#professor'],
+    ['Email(s)','#emails'],
+    ['Data da simulação','#data'],
+    ['Hora de início','#hora'],
+    ['Hora de fim','#hora_fim'],
+    ['Nº de estudantes','#n_estudantes'],
+    ['Autoria(s)','#autoria'],
+    ['Estado do guião','#estado']
+  ];
+  var PEDAGOGICAL=[
+    ['Objetivos','#objetivos'],
+    ['Recursos','#recursos'],
+    ['Caso / identificação da personagem','#cenario'],
+    ['Informação inicial','#oq_simulacao'],
+    ['Informações para ator/personagem','#info_ator']
+  ];
+
+  function clean(v){return String(v==null?'':v).replace(/\s+/g,' ').trim();}
+  function splitCourses(v){return String(v==null?'':v).split(/\s*;\s*|\r?\n|\|/).map(clean).filter(Boolean);}
+  function uniq(list){var seen={},out=[];(list||[]).forEach(function(v){v=clean(v);var k=v.toLocaleLowerCase('pt');if(v&&!seen[k]){seen[k]=1;out.push(v);}});return out;}
+  function fire(el){if(!el)return;try{el.dispatchEvent(new Event('input',{bubbles:true}));}catch(e){}try{el.dispatchEvent(new Event('change',{bubbles:true}));}catch(e){}}
+  function value(el){
+    if(!el)return '';
+    if(el.type==='radio'||el.type==='checkbox')return el.checked?clean(el.value||'1'):'';
+    var v=clean(el.value);
+    return /^selecionar(?:\.\.\.)?$/i.test(v)?'':v;
+  }
+  function validEmails(v){var a=String(v||'').split(/[;,\n]+/).map(clean).filter(Boolean);return a.length>0&&a.every(function(x){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(x);});}
+  function positiveInteger(v){return /^[1-9]\d*$/.test(clean(v));}
+
+  function ensureHeader(){
+    var grid=document.querySelector('.header-grid');
+    if(!grid)return;
+    var year=document.getElementById('anoCurricular');
+    if(!year){
+      var card=document.createElement('div');card.className='header-card';
+      card.innerHTML='<label for="anoCurricular">Ano</label><select id="anoCurricular" name="anoCurricular"><option value="">Selecionar</option><option>1.º Ano</option><option>2.º Ano</option><option>3.º Ano</option><option>4.º Ano</option><option>5.º Ano</option></select>';
+      year=card.querySelector('select');grid.appendChild(card);
+    }
+    year.name='anoCurricular';
+    var turma=document.getElementById('turmaEdicao');
+    if(turma&&turma.tagName==='SELECT'){
+      var input=document.createElement('input');
+      input.id='turmaEdicao';input.name='turmaEdicao';input.type='text';input.value=value(turma);
+      input.placeholder='Ex.: Turma 2 / Edição Pós-Laboral';
+      turma.parentNode.replaceChild(input,turma);turma=input;
+    }
+    if(turma){turma.name='turmaEdicao';turma.removeAttribute('readonly');turma.disabled=false;}
+    ['unidadeOrganica','modalidade','anoCurricular','semestre','turmaEdicao'].forEach(function(id){
+      var el=document.getElementById(id),card=el&&el.closest('.header-card');
+      if(card&&card.parentNode===grid)grid.appendChild(card);
+    });
+    if(/SBL_Teste/i.test(location.pathname||'')&&!/[?&]itemId=/i.test(location.search||'')&&!value(year)){year.value='2.º Ano';fire(year);}
+  }
+
+  var canonicalCourses=[];
+  function courseEls(){return {hidden:document.getElementById('curso'),search:document.getElementById('cursoBusca'),chips:document.getElementById('cblCursosSelecionados')};}
+  function renderCourses(list,source){
+    var e=courseEls();if(!e.hidden)return [];
+    list=uniq(list);canonicalCourses=list.slice();var joined=list.join('; ');
+    e.hidden.dataset.sblFinalCourseUpdating='1';e.hidden.value=joined;e.hidden.dataset.guioesMulticursoList=joined;
+    if(e.chips){
+      e.chips.innerHTML='';
+      list.forEach(function(name,index){
+        var chip=document.createElement('span');chip.className='cbl-course-chip';chip.setAttribute('data-course-chip','1');
+        var label=document.createElement('span');label.textContent=name;
+        var remove=document.createElement('button');remove.type='button';remove.textContent='×';remove.title='Remover curso';remove.setAttribute('aria-label','Remover curso '+name);
+        remove.addEventListener('click',function(ev){ev.preventDefault();ev.stopPropagation();var now=splitCourses(e.hidden.value);now.splice(index,1);renderCourses(now,'remove');});
+        chip.appendChild(label);chip.appendChild(remove);e.chips.appendChild(chip);
+      });
+      e.chips.classList.toggle('has-chips',list.length>0);
+    }
+    if(e.search&&source==='selection')e.search.value='';
+    fire(e.hidden);delete e.hidden.dataset.sblFinalCourseUpdating;renderCentralProgress();return list;
+  }
+  function knownCourse(raw){
+    var key=clean(raw).toLocaleLowerCase('pt'),found='';
+    document.querySelectorAll('#cblCursosList option').forEach(function(o){var v=clean(o.value||o.textContent);if(v.toLocaleLowerCase('pt')===key)found=v;});
+    return found;
+  }
+  function addCourse(raw){raw=clean(raw);if(!raw)return false;var e=courseEls();if(!e.hidden)return false;var next=uniq(canonicalCourses.concat(splitCourses(e.hidden.value),splitCourses(raw)));renderCourses(next,'selection');[0,60,220].forEach(function(ms){setTimeout(function(){renderCourses(canonicalCourses,'silent');},ms);});return true;}
+  function replaceCourses(raw){return renderCourses(splitCourses(raw),'replace');}
+  function normalizeEmails(){var el=document.getElementById('emails');if(!el)return '';var hits=String(el.value||'').match(/[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,}/ig);if(hits){el.value=uniq(hits).join('; ');fire(el);}return el.value||'';}
+  function bindCourse(){
+    var e=courseEls();if(!e.hidden)return;
+    e.hidden.type='hidden';e.hidden.name='curso';
+    if(e.search&&e.search.dataset.sblFinalCourseBound!=='1'){
+      e.search.dataset.sblFinalCourseBound='1';e.search.required=false;e.search.removeAttribute('required');e.search.setAttribute('aria-required','true');
+      e.search.addEventListener('change',function(){var x=knownCourse(e.search.value);if(x)addCourse(x);},true);
+      e.search.addEventListener('keydown',function(ev){if(ev.key==='Enter'){var x=knownCourse(e.search.value);if(x){ev.preventDefault();ev.stopPropagation();addCourse(x);}}},true);
+    }
+    if(e.hidden.dataset.sblFinalCourseHiddenBound!=='1'){
+      e.hidden.dataset.sblFinalCourseHiddenBound='1';
+      ['input','change'].forEach(function(evt){e.hidden.addEventListener(evt,function(){
+        if(e.hidden.dataset.sblFinalCourseUpdating==='1')return;
+        var incoming=splitCourses(e.hidden.value);
+        if(!canonicalCourses.length){if(incoming.length)renderCourses(incoming,'silent');return;}
+        var canonicalKeys=canonicalCourses.map(function(x){return x.toLocaleLowerCase('pt');});
+        var subset=incoming.length&&incoming.every(function(x){return canonicalKeys.indexOf(x.toLocaleLowerCase('pt'))>=0;});
+        if(subset&&incoming.length<canonicalCourses.length){setTimeout(function(){renderCourses(canonicalCourses,'silent');},0);}
+        else if(incoming.length){renderCourses(canonicalCourses.concat(incoming),'silent');}
+      },true);});
+    }
+    if(clean(e.hidden.value))renderCourses(splitCourses(e.hidden.value),'silent');
+  }
+  window.adicionarCursoCBL=addCourse;window.addCurso=addCourse;window.adicionarCurso=addCourse;
+  window.GUIOES_MULTICURSO_EMAILS_FINAL_V1={init:bindCourse,normalizarEmails:normalizeEmails,cursos:function(){var e=courseEls();return e.hidden?splitCourses(e.hidden.value):[];},adicionarCurso:addCourse,substituirCursos:replaceCourses};
+
+  function actionRows(){
+    var table=document.getElementById('quadroAcao');if(!table)return [];
+    return Array.prototype.slice.call(table.querySelectorAll('tr')).map(function(row){
+      var controls=row.querySelectorAll('textarea,input');return controls.length>=2&&!row.classList.contains('sbl-acoes-footer-row')?{row:row,left:controls[0],right:controls[1]}:null;
+    }).filter(Boolean);
+  }
+  function rowStarted(r){return !!value(r.left)||!!value(r.right);}
+  function actionItems(){
+    var rows=actionRows(),active=rows.filter(rowStarted),expected=active.length?active:(rows[0]?[rows[0]]:[]);
+    var items=[];
+    expected.forEach(function(r){var n=rows.indexOf(r)+1;items.push({label:'Ação do ator/personagem (linha '+n+')',el:r.left,filled:!!value(r.left)});items.push({label:'Reação do técnico/profissional (linha '+n+')',el:r.right,filled:!!value(r.right)});});
+    return items;
+  }
+  function repoItem(){var radios=Array.prototype.slice.call(document.querySelectorAll('input[name="autorizaRepositorio"]'));return {label:'Autorização para integração no repositório',el:radios[0]||null,filled:radios.some(function(r){return r.checked;})};}
+  function logicalRequired(){
+    var items=BASE.concat(PEDAGOGICAL).map(function(x){var el=document.querySelector(x[1]),v=value(el),filled=!!v;if(x[1]==='#emails')filled=validEmails(v);if(x[1]==='#n_estudantes'||x[1]==='#n_grupos')filled=positiveInteger(v);return {label:x[0],el:el,filled:filled};});
+    items.push(repoItem());return items.concat(actionItems());
+  }
+  function labelFor(el){
+    if(!el)return null;
+    if(el.id){var direct=document.querySelector('label[for="'+el.id+'"]');if(direct)return direct;}
+    var box=el.closest('.header-card,.sbl47-v53-card,.section');return box?box.querySelector('label'):null;
+  }
+  function addStar(label,table){
+    if(!label)return;if(label.querySelector('.sbl-required-star,.sbl-table-required-star'))return;
+    var star=document.createElement('span');star.className=table?'sbl-table-required-star':'sbl-required-star';star.textContent='*';star.setAttribute('aria-hidden','true');label.appendChild(star);
+  }
+  function decorate(){
+    ensureHeader();bindCourse();
+    BASE.concat(PEDAGOGICAL).forEach(function(x){var el=document.querySelector(x[1]);if(!el)return;if(el.type!=='hidden'){el.required=true;el.setAttribute('required','required');}el.setAttribute('aria-required','true');addStar(labelFor(el),false);});
+    var autoria=document.getElementById('autoria'),autoriaLabel=labelFor(autoria);if(autoriaLabel){Array.prototype.slice.call(autoriaLabel.childNodes).forEach(function(n){if(n.nodeType===3&&/Autoria/.test(n.nodeValue||''))n.nodeValue='Autoria(s)';});}
+    ['n_estudantes','n_grupos'].forEach(function(id){var el=document.getElementById(id);if(el){el.min='1';el.step='1';el.inputMode='numeric';}});
+    var grupos=document.getElementById('n_grupos');if(grupos){grupos.required=false;grupos.removeAttribute('required');grupos.setAttribute('aria-required','false');}
+    var radios=document.querySelectorAll('input[name="autorizaRepositorio"]');radios.forEach(function(r){r.required=true;r.setAttribute('required','required');r.setAttribute('aria-required','true');});
+    addStar(document.querySelector('.sbl-repository-title'),false);
+    var rows=actionRows(),active=rows.filter(rowStarted),expected=active.length?active:(rows[0]?[rows[0]]:[]);
+    rows.forEach(function(r){[r.left,r.right].forEach(function(el){var req=expected.indexOf(r)>=0;el.required=req;if(req)el.setAttribute('required','required');else el.removeAttribute('required');el.setAttribute('aria-required',req?'true':'false');});});
+    var headers=document.querySelectorAll('#quadroAcao th');headers.forEach(function(th){addStar(th,true);});
+    var card=document.querySelector('.sbl-final-action-card');if(card&&!card.querySelector('.sbl-required-table-note')){var note=document.createElement('p');note.className='sbl-required-table-note no-print';note.innerHTML='<span class="sbl-required-star" aria-hidden="true">*</span> É obrigatória pelo menos uma linha completa. Nas linhas adicionais, Ação e Reação tornam-se obrigatórias quando a linha for utilizada.';card.insertBefore(note,card.querySelector('#quadroAcao'));}
+    renderCentralProgress();
+  }
+  function renderCentralProgress(){
+    var items=logicalRequired(),filled=items.filter(function(x){return x.filled;}).length,pct=items.length?Math.round(filled/items.length*100):0;
+    var label=document.getElementById('progressLabel'),bar=document.getElementById('progressFill');if(label)label.textContent='Guião preenchido: '+pct+'%';if(bar)bar.style.width=pct+'%';return pct;
+  }
+  function clearErrors(){document.querySelectorAll('.sbl-required-error,.sbl-required-error-wrap,.guiao-required-missing').forEach(function(el){el.classList.remove('sbl-required-error','sbl-required-error-wrap','guiao-required-missing');});}
+  function mark(el){if(!el)return;el.classList.add('sbl-required-error');var wrap=el.closest('.header-card,.sbl47-v53-card,.section,.sbl-final-action-card,.sbl-repository-authorization');if(wrap)wrap.classList.add('sbl-required-error-wrap');}
+  function showMessage(missing){var old=document.querySelector('.sbl-central-validation-message');if(old)old.remove();var box=document.createElement('div');box.className='sbl-central-validation-message';box.textContent='Antes de enviar para validação, preencha corretamente:\n\n'+missing.map(function(x){return '• '+x.label;}).join('\n');document.body.appendChild(box);setTimeout(function(){if(box.parentNode)box.remove();},7500);}
+  window.sblValidateRequiredCentral=function(options){decorate();clearErrors();var missing=logicalRequired().filter(function(x){return !x.filled;});missing.forEach(function(x){mark(x.el);});if(!missing.length)return {ok:true,missing:[]};if(!options||!options.silent){showMessage(missing);var first=missing.find(function(x){return x.el;});if(first){setTimeout(function(){try{first.el.focus();first.el.scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}},0);}}return {ok:false,missing:missing.map(function(x){return x.label;})};};
+  function isTrigger(el){if(!el)return false;var id=(el.id||'').toLowerCase(),txt=clean(el.textContent||el.value||'').toLowerCase();return id==='btnenviarvalidacao'||id==='btnvalidacaoreal'||txt.indexOf('enviar para valida')>=0||txt.indexOf('submeter')>=0||txt.indexOf('atualizar guião')>=0;}
+  document.addEventListener('click',function(ev){var el=ev.target&&ev.target.closest?ev.target.closest('button,input[type="button"],input[type="submit"],a'):null;if(!isTrigger(el))return;normalizeEmails();if(!window.sblValidateRequiredCentral().ok){ev.preventDefault();ev.stopPropagation();if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();}},true);
+  document.addEventListener('submit',function(ev){normalizeEmails();if(!window.sblValidateRequiredCentral().ok){ev.preventDefault();ev.stopPropagation();if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();}},true);
+  document.addEventListener('input',function(ev){if(ev.target&&ev.target.closest&&ev.target.closest('#quadroAcao'))decorate();else renderCentralProgress();},false);
+  document.addEventListener('change',function(){renderCentralProgress();},false);
+  document.addEventListener('click',function(ev){if(ev.target&&ev.target.closest&&ev.target.closest('.btn-plus,.btn-minus'))setTimeout(decorate,0);},false);
+  window.renderProgress=renderCentralProgress;window.updateProgress=renderCentralProgress;window.atualizarProgresso=renderCentralProgress;window.calcularProgresso=renderCentralProgress;
+  window.guiaoValidarCamposObrigatoriosSubmissaoSBL20260616=window.sblValidateRequiredCentral;window.guiaoValidarCamposObrigatoriosSubmissaoV1=window.sblValidateRequiredCentral;window.guiaoValidarCamposObrigatoriosSubmissaoV2=window.sblValidateRequiredCentral;
+
+  var lastEditData=null;
+  function syncEditData(){
+    var data=window.__guioesDadosCarregadosPorItemId;if(!data||data===lastEditData)return;lastEditData=data;
+    var structure=data.estruturaPedagogica||{},values={};if(typeof structure==='string'){try{structure=JSON.parse(structure);}catch(e){structure={};}}if(structure&&structure.values)values=structure.values;
+    var courses=values.curso||values.cursos||data.cursos||data.curso;if(courses!==undefined)replaceCourses(courses);
+    var year=values.anoCurricular||values.AnoCurricular||data.anoCurricular||data.AnoCurricular;if(year){var el=document.getElementById('anoCurricular');if(el){el.value=year;fire(el);}}
+    decorate();
+  }
+  function init(){decorate();syncEditData();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+  [50,150,400,800,1500,2500,4000,6000].forEach(function(ms){setTimeout(function(){ensureHeader();bindCourse();syncEditData();decorate();},ms);});
+})();
+</script>
+<style id="sbl-visual-standard-v2">
+/* Padronização visual SBL:
+   exterior vermelho institucional; interior cinza;
+   dimensões previsíveis; grelhas coerentes em desktop e móvel. */
+@media screen{
+  :root{
+    --sbl-v2-red:#E31E24;
+    --sbl-v2-red-soft:rgba(227,30,36,.28);
+    --sbl-v2-red-shadow:rgba(227,30,36,.08);
+    --sbl-v2-inner:#b8b8b8;
+    --sbl-v2-inner-focus:#4f4f4f;
+    --sbl-v2-text:#333;
+    --sbl-v2-radius-outer:18px;
+    --sbl-v2-radius-inner:13px;
+  }
+
+  body:not(.guiao-pdf-mode) .header-card,
+  body:not(.guiao-pdf-mode) .sbl-oferta-section,
+  body:not(.guiao-pdf-mode) .sbl-autoria-card,
+  body:not(.guiao-pdf-mode) .sbl-estado-card,
+  body:not(.guiao-pdf-mode) .section.sbl47-v68-red-print-card,
+  body:not(.guiao-pdf-mode) .section.sbl-final-field,
+  body:not(.guiao-pdf-mode) .sbl-final-action-card,
+  body:not(.guiao-pdf-mode) .sbl-repository-authorization{
+    border:1.5px solid var(--sbl-v2-red-soft) !important;
+    border-radius:var(--sbl-v2-radius-outer) !important;
+    background:#fff !important;
+    box-shadow:none !important;
+    box-sizing:border-box !important;
+  }
+
+  body:not(.guiao-pdf-mode) .header-card:hover,
+  body:not(.guiao-pdf-mode) .header-card:focus-within,
+  body:not(.guiao-pdf-mode) .sbl-oferta-section:hover,
+  body:not(.guiao-pdf-mode) .sbl-oferta-section:focus-within,
+  body:not(.guiao-pdf-mode) .sbl-autoria-card:hover,
+  body:not(.guiao-pdf-mode) .sbl-autoria-card:focus-within,
+  body:not(.guiao-pdf-mode) .sbl-estado-card:hover,
+  body:not(.guiao-pdf-mode) .sbl-estado-card:focus-within,
+  body:not(.guiao-pdf-mode) .section.sbl47-v68-red-print-card:hover,
+  body:not(.guiao-pdf-mode) .section.sbl47-v68-red-print-card:focus-within,
+  body:not(.guiao-pdf-mode) .section.sbl-final-field:hover,
+  body:not(.guiao-pdf-mode) .section.sbl-final-field:focus-within,
+  body:not(.guiao-pdf-mode) .sbl-final-action-card:hover,
+  body:not(.guiao-pdf-mode) .sbl-final-action-card:focus-within,
+  body:not(.guiao-pdf-mode) .sbl-repository-authorization:hover,
+  body:not(.guiao-pdf-mode) .sbl-repository-authorization:focus-within{
+    border-color:var(--sbl-v2-red) !important;
+    box-shadow:0 4px 14px var(--sbl-v2-red-shadow) !important;
+  }
+  html body:not(.guiao-pdf-mode) .header-grid .header-card:hover,
+  html body:not(.guiao-pdf-mode) .header-grid .header-card:focus-within,
+  html body:not(.guiao-pdf-mode) .sbl-oferta-section:hover,
+  html body:not(.guiao-pdf-mode) .sbl-oferta-section:focus-within,
+  html body:not(.guiao-pdf-mode) .sbl-autoria-estado-panel .sbl-autoria-card:hover,
+  html body:not(.guiao-pdf-mode) .sbl-autoria-estado-panel .sbl-autoria-card:focus-within,
+  html body:not(.guiao-pdf-mode) .sbl-autoria-estado-panel .sbl-estado-card:hover,
+  html body:not(.guiao-pdf-mode) .sbl-autoria-estado-panel .sbl-estado-card:focus-within,
+  html body:not(.guiao-pdf-mode) .section.sbl-red-equal-section:hover,
+  html body:not(.guiao-pdf-mode) .section.sbl-red-equal-section:focus-within,
+  html body:not(.guiao-pdf-mode) .sbl-final-action-card.sbl47-v73-essential-print-card:hover,
+  html body:not(.guiao-pdf-mode) .sbl-final-action-card.sbl47-v73-essential-print-card:focus-within,
+  html body:not(.guiao-pdf-mode) #partilhaRepositorio.sbl-repository-authorization:hover,
+  html body:not(.guiao-pdf-mode) #partilhaRepositorio.sbl-repository-authorization:focus-within{
+    border-color:var(--sbl-v2-red) !important;
+    box-shadow:0 4px 14px var(--sbl-v2-red-shadow) !important;
+  }
+
+  body:not(.guiao-pdf-mode) .header-card input,
+  body:not(.guiao-pdf-mode) .header-card select,
+  body:not(.guiao-pdf-mode) .sbl-oferta-field input:not([type="hidden"]),
+  body:not(.guiao-pdf-mode) .sbl-oferta-field textarea,
+  body:not(.guiao-pdf-mode) .sbl-oferta-field select,
+  body:not(.guiao-pdf-mode) .sbl-autoria-card textarea,
+  body:not(.guiao-pdf-mode) .sbl-estado-card select,
+  body:not(.guiao-pdf-mode) #objetivos,
+  body:not(.guiao-pdf-mode) #recursos,
+  body:not(.guiao-pdf-mode) #cenario,
+  body:not(.guiao-pdf-mode) #oq_simulacao,
+  body:not(.guiao-pdf-mode) #info_ator,
+  body:not(.guiao-pdf-mode) #quadroAcao textarea{
+    border:1px solid var(--sbl-v2-inner) !important;
+    border-radius:var(--sbl-v2-radius-inner) !important;
+    background:#fff !important;
+    color:var(--sbl-v2-text) !important;
+    font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;
+    font-size:13px !important;
+    font-weight:400 !important;
+    line-height:1.35 !important;
+    box-shadow:none !important;
+    box-sizing:border-box !important;
+  }
+
+  body:not(.guiao-pdf-mode) .header-card input:focus,
+  body:not(.guiao-pdf-mode) .header-card select:focus,
+  body:not(.guiao-pdf-mode) .sbl-oferta-field input:not([type="hidden"]):focus,
+  body:not(.guiao-pdf-mode) .sbl-oferta-field textarea:focus,
+  body:not(.guiao-pdf-mode) .sbl-oferta-field select:focus,
+  body:not(.guiao-pdf-mode) .sbl-autoria-card textarea:focus,
+  body:not(.guiao-pdf-mode) .sbl-estado-card select:focus,
+  body:not(.guiao-pdf-mode) #objetivos:focus,
+  body:not(.guiao-pdf-mode) #recursos:focus,
+  body:not(.guiao-pdf-mode) #cenario:focus,
+  body:not(.guiao-pdf-mode) #oq_simulacao:focus,
+  body:not(.guiao-pdf-mode) #info_ator:focus,
+  body:not(.guiao-pdf-mode) #quadroAcao textarea:focus{
+    border-color:var(--sbl-v2-inner-focus) !important;
+    outline:3px solid rgba(79,79,79,.10) !important;
+    outline-offset:0 !important;
+    box-shadow:none !important;
+  }
+
+  body:not(.guiao-pdf-mode) .header-card{
+    min-height:78px !important;
+    padding:10px !important;
+  }
+  body:not(.guiao-pdf-mode) .header-card input,
+  body:not(.guiao-pdf-mode) .header-card select{
+    width:100% !important;
+    height:34px !important;
+    min-height:34px !important;
+    padding:5px 8px !important;
+    font-size:12.2px !important;
+  }
+
+  body:not(.guiao-pdf-mode) .header-card label,
+  body:not(.guiao-pdf-mode) .sbl-oferta-field label,
+  body:not(.guiao-pdf-mode) .sbl-autoria-card label,
+  body:not(.guiao-pdf-mode) .sbl-estado-card label{
+    color:var(--sbl-v2-text) !important;
+    font-size:13px !important;
+    font-weight:800 !important;
+    line-height:1.2 !important;
+    margin:0 0 7px !important;
+  }
+
+  body:not(.guiao-pdf-mode) .sbl-oferta-section{
+    padding:14px !important;
+  }
+  body:not(.guiao-pdf-mode) .sbl-oferta-grid{
+    display:grid !important;
+    grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+    gap:12px !important;
+    align-items:start !important;
+  }
+  body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-span-2{
+    grid-column:span 2 !important;
+  }
+  body:not(.guiao-pdf-mode) #cursoBusca,
+  body:not(.guiao-pdf-mode) #uc,
+  body:not(.guiao-pdf-mode) #professor,
+  body:not(.guiao-pdf-mode) #emails,
+  body:not(.guiao-pdf-mode) #ano_letivo{
+    height:58px !important;
+    min-height:58px !important;
+  }
+  body:not(.guiao-pdf-mode) #n_estudantes,
+  body:not(.guiao-pdf-mode) #n_grupos,
+  body:not(.guiao-pdf-mode) #data,
+  body:not(.guiao-pdf-mode) #hora,
+  body:not(.guiao-pdf-mode) #hora_fim{
+    height:42px !important;
+    min-height:42px !important;
+  }
+
+  body:not(.guiao-pdf-mode) .sbl-autoria-estado-grid{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+    gap:12px !important;
+    align-items:stretch !important;
+  }
+  body:not(.guiao-pdf-mode) .sbl-autoria-card,
+  body:not(.guiao-pdf-mode) .sbl-estado-card{
+    width:auto !important;
+    min-width:0 !important;
+    min-height:110px !important;
+    padding:14px !important;
+  }
+  html body:not(.guiao-pdf-mode) .sbl-autoria-estado-panel .sbl-autoria-estado-grid > .sbl47-v53-card.sbl-autoria-card,
+  html body:not(.guiao-pdf-mode) .sbl-autoria-estado-panel .sbl-autoria-estado-grid > .sbl47-v53-card.sbl-estado-card{
+    grid-column:auto !important;
+    width:auto !important;
+    max-width:none !important;
+    min-width:0 !important;
+    min-height:110px !important;
+    padding:14px !important;
+    border:1.5px solid var(--sbl-v2-red-soft) !important;
+    border-radius:var(--sbl-v2-radius-outer) !important;
+    background:#fff !important;
+    box-shadow:none !important;
+  }
+  body:not(.guiao-pdf-mode) #autoria,
+  body:not(.guiao-pdf-mode) #estado{
+    width:100% !important;
+    height:58px !important;
+    min-height:58px !important;
+    padding:9px 10px !important;
+  }
+  html body:not(.guiao-pdf-mode) .sbl-autoria-estado-panel .sbl-autoria-estado-grid textarea#autoria,
+  html body:not(.guiao-pdf-mode) .sbl-autoria-estado-panel .sbl-autoria-estado-grid select#estado{
+    width:100% !important;
+    height:58px !important;
+    min-height:58px !important;
+    padding:9px 10px !important;
+    border:1px solid var(--sbl-v2-inner) !important;
+    border-radius:var(--sbl-v2-radius-inner) !important;
+    background:#fff !important;
+    box-shadow:none !important;
+  }
+
+  body:not(.guiao-pdf-mode) .section:has(#objetivos),
+  body:not(.guiao-pdf-mode) .section:has(#recursos),
+  body:not(.guiao-pdf-mode) .section:has(#cenario),
+  body:not(.guiao-pdf-mode) .section:has(#oq_simulacao),
+  body:not(.guiao-pdf-mode) .section:has(#info_ator){
+    width:100% !important;
+    min-height:0 !important;
+    padding:14px !important;
+  }
+  html body:not(.guiao-pdf-mode) .section.sbl-final-actor-section:has(#info_ator){
+    width:100% !important;
+    padding:0 !important;
+  }
+  html body:not(.guiao-pdf-mode) div.section.sbl-objetivos-recursos-compacto.sbl-red-equal-section{
+    border-width:1.5px !important;
+  }
+  body:not(.guiao-pdf-mode) .section:has(#objetivos)>label,
+  body:not(.guiao-pdf-mode) .section:has(#recursos)>label,
+  body:not(.guiao-pdf-mode) .section:has(#cenario)>label,
+  body:not(.guiao-pdf-mode) .section:has(#oq_simulacao)>label,
+  body:not(.guiao-pdf-mode) .section:has(#info_ator)>label{
+    color:var(--sbl-v2-text) !important;
+    font-size:15px !important;
+    font-weight:800 !important;
+    line-height:1.25 !important;
+    margin:0 0 9px !important;
+  }
+  body:not(.guiao-pdf-mode) #objetivos,
+  body:not(.guiao-pdf-mode) #recursos{
+    width:100% !important;
+    min-height:84px !important;
+    padding:10px 12px !important;
+  }
+  body:not(.guiao-pdf-mode) #cenario,
+  body:not(.guiao-pdf-mode) #oq_simulacao,
+  body:not(.guiao-pdf-mode) #info_ator{
+    width:100% !important;
+    min-height:90px !important;
+    padding:8px 10px !important;
+  }
+  html body:not(.guiao-pdf-mode) div.section.sbl-final-field.sbl47-v68-red-print-card.sbl47-v68-info-ator-force-print.sbl47-v73-essential-print-card textarea#info_ator{
+    border:1px solid var(--sbl-v2-inner) !important;
+    border-radius:var(--sbl-v2-radius-inner) !important;
+    background:#fff !important;
+    box-shadow:none !important;
+  }
+
+  body:not(.guiao-pdf-mode) .sbl-final-action-card{
+    padding:14px !important;
+  }
+  html body:not(.guiao-pdf-mode) div.sbl-final-action-card.sbl47-v73-essential-print-card{
+    border:1.5px solid var(--sbl-v2-red-soft) !important;
+    border-radius:var(--sbl-v2-radius-outer) !important;
+    padding:14px !important;
+    margin:14px 0 !important;
+    background:#fff !important;
+    box-shadow:none !important;
+  }
+  body:not(.guiao-pdf-mode) #quadroAcao textarea{
+    min-height:82px !important;
+    padding:8px 10px !important;
+  }
+  body:not(.guiao-pdf-mode) .sbl-repository-authorization{
+    padding:14px !important;
+  }
+
+  body:not(.guiao-pdf-mode) .ux-actions{
+    border-radius:var(--sbl-v2-radius-outer) !important;
+    padding:10px !important;
+  }
+  body:not(.guiao-pdf-mode) .ux-actions>button{
+    min-height:38px !important;
+    border-radius:999px !important;
+    font-size:12.2px !important;
+    font-weight:700 !important;
+    padding:0 14px !important;
+  }
+  body:not(.guiao-pdf-mode) .ux-actions>#btnEnviarValidacao{
+    border:1.5px solid var(--sbl-v2-red) !important;
+    color:var(--sbl-v2-red) !important;
+    background:#fff !important;
+  }
+
+  @media(max-width:760px){
+    body:not(.guiao-pdf-mode) .sbl-oferta-grid{
+      grid-template-columns:minmax(0,1fr) !important;
+      gap:12px !important;
+    }
+    body:not(.guiao-pdf-mode) .sbl-oferta-field,
+    body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-span-2,
+    body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field,
+    body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-time-field{
+      grid-column:1 / -1 !important;
+    }
+    body:not(.guiao-pdf-mode) .sbl-autoria-estado-grid{
+      grid-template-columns:minmax(0,1fr) !important;
+    }
+    body:not(.guiao-pdf-mode) #cenario,
+    body:not(.guiao-pdf-mode) #oq_simulacao,
+    body:not(.guiao-pdf-mode) #info_ator{
+      min-height:150px !important;
+    }
+    body:not(.guiao-pdf-mode) #quadroAcao textarea{
+      height:72px !important;
+      min-height:72px !important;
+      overflow:auto !important;
+    }
+    body:not(.guiao-pdf-mode) #quadroAcao td{
+      padding:8px !important;
+    }
+    body:not(.guiao-pdf-mode) .ux-actions{
+      gap:8px !important;
+    }
+    body:not(.guiao-pdf-mode) .ux-actions>button{
+      width:100% !important;
+      justify-content:center !important;
+    }
+  }
+}
+</style>
+<style id="sbl-visual-internal-dark-v3">
+/* Estado visual único:
+   interior cinza-escuro; vermelho reservado ao cartão exterior ativo. */
+@media screen{
+  :root{
+    --sbl-v3-inner-dark:#6f6f6f;
+    --sbl-v3-inner-focus:#4f4f4f;
+    --sbl-v3-red:#E31E24;
+  }
+
+  html body:not(.guiao-pdf-mode) .page .header-card input,
+  html body:not(.guiao-pdf-mode) .page .header-card select,
+  html body:not(.guiao-pdf-mode) .page .sbl-oferta-field input:not([type="hidden"]),
+  html body:not(.guiao-pdf-mode) .page .sbl-oferta-field textarea,
+  html body:not(.guiao-pdf-mode) .page .sbl-oferta-field select,
+  html body:not(.guiao-pdf-mode) .page textarea#autoria,
+  html body:not(.guiao-pdf-mode) .page select#estado,
+  html body:not(.guiao-pdf-mode) .page textarea#objetivos,
+  html body:not(.guiao-pdf-mode) .page textarea#recursos,
+  html body:not(.guiao-pdf-mode) .page textarea#cenario,
+  html body:not(.guiao-pdf-mode) .page textarea#oq_simulacao,
+  html body:not(.guiao-pdf-mode) .page textarea#info_ator,
+  html body:not(.guiao-pdf-mode) .page #quadroAcao textarea{
+    border-color:var(--sbl-v3-inner-dark) !important;
+    background:#fff !important;
+    box-shadow:none !important;
+  }
+
+  html body:not(.guiao-pdf-mode) .page .sbl-final-proc-card,
+  html body:not(.guiao-pdf-mode) .page .sbl-final-note,
+  html body:not(.guiao-pdf-mode) .page .sbl47-v55-quadro-explicativo,
+  html body:not(.guiao-pdf-mode) .page .sbl-repository-option{
+    border-color:var(--sbl-v3-inner-dark) !important;
+    background:#fff !important;
+    box-shadow:none !important;
+  }
+
+  html body:not(.guiao-pdf-mode) .page .header-card input:focus,
+  html body:not(.guiao-pdf-mode) .page .header-card select:focus,
+  html body:not(.guiao-pdf-mode) .page .sbl-oferta-field input:not([type="hidden"]):focus,
+  html body:not(.guiao-pdf-mode) .page .sbl-oferta-field textarea:focus,
+  html body:not(.guiao-pdf-mode) .page .sbl-oferta-field select:focus,
+  html body:not(.guiao-pdf-mode) .page textarea#autoria:focus,
+  html body:not(.guiao-pdf-mode) .page select#estado:focus,
+  html body:not(.guiao-pdf-mode) .page textarea#objetivos:focus,
+  html body:not(.guiao-pdf-mode) .page textarea#recursos:focus,
+  html body:not(.guiao-pdf-mode) .page textarea#cenario:focus,
+  html body:not(.guiao-pdf-mode) .page textarea#oq_simulacao:focus,
+  html body:not(.guiao-pdf-mode) .page textarea#info_ator:focus,
+  html body:not(.guiao-pdf-mode) .page #quadroAcao textarea:focus{
+    border-color:var(--sbl-v3-inner-focus) !important;
+    outline:3px solid rgba(79,79,79,.10) !important;
+    outline-offset:0 !important;
+    background:#fff !important;
+    box-shadow:none !important;
+  }
+
+  html body:not(.guiao-pdf-mode) .page .header-card:has(input:focus,select:focus),
+  html body:not(.guiao-pdf-mode) .page .sbl-oferta-section:has(input:focus,textarea:focus,select:focus),
+  html body:not(.guiao-pdf-mode) .page .sbl-autoria-card:has(#autoria:focus),
+  html body:not(.guiao-pdf-mode) .page .sbl-estado-card:has(#estado:focus),
+  html body:not(.guiao-pdf-mode) .page .section:has(#objetivos:focus),
+  html body:not(.guiao-pdf-mode) .page .section:has(#recursos:focus),
+  html body:not(.guiao-pdf-mode) .page .section:has(#cenario:focus),
+  html body:not(.guiao-pdf-mode) .page .section:has(#oq_simulacao:focus),
+  html body:not(.guiao-pdf-mode) .page .section:has(#info_ator:focus),
+  html body:not(.guiao-pdf-mode) .page .sbl-final-action-card:has(textarea:focus),
+  html body:not(.guiao-pdf-mode) .page .sbl-repository-authorization:has(input:focus){
+    border-color:var(--sbl-v3-red) !important;
+    box-shadow:0 4px 14px rgba(227,30,36,.08) !important;
+    background:#fff !important;
+  }
+
+  /* Hover exterior apenas nos blocos editáveis pedidos. Os blocos
+     exclusivamente informativos permanecem estáticos. */
+  html body:not(.guiao-pdf-mode) .page .sbl-oferta-section:has(#cursoBusca):hover,
+  html body:not(.guiao-pdf-mode) .page .sbl-autoria-card:has(#autoria):hover,
+  html body:not(.guiao-pdf-mode) .page .sbl-estado-card:has(#estado):hover,
+  html body:not(.guiao-pdf-mode) .page .section:has(#objetivos):hover,
+  html body:not(.guiao-pdf-mode) .page .section:has(#recursos):hover,
+  html body:not(.guiao-pdf-mode) .page .section:has(#info_ator):hover,
+  html body:not(.guiao-pdf-mode) .page .sbl-final-action-card:has(#quadroAcao):hover{
+    border-color:var(--sbl-v3-red) !important;
+    box-shadow:0 4px 14px rgba(227,30,36,.08) !important;
+    background:#fff !important;
+  }
+
+  html body:not(.guiao-pdf-mode) .page .sbl-repository-option:has(input:focus),
+  html body:not(.guiao-pdf-mode) .page .sbl-repository-option:has(input:checked){
+    border-color:var(--sbl-v3-red) !important;
+  }
+
+  html body:not(.guiao-pdf-mode) .page div.section.sbl-oferta-section.sbl-oferta-simulacao-section.sbl-padronizacao-superior{
+    border:1.5px solid rgba(227,30,36,.28) !important;
+    border-radius:18px !important;
+    background:#fff !important;
+    box-shadow:none !important;
+  }
+  html body:not(.guiao-pdf-mode) .page div.section.sbl-final-field.sbl47-v68-red-print-card.sbl47-v68-info-ator-force-print.sbl47-v73-essential-print-card{
+    border:1.5px solid rgba(227,30,36,.28) !important;
+    border-radius:18px !important;
+    background:#fff !important;
+    box-shadow:none !important;
+  }
+  html body:not(.guiao-pdf-mode) .page div.sbl-final-action-card.sbl47-v73-essential-print-card{
+    border:1.5px solid rgba(227,30,36,.28) !important;
+    border-radius:18px !important;
+    padding:14px !important;
+    margin:14px 0 !important;
+    background:#fff !important;
+    box-shadow:none !important;
+  }
+
+  html body:not(.guiao-pdf-mode) .page .sbl-oferta-section input#cursoBusca:focus,
+  html body:not(.guiao-pdf-mode) .page .sbl-oferta-section textarea#uc:focus,
+  html body:not(.guiao-pdf-mode) .page .sbl-oferta-section textarea#professor:focus,
+  html body:not(.guiao-pdf-mode) .page .sbl-oferta-section input#n_estudantes:focus,
+  html body:not(.guiao-pdf-mode) .page .sbl-oferta-section input#n_grupos:focus,
+  html body:not(.guiao-pdf-mode) .page .sbl-oferta-section textarea#emails:focus,
+  html body:not(.guiao-pdf-mode) .page .sbl-oferta-section input#ano_letivo:focus,
+  html body:not(.guiao-pdf-mode) .page .sbl-oferta-section input#data:focus,
+  html body:not(.guiao-pdf-mode) .page .sbl-oferta-section input#hora:focus,
+  html body:not(.guiao-pdf-mode) .page .sbl-oferta-section input#hora_fim:focus,
+  html body:not(.guiao-pdf-mode) .page div.section.sbl-final-field.sbl47-v68-red-print-card.sbl47-v68-info-ator-force-print.sbl47-v73-essential-print-card textarea#info_ator:focus{
+    border-color:var(--sbl-v3-inner-focus) !important;
+    outline:3px solid rgba(79,79,79,.10) !important;
+    outline-offset:0 !important;
+    box-shadow:none !important;
+  }
+
+  html body:not(.guiao-pdf-mode) .page div.section.sbl-oferta-section.sbl-oferta-simulacao-section.sbl-padronizacao-superior:has(
+    #cursoBusca:focus,#uc:focus,#professor:focus,#n_estudantes:focus,#n_grupos:focus,
+    #emails:focus,#ano_letivo:focus,#data:focus,#hora:focus,#hora_fim:focus
+  ),
+  html body:not(.guiao-pdf-mode) .page div.section.sbl-final-field.sbl47-v68-red-print-card.sbl47-v68-info-ator-force-print.sbl47-v73-essential-print-card:has(#info_ator:focus),
+  html body:not(.guiao-pdf-mode) .page div.sbl-final-action-card.sbl47-v73-essential-print-card:has(#quadroAcao textarea:focus),
+  html body:not(.guiao-pdf-mode) .page div.section.sbl-oferta-section.sbl-oferta-simulacao-section.sbl-padronizacao-superior:hover,
+  html body:not(.guiao-pdf-mode) .page div.section.sbl-final-field.sbl47-v68-red-print-card.sbl47-v68-info-ator-force-print.sbl47-v73-essential-print-card:hover,
+  html body:not(.guiao-pdf-mode) .page div.sbl-final-action-card.sbl47-v73-essential-print-card:hover{
+    border-color:var(--sbl-v3-red) !important;
+    box-shadow:0 4px 14px rgba(227,30,36,.08) !important;
+    background:#fff !important;
+  }
+}
+</style>
 </body>
 </html>
