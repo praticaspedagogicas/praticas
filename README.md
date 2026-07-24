@@ -10,12 +10,12 @@ partilhados com os coordenadores**.
 |---|---|
 | `/CBL.html` | `finais/CBL.html` |
 | `/PBL.html` | `finais/PBL.html` |
-| `/Proj-BL.html` | `finais/PROJ-BL.html` (renomeado para casing público) |
+| `/PROJ-BL.html` | versão oficial do Project-Based Learning |
 | `/RBL.html` | `finais/RBL.html` |
 | `/SBL.html` | `finais/SBL.html` (com correção do placeholder Docente) |
 | `/CBL_Teste.html` | `testes/CBL_Teste.html` |
 | `/PBL_Teste.html` | `testes/PBL_Teste.html` |
-| `/Proj-BL_Teste.html` | `testes/PROJ-BL_Teste.html` |
+| `/PROJ-BL_Teste.html` | versão oficial de teste do Project-Based Learning |
 | `/RBL_Teste.html` | `testes/RBL_Teste.html` |
 | `/SBL_Teste.html` | `testes/SBL_Teste.html` |
 | `/index.html` | landing estático (cards para os 5 templates) |
@@ -24,6 +24,10 @@ partilhados com os coordenadores**.
 | `/robots.txt` | bloqueio de crawlers em `/api/guioes/` e `/api/legacy/` |
 | `/.nojekyll` | GitHub Pages: desativa Jekyll |
 | `/.github/workflows/ci.yml` | CI (npm ci + typecheck + build + test) |
+
+Os caminhos antigos `/Proj-BL.html` e `/Proj-BL_Teste.html` permanecem apenas
+como redirecionamentos para as versões oficiais em maiúsculas, evitando quebrar
+ligações já partilhadas.
 
 ## O que está incluído
 
