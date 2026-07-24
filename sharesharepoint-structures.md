@@ -35,7 +35,7 @@
 | PBL | https://praticaspedagogicas.github.io/praticas/PBL.html | https://praticaspedagogicas.github.io/praticas/PBL_Teste.html |
 | RBL | https://praticaspedagogicas.github.io/praticas/RBL.html | https://praticaspedagogicas.github.io/praticas/RBL_Teste.html |
 | SBL | https://praticaspedagogicas.github.io/praticas/SBL.html | https://praticaspedagogicas.github.io/praticas/SBL_Teste.html |
-| PROJ-BL | https://praticaspedagogicas.github.io/praticas/Proj-BL.html | https://praticaspedagogicas.github.io/praticas/Proj-BL_Teste.html |
+| PROJ-BL | https://praticaspedagogicas.github.io/praticas/PROJ-BL.html | https://praticaspedagogicas.github.io/praticas/PROJ-BL_Teste.html |
 
 ---
 

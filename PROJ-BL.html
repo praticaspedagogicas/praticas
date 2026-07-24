@@ -18996,7 +18996,7 @@ html body .page button[data-proj-tooltip]::after {
     }, true);
 
     b.addEventListener('input', openSugestoes, true);
-    b.addEventListener('focus', openSugestoes, true);
+    b.addEventListener('pointerdown', openSugestoes, true);
     b.addEventListener('change', function(ev){
       if(clean(b.value)){
         ev.stopImmediatePropagation();
@@ -19098,7 +19098,7 @@ html body .page button[data-proj-tooltip]::after {
     h.type='hidden'; h.style.setProperty('display','none','important'); b.removeAttribute('list'); b.setAttribute('autocomplete','off');
     if(b.dataset.projblCoursePickerV3==='1') return; b.dataset.projblCoursePickerV3='1';
     b.addEventListener('keydown', function(ev){ if(ev.key==='Enter'){ ev.preventDefault(); ev.stopImmediatePropagation(); var first=(el('projCursosSugestoes')||{}).querySelector && el('projCursosSugestoes').querySelector('button'); if(first) addCurso(first.textContent); else open(); } else if(ev.key==='Escape') close(); }, true);
-    b.addEventListener('input', open, true); b.addEventListener('focus', open, true);
+    b.addEventListener('input', open, true); b.addEventListener('pointerdown', open, true);
     b.addEventListener('change', function(ev){ ev.stopImmediatePropagation(); if(clean(b.value)) open(); }, true);
     b.addEventListener('blur', function(ev){ if(clean(b.value)) ev.stopImmediatePropagation(); setTimeout(close,170); }, true);
     document.addEventListener('click', function(ev){ var bx=el('projCursosSugestoes'); if(bx && !bx.contains(ev.target) && ev.target!==b) close(); }, true);
