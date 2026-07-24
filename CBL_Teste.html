@@ -6415,18 +6415,36 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   if(window.__guioesFecharDropdownCursosEdicaoV2) return;
   window.__guioesFecharDropdownCursosEdicaoV2 = true;
   function hasItemId(){ try { return !!new URLSearchParams(window.location.search).get('itemId'); } catch(e){ return false; } }
+  var dropdownSelectors = [
+    '.guioes-curso-suggestions-v2',
+    '.curso-suggestions', '.course-suggestions',
+    '[id*="curso" i][class*="suggest" i]',
+    '[class*="curso" i][class*="suggest" i]',
+    '[class*="course" i][class*="suggest" i]',
+    '[id*="curso" i][class*="dropdown" i]',
+    '[class*="curso" i][class*="dropdown" i]'
+  ];
+  function isCourseInteraction(target){
+    return !!(target && target.closest && target.closest('#cursoBusca,#cursoSearch,.rbl-course-search,input[name="cursoBusca"],[id*="curso" i],[class*="curso" i],[class*="course" i]'));
+  }
+  function releaseForUser(ev){
+    if(!hasItemId() || !isCourseInteraction(ev && ev.target)) return;
+    window.__guioesCourseDropdownUserReleasedV4 = true;
+    dropdownSelectors.forEach(function(sel){
+      try {
+        Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){
+          el.style.removeProperty('display');
+          el.style.removeProperty('visibility');
+          el.style.removeProperty('opacity');
+          el.style.removeProperty('pointer-events');
+          el.removeAttribute('aria-hidden');
+        });
+      } catch(e){}
+    });
+  }
   function closeCourseDropdowns(){
-    if(!hasItemId()) return;
-    var selectors = [
-      '.guioes-curso-suggestions-v2',
-      '.curso-suggestions', '.course-suggestions',
-      '[id*="curso" i][class*="suggest" i]',
-      '[class*="curso" i][class*="suggest" i]',
-      '[class*="course" i][class*="suggest" i]',
-      '[id*="curso" i][class*="dropdown" i]',
-      '[class*="curso" i][class*="dropdown" i]'
-    ];
-    selectors.forEach(function(sel){
+    if(!hasItemId() || window.__guioesCourseDropdownUserReleasedV4) return;
+    dropdownSelectors.forEach(function(sel){
       try {
         Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){
           el.style.display = 'none';
@@ -6439,6 +6457,8 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
       if(document.activeElement === input){ try { input.blur(); } catch(e){} }
     });
   }
+  document.addEventListener('pointerdown', releaseForUser, true);
+  document.addEventListener('keydown', releaseForUser, true);
   window.__guioesFecharDropdownCursos = closeCourseDropdowns;
   function schedule(){ [0,80,200,500,900,1500,2500,4000].forEach(function(ms){ setTimeout(closeCourseDropdowns, ms); }); }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', schedule); else schedule();
