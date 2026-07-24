@@ -4056,13 +4056,14 @@ html body .page #btnSalvarPDF{
 }
 </style>
 <style id="pbl-step2-semestre-turma-cirurgico">
-/* STEP 2 — Semestre e Turma/Edição no mesmo padrão dos cards superiores. */
+/* STEP 2 — Ano, Semestre e Turma/Edição no mesmo padrão dos cards superiores. */
 .header-grid{
   grid-template-columns:1fr 1fr !important;
   gap:14px !important;
 }
+.header-card select#anoCurricular,
 .header-card select#semestre,
-.header-card select#turmaEdicao{
+.header-card input#turmaEdicao{
   width:100% !important;
   min-height:44px !important;
   border:1px solid #d2d2d2 !important;
@@ -4548,11 +4549,25 @@ html body .page #btnSalvarPDF{
 }
 </style>
 <style id="pbl-final-top-pdf-balance">
-/* Microcamada: topo em 4 caixas no desktop + Título centralizado + PDF identificação mais compacta */
+/* Microcamada: topo em 5 caixas no desktop; apenas Ano é mais estreito. */
 @media (min-width: 900px){
   .header-grid{
-    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(72px,.48fr) minmax(0,1fr) minmax(0,1fr) !important;
     gap: 12px !important;
+  }
+}
+.pbl-print-document .header-grid{
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(38px,.48fr) minmax(0,1fr) minmax(0,1fr) !important;
+}
+@media (max-width:680px){
+  .header-card input#turmaEdicao{
+    width:100% !important;
+    min-height:56px !important;
+    height:56px !important;
+    padding:12px 14px !important;
+    border-radius:14px !important;
+    font-size:16px !important;
+    box-sizing:border-box !important;
   }
 }
 .pbl-head-title > label,
@@ -4945,6 +4960,17 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
 </select>
 </div>
 <div class="header-card">
+<label for="anoCurricular">Ano</label>
+<select id="anoCurricular" name="anoCurricular" required="required" aria-required="true">
+<option value="">Selecionar</option>
+<option selected="selected" value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+</select>
+</div>
+<div class="header-card">
 <label>Semestre</label>
 <select id="semestre" required="required" aria-required="true">
 <option value="">Selecionar</option>
@@ -4954,15 +4980,8 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
 </select>
 </div>
 <div class="header-card">
-<label>Turma/Edição</label>
-<select id="turmaEdicao" placeholder="Ex.: Turma A" required="required" aria-required="true">
-<option value="">Selecionar</option>
-<option selected="">Turma 1</option>
-<option>Turma 2</option>
-<option>Turma 3</option>
-<option>Edição 1</option>
-<option>Edição 2</option>
-</select>
+<label for="turmaEdicao">Turma/Edição</label>
+<input id="turmaEdicao" name="turmaEdicao" placeholder="Ex.: D01, E02, 1.ª edição" required="required" aria-required="true" type="text" value="Turma 1"/>
 </div>
 </div>
 <div class="logo">
@@ -5418,6 +5437,7 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
     payload.autorias = first(payload.autorias, payload.autoria, formData.autorias, formData.autoria);
     payload.unidadeOrganica = first(payload.unidadeOrganica, formData.unidadeOrganica, formData.unidade_organica);
     payload.modalidade = first(payload.modalidade, formData.modalidade);
+    payload.anoCurricular = first(payload.anoCurricular, payload.AnoCurricular, formData.anoCurricular, formData.AnoCurricular, domValue('#anoCurricular'));
     payload.semestre = first(payload.semestre, formData.semestre);
     payload.turmaEdicao = first(payload.turmaEdicao, payload.turma, formData.turmaEdicao, formData.turma_edicao, formData.turma);
     payload.anoLetivo = first(payload.anoLetivo, payload.ano, formData.anoLetivo, formData.AnoLetivo, formData.ano);
@@ -5615,6 +5635,7 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
       autoria: values.autoria || '',
       unidadeOrganica: values.unidadeOrganica || '',
       modalidade: values.modalidade || '',
+      anoCurricular: values.anoCurricular || '',
       semestre: values.semestre || '',
       turmaEdicao: values.turmaEdicao || '',
       turma: values.turmaEdicao || '',
@@ -7305,7 +7326,7 @@ function makePdfFileName(){
   setTimeout(run, 700);
 })();
 </script>
-<script id="pbl-submit-required-guard-v9">
+<script id="pbl-submit-required-guard-v9" type="application/json">
 (function(){
   'use strict';
 
@@ -7604,7 +7625,7 @@ function makePdfFileName(){
   box-shadow:0 0 0 3px rgba(227,30,36,.08) !important;
 }
 </style>
-<script id="pbl-step3-required-guard-final">
+<script id="pbl-step3-required-guard-final" type="application/json">
 (function(){
   'use strict';
   function $(id){ return document.getElementById(id); }
@@ -7650,6 +7671,7 @@ function makePdfFileName(){
     normaliseStudents();
     if(!text('unidadeOrganica')) return fail('unidadeOrganica','Por favor, selecione a Unidade Orgânica antes de enviar para validação.');
     if(!text('modalidade')) return fail('modalidade','Por favor, selecione a Modalidade antes de enviar para validação.');
+    if($('anoCurricular') && !text('anoCurricular')) return fail('anoCurricular','Por favor, selecione o Ano antes de enviar para validação.');
     if($('semestre') && !text('semestre')) return fail('semestre','Por favor, selecione o Semestre antes de enviar para validação.');
     if($('turmaEdicao') && !text('turmaEdicao')) return fail('turmaEdicao','Por favor, selecione a Turma/Edição antes de enviar para validação.');
     if(!text('curso')) return fail('curso','Por favor, selecione pelo menos um Curso antes de enviar para validação.');
@@ -7850,6 +7872,7 @@ function makePdfFileName(){
     payload.autoria = payload.autoria || payload.autorias || val('autoria') || '';
     payload.unidadeOrganica = payload.unidadeOrganica || val('unidadeOrganica') || '';
     payload.modalidade = payload.modalidade || val('modalidade') || '';
+    payload.anoCurricular = payload.anoCurricular || val('anoCurricular') || '';
     payload.semestre = payload.semestre || val('semestre') || '';
     payload.turmaEdicao = payload.turmaEdicao || val('turmaEdicao') || '';
     payload.turma = payload.turma || payload.turmaEdicao || '';
@@ -7870,6 +7893,7 @@ function makePdfFileName(){
       nEstudantes: nEst,
       unidadeOrganica: payload.unidadeOrganica,
       modalidade: payload.modalidade,
+      anoCurricular: payload.anoCurricular,
       semestre: payload.semestre,
       turmaEdicao: payload.turmaEdicao,
       emails: payload.emails,
@@ -7934,7 +7958,7 @@ function makePdfFileName(){
       }
     }
   }
-  var HEADER_IDS=['unidadeOrganica','modalidade','semestre','turmaEdicao','titulo','curso','uc','ano','docentes','emails','numeroEstudantes','numeroGrupos','n_grupos','autoria','estadoGuiao'];
+  var HEADER_IDS=['unidadeOrganica','modalidade','anoCurricular','semestre','turmaEdicao','titulo','curso','uc','ano','docentes','emails','numeroEstudantes','numeroGrupos','n_grupos','autoria','estadoGuiao'];
   function reutilizarCabecalho(){
     var raw=null;
     try{ raw=localStorage.getItem('template_autosave_PBL_v2') || localStorage.getItem('pbl_draft') || localStorage.getItem('PBL_draft'); }catch(e){}
@@ -8062,7 +8086,7 @@ function makePdfFileName(){
   setTimeout(enforceMenu5, 1800);
 })();
 </script>
-<script id="guiao-required-submit-validation-v1">
+<script id="guiao-required-submit-validation-v1" type="application/json">
 /* ===== Auditoria transversal — campos obrigatórios antes da submissão =====
    Camada cirúrgica: não altera IDs, payloads, botões, Curso(s), PDF, Power Automate ou estrutura pedagógica.
    Apenas bloqueia o clique em “Enviar para Validação” quando faltam dados mínimos institucionais. */
@@ -8661,6 +8685,11 @@ function makePdfFileName(){
 
     payload.title = buildTitle(payload);
 
+    var anoCurricularDom = byId(['anoCurricular','AnoCurricular']);
+    if(anoCurricularDom) payload.anoCurricular = anoCurricularDom;
+    if(payload.values && typeof payload.values === 'object' && anoCurricularDom) payload.values.anoCurricular = anoCurricularDom;
+    if(payload.formData && typeof payload.formData === 'object' && anoCurricularDom) payload.formData.anoCurricular = anoCurricularDom;
+
     var anoDom = byId(['anoLetivo','anoLetivoProjeto','ano_letivo','ano','anoLetivoInput']);
     if(anoDom) payload.anoLetivo = anoDom;
     else if(!clean(payload.anoLetivo) && payload.values && typeof payload.values === 'object'){
@@ -8793,7 +8822,7 @@ function makePdfFileName(){
 })();
 </script>
 
-<script id="guiao-required-submit-validation-v2">
+<script id="guiao-required-submit-validation-v2" type="application/json">
 /* Camada transversal v2 — bloqueio antes de chamar o Power Automate.
    Impede submissão com Curso(s) apenas digitado e campos institucionais mínimos em branco. */
 (function(){
@@ -9013,7 +9042,9 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     input.dispatchEvent(new Event('change', {bubbles:true}));
     var isSearchOnly = input.id === 'cursoBusca' || input.name === 'cursoBusca' || input.getAttribute('data-pbl-aux') === 'true';
     var payload = document.getElementById('curso');
-    if(payload && payload !== input){
+    /* No seletor PBL, o evento change é a única fonte de adição.
+       Não substituir diretamente #curso, pois isso apagava os cursos já carregados por itemId. */
+    if(payload && payload !== input && !isSearchOnly){
       payload.value = value;
       payload.dispatchEvent(new Event('input', {bubbles:true}));
       payload.dispatchEvent(new Event('change', {bubbles:true}));
@@ -9283,6 +9314,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 
     setFirst(['unidadeOrganica','unidade_organica'], values.unidadeOrganica || data.unidadeOrganica);
     setFirst(['modalidade'], values.modalidade || data.modalidade);
+    setFirst(['anoCurricular','AnoCurricular'], values.anoCurricular || values.AnoCurricular || data.anoCurricular || data.AnoCurricular);
     setFirst(['semestre'], values.semestre || data.semestre);
     setFirst(['turmaEdicao','turma_edicao','turma'], values.turmaEdicao || values.turma || data.turmaEdicao);
     setCursos(values.curso || values.cursos || data.cursos);
@@ -9375,12 +9407,13 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 })();
 </script>
 
-<script id="validacao-obrigatoria-cabecalho-20260617">
+<script id="validacao-obrigatoria-cabecalho-20260617" type="application/json">
 /* VALIDACAO OBRIGATORIA CABECALHO 2026-06-17 — PBL_Teste */
 (function(){
   'use strict';
   var REQUIRED_GROUPS = [{"label": "Unidade Orgânica", "selectors": ["#unidadeOrganica"]}, {"label": "Modalidade", "selectors": ["#modalidade"]}, {"label": "Semestre", "selectors": ["#semestre"]}, {"label": "Turma/Edição", "selectors": ["#turmaEdicao"]}, {"label": "Curso(s)", "selectors": ["#curso", "#cursoBusca"]}, {"label": "Unidade(s) Curricular(es)", "selectors": ["#uc"]}, {"label": "Docente(s)", "selectors": ["#docentes"]}, {"label": "Email(s)", "selectors": ["#emails"]}, {"label": "Autoria", "selectors": ["#autoria"]}, {"label": "Ano letivo", "selectors": ["#ano"]}, {"label": "Estado do guião", "selectors": ["#estadoGuiao"]}, {"label": "Autorização para repositório", "selectors": ["input[name=\"autorizaRepositorio\"]"]}, {"label": "CASO (aba Docente)", "selectors": ["#docente .section:nth-of-type(1) textarea"]}, {"label": "INFORMAÇÃO INICIAL (aba Docente)", "selectors": ["#docente .section:nth-of-type(2) textarea"]}, {"label": "INFORMAÇÃO INICIAL (aba Estudante)", "selectors": ["#estudante .section:nth-of-type(1) textarea"]}];
   var VALIDAR_SESSOES_RBL = false;
+  REQUIRED_GROUPS.splice(2, 0, {"label":"Ano","selectors":["#anoCurricular"]});
   function norm(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
   function qsAll(sel){ try{ return Array.prototype.slice.call(document.querySelectorAll(sel)); }catch(e){ return []; } }
   function elementsFor(group){ var out = []; (group.selectors || []).forEach(function(sel){ out = out.concat(qsAll(sel)); }); return out.filter(Boolean); }
@@ -9556,17 +9589,9 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     var courseEl = els.course;
     if(courseEl.dataset.guioesMulticursoUpdating === '1') return;
     var newParts = splitCourses(courseEl.value);
-    var stored = splitCourses(courseEl.dataset.guioesMulticursoList || '').concat(readExistingChips(els.chips));
-    if(!newParts.length && stored.length){ setCourses(stored, 'silent'); return; }
-    if(!newParts.length) return;
-
-    var merged;
-    if(stored.length && newParts.length === 1 && !stored.some(function(x){ return normKey(x) === normKey(newParts[0]); })){
-      merged = stored.concat(newParts);
-    }else{
-      merged = newParts.concat(stored.filter(function(x){ return newParts.every(function(y){ return normKey(y) !== normKey(x); }); }));
-    }
-    setCourses(merged, 'silent');
+    /* Um valor completo vindo de itemId/autosave substitui a lista anterior.
+       As novas escolhas do utilizador são acrescentadas exclusivamente por addCourse(). */
+    setCourses(newParts, 'silent');
   }
   function normalizarEmails(){
     var el = document.getElementById('emails') || document.querySelector('[name="emails"], #email, [name="email"]');
@@ -9658,7 +9683,9 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   window.GUIOES_MULTICURSO_EMAILS_FINAL_V1 = {
     init: initMultiCourse,
     normalizarEmails: normalizarEmails,
-    cursos: function(){ var els = getCourseElements(); return els ? splitCourses(els.course.value) : []; }
+    cursos: function(){ var els = getCourseElements(); return els ? splitCourses(els.course.value) : []; },
+    adicionarCurso: addCourse,
+    substituirCursos: function(value){ return setCourses(splitCourses(value), 'external'); }
   };
 })();
 </script>
@@ -9809,7 +9836,8 @@ body:not(.guiao-pdf-mode) .pbl-course-chip button{
     return [
       ['Unidade Orgânica',val('unidadeOrganica')], ['Curso(s)',val('curso')],
       ['Unidade(s) Curricular(es)',val('uc')], ['Docente(s)',val('docentes')],
-      ['Ano letivo',val('ano')], ['Semestre',val('semestre')]
+      ['Ano letivo',val('ano')], ['Ano',val('anoCurricular')],
+      ['Semestre',val('semestre')], ['Turma/Edição',val('turmaEdicao')]
     ];
   }
   function drawStudentPdf(rows,mode){
@@ -9866,5 +9894,378 @@ body:not(.guiao-pdf-mode) .pbl-course-chip button{
   setTimeout(bind,400); setTimeout(bind,1200);
 })();
 </script>
+<style id="pbl-central-required-v1-style">
+.pbl-required-star{color:#E31E24;font-weight:800;margin-left:3px;}
+.pbl-required-table-note{margin:6px 0 8px;color:#5f5f5f;font-size:11px;line-height:1.35;}
+.pbl-central-validation-message{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:999999;max-width:680px;padding:14px 18px;border-radius:12px;background:#2f2f2f;color:#fff;font:13px/1.45 'Century Gothic',Arial,sans-serif;white-space:pre-line;text-align:left;box-shadow:0 8px 26px rgba(0,0,0,.22);}
+@media print{.pbl-required-table-note{display:none!important;}}
+</style>
+<script id="pbl-central-required-v1">
+(function(){
+  'use strict';
+  if(window.__pblCentralValidationV1) return;
+  window.__pblCentralValidationV1=true;
+
+  var BASE=[
+    ['Unidade Orgânica','#unidadeOrganica'],
+    ['Modalidade','#modalidade'],
+    ['Ano','#anoCurricular'],
+    ['Semestre','#semestre'],
+    ['Turma/Edição','#turmaEdicao'],
+    ['Título','#titulo'],
+    ['Curso(s)','#curso'],
+    ['Unidade(s) Curricular(es)','#uc'],
+    ['Docente(s)','#docentes'],
+    ['Email(s)','#emails'],
+    ['Ano letivo','#ano'],
+    ['Nº de estudantes','#numeroEstudantes'],
+    ['Nº de grupos','#numeroGrupos'],
+    ['Autoria(s)','#autoria'],
+    ['Estado do guião','#estadoGuiao']
+  ];
+
+  function clean(v){return String(v==null?'':v).replace(/\s+/g,' ').trim();}
+  function value(el){
+    if(!el)return '';
+    if(el.type==='radio'||el.type==='checkbox')return el.checked?clean(el.value||'1'):'';
+    var v=clean(el.value);
+    return /^selecionar$/i.test(v)?'':v;
+  }
+  function validEmails(v){
+    var list=String(v||'').split(/[;,\n]+/).map(clean).filter(Boolean);
+    return list.length>0&&list.every(function(x){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(x);});
+  }
+  function positiveInteger(v){return /^[1-9]\d*$/.test(clean(v));}
+  function knownCourses(){
+    return Array.prototype.slice.call(document.querySelectorAll('#pblCursosList option')).map(function(o){return clean(o.value||o.textContent).toLowerCase();}).filter(Boolean);
+  }
+  function validCourses(v){
+    var parts=String(v||'').split(/\s*;\s*|\r?\n|\|/).map(clean).filter(Boolean);
+    var known=knownCourses();
+    return parts.length>0&&parts.every(function(x){return known.indexOf(x.toLowerCase())>=0;});
+  }
+  function repoItem(){
+    var radios=Array.prototype.slice.call(document.querySelectorAll('input[name="autorizaRepositorioOpcao"]'));
+    var hidden=document.getElementById('autorizaRepositorio');
+    return {label:'Autorização para integração no repositório',el:radios[0]||hidden,filled:radios.some(function(r){return r.checked;})};
+  }
+  function sectionTextarea(tabId,index){
+    var sections=document.querySelectorAll('#'+tabId+' > .section');
+    return sections[index]?sections[index].querySelector('textarea'):null;
+  }
+  function skippedColumns(tableId){
+    return tableId==='docenteTable'?[0,2]:tableId==='estudanteTable'?[0]:[];
+  }
+  function rowControls(row,tableId){
+    var skipped=skippedColumns(tableId);
+    return Array.prototype.slice.call(row?row.querySelectorAll('input,textarea,select'):[]).filter(function(el){
+      var cell=el.closest('td'),column=cell?cell.cellIndex:-1;
+      return !el.disabled&&!el.readOnly&&!el.classList.contains('calculated')&&skipped.indexOf(column)<0;
+    });
+  }
+  function dataRows(tableId){
+    var table=document.getElementById(tableId);
+    if(!table)return [];
+    return Array.prototype.slice.call(table.rows||table.querySelectorAll('tr')).filter(function(row){return rowControls(row,tableId).length>0;});
+  }
+  function rowIsStarted(row,tableId){return rowControls(row,tableId).some(function(el){return !!value(el);});}
+  function tableItems(tableId,tableLabel){
+    var table=document.getElementById(tableId),rows=dataRows(tableId);
+    if(!table||!rows.length)return [];
+    var active=rows.filter(function(row){return rowIsStarted(row,tableId);});
+    var expected=active.length?active:[rows[0]];
+    var headers=Array.prototype.slice.call(table.querySelectorAll('tr:first-child th')).map(function(th){return clean(th.textContent).replace(/\*+$/,'').trim();});
+    var items=[];
+    expected.forEach(function(row){
+      var n=rows.indexOf(row)+1;
+      rowControls(row,tableId).forEach(function(el){
+        var cell=el.closest('td'),column=cell?cell.cellIndex:-1;
+        items.push({label:tableLabel+' — '+(headers[column]||'Campo')+' (linha '+n+')',el:el,filled:!!value(el)});
+      });
+    });
+    return items;
+  }
+  function logicalRequired(){
+    var items=BASE.map(function(x){
+      var el=document.querySelector(x[1]),v=value(el),filled=!!v;
+      if(x[1]==='#emails')filled=validEmails(v);
+      if(x[1]==='#curso')filled=validCourses(v);
+      if(x[1]==='#numeroEstudantes'||x[1]==='#numeroGrupos')filled=positiveInteger(v);
+      return {label:x[0],el:el,filled:filled};
+    });
+    items.push(repoItem());
+    var caso=sectionTextarea('docente',0);
+    var infoDocente=sectionTextarea('docente',1);
+    var infoEstudante=sectionTextarea('estudante',0);
+    items.push({label:'CASO (Docente)',el:caso,filled:!!value(caso)});
+    items.push({label:'INFORMAÇÃO INICIAL (Docente)',el:infoDocente,filled:!!value(infoDocente)});
+    items.push({label:'INFORMAÇÃO INICIAL (Estudante)',el:infoEstudante,filled:!!value(infoEstudante)});
+    return items.concat(tableItems('docenteTable','Tabela do Docente'),tableItems('estudanteTable','Tabela do Estudante'));
+  }
+  function labelFor(el){
+    if(!el)return null;
+    if(el.id){
+      var direct=document.querySelector('label[for="'+el.id+'"]');
+      if(direct)return direct;
+    }
+    var box=el.closest('.header-card,.pbl-head-card,.pbl-meta-field,.section');
+    return box?box.querySelector('label'):null;
+  }
+  function addStar(el){
+    if(!el)return;
+    Array.prototype.slice.call(el.querySelectorAll('.pbl-required-star')).forEach(function(star){star.remove();});
+    Array.prototype.slice.call(el.childNodes).forEach(function(node){
+      if(node.nodeType===3)node.nodeValue=String(node.nodeValue||'').replace(/\s*\*+\s*$/,'');
+    });
+    var star=document.createElement('span');
+    star.className='pbl-required-star';
+    star.textContent='*';
+    star.setAttribute('aria-hidden','true');
+    el.appendChild(star);
+  }
+  function decorateTable(tableId,skipColumns){
+    var table=document.getElementById(tableId);
+    if(!table)return;
+    var headers=Array.prototype.slice.call(table.querySelectorAll('tr:first-child th'));
+    headers.forEach(function(th,index){if(skipColumns.indexOf(index)<0)addStar(th);});
+    var rows=dataRows(tableId),active=rows.filter(function(row){return rowIsStarted(row,tableId);}),expected=active.length?active:[rows[0]];
+    rows.forEach(function(row){
+      rowControls(row,tableId).forEach(function(el){
+        var req=expected.indexOf(row)>=0;
+        el.required=req;
+        if(req)el.setAttribute('required','required');else el.removeAttribute('required');
+        el.setAttribute('aria-required',req?'true':'false');
+      });
+    });
+    var tab=table.closest('.tab-content');
+    if(tab&&!tab.querySelector('.pbl-required-table-note')){
+      var note=document.createElement('p');
+      note.className='pbl-required-table-note no-print';
+      note.innerHTML='<span class="pbl-required-star" aria-hidden="true">*</span> É obrigatória pelo menos uma linha completa. Nas linhas adicionais, os campos tornam-se obrigatórios quando a linha for utilizada.';
+      var scroll=table.closest('.pbl-table-scroll');
+      tab.insertBefore(note,scroll||table);
+    }
+  }
+  function decorate(){
+    BASE.forEach(function(x){
+      var el=document.querySelector(x[1]);
+      if(!el)return;
+      el.required=true;el.setAttribute('required','required');el.setAttribute('aria-required','true');
+      addStar(labelFor(el));
+    });
+    var autoria=document.getElementById('autoria'),autoriaLabel=labelFor(autoria);
+    if(autoriaLabel){
+      Array.prototype.slice.call(autoriaLabel.childNodes).forEach(function(n){if(n.nodeType===3&&/Autoria/.test(n.nodeValue||''))n.nodeValue='Autoria(s):';});
+    }
+    ['docente','estudante'].forEach(function(tabId){
+      var max=tabId==='docente'?2:1;
+      for(var i=0;i<max;i++){
+        var ta=sectionTextarea(tabId,i);
+        if(ta){ta.required=true;ta.setAttribute('required','required');ta.setAttribute('aria-required','true');addStar(labelFor(ta));}
+      }
+    });
+    var repoBox=document.getElementById('pblRepoAuth');
+    if(repoBox)addStar(repoBox.querySelector('.pbl-repo-auth-title'));
+    document.querySelectorAll('input[name="autorizaRepositorioOpcao"]').forEach(function(r){r.required=true;r.setAttribute('required','required');r.setAttribute('aria-required','true');});
+    ['numeroEstudantes','numeroGrupos'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el){el.min='1';el.step='1';el.setAttribute('inputmode','numeric');}
+    });
+    decorateTable('docenteTable',[0,2]);
+    decorateTable('estudanteTable',[0]);
+    renderCentralProgress();
+  }
+  function renderCentralProgress(){
+    var items=logicalRequired();
+    var filled=items.filter(function(x){return x.filled;}).length;
+    var pct=items.length?Math.round(filled/items.length*100):0;
+    var label=document.getElementById('progressLabel'),fill=document.getElementById('progressFill');
+    if(label)label.textContent='Guião preenchido: '+pct+'%';
+    if(fill)fill.style.width=pct+'%';
+    return pct;
+  }
+  function clearErrors(){
+    document.querySelectorAll('.pbl-required-error,.pbl-required-error-wrap,.guiao-required-missing').forEach(function(el){el.classList.remove('pbl-required-error','pbl-required-error-wrap','guiao-required-missing');});
+  }
+  function mark(el){
+    if(!el)return;
+    el.classList.add('pbl-required-error');
+    var wrap=el.closest('.header-card,.pbl-head-card,.section,.pbl-table-scroll,.pbl-repo-auth');
+    if(wrap)wrap.classList.add('pbl-required-error-wrap');
+  }
+  function showMessage(missing){
+    var old=document.querySelector('.pbl-central-validation-message');
+    if(old)old.remove();
+    var box=document.createElement('div');
+    box.className='pbl-central-validation-message';
+    box.textContent='Antes de enviar para validação, preencha corretamente:\n\n'+missing.map(function(x){return '• '+x.label;}).join('\n');
+    document.body.appendChild(box);
+    setTimeout(function(){if(box.parentNode)box.remove();},7500);
+  }
+  function reveal(el){
+    if(!el)return;
+    var content=el.closest('.tab-content');
+    if(content&&!content.classList.contains('active')){
+      document.querySelectorAll('.tab-content').forEach(function(x){x.classList.remove('active');});
+      content.classList.add('active');
+      document.querySelectorAll('.tab').forEach(function(tab){
+        var active=(content.id==='docente'&&/docente/i.test(tab.textContent))||(content.id==='estudante'&&/estudante/i.test(tab.textContent))||(content.id==='avaliacao'&&/avalia/i.test(tab.textContent));
+        tab.classList.toggle('active',active);
+      });
+    }
+  }
+  window.pblValidateRequiredCentral=function(options){
+    decorate();clearErrors();
+    var missing=logicalRequired().filter(function(x){return !x.filled;});
+    missing.forEach(function(x){mark(x.el);});
+    if(!missing.length)return {ok:true,missing:[]};
+    if(!options||!options.silent){
+      showMessage(missing);
+      var first=missing.find(function(x){return x.el;});
+      if(first){reveal(first.el);setTimeout(function(){try{first.el.focus();first.el.scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}},0);}
+    }
+    return {ok:false,missing:missing.map(function(x){return x.label;})};
+  };
+  function isTrigger(el){
+    if(!el)return false;
+    var id=(el.id||'').toLowerCase(),txt=clean(el.textContent||el.value||'').toLowerCase();
+    return id==='btnenviarvalidacao'||id==='btnvalidacaoreal'||txt.indexOf('enviar para valida')>=0||txt.indexOf('submeter')>=0||txt.indexOf('atualizar guião')>=0;
+  }
+  document.addEventListener('click',function(ev){
+    var el=ev.target&&ev.target.closest?ev.target.closest('button,input[type="button"],input[type="submit"],a'):null;
+    if(!isTrigger(el))return;
+    if(!window.pblValidateRequiredCentral().ok){ev.preventDefault();ev.stopPropagation();if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();}
+  },true);
+  document.addEventListener('submit',function(ev){
+    if(!window.pblValidateRequiredCentral().ok){ev.preventDefault();ev.stopPropagation();if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();}
+  },true);
+  document.addEventListener('input',function(){decorate();},false);
+  document.addEventListener('change',function(){decorate();},false);
+  document.addEventListener('click',function(ev){
+    if(ev.target&&ev.target.closest&&ev.target.closest('.pbl-table-tool,.pbl-avaliacao-tool'))setTimeout(decorate,0);
+  },false);
+  window.progress=renderCentralProgress;
+  window.renderProgress=renderCentralProgress;
+  window.updateProgress=renderCentralProgress;
+  window.atualizarProgresso=renderCentralProgress;
+  window.calcularProgresso=renderCentralProgress;
+  window.pblValidateBeforeSubmit=function(){return window.pblValidateRequiredCentral().ok;};
+  window.pblValidateEmailsBeforeSubmit=window.pblValidateBeforeSubmit;
+  window.guiaoValidarCamposObrigatoriosSubmissaoV1=window.pblValidateRequiredCentral;
+  window.guiaoValidarCamposObrigatoriosSubmissaoV2=window.pblValidateRequiredCentral;
+  function init(){decorate();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+  [100,400,1000,2500].forEach(function(ms){setTimeout(decorate,ms);});
+})();
+</script>
+
+<style id="pbl-interaction-visual-unificada-v1">
+/* Interação visual unificada:
+   - o contentor exterior recebe o vermelho institucional;
+   - o controlo interior permanece cinza no hover e no foco;
+   - erros reais continuam vermelhos no próprio controlo. */
+@media screen{
+  :root{
+    --pbl-ui-border:#777777;
+    --pbl-ui-hover:#4f4f4f;
+    --pbl-ui-red:#E31E24;
+    --pbl-ui-red-soft:rgba(227,30,36,.12);
+    --pbl-ui-red-shadow:rgba(227,30,36,.075);
+  }
+
+  .header-card:hover,
+  .header-card:focus-within,
+  .header-row .section:hover,
+  .header-row .section:focus-within,
+  .section:hover,
+  .section:focus-within,
+  .pbl-head-card:hover,
+  .pbl-head-card:focus-within,
+  .pbl-meta-field:hover,
+  .pbl-meta-field:focus-within,
+  .pbl-numeric-card:hover,
+  .pbl-numeric-card:focus-within,
+  .pbl-repo-auth.no-print:hover,
+  .pbl-repo-auth.no-print:focus-within{
+    border-color:var(--pbl-ui-red) !important;
+    box-shadow:0 4px 14px var(--pbl-ui-red-shadow) !important;
+    background:#fff !important;
+  }
+
+  input:not([type="radio"]):not([type="checkbox"]):not(.pbl-course-value):hover:not(:focus),
+  textarea:hover:not(:focus),
+  select:hover:not(:focus),
+  #cursoBusca:hover:not(:focus),
+  .quadro-table input:hover:not(:focus),
+  .quadro-table textarea:hover:not(:focus),
+  #docenteTable input:hover:not(:focus),
+  #docenteTable textarea:hover:not(:focus),
+  #estudanteTable input:hover:not(:focus),
+  #estudanteTable textarea:hover:not(:focus),
+  #avaliacaoTable input:hover:not(:focus),
+  #avaliacaoTable textarea:hover:not(:focus){
+    border-color:var(--pbl-ui-hover) !important;
+    outline:none !important;
+    box-shadow:none !important;
+    background:#fff !important;
+  }
+
+  input:not([type="radio"]):not([type="checkbox"]):not(.pbl-course-value):focus,
+  textarea:focus,
+  select:focus,
+  #cursoBusca:focus,
+  .quadro-table input:focus,
+  .quadro-table textarea:focus,
+  #docenteTable input:focus,
+  #docenteTable textarea:focus,
+  #estudanteTable input:focus,
+  #estudanteTable textarea:focus,
+  #avaliacaoTable input:focus,
+  #avaliacaoTable textarea:focus{
+    border-color:var(--pbl-ui-hover) !important;
+    outline:3px solid rgba(79,79,79,.10) !important;
+    outline-offset:0 !important;
+    box-shadow:none !important;
+    background:#fff !important;
+  }
+
+  .pbl-course-picker:hover #cursoBusca:not(:focus),
+  .pbl-course-picker:focus-within #cursoBusca:not(:focus),
+  .pbl-course-chip:hover{
+    border-color:var(--pbl-ui-hover) !important;
+    box-shadow:none !important;
+  }
+
+  input[readonly]:not(#turmaEdicao):hover,
+  input[readonly]:not(#turmaEdicao):focus,
+  input:disabled:hover,
+  input:disabled:focus,
+  textarea:disabled:hover,
+  textarea:disabled:focus,
+  select:disabled:hover,
+  select:disabled:focus,
+  input.calculated:hover,
+  input.calculated:focus,
+  textarea.calculated:hover,
+  textarea.calculated:focus,
+  .calculated:hover,
+  .calculated:focus{
+    border-color:var(--pbl-ui-border) !important;
+    outline:none !important;
+    box-shadow:none !important;
+  }
+
+  .pbl-required-error,
+  .guiao-required-missing{
+    border-color:var(--pbl-ui-red) !important;
+    outline:3px solid rgba(227,30,36,.22) !important;
+    outline-offset:1px !important;
+  }
+  .pbl-required-error-wrap{
+    border-color:var(--pbl-ui-red) !important;
+    box-shadow:0 4px 14px var(--pbl-ui-red-shadow) !important;
+  }
+}
+</style>
 </body>
 </html>
