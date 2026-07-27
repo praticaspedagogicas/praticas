@@ -1,0 +1,123 @@
+name: Publicar templates RBL
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/rbl-publicar.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Aplicar ajustes aprovados
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          files = [Path('RBL.html'), Path('RBL_Teste.html')]
+
+          docente_antigo = 'placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva"'
+          docente_novo = 'placeholder="Ex.: Ana Luiza Marques; João Silva"'
+          objetivos_antigo = 'placeholder="Indique os objetivos de aprendizagem..."'
+          objetivos_novo = 'placeholder="Indique os objetivos de aprendizagem alinhados com os Conteúdos Programáticos da Ficha de Unidade Curricular (FUC)"'
+          recursos_antigo = 'placeholder="Indique os recursos necessários..."'
+          recursos_novo = 'placeholder="Ex.: EBSCO Discovery Service (EDS), para pesquisa bibliográfica; Research Rabbit, enquanto ferramenta de IA de apoio à descoberta e exploração de relações entre publicações científicas."'
+          tarefas_antigo = 'placeholder="Indique as tarefas..."'
+          tarefas_novo = 'placeholder="Ex.: Constituir grupos de investigação; analisar o tema de partida; formular perguntas orientadoras; definir fontes académicas iniciais; registar critérios éticos para utilização de inteligência artificial no apoio ao trabalho académico."'
+          descricao_antigo = 'placeholder="Descrição da aula..."'
+          descricao_novo = 'placeholder="Ex.: Sessão inicial dedicada ao enquadramento do Research Base Learning, à compreensão do problema de investigação e à organização do percurso de trabalho."'
+          recurso_teste_antigo = 'Bases de dados científicas; artigos académicos; guião metodológico da UC; grelha de análise de fontes; plataforma Moodle; ferramenta colaborativa para organização dos grupos.'
+          recurso_teste_novo = 'EBSCO Discovery Service (EDS), para pesquisa bibliográfica; Research Rabbit, enquanto ferramenta de IA de apoio à descoberta e exploração de relações entre publicações científicas.'
+          descricao_teste_antiga = 'Sessão inicial dedicada ao enquadramento do Research-Based Learning e à organização do percurso de investigação.'
+          descricao_teste_nova = 'Sessão inicial dedicada ao enquadramento do Research Base Learning, à compreensão do problema de investigação e à organização do percurso de trabalho.'
+          pdf_antigo = 'return Math.max(50, 29 + taskLines.length * 3.65 + descLines.length * 3.65);'
+          pdf_novo = '''/* A altura inclui o cabeçalho, os dois subtítulos e a margem inferior. */
+      const fixedContentHeight = 36;
+      const lineHeight = 3.65;
+      const contentHeight = fixedContentHeight +
+        taskLines.length * lineHeight +
+        descLines.length * lineHeight;
+
+      return Math.max(58, contentHeight);'''
+
+          for path in files:
+              text = path.read_text(encoding='utf-8')
+              replacements = [
+                  (docente_antigo, docente_novo),
+                  (objetivos_antigo, objetivos_novo),
+                  (recursos_antigo, recursos_novo),
+                  (tarefas_antigo, tarefas_novo),
+                  (descricao_antigo, descricao_novo),
+                  (recurso_teste_antigo, recurso_teste_novo),
+                  (descricao_teste_antiga, descricao_teste_nova),
+                  (pdf_antigo, pdf_novo),
+              ]
+              for old, new in replacements:
+                  text = text.replace(old, new)
+
+              if 'Marketing Digital - CTSP' not in text:
+                  text = text.replace(
+                      '<option value="Marketing Digital"></option>',
+                      '<option value="Marketing Digital"></option>\n<option value="Marketing Digital - CTSP"></option>'
+                  )
+                  text = text.replace(
+                      '"Mestrado em Marketing e Tecnologia", "Marketing Digital", "Gestão de Negócios Internacionais"',
+                      '"Mestrado em Marketing e Tecnologia", "Marketing Digital", "Marketing Digital - CTSP", "Gestão de Negócios Internacionais"'
+                  )
+
+              required = [
+                  'Ex.: Ana Luiza Marques; João Silva',
+                  'Conteúdos Programáticos da Ficha de Unidade Curricular (FUC)',
+                  'EBSCO Discovery Service (EDS), para pesquisa bibliográfica',
+                  'Research Rabbit, enquanto ferramenta de IA',
+                  'à organização do percurso de trabalho.',
+                  'Marketing Digital - CTSP',
+                  'return Math.max(58, contentHeight);',
+              ]
+              missing = [item for item in required if item not in text]
+              if missing:
+                  raise SystemExit(f'{path}: ajustes em falta: {missing}')
+
+              if 'Indique os objetivos de aprendizagem alinhados com os Conteúdos Programáticos da Ficha de Unidade Curricular (FUC).' in text:
+                  raise SystemExit(f'{path}: o exemplo de Objetivos ainda termina com ponto final')
+
+              path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Validar JavaScript incorporado
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, subprocess, tempfile
+
+          for html in ('RBL.html', 'RBL_Teste.html'):
+              text = Path(html).read_text(encoding='utf-8')
+              scripts = re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>', text, flags=re.I | re.S)
+              for script in scripts:
+                  if not script.strip() or 'application/json' in script[:200]:
+                      continue
+                  with tempfile.NamedTemporaryFile('w', suffix='.js', encoding='utf-8', delete=False) as f:
+                      f.write(script)
+                      name = f.name
+                  subprocess.run(['node', '--check', name], check=True, stdout=subprocess.DEVNULL)
+          PY
+
+      - name: Remover workflow temporário e publicar
+        shell: bash
+        run: |
+          rm -f .github/workflows/rbl-publicar.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add RBL.html RBL_Teste.html .github/workflows/rbl-publicar.yml
+          git commit -m 'Atualiza templates RBL'
+          git push
