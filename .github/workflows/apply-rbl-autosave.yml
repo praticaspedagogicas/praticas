@@ -82,3 +82,5 @@ jobs:
           git commit -m "Corrigir autosave resiliente do RBL [skip ci]"
           git push origin main
           git push origin --delete rbl-autosave-payload-20260730 || true
+
+# trigger 2
