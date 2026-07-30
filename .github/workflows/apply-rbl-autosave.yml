@@ -1,0 +1,84 @@
+name: Aplicar autosave resiliente do RBL
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-rbl-autosave.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update-rbl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validar base e aplicar correções
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test "$(git hash-object RBL.html)" = "2e1378b8ca62ec772d2ebbc4f7a0dedfcdcd0c6d"
+          test "$(git hash-object RBL_Teste.html)" = "e22c69eacef85f368c3f0a4a49433fa58eee821e"
+
+          git fetch origin rbl-autosave-payload-20260730:rbl-autosave-payload-20260730
+
+          git show rbl-autosave-payload-20260730:.rbl-autosave/RBL.patch.gz.b64 | base64 -d | gzip -d > /tmp/RBL.patch
+          git show rbl-autosave-payload-20260730:.rbl-autosave/RBL_Teste.patch.gz.b64 | base64 -d | gzip -d > /tmp/RBL_Teste.patch
+
+          patch --dry-run --batch --fuzz=0 -p0 < /tmp/RBL.patch
+          patch --dry-run --batch --fuzz=0 -p0 < /tmp/RBL_Teste.patch
+          patch --batch --fuzz=0 -p0 < /tmp/RBL.patch
+          patch --batch --fuzz=0 -p0 < /tmp/RBL_Teste.patch
+
+          python3 - <<'PY'
+          from pathlib import Path
+
+          checks = {
+              'RBL.html': 'normal',
+              'RBL_Teste.html': 'teste',
+          }
+          required = [
+              'RBL AUTOSAVE RESILIENTE V5 2026-07-30',
+              'id="rbl-autosave-resiliente-v5"',
+              "guioes_autosave_RBL_v5:",
+              "data-rbl-template-mode",
+              "RBL_Teste(?:\\([^)]*\\))?\\.html",
+              "function setLessonCount(count)",
+              "function autoRestore()",
+              "window.addEventListener('pagehide'",
+              "document.addEventListener('visibilitychange'",
+              "saveFromLegacy",
+          ]
+
+          for filename, mode in checks.items():
+              text = Path(filename).read_text(encoding='utf-8')
+              missing = [item for item in required if item not in text]
+              if missing:
+                  raise RuntimeError(f'{filename}: elementos em falta: {missing}')
+              if text.count('id="rbl-autosave-resiliente-v5"') != 1:
+                  raise RuntimeError(f'{filename}: bloco de autosave duplicado ou ausente')
+              marker = f'data-rbl-template-mode="{mode}"'
+              if marker not in text:
+                  raise RuntimeError(f'{filename}: modo interno incorreto; esperado {marker}')
+              if text.count('RBL AUTOSAVE RESILIENTE V5 2026-07-30') < 2:
+                  raise RuntimeError(f'{filename}: marcadores da correção não confirmados')
+          PY
+
+          git diff --check
+
+      - name: Commit e publicação
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/apply-rbl-autosave.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Corrigir autosave resiliente do RBL [skip ci]"
+          git push origin main
+          git push origin --delete rbl-autosave-payload-20260730 || true
