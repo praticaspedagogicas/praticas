@@ -27,8 +27,18 @@ jobs:
 
           git fetch origin rbl-autosave-payload-20260730:rbl-autosave-payload-20260730
 
-          git show rbl-autosave-payload-20260730:.rbl-autosave/RBL.patch.gz.b64 | base64 -d | gzip -d > /tmp/RBL.patch
-          git show rbl-autosave-payload-20260730:.rbl-autosave/RBL_Teste.patch.gz.b64 | base64 -d | gzip -d > /tmp/RBL_Teste.patch
+          : > /tmp/RBL.patch.gz.b64
+          for f in .rbl-autosave/RBL.00.part .rbl-autosave/RBL.01.part .rbl-autosave/RBL.02.part .rbl-autosave/RBL.03.part .rbl-autosave/RBL.04.part; do
+            git show "rbl-autosave-payload-20260730:$f" >> /tmp/RBL.patch.gz.b64
+          done
+
+          : > /tmp/RBL_Teste.patch.gz.b64
+          for f in .rbl-autosave/RBL_Teste.00.part .rbl-autosave/RBL_Teste.01.part .rbl-autosave/RBL_Teste.02.part .rbl-autosave/RBL_Teste.03.part .rbl-autosave/RBL_Teste.04.part; do
+            git show "rbl-autosave-payload-20260730:$f" >> /tmp/RBL_Teste.patch.gz.b64
+          done
+
+          base64 -d /tmp/RBL.patch.gz.b64 | gzip -d > /tmp/RBL.patch
+          base64 -d /tmp/RBL_Teste.patch.gz.b64 | gzip -d > /tmp/RBL_Teste.patch
 
           patch --dry-run --batch --fuzz=0 -p0 < /tmp/RBL.patch
           patch --dry-run --batch --fuzz=0 -p0 < /tmp/RBL_Teste.patch
