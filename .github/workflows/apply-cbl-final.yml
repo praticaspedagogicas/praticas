@@ -1,0 +1,58 @@
+name: Aplicar CBL final
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-cbl-final.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update-cbl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Aplicar e validar CBL
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object CBL.html)" = "b84409504ff79b49548c4f6ba1a9e98036617104"
+          test "$(git hash-object CBL_Teste.html)" = "cf239dbcc714e948c8bd5b3e6a8147d34088dd8e"
+          git fetch origin cbl-cursos-autosave-payload-20260730:cbl-cursos-autosave-payload-20260730
+          git show cbl-cursos-autosave-payload-20260730:.cbl-courses/CBL.patch.gz.b64 > /tmp/CBL.patch.gz.b64
+          git show cbl-cursos-autosave-payload-20260730:.cbl-courses/CBL_Teste.patch.gz.b64 > /tmp/CBL_Teste.patch.gz.b64
+          echo '5077fefb4bc79ff251b9591a390409010a74a9c37992c59978c80a92279880ca  /tmp/CBL.patch.gz.b64' | sha256sum -c -
+          echo 'c1262d222a3bcc18c1eb77571f9f8daaee83e02cc5d42d3d38d1c14cb8e3b474  /tmp/CBL_Teste.patch.gz.b64' | sha256sum -c -
+          base64 -d /tmp/CBL.patch.gz.b64 | gzip -d > /tmp/CBL.patch
+          base64 -d /tmp/CBL_Teste.patch.gz.b64 | gzip -d > /tmp/CBL_Teste.patch
+          patch --dry-run --batch --fuzz=0 -p0 < /tmp/CBL.patch
+          patch --dry-run --batch --fuzz=0 -p0 < /tmp/CBL_Teste.patch
+          patch --batch --fuzz=0 -p0 < /tmp/CBL.patch
+          patch --batch --fuzz=0 -p0 < /tmp/CBL_Teste.patch
+          echo '699fe118fd01ad27123f9b2aec39c88369fd52db1cb6330f674731661e3b88f4  CBL.html' | sha256sum -c -
+          echo '3e95246f426544645eca57bb36d548dc336343fa240bfd047508a94fc5ec99b6  CBL_Teste.html' | sha256sum -c -
+          grep -Fq 'data-cbl-template-mode="normal"' CBL.html
+          grep -Fq 'data-cbl-template-mode="teste"' CBL_Teste.html
+          grep -Fq 'guioes_autosave_CBL_v6:' CBL.html
+          grep -Fq 'Selecione ou pesquise um curso' CBL.html
+          grep -Fq 'Abra a lista para selecionar. Pode também escrever para pesquisar.' CBL.html
+          grep -Fq 'id="cbl-course-filter-by-unit-v1"' CBL.html
+          grep -Fq 'window.CBL_COURSES_BY_UNIT' CBL.html
+          git diff --check
+
+      - name: Publicar
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/apply-cbl-final.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add CBL.html CBL_Teste.html .github/workflows/apply-cbl-final.yml
+          git commit -m 'Corrigir autosave e cursos do CBL [skip ci]'
+          git push origin HEAD:main
