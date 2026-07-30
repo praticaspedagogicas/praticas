@@ -1,0 +1,65 @@
+name: Aplicar cursos do RBL
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  update-rbl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Aplicar atualização
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin rbl-cursos-padronizados-20260730:rbl-cursos-padronizados-20260730
+          git checkout rbl-cursos-padronizados-20260730 -- .rbl-course-update
+          python .rbl-course-update/apply.py
+          rm -rf .rbl-course-update
+          python - <<'PY'
+          from pathlib import Path
+          import re,subprocess,tempfile
+          for name,mode in [('RBL.html','normal'),('RBL_Teste.html','teste')]:
+              text=Path(name).read_text(encoding='utf-8')
+              checks=[
+                  f'data-rbl-template-mode="{mode}"',
+                  'id="rbl-course-filter-by-unit-v2"',
+                  'window.RBL_COURSES_BY_UNIT',
+                  'window.RBL_ALL_COURSES',
+                  'Selecione ou pesquise um curso',
+                  'Abra a lista para selecionar. Pode também escrever para pesquisar.',
+                  'rbl-autosave-resiliente-v5',
+                  'guioes_autosave_RBL_v5:'
+              ]
+              for marker in checks:
+                  if marker not in text:
+                      raise SystemExit(f'{name}: marcador ausente: {marker}')
+              scripts=re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>',text,re.S|re.I)
+              for i,script in enumerate(scripts):
+                  if not script.strip():
+                      continue
+                  p=Path('/tmp')/f'{name}_{i}.js'
+                  p.write_text(script,encoding='utf-8')
+                  subprocess.run(['node','--check',str(p)],check=True)
+          print('Validação estática concluída')
+          PY
+
+      - name: Publicar
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/apply-rbl-courses.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add RBL.html RBL_Teste.html .github/workflows/apply-rbl-courses.yml
+          git commit -m 'Atualizar cursos e seletor do RBL [skip ci]'
+          git push origin HEAD:main
