@@ -30,11 +30,15 @@ jobs:
             git show cbl-cursos-autosave-payload-20260730:.cbl-courses/CBL2.02.part
           } | tr -d '[:space:]' > /tmp/CBL.patch.gz.b64
           {
-            git show cbl-cursos-autosave-payload-20260730:.cbl-courses/CBLTFN.00.part
-            git show cbl-cursos-autosave-payload-20260730:.cbl-courses/CBLTFN.01.part
+            git show cbl-cursos-autosave-payload-20260730:.cbl-courses/tfn/00.part
+            git show cbl-cursos-autosave-payload-20260730:.cbl-courses/tfn/01.part
+            git show cbl-cursos-autosave-payload-20260730:.cbl-courses/tfn/02.part
+            git show cbl-cursos-autosave-payload-20260730:.cbl-courses/tfn/03.part
+            git show cbl-cursos-autosave-payload-20260730:.cbl-courses/tfn/04.part
+            git show cbl-cursos-autosave-payload-20260730:.cbl-courses/tfn/05.part
           } | tr -d '[:space:]' > /tmp/CBL_test_from_normal.patch.gz.b64
           echo '4069a5b8f6ea9bf376ed1ebde7cd7d5789fb520c98b5ba033e9260c210c516d5  /tmp/CBL.patch.gz.b64' | sha256sum -c -
-          sha256sum /tmp/CBL_test_from_normal.patch.gz.b64
+          echo '5a74b7962f648962959592025cacc6e485a3539e908ab6c909a0633e6ced0c37  /tmp/CBL_test_from_normal.patch.gz.b64' | sha256sum -c -
           base64 -d /tmp/CBL.patch.gz.b64 | gzip -d > /tmp/CBL.patch
           base64 -d /tmp/CBL_test_from_normal.patch.gz.b64 | gzip -d > /tmp/CBL_test_from_normal.patch
           patch --dry-run --batch --fuzz=0 -p0 < /tmp/CBL.patch
