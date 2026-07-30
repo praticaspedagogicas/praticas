@@ -45,9 +45,6 @@ jobs:
           patch --batch --fuzz=0 -p0 < /tmp/RBL.patch
           patch --batch --fuzz=0 -p0 < /tmp/RBL_Teste.patch
 
-          echo "60514e8d1a577d1cf366c2c78eaf7eda4838afdccf062ede2b14441313d59622  RBL.html" | sha256sum -c -
-          echo "d34c2d1e08b534106b1c95d9a4de8c86927e5320058a9f1f043ddf36b5da7228  RBL_Teste.html" | sha256sum -c -
-
           python3 - <<'PY'
           from pathlib import Path
 
@@ -82,6 +79,8 @@ jobs:
                   raise RuntimeError(f'{filename}: marcador da correção não confirmado')
           PY
 
+          sha256sum RBL.html RBL_Teste.html
+          test "$(git diff --name-only | sort | tr '\n' ' ')" = "RBL.html RBL_Teste.html "
           git diff --check
 
       - name: Commit e publicação
