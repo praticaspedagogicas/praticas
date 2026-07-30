@@ -1,4 +1,4 @@
-name: Aplicar CBL final
+name: Diagnosticar CBL final
 
 on:
   pull_request:
@@ -6,79 +6,30 @@ on:
     types: [opened, synchronize, reopened]
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  update-cbl:
+  diagnose-cbl:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
-
-      - name: Aplicar e validar CBL e padronizar RBL
+      - name: Mostrar último hunk do patch
         shell: bash
         run: |
           set -euo pipefail
-          test "$(git hash-object CBL.html)" = "b84409504ff79b49548c4f6ba1a9e98036617104"
-          test "$(git hash-object CBL_Teste.html)" = "cf239dbcc714e948c8bd5b3e6a8147d34088dd8e"
           git fetch origin cbl-cursos-autosave-payload-20260730:cbl-cursos-autosave-payload-20260730
           {
             git show cbl-cursos-autosave-payload-20260730:.cbl-courses/CBL2.00.part
             git show cbl-cursos-autosave-payload-20260730:.cbl-courses/CBL2.01.part
             git show cbl-cursos-autosave-payload-20260730:.cbl-courses/CBL2.02.part
           } | tr -d '[:space:]' > /tmp/CBL.patch.gz.b64
-          {
-            git show cbl-cursos-autosave-payload-20260730:.cbl-courses/tfn/00.part
-            git show cbl-cursos-autosave-payload-20260730:.cbl-courses/tfn/01.part
-            git show cbl-cursos-autosave-payload-20260730:.cbl-courses/tfn/02.part
-            git show cbl-cursos-autosave-payload-20260730:.cbl-courses/tfn/03.part
-            git show cbl-cursos-autosave-payload-20260730:.cbl-courses/tfn/04.part
-            git show cbl-cursos-autosave-payload-20260730:.cbl-courses/tfn/05.part
-          } | tr -d '[:space:]' > /tmp/CBL_test_from_normal.patch.gz.b64
           echo '4069a5b8f6ea9bf376ed1ebde7cd7d5789fb520c98b5ba033e9260c210c516d5  /tmp/CBL.patch.gz.b64' | sha256sum -c -
-          echo '5a74b7962f648962959592025cacc6e485a3539e908ab6c909a0633e6ced0c37  /tmp/CBL_test_from_normal.patch.gz.b64' | sha256sum -c -
           base64 -d /tmp/CBL.patch.gz.b64 | gzip -d > /tmp/CBL.patch
-          base64 -d /tmp/CBL_test_from_normal.patch.gz.b64 | gzip -d > /tmp/CBL_test_from_normal.patch
-          patch --dry-run --batch --fuzz=3 -p0 < /tmp/CBL.patch
-          patch --batch --fuzz=3 -p0 < /tmp/CBL.patch
-          cp CBL.html CBL_Teste.html
-          patch --dry-run --batch --fuzz=3 -p0 < /tmp/CBL_test_from_normal.patch
-          patch --batch --fuzz=3 -p0 < /tmp/CBL_test_from_normal.patch
-          echo '699fe118fd01ad27123f9b2aec39c88369fd52db1cb6330f674731661e3b88f4  CBL.html' | sha256sum -c -
-          echo '3e95246f426544645eca57bb36d548dc336343fa240bfd047508a94fc5ec99b6  CBL_Teste.html' | sha256sum -c -
-          grep -Fq 'data-cbl-template-mode="normal"' CBL.html
-          grep -Fq 'data-cbl-template-mode="teste"' CBL_Teste.html
-          grep -Fq 'guioes_autosave_CBL_v6:' CBL.html
-          grep -Fq 'Selecione ou pesquise um curso' CBL.html
-          grep -Fq 'Abra a lista para selecionar. Pode também escrever para pesquisar.' CBL.html
-          grep -Fq 'id="cbl-course-filter-by-unit-v1"' CBL.html
-          grep -Fq 'window.CBL_COURSES_BY_UNIT' CBL.html
-
-          python3 - <<'PY'
-          from pathlib import Path
-          for name in ('RBL.html', 'RBL_Teste.html'):
-              p = Path(name)
-              s = p.read_text(encoding='utf-8')
-              s = s.replace('search.placeholder = "Digite para procurar";', 'search.placeholder = "Selecione ou pesquise um curso";')
-              s = s.replace('helper.textContent = "Selecione um curso na lista. Para adicionar mais cursos, repita a seleção.";', 'helper.textContent = "Abra a lista para selecionar. Pode também escrever para pesquisar.";')
-              p.write_text(s, encoding='utf-8')
-          PY
-          for f in RBL.html RBL_Teste.html; do
-            grep -Fq 'search.placeholder = "Selecione ou pesquise um curso";' "$f"
-            grep -Fq 'helper.textContent = "Abra a lista para selecionar. Pode também escrever para pesquisar.";' "$f"
-            ! grep -Fq 'Selecione um curso na lista. Para adicionar mais cursos, repita a seleção.' "$f"
-          done
-          git diff --check
-
-      - name: Publicar
-        shell: bash
-        run: |
-          set -euo pipefail
-          rm -f .github/workflows/apply-cbl-final.yml
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add CBL.html CBL_Teste.html RBL.html RBL_Teste.html .github/workflows/apply-cbl-final.yml
-          git commit -m 'Corrigir autosave e cursos do CBL e padronizar cursos do RBL [skip ci]'
-          git push origin HEAD:main
+          echo '=== HUNKS ==='
+          grep -n '^@@' /tmp/CBL.patch
+          echo '=== ÚLTIMAS 220 LINHAS ==='
+          tail -n 220 /tmp/CBL.patch
+          exit 1
