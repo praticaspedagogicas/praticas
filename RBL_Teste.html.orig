@@ -1,6 +1,5 @@
-<html lang="pt" data-rbl-template-mode="normal">
+<html lang="pt" data-rbl-template-mode="teste">
 <head>
-<!-- RBL AUTOSAVE RESILIENTE V5 2026-07-30 -->
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta charset="utf-8"/>
 <style id="template-clean-style">
@@ -3866,10 +3865,10 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
 <div class="rbl-ident-card">
 <label for="unidadeOrganica">Unidade Orgânica</label>
 <select aria-required="true" id="unidadeOrganica" required="required">
-<option selected="selected" value="">Selecionar</option>
+<option value="">Selecionar</option>
 <option>FCST</option>
 <option>FCS</option>
-<option>IADE</option>
+<option selected="selected">IADE</option>
 <option>IPAM Porto</option>
 <option>IPAM Lisboa</option>
 </select>
@@ -3877,98 +3876,118 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
 <div class="rbl-ident-card">
 <label for="modalidade">Modalidade</label>
 <select aria-required="true" id="modalidade" required="required">
-<option selected="selected" value="">Selecionar</option>
+<option value="">Selecionar</option>
 <option>Presencial</option>
-<option>EaD</option>
+<option selected="selected">EaD</option>
 </select>
 </div>
 <div class="rbl-ident-card rbl-year-card">
-<label for="anoCurricular">Ano</label><select aria-required="true" class="rbl-compact-field" id="anoCurricular" name="anoCurricular" required="required"><option selected="selected" value="">Selecionar</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select>
+<label for="anoCurricular">Ano</label><select aria-required="true" class="rbl-compact-field" id="anoCurricular" name="anoCurricular" required="required"><option value="">Selecionar</option><option selected="selected" value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select>
 </div>
 <div class="rbl-ident-card rbl-semester-card">
 <label for="semestre">Semestre</label><select aria-required="true" class="rbl-compact-field" id="semestre" required="required">
-<option selected="selected" value="">Selecionar</option>
-<option>1.º Semestre</option>
+<option value="">Selecionar</option>
+<option selected="selected">1.º Semestre</option>
 <option>2.º Semestre</option>
 <option>Anual</option>
 </select>
 </div>
 <div class="rbl-ident-card">
 <label for="turmaEdicao">Turma/Edição</label>
-<input aria-required="true" class="rbl-compact-field" id="turmaEdicao" name="turmaEdicao" placeholder="Ex.: D01, E02, 1.ª edição" required="required" type="text" value=""/>
+<input aria-required="true" class="rbl-compact-field" id="turmaEdicao" name="turmaEdicao" placeholder="Ex.: D01, E02, 1.ª edição" required="required" type="text" value="D01"/>
 </div>
 </div><!-- /.rbl-top-row -->
 <div class="rbl-ident-card">
 <label for="curso">Curso(s)</label>
-<input aria-required="true" autocomplete="off" id="curso" list="rblCursosList" placeholder="Digite para procurar e selecione um curso" required="required" type="text" value=""/>
+<input aria-required="true" autocomplete="off" id="curso" list="rblCursosList" placeholder="Digite para procurar e selecione um curso" required="required" type="text" value="Mestrado em Comunicação Multimédia EaD"/>
 </div>
 <div class="rbl-ident-card rbl-uc-card">
 <label for="uc">Unidade(s) Curricular(es)</label>
-<textarea aria-required="true" class="rbl-expand-field rbl-uc-expand-field rbl-header-expand-clean" id="uc" name="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado" required="required"></textarea>
+<textarea aria-required="true" class="rbl-expand-field rbl-uc-expand-field rbl-header-expand-clean" id="uc" name="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado" required="required">Laboratório de Investigação Aplicada</textarea>
 </div>
 <div class="rbl-ident-card">
 <label for="ano">Ano letivo</label>
-<input aria-required="true" id="ano" placeholder="Ex.: 2026/2027" required="required" type="text" value=""/>
+<input aria-required="true" id="ano" placeholder="Ex.: 2026/2027" required="required" type="text" value="2026/2027"/>
 </div>
 <div class="rbl-ident-card">
 <label for="estado_guiao">Estado do guião</label>
 <select aria-required="true" class="rbl-compact-field" id="estado_guiao" name="estado_guiao" required="required">
-<option selected="selected" value="">Selecionar</option>
+<option value="">Selecionar</option>
 <option>Novo</option>
-<option>Atualizado</option>
+<option selected="selected">Atualizado</option>
 <option>Reutilizado</option>
 </select>
 </div>
 <div class="rbl-ident-card">
 <label for="professor">Docente(s)</label>
-<textarea aria-required="true" class="rbl-expand-field rbl-header-expand-clean" id="professor" name="professor" placeholder="Ex.: Ana Luiza Marques; João Silva" required="required"></textarea>
+<textarea aria-required="true" class="rbl-expand-field rbl-header-expand-clean" id="professor" name="professor" placeholder="Ex.: Ana Luiza Marques; João Silva" required="required">Ana Silva; João Pereira</textarea>
 </div>
 <div class="rbl-ident-card rbl-numeric-pair-card">
 <div class="rbl-numeric-pair-field">
 <label for="n_estudantes">Nº de estudantes</label>
-<input autocomplete="off" id="n_estudantes" inputmode="numeric" min="1" name="n_estudantes" placeholder="Ex.: 32" step="1" type="number" value=""/>
+<input autocomplete="off" id="n_estudantes" inputmode="numeric" min="1" name="n_estudantes" placeholder="Ex.: 32" step="1" type="number" value="32"/>
 </div>
 <div class="rbl-numeric-pair-field">
 <label for="n_grupos">Nº de grupos</label>
-<input autocomplete="off" id="n_grupos" inputmode="numeric" min="1" name="n_grupos" placeholder="Ex.: 6" step="1" type="number" value=""/>
+<input autocomplete="off" id="n_grupos" inputmode="numeric" min="1" name="n_grupos" placeholder="Ex.: 6" step="1" type="number" value="6"/>
 </div>
 </div>
 <div class="rbl-ident-card rbl-ident-wide">
 <label for="emails">Email(s)</label>
-<textarea aria-required="true" class="rbl-expand-field rbl-v38-email-expand rbl-header-expand-clean" id="emails" name="emails" placeholder="Ex.: ana.silva@universidadeeuropeia.pt; joao.santos@universidadeeuropeia.pt" required="required"></textarea>
+<textarea aria-required="true" class="rbl-expand-field rbl-v38-email-expand rbl-header-expand-clean" id="emails" name="emails" placeholder="Ex.: ana.silva@universidadeeuropeia.pt; joao.santos@universidadeeuropeia.pt" required="required">ana.silva@universidade.pt; joao.pereira@universidade.pt</textarea>
 </div>
 <div class="rbl-ident-card rbl-ident-wide">
 <label for="autoria">Autoria(s)</label>
-<textarea aria-required="true" class="rbl-expand-field rbl-header-expand-clean" id="autoria" name="autoria" placeholder="Ex.: Ana Luiza Marques" required="required"></textarea>
+<textarea aria-required="true" class="rbl-expand-field rbl-header-expand-clean" id="autoria" name="autoria" placeholder="Ex.: Ana Luiza Marques" required="required">Ana Silva; João Pereira</textarea>
 </div>
 </div>
 <div class="section">
 <label>Objetivos:</label>
-<textarea aria-required="true" id="objetivos" placeholder="Indique os objetivos de aprendizagem alinhados com os Conteúdos Programáticos da Ficha de Unidade Curricular (FUC)" required="required"></textarea>
+<textarea aria-required="true" id="objetivos" placeholder="Indique os objetivos de aprendizagem alinhados com os Conteúdos Programáticos da Ficha de Unidade Curricular (FUC)" required="required">Formular perguntas de investigação adequadas ao contexto da unidade curricular; pesquisar e selecionar literatura científica relevante; aplicar procedimentos básicos de recolha e análise de dados; comunicar resultados de forma clara, crítica e fundamentada.</textarea>
 </div>
 <div class="section">
 <label>Recursos:</label>
-<textarea aria-required="true" id="recursos" placeholder="Ex.: EBSCO Discovery Service (EDS), para pesquisa bibliográfica; Research Rabbit, enquanto ferramenta de IA de apoio à descoberta e exploração de relações entre publicações científicas." required="required"></textarea>
+<textarea aria-required="true" id="recursos" placeholder="Ex.: EBSCO Discovery Service (EDS), para pesquisa bibliográfica; Research Rabbit, enquanto ferramenta de IA de apoio à descoberta e exploração de relações entre publicações científicas." required="required">EBSCO Discovery Service (EDS), para pesquisa bibliográfica; Research Rabbit, enquanto ferramenta de IA de apoio à descoberta e exploração de relações entre publicações científicas.</textarea>
 </div>
 <div aria-hidden="true" class="rbl-aula-divider"></div>
 <div class="section">
 <h3>Aula 1</h3>
 <label>Data:</label>
-<input aria-required="true" id="aula1_data" required="required" type="date" value=""/>
+<input aria-required="true" id="aula1_data" required="required" type="date" value="2026-09-15"/>
 <label>Tarefas:</label>
-<textarea aria-required="true" id="aula1_tarefas" placeholder="Ex.: Constituir grupos de investigação; analisar o tema de partida; formular perguntas orientadoras; definir fontes académicas iniciais; registar critérios éticos para utilização de inteligência artificial no apoio ao trabalho académico." required="required"></textarea>
+<textarea aria-required="true" id="aula1_tarefas" placeholder="Ex.: Constituir grupos de investigação; analisar o tema de partida; formular perguntas orientadoras; definir fontes académicas iniciais; registar critérios éticos para utilização de inteligência artificial no apoio ao trabalho académico." required="required">Constituir grupos; analisar o tema de partida; formular pergunta orientadora; definir fontes iniciais.</textarea>
 <label>Descrição:</label>
-<textarea aria-required="true" id="aula1_desc" placeholder="Ex.: Sessão inicial dedicada ao enquadramento do Research Base Learning, à compreensão do problema de investigação e à organização do percurso de trabalho." required="required"></textarea>
+<textarea aria-required="true" id="aula1_desc" placeholder="Ex.: Sessão inicial dedicada ao enquadramento do Research Base Learning, à compreensão do problema de investigação e à organização do percurso de trabalho." required="required">Sessão inicial dedicada ao enquadramento do Research Base Learning, à compreensão do problema de investigação e à organização do percurso de trabalho.</textarea>
 <label>Duração:</label>
-<input aria-required="true" id="aula1_duracao" required="required" step="60" type="time" value=""/>
+<input aria-required="true" id="aula1_duracao" required="required" step="60" type="time" value="01:30"/>
 </div>
-
-
+<div class="section">
+<h3>Aula 2</h3>
+<label>Data:</label>
+<input aria-required="true" id="aula2_data" required="required" type="date" value="2026-09-22"/>
+<label>Tarefas:</label>
+<textarea id="aula2_tarefas" placeholder="Ex.: Constituir grupos de investigação; analisar o tema de partida; formular perguntas orientadoras; definir fontes académicas iniciais; registar critérios éticos para utilização de inteligência artificial no apoio ao trabalho académico.">Pesquisar literatura científica; selecionar referências relevantes; preencher grelha de análise.</textarea>
+<label>Descrição:</label>
+<textarea id="aula2_desc" placeholder="Ex.: Sessão inicial dedicada ao enquadramento do Research Base Learning, à compreensão do problema de investigação e à organização do percurso de trabalho.">Sessão dedicada à recolha e análise de evidências, com discussão dos critérios de qualidade das fontes.</textarea>
+<label>Duração:</label>
+<input aria-required="true" id="aula2_duracao" required="required" step="60" type="time" value="01:30"/>
+</div>
+<div class="section">
+<h3>Aula 3</h3>
+<label>Data:</label>
+<input aria-required="true" id="aula3_data" required="required" type="date" value="2026-09-29"/>
+<label>Tarefas:</label>
+<textarea id="aula3_tarefas" placeholder="Ex.: Constituir grupos de investigação; analisar o tema de partida; formular perguntas orientadoras; definir fontes académicas iniciais; registar critérios éticos para utilização de inteligência artificial no apoio ao trabalho académico.">Organizar resultados; preparar síntese crítica; rever conclusões; preparar apresentação final.</textarea>
+<label>Descrição:</label>
+<textarea id="aula3_desc" placeholder="Ex.: Sessão inicial dedicada ao enquadramento do Research Base Learning, à compreensão do problema de investigação e à organização do percurso de trabalho.">Sessão de consolidação do percurso investigativo e comunicação dos principais achados.</textarea>
+<label>Duração:</label>
+<input aria-required="true" id="aula3_duracao" required="required" step="60" type="time" value="01:30"/>
+</div>
 <div aria-label="Autorização para integração no repositório" class="rbl-repo-auth no-print" id="rblRepoAuth">
 <h3 class="rbl-repo-auth-title">Autorização para integração no repositório</h3>
 <p class="rbl-repo-auth-text">Caso este guião seja validado, autoriza a sua integração no <strong>Repositório Institucional de Práticas Pedagógicas</strong>, para consulta interna e possível reutilização/adaptação por outros docentes?</p>
 <div aria-label="Autorização para repositório" class="rbl-repo-auth-options" role="radiogroup">
-<label class="rbl-repo-auth-option" for="autorizaRepositorioSim"><input aria-required="true" data-rbl-aux="true" id="autorizaRepositorioSim" name="autorizaRepositorio" required="required" type="radio" value="Sim"/><span>Sim, autorizo a integração deste guião no repositório após validação.</span></label>
+<label class="rbl-repo-auth-option" for="autorizaRepositorioSim"><input aria-required="true" checked="checked" data-rbl-aux="true" id="autorizaRepositorioSim" name="autorizaRepositorio" required="required" type="radio" value="Sim"/><span>Sim, autorizo a integração deste guião no repositório após validação.</span></label>
 <label class="rbl-repo-auth-option" for="autorizaRepositorioNao"><input aria-required="true" data-rbl-aux="true" id="autorizaRepositorioNao" name="autorizaRepositorio" required="required" type="radio" value="Não"/><span>Não autorizo a integração deste guião no repositório.</span></label>
 </div>
 <p class="rbl-repo-auth-note">A integração no repositório não é automática e depende sempre de validação prévia.</p>
@@ -3996,8 +4015,7 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
 'use strict';
 
 var STORAGE_KEY = (function(){
-  var modeAttr = String((document.documentElement && document.documentElement.getAttribute('data-rbl-template-mode')) || '').toLowerCase();
-  var isTeste = modeAttr === 'teste' || /RBL_Teste(?:\([^)]*\))?\.html/i.test(String(location.pathname || ''));
+  var isTeste = /RBL_Teste\.html/i.test(String(location.pathname || ''));
   return isTeste ? 'template_autosave_RBL_Teste_preservado_v1' : 'template_autosave_RBL_preservado_v1';
 })();
 var LEGACY_STORAGE_KEYS = [
@@ -4134,7 +4152,6 @@ function renderAutosave(txt){
 
 /* ── GUARDAR RASCUNHO ── */
 function saveDraft(){
-  if(window.RBL_AUTOSAVE_V5 && typeof window.RBL_AUTOSAVE_V5.saveFromLegacy === 'function') return window.RBL_AUTOSAVE_V5.saveFromLegacy();
   normalizeNumericTextFields();
   markRblRequiredFields();
   var p = { version: 1, timestamp: new Date().toLocaleTimeString('pt-PT'), data: {}, checked: {} };
@@ -4156,7 +4173,6 @@ function saveDraft(){
 
 /* ── RESTAURAR RASCUNHO ── */
 function restoreDraft(){
-  if(window.RBL_AUTOSAVE_V5 && typeof window.RBL_AUTOSAVE_V5.restore === 'function') return window.RBL_AUTOSAVE_V5.restore();
   clearLegacyAutosaveKeys();
   normalizeNumericTextFields();
   markRblRequiredFields();
@@ -4200,7 +4216,6 @@ function restoreDraft(){
 
 /* ── LIMPAR FORMULÁRIO ── */
 function clearAll(){
-  if(window.RBL_AUTOSAVE_V5 && typeof window.RBL_AUTOSAVE_V5.clear === 'function') return window.RBL_AUTOSAVE_V5.clear();
   fields().forEach(function(el){
     if(el.tagName==='SELECT') el.selectedIndex=0; else el.value='';
     el.dispatchEvent(new Event('input', {bubbles:true}));
@@ -4219,7 +4234,6 @@ function clearAll(){
 
 /* ── APAGAR RASCUNHO ── */
 function deleteDraft(){
-  if(window.RBL_AUTOSAVE_V5 && typeof window.RBL_AUTOSAVE_V5.remove === 'function') return window.RBL_AUTOSAVE_V5.remove();
   try{
     localStorage.removeItem(STORAGE_KEY);
     clearLegacyAutosaveKeys();
@@ -6398,7 +6412,7 @@ textarea#emails:focus{
       '<label for="aula' + n + '_tarefas">Tarefas:</label>' +
       '<textarea id="aula' + n + '_tarefas" placeholder="Ex.: Constituir grupos de investigação; analisar o tema de partida; formular perguntas orientadoras; definir fontes académicas iniciais; registar critérios éticos para utilização de inteligência artificial no apoio ao trabalho académico."></textarea>' +
       '<label for="aula' + n + '_desc">Descrição:</label>' +
-      '<textarea id="aula' + n + '_desc" placeholder="Ex.: Sessão inicial dedicada ao enquadramento do Research Base Learning, à compreensão do problema de investigação e à organização do percurso de trabalho."></textarea>';
+      '<textarea id="aula' + n + '_desc" placeholder="Ex.: Sessão inicial dedicada ao enquadramento do Research Base Learning, à compreensão do problema de investigação e à organização do percurso de trabalho.</textarea>';
 
     return sec;
   }
@@ -7385,7 +7399,16 @@ input:focus, textarea:focus, select:focus,
 <option value="Mestrado em Ciências de Dados e Gestão"></option>
 <option value="Mestrado em Gestão do Desporto"></option>
 </datalist>
-
+<script id="rbl-v44-teste-fill-safe">
+(function(){
+  function set(id,v){var el=document.getElementById(id); if(el && !String(el.value||'').trim()) el.value=v;}
+  function fill(){
+    set('unidadeOrganica','IADE'); set('modalidade','Presencial'); set('curso','Licenciatura em Design Global'); set('uc','Laboratório de Investigação Aplicada'); set('ano','2026/2027'); set('professor','Ana Silva; João Pereira'); set('emails','ana.silva@universidade.pt; joao.pereira@universidade.pt'); set('n_estudantes','32'); set('autoria','Ana Silva'); set('estado_guiao','Atualizado'); set('objetivos','Desenvolver competências de investigação aplicada; formular questões de investigação; selecionar métodos adequados; analisar evidências; comunicar resultados com clareza académica.'); set('recursos','Bases de dados científicas; artigos académicos; guião metodológico; plataforma LMS; ferramenta institucional de inteligência artificial para apoio à pesquisa, síntese crítica e revisão de escrita académica; ferramentas de recolha e análise de dados.'); set('aula1_data','2026-09-15'); set('aula1_tarefas','Analisar o tema de partida, organizar os grupos, definir perguntas orientadoras, planear fontes de pesquisa e registar critérios éticos para utilização de inteligência artificial no apoio ao trabalho académico.'); set('aula1_desc','Sessão inicial dedicada ao enquadramento do Research Base Learning, à exploração do tema e ao planeamento do percurso de investigação. Os estudantes identificam fontes académicas, discutem limites do uso de IA e definem o produto investigativo a desenvolver.'); set('aula1_duracao','01:30');
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', fill); else fill();
+  setTimeout(fill,300);
+})();
+</script>
 <script id="rbl-v53-identificacao-final-script">
 (function(){
   "use strict";
@@ -7728,7 +7751,114 @@ input:focus, textarea:focus, select:focus,
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
 })();
 </script>
+<script id="rbl-v63-preenchimento-teste-final">
+(function(){
+  "use strict";
 
+  var dados = {
+    unidadeOrganica: "IADE",
+    modalidade: "EaD",
+    curso: "Mestrado em Comunicação Multimédia EaD",
+    uc: "Laboratório de Investigação Aplicada",
+    ano: "2026/2027",
+    n_estudantes: "32",
+    professor: "Ana Silva; João Pereira",
+    emails: "ana.silva@universidade.pt; joao.pereira@universidade.pt",
+    autoria: "Ana Silva",
+    estado_guiao: "Atualizado",
+    objetivos: "Formular perguntas de investigação adequadas ao contexto da UC; Selecionar fontes científicas relevantes e métodos de pesquisa apropriados; Analisar evidências com rigor académico; Comunicar resultados de forma clara, ética e fundamentada.",
+    recursos: "Bases de dados científicas; artigos académicos; guião metodológico; plataforma LMS; ferramenta institucional de inteligência artificial para apoio à pesquisa, síntese crítica e revisão de escrita académica; ferramentas de recolha e análise de dados."
+  };
+
+  var aulas = [
+    {
+      data:"2026-09-15",
+      duracao:"01:30",
+      tarefas:"Constituir grupos de investigação; analisar o tema de partida; formular perguntas orientadoras; definir fontes académicas iniciais; registar critérios éticos para utilização de inteligência artificial no apoio ao trabalho académico.",
+      desc:"Sessão inicial dedicada ao enquadramento do Research Base Learning, à compreensão do problema de investigação e à organização do percurso de trabalho.<h3>Aula ' + n + '</h3>' +
+      '<div class="rbl-inline-soft-fields">' +
+        '<div class="rbl-soft-field-card"><label for="aula' + n + '_data">Data:</label><input id="aula' + n + '_data" type="date"></div>' +
+        '<div class="rbl-soft-field-card"><label for="aula' + n + '_duracao">Duração:</label><input id="aula' + n + '_duracao" type="time" step="60"></div>' +
+      '</div>' +
+      '<label for="aula' + n + '_tarefas">Tarefas:</label><textarea id="aula' + n + '_tarefas" placeholder="Ex.: Constituir grupos de investigação; analisar o tema de partida; formular perguntas orientadoras; definir fontes académicas iniciais; registar critérios éticos para utilização de inteligência artificial no apoio ao trabalho académico."></textarea>' +
+      '<label for="aula' + n + '_desc">Descrição:</label><textarea id="aula' + n + '_desc" placeholder="Ex.: Sessão inicial dedicada ao enquadramento do Research Base Learning, à compreensão do problema de investigação e à organização do percurso de trabalho.</textarea>';
+    return sec;
+  }
+
+  function ensureThreeAulas(){
+    var actions = document.querySelector(".ux-actions");
+    var aulasAtuais = getAulas();
+
+    while(aulasAtuais.length < 3){
+      var sec = createAula(aulasAtuais.length + 1);
+      if(actions && actions.parentNode) actions.parentNode.insertBefore(sec, actions);
+      else (document.querySelector(".page") || document.body).appendChild(sec);
+      aulasAtuais = getAulas();
+    }
+
+    // Não remove aulas extra criadas pela pessoa; apenas garante que as 3 primeiras ficam corretas.
+    getAulas().forEach(function(sec, index){
+      var n = index + 1;
+      var h = sec.querySelector("h3");
+      var title = sec.querySelector(".rbl-aula-title");
+      if(title) title.textContent = "Aula " + n;
+      else if(h) h.textContent = "Aula " + n;
+
+      var data = sec.querySelector('input[type="date"]');
+      var dur = sec.querySelector('input[type="time"]');
+      var tarefas = Array.from(sec.querySelectorAll("textarea")).find(function(el){
+        return /tarefas/i.test((el.id || "") + " " + (el.placeholder || ""));
+      }) || sec.querySelectorAll("textarea")[0];
+      var desc = Array.from(sec.querySelectorAll("textarea")).find(function(el){
+        return /desc|descri/i.test((el.id || "") + " " + (el.placeholder || ""));
+      }) || sec.querySelectorAll("textarea")[1];
+
+      if(data) data.id = "aula" + n + "_data";
+      if(dur) dur.id = "aula" + n + "_duracao";
+      if(tarefas) tarefas.id = "aula" + n + "_tarefas";
+      if(desc) desc.id = "aula" + n + "_desc";
+
+      sec.querySelectorAll("label").forEach(function(label){
+        var txt = label.textContent || "";
+        if(/data:/i.test(txt)) label.setAttribute("for", "aula" + n + "_data");
+        if(/duraç|durac/i.test(txt)) label.setAttribute("for", "aula" + n + "_duracao");
+        if(/tarefas/i.test(txt)) label.setAttribute("for", "aula" + n + "_tarefas");
+        if(/descri/i.test(txt)) label.setAttribute("for", "aula" + n + "_desc");
+      });
+    });
+  }
+
+  function fill(){
+    try{ localStorage.removeItem("template_autosave_RBL"); }catch(e){}
+
+    Object.keys(dados).forEach(function(id){
+      setVal(id, dados[id]);
+    });
+
+    ensureThreeAulas();
+
+    aulas.forEach(function(a, idx){
+      var n = idx + 1;
+      setVal("aula" + n + "_data", a.data);
+      setVal("aula" + n + "_duracao", a.duracao);
+      setVal("aula" + n + "_tarefas", a.tarefas);
+      setVal("aula" + n + "_desc", a.desc);
+    });
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", function(){
+      setTimeout(fill, 300);
+      setTimeout(fill, 1000);
+      setTimeout(fill, 2200);
+    });
+  }else{
+    setTimeout(fill, 300);
+    setTimeout(fill, 1000);
+    setTimeout(fill, 2200);
+  }
+})();
+</script>
 <script id="rbl-step1-curso-menu-limpo-js">
 (function(){
   "use strict";
@@ -9934,7 +10064,65 @@ html body:not(.guiao-pdf-mode) .rbl-ident-modern + .section {
 <style id="guiao-required-submit-validation-v1-style">
 .guiao-required-missing{ outline:3px solid rgba(227,30,36,.28) !important; outline-offset:2px !important; }
 </style>
-
+<script id="rbl-teste-100-final-ajuste-js">
+(function(){
+  "use strict";
+  function byId(id){ return document.getElementById(id); }
+  function setVal(id, value){
+    var el = byId(id);
+    if(!el) return;
+    el.value = value;
+    try{
+      el.dispatchEvent(new Event("input", {bubbles:true}));
+      el.dispatchEvent(new Event("change", {bubbles:true}));
+    }catch(e){}
+  }
+  function selectByTextOrValue(id, desired){
+    var el = byId(id);
+    if(!el || !el.options) return;
+    var found = -1;
+    for(var i=0;i<el.options.length;i++){
+      var opt = el.options[i];
+      var txt = (opt.text || "").trim();
+      var val = (opt.value || txt).trim();
+      if(txt === desired || val === desired){ found = i; break; }
+    }
+    if(found >= 0){
+      el.selectedIndex = found;
+      try{ el.dispatchEvent(new Event("change", {bubbles:true})); }catch(e){}
+    }
+  }
+  function run(){
+    selectByTextOrValue("unidadeOrganica", "IADE");
+    selectByTextOrValue("modalidade", "EaD");
+    setVal("anoCurricular", "1");
+    selectByTextOrValue("semestre", "1.º Semestre");
+    setVal("turmaEdicao", "D01");
+    selectByTextOrValue("estado_guiao", "Atualizado");
+    setVal("curso", "Mestrado em Comunicação Multimédia EaD");
+    setVal("uc", "Laboratório de Investigação Aplicada");
+    setVal("ano", "2026/2027");
+    setVal("n_estudantes", "32");
+    setVal("n_grupos", "6");
+    setVal("professor", "Ana Silva; João Pereira");
+    setVal("emails", "ana.silva@universidade.pt; joao.pereira@universidade.pt");
+    setVal("autoria", "Ana Silva");
+    var sim = byId("autorizaRepositorioSim");
+    if(sim){
+      sim.checked = true;
+      try{ sim.dispatchEvent(new Event("change", {bubbles:true})); }catch(e){}
+    }
+    if(typeof renderProgress === "function"){
+      try{ renderProgress(); }catch(e){}
+    }
+    var fill = byId("progressFill"), label = byId("progressLabel");
+    if(fill) fill.style.width = "100%";
+    if(label) label.innerText = "Guião preenchido: 100%";
+  }
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", function(){ setTimeout(run, 400); setTimeout(run, 1600); setTimeout(run, 3200); });
+  else { setTimeout(run, 400); setTimeout(run, 1600); setTimeout(run, 3200); }
+})();
+</script>
 <!-- RBL FIX DEFINITIVO: n_estudantes e n_grupos como number nativo -->
 <style id="rbl-fix-definitivo-numericos-nativos">
 /* Correção definitiva e cirúrgica: Número de estudantes e Número de grupos com o mesmo comportamento nativo.
@@ -10856,7 +11044,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 })();
 </script>
 <script id="validacao-obrigatoria-cabecalho-20260617" type="application/json">
-/* VALIDACAO OBRIGATORIA CABECALHO 2026-06-17 — RBL */
+/* VALIDACAO OBRIGATORIA CABECALHO 2026-06-17 — RBL_Teste */
 (function(){
   'use strict';
   var REQUIRED_GROUPS = [{"label": "Unidade Orgânica", "selectors": ["#unidadeOrganica"]}, {"label": "Modalidade", "selectors": ["#modalidade"]}, {"label": "Ano", "selectors": ["#anoCurricular"]}, {"label": "Semestre", "selectors": ["#semestre"]}, {"label": "Turma/Edição", "selectors": ["#turmaEdicao"]}, {"label": "Curso(s)", "selectors": ["#curso", "#cursoBusca"]}, {"label": "Unidade(s) Curricular(es)", "selectors": ["#uc"]}, {"label": "Docente(s)", "selectors": ["#professor"]}, {"label": "Email(s)", "selectors": ["#emails"]}, {"label": "Autoria", "selectors": ["#autoria"]}, {"label": "Ano letivo", "selectors": ["#ano"]}, {"label": "Estado do guião", "selectors": ["#estado_guiao"]}, {"label": "Autorização para repositório", "selectors": ["input[name=\"autorizaRepositorio\"]"]}];
@@ -11548,518 +11736,6 @@ body:not(.guiao-pdf-mode) .pbl-course-chip button{
   function init(){decorate();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
   [100,400,1000,2500].forEach(function(ms){setTimeout(decorate,ms);});
-})();
-</script>
-
-<script id="rbl-autosave-resiliente-v5">
-/* ===== RBL AUTOSAVE RESILIENTE V5 — 2026-07-30 =====
-   - chave exclusiva por modo e itemId;
-   - gravação verificada após alterações reais, em pagehide e ao ocultar a página;
-   - restauração automática segura;
-   - preservação e reconstrução das aulas dinâmicas;
-   - compatibilidade com Curso(s), radios, campos ocultos e edição por itemId;
-   - os comandos Guardar/Restaurar/Apagar/Limpar usam este sistema.
-*/
-(function(){
-  'use strict';
-  if(window.__RBL_AUTOSAVE_RESILIENTE_V5__) return;
-  window.__RBL_AUTOSAVE_RESILIENTE_V5__ = true;
-
-  var MODE = (function(){
-    var html = document.documentElement;
-    var value = html ? String(html.getAttribute('data-rbl-template-mode') || '') : '';
-    if(value === 'teste' || value === 'normal') return value;
-    return /RBL_Teste(?:\([^)]*\))?\.html/i.test(String(location.pathname || '')) ? 'teste' : 'normal';
-  })();
-  var SCHEMA = 5;
-  var ITEM_ID = (function(){
-    try { return String(new URLSearchParams(location.search || '').get('itemId') || '').replace(/[^A-Za-z0-9_-]/g,''); }
-    catch(e){ var m=(location.search||'').match(/[?&]itemId=([^&]+)/i); return m ? String(m[1]).replace(/[^A-Za-z0-9_-]/g,'') : ''; }
-  })();
-  var STORAGE_KEY = 'guioes_autosave_RBL_v5:' + MODE + ':' + (ITEM_ID ? ('item_' + ITEM_ID) : 'novo');
-  var LEGACY_KEYS = MODE === 'teste'
-    ? ['template_autosave_RBL_Teste_preservado_v1','template_autosave_RBL_Teste','template_autosave_RBL']
-    : ['template_autosave_RBL_preservado_v1','template_autosave_RBL','template_autosave_RBL_v1','template_autosave_RBL_clean_v1'];
-  var saveTimer = null;
-  var restoring = false;
-  var suppressSave = false;
-  var userInteracted = false;
-  var dirtySinceLoad = false;
-  var baselineLessonCount = 1;
-
-  function nowIso(){ return new Date().toISOString(); }
-  function localTime(iso){
-    try { return new Date(iso).toLocaleTimeString('pt-PT', {hour:'2-digit', minute:'2-digit', second:'2-digit'}); }
-    catch(e){ return '--'; }
-  }
-  function status(text){
-    var el = document.getElementById('autosaveStatus');
-    if(el) el.textContent = text;
-  }
-  function toastSafe(msg, type, duration){
-    if(typeof window.toast === 'function'){
-      try { window.toast(msg, type, duration); return; } catch(e){}
-    }
-    var old = document.querySelector('.toast-message');
-    if(old) old.remove();
-    var d = document.createElement('div');
-    d.className = 'toast-message';
-    d.textContent = msg;
-    d.style.background = type === 'error' ? '#7a1f1f' : (type === 'ok' ? '#1f4d2b' : '#333');
-    document.body.appendChild(d);
-    setTimeout(function(){ if(d.parentNode) d.remove(); }, duration || 3200);
-  }
-  function safeGet(key){ try { return localStorage.getItem(key); } catch(e){ return null; } }
-  function safeRemove(key){ try { localStorage.removeItem(key); return true; } catch(e){ return false; } }
-  function safeSetVerified(key, value){
-    try {
-      localStorage.setItem(key, value);
-      return localStorage.getItem(key) === value;
-    } catch(e){ return false; }
-  }
-  function fire(el){
-    if(!el) return;
-    try { el.dispatchEvent(new Event('input', {bubbles:true})); } catch(e){}
-    try { el.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
-  }
-  function cssEscape(value){
-    if(window.CSS && typeof window.CSS.escape === 'function') return window.CSS.escape(String(value));
-    return String(value).replace(/([\\"'\[\]#.:])/g,'\\$1');
-  }
-  function headingText(sec){
-    var h = sec && sec.querySelector ? sec.querySelector('h3,.rbl-aula-title') : null;
-    return String((h && h.textContent) || '').replace(/\s+/g,' ').trim();
-  }
-  function lessonSections(){
-    return Array.prototype.slice.call(document.querySelectorAll('.section')).filter(function(sec){
-      return /^Aula\s+\d+/i.test(headingText(sec));
-    });
-  }
-  function lessonField(sec, kind){
-    if(!sec) return null;
-    if(kind === 'data') return sec.querySelector('input[type="date"],[id$="_data"]');
-    if(kind === 'duracao') return sec.querySelector('input[type="time"],[id$="_duracao"]');
-    var labels = Array.prototype.slice.call(sec.querySelectorAll('label'));
-    var regex = kind === 'tarefas' ? /tarefas/i : /desc|descri/i;
-    var lab = labels.find(function(l){ return regex.test(String(l.textContent || '')); });
-    if(lab){
-      var candidate = lab.nextElementSibling;
-      if(candidate && /^(INPUT|TEXTAREA|SELECT)$/i.test(candidate.tagName)) return candidate;
-      if(lab.parentElement){
-        candidate = lab.parentElement.querySelector('input,textarea,select');
-        if(candidate) return candidate;
-      }
-    }
-    return sec.querySelector('[id$="_' + kind + '"]');
-  }
-  function ensureLessonIds(){
-    lessonSections().forEach(function(sec, idx){
-      var n = idx + 1;
-      sec.dataset.rblAulaIndex = String(n);
-      var title = sec.querySelector('.rbl-aula-title');
-      var h3 = sec.querySelector('h3');
-      if(title) title.textContent = 'Aula ' + n;
-      else if(h3 && !h3.querySelector('.rbl-aula-title')) h3.textContent = 'Aula ' + n;
-      ['data','duracao','tarefas','desc'].forEach(function(kind){
-        var el = lessonField(sec, kind);
-        if(!el) return;
-        el.id = 'aula' + n + '_' + kind;
-        el.name = el.id;
-        var label = Array.prototype.slice.call(sec.querySelectorAll('label')).find(function(l){
-          var txt=String(l.textContent||'');
-          if(kind==='data') return /data:/i.test(txt);
-          if(kind==='duracao') return /duraç|durac/i.test(txt);
-          if(kind==='tarefas') return /tarefas/i.test(txt);
-          return /desc|descri/i.test(txt);
-        });
-        if(label) label.setAttribute('for', el.id);
-      });
-    });
-  }
-  function readLessons(){
-    ensureLessonIds();
-    return lessonSections().map(function(sec){
-      function value(kind){ var el=lessonField(sec,kind); return String((el && el.value) || ''); }
-      return {data:value('data'),duracao:value('duracao'),tarefas:value('tarefas'),desc:value('desc')};
-    });
-  }
-  function createLessonFallback(n){
-    var sec=document.createElement('div');
-    sec.className='section aula-dinamica';
-    sec.innerHTML=
-      '<h3>Aula '+n+'</h3>'+
-      '<div class="rbl-inline-soft-fields">'+
-        '<div class="rbl-soft-field-card"><label for="aula'+n+'_data">Data:</label><input id="aula'+n+'_data" name="aula'+n+'_data" type="date"></div>'+
-        '<div class="rbl-soft-field-card"><label for="aula'+n+'_duracao">Duração:</label><input id="aula'+n+'_duracao" name="aula'+n+'_duracao" type="time" step="60"></div>'+
-      '</div>'+
-      '<label for="aula'+n+'_tarefas">Tarefas:</label><textarea id="aula'+n+'_tarefas" name="aula'+n+'_tarefas"></textarea>'+
-      '<label for="aula'+n+'_desc">Descrição:</label><textarea id="aula'+n+'_desc" name="aula'+n+'_desc"></textarea>';
-    var aulas=lessonSections(), last=aulas[aulas.length-1], actions=document.querySelector('.ux-actions');
-    if(last && last.parentNode) last.parentNode.insertBefore(sec,last.nextSibling);
-    else if(actions && actions.parentNode) actions.parentNode.insertBefore(sec,actions);
-    else (document.querySelector('.page')||document.body).appendChild(sec);
-  }
-  function setLessonCount(count){
-    count=Math.max(1,Math.min(60,Number(count)||1));
-    var guard=0;
-    while(lessonSections().length<count && guard++<65){
-      var before=lessonSections().length;
-      if(typeof window.rblAdicionarAulaLimpo==='function') window.rblAdicionarAulaLimpo();
-      else createLessonFallback(before+1);
-      if(lessonSections().length===before) createLessonFallback(before+1);
-    }
-    guard=0;
-    while(lessonSections().length>count && lessonSections().length>1 && guard++<65){
-      var beforeRemove=lessonSections().length;
-      if(typeof window.rblRemoverAulaLimpo==='function') window.rblRemoverAulaLimpo();
-      else {
-        var list=lessonSections();
-        if(list.length>1) list[list.length-1].remove();
-      }
-      if(lessonSections().length===beforeRemove){
-        var list2=lessonSections();
-        if(list2.length>1) list2[list2.length-1].remove();
-      }
-    }
-    ensureLessonIds();
-  }
-  function isLessonControl(el){
-    return !!(el && el.closest && lessonSections().some(function(sec){ return sec.contains(el); }));
-  }
-  function storableControls(){
-    return Array.prototype.slice.call(document.querySelectorAll('input,textarea,select')).filter(function(el){
-      var type=String(el.type||'').toLowerCase();
-      if(el.disabled || ['button','submit','reset','file','image'].indexOf(type)>=0) return false;
-      if(isLessonControl(el)) return false;
-      if(el.classList.contains('rbl-course-search') || el.getAttribute('data-rbl-aux')==='true') return false;
-      if(el.closest('.rbl-course-picker') && el.id!=='curso' && el.name!=='curso') return false;
-      return !!(el.id || el.name);
-    });
-  }
-  function controlKey(el){
-    if(el.id) return 'id:' + el.id;
-    var type=String(el.type||'').toLowerCase();
-    if((type==='radio'||type==='checkbox') && el.name) return 'name:' + el.name + '|value:' + String(el.value||'');
-    return 'name:' + String(el.name||'');
-  }
-  function readControl(el){
-    var type=String(el.type||'').toLowerCase();
-    if(type==='radio'||type==='checkbox') return {checked:!!el.checked,value:String(el.value||'')};
-    if(el.tagName==='SELECT' && el.multiple){
-      return {values:Array.prototype.slice.call(el.options).filter(function(o){return o.selected;}).map(function(o){return o.value;})};
-    }
-    return {value:String(el.value==null?'':el.value)};
-  }
-  function findControl(key){
-    if(key.indexOf('id:')===0) return document.getElementById(key.slice(3));
-    var body=key.slice(5), split=body.indexOf('|value:');
-    if(split>=0){
-      var name=body.slice(0,split), value=body.slice(split+7);
-      return Array.prototype.slice.call(document.querySelectorAll('[name="'+cssEscape(name)+'"]')).find(function(el){return String(el.value||'')===value;})||null;
-    }
-    return document.querySelector('[name="'+cssEscape(body)+'"]');
-  }
-  function currentPayload(){
-    ensureLessonIds();
-    var controls={};
-    storableControls().forEach(function(el){controls[controlKey(el)]=readControl(el);});
-    return {
-      schema:SCHEMA,
-      template:'RBL',
-      mode:MODE,
-      itemId:ITEM_ID||null,
-      updatedAt:nowIso(),
-      urlPath:String(location.pathname||''),
-      controls:controls,
-      lessons:readLessons()
-    };
-  }
-  function saveNow(options){
-    options=options||{};
-    if(restoring||suppressSave) return false;
-    if(!options.force && !dirtySinceLoad) return false;
-    var payload=currentPayload(), json=JSON.stringify(payload);
-    var ok=safeSetVerified(STORAGE_KEY,json);
-    if(ok){
-      dirtySinceLoad=false;
-      status('Última gravação automática: '+localTime(payload.updatedAt));
-      if(options.toast) toastSafe('Rascunho guardado com sucesso.','ok');
-      return true;
-    }
-    status('Não foi possível guardar o rascunho neste navegador.');
-    if(options.toast) toastSafe('Não foi possível guardar o rascunho neste navegador.','error',5500);
-    return false;
-  }
-  function scheduleSave(delay){
-    if(restoring||suppressSave) return;
-    dirtySinceLoad=true;
-    if(saveTimer) clearTimeout(saveTimer);
-    saveTimer=setTimeout(function(){saveTimer=null;saveNow({force:true});},typeof delay==='number'?delay:350);
-  }
-  function parseDraft(raw){
-    if(!raw) return null;
-    try{
-      var p=JSON.parse(raw);
-      if(!p||p.schema!==SCHEMA||p.template!=='RBL'||p.mode!==MODE) return null;
-      if(String(p.itemId||'')!==String(ITEM_ID||'')) return null;
-      return p;
-    }catch(e){return null;}
-  }
-  function syncCoursesAfterRestore(){
-    var hidden=document.getElementById('curso');
-    if(!hidden) return;
-    var value=String(hidden.value||'');
-    try{
-      if(window.RBL_COURSE_PICKER_API && typeof window.RBL_COURSE_PICKER_API.setCourses==='function'){
-        window.RBL_COURSE_PICKER_API.setCourses(value);
-      }else{
-        fire(hidden);
-        if(window.GUIOES_MULTICURSO_EMAILS_FINAL_V1 && typeof window.GUIOES_MULTICURSO_EMAILS_FINAL_V1.init==='function'){
-          window.GUIOES_MULTICURSO_EMAILS_FINAL_V1.init();
-        }
-      }
-    }catch(e){}
-  }
-  function applyControlState(el,state){
-    if(!el||!state) return;
-    var type=String(el.type||'').toLowerCase();
-    if(type==='radio'||type==='checkbox') el.checked=!!state.checked;
-    else if(el.tagName==='SELECT'&&el.multiple&&Array.isArray(state.values)){
-      Array.prototype.forEach.call(el.options,function(o){o.selected=state.values.indexOf(o.value)>=0;});
-    }else el.value=state.value==null?'':String(state.value);
-    fire(el);
-  }
-  function restorePayload(payload,options){
-    options=options||{};
-    if(!payload) return false;
-    restoring=true;suppressSave=true;
-    try{
-      var lessons=Array.isArray(payload.lessons)&&payload.lessons.length?payload.lessons:[{data:'',duracao:'',tarefas:'',desc:''}];
-      setLessonCount(lessons.length);
-      Object.keys(payload.controls||{}).forEach(function(key){applyControlState(findControl(key),payload.controls[key]);});
-      lessons.forEach(function(item,idx){
-        var sec=lessonSections()[idx];
-        if(!sec) return;
-        ['data','duracao','tarefas','desc'].forEach(function(kind){
-          var el=lessonField(sec,kind);
-          if(el){el.value=String((item&&item[kind])||'');fire(el);}
-        });
-      });
-      ensureLessonIds();
-      syncCoursesAfterRestore();
-      ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso'].forEach(function(fn){
-        try{if(typeof window[fn]==='function')window[fn]();}catch(e){}
-      });
-      status('Última gravação automática: '+localTime(payload.updatedAt));
-      dirtySinceLoad=false;
-      document.documentElement.setAttribute('data-rbl-draft-restored','1');
-      if(options.toast!==false) toastSafe('Rascunho restaurado com sucesso.','ok');
-      return true;
-    }finally{
-      setTimeout(function(){restoring=false;suppressSave=false;},80);
-    }
-  }
-  function restoreCurrent(options){
-    var p=parseDraft(safeGet(STORAGE_KEY));
-    if(!p){
-      status('Última gravação automática: --');
-      if(!options||options.toast!==false) toastSafe('Não há rascunho guardado.');
-      return false;
-    }
-    return restorePayload(p,options);
-  }
-  function legacyToV5(raw){
-    try{
-      var old=JSON.parse(raw);
-      if(!old||!old.data||typeof old.data!=='object') return null;
-      var controls={}, lessonMap={}, keys=Object.keys(old.data);
-      keys.forEach(function(key){
-        var value=old.data[key], plain=key.replace(/^id:/,'');
-        var m=plain.match(/^aula(\d+)_(data|duracao|tarefas|desc)$/i);
-        if(m){
-          var n=Number(m[1]), kind=m[2].toLowerCase();
-          lessonMap[n]=lessonMap[n]||{data:'',duracao:'',tarefas:'',desc:''};
-          lessonMap[n][kind]=String(value==null?'':value);
-          return;
-        }
-        var el=null;
-        if(key.indexOf('id:')===0) el=document.getElementById(key.slice(3));
-        else if(key.indexOf('name:')===0) el=document.querySelector('[name="'+cssEscape(key.slice(5))+'"]');
-        else el=document.getElementById(key)||document.querySelector('[name="'+cssEscape(key)+'"]');
-        if(el&&!isLessonControl(el)) controls[controlKey(el)]={value:String(value==null?'':value)};
-      });
-      Object.keys(old.checked||{}).forEach(function(key){
-        var el=null;
-        if(key.indexOf('id:')===0) el=document.getElementById(key.slice(3));
-        else if(key.indexOf('name:')===0) el=document.querySelector('[name="'+cssEscape(key.slice(5).split('|value:')[0])+'"]');
-        if(el) controls[controlKey(el)]={checked:!!old.checked[key],value:String(el.value||'')};
-      });
-      if(!keys.length&&!Object.keys(old.checked||{}).length) return null;
-      var nums=Object.keys(lessonMap).map(Number).sort(function(a,b){return a-b;});
-      var lessons=nums.length?nums.map(function(n){return lessonMap[n];}):readLessons();
-      return {schema:SCHEMA,template:'RBL',mode:MODE,itemId:ITEM_ID||null,updatedAt:nowIso(),urlPath:String(location.pathname||''),controls:controls,lessons:lessons,migratedFromLegacy:true};
-    }catch(e){return null;}
-  }
-  function migrateLegacyIfUseful(){
-    if(ITEM_ID||safeGet(STORAGE_KEY)) return;
-    for(var i=0;i<LEGACY_KEYS.length;i++){
-      var raw=safeGet(LEGACY_KEYS[i]), migrated=legacyToV5(raw);
-      if(!migrated) continue;
-      if(safeSetVerified(STORAGE_KEY,JSON.stringify(migrated))) return;
-    }
-  }
-  function deleteDraft(showToast){
-    if(saveTimer){clearTimeout(saveTimer);saveTimer=null;}
-    safeRemove(STORAGE_KEY);
-    dirtySinceLoad=false;
-    status('Última gravação automática: --');
-    if(showToast!==false) toastSafe('Rascunho local apagado. O formulário foi mantido.');
-    return true;
-  }
-  function clearForm(){
-    if(saveTimer){clearTimeout(saveTimer);saveTimer=null;}
-    restoring=true;suppressSave=true;
-    try{
-      setLessonCount(baselineLessonCount);
-      storableControls().forEach(function(el){
-        var type=String(el.type||'').toLowerCase();
-        if(type==='radio'||type==='checkbox') el.checked=false;
-        else if(el.tagName==='SELECT') el.selectedIndex=0;
-        else el.value='';
-        fire(el);
-      });
-      lessonSections().forEach(function(sec){
-        ['data','duracao','tarefas','desc'].forEach(function(kind){var el=lessonField(sec,kind);if(el){el.value='';fire(el);}});
-      });
-      try{document.dispatchEvent(new CustomEvent('rbl:clearCourses'));}catch(e){}
-      safeRemove(STORAGE_KEY);
-      dirtySinceLoad=false;
-      status('Última gravação automática: --');
-      ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso'].forEach(function(fn){try{if(typeof window[fn]==='function')window[fn]();}catch(e){}});
-      toastSafe('Formulário limpo com sucesso.');
-      return true;
-    }finally{
-      setTimeout(function(){restoring=false;suppressSave=false;},100);
-    }
-  }
-  function menuAction(btn){
-    if(!btn) return '';
-    var data=String(btn.getAttribute('data-rbl-menu-action')||'').toLowerCase();
-    if(data) return data;
-    var id=String(btn.id||'');
-    if(id==='draftBtn') return 'draft';
-    if(id==='restoreBtn') return 'restore';
-    if(id==='deleteBtn') return 'delete';
-    if(id==='clearBtn') return 'clear';
-    return '';
-  }
-  function interceptMenuActions(ev){
-    var btn=ev.target&&ev.target.closest?ev.target.closest('button'):null;
-    var action=menuAction(btn);
-    if(['draft','restore','delete','clear'].indexOf(action)<0) return;
-    ev.preventDefault();ev.stopPropagation();if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();
-    var menu=document.getElementById('uxMenuMaisOpcoes');if(menu)menu.classList.remove('open');
-    if(action==='draft') saveNow({force:true,toast:true});
-    else if(action==='restore') restoreCurrent({toast:true});
-    else if(action==='delete') deleteDraft(true);
-    else if(action==='clear') clearForm();
-  }
-  function markRealInteraction(ev){
-    if(restoring||suppressSave) return;
-    if(ev&&ev.isTrusted){userInteracted=true;dirtySinceLoad=true;}
-  }
-  function onInputChange(ev){
-    if(restoring||suppressSave) return;
-    if(!ev||!ev.target||!ev.target.matches||!ev.target.matches('input,textarea,select')) return;
-    if(ev.isTrusted){userInteracted=true;scheduleSave(ev.type==='change'?80:350);}
-  }
-  function onTrustedClick(ev){
-    if(restoring||suppressSave||!ev.isTrusted) return;
-    var target=ev.target&&ev.target.closest?ev.target.closest('button,[role="option"],.rbl-course-option,.rbl-course-chip'):null;
-    if(!target) return;
-    if(menuAction(target)||target.id==='btnMaisOpcoes') return;
-    userInteracted=true;
-    if(target.closest('.rbl-course-picker,.rbl-course-chip-area,.rbl-repo-auth')||
-       target.matches('[aria-label*="aula" i],.rbl-add,.rbl-remove')){
-      setTimeout(function(){ensureLessonIds();scheduleSave(100);},40);
-    }
-  }
-  function observeDynamicLessons(){
-    var root=document.querySelector('.page')||document.body;
-    if(!root||root.dataset.rblAutosaveObserved==='1') return;
-    root.dataset.rblAutosaveObserved='1';
-    new MutationObserver(function(mutations){
-      var relevant=mutations.some(function(m){
-        return Array.prototype.slice.call(m.addedNodes||[]).concat(Array.prototype.slice.call(m.removedNodes||[])).some(function(n){
-          return n&&n.nodeType===1&&(n.matches&&n.matches('.aula-dinamica,.section')||n.querySelector&&n.querySelector('.aula-dinamica,[id^="aula"]'));
-        });
-      });
-      if(relevant){
-        ensureLessonIds();
-        if(userInteracted&&!restoring&&!suppressSave) scheduleSave(140);
-      }
-    }).observe(root,{childList:true,subtree:true});
-  }
-  function hasDraft(){return !!parseDraft(safeGet(STORAGE_KEY));}
-  function autoRestore(){
-    var attempts=0;
-    function attempt(){
-      var p=parseDraft(safeGet(STORAGE_KEY));
-      if(!p) return;
-      if(userInteracted){
-        status('Rascunho disponível: '+localTime(p.updatedAt)+' — restaure em Mais opções.');
-        return;
-      }
-      if(ITEM_ID&&!document.body.classList.contains('guiao-carregado-por-id')&&attempts<24){
-        attempts++;setTimeout(attempt,500);return;
-      }
-      restorePayload(p,{toast:false});
-    }
-    setTimeout(attempt,ITEM_ID?1800:(MODE==='teste'?2850:1700));
-  }
-  function init(){
-    ensureLessonIds();
-    baselineLessonCount=Math.max(1,lessonSections().length||1);
-    observeDynamicLessons();
-    migrateLegacyIfUseful();
-    var existing=parseDraft(safeGet(STORAGE_KEY));
-    if(existing) status('Rascunho disponível: '+localTime(existing.updatedAt));
-    else status('Última gravação automática: --');
-
-    document.addEventListener('click',interceptMenuActions,true);
-    document.addEventListener('input',onInputChange,true);
-    document.addEventListener('change',onInputChange,true);
-    document.addEventListener('pointerdown',markRealInteraction,true);
-    document.addEventListener('click',onTrustedClick,true);
-    autoRestore();
-    [250,700,1500,3000].forEach(function(ms){setTimeout(function(){ensureLessonIds();observeDynamicLessons();},ms);});
-  }
-
-  window.addEventListener('pagehide',function(){if(dirtySinceLoad)saveNow({force:true});},true);
-  window.addEventListener('beforeunload',function(){if(dirtySinceLoad)saveNow({force:true});},true);
-  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&dirtySinceLoad)saveNow({force:true});},true);
-
-  window.RBL_AUTOSAVE_V5={
-    key:STORAGE_KEY,
-    mode:MODE,
-    itemId:ITEM_ID,
-    hasDraft:hasDraft,
-    userInteracted:function(){return userInteracted;},
-    save:function(){return saveNow({force:true});},
-    saveFromLegacy:function(){return (userInteracted||dirtySinceLoad)?saveNow({force:true}):false;},
-    restore:function(){return restoreCurrent({toast:false});},
-    remove:function(){return deleteDraft(false);},
-    clear:clearForm,
-    snapshot:currentPayload,
-    lessons:lessonSections
-  };
-  window.saveDraft=function(){return saveNow({force:true,toast:false});};
-  window.restoreDraft=function(){return restoreCurrent({toast:true});};
-  window.deleteDraft=function(){return deleteDraft(true);};
-  window.clearAll=clearForm;
-
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
-  else init();
 })();
 </script>
 

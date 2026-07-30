@@ -1,5 +1,6 @@
 <html lang="pt" data-rbl-template-mode="teste">
 <head>
+<!-- RBL AUTOSAVE RESILIENTE V5 2026-07-30 -->
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta charset="utf-8"/>
 <style id="template-clean-style">
@@ -4015,7 +4016,8 @@ body:not(.guiao-pdf-mode):not(.project-print-mode):not(.cbl-print-mode) input[ty
 'use strict';
 
 var STORAGE_KEY = (function(){
-  var isTeste = /RBL_Teste\.html/i.test(String(location.pathname || ''));
+  var modeAttr = String((document.documentElement && document.documentElement.getAttribute('data-rbl-template-mode')) || '').toLowerCase();
+  var isTeste = modeAttr === 'teste' || /RBL_Teste(?:\([^)]*\))?\.html/i.test(String(location.pathname || ''));
   return isTeste ? 'template_autosave_RBL_Teste_preservado_v1' : 'template_autosave_RBL_preservado_v1';
 })();
 var LEGACY_STORAGE_KEYS = [
@@ -4152,6 +4154,7 @@ function renderAutosave(txt){
 
 /* ── GUARDAR RASCUNHO ── */
 function saveDraft(){
+  if(window.RBL_AUTOSAVE_V5 && typeof window.RBL_AUTOSAVE_V5.saveFromLegacy === 'function') return window.RBL_AUTOSAVE_V5.saveFromLegacy();
   normalizeNumericTextFields();
   markRblRequiredFields();
   var p = { version: 1, timestamp: new Date().toLocaleTimeString('pt-PT'), data: {}, checked: {} };
@@ -4173,6 +4176,7 @@ function saveDraft(){
 
 /* ── RESTAURAR RASCUNHO ── */
 function restoreDraft(){
+  if(window.RBL_AUTOSAVE_V5 && typeof window.RBL_AUTOSAVE_V5.restore === 'function') return window.RBL_AUTOSAVE_V5.restore();
   clearLegacyAutosaveKeys();
   normalizeNumericTextFields();
   markRblRequiredFields();
@@ -4216,6 +4220,7 @@ function restoreDraft(){
 
 /* ── LIMPAR FORMULÁRIO ── */
 function clearAll(){
+  if(window.RBL_AUTOSAVE_V5 && typeof window.RBL_AUTOSAVE_V5.clear === 'function') return window.RBL_AUTOSAVE_V5.clear();
   fields().forEach(function(el){
     if(el.tagName==='SELECT') el.selectedIndex=0; else el.value='';
     el.dispatchEvent(new Event('input', {bubbles:true}));
@@ -4234,6 +4239,7 @@ function clearAll(){
 
 /* ── APAGAR RASCUNHO ── */
 function deleteDraft(){
+  if(window.RBL_AUTOSAVE_V5 && typeof window.RBL_AUTOSAVE_V5.remove === 'function') return window.RBL_AUTOSAVE_V5.remove();
   try{
     localStorage.removeItem(STORAGE_KEY);
     clearLegacyAutosaveKeys();
@@ -7829,7 +7835,15 @@ input:focus, textarea:focus, select:focus,
   }
 
   function fill(){
-    try{ localStorage.removeItem("template_autosave_RBL"); }catch(e){}
+    if(window.__RBL_TEST_DEFAULTS_APPLIED__) return;
+    try{
+      if(new URLSearchParams(location.search || "").get("itemId")) return;
+    }catch(e){}
+    if(window.RBL_AUTOSAVE_V5){
+      if(typeof window.RBL_AUTOSAVE_V5.hasDraft === "function" && window.RBL_AUTOSAVE_V5.hasDraft()) return;
+      if(typeof window.RBL_AUTOSAVE_V5.userInteracted === "function" && window.RBL_AUTOSAVE_V5.userInteracted()) return;
+    }
+    window.__RBL_TEST_DEFAULTS_APPLIED__ = true;
 
     Object.keys(dados).forEach(function(id){
       setVal(id, dados[id]);
@@ -11736,6 +11750,519 @@ body:not(.guiao-pdf-mode) .pbl-course-chip button{
   function init(){decorate();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
   [100,400,1000,2500].forEach(function(ms){setTimeout(decorate,ms);});
+})();
+</script>
+
+
+<script id="rbl-autosave-resiliente-v5">
+/* ===== RBL AUTOSAVE RESILIENTE V5 — 2026-07-30 =====
+   - chave exclusiva por modo e itemId;
+   - gravação verificada após alterações reais, em pagehide e ao ocultar a página;
+   - restauração automática segura;
+   - preservação e reconstrução das aulas dinâmicas;
+   - compatibilidade com Curso(s), radios, campos ocultos e edição por itemId;
+   - os comandos Guardar/Restaurar/Apagar/Limpar usam este sistema.
+*/
+(function(){
+  'use strict';
+  if(window.__RBL_AUTOSAVE_RESILIENTE_V5__) return;
+  window.__RBL_AUTOSAVE_RESILIENTE_V5__ = true;
+
+  var MODE = (function(){
+    var html = document.documentElement;
+    var value = html ? String(html.getAttribute('data-rbl-template-mode') || '') : '';
+    if(value === 'teste' || value === 'normal') return value;
+    return /RBL_Teste(?:\([^)]*\))?\.html/i.test(String(location.pathname || '')) ? 'teste' : 'normal';
+  })();
+  var SCHEMA = 5;
+  var ITEM_ID = (function(){
+    try { return String(new URLSearchParams(location.search || '').get('itemId') || '').replace(/[^A-Za-z0-9_-]/g,''); }
+    catch(e){ var m=(location.search||'').match(/[?&]itemId=([^&]+)/i); return m ? String(m[1]).replace(/[^A-Za-z0-9_-]/g,'') : ''; }
+  })();
+  var STORAGE_KEY = 'guioes_autosave_RBL_v5:' + MODE + ':' + (ITEM_ID ? ('item_' + ITEM_ID) : 'novo');
+  var LEGACY_KEYS = MODE === 'teste'
+    ? ['template_autosave_RBL_Teste_preservado_v1','template_autosave_RBL_Teste','template_autosave_RBL']
+    : ['template_autosave_RBL_preservado_v1','template_autosave_RBL','template_autosave_RBL_v1','template_autosave_RBL_clean_v1'];
+  var saveTimer = null;
+  var restoring = false;
+  var suppressSave = false;
+  var userInteracted = false;
+  var dirtySinceLoad = false;
+  var baselineLessonCount = 1;
+
+  function nowIso(){ return new Date().toISOString(); }
+  function localTime(iso){
+    try { return new Date(iso).toLocaleTimeString('pt-PT', {hour:'2-digit', minute:'2-digit', second:'2-digit'}); }
+    catch(e){ return '--'; }
+  }
+  function status(text){
+    var el = document.getElementById('autosaveStatus');
+    if(el) el.textContent = text;
+  }
+  function toastSafe(msg, type, duration){
+    if(typeof window.toast === 'function'){
+      try { window.toast(msg, type, duration); return; } catch(e){}
+    }
+    var old = document.querySelector('.toast-message');
+    if(old) old.remove();
+    var d = document.createElement('div');
+    d.className = 'toast-message';
+    d.textContent = msg;
+    d.style.background = type === 'error' ? '#7a1f1f' : (type === 'ok' ? '#1f4d2b' : '#333');
+    document.body.appendChild(d);
+    setTimeout(function(){ if(d.parentNode) d.remove(); }, duration || 3200);
+  }
+  function safeGet(key){ try { return localStorage.getItem(key); } catch(e){ return null; } }
+  function safeRemove(key){ try { localStorage.removeItem(key); return true; } catch(e){ return false; } }
+  function safeSetVerified(key, value){
+    try {
+      localStorage.setItem(key, value);
+      return localStorage.getItem(key) === value;
+    } catch(e){ return false; }
+  }
+  function fire(el){
+    if(!el) return;
+    try { el.dispatchEvent(new Event('input', {bubbles:true})); } catch(e){}
+    try { el.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
+  }
+  function cssEscape(value){
+    if(window.CSS && typeof window.CSS.escape === 'function') return window.CSS.escape(String(value));
+    return String(value).replace(/([\\"'\[\]#.:])/g,'\\$1');
+  }
+  function headingText(sec){
+    var h = sec && sec.querySelector ? sec.querySelector('h3,.rbl-aula-title') : null;
+    return String((h && h.textContent) || '').replace(/\s+/g,' ').trim();
+  }
+  function lessonSections(){
+    return Array.prototype.slice.call(document.querySelectorAll('.section')).filter(function(sec){
+      return /^Aula\s+\d+/i.test(headingText(sec));
+    });
+  }
+  function lessonField(sec, kind){
+    if(!sec) return null;
+    if(kind === 'data') return sec.querySelector('input[type="date"],[id$="_data"]');
+    if(kind === 'duracao') return sec.querySelector('input[type="time"],[id$="_duracao"]');
+    var labels = Array.prototype.slice.call(sec.querySelectorAll('label'));
+    var regex = kind === 'tarefas' ? /tarefas/i : /desc|descri/i;
+    var lab = labels.find(function(l){ return regex.test(String(l.textContent || '')); });
+    if(lab){
+      var candidate = lab.nextElementSibling;
+      if(candidate && /^(INPUT|TEXTAREA|SELECT)$/i.test(candidate.tagName)) return candidate;
+      if(lab.parentElement){
+        candidate = lab.parentElement.querySelector('input,textarea,select');
+        if(candidate) return candidate;
+      }
+    }
+    return sec.querySelector('[id$="_' + kind + '"]');
+  }
+  function ensureLessonIds(){
+    lessonSections().forEach(function(sec, idx){
+      var n = idx + 1;
+      sec.dataset.rblAulaIndex = String(n);
+      var title = sec.querySelector('.rbl-aula-title');
+      var h3 = sec.querySelector('h3');
+      if(title) title.textContent = 'Aula ' + n;
+      else if(h3 && !h3.querySelector('.rbl-aula-title')) h3.textContent = 'Aula ' + n;
+      ['data','duracao','tarefas','desc'].forEach(function(kind){
+        var el = lessonField(sec, kind);
+        if(!el) return;
+        el.id = 'aula' + n + '_' + kind;
+        el.name = el.id;
+        var label = Array.prototype.slice.call(sec.querySelectorAll('label')).find(function(l){
+          var txt=String(l.textContent||'');
+          if(kind==='data') return /data:/i.test(txt);
+          if(kind==='duracao') return /duraç|durac/i.test(txt);
+          if(kind==='tarefas') return /tarefas/i.test(txt);
+          return /desc|descri/i.test(txt);
+        });
+        if(label) label.setAttribute('for', el.id);
+      });
+    });
+  }
+  function readLessons(){
+    ensureLessonIds();
+    return lessonSections().map(function(sec){
+      function value(kind){ var el=lessonField(sec,kind); return String((el && el.value) || ''); }
+      return {data:value('data'),duracao:value('duracao'),tarefas:value('tarefas'),desc:value('desc')};
+    });
+  }
+  function createLessonFallback(n){
+    var sec=document.createElement('div');
+    sec.className='section aula-dinamica';
+    sec.innerHTML=
+      '<h3>Aula '+n+'</h3>'+
+      '<div class="rbl-inline-soft-fields">'+
+        '<div class="rbl-soft-field-card"><label for="aula'+n+'_data">Data:</label><input id="aula'+n+'_data" name="aula'+n+'_data" type="date"></div>'+
+        '<div class="rbl-soft-field-card"><label for="aula'+n+'_duracao">Duração:</label><input id="aula'+n+'_duracao" name="aula'+n+'_duracao" type="time" step="60"></div>'+
+      '</div>'+
+      '<label for="aula'+n+'_tarefas">Tarefas:</label><textarea id="aula'+n+'_tarefas" name="aula'+n+'_tarefas"></textarea>'+
+      '<label for="aula'+n+'_desc">Descrição:</label><textarea id="aula'+n+'_desc" name="aula'+n+'_desc"></textarea>';
+    var aulas=lessonSections(), last=aulas[aulas.length-1], actions=document.querySelector('.ux-actions');
+    if(last && last.parentNode) last.parentNode.insertBefore(sec,last.nextSibling);
+    else if(actions && actions.parentNode) actions.parentNode.insertBefore(sec,actions);
+    else (document.querySelector('.page')||document.body).appendChild(sec);
+  }
+  function setLessonCount(count){
+    count=Math.max(1,Math.min(60,Number(count)||1));
+    var guard=0;
+    while(lessonSections().length<count && guard++<65){
+      var before=lessonSections().length;
+      if(typeof window.rblAdicionarAulaLimpo==='function') window.rblAdicionarAulaLimpo();
+      else createLessonFallback(before+1);
+      if(lessonSections().length===before) createLessonFallback(before+1);
+    }
+    guard=0;
+    while(lessonSections().length>count && lessonSections().length>1 && guard++<65){
+      var beforeRemove=lessonSections().length;
+      if(typeof window.rblRemoverAulaLimpo==='function') window.rblRemoverAulaLimpo();
+      else {
+        var list=lessonSections();
+        if(list.length>1) list[list.length-1].remove();
+      }
+      if(lessonSections().length===beforeRemove){
+        var list2=lessonSections();
+        if(list2.length>1) list2[list2.length-1].remove();
+      }
+    }
+    ensureLessonIds();
+  }
+  function isLessonControl(el){
+    return !!(el && el.closest && lessonSections().some(function(sec){ return sec.contains(el); }));
+  }
+  function storableControls(){
+    return Array.prototype.slice.call(document.querySelectorAll('input,textarea,select')).filter(function(el){
+      var type=String(el.type||'').toLowerCase();
+      if(el.disabled || ['button','submit','reset','file','image'].indexOf(type)>=0) return false;
+      if(isLessonControl(el)) return false;
+      if(el.classList.contains('rbl-course-search') || el.getAttribute('data-rbl-aux')==='true') return false;
+      if(el.closest('.rbl-course-picker') && el.id!=='curso' && el.name!=='curso') return false;
+      return !!(el.id || el.name);
+    });
+  }
+  function controlKey(el){
+    if(el.id) return 'id:' + el.id;
+    var type=String(el.type||'').toLowerCase();
+    if((type==='radio'||type==='checkbox') && el.name) return 'name:' + el.name + '|value:' + String(el.value||'');
+    return 'name:' + String(el.name||'');
+  }
+  function readControl(el){
+    var type=String(el.type||'').toLowerCase();
+    if(type==='radio'||type==='checkbox') return {checked:!!el.checked,value:String(el.value||'')};
+    if(el.tagName==='SELECT' && el.multiple){
+      return {values:Array.prototype.slice.call(el.options).filter(function(o){return o.selected;}).map(function(o){return o.value;})};
+    }
+    return {value:String(el.value==null?'':el.value)};
+  }
+  function findControl(key){
+    if(key.indexOf('id:')===0) return document.getElementById(key.slice(3));
+    var body=key.slice(5), split=body.indexOf('|value:');
+    if(split>=0){
+      var name=body.slice(0,split), value=body.slice(split+7);
+      return Array.prototype.slice.call(document.querySelectorAll('[name="'+cssEscape(name)+'"]')).find(function(el){return String(el.value||'')===value;})||null;
+    }
+    return document.querySelector('[name="'+cssEscape(body)+'"]');
+  }
+  function currentPayload(){
+    ensureLessonIds();
+    var controls={};
+    storableControls().forEach(function(el){controls[controlKey(el)]=readControl(el);});
+    return {
+      schema:SCHEMA,
+      template:'RBL',
+      mode:MODE,
+      itemId:ITEM_ID||null,
+      updatedAt:nowIso(),
+      urlPath:String(location.pathname||''),
+      controls:controls,
+      lessons:readLessons()
+    };
+  }
+  function saveNow(options){
+    options=options||{};
+    if(restoring||suppressSave) return false;
+    if(!options.force && !dirtySinceLoad) return false;
+    var payload=currentPayload(), json=JSON.stringify(payload);
+    var ok=safeSetVerified(STORAGE_KEY,json);
+    if(ok){
+      dirtySinceLoad=false;
+      status('Última gravação automática: '+localTime(payload.updatedAt));
+      if(options.toast) toastSafe('Rascunho guardado com sucesso.','ok');
+      return true;
+    }
+    status('Não foi possível guardar o rascunho neste navegador.');
+    if(options.toast) toastSafe('Não foi possível guardar o rascunho neste navegador.','error',5500);
+    return false;
+  }
+  function scheduleSave(delay){
+    if(restoring||suppressSave) return;
+    dirtySinceLoad=true;
+    if(saveTimer) clearTimeout(saveTimer);
+    saveTimer=setTimeout(function(){saveTimer=null;saveNow({force:true});},typeof delay==='number'?delay:350);
+  }
+  function parseDraft(raw){
+    if(!raw) return null;
+    try{
+      var p=JSON.parse(raw);
+      if(!p||p.schema!==SCHEMA||p.template!=='RBL'||p.mode!==MODE) return null;
+      if(String(p.itemId||'')!==String(ITEM_ID||'')) return null;
+      return p;
+    }catch(e){return null;}
+  }
+  function syncCoursesAfterRestore(){
+    var hidden=document.getElementById('curso');
+    if(!hidden) return;
+    var value=String(hidden.value||'');
+    try{
+      if(window.RBL_COURSE_PICKER_API && typeof window.RBL_COURSE_PICKER_API.setCourses==='function'){
+        window.RBL_COURSE_PICKER_API.setCourses(value);
+      }else{
+        fire(hidden);
+        if(window.GUIOES_MULTICURSO_EMAILS_FINAL_V1 && typeof window.GUIOES_MULTICURSO_EMAILS_FINAL_V1.init==='function'){
+          window.GUIOES_MULTICURSO_EMAILS_FINAL_V1.init();
+        }
+      }
+    }catch(e){}
+  }
+  function applyControlState(el,state){
+    if(!el||!state) return;
+    var type=String(el.type||'').toLowerCase();
+    if(type==='radio'||type==='checkbox') el.checked=!!state.checked;
+    else if(el.tagName==='SELECT'&&el.multiple&&Array.isArray(state.values)){
+      Array.prototype.forEach.call(el.options,function(o){o.selected=state.values.indexOf(o.value)>=0;});
+    }else el.value=state.value==null?'':String(state.value);
+    fire(el);
+  }
+  function restorePayload(payload,options){
+    options=options||{};
+    if(!payload) return false;
+    restoring=true;suppressSave=true;
+    try{
+      var lessons=Array.isArray(payload.lessons)&&payload.lessons.length?payload.lessons:[{data:'',duracao:'',tarefas:'',desc:''}];
+      setLessonCount(lessons.length);
+      Object.keys(payload.controls||{}).forEach(function(key){applyControlState(findControl(key),payload.controls[key]);});
+      lessons.forEach(function(item,idx){
+        var sec=lessonSections()[idx];
+        if(!sec) return;
+        ['data','duracao','tarefas','desc'].forEach(function(kind){
+          var el=lessonField(sec,kind);
+          if(el){el.value=String((item&&item[kind])||'');fire(el);}
+        });
+      });
+      ensureLessonIds();
+      syncCoursesAfterRestore();
+      ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso'].forEach(function(fn){
+        try{if(typeof window[fn]==='function')window[fn]();}catch(e){}
+      });
+      status('Última gravação automática: '+localTime(payload.updatedAt));
+      dirtySinceLoad=false;
+      document.documentElement.setAttribute('data-rbl-draft-restored','1');
+      if(options.toast!==false) toastSafe('Rascunho restaurado com sucesso.','ok');
+      return true;
+    }finally{
+      setTimeout(function(){restoring=false;suppressSave=false;},80);
+    }
+  }
+  function restoreCurrent(options){
+    var p=parseDraft(safeGet(STORAGE_KEY));
+    if(!p){
+      status('Última gravação automática: --');
+      if(!options||options.toast!==false) toastSafe('Não há rascunho guardado.');
+      return false;
+    }
+    return restorePayload(p,options);
+  }
+  function legacyToV5(raw){
+    try{
+      var old=JSON.parse(raw);
+      if(!old||!old.data||typeof old.data!=='object') return null;
+      var controls={}, lessonMap={}, keys=Object.keys(old.data);
+      keys.forEach(function(key){
+        var value=old.data[key], plain=key.replace(/^id:/,'');
+        var m=plain.match(/^aula(\d+)_(data|duracao|tarefas|desc)$/i);
+        if(m){
+          var n=Number(m[1]), kind=m[2].toLowerCase();
+          lessonMap[n]=lessonMap[n]||{data:'',duracao:'',tarefas:'',desc:''};
+          lessonMap[n][kind]=String(value==null?'':value);
+          return;
+        }
+        var el=null;
+        if(key.indexOf('id:')===0) el=document.getElementById(key.slice(3));
+        else if(key.indexOf('name:')===0) el=document.querySelector('[name="'+cssEscape(key.slice(5))+'"]');
+        else el=document.getElementById(key)||document.querySelector('[name="'+cssEscape(key)+'"]');
+        if(el&&!isLessonControl(el)) controls[controlKey(el)]={value:String(value==null?'':value)};
+      });
+      Object.keys(old.checked||{}).forEach(function(key){
+        var el=null;
+        if(key.indexOf('id:')===0) el=document.getElementById(key.slice(3));
+        else if(key.indexOf('name:')===0) el=document.querySelector('[name="'+cssEscape(key.slice(5).split('|value:')[0])+'"]');
+        if(el) controls[controlKey(el)]={checked:!!old.checked[key],value:String(el.value||'')};
+      });
+      if(!keys.length&&!Object.keys(old.checked||{}).length) return null;
+      var nums=Object.keys(lessonMap).map(Number).sort(function(a,b){return a-b;});
+      var lessons=nums.length?nums.map(function(n){return lessonMap[n];}):readLessons();
+      return {schema:SCHEMA,template:'RBL',mode:MODE,itemId:ITEM_ID||null,updatedAt:nowIso(),urlPath:String(location.pathname||''),controls:controls,lessons:lessons,migratedFromLegacy:true};
+    }catch(e){return null;}
+  }
+  function migrateLegacyIfUseful(){
+    if(ITEM_ID||safeGet(STORAGE_KEY)) return;
+    for(var i=0;i<LEGACY_KEYS.length;i++){
+      var raw=safeGet(LEGACY_KEYS[i]), migrated=legacyToV5(raw);
+      if(!migrated) continue;
+      if(safeSetVerified(STORAGE_KEY,JSON.stringify(migrated))) return;
+    }
+  }
+  function deleteDraft(showToast){
+    if(saveTimer){clearTimeout(saveTimer);saveTimer=null;}
+    safeRemove(STORAGE_KEY);
+    dirtySinceLoad=false;
+    status('Última gravação automática: --');
+    if(showToast!==false) toastSafe('Rascunho local apagado. O formulário foi mantido.');
+    return true;
+  }
+  function clearForm(){
+    if(saveTimer){clearTimeout(saveTimer);saveTimer=null;}
+    restoring=true;suppressSave=true;
+    try{
+      setLessonCount(baselineLessonCount);
+      storableControls().forEach(function(el){
+        var type=String(el.type||'').toLowerCase();
+        if(type==='radio'||type==='checkbox') el.checked=false;
+        else if(el.tagName==='SELECT') el.selectedIndex=0;
+        else el.value='';
+        fire(el);
+      });
+      lessonSections().forEach(function(sec){
+        ['data','duracao','tarefas','desc'].forEach(function(kind){var el=lessonField(sec,kind);if(el){el.value='';fire(el);}});
+      });
+      try{document.dispatchEvent(new CustomEvent('rbl:clearCourses'));}catch(e){}
+      safeRemove(STORAGE_KEY);
+      dirtySinceLoad=false;
+      status('Última gravação automática: --');
+      ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso'].forEach(function(fn){try{if(typeof window[fn]==='function')window[fn]();}catch(e){}});
+      toastSafe('Formulário limpo com sucesso.');
+      return true;
+    }finally{
+      setTimeout(function(){restoring=false;suppressSave=false;},100);
+    }
+  }
+  function menuAction(btn){
+    if(!btn) return '';
+    var data=String(btn.getAttribute('data-rbl-menu-action')||'').toLowerCase();
+    if(data) return data;
+    var id=String(btn.id||'');
+    if(id==='draftBtn') return 'draft';
+    if(id==='restoreBtn') return 'restore';
+    if(id==='deleteBtn') return 'delete';
+    if(id==='clearBtn') return 'clear';
+    return '';
+  }
+  function interceptMenuActions(ev){
+    var btn=ev.target&&ev.target.closest?ev.target.closest('button'):null;
+    var action=menuAction(btn);
+    if(['draft','restore','delete','clear'].indexOf(action)<0) return;
+    ev.preventDefault();ev.stopPropagation();if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();
+    var menu=document.getElementById('uxMenuMaisOpcoes');if(menu)menu.classList.remove('open');
+    if(action==='draft') saveNow({force:true,toast:true});
+    else if(action==='restore') restoreCurrent({toast:true});
+    else if(action==='delete') deleteDraft(true);
+    else if(action==='clear') clearForm();
+  }
+  function markRealInteraction(ev){
+    if(restoring||suppressSave) return;
+    if(ev&&ev.isTrusted){userInteracted=true;dirtySinceLoad=true;}
+  }
+  function onInputChange(ev){
+    if(restoring||suppressSave) return;
+    if(!ev||!ev.target||!ev.target.matches||!ev.target.matches('input,textarea,select')) return;
+    if(ev.isTrusted){userInteracted=true;scheduleSave(ev.type==='change'?80:350);}
+  }
+  function onTrustedClick(ev){
+    if(restoring||suppressSave||!ev.isTrusted) return;
+    var target=ev.target&&ev.target.closest?ev.target.closest('button,[role="option"],.rbl-course-option,.rbl-course-chip'):null;
+    if(!target) return;
+    if(menuAction(target)||target.id==='btnMaisOpcoes') return;
+    userInteracted=true;
+    if(target.closest('.rbl-course-picker,.rbl-course-chip-area,.rbl-repo-auth')||
+       target.matches('[aria-label*="aula" i],.rbl-add,.rbl-remove')){
+      setTimeout(function(){ensureLessonIds();scheduleSave(100);},40);
+    }
+  }
+  function observeDynamicLessons(){
+    var root=document.querySelector('.page')||document.body;
+    if(!root||root.dataset.rblAutosaveObserved==='1') return;
+    root.dataset.rblAutosaveObserved='1';
+    new MutationObserver(function(mutations){
+      var relevant=mutations.some(function(m){
+        return Array.prototype.slice.call(m.addedNodes||[]).concat(Array.prototype.slice.call(m.removedNodes||[])).some(function(n){
+          return n&&n.nodeType===1&&(n.matches&&n.matches('.aula-dinamica,.section')||n.querySelector&&n.querySelector('.aula-dinamica,[id^="aula"]'));
+        });
+      });
+      if(relevant){
+        ensureLessonIds();
+        if(userInteracted&&!restoring&&!suppressSave) scheduleSave(140);
+      }
+    }).observe(root,{childList:true,subtree:true});
+  }
+  function hasDraft(){return !!parseDraft(safeGet(STORAGE_KEY));}
+  function autoRestore(){
+    var attempts=0;
+    function attempt(){
+      var p=parseDraft(safeGet(STORAGE_KEY));
+      if(!p) return;
+      if(userInteracted){
+        status('Rascunho disponível: '+localTime(p.updatedAt)+' — restaure em Mais opções.');
+        return;
+      }
+      if(ITEM_ID&&!document.body.classList.contains('guiao-carregado-por-id')&&attempts<24){
+        attempts++;setTimeout(attempt,500);return;
+      }
+      restorePayload(p,{toast:false});
+    }
+    setTimeout(attempt,ITEM_ID?1800:(MODE==='teste'?2850:1700));
+  }
+  function init(){
+    ensureLessonIds();
+    baselineLessonCount=Math.max(1,lessonSections().length||1);
+    observeDynamicLessons();
+    migrateLegacyIfUseful();
+    var existing=parseDraft(safeGet(STORAGE_KEY));
+    if(existing) status('Rascunho disponível: '+localTime(existing.updatedAt));
+    else status('Última gravação automática: --');
+
+    document.addEventListener('click',interceptMenuActions,true);
+    document.addEventListener('input',onInputChange,true);
+    document.addEventListener('change',onInputChange,true);
+    document.addEventListener('pointerdown',markRealInteraction,true);
+    document.addEventListener('click',onTrustedClick,true);
+    autoRestore();
+    [250,700,1500,3000].forEach(function(ms){setTimeout(function(){ensureLessonIds();observeDynamicLessons();},ms);});
+  }
+
+  window.addEventListener('pagehide',function(){if(dirtySinceLoad)saveNow({force:true});},true);
+  window.addEventListener('beforeunload',function(){if(dirtySinceLoad)saveNow({force:true});},true);
+  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&dirtySinceLoad)saveNow({force:true});},true);
+
+  window.RBL_AUTOSAVE_V5={
+    key:STORAGE_KEY,
+    mode:MODE,
+    itemId:ITEM_ID,
+    hasDraft:hasDraft,
+    userInteracted:function(){return userInteracted;},
+    save:function(){return saveNow({force:true});},
+    saveFromLegacy:function(){return (userInteracted||dirtySinceLoad)?saveNow({force:true}):false;},
+    restore:function(){return restoreCurrent({toast:false});},
+    remove:function(){return deleteDraft(false);},
+    clear:clearForm,
+    snapshot:currentPayload,
+    lessons:lessonSections
+  };
+  window.saveDraft=function(){return saveNow({force:true,toast:false});};
+  window.restoreDraft=function(){return restoreCurrent({toast:true});};
+  window.deleteDraft=function(){return deleteDraft(true);};
+  window.clearAll=clearForm;
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else init();
 })();
 </script>
 
