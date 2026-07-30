@@ -1,0 +1,65 @@
+name: Aplicar correções finais do SBL
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-sbl-autosave-filter.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update-sbl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validar base e aplicar correções
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "11744713ef2c7607bd4c4db5edc36cce638c123e0bef610639e512d22aebca11  SBL.html" | sha256sum -c -
+          echo "6b94fe4aa9fcff5277587c4a98d9d74be0b8e026744bc8e41036ba2bb35d0fde  SBL_Teste.html" | sha256sum -c -
+
+          git fetch origin sbl-payload-20260730:sbl-payload-20260730
+
+          : > /tmp/SBL.patch.gz.b64
+          for f in .sbl-update/SBL.00.part .sbl-update/SBL.01.part .sbl-update/SBL.02.part .sbl-update/SBL.03.part; do
+            git show "sbl-payload-20260730:$f" >> /tmp/SBL.patch.gz.b64
+          done
+
+          : > /tmp/SBL_Teste.patch.gz.b64
+          for f in .sbl-update/SBL_Teste.00.part .sbl-update/SBL_Teste.01.part .sbl-update/SBL_Teste.02.part .sbl-update/SBL_Teste.03.part .sbl-update/SBL_Teste.04.part; do
+            git show "sbl-payload-20260730:$f" >> /tmp/SBL_Teste.patch.gz.b64
+          done
+
+          base64 -d /tmp/SBL.patch.gz.b64 | gzip -d > /tmp/SBL.patch
+          base64 -d /tmp/SBL_Teste.patch.gz.b64 | gzip -d > /tmp/SBL_Teste.patch
+
+          patch --batch --forward -p0 < /tmp/SBL.patch
+          patch --batch --forward -p0 < /tmp/SBL_Teste.patch
+
+          echo "397e9449989d4f8073640b91f37e8429eb0169bc38a39c314de95d125014914e  SBL.html" | sha256sum -c -
+          echo "46dfa49f555a50427b6313780cd9cdd4bf3d5c82e997643458ce4d3c37c4d6e6  SBL_Teste.html" | sha256sum -c -
+
+          grep -Fq "Abra a lista para selecionar. Pode também escrever para pesquisar." SBL.html
+          grep -Fq "Abra a lista para selecionar. Pode também escrever para pesquisar." SBL_Teste.html
+          grep -Fq "CTeSP em Marketing Digital" SBL.html
+          grep -Fq "Licenciatura em Global Business" SBL.html
+          grep -Fq "Mestrado em Management" SBL.html
+
+      - name: Commit e publicação
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/apply-sbl-autosave-filter.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Corrigir autosave e filtro de cursos do SBL [skip ci]"
+          git push origin main
+          git push origin --delete sbl-payload-20260730 || true
