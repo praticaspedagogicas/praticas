@@ -1,0 +1,1 @@
+Executar publicação do autosave resiliente do RBL após montagem segmentada dos patches.
