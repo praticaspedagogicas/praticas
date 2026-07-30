@@ -45,6 +45,9 @@ jobs:
           patch --batch --fuzz=0 -p0 < /tmp/RBL.patch
           patch --batch --fuzz=0 -p0 < /tmp/RBL_Teste.patch
 
+          echo "60514e8d1a577d1cf366c2c78eaf7eda4838afdccf062ede2b14441313d59622  RBL.html" | sha256sum -c -
+          echo "d34c2d1e08b534106b1c95d9a4de8c86927e5320058a9f1f043ddf36b5da7228  RBL_Teste.html" | sha256sum -c -
+
           python3 - <<'PY'
           from pathlib import Path
 
@@ -75,8 +78,8 @@ jobs:
               marker = f'data-rbl-template-mode="{mode}"'
               if marker not in text:
                   raise RuntimeError(f'{filename}: modo interno incorreto; esperado {marker}')
-              if text.count('RBL AUTOSAVE RESILIENTE V5 2026-07-30') < 2:
-                  raise RuntimeError(f'{filename}: marcadores da correção não confirmados')
+              if text.count('RBL AUTOSAVE RESILIENTE V5 2026-07-30') < 1:
+                  raise RuntimeError(f'{filename}: marcador da correção não confirmado')
           PY
 
           git diff --check
