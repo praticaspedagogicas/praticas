@@ -25,10 +25,10 @@ jobs:
           test "$(git hash-object CBL.html)" = "b84409504ff79b49548c4f6ba1a9e98036617104"
           test "$(git hash-object CBL_Teste.html)" = "cf239dbcc714e948c8bd5b3e6a8147d34088dd8e"
           git fetch origin cbl-cursos-autosave-payload-20260730:cbl-cursos-autosave-payload-20260730
-          git show cbl-cursos-autosave-payload-20260730:.cbl-courses/CBL.patch.gz.b64 > /tmp/CBL.patch.gz.b64
-          git show cbl-cursos-autosave-payload-20260730:.cbl-courses/CBL_Teste.patch.gz.b64 > /tmp/CBL_Teste.patch.gz.b64
-          echo '5077fefb4bc79ff251b9591a390409010a74a9c37992c59978c80a92279880ca  /tmp/CBL.patch.gz.b64' | sha256sum -c -
-          echo 'c1262d222a3bcc18c1eb77571f9f8daaee83e02cc5d42d3d38d1c14cb8e3b474  /tmp/CBL_Teste.patch.gz.b64' | sha256sum -c -
+          git show cbl-cursos-autosave-payload-20260730:.cbl-courses/CBL.patch.gz.b64 | tr -d '[:space:]' > /tmp/CBL.patch.gz.b64
+          git show cbl-cursos-autosave-payload-20260730:.cbl-courses/CBL_Teste.patch.gz.b64 | tr -d '[:space:]' > /tmp/CBL_Teste.patch.gz.b64
+          echo '4069a5b8f6ea9bf376ed1ebde7cd7d5789fb520c98b5ba033e9260c210c516d5  /tmp/CBL.patch.gz.b64' | sha256sum -c -
+          echo '7647e5021130c1835e8255781e9b8e823a1bdbfac06e5de443de15c4fa8edbe0  /tmp/CBL_Teste.patch.gz.b64' | sha256sum -c -
           base64 -d /tmp/CBL.patch.gz.b64 | gzip -d > /tmp/CBL.patch
           base64 -d /tmp/CBL_Teste.patch.gz.b64 | gzip -d > /tmp/CBL_Teste.patch
           patch --dry-run --batch --fuzz=0 -p0 < /tmp/CBL.patch
