@@ -2,6 +2,7 @@
 
 <html lang="pt">
 <head>
+<!-- SBL FILTRO DE CURSOS POR UNIDADE ORGÂNICA 2026-07-30 -->
 <!-- SBL HORA FIM FOCO E PDF ANO FINAL 2026-06-17 -->
 
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -11256,10 +11257,10 @@ body:not(.guiao-pdf-mode) .sbl-estado-card{
 <div class="sbl47-v53-header-cards"><div class="sbl47-v53-card sbl-course-cbl-card"><label for="cursoBusca">Curso(s)</label><div class="cbl-course-picker" data-multicourse="true">
 <input id="curso" name="curso" type="hidden"/>
 <div class="cbl-course-search-row">
-<input autocomplete="off" id="cursoBusca" list="cblCursosList" placeholder="Digite para procurar e selecione um curso" type="text" required="required" aria-required="true"/>
+<input autocomplete="off" id="cursoBusca" list="cblCursosList" placeholder="Selecione ou pesquise um curso" type="text" required="required" aria-required="true"/>
 </div>
 <div aria-live="polite" class="cbl-course-chips" id="cblCursosSelecionados"></div>
-<div class="cbl-course-helper">Selecione um curso na lista. Para adicionar mais cursos, repita a seleção.</div>
+<div class="cbl-course-helper">Abra a lista para selecionar. Pode também escrever para pesquisar.</div>
 </div></div><div class="sbl47-v53-card"><label for="uc">Unidade(s) Curricular(es)</label><textarea id="uc" name="uc" placeholder="Ex.: Design de Interfaces Digitais; Projeto Aplicado" required="required" aria-required="true"></textarea></div><div class="sbl47-v53-card"><label for="professor">Docente(s)</label><textarea id="professor" name="professor" placeholder="Ex.: Prof.ª Ana Luiza Marques; Prof. João Silva" required="required" aria-required="true"></textarea></div><div class="sbl47-v53-card wide"><label for="emails">Email(s)</label><textarea id="emails" name="emails" placeholder="Ex.: ana.silva@universidadeeuropeia.pt; joao.santos@universidadeeuropeia.pt" required="required" aria-required="true"></textarea></div><div class="sbl47-v53-card"><label for="ano_letivo">Ano letivo</label><input id="ano_letivo" name="ano_letivo" placeholder="Ex.: 2026/2027" type="text"/></div><div class="sbl47-v53-card"><label for="data">Data da simulação</label><input id="data" name="data" placeholder="AAAA-MM-DD" type="date" autocomplete="off" required aria-required="true"></div><div class="sbl47-v53-card"><label for="hora">Hora de início</label><input id="hora" name="hora" placeholder="HH:MM" type="time" autocomplete="off" required aria-required="true"></div><div class="sbl47-v53-card"><label for="hora_fim">Hora de fim</label><input id="hora_fim" name="hora_fim" placeholder="HH:MM" type="time" autocomplete="off" required aria-required="true"></div><div class="sbl47-v53-card"><label for="n_estudantes">Nº de estudantes</label><input id="n_estudantes" inputmode="numeric" min="0" name="n_estudantes" placeholder="Ex.: 32" step="1" type="number"/></div><div class="sbl47-v53-card"><label for="n_grupos">Nº de grupos</label><input id="n_grupos" inputmode="numeric" min="0" name="n_grupos" placeholder="Ex.: 6" step="1" type="number"/></div></div><div class="sbl-autoria-estado-panel"><div class="sbl-autoria-estado-title">Autoria e estado do guião</div><div class="sbl-autoria-estado-grid"><div class="sbl47-v53-card sbl-autoria-card"><label for="autoria">Autoria</label><textarea id="autoria" name="autoria" placeholder="Ex.: Ana Luiza Marques" required="required" aria-required="true"></textarea></div><div class="sbl47-v53-card sbl-estado-card"><label for="estado">Estado do guião</label><select id="estado" name="estado" required="required" aria-required="true"><option selected="selected" value="">Selecionar</option><option value="Novo">Novo</option><option value="Atualizado">Atualizado</option><option value="Reutilizado">Reutilizado</option></select></div></div></div>
 <div class="section sbl47-v68-red-print-card" style="border-width:1.5px !important;">
 <label for="objetivos">Objetivos:</label>
@@ -11424,7 +11425,7 @@ body:not(.guiao-pdf-mode) .sbl-estado-card{
 (function(){
 'use strict';
 
-var STORAGE_KEY = 'template_autosave_SBL';
+var STORAGE_KEY = 'template_autosave_SBL_normal_legacy_v1';
 var aulaCount = 1;
 
 /* ── TOAST ── */
@@ -14636,7 +14637,7 @@ button[data-sbl47-v66-rowbtn]::after,
 (function(){
   "use strict";
 
-  var STORAGE_KEY = "template_autosave_SBL";
+  var STORAGE_KEY = "template_autosave_SBL_normal_legacy_v1";
 
   function toastSafe(msg, type, duration){
     if(typeof window.toast === "function") return window.toast(msg, type, duration);
@@ -15313,9 +15314,9 @@ button[data-sbl47-v66-rowbtn]::after,
 <option value="Licenciatura em Fotografia e Cultura Visual"></option>
 <option value="Mestrado em Animação e Criação Visual"></option>
 <option value="Mestrado em Design e Produção de Jogos"></option>
+<option value="Licenciatura em Marketing e Publicidade"></option>
 <option value="Mestrado em Comunicação Audiovisual e Multimédia"></option>
 <option value="Licenciatura em Ciências da Comunicação"></option>
-<option value="Licenciatura em Marketing e Publicidade"></option>
 <option value="Mestrado em Marketing e Inovação"></option>
 <option value="Mestrado em Branding e Estratégia"></option>
 <option value="Mestrado em Comunicação Estratégica"></option>
@@ -15340,6 +15341,25 @@ button[data-sbl47-v66-rowbtn]::after,
 <option value="Licenciatura em Ciências da Comunicação EaD"></option>
 <option value="Licenciatura em Design Visual EaD"></option>
 <option value="Licenciatura em Engenharia Informática EaD"></option>
+<option value="Licenciatura em Gestão de Negócios"></option>
+<option value="Marketing Digital"></option>
+<option value="Licenciatura em Marketing Global"></option>
+<option value="Mestrado em Gestão de Negócios"></option>
+<option value="Mestrado em Marketing e Tecnologia"></option>
+<option value="Mestrado em Marketing"></option>
+<option value="Mestrado em Gestão de Marketing EaD"></option>
+<option value="Licenciatura em Gestão de Marketing"></option>
+<option value="Mestrado em Gestão de Marketing"></option>
+<option value="Gestão de Negócios Internacionais"></option>
+<option value="Licenciatura em Negócios Global"></option>
+<option value="Mestrado em Global Business"></option>
+<option value="Licenciatura em Gestão de Marketing EaD"></option>
+<option value="Licenciatura em Global Business"></option>
+<option value="Mestrado em Gestão de Negócios EaD"></option>
+<option value="Mestrado em Inovação em Marketing e Negócios"></option>
+<option value="CTeSP em Gestão Comercial e Vendas"></option>
+<option value="CTeSP em Gestão de Negócios Internacionais"></option>
+<option value="CTeSP em Marketing Digital"></option>
 <option value="Licenciatura em Psicologia"></option>
 <option value="Mestrado em Psicologia Clínica e da Saúde"></option>
 <option value="Licenciatura em Ciências da Nutrição"></option>
@@ -15356,14 +15376,13 @@ button[data-sbl47-v66-rowbtn]::after,
 <option value="Licenciatura em Contabilidade EaD"></option>
 <option value="Licenciatura em Gestão de Empresas EaD"></option>
 <option value="Mestrado em Cibersegurança EaD"></option>
-<option value="Mestrado em Ciências de Dados e Análise de Negócios EaD"></option>
 <option value="Mestrado em Direito e Segurança da Informação EaD"></option>
 <option value="Mestrado em Gestão de Empresas EaD"></option>
 <option value="Mestrado em Marketing estratégico EaD"></option>
 <option value="Mestrado em Psicologia Social e de Organizações EaD"></option>
 <option value="Licenciatura em Gestão"></option>
 <option value="Licenciatura em Management"></option>
-<option value="Mestrado em I Management"></option>
+<option value="Mestrado em Management"></option>
 <option value="Mestrado em Gestão"></option>
 <option value="Licenciatura em Direito"></option>
 <option value="Mestrado em Direito Judiciário"></option>
@@ -15372,26 +15391,140 @@ button[data-sbl47-v66-rowbtn]::after,
 <option value="Licenciatura em Gestão Hoteleira"></option>
 <option value="Licenciatura em Tourism"></option>
 <option value="Licenciatura em Turismo"></option>
-<option value="Licenciatura em Gestão de Marketing"></option>
-<option value="Licenciatura em Marketing Global"></option>
-<option value="Licenciatura em Gestão de Negócios"></option>
-<option value="Licenciatura em Negócios Global"></option>
-<option value="Mestrado em Global Business"></option>
-<option value="Mestrado em Marketing"></option>
-<option value="Mestrado em Gestão de Marketing"></option>
-<option value="Mestrado em Gestão de Negócios"></option>
-<option value="Mestrado em Marketing e Tecnologia"></option>
-<option value="Marketing Digital"></option>
-<option value="Gestão de Negócios Internacionais"></option>
-<option value="Mestrado em Gestão de Marketing EaD"></option>
-<option value="Licenciatura em Gestão de Marketing Online (antiga)"></option>
-<option value="Licenciatura em Gestão de Marketing EaD"></option>
-<option value="Mestrado em Gestão de Negócios EaD"></option>
-<option value="Licenciatura em Global Business"></option>
-<option value="Gestão Comercial e Vendas"></option>
 <option value="Mestrado em Ciências de Dados e Gestão"></option>
+<option value="Mestrado em Ciências de Dados e Análise de Negócios EaD"></option>
 <option value="Mestrado em Gestão do Desporto"></option>
 </datalist>
+<style id="sbl-course-filter-by-unit-v1-css">
+body:not(.guiao-pdf-mode) .sbl-course-unit-warning{
+  display:none;
+  margin-top:7px;
+  padding:8px 10px;
+  border:1px solid rgba(227,30,36,.30);
+  border-radius:9px;
+  background:#fff8f8;
+  color:#8b1e23;
+  font-size:11px;
+  line-height:1.35;
+  font-weight:600;
+}
+body:not(.guiao-pdf-mode) .sbl-course-unit-warning.is-visible{display:block;}
+</style>
+<script id="sbl-course-filter-by-unit-v1">
+(function(){
+  'use strict';
+  if(window.__sblCourseFilterByUnitV1) return;
+  window.__sblCourseFilterByUnitV1 = true;
+
+  var COURSES_BY_UNIT = {"IADE":["Licenciatura em Animação e Criação Visual","Licenciatura em Animação Global","Licenciatura em Fotografia e Cultura Visual","Mestrado em Animação e Criação Visual","Mestrado em Design e Produção de Jogos","Licenciatura em Marketing e Publicidade","Mestrado em Comunicação Audiovisual e Multimédia","Licenciatura em Ciências da Comunicação","Mestrado em Marketing e Inovação","Mestrado em Branding e Estratégia","Mestrado em Comunicação Estratégica","Doutoramento em Comunicação, Media e Ambientes Digitais","Licenciatura em Design","Licenciatura em Design Global","Mestrado em Design e Cultura Visual","Mestrado em Design & Publicidade","Mestrado em Design Management","Mestrado em Design de Produto, Espaço e Interações","Mestrado em Branding e Design de Moda","Mestrado em Design para a Sustentabilidade","Doutoramento em Design","Licenciatura em Desenvolvimento de Jogos","Licenciatura em Creative Tech","Licenciatura em Engenharia Informática","Licenciatura em Informática de Gestão","Mestrado em Computação Criativa e Inteligência Artificial","Doutoramento em Jogos Digitais","Mestrado em Direção de Arte EaD","Mestrado em Comunicação Multimédia EaD","Licenciatura em Ciências da Comunicação EaD","Licenciatura em Design Visual EaD","Licenciatura em Engenharia Informática EaD"],"IPAM Lisboa":["Licenciatura em Gestão de Negócios","Marketing Digital","Licenciatura em Marketing Global","Mestrado em Gestão de Negócios","Mestrado em Marketing e Tecnologia","Mestrado em Marketing","Mestrado em Gestão de Marketing EaD","Licenciatura em Gestão de Marketing","Mestrado em Gestão de Marketing","Gestão de Negócios Internacionais","Licenciatura em Negócios Global","Mestrado em Global Business"],"IPAM Porto":["Licenciatura em Gestão de Marketing EaD","Licenciatura em Gestão de Marketing","Licenciatura em Gestão de Negócios","Licenciatura em Marketing Global","Licenciatura em Global Business","Mestrado em Gestão de Marketing EaD","Mestrado em Gestão de Negócios EaD","Mestrado em Inovação em Marketing e Negócios","Mestrado em Global Business","Mestrado em Marketing","Mestrado em Gestão de Marketing","Mestrado em Gestão de Negócios","Mestrado em Marketing e Tecnologia","CTeSP em Gestão Comercial e Vendas","CTeSP em Gestão de Negócios Internacionais","CTeSP em Marketing Digital"],"FCS":["Licenciatura em Psicologia","Mestrado em Psicologia Clínica e da Saúde","Licenciatura em Ciências da Nutrição","Licenciatura em Psicologia EaD","Mestrado em Gestão da Saúde EaD","Mestrado em Neuropsicologia EaD"],"FCST":["Licenciatura em Gestão de Recursos Humanos","Mestrado em Gestão de Recursos Humanos","Mestrado em Psicologia Social e das Organizações","Licenciatura em Gestão de Recursos Humanos EaD","Mestrado em Gestão de Recursos Humanos EaD","Licenciatura em Marketing EAD","Licenciatura em Ciências Sociais EaD","Licenciatura em Contabilidade EaD","Licenciatura em Gestão de Empresas EaD","Mestrado em Cibersegurança EaD","Mestrado em Direito e Segurança da Informação EaD","Mestrado em Gestão de Empresas EaD","Mestrado em Marketing estratégico EaD","Mestrado em Psicologia Social e de Organizações EaD","Licenciatura em Gestão","Licenciatura em Management","Mestrado em Management","Mestrado em Gestão","Licenciatura em Direito","Mestrado em Direito Judiciário","Licenciatura em Ciência Dados Gestão","Licenciatura em Gestão do Desporto","Licenciatura em Gestão Hoteleira","Licenciatura em Tourism","Licenciatura em Turismo","Mestrado em Ciências de Dados e Gestão","Mestrado em Ciências de Dados e Análise de Negócios EaD","Mestrado em Gestão do Desporto"]};
+  var ALL_COURSES = ["Licenciatura em Animação e Criação Visual","Licenciatura em Animação Global","Licenciatura em Fotografia e Cultura Visual","Mestrado em Animação e Criação Visual","Mestrado em Design e Produção de Jogos","Licenciatura em Marketing e Publicidade","Mestrado em Comunicação Audiovisual e Multimédia","Licenciatura em Ciências da Comunicação","Mestrado em Marketing e Inovação","Mestrado em Branding e Estratégia","Mestrado em Comunicação Estratégica","Doutoramento em Comunicação, Media e Ambientes Digitais","Licenciatura em Design","Licenciatura em Design Global","Mestrado em Design e Cultura Visual","Mestrado em Design & Publicidade","Mestrado em Design Management","Mestrado em Design de Produto, Espaço e Interações","Mestrado em Branding e Design de Moda","Mestrado em Design para a Sustentabilidade","Doutoramento em Design","Licenciatura em Desenvolvimento de Jogos","Licenciatura em Creative Tech","Licenciatura em Engenharia Informática","Licenciatura em Informática de Gestão","Mestrado em Computação Criativa e Inteligência Artificial","Doutoramento em Jogos Digitais","Mestrado em Direção de Arte EaD","Mestrado em Comunicação Multimédia EaD","Licenciatura em Ciências da Comunicação EaD","Licenciatura em Design Visual EaD","Licenciatura em Engenharia Informática EaD","Licenciatura em Gestão de Negócios","Marketing Digital","Licenciatura em Marketing Global","Mestrado em Gestão de Negócios","Mestrado em Marketing e Tecnologia","Mestrado em Marketing","Mestrado em Gestão de Marketing EaD","Licenciatura em Gestão de Marketing","Mestrado em Gestão de Marketing","Gestão de Negócios Internacionais","Licenciatura em Negócios Global","Mestrado em Global Business","Licenciatura em Gestão de Marketing EaD","Licenciatura em Global Business","Mestrado em Gestão de Negócios EaD","Mestrado em Inovação em Marketing e Negócios","CTeSP em Gestão Comercial e Vendas","CTeSP em Gestão de Negócios Internacionais","CTeSP em Marketing Digital","Licenciatura em Psicologia","Mestrado em Psicologia Clínica e da Saúde","Licenciatura em Ciências da Nutrição","Licenciatura em Psicologia EaD","Mestrado em Gestão da Saúde EaD","Mestrado em Neuropsicologia EaD","Licenciatura em Gestão de Recursos Humanos","Mestrado em Gestão de Recursos Humanos","Mestrado em Psicologia Social e das Organizações","Licenciatura em Gestão de Recursos Humanos EaD","Mestrado em Gestão de Recursos Humanos EaD","Licenciatura em Marketing EAD","Licenciatura em Ciências Sociais EaD","Licenciatura em Contabilidade EaD","Licenciatura em Gestão de Empresas EaD","Mestrado em Cibersegurança EaD","Mestrado em Direito e Segurança da Informação EaD","Mestrado em Gestão de Empresas EaD","Mestrado em Marketing estratégico EaD","Mestrado em Psicologia Social e de Organizações EaD","Licenciatura em Gestão","Licenciatura em Management","Mestrado em Management","Mestrado em Gestão","Licenciatura em Direito","Mestrado em Direito Judiciário","Licenciatura em Ciência Dados Gestão","Licenciatura em Gestão do Desporto","Licenciatura em Gestão Hoteleira","Licenciatura em Tourism","Licenciatura em Turismo","Mestrado em Ciências de Dados e Gestão","Mestrado em Ciências de Dados e Análise de Negócios EaD","Mestrado em Gestão do Desporto"];
+
+  function clean(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
+  function splitCourses(v){
+    return String(v || '').split(/\s*;\s*|\n+/).map(clean).filter(Boolean);
+  }
+  function unique(values){
+    var seen = Object.create(null), out=[];
+    values.forEach(function(v){ var k=clean(v); if(k && !seen[k]){seen[k]=1;out.push(k);} });
+    return out;
+  }
+  function unitEl(){ return document.getElementById('unidadeOrganica'); }
+  function listEl(){ return document.getElementById('cblCursosList'); }
+  function searchEl(){ return document.getElementById('cursoBusca'); }
+  function hiddenEl(){ return document.getElementById('curso'); }
+  function selectedCourses(){
+    var hidden=hiddenEl();
+    var fromHidden=hidden ? splitCourses(hidden.value) : [];
+    var fromChips=Array.prototype.slice.call(document.querySelectorAll('#cblCursosSelecionados .cbl-course-chip,[data-course-chip]')).map(function(chip){
+      var span=chip.querySelector('span');
+      return clean((span || chip).textContent || '').replace(/[×x]$/i,'').trim();
+    }).filter(Boolean);
+    return unique(fromHidden.concat(fromChips));
+  }
+  function allowedForUnit(unit){
+    return COURSES_BY_UNIT[unit] ? COURSES_BY_UNIT[unit].slice() : ALL_COURSES.slice();
+  }
+  function ensureWarning(){
+    var picker=document.querySelector('.cbl-course-picker');
+    if(!picker) return null;
+    var warning=picker.querySelector('.sbl-course-unit-warning');
+    if(!warning){
+      warning=document.createElement('div');
+      warning.className='sbl-course-unit-warning';
+      warning.setAttribute('role','status');
+      warning.setAttribute('aria-live','polite');
+      picker.appendChild(warning);
+    }
+    return warning;
+  }
+  function updateWarning(){
+    var unit=clean(unitEl() && unitEl().value);
+    var warning=ensureWarning();
+    if(!warning) return;
+    if(!unit || !COURSES_BY_UNIT[unit]){
+      warning.textContent='';
+      warning.classList.remove('is-visible');
+      return;
+    }
+    var allowed=allowedForUnit(unit);
+    var invalid=selectedCourses().filter(function(c){ return allowed.indexOf(c) < 0; });
+    if(invalid.length){
+      warning.textContent='Atenção: ' + invalid.join('; ') + (invalid.length === 1 ? ' não pertence' : ' não pertencem') + ' à unidade ' + unit + '. Remova ' + (invalid.length === 1 ? 'este curso' : 'estes cursos') + ' antes de enviar para validação.';
+      warning.classList.add('is-visible');
+    }else{
+      warning.textContent='';
+      warning.classList.remove('is-visible');
+    }
+  }
+  function rebuildList(){
+    var list=listEl();
+    if(!list) return;
+    var unit=clean(unitEl() && unitEl().value);
+    var values=allowedForUnit(unit);
+    list.innerHTML='';
+    values.forEach(function(course){
+      var option=document.createElement('option');
+      option.value=course;
+      list.appendChild(option);
+    });
+    var search=searchEl();
+    if(search){
+      search.setAttribute('data-sbl-course-unit', unit || 'todos');
+      search.placeholder='Selecione ou pesquise um curso';
+      search.dispatchEvent(new CustomEvent('sbl:courses-filtered',{bubbles:true,detail:{unit:unit,courses:values.slice()}}));
+    }
+    updateWarning();
+  }
+  function bind(){
+    var unit=unitEl();
+    if(unit && unit.dataset.sblCourseFilterBound !== '1'){
+      unit.dataset.sblCourseFilterBound='1';
+      unit.addEventListener('change',rebuildList,true);
+      unit.addEventListener('input',rebuildList,true);
+    }
+    var hidden=hiddenEl();
+    if(hidden && hidden.dataset.sblCourseFilterBound !== '1'){
+      hidden.dataset.sblCourseFilterBound='1';
+      hidden.addEventListener('input',updateWarning,true);
+      hidden.addEventListener('change',updateWarning,true);
+    }
+    var chips=document.getElementById('cblCursosSelecionados');
+    if(chips && chips.dataset.sblCourseFilterObserved !== '1'){
+      chips.dataset.sblCourseFilterObserved='1';
+      new MutationObserver(updateWarning).observe(chips,{childList:true,subtree:true,characterData:true});
+    }
+    rebuildList();
+  }
+
+  window.SBL_COURSES_BY_UNIT = COURSES_BY_UNIT;
+  window.SBL_ALL_COURSES = ALL_COURSES;
+  window.SBL_APLICAR_FILTRO_CURSOS = rebuildList;
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded',bind);
+  else bind();
+  [80,250,700,1600,3000].forEach(function(ms){setTimeout(bind,ms);});
+})();
+</script>
 <script id="sbl-unidade-organica-fcs-fcst-guard">
 (function(){
   'use strict';
@@ -15641,10 +15774,10 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
       '<div class="cbl-course-picker" data-multicourse="true">' +
         '<input id="curso" name="curso" type="hidden"/>' +
         '<div class="cbl-course-search-row">' +
-          '<input autocomplete="off" id="cursoBusca" list="cblCursosList" placeholder="Digite para procurar e selecione um curso" type="text" required="required" aria-required="true"/>' +
+          '<input autocomplete="off" id="cursoBusca" list="cblCursosList" placeholder="Selecione ou pesquise um curso" type="text" required="required" aria-required="true"/>' +
         '</div>' +
         '<div aria-live="polite" class="cbl-course-chips" id="cblCursosSelecionados"></div>' +
-        '<div class="cbl-course-helper">Selecione um curso na lista. Para adicionar mais cursos, repita a seleção.</div>' +
+        '<div class="cbl-course-helper">Abra a lista para selecionar. Pode também escrever para pesquisar.</div>' +
       '</div>';
 
     var hidden = byId('curso');
@@ -17035,14 +17168,13 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
       var dl = document.getElementById(listId);
       if(!dl) return;
 
-      var original = Array.prototype.slice.call(dl.querySelectorAll('option')).map(function(o, idx){
-        return { value: clean(o.value || o.textContent), label: o.getAttribute('label') || '', idx: idx };
-      }).filter(function(o){ return !!o.value; });
-
-      if(!original.length) return;
+      if(!dl.querySelector('option')) return;
       input.dataset.guioesCursoFixV1 = '1';
 
       function reorder(){
+        var original = Array.prototype.slice.call(dl.querySelectorAll('option')).map(function(o, idx){
+          return { value: clean(o.value || o.textContent), label: o.getAttribute('label') || '', idx: idx };
+        }).filter(function(o){ return !!o.value; });
         var q = input.value || '';
         var sorted = original.slice().sort(function(a,b){
           var sa = scoreCourse(a.value, q);
@@ -17094,7 +17226,7 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
 (function(){
   if(window.__guiaoRequiredSubmitValidationV2) return;
   window.__guiaoRequiredSubmitValidationV2 = true;
-  var CURSOS_VALIDOS = [["Licenciatura em Animação e Criação Visual", "Licenciatura em Animação Global", "Licenciatura em Fotografia e Cultura Visual", "Mestrado em Animação e Criação Visual", "Mestrado em Design e Produção de Jogos", "Mestrado em Comunicação Audiovisual e Multimédia", "Licenciatura em Ciências da Comunicação", "Licenciatura em Marketing e Publicidade", "Mestrado em Marketing e Inovação", "Mestrado em Branding e Estratégia", "Mestrado em Comunicação Estratégica", "Doutoramento em Comunicação, Media e Ambientes Digitais", "Licenciatura em Design", "Licenciatura em Design Global", "Mestrado em Design e Cultura Visual", "Mestrado em Design & Publicidade", "Mestrado em Design Management", "Mestrado em Design de Produto, Espaço e Interações", "Mestrado em Branding e Design de Moda", "Mestrado em Design para a Sustentabilidade", "Doutoramento em Design", "Licenciatura em Desenvolvimento de Jogos", "Licenciatura em Creative Tech", "Licenciatura em Engenharia Informática", "Licenciatura em Informática de Gestão", "Mestrado em Computação Criativa e Inteligência Artificial", "Doutoramento em Jogos Digitais", "Mestrado em Direção de Arte EaD", "Mestrado em Comunicação Multimédia EaD", "Licenciatura em Ciências da Comunicação EaD", "Licenciatura em Design Visual EaD", "Licenciatura em Engenharia Informática EaD", "Licenciatura em Psicologia", "Mestrado em Psicologia Clínica e da Saúde", "Licenciatura em Ciências da Nutrição", "Licenciatura em Psicologia EaD", "Mestrado em Gestão da Saúde EaD", "Mestrado em Neuropsicologia EaD", "Licenciatura em Gestão de Recursos Humanos", "Mestrado em Gestão de Recursos Humanos", "Mestrado em Psicologia Social e das Organizações", "Licenciatura em Gestão de Recursos Humanos EaD", "Mestrado em Gestão de Recursos Humanos EaD", "Licenciatura em Marketing EAD", "Licenciatura em Ciências Sociais EaD", "Licenciatura em Contabilidade EaD", "Licenciatura em Gestão de Empresas EaD", "Mestrado em Cibersegurança EaD", "Mestrado em Ciências de Dados e Análise de Negócios EaD", "Mestrado em Direito e Segurança da Informação EaD", "Mestrado em Gestão de Empresas EaD", "Mestrado em Marketing estratégico EaD", "Mestrado em Psicologia Social e de Organizações EaD", "Licenciatura em Gestão", "Licenciatura em Management", "Mestrado em I Management", "Mestrado em Gestão", "Licenciatura em Direito", "Mestrado em Direito Judiciário", "Licenciatura em Ciência Dados Gestão", "Licenciatura em Gestão do Desporto", "Licenciatura em Gestão Hoteleira", "Licenciatura em Tourism", "Licenciatura em Turismo", "Licenciatura em Gestão de Marketing", "Licenciatura em Marketing Global", "Licenciatura em Gestão de Negócios", "Licenciatura em Negócios Global", "Mestrado em Global Business", "Mestrado em Marketing", "Mestrado em Gestão de Marketing", "Mestrado em Gestão de Negócios", "Mestrado em Marketing e Tecnologia", "Marketing Digital", "Gestão de Negócios Internacionais", "Mestrado em Gestão de Marketing EaD", "Licenciatura em Gestão de Marketing Online (antiga)", "Licenciatura em Gestão de Marketing EaD", "Mestrado em Gestão de Negócios EaD", "Licenciatura em Global Business", "Gestão Comercial e Vendas", "Mestrado em Ciências de Dados e Gestão", "Mestrado em Gestão do Desporto"]];
+  var CURSOS_VALIDOS = [["Licenciatura em Animação e Criação Visual", "Licenciatura em Animação Global", "Licenciatura em Fotografia e Cultura Visual", "Mestrado em Animação e Criação Visual", "Mestrado em Design e Produção de Jogos", "Mestrado em Comunicação Audiovisual e Multimédia", "Licenciatura em Ciências da Comunicação", "Licenciatura em Marketing e Publicidade", "Mestrado em Marketing e Inovação", "Mestrado em Branding e Estratégia", "Mestrado em Comunicação Estratégica", "Doutoramento em Comunicação, Media e Ambientes Digitais", "Licenciatura em Design", "Licenciatura em Design Global", "Mestrado em Design e Cultura Visual", "Mestrado em Design & Publicidade", "Mestrado em Design Management", "Mestrado em Design de Produto, Espaço e Interações", "Mestrado em Branding e Design de Moda", "Mestrado em Design para a Sustentabilidade", "Doutoramento em Design", "Licenciatura em Desenvolvimento de Jogos", "Licenciatura em Creative Tech", "Licenciatura em Engenharia Informática", "Licenciatura em Informática de Gestão", "Mestrado em Computação Criativa e Inteligência Artificial", "Doutoramento em Jogos Digitais", "Mestrado em Direção de Arte EaD", "Mestrado em Comunicação Multimédia EaD", "Licenciatura em Ciências da Comunicação EaD", "Licenciatura em Design Visual EaD", "Licenciatura em Engenharia Informática EaD", "Licenciatura em Psicologia", "Mestrado em Psicologia Clínica e da Saúde", "Licenciatura em Ciências da Nutrição", "Licenciatura em Psicologia EaD", "Mestrado em Gestão da Saúde EaD", "Mestrado em Neuropsicologia EaD", "Licenciatura em Gestão de Recursos Humanos", "Mestrado em Gestão de Recursos Humanos", "Mestrado em Psicologia Social e das Organizações", "Licenciatura em Gestão de Recursos Humanos EaD", "Mestrado em Gestão de Recursos Humanos EaD", "Licenciatura em Marketing EAD", "Licenciatura em Ciências Sociais EaD", "Licenciatura em Contabilidade EaD", "Licenciatura em Gestão de Empresas EaD", "Mestrado em Cibersegurança EaD", "Mestrado em Ciências de Dados e Análise de Negócios EaD", "Mestrado em Direito e Segurança da Informação EaD", "Mestrado em Gestão de Empresas EaD", "Mestrado em Marketing estratégico EaD", "Mestrado em Psicologia Social e de Organizações EaD", "Licenciatura em Gestão", "Licenciatura em Management", "Mestrado em Management", "Mestrado em Gestão", "Licenciatura em Direito", "Mestrado em Direito Judiciário", "Licenciatura em Ciência Dados Gestão", "Licenciatura em Gestão do Desporto", "Licenciatura em Gestão Hoteleira", "Licenciatura em Tourism", "Licenciatura em Turismo", "Licenciatura em Gestão de Marketing", "Licenciatura em Marketing Global", "Licenciatura em Gestão de Negócios", "Licenciatura em Negócios Global", "Mestrado em Global Business", "Mestrado em Marketing", "Mestrado em Gestão de Marketing", "Mestrado em Gestão de Negócios", "Mestrado em Marketing e Tecnologia", "CTeSP em Marketing Digital", "Marketing Digital", "CTeSP em Gestão de Negócios Internacionais", "Gestão de Negócios Internacionais", "Mestrado em Gestão de Marketing EaD", "Licenciatura em Gestão de Marketing Online (antiga)", "Licenciatura em Gestão de Marketing EaD", "Mestrado em Gestão de Negócios EaD", "Licenciatura em Global Business", "CTeSP em Gestão Comercial e Vendas", "Mestrado em Ciências de Dados e Gestão", "Mestrado em Gestão do Desporto"]];
   function clean(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
   function strip(v){ try{ return clean(v).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(); }catch(e){ return clean(v).toLowerCase(); } }
   function isVisible(el){ return !!(el && (el.offsetWidth || el.offsetHeight || el.getClientRects().length)); }
@@ -17210,24 +17342,65 @@ body:not(.guiao-pdf-mode) .sbl-oferta-field.sbl-oferta-numeric-field input[type=
 .guiao-required-missing{ outline:3px solid rgba(227,30,36,.32) !important; outline-offset:2px !important; }
 </style>
 <style id="guioes-curso-dropdown-custom-v2-css">
-/* Dropdown personalizada de Curso(s) — v3 compacta e institucional */
+/* Lista personalizada de Curso(s) — abre completa e permite pesquisa */
+body:not(.guiao-pdf-mode) .cbl-course-search-row,
+body:not(.guiao-pdf-mode) .cbl-course-picker,
+body:not(.guiao-pdf-mode) .projbl-curso-real-wrap,
+body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{
+  position:relative;
+}
+body:not(.guiao-pdf-mode) #cursoBusca{
+  padding-right:46px !important;
+}
+body:not(.guiao-pdf-mode) .guioes-curso-toggle-v3{
+  position:absolute;
+  z-index:100001;
+  top:50%;
+  right:7px;
+  width:32px;
+  height:32px;
+  min-width:32px;
+  min-height:32px;
+  padding:0;
+  margin:0;
+  transform:translateY(-50%);
+  border:0;
+  border-radius:8px;
+  background:transparent;
+  color:#333;
+  font-family:'Century Gothic','Segoe UI',Arial,sans-serif;
+  font-size:17px;
+  line-height:1;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+body:not(.guiao-pdf-mode) .guioes-curso-toggle-v3:hover,
+body:not(.guiao-pdf-mode) .guioes-curso-toggle-v3:focus{
+  background:#f1f1f1;
+  outline:none;
+}
+body:not(.guiao-pdf-mode) .guioes-curso-toggle-v3[aria-expanded="true"]{
+  background:#f1f1f1;
+}
 body:not(.guiao-pdf-mode) .guioes-curso-suggestions-v2{
   position:absolute;
-  z-index:99999;
+  z-index:100000;
   left:0;
   right:0;
-  top:calc(100% + 3px);
-  max-height:220px;
+  top:calc(100% + 4px);
+  max-height:260px;
   overflow:auto;
   background:#fff;
   border:1px solid #c7cbd1;
-  border-radius:8px;
-  box-shadow:0 8px 18px rgba(0,0,0,.14);
-  padding:4px;
+  border-radius:10px;
+  box-shadow:0 10px 22px rgba(0,0,0,.16);
+  padding:5px;
   display:none;
   font-family:'Century Gothic','Segoe UI',Arial,sans-serif;
 }
-body:not(.guiao-pdf-mode) .guioes-curso-suggestions-v2.is-open{ display:block; }
+body:not(.guiao-pdf-mode) .guioes-curso-suggestions-v2.is-open{display:block;}
 body:not(.guiao-pdf-mode) .guioes-curso-suggestion-v2{
   display:block;
   width:100%;
@@ -17235,24 +17408,29 @@ body:not(.guiao-pdf-mode) .guioes-curso-suggestion-v2{
   border:0;
   background:#fff;
   color:#111827;
-  padding:6px 8px;
-  border-radius:6px;
+  padding:8px 10px;
+  border-radius:7px;
   font-size:13px !important;
-  line-height:1.22 !important;
+  line-height:1.25 !important;
   font-weight:500 !important;
   cursor:pointer;
 }
 body:not(.guiao-pdf-mode) .guioes-curso-suggestion-v2:hover,
-body:not(.guiao-pdf-mode) .guioes-curso-suggestion-v2.is-active{ background:#f3f4f6; }
-body:not(.guiao-pdf-mode) .guioes-curso-suggestion-v2 strong{ font-weight:700; }
-body:not(.guiao-pdf-mode) .cbl-course-search-row,
-body:not(.guiao-pdf-mode) .cbl-course-picker,
-body:not(.guiao-pdf-mode) .projbl-curso-real-wrap,
-body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
+body:not(.guiao-pdf-mode) .guioes-curso-suggestion-v2.is-active{
+  background:#f3f4f6;
+}
+body:not(.guiao-pdf-mode) .guioes-curso-empty-v3{
+  padding:10px;
+  color:#666;
+  font-size:12px;
+  line-height:1.35;
+}
 </style>
-<script id="guioes-curso-dropdown-custom-v2-js" data-v7-no-open-empty="1">
+<script id="guioes-curso-dropdown-custom-v2-js" data-open-complete-list="1">
 (function(){
   'use strict';
+  if(window.__guioesCursoDropdownCustomV3) return;
+  window.__guioesCursoDropdownCustomV3 = true;
 
   function clean(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
   function strip(v){
@@ -17260,151 +17438,217 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     catch(e){ return clean(v).toLowerCase(); }
   }
   function wordsMatch(valueNorm, queryNorm){
-    if(!queryNorm) return false;
-    var qWords = queryNorm.split(/\s+/).filter(Boolean);
-    var vWords = valueNorm.split(/\s+/).filter(Boolean);
-    if(!qWords.length) return false;
-    var pos = 0;
+    if(!queryNorm) return true;
+    var qWords=queryNorm.split(/\s+/).filter(Boolean);
+    var vWords=valueNorm.split(/\s+/).filter(Boolean);
+    var pos=0;
     for(var i=0;i<qWords.length;i++){
-      var found = false;
+      var found=false;
       for(var j=pos;j<vWords.length;j++){
-        if(vWords[j].indexOf(qWords[i]) === 0){ found = true; pos = j + 1; break; }
+        if(vWords[j].indexOf(qWords[i])===0){found=true;pos=j+1;break;}
       }
       if(!found) return false;
     }
     return true;
   }
   function score(value, query){
-    var v = strip(value), q = strip(query);
+    var v=strip(value), q=strip(query);
     if(!q) return 0;
-    if(v === q) return 0;
-    if(v.indexOf(q) === 0) return 1;
-    if(wordsMatch(v, q)) return 2;
-    if(v.indexOf(q) >= 0) return 3;
-    var tokens = q.split(/\s+/).filter(Boolean);
-    if(tokens.length && tokens.every(function(t){ return v.indexOf(t) >= 0; })) return 4;
+    if(v===q) return 0;
+    if(v.indexOf(q)===0) return 1;
+    if(wordsMatch(v,q)) return 2;
+    if(v.indexOf(q)>=0) return 3;
+    var tokens=q.split(/\s+/).filter(Boolean);
+    if(tokens.length && tokens.every(function(t){return v.indexOf(t)>=0;})) return 4;
     return 99;
   }
   function getOptions(listId){
-    var dl = document.getElementById(listId);
+    var dl=document.getElementById(listId);
     if(!dl) return [];
-    var seen = {};
-    return Array.prototype.slice.call(dl.querySelectorAll('option')).map(function(o, idx){
-      return {value: clean(o.value || o.textContent), idx: idx};
+    var seen=Object.create(null);
+    return Array.prototype.slice.call(dl.querySelectorAll('option')).map(function(o,idx){
+      return {value:clean(o.value||o.textContent),idx:idx};
     }).filter(function(o){
-      var key = strip(o.value);
-      if(!o.value || seen[key]) return false;
-      seen[key] = true;
+      var key=strip(o.value);
+      if(!o.value||seen[key]) return false;
+      seen[key]=true;
       return true;
     });
   }
-  function escapeHtml(v){
-    return String(v).replace(/[&<>"']/g, function(ch){
-      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+  function selectedCourseKeys(){
+    var out=Object.create(null);
+    var hidden=document.getElementById('curso');
+    String(hidden&&hidden.value||'').split(/\s*;\s*|\n+/).map(clean).filter(Boolean).forEach(function(v){out[strip(v)]=true;});
+    Array.prototype.slice.call(document.querySelectorAll('#cblCursosSelecionados .cbl-course-chip,[data-course-chip]')).forEach(function(chip){
+      var span=chip.querySelector('span');
+      var value=clean((span||chip).textContent||'').replace(/[×x]$/i,'').trim();
+      if(value) out[strip(value)]=true;
     });
+    return out;
   }
-  function selectCourse(input, value){
-    input.value = value;
-    input.dispatchEvent(new Event('input', {bubbles:true}));
-    input.dispatchEvent(new Event('change', {bubbles:true}));
-    var isSearchOnly = input.id === 'cursoBusca' || input.name === 'cursoBusca' || input.getAttribute('data-pbl-aux') === 'true';
-    var payload = document.getElementById('curso');
-    if(payload && payload !== input){
-      payload.value = value;
-      payload.dispatchEvent(new Event('input', {bubbles:true}));
-      payload.dispatchEvent(new Event('change', {bubbles:true}));
+  function fire(el,type){
+    try{el.dispatchEvent(new Event(type,{bubbles:true}));}catch(e){}
+  }
+  function selectCourse(input,value){
+    var api=window.GUIOES_MULTICURSO_EMAILS_FINAL_V1;
+    if(api && typeof api.adicionarCurso==='function'){
+      api.adicionarCurso(value);
+      input.value='';
+      fire(input,'input');
+      fire(input,'change');
+      return;
     }
-    if(isSearchOnly && (payload && payload !== input)){
-      setTimeout(function(){ input.value = ''; }, 120);
+    input.value=value;
+    fire(input,'input');
+    fire(input,'change');
+    var payload=document.getElementById('curso');
+    if(payload && payload!==input){
+      payload.value=value;
+      fire(payload,'input');
+      fire(payload,'change');
+      setTimeout(function(){input.value='';},120);
     }
   }
   function initInput(input){
-    if(!input || input.dataset.guioesCustomCursoV2 === '1') return;
-    var listId = input.getAttribute('list') || input.dataset.nativeList || 'cblCursosList';
-    var options = getOptions(listId);
-    if(!options.length) return;
+    if(!input || input.dataset.guioesCustomCursoV3==='1') return;
+    var listId=input.getAttribute('list')||input.dataset.nativeList||'cblCursosList';
+    if(!getOptions(listId).length) return;
 
-    input.dataset.nativeList = listId;
+    input.dataset.nativeList=listId;
     input.removeAttribute('list');
     input.setAttribute('autocomplete','off');
-    input.dataset.guioesCustomCursoV2 = '1';
+    input.setAttribute('role','combobox');
+    input.setAttribute('aria-autocomplete','list');
+    input.setAttribute('aria-expanded','false');
+    input.placeholder='Selecione ou pesquise um curso';
+    input.dataset.guioesCustomCursoV3='1';
 
-    var wrap = input.closest('.cbl-course-search-row') || input.parentElement;
+    var wrap=input.closest('.cbl-course-search-row')||input.parentElement;
     if(!wrap) return;
-    if(getComputedStyle(wrap).position === 'static') wrap.style.position = 'relative';
+    if(getComputedStyle(wrap).position==='static') wrap.style.position='relative';
 
-    var box = document.createElement('div');
-    box.className = 'guioes-curso-suggestions-v2';
-    box.setAttribute('role','listbox');
-    box.setAttribute('aria-label','Sugestões de cursos');
-    wrap.appendChild(box);
+    var box=wrap.querySelector('.guioes-curso-suggestions-v2');
+    if(!box){
+      box=document.createElement('div');
+      box.className='guioes-curso-suggestions-v2';
+      box.setAttribute('role','listbox');
+      box.setAttribute('aria-label','Cursos disponíveis');
+      box.id='guioesCursoSuggestionsV3';
+      wrap.appendChild(box);
+    }
+    input.setAttribute('aria-controls',box.id);
 
-    var active = -1;
-    function close(){ box.classList.remove('is-open'); active = -1; }
-    function open(){ if(box.children.length) box.classList.add('is-open'); }
-    function render(){
-      var q = clean(input.value);
-      if(q.length < 2){ box.innerHTML = ''; close(); return; }
-      var qNorm = strip(q);
-      var matches = options.map(function(o){ return {value:o.value, idx:o.idx, score:score(o.value, q)}; })
-        .filter(function(o){ return qNorm && o.score < 99; })
-        .sort(function(a,b){ return (a.score - b.score) || (a.idx - b.idx); })
-        .slice(0, 10);
+    var toggle=wrap.querySelector('.guioes-curso-toggle-v3');
+    if(!toggle){
+      toggle=document.createElement('button');
+      toggle.type='button';
+      toggle.className='guioes-curso-toggle-v3';
+      toggle.setAttribute('aria-label','Abrir lista de cursos');
+      toggle.setAttribute('aria-expanded','false');
+      toggle.textContent='⌄';
+      wrap.appendChild(toggle);
+    }
 
-      box.innerHTML = '';
-      active = -1;
-      if(!matches.length){ close(); return; }
-      matches.forEach(function(item, i){
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'guioes-curso-suggestion-v2';
-        btn.setAttribute('role','option');
-        btn.textContent = item.value;
-        btn.addEventListener('mousedown', function(ev){ ev.preventDefault(); });
-        btn.addEventListener('click', function(){ selectCourse(input, item.value); close(); input.focus(); });
-        box.appendChild(btn);
-      });
-      open();
+    var active=-1;
+    function isOpen(){return box.classList.contains('is-open');}
+    function close(){
+      box.classList.remove('is-open');
+      active=-1;
+      input.setAttribute('aria-expanded','false');
+      toggle.setAttribute('aria-expanded','false');
+    }
+    function open(){
+      if(box.children.length){
+        box.classList.add('is-open');
+        input.setAttribute('aria-expanded','true');
+        toggle.setAttribute('aria-expanded','true');
+      }
+    }
+    function render(allowOpen){
+      var q=clean(input.value);
+      var selected=selectedCourseKeys();
+      var options=getOptions(listId);
+      var matches=options.map(function(o){return {value:o.value,idx:o.idx,score:score(o.value,q)};})
+        .filter(function(o){return o.score<99 && !selected[strip(o.value)];})
+        .sort(function(a,b){return (a.score-b.score)||(a.idx-b.idx);});
+
+      box.innerHTML='';
+      active=-1;
+      if(!matches.length){
+        var empty=document.createElement('div');
+        empty.className='guioes-curso-empty-v3';
+        empty.textContent=q?'Nenhum curso encontrado.':'Não existem outros cursos disponíveis para selecionar.';
+        box.appendChild(empty);
+      }else{
+        matches.forEach(function(item){
+          var btn=document.createElement('button');
+          btn.type='button';
+          btn.className='guioes-curso-suggestion-v2';
+          btn.setAttribute('role','option');
+          btn.textContent=item.value;
+          btn.addEventListener('mousedown',function(ev){ev.preventDefault();});
+          btn.addEventListener('click',function(){
+            selectCourse(input,item.value);
+            close();
+            input.focus();
+          });
+          box.appendChild(btn);
+        });
+      }
+      if(allowOpen) open(); else close();
     }
     function setActive(idx){
-      var items = Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));
-      items.forEach(function(el){ el.classList.remove('is-active'); });
-      if(!items.length){ active = -1; return; }
-      active = Math.max(0, Math.min(idx, items.length - 1));
+      var items=Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));
+      items.forEach(function(el){el.classList.remove('is-active');el.setAttribute('aria-selected','false');});
+      if(!items.length){active=-1;return;}
+      active=Math.max(0,Math.min(idx,items.length-1));
       items[active].classList.add('is-active');
+      items[active].setAttribute('aria-selected','true');
       items[active].scrollIntoView({block:'nearest'});
     }
 
-    input.addEventListener('input', render, true);
-    input.addEventListener('focus', function(){ if(clean(input.value).length < 2) close(); else render(); }, true);
-    input.addEventListener('keydown', function(ev){
-      var items = Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));
-      if(ev.key === 'ArrowDown'){
+    input.addEventListener('focus',function(){render(true);},true);
+    input.addEventListener('click',function(){render(true);},true);
+    input.addEventListener('input',function(){render(true);},true);
+    input.addEventListener('sbl:courses-filtered',function(){
+      if(document.activeElement===input || isOpen()) render(true);
+      else close();
+    },true);
+    input.addEventListener('keydown',function(ev){
+      var items=Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));
+      if(ev.key==='ArrowDown'){
         ev.preventDefault();
-        if(!box.classList.contains('is-open')){ if(clean(input.value).length < 2) return; render(); }
-        setActive(active + 1);
-      }else if(ev.key === 'ArrowUp'){
+        if(!isOpen()) render(true);
+        setActive(active+1);
+      }else if(ev.key==='ArrowUp'){
         ev.preventDefault();
-        setActive(active <= 0 ? items.length - 1 : active - 1);
-      }else if(ev.key === 'Enter'){
-        if(box.classList.contains('is-open') && items.length){
+        if(!isOpen()) render(true);
+        setActive(active<=0?items.length-1:active-1);
+      }else if(ev.key==='Enter'){
+        if(isOpen() && items.length){
           ev.preventDefault();
-          var chosen = items[active >= 0 ? active : 0];
-          selectCourse(input, chosen.textContent || '');
+          var chosen=items[active>=0?active:0];
+          selectCourse(input,chosen.textContent||'');
           close();
         }
-      }else if(ev.key === 'Escape'){
+      }else if(ev.key==='Escape'){
         close();
       }
-    }, true);
-    document.addEventListener('click', function(ev){ if(!wrap.contains(ev.target)) close(); }, true);
+    },true);
+
+    toggle.addEventListener('mousedown',function(ev){ev.preventDefault();});
+    toggle.addEventListener('click',function(){
+      if(isOpen()) close();
+      else{input.focus();render(true);}
+    });
+    document.addEventListener('click',function(ev){if(!wrap.contains(ev.target)) close();},true);
   }
   function initAll(){
-    Array.prototype.slice.call(document.querySelectorAll('input#cursoBusca, input[name="cursoBusca"], input[id*="curso" i][list], input[placeholder*="curso" i]')).forEach(initInput);
+    Array.prototype.slice.call(document.querySelectorAll('input#cursoBusca,input[name="cursoBusca"],input[id*="curso" i][list],input[placeholder*="curso" i]')).forEach(initInput);
   }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAll);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initAll);
   else initAll();
-  [200, 600, 1200, 2500].forEach(function(ms){ setTimeout(initAll, ms); });
+  [100,300,700,1400,2600].forEach(function(ms){setTimeout(initAll,ms);});
 })();
 </script>
 
@@ -19311,5 +19555,463 @@ body:not(.guiao-pdf-mode) .pbl-course-chip button{
   }
 }
 </style>
+
+<script id="sbl-autosave-resiliente-v5">
+/* ===== SBL AUTOSAVE RESILIENTE V5 — 2026-07-30 =====
+   - chave exclusiva por template, modo e itemId;
+   - gravação após cada alteração real, em pagehide e ao ocultar a página;
+   - restauração automática segura;
+   - preservação da estrutura e dos valores do quadro Ação/Reação;
+   - compatibilidade com Curso(s), radio buttons, campos ocultos e campos dinâmicos;
+   - os botões Guardar/Restaurar/Apagar/Limpar passam a usar este sistema.
+*/
+(function(){
+  'use strict';
+  if(window.__SBL_AUTOSAVE_RESILIENTE_V5__) return;
+  window.__SBL_AUTOSAVE_RESILIENTE_V5__ = true;
+
+  var MODE = 'normal';
+  var SCHEMA = 5;
+  var ITEM_ID = (function(){
+    try { return String(new URLSearchParams(location.search || '').get('itemId') || '').replace(/[^A-Za-z0-9_-]/g,''); }
+    catch(e){ var m=(location.search||'').match(/[?&]itemId=([^&]+)/i); return m ? String(m[1]).replace(/[^A-Za-z0-9_-]/g,'') : ''; }
+  })();
+  var STORAGE_KEY = 'guioes_autosave_SBL_v5:' + MODE + ':' + (ITEM_ID ? ('item_' + ITEM_ID) : 'novo');
+  var LEGACY_SHARED_KEY = 'template_autosave_SBL';
+  var saveTimer = null;
+  var restoring = false;
+  var suppressSave = false;
+  var userInteracted = false;
+  var dirtySinceLoad = false;
+  var baselineActionRows = 1;
+  var lastSavedJSON = '';
+
+  function nowIso(){ return new Date().toISOString(); }
+  function localTime(iso){
+    try { return new Date(iso).toLocaleTimeString('pt-PT', {hour:'2-digit', minute:'2-digit', second:'2-digit'}); }
+    catch(e){ return '--'; }
+  }
+  function status(text){
+    var el = document.getElementById('autosaveStatus');
+    if(el) el.textContent = text;
+  }
+  function toastSafe(msg, type, duration){
+    if(typeof window.toast === 'function'){
+      try { window.toast(msg, type, duration); return; } catch(e){}
+    }
+    var old = document.querySelector('.toast-message');
+    if(old) old.remove();
+    var d = document.createElement('div');
+    d.className = 'toast-message';
+    d.textContent = msg;
+    d.style.background = type === 'error' ? '#7a1f1f' : (type === 'ok' ? '#1f4d2b' : '#333');
+    document.body.appendChild(d);
+    setTimeout(function(){ if(d.parentNode) d.remove(); }, duration || 3200);
+  }
+  function safeGet(key){ try { return localStorage.getItem(key); } catch(e){ return null; } }
+  function safeRemove(key){ try { localStorage.removeItem(key); return true; } catch(e){ return false; } }
+  function safeSetVerified(key, value){
+    try {
+      localStorage.setItem(key, value);
+      return localStorage.getItem(key) === value;
+    } catch(e){ return false; }
+  }
+  function fire(el){
+    if(!el) return;
+    try { el.dispatchEvent(new Event('input', {bubbles:true})); } catch(e){}
+    try { el.dispatchEvent(new Event('change', {bubbles:true})); } catch(e){}
+  }
+  function isActionControl(el){ return !!(el && el.closest && el.closest('#quadroAcao')); }
+  function storableControls(){
+    return Array.prototype.slice.call(document.querySelectorAll('input, textarea, select')).filter(function(el){
+      var type = String(el.type || '').toLowerCase();
+      if(el.disabled || ['button','submit','reset','file','image'].indexOf(type) >= 0) return false;
+      if(isActionControl(el)) return false;
+      return !!(el.id || el.name);
+    });
+  }
+  function controlKey(el){
+    if(el.id) return 'id:' + el.id;
+    var type = String(el.type || '').toLowerCase();
+    if((type === 'radio' || type === 'checkbox') && el.name) return 'name:' + el.name + '|value:' + String(el.value || '');
+    return 'name:' + String(el.name || '');
+  }
+  function readControl(el){
+    var type = String(el.type || '').toLowerCase();
+    if(type === 'radio' || type === 'checkbox') return {checked:!!el.checked, value:String(el.value || '')};
+    if(el.tagName === 'SELECT' && el.multiple){
+      return {values:Array.prototype.slice.call(el.options).filter(function(o){return o.selected;}).map(function(o){return o.value;})};
+    }
+    return {value:String(el.value == null ? '' : el.value)};
+  }
+  function findControl(key){
+    if(key.indexOf('id:') === 0) return document.getElementById(key.slice(3));
+    var body = key.slice(5);
+    var split = body.indexOf('|value:');
+    if(split >= 0){
+      var name = body.slice(0, split), value = body.slice(split + 7);
+      return Array.prototype.slice.call(document.querySelectorAll('[name="' + cssEscape(name) + '"]')).find(function(el){ return String(el.value || '') === value; }) || null;
+    }
+    return document.querySelector('[name="' + cssEscape(body) + '"]');
+  }
+  function cssEscape(value){
+    if(window.CSS && typeof window.CSS.escape === 'function') return window.CSS.escape(String(value));
+    return String(value).replace(/([\\"'\[\]#.:])/g,'\\$1');
+  }
+  function actionRows(){
+    var table = document.getElementById('quadroAcao');
+    if(!table) return [];
+    return Array.prototype.slice.call(table.querySelectorAll('tr')).filter(function(row){
+      return row.querySelectorAll('textarea').length >= 2 &&
+        !row.classList.contains('sbl-acoes-footer-row') &&
+        !row.querySelector('.btn-plus,.btn-minus');
+    });
+  }
+  function ensureActionIds(){
+    actionRows().forEach(function(row, idx){
+      var tas = row.querySelectorAll('textarea');
+      var n = idx + 1;
+      if(tas[0]){ tas[0].id='sbl_acao_'+n; tas[0].name='sbl_acao_'+n; }
+      if(tas[1]){ tas[1].id='sbl_reacao_'+n; tas[1].name='sbl_reacao_'+n; }
+    });
+  }
+  function readActionRows(){
+    ensureActionIds();
+    return actionRows().map(function(row){
+      var tas = row.querySelectorAll('textarea');
+      return {acao:String((tas[0] && tas[0].value) || ''), reacao:String((tas[1] && tas[1].value) || '')};
+    });
+  }
+  function removeTransientToasts(){
+    setTimeout(function(){
+      Array.prototype.slice.call(document.querySelectorAll('.toast-message')).forEach(function(el){
+        if(/linha adicionada|linha removida/i.test(el.textContent || '')) el.remove();
+      });
+    }, 0);
+  }
+  function setActionRowCount(count){
+    count = Math.max(1, Math.min(80, Number(count) || 1));
+    var guard = 0;
+    while(actionRows().length < count && guard++ < 90){
+      if(typeof window.addRow === 'function') window.addRow();
+      else break;
+    }
+    guard = 0;
+    while(actionRows().length > count && actionRows().length > 1 && guard++ < 90){
+      var rows = actionRows();
+      rows[rows.length - 1].remove();
+    }
+    ensureActionIds();
+    removeTransientToasts();
+  }
+  function currentPayload(){
+    ensureActionIds();
+    var controls = {};
+    storableControls().forEach(function(el){ controls[controlKey(el)] = readControl(el); });
+    return {
+      schema:SCHEMA,
+      template:'SBL',
+      mode:MODE,
+      itemId:ITEM_ID || null,
+      updatedAt:nowIso(),
+      urlPath:String(location.pathname || ''),
+      controls:controls,
+      actionRows:readActionRows()
+    };
+  }
+  function saveNow(options){
+    options = options || {};
+    if(restoring || suppressSave) return false;
+    if(!options.force && !dirtySinceLoad) return false;
+    var payload = currentPayload();
+    var json = JSON.stringify(payload);
+    var ok = safeSetVerified(STORAGE_KEY, json);
+    if(ok){
+      lastSavedJSON = json;
+      dirtySinceLoad = false;
+      status('Última gravação automática: ' + localTime(payload.updatedAt));
+      if(options.toast) toastSafe('Rascunho guardado com sucesso.', 'ok');
+      return true;
+    }
+    status('Não foi possível guardar o rascunho neste navegador.');
+    if(options.toast) toastSafe('Não foi possível guardar o rascunho neste navegador.', 'error', 5500);
+    return false;
+  }
+  function scheduleSave(delay){
+    if(restoring || suppressSave) return;
+    dirtySinceLoad = true;
+    if(saveTimer) clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){ saveTimer=null; saveNow({force:true}); }, typeof delay === 'number' ? delay : 350);
+  }
+  function parseDraft(raw){
+    if(!raw) return null;
+    try {
+      var p = JSON.parse(raw);
+      if(!p || p.schema !== SCHEMA || p.template !== 'SBL' || p.mode !== MODE) return null;
+      if(String(p.itemId || '') !== String(ITEM_ID || '')) return null;
+      return p;
+    } catch(e){ return null; }
+  }
+  function syncCoursesAfterRestore(){
+    var hidden = document.getElementById('curso');
+    if(!hidden) return;
+    var value = String(hidden.value || '');
+    try {
+      var api = window.GUIOES_MULTICURSO_EMAILS_FINAL_V1;
+      if(api && typeof api.substituirCursos === 'function') api.substituirCursos(value);
+      else if(typeof window.renderCursosSelecionados === 'function') window.renderCursosSelecionados();
+      else if(typeof window.syncCourseChips === 'function') window.syncCourseChips();
+    } catch(e){}
+  }
+  function applyControlState(el, state){
+    if(!el || !state) return;
+    var type = String(el.type || '').toLowerCase();
+    if(type === 'radio' || type === 'checkbox') el.checked = !!state.checked;
+    else if(el.tagName === 'SELECT' && el.multiple && Array.isArray(state.values)){
+      Array.prototype.forEach.call(el.options, function(o){ o.selected = state.values.indexOf(o.value) >= 0; });
+    } else el.value = state.value == null ? '' : String(state.value);
+    fire(el);
+  }
+  function restorePayload(payload, options){
+    options = options || {};
+    if(!payload) return false;
+    restoring = true;
+    suppressSave = true;
+    try {
+      setActionRowCount(Array.isArray(payload.actionRows) ? payload.actionRows.length : baselineActionRows);
+      Object.keys(payload.controls || {}).forEach(function(key){ applyControlState(findControl(key), payload.controls[key]); });
+      (payload.actionRows || []).forEach(function(pair, idx){
+        var row = actionRows()[idx];
+        if(!row) return;
+        var tas = row.querySelectorAll('textarea');
+        if(tas[0]){ tas[0].value = String(pair.acao || ''); fire(tas[0]); }
+        if(tas[1]){ tas[1].value = String(pair.reacao || ''); fire(tas[1]); }
+      });
+      ensureActionIds();
+      syncCoursesAfterRestore();
+      ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso'].forEach(function(fn){
+        try { if(typeof window[fn] === 'function') window[fn](); } catch(e){}
+      });
+      status('Última gravação automática: ' + localTime(payload.updatedAt));
+      dirtySinceLoad = false;
+      if(options.toast !== false) toastSafe('Rascunho restaurado com sucesso.', 'ok');
+      return true;
+    } finally {
+      setTimeout(function(){ restoring=false; suppressSave=false; }, 50);
+    }
+  }
+  function restoreCurrent(options){
+    var p = parseDraft(safeGet(STORAGE_KEY));
+    if(!p){
+      status('Última gravação automática: --');
+      if(!options || options.toast !== false) toastSafe('Não há rascunho guardado.');
+      return false;
+    }
+    return restorePayload(p, options);
+  }
+  function legacyToV5(raw){
+    try {
+      var old = JSON.parse(raw);
+      if(!old || !old.data || typeof old.data !== 'object') return null;
+      var controls = {}, rows = {}, keys = Object.keys(old.data);
+      keys.forEach(function(k){
+        var v = old.data[k];
+        var ma = k.match(/^sbl_acao_(\d+)$/), mr = k.match(/^sbl_reacao_(\d+)$/);
+        if(ma){ rows[ma[1]] = rows[ma[1]] || {acao:'',reacao:''}; rows[ma[1]].acao=String(v||''); return; }
+        if(mr){ rows[mr[1]] = rows[mr[1]] || {acao:'',reacao:''}; rows[mr[1]].reacao=String(v||''); return; }
+        var el = document.getElementById(k) || document.querySelector('[name="' + cssEscape(k) + '"]');
+        if(el){
+          var type=String(el.type||'').toLowerCase();
+          if(type==='radio'||type==='checkbox') controls[controlKey(el)]={checked:String(el.value||'')===String(v||''),value:String(el.value||'')};
+          else controls[controlKey(el)]={value:String(v==null?'':v)};
+        }
+      });
+      var action = Object.keys(rows).sort(function(a,b){return Number(a)-Number(b);}).map(function(k){return rows[k];});
+      if(!keys.length) return null;
+      return {schema:SCHEMA,template:'SBL',mode:MODE,itemId:ITEM_ID||null,updatedAt:new Date().toISOString(),urlPath:String(location.pathname||''),controls:controls,actionRows:action.length?action:readActionRows(),migratedFromLegacy:true};
+    } catch(e){ return null; }
+  }
+  function migrateLegacyIfUseful(){
+    if(MODE !== 'normal' || safeGet(STORAGE_KEY)) return;
+    var legacy = legacyToV5(safeGet(LEGACY_SHARED_KEY));
+    if(!legacy) return;
+    var json = JSON.stringify(legacy);
+    if(safeSetVerified(STORAGE_KEY, json)) lastSavedJSON = json;
+  }
+  function deleteDraft(showToast){
+    if(saveTimer){ clearTimeout(saveTimer); saveTimer=null; }
+    safeRemove(STORAGE_KEY);
+    dirtySinceLoad = false;
+    status('Última gravação automática: --');
+    if(showToast !== false) toastSafe('Rascunho local apagado. O formulário foi mantido.');
+  }
+  function clearForm(){
+    if(saveTimer){ clearTimeout(saveTimer); saveTimer=null; }
+    restoring = true;
+    suppressSave = true;
+    try {
+      setActionRowCount(baselineActionRows);
+      storableControls().forEach(function(el){
+        var type=String(el.type||'').toLowerCase();
+        if(type==='radio'||type==='checkbox') el.checked=false;
+        else if(el.tagName==='SELECT') el.selectedIndex=0;
+        else el.value='';
+        fire(el);
+      });
+      actionRows().forEach(function(row){ Array.prototype.forEach.call(row.querySelectorAll('textarea'), function(ta){ta.value='';fire(ta);}); });
+      try {
+        var api=window.GUIOES_MULTICURSO_EMAILS_FINAL_V1;
+        if(api && typeof api.substituirCursos==='function') api.substituirCursos('');
+        var chips=document.getElementById('cblCursosSelecionados'); if(chips) chips.innerHTML='';
+      } catch(e){}
+      safeRemove(STORAGE_KEY);
+      dirtySinceLoad=false;
+      status('Última gravação automática: --');
+      ['renderProgress','updateProgress','atualizarProgresso','calcularProgresso'].forEach(function(fn){try{if(typeof window[fn]==='function')window[fn]();}catch(e){}});
+      toastSafe('Formulário limpo com sucesso.');
+    } finally {
+      setTimeout(function(){ restoring=false; suppressSave=false; }, 80);
+    }
+  }
+  function interceptMenuActions(ev){
+    var btn = ev.target && ev.target.closest ? ev.target.closest('button') : null;
+    if(!btn) return;
+    var id = btn.id || '';
+    if(['draftBtn','restoreBtn','deleteBtn','clearBtn'].indexOf(id) < 0) return;
+    ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+    var menu=document.getElementById('uxMenuMaisOpcoes'); if(menu) menu.classList.remove('open');
+    if(id==='draftBtn') saveNow({force:true,toast:true});
+    else if(id==='restoreBtn') restoreCurrent({toast:true});
+    else if(id==='deleteBtn') deleteDraft(true);
+    else if(id==='clearBtn') clearForm();
+  }
+  function markRealInteraction(ev){
+    if(restoring || suppressSave) return;
+    if(ev && ev.isTrusted){ userInteracted=true; dirtySinceLoad=true; }
+  }
+  function onInputChange(ev){
+    if(restoring || suppressSave) return;
+    if(!ev || !ev.target || !ev.target.matches || !ev.target.matches('input,textarea,select')) return;
+    if(ev.isTrusted){ userInteracted=true; scheduleSave(ev.type==='change'?80:350); }
+  }
+  function onTrustedClick(ev){
+    if(restoring || suppressSave || !ev.isTrusted) return;
+    var target=ev.target && ev.target.closest ? ev.target.closest('button,[role="option"],.cbl-course-chip') : null;
+    if(!target) return;
+    if(target.id==='draftBtn'||target.id==='restoreBtn'||target.id==='deleteBtn'||target.id==='clearBtn'||target.id==='btnMaisOpcoes') return;
+    userInteracted=true;
+    if(target.closest('#quadroAcao,.cbl-course-picker,#cblCursosSelecionados,.sbl-repository-authorization')) setTimeout(function(){scheduleSave(80);},30);
+  }
+  function observeDynamicRows(){
+    var table=document.getElementById('quadroAcao');
+    if(!table || table.dataset.sblAutosaveObserved==='1') return;
+    table.dataset.sblAutosaveObserved='1';
+    new MutationObserver(function(){
+      ensureActionIds();
+      if(userInteracted && !restoring && !suppressSave) scheduleSave(120);
+    }).observe(table,{childList:true,subtree:true});
+  }
+  function init(){
+    ensureActionIds();
+    baselineActionRows=Math.max(1,actionRows().length||1);
+    observeDynamicRows();
+    migrateLegacyIfUseful();
+    var existing=parseDraft(safeGet(STORAGE_KEY));
+    if(existing) status('Rascunho disponível: ' + localTime(existing.updatedAt));
+    else status('Última gravação automática: --');
+
+    document.addEventListener('click', interceptMenuActions, true);
+    document.addEventListener('input', onInputChange, true);
+    document.addEventListener('change', onInputChange, true);
+    document.addEventListener('pointerdown', markRealInteraction, true);
+    document.addEventListener('click', onTrustedClick, true);
+
+    var autoDelay = ITEM_ID ? 3000 : (MODE === 'teste' ? 2800 : 1700);
+    setTimeout(function(){
+      var p=parseDraft(safeGet(STORAGE_KEY));
+      if(!p) return;
+      if(userInteracted){ status('Rascunho disponível: ' + localTime(p.updatedAt) + ' — restaure em Mais opções.'); return; }
+      restorePayload(p,{toast:false});
+    }, autoDelay);
+
+    [300,900,1800,3500].forEach(function(ms){setTimeout(function(){ensureActionIds();observeDynamicRows();},ms);});
+  }
+
+  window.addEventListener('pagehide', function(){ if(dirtySinceLoad) saveNow({force:true}); }, true);
+  window.addEventListener('beforeunload', function(){ if(dirtySinceLoad) saveNow({force:true}); }, true);
+  document.addEventListener('visibilitychange', function(){ if(document.visibilityState==='hidden' && dirtySinceLoad) saveNow({force:true}); }, true);
+
+  window.SBL_AUTOSAVE_V5 = {
+    key:STORAGE_KEY,
+    mode:MODE,
+    save:function(){return saveNow({force:true});},
+    restore:function(){return restoreCurrent({toast:false});},
+    remove:function(){return deleteDraft(false);},
+    snapshot:currentPayload,
+    actionRows:actionRows
+  };
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
+<script id="sbl-course-unit-validation-final-v1">
+(function(){
+  'use strict';
+  if(window.__sblCourseUnitValidationFinalV1) return;
+  window.__sblCourseUnitValidationFinalV1 = true;
+  function clean(v){return String(v==null?'':v).replace(/\s+/g,' ').trim();}
+  function split(v){return String(v||'').split(/\s*;\s*|\n+/).map(clean).filter(Boolean);}
+  function courses(){
+    var hidden=document.getElementById('curso');
+    var list=hidden?split(hidden.value):[];
+    if(!list.length){
+      list=Array.prototype.slice.call(document.querySelectorAll('#cblCursosSelecionados .cbl-course-chip,[data-course-chip]')).map(function(chip){
+        var span=chip.querySelector('span');return clean((span||chip).textContent||'').replace(/[×x]$/i,'').trim();
+      }).filter(Boolean);
+    }
+    return list;
+  }
+  function incompatible(){
+    var unit=clean(document.getElementById('unidadeOrganica')&&document.getElementById('unidadeOrganica').value);
+    var map=window.SBL_COURSES_BY_UNIT||{};
+    if(!unit||!map[unit])return [];
+    return courses().filter(function(c){return map[unit].indexOf(c)<0;});
+  }
+  function notify(msg){
+    if(typeof window.toast==='function')return window.toast(msg,'error',7500);
+    if(typeof window.showToast==='function')return window.showToast(msg);
+    if(typeof window.mostrarToast==='function')return window.mostrarToast(msg);
+    try{window.alert(msg);}catch(e){}
+  }
+  function install(){
+    var current=window.guiaoValidarCamposObrigatoriosSubmissaoV2||window.guiaoValidarCamposObrigatoriosSubmissaoV1;
+    if(typeof current!=='function'||current.__sblCourseUnitWrapped)return;
+    function wrapped(options){
+      var base=current.apply(this,arguments)||{ok:true,missing:[],invalid:[]};
+      var bad=incompatible();
+      if(!bad.length)return base;
+      if(!options||!options.silent){
+        var unit=clean(document.getElementById('unidadeOrganica')&&document.getElementById('unidadeOrganica').value);
+        notify('Verifique Curso(s): '+bad.join('; ')+(bad.length===1?' não pertence':' não pertencem')+' à unidade '+unit+'.');
+        var target=document.getElementById('cursoBusca')||document.querySelector('.cbl-course-picker');
+        if(target){try{target.classList.add('guiao-required-missing');setTimeout(function(){target.classList.remove('guiao-required-missing');},5000);target.focus&&target.focus();}catch(e){}}
+      }
+      var missing=Array.isArray(base.missing)?base.missing.slice():[];
+      var invalid=Array.isArray(base.invalid)?base.invalid.slice():[];
+      if(invalid.indexOf('Curso(s)')<0)invalid.push('Curso(s)');
+      return {ok:false,missing:missing,invalid:invalid,incompatibleCourses:bad.slice()};
+    }
+    wrapped.__sblCourseUnitWrapped=true;
+    wrapped.__sblCourseUnitOriginal=current;
+    window.guiaoValidarCamposObrigatoriosSubmissaoV2=wrapped;
+    window.guiaoValidarCamposObrigatoriosSubmissaoV1=wrapped;
+  }
+  install();
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install);
+  [100,500,1200,2600,4200].forEach(function(ms){setTimeout(install,ms);});
+})();
+</script>
 </body>
 </html>
