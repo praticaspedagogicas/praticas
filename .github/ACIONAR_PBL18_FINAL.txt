@@ -1,2 +1,2 @@
 Acionamento temporário da publicação final de PBL.html e PBL_Teste.html.
-Execução solicitada após substituição do workflow ativo.
+Execução solicitada com descodificação individual dos segmentos.
