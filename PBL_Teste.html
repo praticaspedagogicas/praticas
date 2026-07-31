@@ -5339,6 +5339,20 @@ body.pbl-exporting .pbl-student-mirror-info,
 <div class="ux-ai-guidance">Use o Assistente IA para esclarecer dúvidas sobre o preenchimento do guião.</div>
 </div>
 
+
+<div class="pbl-session-modal-backdrop no-print" id="pblTeacherPdfModal" aria-hidden="true">
+  <div class="pbl-session-modal" role="dialog" aria-modal="true" aria-labelledby="pblTeacherPdfTitle">
+    <h3 id="pblTeacherPdfTitle">PDF Docente</h3>
+    <p>Escolha o guião completo ou apenas uma sessão. A avaliação opcional é incluída somente no PDF completo.</p>
+    <label for="pblTeacherPdfSelect">Conteúdo do PDF</label>
+    <select id="pblTeacherPdfSelect"></select>
+    <div class="pbl-excel-note">Quando várias linhas têm o mesmo número de sessão, são incluídas juntas no respetivo PDF.</div>
+    <div class="pbl-session-modal-actions">
+      <button class="pbl-session-modal-cancel" id="pblTeacherPdfCancel" type="button">Cancelar</button>
+      <button class="pbl-session-modal-generate" id="pblTeacherPdfGenerate" type="button">Gerar PDF</button>
+    </div>
+  </div>
+</div>
 <div class="pbl-session-modal-backdrop no-print" id="pblStudentExcelModal" aria-hidden="true">
   <div class="pbl-session-modal" role="dialog" aria-modal="true" aria-labelledby="pblStudentExcelTitle">
     <h3 id="pblStudentExcelTitle">Excel Estudante</h3>
@@ -8366,11 +8380,11 @@ function makePdfFileName(){
   installFetchPatch();
 })();
 </script>
-<script id="pbl-pdf-espelho-restauro-aprovado-v1">
+<script id="pbl-pdf-espelho-restauro-aprovado-v2">
 (function(){
   'use strict';
-  if(window.__pblPdfEspelhoRestauroAprovadoV1) return;
-  window.__pblPdfEspelhoRestauroAprovadoV1 = true;
+  if(window.__pblPdfEspelhoRestauroAprovadoV2) return;
+  window.__pblPdfEspelhoRestauroAprovadoV2 = true;
 
   function $(id){ return document.getElementById(id); }
   function clean(v){ return String(v || '').replace(/\r\n/g,'\n').replace(/\r/g,'\n').trim(); }
@@ -8469,18 +8483,41 @@ function makePdfFileName(){
     });
     return d;
   }
-
   function hasMeaningfulEvaluation(){
     var table=$('avaliacaoTable');
     if(!table) return false;
     var rows=Array.prototype.slice.call(table.querySelectorAll('tr')).slice(1);
     return rows.some(function(row){
-      return Array.prototype.slice.call(
-        row.querySelectorAll('input,textarea,select')
-      ).some(function(field){
+      return Array.prototype.slice.call(row.querySelectorAll('input,textarea,select')).some(function(field){
         return clean(field.value || '').length > 0;
       });
     });
+  }
+  function teacherPlanRows(){
+    var data=tableData('docenteTable');
+    return (data.rows||[]).map(function(row,index){
+      var meaningful=clean(row[0]) || clean(row[1]) || clean(row[3]) || clean(row[4]) || clean(row[5]) || clean(row[6]) || clean(row[7]);
+      return {index:index,row:row,sessao:clean(row[0]),vEstud:clean(row[1]),pergunta:clean(row[3]),meaningful:!!meaningful};
+    });
+  }
+  function filteredTeacherData(selection){
+    var data=tableData('docenteTable');
+    var records=teacherPlanRows();
+    if(!selection || selection==='all') return {mode:'all',label:'',data:data};
+    var selected=[];
+    var label='';
+    if(String(selection).indexOf('session:')===0){
+      var key=decodeURIComponent(String(selection).slice(8));
+      selected=records.filter(function(record){return record.sessao===key;});
+      label='Sessão '+key;
+    }else if(String(selection).indexOf('row:')===0){
+      var idx=Number(String(selection).slice(4));
+      selected=records.filter(function(record){return record.index===idx;});
+      var one=selected[0];
+      label=one && one.vEstud ? 'V. Estud. '+one.vEstud : 'Linha '+(idx+1);
+    }
+    if(!selected.length) throw new Error('A sessão selecionada já não está disponível.');
+    return {mode:'session',label:label,data:{headers:data.headers,rows:selected.map(function(record){return record.row;})}};
   }
   function loadJsPdf(){
     return new Promise(function(resolve,reject){
@@ -8505,12 +8542,16 @@ function makePdfFileName(){
     var d = document.createElement('div'); d.className = 'toast-message'; d.textContent = msg; document.body.appendChild(d);
     setTimeout(function(){ if(d.parentNode) d.remove(); }, 2600);
   }
-  function fileName(){
-    if(typeof window.guiaoPdfFileName === 'function') return window.guiaoPdfFileName('PBL_Docente','Guiao_Docente');
-    return 'PBL_Docente.pdf';
+  function fileSafe(value){ return clean(value || '').replace(/[\\/:*?"<>|]+/g,'_').replace(/\s+/g,'_').replace(/^_+|_+$/g,'').slice(0,80) || 'Guiao'; }
+  function fileName(selection,selectionLabel){
+    var suffix=selection && selection!=='all' ? ('Sessao_'+fileSafe(selectionLabel || 'selecionada')) : 'Completo';
+    var subject=fileSafe(val('uc') || val('titulo') || 'Guiao');
+    return 'PBL_Docente_'+suffix+'_'+subject+'.pdf';
   }
 
-  async function renderPblPdfAprovadoBlob(){
+  async function renderPblPdfAprovadoBlob(selection){
+    selection=selection || 'all';
+    var plan=filteredTeacherData(selection);
     await loadJsPdf();
     var jsPDF = window.jspdf && window.jspdf.jsPDF;
     if(!jsPDF) throw new Error('jsPDF não carregou.');
@@ -8525,36 +8566,29 @@ function makePdfFileName(){
     function footer(){
       var n = pdf.internal.getNumberOfPages();
       pdf.setPage(n); pdf.setFont('helvetica','normal'); pdf.setFontSize(7); pdf.setTextColor(120,120,120);
-      pdf.text('Guião Problem-Based Learning · PDF Docente', m, H-7);
+      pdf.text('Guião Problem-Based Learning · PDF Docente'+(plan.mode==='session'?' · '+plan.label:''), m, H-7);
       pdf.text('Página ' + n, W-m, H-7, {align:'right'});
       pdf.setTextColor(0,0,0);
     }
     function drawRule(x1, yy, x2, width){ dc(red); pdf.setLineWidth(width || .35); pdf.line(x1, yy, x2, yy); }
     function empty(v){ return clean(v || ''); }
-    function getTitle(){ return firstNonEmpty(val('titulo'), 'Intervenção perante um caso de insucesso académico e ansiedade em contexto universitário'); }
-
+    function getTitle(){ return firstNonEmpty(val('titulo'), 'Plano Problem-Based Learning'); }
     function header(){
       var boxX=m, boxW=W-2*m, boxY=y-1;
       var titleLines = split(getTitle(), boxW - 24, 9.1, 'bold');
       var boxH = Math.max(36, 31 + Math.max(1,titleLines.length)*4.2);
-      dc(dark); pdf.setLineWidth(.25); fc([255,255,255]);
-      pdf.roundedRect(boxX, boxY, boxW, boxH, 2.8, 2.8, 'S');
+      dc(dark); pdf.setLineWidth(.25); fc([255,255,255]); pdf.roundedRect(boxX, boxY, boxW, boxH, 2.8, 2.8, 'S');
       var logo = logoSrc();
       if(logo){ try{ pdf.addImage(logo, 'PNG', W/2-14, y+4.2, 28, 6.6); }catch(e){ try{ pdf.addImage(logo, 'JPEG', W/2-14, y+4.2, 28, 6.6); }catch(e2){} } }
       y += 15.2;
-      pdf.setFont('helvetica','bold'); pdf.setFontSize(13.8); tc(dark);
-      pdf.text('Plano Problem-Based Learning', W/2, y, {align:'center'});
+      pdf.setFont('helvetica','bold'); pdf.setFontSize(13.8); tc(dark); pdf.text('Plano Problem-Based Learning', W/2, y, {align:'center'});
       y += 4.1; drawRule(boxX+12, y, boxX+boxW-12, .42);
-      y += 5.5; pdf.setFont('helvetica','bold'); pdf.setFontSize(9.1); tc(dark);
-      pdf.text(titleLines, W/2, y, {align:'center'});
+      y += 5.5; pdf.setFont('helvetica','bold'); pdf.setFontSize(9.1); tc(dark); pdf.text(titleLines, W/2, y, {align:'center'});
       y += Math.max(7, titleLines.length*4.2 + 1.2);
-      pdf.setFont('helvetica','normal'); pdf.setFontSize(7.6); tc(grey);
-      pdf.text('Autoria: ' + empty(val('autoria')), boxX+boxW-5.5, boxY+boxH-3.6, {align:'right'});
+      pdf.setFont('helvetica','normal'); pdf.setFontSize(7.6); tc(grey); pdf.text('Autoria: ' + empty(val('autoria')), boxX+boxW-5.5, boxY+boxH-3.6, {align:'right'});
       y = boxY + boxH + 9;
     }
-    function section(title){
-      ensure(13); pdf.setFont('helvetica','bold'); pdf.setFontSize(10.8); tc(dark); pdf.text(title, m, y); y += 2.5; drawRule(m, y, W-m, .35); y += 6;
-    }
+    function section(title){ ensure(13); pdf.setFont('helvetica','bold'); pdf.setFontSize(10.8); tc(dark); pdf.text(title, m, y); y += 2.5; drawRule(m, y, W-m, .35); y += 6; }
     function topic(title){ ensure(7); pdf.setFont('helvetica','bold'); pdf.setFontSize(8.8); tc(dark); pdf.text(title, m, y); y += 4.5; }
     function metaBlock(){
       section('Identificação do guião');
@@ -8572,10 +8606,8 @@ function makePdfFileName(){
           return Math.max(17.2, 9.5 + Math.max(1,lines.length)*4.2);
         }));
       });
-      var yearH=17.4;
-      var boxH=rowHeights.reduce(function(a,b){return a+b;},0)+yearH+8;
-      ensure(boxH+5);
-      dc(line); pdf.setLineWidth(.32); fc([255,255,255]); pdf.roundedRect(boxX, boxY, boxW, boxH, 2.2, 2.2, 'S');
+      var yearH=17.4, boxH=rowHeights.reduce(function(a,b){return a+b;},0)+yearH+8;
+      ensure(boxH+5); dc(line); pdf.setLineWidth(.32); fc([255,255,255]); pdf.roundedRect(boxX, boxY, boxW, boxH, 2.2, 2.2, 'S');
       var curY=boxY+6.0;
       rows.forEach(function(pair,ri){
         var rh=rowHeights[ri];
@@ -8585,73 +8617,60 @@ function makePdfFileName(){
           pdf.setFont('helvetica','normal'); pdf.setFontSize(8.2); tc([35,35,35]); pdf.text(split(item[1] || ' ', w-5, 8.2), x, curY+8.9);
         });
         dc([210,210,210]); pdf.setLineWidth(.18); pdf.line(sepX,curY+0.8,sepX,curY+rh-3.8);
-        curY += rh;
-        dc([218,218,218]); pdf.setLineWidth(.18); pdf.line(innerX,curY-0.3,innerX+innerW,curY-0.3);
+        curY += rh; dc([218,218,218]); pdf.setLineWidth(.18); pdf.line(innerX,curY-0.3,innerX+innerW,curY-0.3);
       });
       pdf.setFont('helvetica','bold'); pdf.setFontSize(8.0); tc(dark); pdf.text('Ano letivo:', W/2, curY+5.0, {align:'center'});
       pdf.setFont('helvetica','normal'); pdf.setFontSize(8.2); tc([35,35,35]); pdf.text(empty(val('ano')), W/2, curY+9.4, {align:'center'});
       y = boxY + boxH + 8;
     }
     function textBox(label, text, minH){
-      topic(label);
-      var w=W-2*m, lines=split(text || ' ', w-5.5, 8.0);
+      topic(label); var w=W-2*m, lines=split(text || ' ', w-5.5, 8.0);
       var h=Math.max(minH || 13.5, 7.5 + Math.max(1,lines.length)*3.7);
       ensure(h+3.2); dc(line); pdf.setLineWidth(.25); fc([255,255,255]); pdf.roundedRect(m,y,w,h,1.4,1.4,'S');
-      pdf.setFont('helvetica','normal'); pdf.setFontSize(8.0); pdf.setTextColor(50,50,50); pdf.text(lines,m+2.7,y+5.5);
-      y += h + 6;
+      pdf.setFont('helvetica','normal'); pdf.setFontSize(8.0); pdf.setTextColor(50,50,50); pdf.text(lines,m+2.7,y+5.5); y += h + 6;
     }
     function tableBlock(label, data, opt){
-      opt = opt || {};
-      var headers=data.headers||[], rows=(data.rows&&data.rows.length)?data.rows:[headers.map(function(){return '';})];
+      opt = opt || {}; var headers=data.headers||[], rows=(data.rows&&data.rows.length)?data.rows:[headers.map(function(){return '';})];
       if(!headers.length) return;
-      var cols=headers.length, tableW=W-2*m;
-      var ratios=opt.ratios||Array(cols).fill(1);
-      var sum=ratios.reduce(function(a,b){return a+b;},0)||1;
+      var cols=headers.length, tableW=W-2*m, ratios=opt.ratios||Array(cols).fill(1), sum=ratios.reduce(function(a,b){return a+b;},0)||1;
       var colW=ratios.map(function(r){return tableW*r/sum;});
       var fs=opt.fs||6.3, hfs=opt.headFs||6.5, headH=opt.headH||10;
       function rowMetrics(row){
         var lines=headers.map(function(_,i){return split(row[i] || '', colW[i]-2, fs);});
         var rowH=Math.max(opt.rowH||9, Math.max.apply(null,lines.map(function(l){return Math.max(1,l.length);}))*fs*.45+4.5);
-        return {lines:lines, rowH:rowH};
+        return {lines:lines,rowH:rowH};
       }
-      var first = rowMetrics(rows[0] || []);
-      ensure(7 + headH + first.rowH + 2);
-      topic(label);
+      var first=rowMetrics(rows[0]||[]); ensure(7+headH+first.rowH+2); topic(label);
       function head(){
         ensure(headH+2); var x=m;
         headers.forEach(function(h,i){
           fc(soft); pdf.setDrawColor(70,70,70); pdf.rect(x,y,colW[i],headH,'FD');
-          pdf.setFont('helvetica','bold'); pdf.setFontSize(hfs); pdf.setTextColor(20,20,20); pdf.text(split(h,colW[i]-2,hfs,'bold'),x+1.1,y+3.8);
-          x += colW[i];
+          pdf.setFont('helvetica','bold'); pdf.setFontSize(hfs); pdf.setTextColor(20,20,20); pdf.text(split(h,colW[i]-2,hfs,'bold'),x+1.1,y+3.8); x+=colW[i];
         });
-        y += headH;
+        y+=headH;
       }
       head();
       rows.forEach(function(row){
-        var metrics=rowMetrics(row);
-        var lines=metrics.lines, rowH=metrics.rowH;
-        if(y+rowH>H-15){ footer(); pdf.addPage(); y=12; head(); }
+        var metrics=rowMetrics(row), lines=metrics.lines, rowH=metrics.rowH;
+        if(y+rowH>H-15){footer();pdf.addPage();y=12;head();}
         var x=m;
         headers.forEach(function(_,i){
           pdf.setFillColor(255,255,255); pdf.setDrawColor(90,90,90); pdf.rect(x,y,colW[i],rowH,'S');
-          pdf.setFont('helvetica','normal'); pdf.setFontSize(fs); pdf.setTextColor(25,25,25); pdf.text(lines[i],x+1.1,y+3.7);
-          x += colW[i];
+          pdf.setFont('helvetica','normal'); pdf.setFontSize(fs); pdf.setTextColor(25,25,25); pdf.text(lines[i],x+1.1,y+3.7); x+=colW[i];
         });
-        y += rowH;
+        y+=rowH;
       });
-      y += 6;
+      y+=6;
     }
 
-    header();
-    metaBlock();
-    section('Guião docente');
+    header(); metaBlock();
+    section(plan.mode==='session' ? 'Guião docente — '+plan.label : 'Guião docente');
     textBox('CASO', tabTextareaValue('docente','caso',0), 15.5);
     textBox('INFORMAÇÃO INICIAL', tabTextareaValue('docente','informação inicial',1), 15.5);
     textBox('Informações pertinentes para dinamização das sessões com os estudantes', tabTextareaValue('docente','informações pertinentes',2), 17);
-    tableBlock('Plano das sessões - docente', tableData('docenteTable'), {ratios:[.09,.09,.09,.16,.15,.20,.16,.16],fs:6.65,headFs:6.9,headH:11,rowH:9.8});
-    if(hasMeaningfulEvaluation()){
-      ensure(92);
-      section('Avaliação (opcional)');
+    tableBlock(plan.mode==='session' ? 'Plano da '+plan.label+' — docente' : 'Plano das sessões — docente', plan.data, {ratios:[.09,.09,.09,.16,.15,.20,.16,.16],fs:6.65,headFs:6.9,headH:11,rowH:9.8});
+    if(plan.mode==='all' && hasMeaningfulEvaluation()){
+      ensure(92); section('Avaliação (opcional)');
       textBox('Legenda de avaliação', [
         'C1 = Apresenta e defende as suas opiniões, e escuta a opinião dos outros valorizando pontos de vista distintos [30%]',
         'C2 = Comunica usando conceitos e linguagem técnica e profissional [30%]',
@@ -8661,60 +8680,80 @@ function makePdfFileName(){
         'NPA = Média das sessões C1-C5 [50%]',
         'NPB1 = Apresentação C6 [25%] | NPB2 = Apresentação C7 [25%]',
         'NF = (NPA x 50%) + (NPB1 x 25%) + (NPB2 x 25%)'
-      ].join('\n'), 28);
+      ].join('\n'),28);
       tableBlock('Tabela de avaliação', shortEvalData(), {ratios:[.20,.055,.055,.055,.055,.055,.055,.055,.065,.065,.065,.065,.065,.065,.07],fs:6.05,headFs:6.25,headH:8.8,rowH:8});
     }
-    footer();
-    return pdf.output('blob');
+    footer(); return pdf.output('blob');
   }
 
-  async function downloadPblPdfAprovado(ev){
-    if(ev){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); }
+  async function downloadPblPdfAprovado(selection,ev){
+    if(selection && typeof selection==='object'){ev=selection;selection='all';}
+    selection=selection||'all';
+    if(ev){ev.preventDefault();ev.stopPropagation();if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();}
     try{
+      var plan=filteredTeacherData(selection);
       toast('A preparar o PDF Docente...');
-      var blob = await renderPblPdfAprovadoBlob();
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement('a'); a.href = url; a.download = fileName(); document.body.appendChild(a); a.click(); a.remove();
-      setTimeout(function(){ URL.revokeObjectURL(url); }, 1200);
-      toast('PDF Docente gerado com sucesso.');
-    }catch(e){ console.error(e); alert('Não foi possível gerar o PDF.\n\nDetalhe técnico:\n' + (e.message || e)); }
+      var blob=await renderPblPdfAprovadoBlob(selection),url=URL.createObjectURL(blob);
+      var a=document.createElement('a');a.href=url;a.download=fileName(selection,plan.label);document.body.appendChild(a);a.click();a.remove();
+      setTimeout(function(){URL.revokeObjectURL(url);},1200);toast('PDF Docente gerado com sucesso.');
+    }catch(e){console.error(e);alert('Não foi possível gerar o PDF.\n\nDetalhe técnico:\n'+(e.message||e));}
     return false;
   }
-  async function generatePblPdfAprovadoBase64(){ return blobToBase64(await renderPblPdfAprovadoBlob()); }
-
+  async function generatePblPdfAprovadoBase64(){return blobToBase64(await renderPblPdfAprovadoBlob('all'));}
+  function fillTeacherPdfOptions(){
+    var select=$('pblTeacherPdfSelect');if(!select)return [];
+    var rows=teacherPlanRows().filter(function(record){return record.meaningful;});
+    select.innerHTML='';
+    var all=document.createElement('option');all.value='all';all.textContent='Todas as sessões — PDF completo';select.appendChild(all);
+    var sessions={};
+    rows.forEach(function(record){if(record.sessao){if(!sessions[record.sessao])sessions[record.sessao]=[];sessions[record.sessao].push(record);}});
+    Object.keys(sessions).forEach(function(key){
+      var group=sessions[key],opt=document.createElement('option');opt.value='session:'+encodeURIComponent(key);
+      opt.textContent='Sessão '+key+' — '+group.length+' linha'+(group.length===1?'':'s');select.appendChild(opt);
+    });
+    rows.filter(function(record){return !record.sessao;}).forEach(function(record){
+      var opt=document.createElement('option');opt.value='row:'+record.index;
+      var labels=[];if(record.vEstud)labels.push('V. Estud. '+record.vEstud);
+      opt.textContent=(labels.join(' · ')||'Linha '+(record.index+1))+(record.pergunta?' — '+record.pergunta.slice(0,72):'');select.appendChild(opt);
+    });
+    return rows;
+  }
+  function openTeacherPdfModal(ev){
+    if(ev){ev.preventDefault();ev.stopPropagation();if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();}
+    fillTeacherPdfOptions();
+    var modal=$('pblTeacherPdfModal');if(!modal)return downloadPblPdfAprovado('all');
+    modal.classList.add('open');modal.setAttribute('aria-hidden','false');setTimeout(function(){var s=$('pblTeacherPdfSelect');if(s)s.focus();},40);return false;
+  }
+  function closeTeacherPdfModal(){var modal=$('pblTeacherPdfModal');if(modal){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');}}
   function bindPdfButton(){
-    var btn = $('btnSalvarPDF');
-    if(!btn) return;
-    if(btn.dataset.pblPdfEspelhoRestauroAprovado === '1') return;
-    var clone = btn.cloneNode(true);
-    clone.id = 'btnSalvarPDF';
-    clone.textContent = 'PDF Docente';
-    clone.removeAttribute('onclick');
-    clone.dataset.pblPdfEspelhoRestauroAprovado = '1';
-    clone.addEventListener('click', downloadPblPdfAprovado, true);
-    btn.parentNode.replaceChild(clone, btn);
+    var btn=$('btnSalvarPDF');if(btn&&btn.dataset.pblPdfDocenteChoice!=='1'){
+      var clone=btn.cloneNode(true);clone.id='btnSalvarPDF';clone.textContent='PDF Docente';clone.removeAttribute('onclick');clone.dataset.pblPdfDocenteChoice='1';clone.addEventListener('click',openTeacherPdfModal,true);btn.parentNode.replaceChild(clone,btn);
+    }
+    var cancel=$('pblTeacherPdfCancel');if(cancel&&cancel.dataset.bound!=='1'){cancel.dataset.bound='1';cancel.addEventListener('click',closeTeacherPdfModal);}
+    var gen=$('pblTeacherPdfGenerate');if(gen&&gen.dataset.bound!=='1'){gen.dataset.bound='1';gen.addEventListener('click',function(){var s=$('pblTeacherPdfSelect'),choice=s?s.value:'all';closeTeacherPdfModal();downloadPblPdfAprovado(choice);});}
+    var modal=$('pblTeacherPdfModal');if(modal&&modal.dataset.bound!=='1'){modal.dataset.bound='1';modal.addEventListener('click',function(e){if(e.target===modal)closeTeacherPdfModal();});}
   }
 
-  window.renderPblTeacherPdfBlob = renderPblPdfAprovadoBlob;
-  window.generatePblTeacherPdfBase64 = generatePblPdfAprovadoBase64;
-  window.downloadPblTeacherPdf = downloadPblPdfAprovado;
-  window.renderPblMirrorPdfBlob = renderPblPdfAprovadoBlob;
-  window.PBL_FINAL_renderPdfBlob = renderPblPdfAprovadoBlob;
-  window.PBL_FINAL_downloadPdf = downloadPblPdfAprovado;
-  window.PBL_FINAL_generatePdfBase64 = generatePblPdfAprovadoBase64;
-  window.downloadPblMirrorPdf = downloadPblPdfAprovado;
-  window.downloadPblFinalPdf = downloadPblPdfAprovado;
-  window.generatePblMirrorPdfBase64 = generatePblPdfAprovadoBase64;
-  window.generatePblFinalPdfBase64 = generatePblPdfAprovadoBase64;
-  window.generatePdfBase64 = generatePblPdfAprovadoBase64;
-  window.salvarPDF = downloadPblPdfAprovado;
-  window.downloadGuiesPdf = downloadPblPdfAprovado;
+  window.renderPblTeacherPdfBlob=function(selection){return renderPblPdfAprovadoBlob(selection||'all');};
+  window.generatePblTeacherPdfBase64=generatePblPdfAprovadoBase64;
+  window.downloadPblTeacherPdf=openTeacherPdfModal;
+  window.downloadPblTeacherPdfComplete=function(ev){return downloadPblPdfAprovado('all',ev);};
+  window.openPblTeacherPdfModal=openTeacherPdfModal;
+  window.renderPblMirrorPdfBlob=function(){return renderPblPdfAprovadoBlob('all');};
+  window.PBL_FINAL_renderPdfBlob=function(){return renderPblPdfAprovadoBlob('all');};
+  window.PBL_FINAL_downloadPdf=function(ev){return downloadPblPdfAprovado('all',ev);};
+  window.PBL_FINAL_generatePdfBase64=generatePblPdfAprovadoBase64;
+  window.downloadPblMirrorPdf=function(ev){return downloadPblPdfAprovado('all',ev);};
+  window.downloadPblFinalPdf=function(ev){return downloadPblPdfAprovado('all',ev);};
+  window.generatePblMirrorPdfBase64=generatePblPdfAprovadoBase64;
+  window.generatePblFinalPdfBase64=generatePblPdfAprovadoBase64;
+  window.generatePdfBase64=generatePblPdfAprovadoBase64;
+  window.salvarPDF=openTeacherPdfModal;
+  window.downloadGuiesPdf=function(ev){return downloadPblPdfAprovado('all',ev);};
 
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindPdfButton);
-  else bindPdfButton();
-  setTimeout(bindPdfButton, 250);
-  setTimeout(bindPdfButton, 900);
-  setTimeout(bindPdfButton, 1800);
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bindPdfButton);else bindPdfButton();
+  [250,900,1800,3200].forEach(function(ms){setTimeout(bindPdfButton,ms);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeTeacherPdfModal();});
 })();
 </script>
 
@@ -10592,6 +10631,9 @@ body:not(.guiao-pdf-mode) .pbl-course-chip button{
   window.__pblPdfDocenteLockFinalV1=true;
 
   function teacherDownload(ev){
+    if(typeof window.openPblTeacherPdfModal === 'function'){
+      return window.openPblTeacherPdfModal(ev);
+    }
     if(typeof window.downloadPblTeacherPdf === 'function'){
       return window.downloadPblTeacherPdf(ev);
     }
