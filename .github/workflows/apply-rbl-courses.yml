@@ -30,23 +30,30 @@ jobs:
           from pathlib import Path
           import base64
 
-          parts = sorted(Path('.github/pbl_payload').glob('part*.b64'))
-          parts += sorted(Path('.github/pbl_payload_v2').glob('c*'))
-          if not parts:
-              raise SystemExit('Nenhum segmento PBL encontrado')
+          groups = [
+              sorted(Path('.github/pbl_payload').glob('part*.b64')),
+              sorted(Path('.github/pbl_payload_v2').glob('c*')),
+          ]
+          if any(not group for group in groups):
+              raise SystemExit('Blocos incompletos do payload PBL')
 
           with Path('/tmp/pbl18_payload.xz').open('wb') as output:
-              for part in parts:
-                  text = ''.join(part.read_text(encoding='utf-8').split())
+              for number, group in enumerate(groups, start=1):
+                  text = ''.join(
+                      ''.join(part.read_text(encoding='utf-8').split())
+                      for part in group
+                  )
                   text += '=' * (-len(text) % 4)
                   try:
                       decoded = base64.b64decode(text, validate=False)
                   except Exception as exc:
-                      raise SystemExit(f'Falha ao descodificar {part}: {exc}')
+                      raise SystemExit(
+                          f'Falha ao descodificar bloco {number}: {exc}'
+                      )
                   if not decoded:
-                      raise SystemExit(f'Segmento vazio: {part}')
+                      raise SystemExit(f'Bloco vazio: {number}')
                   output.write(decoded)
-                  print(part, len(decoded))
+                  print('bloco', number, [p.name for p in group], len(decoded))
           PY
 
           xz --test /tmp/pbl18_payload.xz
