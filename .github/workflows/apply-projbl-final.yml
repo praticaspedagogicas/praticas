@@ -1,0 +1,93 @@
+name: Publicar PROJ-BL final
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Reconstruir e validar ficheiros finais
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo 'a3a5b7931e3d05148b4a41ab61c8ab43f851f5c1ed3c5ee66147b036d3fed1ae  PROJ-BL.html' | sha256sum -c -
+          echo 'b6c4c2b3ff41bc59882a3fe427c1224c7d7ef0bb52563c484849865112bec4b9  PROJ-BL_Teste.html' | sha256sum -c -
+
+          git fetch origin projbl-final-patch-20260731:refs/remotes/origin/projbl-final-patch-20260731
+          PATCH_REF=refs/remotes/origin/projbl-final-patch-20260731
+
+          : > /tmp/normal.patch.gz.b64
+          for i in 00 01 02 03 04 05; do
+            git show "$PATCH_REF:.projbl-final-patch-v2/normal.$i" >> /tmp/normal.patch.gz.b64
+          done
+          tr -d '[:space:]' < /tmp/normal.patch.gz.b64 > /tmp/normal.patch.clean
+          mv /tmp/normal.patch.clean /tmp/normal.patch.gz.b64
+
+          : > /tmp/test.patch.gz.b64
+          for i in 00 01 02 03; do
+            git show "$PATCH_REF:.projbl-final-patch-v2/test.$i" >> /tmp/test.patch.gz.b64
+          done
+          tr -d '[:space:]' < /tmp/test.patch.gz.b64 > /tmp/test.patch.clean
+          mv /tmp/test.patch.clean /tmp/test.patch.gz.b64
+
+          echo '9116dc895a8282a4bd52bd74bdf7a916caa0fd6fa443a8c02a67f58dcce3ebf3  /tmp/normal.patch.gz.b64' | sha256sum -c -
+          echo 'c72ec7b4a05fcca8c09de526f44f63401476316a043a8d3ba4ba29470e51b888  /tmp/test.patch.gz.b64' | sha256sum -c -
+
+          base64 -d /tmp/normal.patch.gz.b64 | gzip -d > /tmp/normal.patch.json
+          base64 -d /tmp/test.patch.gz.b64 | gzip -d > /tmp/test.patch.json
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+
+          def apply_patch(source_path, patch_path, destination_path):
+              source = Path(source_path).read_text(encoding='utf-8').splitlines(keepends=True)
+              patch = json.loads(Path(patch_path).read_text(encoding='utf-8'))
+              output = []
+              for operation in patch['ops']:
+                  if operation[0] == '=':
+                      output.extend(source[operation[1]:operation[2]])
+                  else:
+                      output.append(operation[3])
+              Path(destination_path).write_text(''.join(output), encoding='utf-8')
+
+          apply_patch('PROJ-BL.html', '/tmp/normal.patch.json', '/tmp/PROJ-BL.html')
+          apply_patch('/tmp/PROJ-BL.html', '/tmp/test.patch.json', '/tmp/PROJ-BL_Teste.html')
+          PY
+
+          echo '311beccd1852d4dfb055c498b5717abb93f39693c21eb7beea60ac992e8bd567  /tmp/PROJ-BL.html' | sha256sum -c -
+          echo '1076276412590525291f40ef51877ee02ef34683106986d8c9fe4e85ff008ea3  /tmp/PROJ-BL_Teste.html' | sha256sum -c -
+
+          cp /tmp/PROJ-BL.html PROJ-BL.html
+          cp /tmp/PROJ-BL_Teste.html PROJ-BL_Teste.html
+
+          grep -Fq '#A8A8A8' PROJ-BL.html
+          grep -Eq 'font-weight[[:space:]]*:[[:space:]]*400' PROJ-BL.html
+          grep -Fq 'Selecione ou pesquise um curso' PROJ-BL.html
+          grep -Fq 'Abra a lista para selecionar. Pode também escrever para pesquisar.' PROJ-BL.html
+          grep -Fq 'data-projbl-template-mode="normal"' PROJ-BL.html
+          grep -Fq 'data-projbl-template-mode="teste"' PROJ-BL_Teste.html
+          ! grep -Eq 'Prof\.|Prof\.ª' PROJ-BL_Teste.html
+          git diff --check
+
+      - name: Publicar no main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add PROJ-BL.html PROJ-BL_Teste.html
+          git commit -m 'Corrigir autosave, cursos, PDF e placeholders do PROJ-BL [skip ci]'
+          git push origin HEAD:main
