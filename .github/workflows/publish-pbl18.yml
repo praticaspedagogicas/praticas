@@ -1,11 +1,8 @@
 name: Publicar PBL 18 final
 
 on:
-  push:
-    paths:
-      - '.github/workflows/publish-pbl18.yml'
   workflow_dispatch:
-  issues:
+  pull_request_target:
     types: [opened]
 
 permissions:
@@ -13,12 +10,13 @@ permissions:
 
 jobs:
   publicar:
-    if: github.event_name != 'issues' || github.event.issue.title == 'PUBLICAR PBL 18 AGORA'
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.title == 'PUBLICAR PBL 18 AGORA'
     runs-on: ubuntu-latest
     steps:
-      - name: Obter repositório
+      - name: Obter branch main
         uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
 
       - name: Reconstruir e validar os dois templates
