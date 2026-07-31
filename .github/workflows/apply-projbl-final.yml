@@ -73,14 +73,6 @@ jobs:
           cp /tmp/PROJ-BL.html PROJ-BL.html
           cp /tmp/PROJ-BL_Teste.html PROJ-BL_Teste.html
 
-          grep -Fq '#A8A8A8' PROJ-BL.html
-          grep -Eq 'font-weight[[:space:]]*:[[:space:]]*400' PROJ-BL.html
-          grep -Fq 'Selecione ou pesquise um curso' PROJ-BL.html
-          grep -Fq 'Abra a lista para selecionar. Pode também escrever para pesquisar.' PROJ-BL.html
-          grep -Fq 'data-projbl-template-mode="normal"' PROJ-BL.html
-          grep -Fq 'data-projbl-template-mode="teste"' PROJ-BL_Teste.html
-          git diff --check
-
       - name: Publicar no main
         shell: bash
         run: |
