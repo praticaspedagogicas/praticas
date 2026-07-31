@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 
-<html lang="pt">
+<html lang="pt" data-projbl-template-mode="normal">
 <head>
+<!-- PROJ-BL PDF PAGINAÇÃO ROBUSTA V1 2026-07-30 -->
+
 <!-- PROJ-BL ENTREGAVEIS DATA TEXTO CROSSBROWSER 2026-06-15 -->
 <!-- PROJ-BL DATAS ENTREGAVEIS TARGETED FINAL CORRIGIDO 2026-06-15 -->
 <!-- PROJ-BL PAYLOAD DATAS MINIMO SEGURO 2026-06-15 -->
-<script id="projbl-normal-early-no-test-autofill">
+<script id="projbl-template-mode-v7">
 (function(){
-  try {
-    ['PROJ-BL_Teste','Proj-BL_Teste','projbl_teste','PROJ_BL_TESTE','PROJ-BL','Proj-BL'].forEach(function(k){ localStorage.removeItem(k); });
-    Object.keys(localStorage).forEach(function(k){
-      if (/proj[-_ ]?bl/i.test(k) && /teste|autosave|draft|rascunho/i.test(k)) localStorage.removeItem(k);
-    });
-  } catch(e) {}
+  'use strict';
+  var mode = 'normal';
+  try { document.documentElement.setAttribute('data-projbl-template-mode', mode); } catch(e) {}
+  window.__PROJBL_TEMPLATE_MODE__ = mode;
 })();
 </script>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -10523,6 +10523,45 @@ html body .page > #recursosTab.tab-content .projbl-fabrica-note{
   line-height:1.45 !important;
 }
 </style>
+
+<style id="projbl-placeholder-final-padronizado-v1">
+/* PROJ-BL — exemplos visuais neutros e uniformes */
+body:not(.projbl-exporting) input::placeholder,
+body:not(.projbl-exporting) textarea::placeholder,
+body:not(.projbl-exporting) select:invalid,
+body:not(.projbl-exporting) .quadro-table input::placeholder,
+body:not(.projbl-exporting) .quadro-table textarea::placeholder,
+body:not(.projbl-exporting) .projblz7g-field::placeholder,
+body:not(.projbl-exporting) .projbl-native-header::placeholder,
+body:not(.projbl-exporting) .projbl-header-selector::placeholder,
+body:not(.projbl-exporting) .projbl-campo-igual-curso::placeholder {
+  color:#9a9a9a !important;
+  -webkit-text-fill-color:#9a9a9a !important;
+  opacity:1 !important;
+  font-weight:400 !important;
+  font-style:normal !important;
+}
+body:not(.projbl-exporting) input::-webkit-input-placeholder,
+body:not(.projbl-exporting) textarea::-webkit-input-placeholder {
+  color:#9a9a9a !important;
+  -webkit-text-fill-color:#9a9a9a !important;
+  opacity:1 !important;
+  font-weight:400 !important;
+}
+body:not(.projbl-exporting) input::-moz-placeholder,
+body:not(.projbl-exporting) textarea::-moz-placeholder {
+  color:#9a9a9a !important;
+  opacity:1 !important;
+  font-weight:400 !important;
+}
+body:not(.projbl-exporting) input:-ms-input-placeholder,
+body:not(.projbl-exporting) textarea:-ms-input-placeholder {
+  color:#9a9a9a !important;
+  opacity:1 !important;
+  font-weight:400 !important;
+}
+</style>
+
 </head>
 <body>
 
@@ -10559,15 +10598,15 @@ html body .page > #recursosTab.tab-content .projbl-fabrica-note{
 </div>
 <div class="header-info" style="display:grid !important;grid-template-columns:1fr 1fr !important;gap:14px !important;margin:0 0 12px 0 !important;padding:0 !important;clear:none !important;">
 <div class="section header-card proj-top-field-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;"><label style="text-transform:none !important;letter-spacing:.01em !important;font-size:13px !important;line-height:1.2 !important;margin-bottom:6px !important;color:#222 !important;font-weight:800 !important;">Unidade(s) Curricular(es) Complementar(es):</label><div class="projbl-js-resize-wrap" style="min-height:38px !important;height:38px !important;"><textarea class="projbl-native-resize projbl-native-header projbl-js-resizable projbl-nome-uc-projeto-field projbl-header-red-same-course projbl-campo-igual-curso" data-projbl-native-converted="1" placeholder="Ex.: Projeto Aplicado" style="background:#ffffff !important; background-color:#ffffff !important; background-image:none !important; border:1.25px solid rgba(0,0,0,.35) !important; border-radius:11px !important; min-height:38px !important; padding:8px 10px !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:13px !important; line-height:1.25 !important; font-weight:500 !important; color:#222 !important; text-transform:none !important; box-shadow:none !important; box-sizing:border-box !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;min-height:38px !important;height:38px !important;max-height:none !important;padding:8px 25px 8px 10px !important;font-size:12.1px !important;line-height:1.25 !important;text-align:left !important;overflow:hidden !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura." value=""></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></div>
-<div class="section header-card proj-top-field-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;"><label for="curso" style="text-transform:none !important;letter-spacing:.01em !important;font-size:13px !important;line-height:1.2 !important;margin-bottom:6px !important;color:#222 !important;font-weight:800 !important;">Curso(s):</label><div class="proj-curso-combobox-wrap" style="position:relative;width:100%;"><input autocomplete="off" class="projbl-curso-payload" id="curso" placeholder="Ex.: Licenciatura em Marketing" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.25px solid rgba(0,0,0,.35) !important;border-radius:11px !important;min-height:38px !important;height:auto !important;padding:8px 10px !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:13px !important;line-height:1.25 !important;font-weight:500 !important;color:#222 !important;text-transform:none !important;box-shadow:none !important;box-sizing:border-box !important;;display:none !important;" type="hidden" value=""/><div class="projbl-curso-real-wrap"><input autocomplete="off" class="projbl-campo-igual-curso" id="cursoBusca" list="cblCursosList" placeholder="Digite para procurar e selecione um curso" style="font-family:;font-size:12.5px !important;line-height:1.35 !important;font-weight:500 !important;'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;min-height:38px !important;height:38px !important;padding:8px 10px !important;font-size:12.1px !important;line-height:1.25 !important;font-weight:500 !important;text-align:left !important;" type="text" value=""/><div class="cbl-course-chips" id="cblCursosSelecionados"></div></div><div aria-label="Sugestões de cursos" class="proj-cursos-sugestoes" id="projCursosSugestoes"></div></div><datalist id="projCursosList">
+<div class="section header-card proj-top-field-card" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.45px solid rgba(0,0,0,.46) !important;border-radius:16px !important;box-shadow:0 3px 12px rgba(0,0,0,.03) !important;padding:12px 13px !important;margin:0 !important;box-sizing:border-box !important;"><label for="curso" style="text-transform:none !important;letter-spacing:.01em !important;font-size:13px !important;line-height:1.2 !important;margin-bottom:6px !important;color:#222 !important;font-weight:800 !important;">Curso(s):</label><div class="proj-curso-combobox-wrap" style="position:relative;width:100%;"><input autocomplete="off" class="projbl-curso-payload" id="curso" style="background:#ffffff !important;background-color:#ffffff !important;background-image:none !important;border:1.25px solid rgba(0,0,0,.35) !important;border-radius:11px !important;min-height:38px !important;height:auto !important;padding:8px 10px !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:13px !important;line-height:1.25 !important;font-weight:500 !important;color:#222 !important;text-transform:none !important;box-shadow:none !important;box-sizing:border-box !important;;display:none !important;" type="hidden" value=""/><div class="projbl-curso-real-wrap"><input autocomplete="off" class="projbl-campo-igual-curso" id="cursoBusca" list="cblCursosList" placeholder="Selecione ou pesquise um curso" style="font-family:;font-size:12.5px !important;line-height:1.35 !important;font-weight:500 !important;'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;min-height:38px !important;height:38px !important;padding:8px 10px !important;font-size:12.1px !important;line-height:1.25 !important;font-weight:500 !important;text-align:left !important;" type="text" value=""/><div class="cbl-course-chips" id="cblCursosSelecionados"></div><div class="projbl-course-helper">Abra a lista para selecionar. Pode também escrever para pesquisar.</div></div><div aria-label="Sugestões de cursos" class="proj-cursos-sugestoes" id="projCursosSugestoes"></div></div><datalist id="projCursosList">
 <option value="Licenciatura em Animação e Criação Visual"></option>
 <option value="Licenciatura em Animação Global"></option>
 <option value="Licenciatura em Fotografia e Cultura Visual"></option>
 <option value="Mestrado em Animação e Criação Visual"></option>
 <option value="Mestrado em Design e Produção de Jogos"></option>
+<option value="Licenciatura em Marketing e Publicidade"></option>
 <option value="Mestrado em Comunicação Audiovisual e Multimédia"></option>
 <option value="Licenciatura em Ciências da Comunicação"></option>
-<option value="Licenciatura em Marketing e Publicidade"></option>
 <option value="Mestrado em Marketing e Inovação"></option>
 <option value="Mestrado em Branding e Estratégia"></option>
 <option value="Mestrado em Comunicação Estratégica"></option>
@@ -10592,6 +10631,25 @@ html body .page > #recursosTab.tab-content .projbl-fabrica-note{
 <option value="Licenciatura em Ciências da Comunicação EaD"></option>
 <option value="Licenciatura em Design Visual EaD"></option>
 <option value="Licenciatura em Engenharia Informática EaD"></option>
+<option value="Licenciatura em Gestão de Negócios"></option>
+<option value="Marketing Digital"></option>
+<option value="Licenciatura em Marketing Global"></option>
+<option value="Mestrado em Gestão de Negócios"></option>
+<option value="Mestrado em Marketing e Tecnologia"></option>
+<option value="Mestrado em Marketing"></option>
+<option value="Mestrado em Gestão de Marketing EaD"></option>
+<option value="Licenciatura em Gestão de Marketing"></option>
+<option value="Mestrado em Gestão de Marketing"></option>
+<option value="Gestão de Negócios Internacionais"></option>
+<option value="Licenciatura em Negócios Global"></option>
+<option value="Mestrado em Global Business"></option>
+<option value="Licenciatura em Gestão de Marketing EaD"></option>
+<option value="Licenciatura em Global Business"></option>
+<option value="Mestrado em Gestão de Negócios EaD"></option>
+<option value="Mestrado em Inovação em Marketing e Negócios"></option>
+<option value="CTeSP em Gestão Comercial e Vendas"></option>
+<option value="CTeSP em Gestão de Negócios Internacionais"></option>
+<option value="CTeSP em Marketing Digital"></option>
 <option value="Licenciatura em Psicologia"></option>
 <option value="Mestrado em Psicologia Clínica e da Saúde"></option>
 <option value="Licenciatura em Ciências da Nutrição"></option>
@@ -10608,14 +10666,13 @@ html body .page > #recursosTab.tab-content .projbl-fabrica-note{
 <option value="Licenciatura em Contabilidade EaD"></option>
 <option value="Licenciatura em Gestão de Empresas EaD"></option>
 <option value="Mestrado em Cibersegurança EaD"></option>
-<option value="Mestrado em Ciências de Dados e Análise de Negócios EaD"></option>
 <option value="Mestrado em Direito e Segurança da Informação EaD"></option>
 <option value="Mestrado em Gestão de Empresas EaD"></option>
 <option value="Mestrado em Marketing estratégico EaD"></option>
 <option value="Mestrado em Psicologia Social e de Organizações EaD"></option>
 <option value="Licenciatura em Gestão"></option>
 <option value="Licenciatura em Management"></option>
-<option value="Mestrado em I Management"></option>
+<option value="Mestrado em Management"></option>
 <option value="Mestrado em Gestão"></option>
 <option value="Licenciatura em Direito"></option>
 <option value="Mestrado em Direito Judiciário"></option>
@@ -10624,24 +10681,8 @@ html body .page > #recursosTab.tab-content .projbl-fabrica-note{
 <option value="Licenciatura em Gestão Hoteleira"></option>
 <option value="Licenciatura em Tourism"></option>
 <option value="Licenciatura em Turismo"></option>
-<option value="Licenciatura em Gestão de Marketing"></option>
-<option value="Licenciatura em Marketing Global"></option>
-<option value="Licenciatura em Gestão de Negócios"></option>
-<option value="Licenciatura em Negócios Global"></option>
-<option value="Mestrado em Global Business"></option>
-<option value="Mestrado em Marketing"></option>
-<option value="Mestrado em Gestão de Marketing"></option>
-<option value="Mestrado em Gestão de Negócios"></option>
-<option value="Mestrado em Marketing e Tecnologia"></option>
-<option value="Marketing Digital"></option>
-<option value="Gestão de Negócios Internacionais"></option>
-<option value="Mestrado em Gestão de Marketing EaD"></option>
-<option value="Licenciatura em Gestão de Marketing Online (antiga)"></option>
-<option value="Licenciatura em Gestão de Marketing EaD"></option>
-<option value="Mestrado em Gestão de Negócios EaD"></option>
-<option value="Licenciatura em Global Business"></option>
-<option value="Gestão Comercial e Vendas"></option>
 <option value="Mestrado em Ciências de Dados e Gestão"></option>
+<option value="Mestrado em Ciências de Dados e Análise de Negócios EaD"></option>
 <option value="Mestrado em Gestão do Desporto"></option>
 </datalist>
 </div>
@@ -10665,9 +10706,9 @@ html body .page > #recursosTab.tab-content .projbl-fabrica-note{
 <div class="section" style=" margin-top:6px !important; margin-top:0 !important;margin-bottom:12px !important; margin-top:0 !important;margin-bottom:12px !important;"><label>Docentes da(s) Unidade(s) Curricular(es) Complementare(s):</label>
 <table class="quadro-table proj-radical-table proj-premium-table" id="docentesTable" style="width:100% !important; max-width:100% !important; table-layout:fixed !important; border-collapse:separate !important; border-spacing:0 !important; overflow:hidden !important; margin:13px 0 12px 0 !important; background:#ffffff !important; border:1.7px solid #242424 !important; border-radius:16px !important; box-shadow:0 2px 10px rgba(0,0,0,.035) !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;"><colgroup><col style="width:30% !important;"/><col style="width:30% !important;"/><col style="width:40% !important;"/></colgroup>
 <tr style="background:#ffffff !important; background-image:none !important;"><th style="background:#f1f1f1 !important; color:#1f1f1f !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.4px !important; line-height:1.22 !important; font-weight:800 !important; text-align:center !important; vertical-align:middle !important; padding:10px 8px !important; border-right:1px solid #c8c8c8 !important; border-bottom:1.35px solid #242424 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important; text-transform:none !important; letter-spacing:.01em !important;">Nome</th><th style="background:#f1f1f1 !important; color:#1f1f1f !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.4px !important; line-height:1.22 !important; font-weight:800 !important; text-align:center !important; vertical-align:middle !important; padding:10px 8px !important; border-right:1px solid #c8c8c8 !important; border-bottom:1.35px solid #242424 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important; text-transform:none !important; letter-spacing:.01em !important;">Unidade(s) Curricular(es)</th><th style="background:#f1f1f1 !important; color:#1f1f1f !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.4px !important; line-height:1.22 !important; font-weight:800 !important; text-align:center !important; vertical-align:middle !important; padding:10px 8px !important; border-right:1px solid #c8c8c8 !important; border-bottom:1.35px solid #242424 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important; text-transform:none !important; letter-spacing:.01em !important;border-right:0 !important;">Email(s)</th></tr>
-<tr style="background:#ffffff !important; background-image:none !important;"><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-nome projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: Prof.ª Sofia Martins" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-uc projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: Projeto Aplicado" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-right:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-email projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: sofia.martins@universidadeeuropeia.pt" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td></tr>
-<tr style="background:#ffffff !important; background-image:none !important;"><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-nome projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: Prof. Miguel Santos" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-uc projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: Laboratório de Projeto" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-right:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-email projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: miguel.santos@universidadeeuropeia.pt" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td></tr>
-<tr style="background:#ffffff !important; background-image:none !important;"><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-bottom:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-nome projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: Prof.ª Inês Duarte" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-bottom:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-uc projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: Comunicação Visual" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-right:0 !important;border-bottom:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-email projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: ines.duarte@universidadeeuropeia.pt" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td></tr>
+<tr style="background:#ffffff !important; background-image:none !important;"><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-nome projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: Sofia Martins" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-uc projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: Projeto Aplicado" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-right:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-email projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: sofia.martins@universidadeeuropeia.pt" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td></tr>
+<tr style="background:#ffffff !important; background-image:none !important;"><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-nome projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: Miguel Santos" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-uc projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: Laboratório de Projeto" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-right:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-email projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: miguel.santos@universidadeeuropeia.pt" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td></tr>
+<tr style="background:#ffffff !important; background-image:none !important;"><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-bottom:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-nome projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: Inês Duarte" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-bottom:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-uc projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: Comunicação Visual" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td><td style="background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12px !important; line-height:1.32 !important; font-weight:500 !important; vertical-align:top !important; padding:8px !important; border-right:1px solid #d0d0d0 !important; border-bottom:1px solid #d0d0d0 !important; border-top:0 !important; border-left:0 !important; box-sizing:border-box !important;border-right:0 !important;border-bottom:0 !important;"><div class="projbl-js-resize-wrap"><textarea class="docente-email projbl-native-resize projbl-native-header projbl-js-resizable" data-projbl-native-converted="1" placeholder="Ex.: ines.duarte@universidadeeuropeia.pt" style="width:100% !important; max-width:100% !important; min-height:44px !important; box-sizing:border-box !important; background:#ffffff !important; color:#222222 !important; font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important; font-size:12.1px !important; line-height:1.34 !important; font-weight:500 !important; border:1.25px solid #2c2c2c !important; border-radius:11px !important; padding:8px 10px !important; box-shadow:inset 0 1px 0 rgba(0,0,0,.025) !important; outline:none !important; text-align:left !important; resize:vertical !important; overflow:auto !important;font-family:'Century Gothic','Segoe UI',Arial,sans-serif !important;font-size:12.1px !important;line-height:1.34 !important;font-weight:500 !important;color:#222222 !important;-webkit-text-fill-color:#222222 !important;box-sizing:border-box !important;" title="Campo expansível: arraste o puxador no canto inferior direito para ajustar a altura."></textarea><span aria-hidden="true" class="projbl-js-resize-handle" role="presentation"></span></div></td></tr>
 </table><div class="projbl-row-actions projbl-docentes-sbl-controls"><button aria-label="Adicionar linha" class="projbl-row-action-btn projbl-row-action-add projbl-docentes-sbl-add" data-sbl-tooltip="Adicionar linha" title="Adicionar linha" type="button">+</button><button aria-label="Remover linha" class="projbl-row-action-btn projbl-row-action-remove projbl-docentes-sbl-remove" data-sbl-tooltip="Remover linha" title="Remover linha" type="button">−</button><div class="projbl-row-action-legend">+ adicionar linha · − remover última linha</div></div>
 </div>
 
@@ -10678,8 +10719,8 @@ html body .page > #recursosTab.tab-content .projbl-fabrica-note{
 <colgroup><col style="width:50% !important;"><col style="width:50% !important;"></colgroup>
 <thead><tr><th>Nome</th><th>Email(s)</th></tr></thead>
 <tbody>
-<tr><td><textarea class="docente-projeto-nome" data-progress-optional="true" placeholder="Ex.: Prof.ª Helena Rocha"></textarea></td><td><textarea class="docente-projeto-email" data-progress-optional="true" placeholder="Ex.: helena.rocha@universidadeeuropeia.pt"></textarea></td></tr>
-<tr><td><textarea class="docente-projeto-nome" data-progress-optional="true" placeholder="Ex.: Prof. Ricardo Neves"></textarea></td><td><textarea class="docente-projeto-email" data-progress-optional="true" placeholder="Ex.: ricardo.neves@universidadeeuropeia.pt"></textarea></td></tr>
+<tr><td><textarea class="docente-projeto-nome" data-progress-optional="true" placeholder="Ex.: Helena Rocha"></textarea></td><td><textarea class="docente-projeto-email" data-progress-optional="true" placeholder="Ex.: helena.rocha@universidadeeuropeia.pt"></textarea></td></tr>
+<tr><td><textarea class="docente-projeto-nome" data-progress-optional="true" placeholder="Ex.: Ricardo Neves"></textarea></td><td><textarea class="docente-projeto-email" data-progress-optional="true" placeholder="Ex.: ricardo.neves@universidadeeuropeia.pt"></textarea></td></tr>
 </tbody>
 </table>
 <div class="projbl-row-actions projbl-docentes-projeto-controls no-print">
@@ -10776,289 +10817,10 @@ html body .page > #recursosTab.tab-content .projbl-fabrica-note{
 </div>
 <script>
 (function(){
-'use strict';
-
-var STORAGE_KEY = 'template_autosave_PROJ_TESTE_COMPLETO_DESIGN_VISUAL_EAD_V5';
-var aulaCount = 1;
-
-/* ── TOAST ── */
-function toast(msg){
-  var old = document.querySelector('.toast-message');
-  if(old) old.remove();
-  var d = document.createElement('div');
-  d.className = 'toast-message';
-  d.innerText = msg;
-  document.body.appendChild(d);
-  setTimeout(function(){ if(d.parentNode) d.remove(); }, 2500);
-}
-
-/* ── CAMPOS ── */
-function fields(){
-  return Array.from(document.querySelectorAll('input,textarea,select'))
-    .filter(function(el){
-      if(!el) return false;
-      if(el.id === 'cursoBusca') return false;
-      if(el.id === 'curso') return true;
-      return el.type !== 'hidden';
-    });
-}
-
-/* ── PROGRESSO ── */
-function renderProgress(){
-  var controls = fields().filter(function(el){
-    return el.getAttribute('data-progress-optional') !== 'true';
-  });
-  if(!controls.length) return;
-
-  var total = 0;
-  var filled = 0;
-  var radioGroups = {};
-
-  controls.forEach(function(el){
-    var type = String(el.type || '').toLowerCase();
-
-    /* Cada conjunto de opções radio conta como um único campo lógico.
-       Uma opção só é considerada preenchida quando estiver efetivamente marcada. */
-    if(type === 'radio'){
-      var groupKey = el.name ? ('name:' + el.name) : ('id:' + el.id);
-      if(radioGroups[groupKey]) return;
-      radioGroups[groupKey] = true;
-      total += 1;
-
-      var selected = controls.some(function(candidate){
-        return String(candidate.type || '').toLowerCase() === 'radio' &&
-               ((el.name && candidate.name === el.name) ||
-                (!el.name && candidate.id === el.id)) &&
-               candidate.checked;
-      });
-      if(selected) filled += 1;
-      return;
-    }
-
-    /* Checkboxes só contam quando estão marcadas; o valor HTML padrão
-       não deve ser interpretado como preenchimento. */
-    if(type === 'checkbox'){
-      total += 1;
-      if(el.checked) filled += 1;
-      return;
-    }
-
-    total += 1;
-    if(String(el.value || '').trim() !== '') filled += 1;
-  });
-
-  var pct = total ? Math.round(filled / total * 100) : 0;
-  var fill  = document.getElementById('progressFill');
-  var label = document.getElementById('progressLabel');
-  if(fill)  fill.style.width = pct + '%';
-  if(label) label.innerText = 'Guião preenchido: ' + pct + '%';
-}
-
-/* ── AUTOSAVE STATUS ── */
-function renderAutosave(txt){
-  var el = document.getElementById('autosaveStatus');
-  if(el) el.innerText = txt;
-}
-
-/* ── GUARDAR RASCUNHO ── */
-function saveDraft(){
-  var p = { timestamp: new Date().toLocaleTimeString('pt-PT'), data: {} };
-  fields().forEach(function(el,i){ p.data[i] = el.value; });
-  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }catch(e){}
-  renderProgress();
-  renderAutosave('Última gravação automática: ' + p.timestamp);
-}
-var saveDraftDebounceTimer = null;
-function saveDraftDebounced(){
-  clearTimeout(saveDraftDebounceTimer);
-  saveDraftDebounceTimer = setTimeout(saveDraft, 450);
-}
-
-/* ── RESTAURAR RASCUNHO ── */
-function restoreDraft(){
-  var raw; try{ raw = localStorage.getItem(STORAGE_KEY); }catch(e){}
-  if(!raw){ renderProgress(); renderAutosave('Última gravação automática: --'); return; }
-  try{
-    var p = JSON.parse(raw);
-    fields().forEach(function(el,i){ if(p.data[i] !== undefined) el.value = p.data[i]; });
-    renderProgress();
-    renderAutosave('Última gravação automática: ' + (p.timestamp||'--'));
-    toast('Rascunho restaurado com sucesso.');
-  }catch(e){ renderProgress(); renderAutosave('Última gravação automática: --'); }
-}
-
-/* ── REUTILIZAR CABEÇALHO ── */
-function reuseHeaderFromDraft(){
-  var raw; try{ raw = localStorage.getItem(STORAGE_KEY); }catch(e){}
-  if(!raw){ toast('Ainda não há rascunho guardado para reutilizar o cabeçalho.'); return; }
-  try{
-    var p = JSON.parse(raw);
-    var headerIds = {
-      unidadeOrganica:1, modalidade:1, semestre:1, anoCurricular:1, turmaEdicao:1, turma:1,
-      curso:1, cursoBusca:1, tituloProjeto:1, ucProjeto:1, anoLetivoProjeto:1,
-      numeroEstudantes:1, numeroGrupos:1, autoria:1, estadoGuiao:1, autorizacaoRepositorio:1
-    };
-    var restored = 0;
-    fields().forEach(function(el,i){
-      if(p.data[i] === undefined) return;
-      var inHeader = headerIds[el.id] || (el.closest && el.closest('.header, .header-info, .header-card, .header-grid, .proj-title-card'));
-      if(!inHeader) return;
-      el.value = p.data[i];
-      try{ el.dispatchEvent(new Event('input', {bubbles:true})); }catch(e){}
-      try{ el.dispatchEvent(new Event('change', {bubbles:true})); }catch(e){}
-      restored++;
-    });
-    renderProgress();
-    toast(restored ? 'Cabeçalho reutilizado a partir do rascunho.' : 'Não encontrei dados de cabeçalho no rascunho.');
-  }catch(e){ toast('Não foi possível reutilizar o cabeçalho.'); }
-}
-
-/* ── LIMPAR FORMULÁRIO ── */
-function clearAll(){
-  fields().forEach(function(el){
-    if(el.tagName==='SELECT') el.selectedIndex=0; else el.value='';
-    el.dispatchEvent(new Event('input'));
-    el.dispatchEvent(new Event('change'));
-  });
-  try{
-    var cursoBusca = document.getElementById('cursoBusca');
-    if(cursoBusca) cursoBusca.value = '';
-    var cursoChips = document.getElementById('cblCursosSelecionados');
-    if(cursoChips) cursoChips.innerHTML = '';
-  }catch(e){}
-  try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
-  renderProgress();
-  renderAutosave('Última gravação automática: --');
-  toast('Formulário limpo com sucesso.');
-}
-
-/* ── APAGAR RASCUNHO ── */
-function deleteDraft(){
-  try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
-  renderAutosave('Última gravação automática: --');
-  toast('Rascunho apagado. Formulário mantido.');
-}
-
-/* ── ENVIAR PARA VALIDAÇÃO ── */
-async function submitValidacao(){
-  var dados = { titulo: (document.querySelector('h1')||{}).innerText || document.title };
-  fields().forEach(function(el){ if(el.id) dados[el.id] = el.value; });
-  // PATCH institucional: o seletor pesquisável de Curso(s) pode guardar o valor em #curso.
-  // Garante compatibilidade com o Power Automate, que espera o campo top-level "cursos".
-  try {
-    var _cursoEl = document.getElementById('curso') || document.querySelector('[name="curso"]');
-    var _cursoVal = String((_cursoEl && _cursoEl.value) || dados.curso || dados.cursos || '').trim();
-    if (_cursoVal) {
-      dados.curso = _cursoVal;
-      dados.cursos = _cursoVal;
-    }
-  } catch(e) {}
-
-  try{
-    var r = await fetch('https://default704e7b9d2c07436297683fef55c31b.7f.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e204529fc1f342fc87cd935dfa2a58f1/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=twiVi70IgSoNelyf9E_StjR8n6gtjcasJu3ULIuXErc', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(dados)
-    });
-    toast(r.ok ? getGuiaoSuccessMessage(window.__lastGuiaoFlowResponse) : 'Erro ao enviar (código ' + r.status + ').');
-  }catch(e){ toast('Erro de ligação: ' + e.message); }
-}
-
-/* ── BIND CAMPOS ── */
-function bindFields(){
-  fields().forEach(function(el){
-    el.removeEventListener('input', saveDraft);
-    el.removeEventListener('change', saveDraft);
-    el.removeEventListener('input', saveDraftDebounced);
-    el.removeEventListener('change', saveDraftDebounced);
-    el.addEventListener('input', saveDraftDebounced);
-    el.addEventListener('change', saveDraftDebounced);
-  });
-}
-
-/* ── MENU MAIS OPÇÕES ── */
-function initMenu(){
-  var btn  = document.getElementById('btnMaisOpcoes');
-  var menu = document.getElementById('uxMenuMaisOpcoes');
-  if(!btn || !menu) return;
-
-  // Substitui o conteúdo do menu pelos 5 botões correctos
-  menu.innerHTML =
-    '<button type="button" id="draftBtn">💾 Guardar rascunho</button>' +
-    '<button type="button" id="restoreBtn">📂 Restaurar rascunho</button>' +
-    '<button type="button" id="deleteBtn">🗑️ Apagar rascunho</button>' +
-    '<button type="button" id="reuseHeaderBtn">↩️ Reutilizar cabeçalho</button>' +
-    '<button type="button" id="clearBtn">🧹 Limpar formulário</button>';
-
-  btn.addEventListener('click', function(e){
-    e.preventDefault(); e.stopPropagation();
-    menu.classList.toggle('open');
-  });
-  document.addEventListener('click', function(e){
-    if(!menu.contains(e.target) && e.target !== btn) menu.classList.remove('open');
-  });
-
-  document.getElementById('draftBtn').addEventListener('click', function(){
-    saveDraft(); menu.classList.remove('open'); toast('Rascunho guardado com sucesso.');
-  });
-  document.getElementById('restoreBtn').addEventListener('click', function(){
-    restoreDraft(); menu.classList.remove('open');
-  });
-  document.getElementById('reuseHeaderBtn').addEventListener('click', function(){
-    reuseHeaderFromDraft(); menu.classList.remove('open');
-  });
-  document.getElementById('clearBtn').addEventListener('click', function(){
-    clearAll(); menu.classList.remove('open');
-  });
-  document.getElementById('deleteBtn').addEventListener('click', function(){
-    deleteDraft(); menu.classList.remove('open');
-  });
-}
-
-/* ── BOTÕES PRINCIPAIS ── */
-function initButtons(){
-  // Assistente IA — por id primeiro, fallback por texto
-  var aiBtn = document.getElementById('btnAssistenteIA') ||
-    Array.from(document.querySelectorAll('button')).find(function(b){
-      return (b.innerText||'').includes('Assistente IA');
-    });
-  if(aiBtn) aiBtn.addEventListener('click', function(e){
-    e.preventDefault();
-    window.open('https://teams.microsoft.com/l/app/?titleId=T_3563aa57-a2da-f9ec-f15e-40e313566c90','_blank');
-    toast('A abrir o Assistente IA no Teams...', 'ok', 2200);
-  });
-
-  // Enviar para Validação — por id primeiro
-  var enviarBtn = document.getElementById('btnEnviarValidacao') ||
-    Array.from(document.querySelectorAll('button')).find(function(b){
-      return (b.innerText||'').includes('Enviar para Validação');
-    });
-  if(enviarBtn) enviarBtn.addEventListener('click', function(e){
-    e.preventDefault(); toast(getGuiaoSuccessMessage(window.__lastGuiaoFlowResponse));
-  });
-
-  // Gerar guião em PDF
-  var pdfBtn = document.getElementById('btnPDF') ||
-    Array.from(document.querySelectorAll('button')).find(function(b){
-      return (b.innerText||'').includes('Gerar guião em PDF');
-    });
-  if(pdfBtn) pdfBtn.addEventListener('click', function(e){
-    e.preventDefault(); if (window.downloadGuiesPdf) { window.downloadGuiesPdf(); } else { window.print(); }
-  });
-}
-
-
-/* ── INIT ── */
-document.addEventListener('DOMContentLoaded', function(){
-  try{ localStorage.removeItem('template_autosave_PROJ_DEMO_COMPLETO'); }catch(e){}
-  try{ localStorage.removeItem('template_autosave_PROJ_DEMO_COMPLETO_EAD'); }catch(e){}
-  renderProgress();
-  renderAutosave('Última gravação automática: --');
-  bindFields();
-  initMenu();
-  initButtons();
-});
-
+  'use strict';
+  /* O autosave legado V5 foi desativado. A camada resiliente V7,
+     no final do documento, assume gravação, restauração e menu. */
+  window.__projblLegacyAutosaveV5Disabled = true;
 })();
 </script>
 <script id="proj-ucs-row1-uniform-final-script">
@@ -15799,224 +15561,100 @@ html body .page .proj-v9-example-field::placeholder {
       y += 8;
     }
 
+    function rowLines(row, widths, header){
+      return row.map(function(cell, i){
+        var size = header ? 7.5 : 7.45;
+        return split(cell, widths[i]-5.4, size, header ? "bold" : "normal");
+      });
+    }
+    function rowHeightFromLines(lineSets, header){
+      var maxLines = 1;
+      lineSets.forEach(function(lines){ maxLines = Math.max(maxLines, Math.max(1, lines.length)); });
+      return Math.max(header ? 10.8 : 11.6, maxLines * 3.8 + 6.4);
+    }
     function rowHeight(row, widths, header){
-      var max = header ? 13.5 : 13;
-      row.forEach(function(cell, i){
-        var size = header ? 7.15 : 7.35;
-        var lines = splitLines(pdf, cell || "", widths[i]-5.2, size, header ? "bold" : "normal");
-        max = Math.max(max, lines.length * 3.9 + 8.8);
-      });
-      return max;
+      return rowHeightFromLines(rowLines(row, widths, header), header);
     }
-
-    function drawTableLines(x0, y0, widths, heights, tableW, totalH){
-      pdf.setDrawColor(218,218,218);
-      pdf.setLineWidth(0.2);
-      var cy = y0;
-      for(var r=1; r<heights.length; r++){
-        cy += heights[r-1];
-        pdf.line(x0, cy, x0+tableW, cy);
-      }
-      var cx = x0;
-      for(var c=1; c<widths.length; c++){
-        cx += widths[c-1];
-        pdf.line(cx, y0, cx, y0+totalH);
-      }
+    function drawRowLines(x, widths, lineSets, opts){
+      opts = opts || {};
+      var isHeader = !!opts.header;
+      var rh = rowHeightFromLines(lineSets, isHeader);
+      var y0=y, tx=x;
+      pdf.setFillColor(opts.fill || (isHeader ? 242 : 255), opts.fill || (isHeader ? 242 : 255), opts.fill || (isHeader ? 242 : 255));
+      pdf.setDrawColor(isHeader ? 82 : 160, isHeader ? 82 : 160, isHeader ? 82 : 160);
+      pdf.setLineWidth(isHeader ? .36 : .22);
+      pdf.rect(x, y0, widths.reduce(function(a,b){return a+b;},0), rh, "FD");
+      for(var i=1;i<widths.length;i++){ tx += widths[i-1]; pdf.line(tx, y0, tx, y0+rh); }
+      tx=x;
+      lineSets.forEach(function(lines,i){
+        pdf.setFont("helvetica", isHeader || opts.bold ? "bold" : "normal");
+        pdf.setFontSize(isHeader ? 7.5 : 7.45); pdf.setTextColor(isHeader ? 28 : 35, isHeader ? 28 : 35, isHeader ? 28 : 35);
+        var shown = lines.length ? lines : [""];
+        var step = isHeader ? 3.7 : 3.75;
+        var ty = y0 + 5 + Math.max(0, (rh - shown.length*step)/2 - 2.0);
+        shown.forEach(function(line){ pdf.text(line, tx+2.7, ty); ty += step; });
+        tx += widths[i];
+      });
+      y += rh;
     }
-
-    function premiumTable(headers, rows, widths, addTotal){
-      rows = (rows || []).filter(function(r){
-        return r && r.some(function(x){ return String(x || "").trim(); });
-      });
+    function drawHeader(x, widths, headers){
+      var lines = rowLines(headers, widths, true);
+      var hh = rowHeightFromLines(lines, true);
+      ensure(hh + 10);
+      drawRowLines(x, widths, lines, {header:true});
+    }
+    function drawRow(x, widths, row, opts){
+      drawRowLines(x, widths, rowLines(row, widths, false), opts || {});
+    }
+    function premiumTable(headers, rows, widths, totalLabel, totalValue){
+      rows = (rows || []).filter(function(r){ return r && r.some(function(x){ return has(x); }); });
       if(!rows.length) return;
+      var x=m;
+      ensure(20);
+      drawHeader(x, widths, headers);
+      var headerH = rowHeight(headers, widths, true);
+      var freshCapacity = (H - 22) - 18 - headerH;
 
-      var totalInfo = null;
-      if(addTotal){
-        var sum = 0, last = headers.length - 1, hasAny = false;
-        rows = rows.filter(function(r){
-          var joined = String((r || []).join(" ")).toLowerCase().trim();
-          return !/^total\b/.test(joined);
-        });
-        rows.forEach(function(r){
-          var n = parsePercent(r[last]);
-          if(n !== null){ sum += n; hasAny = true; }
-        });
-        if(hasAny){
-          totalInfo = {
-            label: /nota/i.test(headers[last] || "") ? "Total da percentagem da nota final" : "Total da percentagem do projeto final",
-            value: (Math.round(sum*100)/100).toString().replace(".",",") + "%",
-            colIndex: last
-          };
+      function drawLogicalRow(row, opts){
+        var lineSets = rowLines(row, widths, false);
+        var fullH = rowHeightFromLines(lineSets, false);
+        if(y + fullH <= H-22){
+          drawRowLines(x, widths, lineSets, opts || {});
+          return;
         }
-      }
-      if(!rows.length) return;
-
-      function heightFor(row, isHeader, isTotal){
-        if(isTotal) return 10.5;
-        var max = isHeader ? 9.5 : 9.2;
-        row.forEach(function(cell, i){
-          var size = isHeader ? 6.7 : 7.05;
-          var lines = splitLines(pdf, cell || "", widths[i]-4.4, size, isHeader ? "bold" : "normal");
-          max = Math.max(max, lines.length * 3.45 + 5.4);
-        });
-        return Math.min(Math.max(max, isHeader ? 9.5 : 9.2), 27);
-      }
-
-      var all = [headers].concat(rows);
-      var heights = all.map(function(row, idx){ return heightFor(row, widths, idx===0); });
-      var totalH = heights.reduce(function(a,b){ return a+b; }, 0);
-      var totalRowH = totalInfo ? 10.5 : 0;
-      var tableW = widths.reduce(function(a,b){ return a+b; }, 0);
-
-      if(y + totalH + totalRowH + 12 > H - 20){ newPage(); }
-
-      var x0 = m, y0 = y;
-      var headerH = heights[0];
-      var fullH = totalH + totalRowH;
-
-      // Fundo e borda única: sem caixas desenhadas por cima, sem total descolado.
-      pdf.setFillColor(255,255,255);
-      pdf.setDrawColor(58,58,58);
-      pdf.setLineWidth(0.32);
-      pdf.rect(x0, y0, tableW, fullH, "FD");
-
-      // Cabeçalho elegante e contido.
-      pdf.setFillColor(244,244,244);
-      pdf.rect(x0, y0, tableW, headerH, "F");
-
-      // Zebra muito discreta nas linhas de dados.
-      var rowY = y0 + headerH;
-      rows.forEach(function(row, idx){
-        var rh = heights[idx+1];
-        if(idx % 2 === 1){
-          pdf.setFillColor(252,252,252);
-          pdf.rect(x0, rowY, tableW, rh, "F");
+        if(fullH <= freshCapacity){
+          newPage(); drawHeader(x, widths, headers);
+          drawRowLines(x, widths, lineSets, opts || {});
+          return;
         }
-        rowY += rh;
-      });
 
-      // Total integrado como última linha institucional.
-      if(totalInfo){
-        pdf.setFillColor(247,247,247);
-        pdf.rect(x0, y0 + totalH, tableW, totalRowH, "F");
-      }
-
-      // Linhas horizontais.
-      pdf.setDrawColor(210,210,210);
-      pdf.setLineWidth(0.16);
-      var ly = y0 + headerH;
-      pdf.line(x0, ly, x0 + tableW, ly);
-      for(var r=1; r<heights.length; r++){
-        ly += heights[r];
-        pdf.line(x0, ly, x0 + tableW, ly);
-      }
-      if(totalInfo) pdf.line(x0, y0 + totalH, x0 + tableW, y0 + totalH);
-
-      // Linhas verticais: apenas corpo/cabeçalho; no total só separa a célula final.
-      var cxLine = x0;
-      for(var c=1; c<widths.length; c++){
-        cxLine += widths[c-1];
-        pdf.line(cxLine, y0, cxLine, y0 + totalH);
-      }
-      if(totalInfo){
-        var tx = x0;
-        for(var ti=0; ti<totalInfo.colIndex; ti++) tx += widths[ti];
-        pdf.line(tx, y0 + totalH, tx, y0 + fullH);
-      }
-
-      // Borda final única e limpa.
-      pdf.setDrawColor(58,58,58);
-      pdf.setLineWidth(0.32);
-      pdf.rect(x0, y0, tableW, fullH, "S");
-
-      var cy = y0;
-      all.forEach(function(row, rIdx){
-        var rh = heights[rIdx];
-        var cx = x0;
-        row.forEach(function(cell, cIdx){
-          var header = rIdx === 0;
-          var size = header ? 6.7 : 7.05;
-          var style = header ? "bold" : "normal";
-          pdf.setFont("helvetica", style);
-          pdf.setFontSize(size);
-          pdf.setTextColor(34,34,34);
-          var lines = splitLines(pdf, cell || "", widths[cIdx]-4.4, size, style);
-          var lineH = 3.45;
-          var blockH = lines.length * lineH;
-          var ty = cy + Math.max(4.6, (rh - blockH)/2 + 2.5);
-          var alignRight = !header && cIdx === row.length - 1 && /%/.test(String(cell || ""));
-          lines.slice(0,6).forEach(function(line){
-            pdf.text(line, alignRight ? cx + widths[cIdx] - 2.3 : cx + 2.3, ty, alignRight ? {align:"right"} : undefined);
-            ty += lineH;
+        var offsets = lineSets.map(function(){ return 0; });
+        while(lineSets.some(function(lines, i){ return offsets[i] < Math.max(1, lines.length); })){
+          var available = (H-22) - y;
+          var maxLines = Math.floor((available - 6.4) / 3.8);
+          if(maxLines < 1){ newPage(); drawHeader(x, widths, headers); continue; }
+          var chunk = lineSets.map(function(lines, i){
+            var src = lines.length ? lines : [""];
+            return src.slice(offsets[i], offsets[i] + maxLines);
           });
-          cx += widths[cIdx];
-        });
-        cy += rh;
-      });
-
-      if(totalInfo){
-        var lastX = x0;
-        for(var k=0; k<totalInfo.colIndex; k++) lastX += widths[k];
-        var totalY = y0 + totalH;
-        pdf.setFont("helvetica","bold");
-        pdf.setFontSize(7.2);
-        pdf.setTextColor(45,45,45);
-        pdf.text(totalInfo.label, lastX - 2.5, totalY + 6.8, {align:"right"});
-        pdf.setFontSize(8.0);
-        pdf.text(totalInfo.value, lastX + widths[totalInfo.colIndex] - 2.5, totalY + 6.8, {align:"right"});
+          if(!chunk.some(function(lines){ return lines.length; })) break;
+          drawRowLines(x, widths, chunk, opts || {});
+          lineSets.forEach(function(lines, i){ offsets[i] += Math.min(maxLines, Math.max(1, lines.length) - offsets[i]); });
+          if(lineSets.some(function(lines, i){ return offsets[i] < Math.max(1, lines.length); })){
+            newPage(); drawHeader(x, widths, headers);
+          }
+        }
       }
 
-      y = y0 + fullH + 7.5;
+      rows.forEach(function(row){ drawLogicalRow(row); });
+      if(totalLabel || totalValue){
+        var totalRow = headers.map(function(){return "";});
+        totalRow[0] = totalLabel || "Total";
+        totalRow[headers.length-1] = totalValue || "";
+        drawLogicalRow(totalRow, {fill:248, bold:true});
+      }
+      y += 9;
     }
-
-    function drawEvaluationBlocks(items){
-      items = (items || []).filter(function(item){
-        return item && (String(item.uc||"").trim() || (item.criterios||[]).some(Boolean));
-      });
-      if(!items.length) return;
-
-      items.forEach(function(item){
-        var criterios = (item.criterios || []).filter(Boolean);
-        var boxH = 13 + Math.max(criterios.length, 1) * 7.2;
-        if(y + boxH + 8 > H - 20) newPage();
-
-        var x0 = m, w = cw, y0 = y;
-        pdf.setFillColor(255,255,255);
-        pdf.setDrawColor(70,70,70);
-        pdf.setLineWidth(0.28);
-        pdf.rect(x0, y0, w, boxH, "S");
-
-        pdf.setFillColor(246,246,246);
-        pdf.rect(x0, y0, w, 10.2, "F");
-        pdf.setDrawColor(210,210,210);
-        pdf.setLineWidth(0.16);
-        pdf.line(x0, y0 + 10.2, x0 + w, y0 + 10.2);
-
-        pdf.setFont("helvetica","bold");
-        pdf.setFontSize(7.6);
-        pdf.setTextColor(35,35,35);
-        pdf.text("Nome da UC", x0 + 3, y0 + 6.5);
-        pdf.setFont("helvetica","normal");
-        pdf.setFontSize(8.2);
-        pdf.text(item.uc || "—", x0 + 25, y0 + 6.5);
-
-        var yy = y0 + 16.4;
-        pdf.setFont("helvetica","bold");
-        pdf.setFontSize(7.2);
-        pdf.text("Critérios", x0 + 3, yy);
-        yy += 5.0;
-        pdf.setFont("helvetica","normal");
-        pdf.setFontSize(7.4);
-        criterios.forEach(function(c){
-          var lines = splitLines(pdf, c, w - 14, 7.4, "normal");
-          pdf.text("•", x0 + 5, yy);
-          pdf.text(lines, x0 + 9, yy);
-          yy += Math.max(6.6, lines.length * 3.4 + 2.0);
-        });
-        y = y0 + boxH + 6.2;
-      });
-    }
-
     function drawCover(){
       var top = 16, cx = W/2;
       if(logo && logo.indexOf("data:image") === 0){
@@ -16773,9 +16411,9 @@ html body .page button[data-proj-tooltip]::after {
 <option value="Licenciatura em Fotografia e Cultura Visual"></option>
 <option value="Mestrado em Animação e Criação Visual"></option>
 <option value="Mestrado em Design e Produção de Jogos"></option>
+<option value="Licenciatura em Marketing e Publicidade"></option>
 <option value="Mestrado em Comunicação Audiovisual e Multimédia"></option>
 <option value="Licenciatura em Ciências da Comunicação"></option>
-<option value="Licenciatura em Marketing e Publicidade"></option>
 <option value="Mestrado em Marketing e Inovação"></option>
 <option value="Mestrado em Branding e Estratégia"></option>
 <option value="Mestrado em Comunicação Estratégica"></option>
@@ -16800,6 +16438,25 @@ html body .page button[data-proj-tooltip]::after {
 <option value="Licenciatura em Ciências da Comunicação EaD"></option>
 <option value="Licenciatura em Design Visual EaD"></option>
 <option value="Licenciatura em Engenharia Informática EaD"></option>
+<option value="Licenciatura em Gestão de Negócios"></option>
+<option value="Marketing Digital"></option>
+<option value="Licenciatura em Marketing Global"></option>
+<option value="Mestrado em Gestão de Negócios"></option>
+<option value="Mestrado em Marketing e Tecnologia"></option>
+<option value="Mestrado em Marketing"></option>
+<option value="Mestrado em Gestão de Marketing EaD"></option>
+<option value="Licenciatura em Gestão de Marketing"></option>
+<option value="Mestrado em Gestão de Marketing"></option>
+<option value="Gestão de Negócios Internacionais"></option>
+<option value="Licenciatura em Negócios Global"></option>
+<option value="Mestrado em Global Business"></option>
+<option value="Licenciatura em Gestão de Marketing EaD"></option>
+<option value="Licenciatura em Global Business"></option>
+<option value="Mestrado em Gestão de Negócios EaD"></option>
+<option value="Mestrado em Inovação em Marketing e Negócios"></option>
+<option value="CTeSP em Gestão Comercial e Vendas"></option>
+<option value="CTeSP em Gestão de Negócios Internacionais"></option>
+<option value="CTeSP em Marketing Digital"></option>
 <option value="Licenciatura em Psicologia"></option>
 <option value="Mestrado em Psicologia Clínica e da Saúde"></option>
 <option value="Licenciatura em Ciências da Nutrição"></option>
@@ -16816,14 +16473,13 @@ html body .page button[data-proj-tooltip]::after {
 <option value="Licenciatura em Contabilidade EaD"></option>
 <option value="Licenciatura em Gestão de Empresas EaD"></option>
 <option value="Mestrado em Cibersegurança EaD"></option>
-<option value="Mestrado em Ciências de Dados e Análise de Negócios EaD"></option>
 <option value="Mestrado em Direito e Segurança da Informação EaD"></option>
 <option value="Mestrado em Gestão de Empresas EaD"></option>
 <option value="Mestrado em Marketing estratégico EaD"></option>
 <option value="Mestrado em Psicologia Social e de Organizações EaD"></option>
 <option value="Licenciatura em Gestão"></option>
 <option value="Licenciatura em Management"></option>
-<option value="Mestrado em I Management"></option>
+<option value="Mestrado em Management"></option>
 <option value="Mestrado em Gestão"></option>
 <option value="Licenciatura em Direito"></option>
 <option value="Mestrado em Direito Judiciário"></option>
@@ -16832,24 +16488,8 @@ html body .page button[data-proj-tooltip]::after {
 <option value="Licenciatura em Gestão Hoteleira"></option>
 <option value="Licenciatura em Tourism"></option>
 <option value="Licenciatura em Turismo"></option>
-<option value="Licenciatura em Gestão de Marketing"></option>
-<option value="Licenciatura em Marketing Global"></option>
-<option value="Licenciatura em Gestão de Negócios"></option>
-<option value="Licenciatura em Negócios Global"></option>
-<option value="Mestrado em Global Business"></option>
-<option value="Mestrado em Marketing"></option>
-<option value="Mestrado em Gestão de Marketing"></option>
-<option value="Mestrado em Gestão de Negócios"></option>
-<option value="Mestrado em Marketing e Tecnologia"></option>
-<option value="Marketing Digital"></option>
-<option value="Gestão de Negócios Internacionais"></option>
-<option value="Mestrado em Gestão de Marketing EaD"></option>
-<option value="Licenciatura em Gestão de Marketing Online (antiga)"></option>
-<option value="Licenciatura em Gestão de Marketing EaD"></option>
-<option value="Mestrado em Gestão de Negócios EaD"></option>
-<option value="Licenciatura em Global Business"></option>
-<option value="Gestão Comercial e Vendas"></option>
 <option value="Mestrado em Ciências de Dados e Gestão"></option>
+<option value="Mestrado em Ciências de Dados e Análise de Negócios EaD"></option>
 <option value="Mestrado em Gestão do Desporto"></option>
 </datalist>
 <script id="projbl-camada11-tooltip-sem-observer-script">
@@ -18459,11 +18099,16 @@ html body .page button[data-proj-tooltip]::after {
       var items = String(txt).split(/\n+/).map(function(x){return clean(x).replace(/^[-•]\s*/,"");}).filter(Boolean);
       items.forEach(function(item){
         var lines = split(item, cw-8, 9.2, "normal");
-        ensure(5 + lines.length*4.6);
-        pdf.setFont("helvetica","normal"); pdf.setFontSize(9.2); pdf.setTextColor(38,38,38);
-        pdf.text("-", m, y);
-        lines.forEach(function(line, i){ pdf.text(line, m+5, y + i*4.6); });
-        y += Math.max(5.0, lines.length*4.6 + .9);
+        var first = true;
+        lines.forEach(function(line){
+          ensure(5.2);
+          pdf.setFont("helvetica","normal"); pdf.setFontSize(9.2); pdf.setTextColor(38,38,38);
+          if(first) pdf.text("-", m, y);
+          pdf.text(line, m+5, y);
+          y += 4.6;
+          first = false;
+        });
+        y += .9;
       });
       y += 3;
     }
@@ -18471,50 +18116,51 @@ html body .page button[data-proj-tooltip]::after {
       if(!has(txt)) return;
       String(txt).split(/\n+/).map(clean).filter(Boolean).forEach(function(item){ paragraph(item); });
     }
-    function rowHeight(row, widths, header){
-      var max = header ? 10.8 : 11.6;
-      row.forEach(function(cell, i){
+    function rowLines(row, widths, header){
+      return row.map(function(cell, i){
         var size = header ? 7.5 : 7.45;
-        var lines = split(cell, widths[i]-5.4, size, header ? "bold" : "normal");
-        max = Math.max(max, lines.length * 3.8 + 6.4);
+        return split(cell, widths[i]-5.4, size, header ? "bold" : "normal");
       });
-      return Math.min(Math.max(max, header ? 10.8 : 11.6), 46);
     }
-    function drawHeader(x, widths, headers){
-      var hh = rowHeight(headers, widths, true);
-      ensure(hh + 10);
-      var tx=x, y0=y;
-      pdf.setFillColor(242,242,242); pdf.setDrawColor(82,82,82); pdf.setLineWidth(.36);
-      pdf.rect(x, y0, widths.reduce(function(a,b){return a+b;},0), hh, "FD");
-      for(var i=1;i<widths.length;i++){ tx += widths[i-1]; pdf.line(tx, y0, tx, y0+hh); }
-      tx=x;
-      headers.forEach(function(h,i){
-        pdf.setFont("helvetica","bold"); pdf.setFontSize(7.5); pdf.setTextColor(28,28,28);
-        var lines = split(h, widths[i]-5.4, 7.5, "bold");
-        var ty = y0 + 5 + Math.max(0, (hh - lines.length*3.7)/2 - 2.0);
-        lines.forEach(function(line){ pdf.text(line, tx+2.7, ty); ty += 3.7; });
-        tx += widths[i];
-      });
-      y += hh;
+    function rowHeightFromLines(lineSets, header){
+      var maxLines = 1;
+      lineSets.forEach(function(lines){ maxLines = Math.max(maxLines, Math.max(1, lines.length)); });
+      return Math.max(header ? 10.8 : 11.6, maxLines * 3.8 + 6.4);
     }
-    function drawRow(x, widths, row, opts){
+    function rowHeight(row, widths, header){
+      return rowHeightFromLines(rowLines(row, widths, header), header);
+    }
+    function drawRowLines(x, widths, lineSets, opts){
       opts = opts || {};
-      var rh = rowHeight(row, widths, false);
-      ensure(rh + 4);
+      var isHeader = !!opts.header;
+      var rh = rowHeightFromLines(lineSets, isHeader);
       var y0=y, tx=x;
-      pdf.setFillColor(opts.fill || 255, opts.fill || 255, opts.fill || 255);
-      pdf.setDrawColor(160,160,160); pdf.setLineWidth(.22);
+      var fill = (typeof opts.fill === "number") ? opts.fill : (isHeader ? 242 : 255);
+      pdf.setFillColor(fill, fill, fill);
+      pdf.setDrawColor(isHeader ? 82 : 160, isHeader ? 82 : 160, isHeader ? 82 : 160);
+      pdf.setLineWidth(isHeader ? .36 : .22);
       pdf.rect(x, y0, widths.reduce(function(a,b){return a+b;},0), rh, "FD");
       for(var i=1;i<widths.length;i++){ tx += widths[i-1]; pdf.line(tx, y0, tx, y0+rh); }
       tx=x;
-      row.forEach(function(cell,i){
-        pdf.setFont("helvetica", opts.bold ? "bold" : "normal"); pdf.setFontSize(7.45); pdf.setTextColor(35,35,35);
-        var lines = split(cell, widths[i]-5.4, 7.45, opts.bold ? "bold" : "normal");
-        var ty = y0 + 5 + Math.max(0, (rh - lines.length*3.75)/2 - 2.0);
-        lines.forEach(function(line){ pdf.text(line, tx+2.7, ty); ty += 3.75; });
+      lineSets.forEach(function(lines,i){
+        pdf.setFont("helvetica", isHeader || opts.bold ? "bold" : "normal");
+        pdf.setFontSize(isHeader ? 7.5 : 7.45); pdf.setTextColor(isHeader ? 28 : 35, isHeader ? 28 : 35, isHeader ? 28 : 35);
+        var shown = lines.length ? lines : [""];
+        var step = isHeader ? 3.7 : 3.75;
+        var ty = y0 + 5 + Math.max(0, (rh - shown.length*step)/2 - 2.0);
+        shown.forEach(function(line){ pdf.text(line, tx+2.7, ty); ty += step; });
         tx += widths[i];
       });
       y += rh;
+    }
+    function drawHeader(x, widths, headers){
+      var lines = rowLines(headers, widths, true);
+      var hh = rowHeightFromLines(lines, true);
+      ensure(hh + 10);
+      drawRowLines(x, widths, lines, {header:true});
+    }
+    function drawRow(x, widths, row, opts){
+      drawRowLines(x, widths, rowLines(row, widths, false), opts || {});
     }
     function premiumTable(headers, rows, widths, totalLabel, totalValue){
       rows = (rows || []).filter(function(r){ return r && r.some(function(x){ return has(x); }); });
@@ -18522,16 +18168,49 @@ html body .page button[data-proj-tooltip]::after {
       var x=m;
       ensure(20);
       drawHeader(x, widths, headers);
-      rows.forEach(function(row){
-        if(y + rowHeight(row, widths, false) > H-22){ newPage(); drawHeader(x, widths, headers); }
-        drawRow(x, widths, row);
-      });
+      var headerH = rowHeight(headers, widths, true);
+      var freshCapacity = (H - 22) - 18 - headerH;
+
+      function drawLogicalRow(row, opts){
+        var lineSets = rowLines(row, widths, false);
+        var fullH = rowHeightFromLines(lineSets, false);
+        if(y + fullH <= H-22){
+          drawRowLines(x, widths, lineSets, opts || {});
+          return;
+        }
+        if(fullH <= freshCapacity){
+          newPage(); drawHeader(x, widths, headers);
+          drawRowLines(x, widths, lineSets, opts || {});
+          return;
+        }
+
+        var offsets = lineSets.map(function(){ return 0; });
+        while(lineSets.some(function(lines, i){ return offsets[i] < Math.max(1, lines.length); })){
+          var available = (H-22) - y;
+          var maxLines = Math.floor((available - 6.4) / 3.8);
+          if(maxLines < 1){ newPage(); drawHeader(x, widths, headers); continue; }
+          var chunk = lineSets.map(function(lines, i){
+            var src = lines.length ? lines : [""];
+            return src.slice(offsets[i], offsets[i] + maxLines);
+          });
+          if(!chunk.some(function(lines){ return lines.length; })) break;
+          drawRowLines(x, widths, chunk, opts || {});
+          lineSets.forEach(function(lines, i){
+            var logicalLength = Math.max(1, lines.length);
+            offsets[i] += Math.min(maxLines, logicalLength - offsets[i]);
+          });
+          if(lineSets.some(function(lines, i){ return offsets[i] < Math.max(1, lines.length); })){
+            newPage(); drawHeader(x, widths, headers);
+          }
+        }
+      }
+
+      rows.forEach(function(row){ drawLogicalRow(row); });
       if(totalLabel || totalValue){
         var totalRow = headers.map(function(){return "";});
         totalRow[0] = totalLabel || "Total";
         totalRow[headers.length-1] = totalValue || "";
-        if(y + 12 > H-22){ newPage(); drawHeader(x, widths, headers); }
-        drawRow(x, widths, totalRow, {fill:248, bold:true});
+        drawLogicalRow(totalRow, {fill:248, bold:true});
       }
       y += 9;
     }
@@ -18618,8 +18297,8 @@ html body .page button[data-proj-tooltip]::after {
         function infoRow(label, value, y){
           if(!hasText(value)) return y;
           labelText(label, lx, y);
-          valueText(value, vx, y, 76, 9.4);
-          return y + rowGap;
+          var endY = valueText(value, vx, y, 76, 9.4);
+          return Math.max(y + rowGap, endY + 4.5);
         }
         sy = infoRow('Unidade Orgânica', top.unidade, sy);
         sy = infoRow('Curso(s)', top.curso, sy);
@@ -19207,7 +18886,7 @@ html body:not(.guiao-pdf-mode) .page input[type="number"] {
     set('numeroGrupos', 'Ex.: 6');
     set('autoria', 'Ex.: Sofia Martins; Miguel Santos');
 
-    var nomesExemplo = ['Ex.: Prof.ª Sofia Martins','Ex.: Prof. Miguel Santos','Ex.: Prof.ª Inês Duarte'];
+    var nomesExemplo = ['Ex.: Sofia Martins','Ex.: Miguel Santos','Ex.: Inês Duarte'];
     var ucsExemplo = ['Ex.: Projeto Aplicado','Ex.: Laboratório de Projeto','Ex.: Comunicação Visual'];
     var emailsExemplo = ['Ex.: sofia.martins@universidadeeuropeia.pt','Ex.: miguel.santos@universidadeeuropeia.pt','Ex.: ines.duarte@universidadeeuropeia.pt'];
 
@@ -19878,152 +19557,77 @@ body:not(.guiao-pdf-mode) .cbl-course-picker,
 body:not(.guiao-pdf-mode) .projbl-curso-real-wrap,
 body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
 </style>
-<script id="guioes-curso-dropdown-custom-v2-js" data-v7-no-open-empty="1">
+<style id="projbl-course-filter-by-unit-v1-css">
+body:not(.guiao-pdf-mode) .projbl-course-helper{margin-top:6px;color:#666;font-size:11px;line-height:1.3;font-weight:500;}
+body:not(.guiao-pdf-mode) .projbl-course-unit-warning{display:none;margin-top:7px;padding:8px 10px;border:1px solid rgba(227,30,36,.30);border-radius:9px;background:#fff8f8;color:#8b1e23;font-size:11px;line-height:1.35;font-weight:600;}
+body:not(.guiao-pdf-mode) .projbl-course-unit-warning.is-visible{display:block;}
+body:not(.guiao-pdf-mode) #projCursosSugestoes{display:none !important;visibility:hidden !important;}
+body:not(.guiao-pdf-mode) .guioes-curso-toggle-v3{position:absolute;right:7px;top:7px;width:28px;height:28px;min-width:28px;min-height:28px;padding:0;border:0;border-radius:8px;background:#fff;color:#333;font-size:18px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;z-index:4;}
+body:not(.guiao-pdf-mode) .guioes-curso-toggle-v3:hover,
+body:not(.guiao-pdf-mode) .guioes-curso-toggle-v3:focus,
+body:not(.guiao-pdf-mode) .guioes-curso-toggle-v3[aria-expanded="true"]{background:#fff5f5;outline:none;}
+body:not(.guiao-pdf-mode) .guioes-curso-suggestions-v2{position:absolute;z-index:100000;left:0;right:0;top:calc(100% + 4px);max-height:260px;overflow:auto;background:#fff;border:1px solid #c7cbd1;border-radius:10px;box-shadow:0 10px 22px rgba(0,0,0,.16);padding:5px;display:none;font-family:'Century Gothic','Segoe UI',Arial,sans-serif;}
+body:not(.guiao-pdf-mode) .guioes-curso-suggestions-v2.is-open{display:block;}
+body:not(.guiao-pdf-mode) .guioes-curso-suggestion-v2{display:block;width:100%;text-align:left;border:0;background:#fff;color:#111827;padding:8px 10px;border-radius:7px;font-size:13px !important;line-height:1.25 !important;font-weight:500 !important;cursor:pointer;}
+body:not(.guiao-pdf-mode) .guioes-curso-suggestion-v2:hover,
+body:not(.guiao-pdf-mode) .guioes-curso-suggestion-v2.is-active{background:#fff5f5;}
+body:not(.guiao-pdf-mode) .guioes-curso-empty-v3{padding:10px;color:#666;font-size:12px;line-height:1.35;}
+@media print{.projbl-course-helper,.projbl-course-unit-warning,.guioes-curso-toggle-v3,.guioes-curso-suggestions-v2{display:none !important;visibility:hidden !important;}}
+</style>
+<script id="projbl-course-filter-by-unit-v1">
 (function(){
   'use strict';
-
-  function clean(v){ return String(v == null ? '' : v).replace(/\s+/g,' ').trim(); }
-  function strip(v){
-    try{ return clean(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
-    catch(e){ return clean(v).toLowerCase(); }
+  if(window.__projblCourseFilterByUnitV1) return;
+  window.__projblCourseFilterByUnitV1=true;
+  var COURSES_BY_UNIT={"IADE":["Licenciatura em Animação e Criação Visual","Licenciatura em Animação Global","Licenciatura em Fotografia e Cultura Visual","Mestrado em Animação e Criação Visual","Mestrado em Design e Produção de Jogos","Licenciatura em Marketing e Publicidade","Mestrado em Comunicação Audiovisual e Multimédia","Licenciatura em Ciências da Comunicação","Mestrado em Marketing e Inovação","Mestrado em Branding e Estratégia","Mestrado em Comunicação Estratégica","Doutoramento em Comunicação, Media e Ambientes Digitais","Licenciatura em Design","Licenciatura em Design Global","Mestrado em Design e Cultura Visual","Mestrado em Design & Publicidade","Mestrado em Design Management","Mestrado em Design de Produto, Espaço e Interações","Mestrado em Branding e Design de Moda","Mestrado em Design para a Sustentabilidade","Doutoramento em Design","Licenciatura em Desenvolvimento de Jogos","Licenciatura em Creative Tech","Licenciatura em Engenharia Informática","Licenciatura em Informática de Gestão","Mestrado em Computação Criativa e Inteligência Artificial","Doutoramento em Jogos Digitais","Mestrado em Direção de Arte EaD","Mestrado em Comunicação Multimédia EaD","Licenciatura em Ciências da Comunicação EaD","Licenciatura em Design Visual EaD","Licenciatura em Engenharia Informática EaD"],"IPAM Lisboa":["Licenciatura em Gestão de Negócios","Marketing Digital","Licenciatura em Marketing Global","Mestrado em Gestão de Negócios","Mestrado em Marketing e Tecnologia","Mestrado em Marketing","Mestrado em Gestão de Marketing EaD","Licenciatura em Gestão de Marketing","Mestrado em Gestão de Marketing","Gestão de Negócios Internacionais","Licenciatura em Negócios Global","Mestrado em Global Business"],"IPAM Porto":["Licenciatura em Gestão de Marketing EaD","Licenciatura em Gestão de Marketing","Licenciatura em Gestão de Negócios","Licenciatura em Marketing Global","Licenciatura em Global Business","Mestrado em Gestão de Marketing EaD","Mestrado em Gestão de Negócios EaD","Mestrado em Inovação em Marketing e Negócios","Mestrado em Global Business","Mestrado em Marketing","Mestrado em Gestão de Marketing","Mestrado em Gestão de Negócios","Mestrado em Marketing e Tecnologia","CTeSP em Gestão Comercial e Vendas","CTeSP em Gestão de Negócios Internacionais","CTeSP em Marketing Digital"],"FCS":["Licenciatura em Psicologia","Mestrado em Psicologia Clínica e da Saúde","Licenciatura em Ciências da Nutrição","Licenciatura em Psicologia EaD","Mestrado em Gestão da Saúde EaD","Mestrado em Neuropsicologia EaD"],"FCST":["Licenciatura em Gestão de Recursos Humanos","Mestrado em Gestão de Recursos Humanos","Mestrado em Psicologia Social e das Organizações","Licenciatura em Gestão de Recursos Humanos EaD","Mestrado em Gestão de Recursos Humanos EaD","Licenciatura em Marketing EAD","Licenciatura em Ciências Sociais EaD","Licenciatura em Contabilidade EaD","Licenciatura em Gestão de Empresas EaD","Mestrado em Cibersegurança EaD","Mestrado em Direito e Segurança da Informação EaD","Mestrado em Gestão de Empresas EaD","Mestrado em Marketing estratégico EaD","Mestrado em Psicologia Social e de Organizações EaD","Licenciatura em Gestão","Licenciatura em Management","Mestrado em Management","Mestrado em Gestão","Licenciatura em Direito","Mestrado em Direito Judiciário","Licenciatura em Ciência Dados Gestão","Licenciatura em Gestão do Desporto","Licenciatura em Gestão Hoteleira","Licenciatura em Tourism","Licenciatura em Turismo","Mestrado em Ciências de Dados e Gestão","Mestrado em Ciências de Dados e Análise de Negócios EaD","Mestrado em Gestão do Desporto"]};
+  var ALL_COURSES=["Licenciatura em Animação e Criação Visual","Licenciatura em Animação Global","Licenciatura em Fotografia e Cultura Visual","Mestrado em Animação e Criação Visual","Mestrado em Design e Produção de Jogos","Licenciatura em Marketing e Publicidade","Mestrado em Comunicação Audiovisual e Multimédia","Licenciatura em Ciências da Comunicação","Mestrado em Marketing e Inovação","Mestrado em Branding e Estratégia","Mestrado em Comunicação Estratégica","Doutoramento em Comunicação, Media e Ambientes Digitais","Licenciatura em Design","Licenciatura em Design Global","Mestrado em Design e Cultura Visual","Mestrado em Design & Publicidade","Mestrado em Design Management","Mestrado em Design de Produto, Espaço e Interações","Mestrado em Branding e Design de Moda","Mestrado em Design para a Sustentabilidade","Doutoramento em Design","Licenciatura em Desenvolvimento de Jogos","Licenciatura em Creative Tech","Licenciatura em Engenharia Informática","Licenciatura em Informática de Gestão","Mestrado em Computação Criativa e Inteligência Artificial","Doutoramento em Jogos Digitais","Mestrado em Direção de Arte EaD","Mestrado em Comunicação Multimédia EaD","Licenciatura em Ciências da Comunicação EaD","Licenciatura em Design Visual EaD","Licenciatura em Engenharia Informática EaD","Licenciatura em Gestão de Negócios","Marketing Digital","Licenciatura em Marketing Global","Mestrado em Gestão de Negócios","Mestrado em Marketing e Tecnologia","Mestrado em Marketing","Mestrado em Gestão de Marketing EaD","Licenciatura em Gestão de Marketing","Mestrado em Gestão de Marketing","Gestão de Negócios Internacionais","Licenciatura em Negócios Global","Mestrado em Global Business","Licenciatura em Gestão de Marketing EaD","Licenciatura em Global Business","Mestrado em Gestão de Negócios EaD","Mestrado em Inovação em Marketing e Negócios","CTeSP em Gestão Comercial e Vendas","CTeSP em Gestão de Negócios Internacionais","CTeSP em Marketing Digital","Licenciatura em Psicologia","Mestrado em Psicologia Clínica e da Saúde","Licenciatura em Ciências da Nutrição","Licenciatura em Psicologia EaD","Mestrado em Gestão da Saúde EaD","Mestrado em Neuropsicologia EaD","Licenciatura em Gestão de Recursos Humanos","Mestrado em Gestão de Recursos Humanos","Mestrado em Psicologia Social e das Organizações","Licenciatura em Gestão de Recursos Humanos EaD","Mestrado em Gestão de Recursos Humanos EaD","Licenciatura em Marketing EAD","Licenciatura em Ciências Sociais EaD","Licenciatura em Contabilidade EaD","Licenciatura em Gestão de Empresas EaD","Mestrado em Cibersegurança EaD","Mestrado em Direito e Segurança da Informação EaD","Mestrado em Gestão de Empresas EaD","Mestrado em Marketing estratégico EaD","Mestrado em Psicologia Social e de Organizações EaD","Licenciatura em Gestão","Licenciatura em Management","Mestrado em Management","Mestrado em Gestão","Licenciatura em Direito","Mestrado em Direito Judiciário","Licenciatura em Ciência Dados Gestão","Licenciatura em Gestão do Desporto","Licenciatura em Gestão Hoteleira","Licenciatura em Tourism","Licenciatura em Turismo","Mestrado em Ciências de Dados e Gestão","Mestrado em Ciências de Dados e Análise de Negócios EaD","Mestrado em Gestão do Desporto"];
+  function clean(v){return String(v==null?'':v).replace(/\s+/g,' ').trim();}
+  function strip(v){try{return clean(v).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();}catch(e){return clean(v).toLowerCase();}}
+  function split(v){return String(v||'').split(/\s*;\s*|\n+/).map(clean).filter(Boolean);}
+  function unique(a){var s=Object.create(null),o=[];(a||[]).forEach(function(v){var k=strip(v);if(v&&!s[k]){s[k]=1;o.push(v);}});return o;}
+  function unitEl(){return document.getElementById('unidadeOrganica');}
+  function hiddenEl(){return document.getElementById('curso');}
+  function searchEl(){return document.getElementById('cursoBusca');}
+  function selected(){var h=hiddenEl(),out=h?split(h.value):[];Array.prototype.slice.call(document.querySelectorAll('#cblCursosSelecionados .cbl-course-chip,#cblCursosSelecionados .projbl-course-chip,[data-course-chip]')).forEach(function(chip){var span=chip.querySelector('span');var v=clean((span||chip).textContent||'').replace(/[×x]$/i,'').trim();if(v)out.push(v);});return unique(out);}
+  function allowed(unit){return COURSES_BY_UNIT[unit]?COURSES_BY_UNIT[unit].slice():ALL_COURSES.slice();}
+  function rebuildList(){var unit=clean(unitEl()&&unitEl().value),vals=allowed(unit);['cblCursosList','projCursosList'].forEach(function(id){var dl=document.getElementById(id);if(!dl)return;dl.innerHTML='';vals.forEach(function(v){var o=document.createElement('option');o.value=v;dl.appendChild(o);});});var q=searchEl();if(q){q.placeholder='Selecione ou pesquise um curso';try{q.dispatchEvent(new CustomEvent('projbl:courses-filtered',{bubbles:true,detail:{unit:unit,courses:vals.slice()}}));}catch(e){}}updateWarning();return vals;}
+  function warningEl(){var wrap=document.querySelector('.proj-curso-combobox-wrap');if(!wrap)return null;var w=wrap.querySelector('.projbl-course-unit-warning');if(!w){w=document.createElement('div');w.className='projbl-course-unit-warning';w.setAttribute('role','status');w.setAttribute('aria-live','polite');wrap.appendChild(w);}return w;}
+  function incompatible(){var unit=clean(unitEl()&&unitEl().value);if(!unit||!COURSES_BY_UNIT[unit])return [];var keys=Object.create(null);COURSES_BY_UNIT[unit].forEach(function(v){keys[strip(v)]=1;});return selected().filter(function(v){return !keys[strip(v)];});}
+  function updateWarning(){var w=warningEl();if(!w)return;var unit=clean(unitEl()&&unitEl().value),bad=incompatible();if(!unit||!bad.length){w.textContent='';w.classList.remove('is-visible');return;}w.textContent='Verifique Curso(s): '+bad.join('; ')+(bad.length===1?' não pertence':' não pertencem')+' à unidade '+unit+'.';w.classList.add('is-visible');}
+  function enforceCatalog(){var h=hiddenEl();if(!h)return;var allowedKeys=Object.create(null);ALL_COURSES.forEach(function(v){allowedKeys[strip(v)]=v;});var vals=selected(),valid=unique(vals.filter(function(v){return !!allowedKeys[strip(v)];}).map(function(v){return allowedKeys[strip(v)];}));if(valid.length!==vals.length){h.value=valid.join('; ');h.setAttribute('value',h.value);try{h.dispatchEvent(new Event('input',{bubbles:true}));h.dispatchEvent(new Event('change',{bubbles:true}));}catch(e){}setTimeout(function(){try{if(window.GUIOES_MULTICURSO_EMAILS_FINAL_V1&&typeof window.GUIOES_MULTICURSO_EMAILS_FINAL_V1.init==='function')window.GUIOES_MULTICURSO_EMAILS_FINAL_V1.init();}catch(e){}},0);}}
+  function bind(){var unit=unitEl(),q=searchEl();if(q)q.placeholder='Selecione ou pesquise um curso';if(unit&&unit.dataset.projblCourseFilterBound!=='1'){unit.dataset.projblCourseFilterBound='1';unit.addEventListener('change',rebuildList,true);}if(q&&q.dataset.projblCatalogGuard!=='1'){q.dataset.projblCatalogGuard='1';q.addEventListener('change',function(){setTimeout(enforceCatalog,0);},true);q.addEventListener('blur',function(){setTimeout(enforceCatalog,0);},true);}var chips=document.getElementById('cblCursosSelecionados');if(chips&&chips.dataset.projblCourseObserved!=='1'){chips.dataset.projblCourseObserved='1';new MutationObserver(function(){enforceCatalog();updateWarning();}).observe(chips,{childList:true,subtree:true,characterData:true});}rebuildList();}
+  window.PROJBL_COURSES_BY_UNIT=COURSES_BY_UNIT;
+  window.PROJBL_ALL_COURSES=ALL_COURSES;
+  window.PROJBL_APLICAR_FILTRO_CURSOS=rebuildList;
+  window.PROJBL_CURSOS_INCOMPATIVEIS=incompatible;
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind);else bind();
+  [80,250,700,1600,3000].forEach(function(ms){setTimeout(bind,ms);});
+})();
+</script>
+<script id="guioes-curso-dropdown-custom-v2-js" data-open-complete-list="1">
+(function(){
+  'use strict';
+  if(window.__projblCursoDropdownImmediateV1) return;
+  window.__projblCursoDropdownImmediateV1=true;
+  function clean(v){return String(v==null?'':v).replace(/\s+/g,' ').trim();}
+  function strip(v){try{return clean(v).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();}catch(e){return clean(v).toLowerCase();}}
+  function wordsMatch(v,q){if(!q)return true;var qw=q.split(/\s+/).filter(Boolean),vw=v.split(/\s+/).filter(Boolean),p=0;for(var i=0;i<qw.length;i++){var f=false;for(var j=p;j<vw.length;j++){if(vw[j].indexOf(qw[i])===0){f=true;p=j+1;break;}}if(!f)return false;}return true;}
+  function score(v,q){v=strip(v);q=strip(q);if(!q)return 0;if(v===q)return 0;if(v.indexOf(q)===0)return 1;if(wordsMatch(v,q))return 2;if(v.indexOf(q)>=0)return 3;var t=q.split(/\s+/).filter(Boolean);if(t.length&&t.every(function(x){return v.indexOf(x)>=0;}))return 4;return 99;}
+  function options(listId){var dl=document.getElementById(listId),seen=Object.create(null);if(!dl)return[];return Array.prototype.slice.call(dl.querySelectorAll('option')).map(function(o,i){return{value:clean(o.value||o.textContent),idx:i};}).filter(function(o){var k=strip(o.value);if(!o.value||seen[k])return false;seen[k]=1;return true;});}
+  function selectedKeys(){var out=Object.create(null),h=document.getElementById('curso');String(h&&h.value||'').split(/\s*;\s*|\n+/).map(clean).filter(Boolean).forEach(function(v){out[strip(v)]=1;});Array.prototype.slice.call(document.querySelectorAll('#cblCursosSelecionados .cbl-course-chip,#cblCursosSelecionados .projbl-course-chip,[data-course-chip]')).forEach(function(chip){var span=chip.querySelector('span'),v=clean((span||chip).textContent||'').replace(/[×x]$/i,'').trim();if(v)out[strip(v)]=1;});return out;}
+  function fire(el,type){try{el.dispatchEvent(new Event(type,{bubbles:true}));}catch(e){}}
+  function selectCourse(input,value){var api=window.GUIOES_MULTICURSO_EMAILS_FINAL_V1;if(api&&typeof api.adicionarCurso==='function'){api.adicionarCurso(value);input.value='';fire(input,'input');return;}input.value=value;fire(input,'input');fire(input,'change');setTimeout(function(){input.value='';fire(input,'input');},120);}
+  function init(input){if(!input||input.dataset.projblImmediateCourse==='1')return;var listId=input.getAttribute('list')||input.dataset.nativeList||'cblCursosList';if(!options(listId).length)return;input.dataset.nativeList=listId;input.removeAttribute('list');input.setAttribute('autocomplete','off');input.setAttribute('role','combobox');input.setAttribute('aria-autocomplete','list');input.setAttribute('aria-expanded','false');input.placeholder='Selecione ou pesquise um curso';input.dataset.projblImmediateCourse='1';var wrap=input.closest('.projbl-curso-real-wrap')||input.parentElement;if(!wrap)return;if(getComputedStyle(wrap).position==='static')wrap.style.position='relative';Array.prototype.slice.call(wrap.querySelectorAll('.guioes-curso-suggestions-v2,.guioes-curso-toggle-v3')).forEach(function(n){n.remove();});var box=document.createElement('div');box.className='guioes-curso-suggestions-v2';box.id='projblCursoSuggestionsV1';box.setAttribute('role','listbox');box.setAttribute('aria-label','Cursos disponíveis');wrap.appendChild(box);input.setAttribute('aria-controls',box.id);var toggle=document.createElement('button');toggle.type='button';toggle.className='guioes-curso-toggle-v3';toggle.setAttribute('aria-label','Abrir lista de cursos');toggle.setAttribute('aria-expanded','false');toggle.textContent='⌄';wrap.appendChild(toggle);var active=-1;
+    function isOpen(){return box.classList.contains('is-open');}
+    function close(){box.classList.remove('is-open');active=-1;input.setAttribute('aria-expanded','false');toggle.setAttribute('aria-expanded','false');}
+    function open(){if(box.children.length){box.classList.add('is-open');input.setAttribute('aria-expanded','true');toggle.setAttribute('aria-expanded','true');}}
+    function render(allowOpen){var q=clean(input.value),sel=selectedKeys(),matches=options(listId).map(function(o){return{value:o.value,idx:o.idx,score:score(o.value,q)};}).filter(function(o){return o.score<99&&!sel[strip(o.value)];}).sort(function(a,b){return(a.score-b.score)||(a.idx-b.idx);});box.innerHTML='';active=-1;if(!matches.length){var e=document.createElement('div');e.className='guioes-curso-empty-v3';e.textContent=q?'Nenhum curso encontrado.':'Não existem outros cursos disponíveis para selecionar.';box.appendChild(e);}else{matches.forEach(function(item){var b=document.createElement('button');b.type='button';b.className='guioes-curso-suggestion-v2';b.setAttribute('role','option');b.textContent=item.value;b.addEventListener('mousedown',function(ev){ev.preventDefault();});b.addEventListener('click',function(){selectCourse(input,item.value);close();input.focus();});box.appendChild(b);});}if(allowOpen)open();else close();}
+    function setActive(i){var items=Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));items.forEach(function(x){x.classList.remove('is-active');x.setAttribute('aria-selected','false');});if(!items.length){active=-1;return;}active=Math.max(0,Math.min(i,items.length-1));items[active].classList.add('is-active');items[active].setAttribute('aria-selected','true');items[active].scrollIntoView({block:'nearest'});}
+    input.addEventListener('focus',function(){render(true);},true);input.addEventListener('click',function(){render(true);},true);input.addEventListener('input',function(){render(true);},true);input.addEventListener('projbl:courses-filtered',function(){if(document.activeElement===input||isOpen())render(true);else close();},true);input.addEventListener('keydown',function(ev){var items=Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));if(ev.key==='ArrowDown'){ev.preventDefault();if(!isOpen())render(true);setActive(active+1);}else if(ev.key==='ArrowUp'){ev.preventDefault();if(!isOpen())render(true);setActive(active<=0?items.length-1:active-1);}else if(ev.key==='Enter'){if(isOpen()&&items.length){ev.preventDefault();var chosen=items[active>=0?active:0];selectCourse(input,chosen.textContent||'');close();}}else if(ev.key==='Escape'){close();}},true);toggle.addEventListener('mousedown',function(ev){ev.preventDefault();});toggle.addEventListener('click',function(){if(isOpen())close();else{input.focus();render(true);}});document.addEventListener('click',function(ev){if(!wrap.contains(ev.target))close();},true);
   }
-  function wordsMatch(valueNorm, queryNorm){
-    if(!queryNorm) return false;
-    var qWords = queryNorm.split(/\s+/).filter(Boolean);
-    var vWords = valueNorm.split(/\s+/).filter(Boolean);
-    if(!qWords.length) return false;
-    var pos = 0;
-    for(var i=0;i<qWords.length;i++){
-      var found = false;
-      for(var j=pos;j<vWords.length;j++){
-        if(vWords[j].indexOf(qWords[i]) === 0){ found = true; pos = j + 1; break; }
-      }
-      if(!found) return false;
-    }
-    return true;
-  }
-  function score(value, query){
-    var v = strip(value), q = strip(query);
-    if(!q) return 0;
-    if(v === q) return 0;
-    if(v.indexOf(q) === 0) return 1;
-    if(wordsMatch(v, q)) return 2;
-    if(v.indexOf(q) >= 0) return 3;
-    var tokens = q.split(/\s+/).filter(Boolean);
-    if(tokens.length && tokens.every(function(t){ return v.indexOf(t) >= 0; })) return 4;
-    return 99;
-  }
-  function getOptions(listId){
-    var dl = document.getElementById(listId);
-    if(!dl) return [];
-    var seen = {};
-    return Array.prototype.slice.call(dl.querySelectorAll('option')).map(function(o, idx){
-      return {value: clean(o.value || o.textContent), idx: idx};
-    }).filter(function(o){
-      var key = strip(o.value);
-      if(!o.value || seen[key]) return false;
-      seen[key] = true;
-      return true;
-    });
-  }
-  function escapeHtml(v){
-    return String(v).replace(/[&<>"']/g, function(ch){
-      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
-    });
-  }
-  function selectCourse(input, value){
-    input.value = value;
-    input.dispatchEvent(new Event('input', {bubbles:true}));
-    input.dispatchEvent(new Event('change', {bubbles:true}));
-    setTimeout(function(){ input.value = ''; }, 120);
-  }
-  function initInput(input){
-    if(!input || input.dataset.guioesCustomCursoV2 === '1') return;
-    var listId = input.getAttribute('list') || input.dataset.nativeList || 'cblCursosList';
-    var options = getOptions(listId);
-    if(!options.length) return;
-
-    input.dataset.nativeList = listId;
-    input.removeAttribute('list');
-    input.setAttribute('autocomplete','off');
-    input.dataset.guioesCustomCursoV2 = '1';
-
-    var wrap = input.closest('.cbl-course-search-row') || input.parentElement;
-    if(!wrap) return;
-    if(getComputedStyle(wrap).position === 'static') wrap.style.position = 'relative';
-
-    var box = document.createElement('div');
-    box.className = 'guioes-curso-suggestions-v2';
-    box.setAttribute('role','listbox');
-    box.setAttribute('aria-label','Sugestões de cursos');
-    wrap.appendChild(box);
-
-    var active = -1;
-    function close(){ box.classList.remove('is-open'); active = -1; }
-    function open(){ if(box.children.length) box.classList.add('is-open'); }
-    function render(){
-      var q = clean(input.value);
-      if(q.length < 2){ box.innerHTML = ''; close(); return; }
-      var qNorm = strip(q);
-      var matches = options.map(function(o){ return {value:o.value, idx:o.idx, score:score(o.value, q)}; })
-        .filter(function(o){ return qNorm && o.score < 99; })
-        .sort(function(a,b){ return (a.score - b.score) || (a.idx - b.idx); })
-        .slice(0, 10);
-
-      box.innerHTML = '';
-      active = -1;
-      if(!matches.length){ close(); return; }
-      matches.forEach(function(item, i){
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'guioes-curso-suggestion-v2';
-        btn.setAttribute('role','option');
-        btn.textContent = item.value;
-        btn.addEventListener('mousedown', function(ev){ ev.preventDefault(); });
-        btn.addEventListener('click', function(){ selectCourse(input, item.value); close(); input.focus(); });
-        box.appendChild(btn);
-      });
-      open();
-    }
-    function setActive(idx){
-      var items = Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));
-      items.forEach(function(el){ el.classList.remove('is-active'); });
-      if(!items.length){ active = -1; return; }
-      active = Math.max(0, Math.min(idx, items.length - 1));
-      items[active].classList.add('is-active');
-      items[active].scrollIntoView({block:'nearest'});
-    }
-
-    input.addEventListener('input', render, true);
-    input.addEventListener('focus', function(){ if(clean(input.value).length < 2) close(); else render(); }, true);
-    input.addEventListener('keydown', function(ev){
-      var items = Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));
-      if(ev.key === 'ArrowDown'){
-        ev.preventDefault();
-        if(!box.classList.contains('is-open')){ if(clean(input.value).length < 2) return; render(); }
-        setActive(active + 1);
-      }else if(ev.key === 'ArrowUp'){
-        ev.preventDefault();
-        setActive(active <= 0 ? items.length - 1 : active - 1);
-      }else if(ev.key === 'Enter'){
-        if(box.classList.contains('is-open') && items.length){
-          ev.preventDefault();
-          var chosen = items[active >= 0 ? active : 0];
-          selectCourse(input, chosen.textContent || '');
-          close();
-        }
-      }else if(ev.key === 'Escape'){
-        close();
-      }
-    }, true);
-    document.addEventListener('click', function(ev){ if(!wrap.contains(ev.target)) close(); }, true);
-  }
-  function initAll(){
-    Array.prototype.slice.call(document.querySelectorAll('input#cursoBusca, input[name="cursoBusca"], input[id*="curso" i][list], input[placeholder*="curso" i]')).forEach(initInput);
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAll);
-  else initAll();
-  [200, 600, 1200, 2500].forEach(function(ms){ setTimeout(initAll, ms); });
+  function initAll(){Array.prototype.slice.call(document.querySelectorAll('#cursoBusca')).forEach(init);}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initAll);else initAll();
+  [100,300,700,1400,2600].forEach(function(ms){setTimeout(initAll,ms);});
 })();
 </script>
 
@@ -21193,6 +20797,8 @@ body.guioes-itemid-course-suppressed .sbl-course-dropdown{
 
   window.GUIOES_MULTICURSO_EMAILS_FINAL_V1 = {
     init: initMultiCourse,
+    adicionarCurso: addCourse,
+    definirCursos: function(list){ return setCourses(list || [], 'selection'); },
     normalizarEmails: normalizarEmails,
     cursos: function(){ var els = getCourseElements(); return els ? splitCourses(els.course.value) : []; }
   };
@@ -21295,7 +20901,7 @@ body:not(.guiao-pdf-mode) .pbl-course-chip button{
 <script id="projbl-correcao-final-docentes-autorias-normal">
 (function(){
   'use strict';
-  var nomes = ['Ex.: Prof.ª Sofia Martins','Ex.: Prof. Miguel Santos','Ex.: Prof.ª Inês Duarte'];
+  var nomes = ['Ex.: Sofia Martins','Ex.: Miguel Santos','Ex.: Inês Duarte'];
   var ucs = ['Ex.: Projeto Aplicado','Ex.: Laboratório de Projeto','Ex.: Comunicação Visual'];
   var emails = ['Ex.: sofia.martins@universidadeeuropeia.pt','Ex.: miguel.santos@universidadeeuropeia.pt','Ex.: ines.duarte@universidadeeuropeia.pt'];
   function aplicar(){
@@ -22447,6 +22053,732 @@ body:not(.guiao-pdf-mode) #projblAutorizacaoRepositorioSection.projbl-required-v
 })();
 </script>
 
+<script id="projbl-autosave-resiliente-v7">
+(function(){
+  'use strict';
+  if(window.__projblAutosaveResilienteV7) return;
+  window.__projblAutosaveResilienteV7 = true;
+
+  var VERSION = 7;
+  var MODE = (function(){
+    var marked = String(window.__PROJBL_TEMPLATE_MODE__ || document.documentElement.getAttribute('data-projbl-template-mode') || '').toLowerCase();
+    if(marked === 'teste' || marked === 'normal') return marked;
+    var path = '';
+    try { path = decodeURIComponent(location.pathname || ''); } catch(e) { path = location.pathname || ''; }
+    return /PROJ-BL[_ -]?Teste(?:\(\d+\))?\.html$/i.test(path) ? 'teste' : 'normal';
+  })();
+  var ITEM_ID = (function(){ try{return new URLSearchParams(location.search||'').get('itemId')||'';}catch(e){return '';} })();
+  var STORAGE_KEY = 'guioes_autosave_PROJBL_v7:' + MODE + ':' + (ITEM_ID || 'novo');
+  var LEGACY_KEY = 'template_autosave_PROJ_TESTE_COMPLETO_DESIGN_VISUAL_EAD_V5';
+  var initialized = false;
+  var restoring = true;
+  var saveTimer = null;
+  var ignoreUntil = 0;
+  var baseCounts = {};
+  var lastSavedRaw = '';
+
+  var GROUPS = [
+    {name:'docentes', rows:'#docentesTable tr', filter:'.docente-nome', min:1},
+    {name:'docentesProjeto', rows:'#docentesProjetoTable tbody tr', filter:'input,textarea,select', min:1},
+    {name:'descricao', rows:'#descricao table tr', filter:'input,textarea,select', min:1},
+    {name:'metodologia', rows:'#metodologia table tr', filter:'input,textarea,select', min:1},
+    {name:'entregaveis', rows:'#entregaveis .projbliso-data-row', filter:'input,textarea,select', min:1},
+    {name:'contribuicoes', rows:'#ucs .projblz7g-data-row', filter:'input,textarea,select', min:1},
+    {name:'avaliacao', rows:'#avaliacao .projbl-avaliacao-clean-card', filter:'textarea,input,select', min:1}
+  ];
+
+  function clean(v){ return String(v == null ? '' : v); }
+  function toast(msg){
+    var old=document.querySelector('.toast-message'); if(old) old.remove();
+    var d=document.createElement('div'); d.className='toast-message'; d.textContent=msg; document.body.appendChild(d);
+    setTimeout(function(){ if(d.parentNode)d.remove(); },2600);
+  }
+  function status(text){
+    var el=document.getElementById('autosaveStatus');
+    if(el) el.textContent=text;
+  }
+  function isExcluded(el){
+    if(!el || !el.tagName) return true;
+    if(el.id==='cursoBusca') return true;
+    if(el.matches('[data-autosave-ignore="true"], .no-autosave')) return true;
+    var type=String(el.type||'').toLowerCase();
+    if(type==='button'||type==='submit'||type==='reset'||type==='file') return true;
+    if(type==='hidden' && el.id!=='curso') return true;
+    return false;
+  }
+  function fields(root){
+    return Array.prototype.slice.call((root||document).querySelectorAll('input,textarea,select')).filter(function(el){return !isExcluded(el);});
+  }
+  function groupRows(group){
+    return Array.prototype.slice.call(document.querySelectorAll(group.rows)).filter(function(row){return !group.filter || !!row.querySelector(group.filter);});
+  }
+  function groupFor(el){
+    for(var i=0;i<GROUPS.length;i++){
+      var rows=groupRows(GROUPS[i]);
+      for(var r=0;r<rows.length;r++){
+        if(rows[r]===el || rows[r].contains(el)) return {group:GROUPS[i], row:r, rowEl:rows[r]};
+      }
+    }
+    return null;
+  }
+  function keyFor(el){
+    var g=groupFor(el);
+    if(g){
+      var fs=fields(g.rowEl);
+      var fi=fs.indexOf(el);
+      return 'group:'+g.group.name+':'+g.row+':'+fi;
+    }
+    var type=String(el.type||'').toLowerCase();
+    if((type==='radio'||type==='checkbox') && el.name) return 'name:'+el.name+':'+clean(el.value);
+    if(el.id) return 'id:'+el.id;
+    if(el.name){
+      var same=fields().filter(function(x){return x.name===el.name;});
+      return 'name:'+el.name+':'+Math.max(0,same.indexOf(el));
+    }
+    var section=el.closest && el.closest('[id]');
+    if(section){
+      var local=fields(section);
+      return 'section:'+section.id+':'+Math.max(0,local.indexOf(el));
+    }
+    return 'global:'+Math.max(0,fields().indexOf(el));
+  }
+  function fieldState(el){
+    var type=String(el.type||'').toLowerCase();
+    return {
+      value: clean(el.value),
+      checked: !!el.checked,
+      type:type,
+      height: el.tagName==='TEXTAREA' ? clean(el.style.height) : ''
+    };
+  }
+  function structureSnapshot(){
+    var out={};
+    GROUPS.forEach(function(g){ out[g.name]=groupRows(g).length; });
+    return out;
+  }
+  function activeTab(){
+    var active=document.querySelector('.tab-content.active[id]');
+    return active ? active.id : '';
+  }
+  function payload(){
+    var map={};
+    fields().forEach(function(el){ map[keyFor(el)]=fieldState(el); });
+    return {
+      version:VERSION,
+      template:'PROJ-BL',
+      mode:MODE,
+      itemId:ITEM_ID||'',
+      savedAt:new Date().toISOString(),
+      timestamp:new Date().toLocaleTimeString('pt-PT'),
+      structure:structureSnapshot(),
+      activeTab:activeTab(),
+      fields:map
+    };
+  }
+  function writePayload(p){
+    try{
+      var raw=JSON.stringify(p);
+      localStorage.setItem(STORAGE_KEY,raw);
+      var verify=localStorage.getItem(STORAGE_KEY);
+      if(verify!==raw) throw new Error('verificação de escrita falhou');
+      lastSavedRaw=raw;
+      status('Última gravação automática: '+(p.timestamp||'--'));
+      return true;
+    }catch(e){
+      status('Não foi possível guardar o rascunho neste navegador.');
+      return false;
+    }
+  }
+  function saveNow(reason){
+    if(!initialized || restoring || Date.now()<ignoreUntil) return false;
+    clearTimeout(saveTimer); saveTimer=null;
+    var p=payload();
+    var raw=JSON.stringify(p);
+    if(raw===lastSavedRaw && reason!=='manual') return true;
+    return writePayload(p);
+  }
+  function scheduleSave(kind){
+    if(!initialized || restoring || Date.now()<ignoreUntil) return;
+    clearTimeout(saveTimer);
+    saveTimer=setTimeout(function(){saveNow(kind||'auto');}, kind==='input'?650:80);
+  }
+  function clearClone(clone){
+    fields(clone).forEach(function(el){
+      var type=String(el.type||'').toLowerCase();
+      if(type==='radio'||type==='checkbox') el.checked=false;
+      else if(el.tagName==='SELECT') el.selectedIndex=0;
+      else el.value='';
+      el.removeAttribute('aria-invalid');
+      el.classList.remove('error','invalid','campo-obrigatorio-erro','sbl-email-error','projbliso-percent-warn','projblz7g-warn');
+      if(el.tagName==='TEXTAREA') el.style.height='';
+    });
+    clone.querySelectorAll('[id]').forEach(function(n){ n.removeAttribute('id'); });
+  }
+  function cloneOne(group){
+    var rows=groupRows(group); if(!rows.length) return false;
+    var last=rows[rows.length-1], clone=last.cloneNode(true);
+    clearClone(clone);
+    last.parentNode.insertBefore(clone,last.nextSibling);
+    try{ if(typeof window.projblInitResizeHandles==='function') window.projblInitResizeHandles(clone); }catch(e){}
+    return true;
+  }
+  function removeOne(group){
+    var rows=groupRows(group);
+    if(rows.length<=Math.max(1,group.min||1)) return false;
+    rows[rows.length-1].remove(); return true;
+  }
+  function ensureStructure(struct){
+    struct=struct||{};
+    GROUPS.forEach(function(g){
+      var desired=parseInt(struct[g.name],10);
+      if(!isFinite(desired)) desired=baseCounts[g.name]||groupRows(g).length||1;
+      desired=Math.max(g.min||1,Math.min(100,desired));
+      var guard=0;
+      while(groupRows(g).length<desired && guard++<100){ if(!cloneOne(g))break; }
+      guard=0;
+      while(groupRows(g).length>desired && guard++<100){ if(!removeOne(g))break; }
+    });
+  }
+  function currentFieldMap(){
+    var map={}; fields().forEach(function(el){map[keyFor(el)]=el;}); return map;
+  }
+  function applyField(el,state){
+    if(!el||!state) return;
+    var type=String(el.type||'').toLowerCase();
+    if(type==='radio'||type==='checkbox') el.checked=!!state.checked;
+    else el.value=clean(state.value);
+    if(el.tagName==='TEXTAREA' && state.height) el.style.height=state.height;
+  }
+  function refreshAfterRestore(){
+    fields().forEach(function(el){
+      try{el.dispatchEvent(new Event('input',{bubbles:true}));}catch(e){}
+      try{el.dispatchEvent(new Event('change',{bubbles:true}));}catch(e){}
+    });
+    try{ if(window.GUIOES_MULTICURSO_EMAILS_FINAL_V1 && typeof window.GUIOES_MULTICURSO_EMAILS_FINAL_V1.init==='function') window.GUIOES_MULTICURSO_EMAILS_FINAL_V1.init(); }catch(e){}
+    try{ if(typeof window.updateV74Totals==='function') window.updateV74Totals(); }catch(e){}
+    try{ if(typeof window.updateProgress==='function') window.updateProgress(); }catch(e){}
+    try{ if(typeof window.renderProgress==='function') window.renderProgress(); }catch(e){}
+  }
+  function restoreTab(id){
+    if(!id) return;
+    try{
+      if(typeof window.openTab==='function'){ window.openTab(id); return; }
+      document.querySelectorAll('.tab-content').forEach(function(p){p.classList.toggle('active',p.id===id);});
+      document.querySelectorAll('.tab').forEach(function(t){
+        var oc=t.getAttribute('onclick')||'';
+        t.classList.toggle('active',oc.indexOf("'"+id+"'")>=0||oc.indexOf('"'+id+'"')>=0);
+      });
+    }catch(e){}
+  }
+  function validPayload(p){
+    return !!p && Number(p.version)>=7 && p.template==='PROJ-BL' && p.mode===MODE && clean(p.itemId||'')===clean(ITEM_ID||'');
+  }
+  function readCurrent(){
+    try{
+      var raw=localStorage.getItem(STORAGE_KEY); if(!raw)return null;
+      var p=JSON.parse(raw); return validPayload(p)?p:null;
+    }catch(e){return null;}
+  }
+  function restorePayload(p,manual){
+    if(!validPayload(p)) return false;
+    restoring=true; window.__projblRestoringDraftV7=true;
+    ensureStructure(p.structure);
+    var map=currentFieldMap();
+    Object.keys(p.fields||{}).forEach(function(k){ if(map[k]) applyField(map[k],p.fields[k]); });
+    restoreTab(p.activeTab);
+    refreshAfterRestore();
+    restoring=false; window.__projblRestoringDraftV7=false;
+    window.__projblDraftRestoredV7=true;
+    lastSavedRaw=JSON.stringify(p);
+    status('Última gravação automática: '+(p.timestamp||'--'));
+    if(manual) toast('Rascunho restaurado com sucesso.');
+    return true;
+  }
+  function legacyLooksLikeDemo(p){
+    try{
+      var vals=Object.keys((p&&p.data)||{}).map(function(k){return clean(p.data[k]);}).join(' | ').toLowerCase();
+      return vals.indexOf('design visual para comunidade local')>=0 ||
+             vals.indexOf('mariana costa')>=0 ||
+             vals.indexOf('protótipo intermédio e teste com utilizadores')>=0;
+    }catch(e){return false;}
+  }
+  function migrateLegacy(){
+    if(readCurrent()) return;
+    var raw=null,p=null;
+    try{raw=localStorage.getItem(LEGACY_KEY);}catch(e){}
+    if(!raw) return;
+    try{p=JSON.parse(raw);}catch(e){p=null;}
+    if(!p||!p.data){ try{localStorage.removeItem(LEGACY_KEY);}catch(e){} return; }
+    if(legacyLooksLikeDemo(p)){
+      try{
+        localStorage.setItem('guioes_quarentena_PROJBL_v5_'+Date.now(),raw);
+        localStorage.removeItem(LEGACY_KEY);
+      }catch(e){}
+      return;
+    }
+    var current=fields(), migrated=payload();
+    current.forEach(function(el,i){
+      if(p.data[i]===undefined) return;
+      var state=fieldState(el); state.value=clean(p.data[i]);
+      migrated.fields[keyFor(el)]=state;
+    });
+    migrated.timestamp=p.timestamp||migrated.timestamp;
+    writePayload(migrated);
+    try{localStorage.removeItem(LEGACY_KEY);}catch(e){}
+  }
+  function restoreCurrent(manual){
+    var p=readCurrent();
+    if(!p){ if(manual)toast('Não existe rascunho guardado para este guião.'); return false; }
+    return restorePayload(p,manual);
+  }
+  function deleteDraft(){
+    clearTimeout(saveTimer); saveTimer=null;
+    try{localStorage.removeItem(STORAGE_KEY);}catch(e){}
+    lastSavedRaw=''; status('Última gravação automática: --');
+    toast('Rascunho apagado. Formulário mantido.');
+  }
+  function clearCourseUI(){
+    var h=document.getElementById('curso');
+    if(h){
+      h.value=''; h.setAttribute('value','');
+      h.dataset.guioesMulticursoList='';
+      delete h.dataset.projblCourses;
+      delete h.dataset.selectedCourses;
+    }
+    var q=document.getElementById('cursoBusca'); if(q)q.value='';
+    ['cblCursosSelecionados','projblCursosSelecionados'].forEach(function(id){var x=document.getElementById(id);if(x){x.innerHTML='';x.classList.remove('has-chips');}});
+    try{ if(window.GUIOES_MULTICURSO_EMAILS_FINAL_V1 && typeof window.GUIOES_MULTICURSO_EMAILS_FINAL_V1.definirCursos==='function') window.GUIOES_MULTICURSO_EMAILS_FINAL_V1.definirCursos([]); }catch(e){}
+    if(h){ h.value=''; h.setAttribute('value',''); h.dataset.guioesMulticursoList=''; }
+    document.querySelectorAll('.projbl-course-dropdown,.guioes-curso-suggestions-v2,.proj-cursos-sugestoes').forEach(function(x){x.innerHTML='';x.classList.remove('open','show','is-open');});
+  }
+  function clearAll(){
+    restoring=true; window.__projblRestoringDraftV7=true;
+    ensureStructure(baseCounts);
+    fields().forEach(function(el){
+      var type=String(el.type||'').toLowerCase();
+      if(type==='radio'||type==='checkbox')el.checked=false;
+      else if(el.tagName==='SELECT')el.selectedIndex=0;
+      else el.value='';
+      if(el.tagName==='TEXTAREA')el.style.height='';
+      el.removeAttribute('aria-invalid');
+      el.classList.remove('error','invalid','campo-obrigatorio-erro','sbl-email-error','projbliso-percent-warn','projblz7g-warn');
+    });
+    clearCourseUI();
+    try{localStorage.removeItem(STORAGE_KEY);}catch(e){}
+    lastSavedRaw='';
+    refreshAfterRestore();
+    restoring=false; window.__projblRestoringDraftV7=false;
+    ignoreUntil=Date.now()+700;
+    status('Última gravação automática: --');
+    toast('Formulário limpo com sucesso.');
+  }
+  function reuseHeader(){
+    var p=readCurrent(); if(!p){toast('Ainda não há rascunho guardado para reutilizar o cabeçalho.');return;}
+    restoring=true;
+    var map=currentFieldMap(), restored=0;
+    Object.keys(p.fields||{}).forEach(function(k){
+      var el=map[k]; if(!el)return;
+      var inHeader=/^id:(unidadeOrganica|modalidade|semestre|anoCurricular|turmaEdicao|turma|curso|tituloProjeto|ucProjeto|anoLetivoProjeto|numeroEstudantes|numeroGrupos|autoria|estadoGuiao|autorizacaoRepositorio)/.test(k) ||
+        (el.closest && el.closest('.header,.header-info,.header-card,.header-grid,.proj-title-card'));
+      if(!inHeader)return;
+      applyField(el,p.fields[k]); restored++;
+    });
+    refreshAfterRestore(); restoring=false;
+    toast(restored?'Cabeçalho reutilizado a partir do rascunho.':'Não encontrei dados de cabeçalho no rascunho.');
+  }
+  function buildMenu(){
+    var menu=document.getElementById('uxMenuMaisOpcoes'), btn=document.getElementById('btnMaisOpcoes');
+    if(!menu||!btn)return;
+    menu.innerHTML=
+      '<button type="button" id="draftBtn">💾 Guardar rascunho</button>'+
+      '<button type="button" id="restoreBtn">📂 Restaurar rascunho</button>'+
+      '<button type="button" id="deleteBtn">🗑️ Apagar rascunho</button>'+
+      '<button type="button" id="reuseHeaderBtn">↩️ Reutilizar cabeçalho</button>'+
+      '<button type="button" id="clearBtn">🧹 Limpar formulário</button>';
+    var clone=btn.cloneNode(true); btn.parentNode.replaceChild(clone,btn); btn=clone;
+    btn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();menu.classList.toggle('open');});
+    document.addEventListener('click',function(e){if(!menu.contains(e.target)&&e.target!==btn)menu.classList.remove('open');});
+    document.getElementById('draftBtn').addEventListener('click',function(){saveNow('manual');menu.classList.remove('open');toast('Rascunho guardado com sucesso.');});
+    document.getElementById('restoreBtn').addEventListener('click',function(){restoreCurrent(true);menu.classList.remove('open');});
+    document.getElementById('deleteBtn').addEventListener('click',function(){deleteDraft();menu.classList.remove('open');});
+    document.getElementById('reuseHeaderBtn').addEventListener('click',function(){reuseHeader();menu.classList.remove('open');});
+    document.getElementById('clearBtn').addEventListener('click',function(){clearAll();menu.classList.remove('open');});
+  }
+  function renderProgressV7(){
+    var controls=fields().filter(function(el){return el.getAttribute('data-progress-optional')!=='true';});
+    var total=0,filled=0,groups={};
+    controls.forEach(function(el){
+      var type=String(el.type||'').toLowerCase();
+      if(type==='radio'){
+        var k=el.name||el.id||keyFor(el); if(groups[k])return; groups[k]=true; total++;
+        if(controls.some(function(x){return String(x.type||'').toLowerCase()==='radio'&&(x.name===el.name)&&x.checked;}))filled++;
+      }else if(type==='checkbox'){total++;if(el.checked)filled++;}
+      else{total++;if(clean(el.value).trim())filled++;}
+    });
+    var pct=total?Math.round(filled/total*100):0;
+    var fill=document.getElementById('progressFill'),label=document.getElementById('progressLabel');
+    if(fill)fill.style.width=pct+'%'; if(label)label.textContent='Guião preenchido: '+pct+'%';
+  }
+  function bindEvents(){
+    document.addEventListener('input',function(ev){
+      if(ev.target&&/^(INPUT|TEXTAREA|SELECT)$/i.test(ev.target.tagName||'')){
+        if(ev.isTrusted){window.__projblUserTouchedV7=true;}
+        renderProgressV7(); scheduleSave('input');
+      }
+    },true);
+    document.addEventListener('change',function(ev){
+      if(ev.target&&/^(INPUT|TEXTAREA|SELECT)$/i.test(ev.target.tagName||'')){
+        if(ev.isTrusted){window.__projblUserTouchedV7=true;}
+        renderProgressV7(); scheduleSave('change');
+      }
+    },true);
+    document.addEventListener('click',function(ev){
+      if(ev.isTrusted)window.__projblUserTouchedV7=true;
+      var b=ev.target&&ev.target.closest?ev.target.closest('.projbl-row-action-btn,.proj-control-btn,.proj-table-tool,.proj-criterion-add,.projbl-course-option,.projbl-course-remove,.cbl-course-chip button'):null;
+      if(b)setTimeout(function(){renderProgressV7();scheduleSave('change');},90);
+    },true);
+    ['pagehide','beforeunload'].forEach(function(name){window.addEventListener(name,function(){saveNow('final');});});
+    document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')saveNow('final');});
+  }
+  function waitForItemLoad(done){
+    if(!ITEM_ID){setTimeout(done,80);return;}
+    var started=Date.now();
+    (function poll(){
+      var loading=(document.body&&document.body.classList.contains('guioes-itemid-loading'))||window.__guioesItemIdApplying;
+      if(!loading && (window.__guioesCarregamentoPorItemIdExecutado || Date.now()-started>1200)){done();return;}
+      if(Date.now()-started>12000){done();return;}
+      setTimeout(poll,120);
+    })();
+  }
+  function init(){
+    GROUPS.forEach(function(g){baseCounts[g.name]=groupRows(g).length||g.min||1;});
+    bindEvents();
+    buildMenu();
+    waitForItemLoad(function(){
+      migrateLegacy();
+      var restored=restoreCurrent(false);
+      restoring=false; initialized=true;
+      if(!restored){
+        status(MODE==='teste'?'Versão de teste preenchida.':'Última gravação automática: --');
+        renderProgressV7();
+      }
+      setTimeout(buildMenu,0);
+    });
+  }
+
+  window.saveDraft=function(){return saveNow('manual');};
+  window.saveLocalDraft=window.saveDraft;
+  window.salvarRascunho=window.saveDraft;
+  window.salvarLocalmente=window.saveDraft;
+  window.saveToLocalStorage=window.saveDraft;
+  window.restoreDraft=function(){return restoreCurrent(true);};
+  window.restoreLocalDraft=window.restoreDraft;
+  window.restaurarRascunho=window.restoreDraft;
+  window.restoreFromLocalStorage=window.restoreDraft;
+  window.deleteDraft=deleteDraft;
+  window.deleteLocalDraft=deleteDraft;
+  window.apagarRascunho=deleteDraft;
+  window.clearAll=clearAll;
+  window.limparFormulario=clearAll;
+  window.resetForm=clearAll;
+  window.renderProgress=renderProgressV7;
+  window.PROJBL_AUTOSAVE_V7={
+    key:STORAGE_KEY,mode:MODE,itemId:ITEM_ID,
+    save:saveNow,restore:restoreCurrent,clear:clearAll,remove:deleteDraft,
+    structure:structureSnapshot
+  };
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true}); else init();
+})();
+</script>
+<script id="projbl-course-unit-validation-final-v1">
+(function(){
+  'use strict';
+  if(window.__projblCourseUnitValidationFinalV1)return;
+  window.__projblCourseUnitValidationFinalV1=true;
+  function clean(v){return String(v==null?'':v).replace(/\s+/g,' ').trim();}
+  function bad(){return typeof window.PROJBL_CURSOS_INCOMPATIVEIS==='function'?window.PROJBL_CURSOS_INCOMPATIVEIS():[];}
+  function notify(msg){if(typeof window.toast==='function')return window.toast(msg,'error',7500);if(typeof window.showToast==='function')return window.showToast(msg);if(typeof window.mostrarToast==='function')return window.mostrarToast(msg);try{window.alert(msg);}catch(e){}}
+  function message(list){var unit=clean(document.getElementById('unidadeOrganica')&&document.getElementById('unidadeOrganica').value);return 'Verifique Curso(s): '+list.join('; ')+(list.length===1?' não pertence':' não pertencem')+' à unidade '+unit+'.';}
+  function mark(){var t=document.getElementById('cursoBusca')||document.querySelector('.proj-curso-combobox-wrap');if(t){try{t.classList.add('projbl-required-v3-invalid');setTimeout(function(){t.classList.remove('projbl-required-v3-invalid');},5000);t.focus&&t.focus();}catch(e){}}}
+  function install(){var base=window.guiaoValidarCamposObrigatoriosSubmissaoV3||window.guiaoValidarCamposObrigatoriosSubmissaoV2||window.guiaoValidarCamposObrigatoriosSubmissaoV1;if(typeof base!=='function'||base.__projblCourseUnitWrapped)return;function wrapped(options){var result=base.apply(this,arguments)||{ok:true,missing:[],invalid:[]},list=bad();if(!list.length)return result;if(!options||!options.silent){notify(message(list));mark();}var missing=Array.isArray(result.missing)?result.missing.slice():[],invalid=Array.isArray(result.invalid)?result.invalid.slice():[];if(invalid.indexOf('Curso(s)')<0)invalid.push('Curso(s)');return{ok:false,missing:missing,invalid:invalid,issues:result.issues||[],incompatibleCourses:list.slice()};}wrapped.__projblCourseUnitWrapped=true;wrapped.__projblCourseUnitOriginal=base;window.guiaoValidarCamposObrigatoriosSubmissaoV3=wrapped;window.guiaoValidarCamposObrigatoriosSubmissaoV2=wrapped;window.guiaoValidarCamposObrigatoriosSubmissaoV1=wrapped;window.validarCamposObrigatoriosProjBL=function(showMessage){return wrapped({silent:showMessage===false}).ok;};}
+  function isSubmit(el){if(!el)return false;var t=clean(el.textContent||el.value).toLowerCase();return el.id==='btnEnviarValidacao'||el.id==='btnValidacaoReal'||t.indexOf('enviar para valida')>=0||t.indexOf('atualizar guião')>=0||t.indexOf('submeter')>=0;}
+  document.addEventListener('click',function(ev){var btn=ev.target&&ev.target.closest?ev.target.closest('button,input[type="button"],input[type="submit"]'):null;if(!isSubmit(btn))return;var list=bad();if(!list.length)return;ev.preventDefault();ev.stopPropagation();if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();notify(message(list));mark();return false;},true);
+  install();if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install);[100,500,1200,2600,4200].forEach(function(ms){setTimeout(install,ms);});
+})();
+</script>
+<script id="projbl-validation-only-after-submit-v1">
+(function(){
+  'use strict';
+  if(window.__projblValidationOnlyAfterSubmitV1) return;
+  window.__projblValidationOnlyAfterSubmitV1 = true;
+
+  var armed = false;
+  var cleaning = false;
+
+  function cleanText(v){
+    return String(v == null ? '' : v).replace(/\s+/g,' ').trim().toLowerCase();
+  }
+
+  function isSubmitControl(el){
+    if(!el) return false;
+    var text = cleanText(el.textContent || el.value);
+    return el.id === 'btnEnviarValidacao' ||
+           el.id === 'btnValidacaoReal' ||
+           text.indexOf('enviar para valida') !== -1 ||
+           text.indexOf('atualizar guião') !== -1 ||
+           text.indexOf('submeter') !== -1;
+  }
+
+  function clearPrematureValidation(){
+    if(armed || cleaning) return;
+    cleaning = true;
+    try{
+      document.querySelectorAll(
+        '.proj-required-invalid,'+
+        '.projbl-required-v3-invalid,'+
+        '.guiao-required-missing,'+
+        '.projbl-ui-v3-error,'+
+        '[data-projbl-required-v3-invalid="1"]'
+      ).forEach(function(el){
+        el.classList.remove(
+          'proj-required-invalid',
+          'projbl-required-v3-invalid',
+          'guiao-required-missing',
+          'projbl-ui-v3-error'
+        );
+        el.removeAttribute('data-projbl-required-v3-invalid');
+        if(!el.classList.contains('proj-email-invalid')){
+          el.removeAttribute('aria-invalid');
+        }
+        try{
+          el.style.removeProperty('border-color');
+          el.style.removeProperty('outline');
+          el.style.removeProperty('outline-offset');
+          el.style.removeProperty('background-color');
+          el.style.removeProperty('background');
+        }catch(_e){}
+      });
+
+      document.querySelectorAll(
+        '.projbl-required-v3-group-invalid,'+
+        '.guiao-required-missing'
+      ).forEach(function(el){
+        el.classList.remove('projbl-required-v3-group-invalid','guiao-required-missing');
+      });
+
+      document.querySelectorAll('[aria-invalid="true"]').forEach(function(el){
+        if(!el.classList.contains('proj-email-invalid')) el.removeAttribute('aria-invalid');
+      });
+    }finally{
+      cleaning = false;
+    }
+  }
+
+  function resetValidationState(){
+    armed = false;
+    setTimeout(clearPrematureValidation,0);
+    setTimeout(clearPrematureValidation,80);
+    setTimeout(clearPrematureValidation,300);
+  }
+
+  ['pointerdown','mousedown','touchstart'].forEach(function(type){
+    document.addEventListener(type,function(ev){
+      var control = ev.target && ev.target.closest ? ev.target.closest('button,input[type="button"],input[type="submit"]') : null;
+      if(isSubmitControl(control)) armed = true;
+    },true);
+  });
+
+  document.addEventListener('keydown',function(ev){
+    if(ev.key !== 'Enter' && ev.key !== ' ') return;
+    var control = ev.target && ev.target.closest ? ev.target.closest('button,input[type="button"],input[type="submit"]') : null;
+    if(isSubmitControl(control)) armed = true;
+  },true);
+
+  document.addEventListener('click',function(ev){
+    var control = ev.target && ev.target.closest ? ev.target.closest('button,input[type="button"],input[type="submit"]') : null;
+    if(isSubmitControl(control)){
+      armed = true;
+      return;
+    }
+    var text = cleanText(control && (control.textContent || control.value));
+    if(control && (text.indexOf('limpar formulário') !== -1 || text === 'limpar')){
+      resetValidationState();
+    }
+  },true);
+
+  document.addEventListener('input',function(){
+    if(!armed) clearPrematureValidation();
+  },true);
+  document.addEventListener('change',function(){
+    if(!armed) clearPrematureValidation();
+  },true);
+
+  var observer = new MutationObserver(function(mutations){
+    if(armed || cleaning) return;
+    for(var i=0;i<mutations.length;i++){
+      var m = mutations[i];
+      if(m.type === 'attributes' && (m.attributeName === 'class' || m.attributeName === 'aria-invalid' || m.attributeName === 'data-projbl-required-v3-invalid')){
+        clearPrematureValidation();
+        break;
+      }
+    }
+  });
+
+  function init(){
+    clearPrematureValidation();
+    try{
+      observer.observe(document.documentElement,{subtree:true,attributes:true,attributeFilter:['class','aria-invalid','data-projbl-required-v3-invalid']});
+    }catch(_e){}
+    [40,120,300,700,1400,2600,4200,7000,11000].forEach(function(ms){
+      setTimeout(clearPrematureValidation,ms);
+    });
+  }
+
+  window.PROJBL_VALIDATION_STATE_V1 = {
+    arm:function(){ armed = true; },
+    reset:resetValidationState,
+    isArmed:function(){ return armed; },
+    clearPremature:clearPrematureValidation
+  };
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
+})();
+</script>
+
+
+
+<style id="projbl-placeholder-textarea-final-v1">
+/* PROJ-BL — normalização final e única dos textos de exemplo.
+   Todos os placeholders e estados "Selecionar" usam exatamente o mesmo cinzento claro. */
+html body:not(.guiao-pdf-mode):not(.projbl-exporting) .page input[placeholder].projbl-placeholder-normalized::placeholder,
+html body:not(.guiao-pdf-mode):not(.projbl-exporting) .page textarea[placeholder].projbl-placeholder-normalized::placeholder {
+  color: #a8a8a8 !important;
+  -webkit-text-fill-color: #a8a8a8 !important;
+  opacity: 1 !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  text-shadow: none !important;
+}
+html body:not(.guiao-pdf-mode):not(.projbl-exporting) .page input[placeholder].projbl-placeholder-normalized::-webkit-input-placeholder,
+html body:not(.guiao-pdf-mode):not(.projbl-exporting) .page textarea[placeholder].projbl-placeholder-normalized::-webkit-input-placeholder {
+  color: #a8a8a8 !important;
+  -webkit-text-fill-color: #a8a8a8 !important;
+  opacity: 1 !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  text-shadow: none !important;
+}
+html body:not(.guiao-pdf-mode):not(.projbl-exporting) .page input[placeholder].projbl-placeholder-normalized::-moz-placeholder,
+html body:not(.guiao-pdf-mode):not(.projbl-exporting) .page textarea[placeholder].projbl-placeholder-normalized::-moz-placeholder {
+  color: #a8a8a8 !important;
+  opacity: 1 !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  text-shadow: none !important;
+}
+/* Os selects ainda não escolhidos ("Selecionar") acompanham os placeholders. */
+html body:not(.guiao-pdf-mode):not(.projbl-exporting) .page select.projbl-select-placeholder-final {
+  color: #a8a8a8 !important;
+  -webkit-text-fill-color: #a8a8a8 !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+}
+html body:not(.guiao-pdf-mode):not(.projbl-exporting) .page select option[value=""],
+html body:not(.guiao-pdf-mode):not(.projbl-exporting) .page select option:disabled:first-child {
+  color: #a8a8a8 !important;
+  font-weight: 400 !important;
+}
+textarea.projbl-autogrow-final {
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  resize: vertical !important;
+}
+</style>
+
+<script id="projbl-textarea-autogrow-final-v1">
+(function(){
+  'use strict';
+  if(window.__projblTextareaAutogrowFinalV2) return;
+  window.__projblTextareaAutogrowFinalV2 = true;
+
+  var STYLE_ID = 'projbl-placeholder-textarea-final-v1';
+  function markPlaceholders(root){
+    root = root || document;
+    if(root.matches && root.matches('input[placeholder],textarea[placeholder]')) root.classList.add('projbl-placeholder-normalized');
+    if(root.querySelectorAll) root.querySelectorAll('input[placeholder],textarea[placeholder]').forEach(function(el){
+      el.classList.add('projbl-placeholder-normalized');
+    });
+  }
+  function isSelectPlaceholder(el){
+    if(!el || el.tagName !== 'SELECT') return false;
+    var value = String(el.value == null ? '' : el.value).trim();
+    var opt = el.options && el.selectedIndex >= 0 ? el.options[el.selectedIndex] : null;
+    var text = opt ? String(opt.textContent || '').trim() : '';
+    return value === '' || /^(selecionar|selecione)$/i.test(text);
+  }
+  function markSelects(root){
+    root = root || document;
+    var list=[];
+    if(root.matches && root.matches('select')) list.push(root);
+    if(root.querySelectorAll) list=list.concat(Array.from(root.querySelectorAll('select')));
+    list.forEach(function(el){
+      el.classList.toggle('projbl-select-placeholder-final', isSelectPlaceholder(el));
+    });
+  }
+  function keepStyleLast(){
+    var st=document.getElementById(STYLE_ID);
+    if(!st) return;
+    var host=document.head || document.documentElement;
+    if(st.parentNode!==host || st!==host.lastElementChild) host.appendChild(st);
+  }
+  function resizeOne(el){
+    if(!el || el.tagName !== 'TEXTAREA') return;
+    el.classList.add('projbl-autogrow-final');
+    var min = parseFloat(getComputedStyle(el).minHeight) || 0;
+    el.style.setProperty('height','auto','important');
+    var target = Math.max(min, el.scrollHeight + 2);
+    el.style.setProperty('height', target + 'px', 'important');
+    el.style.setProperty('overflow-y','hidden','important');
+    el.style.setProperty('overflow-x','hidden','important');
+  }
+  function refresh(root){
+    root = root || document;
+    markPlaceholders(root);
+    markSelects(root);
+    if(root.tagName === 'TEXTAREA') resizeOne(root);
+    if(root.querySelectorAll) root.querySelectorAll('textarea').forEach(resizeOne);
+    keepStyleLast();
+  }
+  function deferred(root){ [0,40,120,300].forEach(function(ms){ setTimeout(function(){ refresh(root); }, ms); }); }
+  document.addEventListener('input',function(ev){
+    if(ev.target && ev.target.tagName === 'TEXTAREA') resizeOne(ev.target);
+    if(ev.target && ev.target.tagName === 'SELECT') markSelects(ev.target);
+  },true);
+  document.addEventListener('change',function(ev){
+    if(ev.target && ev.target.tagName === 'TEXTAREA') resizeOne(ev.target);
+    if(ev.target && ev.target.tagName === 'SELECT') markSelects(ev.target);
+  },true);
+  document.addEventListener('projbl:autosave-restored',function(){ deferred(document); });
+
+  var observer = new MutationObserver(function(records){
+    records.forEach(function(rec){
+      rec.addedNodes && rec.addedNodes.forEach(function(node){ if(node.nodeType === 1) deferred(node); });
+      if(rec.type === 'attributes' && rec.target && rec.target.tagName === 'SELECT') markSelects(rec.target);
+    });
+    keepStyleLast();
+  });
+  function init(){
+    refresh(document);
+    try{ observer.observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['value','class']}); }catch(e){}
+    [100,250,700,1400,2600,4200,7000,11000].forEach(function(ms){ setTimeout(function(){ refresh(document); },ms); });
+  }
+  window.PROJBL_RESIZE_TEXTAREAS = function(root){ refresh(root || document); };
+  window.PROJBL_REFRESH_PLACEHOLDERS = function(root){ refresh(root || document); };
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded',init,{once:true}); else init();
+})();
+</script>
 </body>
 </html>
 <!-- projbl-camada15-curso-autosave-progress-selects -->
