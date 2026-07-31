@@ -1,0 +1,30 @@
+name: Exportar PROJ-BL atual
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Preparar ficheiros
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/projbl-current
+          if [ -f Proj-BL.html ]; then cp Proj-BL.html /tmp/projbl-current/Proj-BL.html; elif [ -f PROJ-BL.html ]; then cp PROJ-BL.html /tmp/projbl-current/Proj-BL.html; else exit 1; fi
+          if [ -f Proj-BL_Teste.html ]; then cp Proj-BL_Teste.html /tmp/projbl-current/Proj-BL_Teste.html; elif [ -f PROJ-BL_Teste.html ]; then cp PROJ-BL_Teste.html /tmp/projbl-current/Proj-BL_Teste.html; else exit 1; fi
+          sha256sum /tmp/projbl-current/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: projbl-current-main
+          path: /tmp/projbl-current
+          retention-days: 1
