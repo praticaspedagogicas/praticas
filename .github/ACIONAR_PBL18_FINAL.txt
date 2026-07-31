@@ -1,2 +1,2 @@
 Acionamento temporário da publicação final de PBL.html e PBL_Teste.html.
-Execução solicitada com os dois blocos base64 agrupados corretamente.
+Execução definitiva por patches Zstandard com hashes verificados.
