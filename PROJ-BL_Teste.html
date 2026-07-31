@@ -22873,6 +22873,42 @@ textarea.projbl-autogrow-final {
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded',init,{once:true}); else init();
 })();
 </script>
+
+<style id="projbl-course-field-stability-final-css">
+/* Evita oscilações visuais ao abrir a lista personalizada de cursos. */
+html body:not(.guiao-pdf-mode) #cursoBusca{
+  box-sizing:border-box !important;
+  width:100% !important;
+  min-height:38px !important;
+  height:38px !important;
+  transition:none !important;
+  transform:none !important;
+}
+html body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap,
+html body:not(.guiao-pdf-mode) .projbl-curso-real-wrap{
+  box-sizing:border-box !important;
+  width:100% !important;
+  transform:none !important;
+}
+</style>
+<script id="projbl-course-field-stability-final-js">
+(function(){
+  'use strict';
+  if(window.__projblCourseFieldStabilityFinal) return;
+  window.__projblCourseFieldStabilityFinal = true;
+  function apply(){
+    var input=document.getElementById('cursoBusca');
+    if(!input) return;
+    input.removeAttribute('list');
+    input.setAttribute('aria-autocomplete','list');
+    input.style.setProperty('transition','none','important');
+    input.style.setProperty('transform','none','important');
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',apply,{once:true});
+  else apply();
+  window.addEventListener('load',apply,{once:true});
+})();
+</script>
 </body>
 </html>
 <!-- projbl-camada15-curso-autosave-progress-selects -->
