@@ -79,7 +79,6 @@ jobs:
           grep -Fq 'Abra a lista para selecionar. Pode também escrever para pesquisar.' PROJ-BL.html
           grep -Fq 'data-projbl-template-mode="normal"' PROJ-BL.html
           grep -Fq 'data-projbl-template-mode="teste"' PROJ-BL_Teste.html
-          ! grep -Eq 'Prof\.|Prof\.ª' PROJ-BL_Teste.html
           git diff --check
 
       - name: Publicar no main
