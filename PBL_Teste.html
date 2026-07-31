@@ -10070,14 +10070,28 @@ body:not(.guiao-pdf-mode) .pbl-course-chip button{
     var sections=document.querySelectorAll('#'+tabId+' > .section');
     return sections[index]?sections[index].querySelector('textarea'):null;
   }
-  function skippedColumns(tableId){
-    return tableId==='docenteTable'?[0,2]:tableId==='estudanteTable'?[0]:[];
+  function ignoredColumnsForStartedRow(tableId){
+    /* V. Prof. é automático e não deve, sozinho, ativar uma linha. */
+    return tableId==='docenteTable'?[2]:tableId==='estudanteTable'?[0]:[];
+  }
+  function requiredTableColumns(tableId){
+    /* Na tabela Docente, apenas Perguntas sobre o caso e Respostas factos
+       são obrigatórias. Todos os restantes campos podem ser preenchidos,
+       mas não bloqueiam a submissão quando ficam vazios. */
+    return tableId==='docenteTable'?[3,4]:[];
   }
   function rowControls(row,tableId){
-    var skipped=skippedColumns(tableId);
+    var ignored=ignoredColumnsForStartedRow(tableId);
     return Array.prototype.slice.call(row?row.querySelectorAll('input,textarea,select'):[]).filter(function(el){
       var cell=el.closest('td'),column=cell?cell.cellIndex:-1;
-      return !el.disabled&&!el.readOnly&&!el.classList.contains('calculated')&&skipped.indexOf(column)<0;
+      return !el.disabled&&!el.readOnly&&!el.classList.contains('calculated')&&ignored.indexOf(column)<0;
+    });
+  }
+  function requiredRowControls(row,tableId){
+    var required=requiredTableColumns(tableId);
+    return rowControls(row,tableId).filter(function(el){
+      var cell=el.closest('td'),column=cell?cell.cellIndex:-1;
+      return required.indexOf(column)>=0;
     });
   }
   function dataRows(tableId){
@@ -10095,7 +10109,7 @@ body:not(.guiao-pdf-mode) .pbl-course-chip button{
     var items=[];
     expected.forEach(function(row){
       var n=rows.indexOf(row)+1;
-      rowControls(row,tableId).forEach(function(el){
+      requiredRowControls(row,tableId).forEach(function(el){
         var cell=el.closest('td'),column=cell?cell.cellIndex:-1;
         items.push({label:tableLabel+' — '+(headers[column]||'Campo')+' (linha '+n+')',el:el,filled:!!value(el)});
       });
@@ -10138,28 +10152,30 @@ body:not(.guiao-pdf-mode) .pbl-course-chip button{
     star.setAttribute('aria-hidden','true');
     el.appendChild(star);
   }
-  function decorateTable(tableId,skipColumns){
+  function decorateTable(tableId,requiredColumns){
     var table=document.getElementById(tableId);
     if(!table)return;
     var headers=Array.prototype.slice.call(table.querySelectorAll('tr:first-child th'));
-    headers.forEach(function(th,index){if(skipColumns.indexOf(index)<0)addStar(th);});
+    headers.forEach(function(th,index){
+      Array.prototype.slice.call(th.querySelectorAll('.pbl-required-star')).forEach(function(star){star.remove();});
+      Array.prototype.slice.call(th.childNodes).forEach(function(node){
+        if(node.nodeType===3)node.nodeValue=String(node.nodeValue||'').replace(/\s*\*+\s*$/,'');
+      });
+      if(requiredColumns.indexOf(index)>=0)addStar(th);
+    });
     var rows=dataRows(tableId),active=rows.filter(function(row){return rowIsStarted(row,tableId);}),expected=active.length?active:[rows[0]];
     rows.forEach(function(row){
       rowControls(row,tableId).forEach(function(el){
-        var req=expected.indexOf(row)>=0;
+        var cell=el.closest('td'),column=cell?cell.cellIndex:-1;
+        var req=expected.indexOf(row)>=0&&requiredColumns.indexOf(column)>=0;
         el.required=req;
         if(req)el.setAttribute('required','required');else el.removeAttribute('required');
         el.setAttribute('aria-required',req?'true':'false');
       });
     });
     var tab=table.closest('.tab-content');
-    if(tab&&!tab.querySelector('.pbl-required-table-note')){
-      var note=document.createElement('p');
-      note.className='pbl-required-table-note no-print';
-      note.innerHTML='<span class="pbl-required-star" aria-hidden="true">*</span> É obrigatória pelo menos uma linha completa. Nas linhas adicionais, os campos tornam-se obrigatórios quando a linha for utilizada.';
-      var scroll=table.closest('.pbl-table-scroll');
-      tab.insertBefore(note,scroll||table);
-    }
+    var note=tab?tab.querySelector('.pbl-required-table-note'):null;
+    if(note)note.remove();
   }
 
   function makeStudentOptional(){
@@ -10197,7 +10213,7 @@ body:not(.guiao-pdf-mode) .pbl-course-chip button{
       var el=document.getElementById(id);
       if(el){el.min='1';el.step='1';el.setAttribute('inputmode','numeric');}
     });
-    decorateTable('docenteTable',[0,2]);
+    decorateTable('docenteTable',[3,4]);
     makeStudentOptional();
     renderCentralProgress();
   }
