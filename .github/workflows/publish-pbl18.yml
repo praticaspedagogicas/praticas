@@ -5,12 +5,15 @@ on:
     paths:
       - '.github/workflows/publish-pbl18.yml'
   workflow_dispatch:
+  issues:
+    types: [opened]
 
 permissions:
   contents: write
 
 jobs:
   publicar:
+    if: github.event_name != 'issues' || github.event.issue.title == 'PUBLICAR PBL 18 AGORA'
     runs-on: ubuntu-latest
     steps:
       - name: Obter repositório
