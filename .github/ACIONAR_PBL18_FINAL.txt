@@ -1,2 +1,2 @@
 Acionamento temporário da publicação final de PBL.html e PBL_Teste.html.
-Execução solicitada com descodificação individual dos segmentos.
+Execução solicitada com normalização Python do base64 segmentado.
