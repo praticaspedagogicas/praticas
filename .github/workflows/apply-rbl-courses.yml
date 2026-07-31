@@ -26,14 +26,28 @@ jobs:
           test -d .github/pbl_payload
           test -d .github/pbl_payload_v2
 
-          : > /tmp/pbl18_payload.xz
-          for PARTE in \
-            .github/pbl_payload/part*.b64 \
-            .github/pbl_payload_v2/c*; do
-            test -s "$PARTE"
-            tr -d '\r\n\t ' < "$PARTE" \
-              | base64 --decode >> /tmp/pbl18_payload.xz
-          done
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+
+          parts = sorted(Path('.github/pbl_payload').glob('part*.b64'))
+          parts += sorted(Path('.github/pbl_payload_v2').glob('c*'))
+          if not parts:
+              raise SystemExit('Nenhum segmento PBL encontrado')
+
+          with Path('/tmp/pbl18_payload.xz').open('wb') as output:
+              for part in parts:
+                  text = ''.join(part.read_text(encoding='utf-8').split())
+                  text += '=' * (-len(text) % 4)
+                  try:
+                      decoded = base64.b64decode(text, validate=False)
+                  except Exception as exc:
+                      raise SystemExit(f'Falha ao descodificar {part}: {exc}')
+                  if not decoded:
+                      raise SystemExit(f'Segmento vazio: {part}')
+                  output.write(decoded)
+                  print(part, len(decoded))
+          PY
 
           xz --test /tmp/pbl18_payload.xz
           xz --decompress --stdout /tmp/pbl18_payload.xz \
