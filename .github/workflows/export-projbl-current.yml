@@ -15,16 +15,18 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
-      - name: Preparar ficheiros
+      - name: Preparar ficheiros oficiais
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p /tmp/projbl-current
-          if [ -f Proj-BL.html ]; then cp Proj-BL.html /tmp/projbl-current/Proj-BL.html; elif [ -f PROJ-BL.html ]; then cp PROJ-BL.html /tmp/projbl-current/Proj-BL.html; else exit 1; fi
-          if [ -f Proj-BL_Teste.html ]; then cp Proj-BL_Teste.html /tmp/projbl-current/Proj-BL_Teste.html; elif [ -f PROJ-BL_Teste.html ]; then cp PROJ-BL_Teste.html /tmp/projbl-current/Proj-BL_Teste.html; else exit 1; fi
+          test -f PROJ-BL.html
+          test -f PROJ-BL_Teste.html
+          cp PROJ-BL.html /tmp/projbl-current/PROJ-BL.html
+          cp PROJ-BL_Teste.html /tmp/projbl-current/PROJ-BL_Teste.html
           sha256sum /tmp/projbl-current/*
       - uses: actions/upload-artifact@v4
         with:
-          name: projbl-current-main
+          name: projbl-current-official
           path: /tmp/projbl-current
           retention-days: 1
