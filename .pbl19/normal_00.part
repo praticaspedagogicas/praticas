@@ -1,0 +1,120 @@
+--- PBL.html
++++ PBL.html
+@@ -5324,6 +5324,20 @@
+ <div class="ux-ai-guidance">Use o Assistente IA para esclarecer dúvidas sobre o preenchimento do guião.</div>
+ </div>
+ 
++
++<div class="pbl-session-modal-backdrop no-print" id="pblTeacherPdfModal" aria-hidden="true">
++  <div class="pbl-session-modal" role="dialog" aria-modal="true" aria-labelledby="pblTeacherPdfTitle">
++    <h3 id="pblTeacherPdfTitle">PDF Docente</h3>
++    <p>Escolha o guião completo ou apenas uma sessão. A avaliação opcional é incluída somente no PDF completo.</p>
++    <label for="pblTeacherPdfSelect">Conteúdo do PDF</label>
++    <select id="pblTeacherPdfSelect"></select>
++    <div class="pbl-excel-note">Quando várias linhas têm o mesmo número de sessão, são incluídas juntas no respetivo PDF.</div>
++    <div class="pbl-session-modal-actions">
++      <button class="pbl-session-modal-cancel" id="pblTeacherPdfCancel" type="button">Cancelar</button>
++      <button class="pbl-session-modal-generate" id="pblTeacherPdfGenerate" type="button">Gerar PDF</button>
++    </div>
++  </div>
++</div>
+ <div class="pbl-session-modal-backdrop no-print" id="pblStudentExcelModal" aria-hidden="true">
+   <div class="pbl-session-modal" role="dialog" aria-modal="true" aria-labelledby="pblStudentExcelTitle">
+     <h3 id="pblStudentExcelTitle">Excel Estudante</h3>
+@@ -8137,11 +8151,11 @@
+   installFetchPatch();
+ })();
+ </script>
+-<script id="pbl-pdf-espelho-restauro-aprovado-v1">
++<script id="pbl-pdf-espelho-restauro-aprovado-v2">
+ (function(){
+   'use strict';
+-  if(window.__pblPdfEspelhoRestauroAprovadoV1) return;
+-  window.__pblPdfEspelhoRestauroAprovadoV1 = true;
++  if(window.__pblPdfEspelhoRestauroAprovadoV2) return;
++  window.__pblPdfEspelhoRestauroAprovadoV2 = true;
+ 
+   function $(id){ return document.getElementById(id); }
+   function clean(v){ return String(v || '').replace(/\r\n/g,'\n').replace(/\r/g,'\n').trim(); }
+@@ -8240,19 +8254,42 @@
+     });
+     return d;
+   }
+-
+   function hasMeaningfulEvaluation(){
+     var table=$('avaliacaoTable');
+     if(!table) return false;
+     var rows=Array.prototype.slice.call(table.querySelectorAll('tr')).slice(1);
+     return rows.some(function(row){
+-      return Array.prototype.slice.call(
+-        row.querySelectorAll('input,textarea,select')
+-      ).some(function(field){
++      return Array.prototype.slice.call(row.querySelectorAll('input,textarea,select')).some(function(field){
+         return clean(field.value || '').length > 0;
+       });
+     });
+   }
++  function teacherPlanRows(){
++    var data=tableData('docenteTable');
++    return (data.rows||[]).map(function(row,index){
++      var meaningful=clean(row[0]) || clean(row[1]) || clean(row[3]) || clean(row[4]) || clean(row[5]) || clean(row[6]) || clean(row[7]);
++      return {index:index,row:row,sessao:clean(row[0]),vEstud:clean(row[1]),pergunta:clean(row[3]),meaningful:!!meaningful};
++    });
++  }
++  function filteredTeacherData(selection){
++    var data=tableData('docenteTable');
++    var records=teacherPlanRows();
++    if(!selection || selection==='all') return {mode:'all',label:'',data:data};
++    var selected=[];
++    var label='';
++    if(String(selection).indexOf('session:')===0){
++      var key=decodeURIComponent(String(selection).slice(8));
++      selected=records.filter(function(record){return record.sessao===key;});
++      label='Sessão '+key;
++    }else if(String(selection).indexOf('row:')===0){
++      var idx=Number(String(selection).slice(4));
++      selected=records.filter(function(record){return record.index===idx;});
++      var one=selected[0];
++      label=one && one.vEstud ? 'V. Estud. '+one.vEstud : 'Linha '+(idx+1);
++    }
++    if(!selected.length) throw new Error('A sessão selecionada já não está disponível.');
++    return {mode:'session',label:label,data:{headers:data.headers,rows:selected.map(function(record){return record.row;})}};
++  }
+   function loadJsPdf(){
+     return new Promise(function(resolve,reject){
+       if(window.jspdf && window.jspdf.jsPDF) return resolve();
+@@ -8276,12 +8313,16 @@
+     var d = document.createElement('div'); d.className = 'toast-message'; d.textContent = msg; document.body.appendChild(d);
+     setTimeout(function(){ if(d.parentNode) d.remove(); }, 2600);
+   }
+-  function fileName(){
+-    if(typeof window.guiaoPdfFileName === 'function') return window.guiaoPdfFileName('PBL_Docente','Guiao_Docente');
+-    return 'PBL_Docente.pdf';
++  function fileSafe(value){ return clean(value || '').replace(/[\\/:*?"<>|]+/g,'_').replace(/\s+/g,'_').replace(/^_+|_+$/g,'').slice(0,80) || 'Guiao'; }
++  function fileName(selection,selectionLabel){
++    var suffix=selection && selection!=='all' ? ('Sessao_'+fileSafe(selectionLabel || 'selecionada')) : 'Completo';
++    var subject=fileSafe(val('uc') || val('titulo') || 'Guiao');
++    return 'PBL_Docente_'+suffix+'_'+subject+'.pdf';
+   }
+ 
+-  async function renderPblPdfAprovadoBlob(){
++  async function renderPblPdfAprovadoBlob(selection){
++    selection=selection || 'all';
++    var plan=filteredTeacherData(selection);
+     await loadJsPdf();
+     var jsPDF = window.jspdf && window.jspdf.jsPDF;
+     if(!jsPDF) throw new Error('jsPDF não carregou.');
+@@ -8296,36 +8337,29 @@
+     function footer(){
+       var n = pdf.internal.getNumberOfPages();
+       pdf.setPage(n); pdf.setFont('helvetica','normal'); pdf.setFontSize(7); pdf.setTextColor(120,120,120);
+-      pdf.text('Guião Problem-Based Learning · PDF Docente', m, H-7);
++      pdf.text('Guião Problem-Based Learning · PDF Docente'+(plan.mode==='session'?' · '+plan.label:''), m, H-7);
+       pdf.text('Página ' + n, W-m, H-7, {align:'right'});
+       pdf.setTextColor(0,0,0);
+     }
+     function drawRule(x1, yy, x2, width){ dc(red); pdf.setLineWidth(width || .35); pdf.line(x1, yy, x2, yy); }
+     function empty(v){ return clean(v || ''); }
+-    function getTitle(){ return firstNonEmpty(val('titulo'), 'Intervenção perante um caso de insucesso académico e ansiedade em contexto universitário'); }
+-
++    function getTit
