@@ -1,0 +1,58 @@
+name: Publicar título final do Excel Estudante PBL
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  publish:
+    if: github.event.pull_request.head.ref == 'trigger-pbl-title-final'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Corrigir título do Excel Estudante
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          final = 'Problem Based-Learning (PBL) - V. Estudante'
+          antigos = [
+              'PBL — Ficha de Trabalho do Estudante',
+              'Project Based-Learning (PBL) - V. Estudante',
+          ]
+
+          for nome in ('PBL.html', 'PBL_Teste.html'):
+              caminho = Path(nome)
+              texto = caminho.read_text(encoding='utf-8')
+              substituicoes = 0
+              for antigo in antigos:
+                  quantidade = texto.count(antigo)
+                  substituicoes += quantidade
+                  texto = texto.replace(antigo, final)
+              if substituicoes < 2:
+                  raise SystemExit(f'{nome}: esperadas pelo menos 2 ocorrências do título anterior; encontradas {substituicoes}.')
+              if any(antigo in texto for antigo in antigos):
+                  raise SystemExit(f'{nome}: permaneceu uma variante antiga do título.')
+              if texto.count(final) < 2:
+                  raise SystemExit(f'{nome}: o título final não aparece no cabeçalho e nos metadados do XLSX.')
+              caminho.write_text(texto, encoding='utf-8')
+          PY
+
+      - name: Publicar na main
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add PBL.html PBL_Teste.html
+          git commit -m "PBL: corrigir título da versão Estudante"
+          git push origin main
