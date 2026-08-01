@@ -1,0 +1,81 @@
+name: Publicar título final do Excel Estudante
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  publish:
+    if: github.event.pull_request.head.ref == 'trigger-pbl21-title'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Corrigir título nos dois PBL
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import re, subprocess, tempfile
+
+          exact = 'Problem Based-Learning (PBL) - V. Estudante'
+          old_titles = [
+              'PBL — Ficha de Trabalho do Estudante',
+              'Project Based-Learning (PBL) - V. Estudante',
+              'Project-Based Learning (PBL) - V. Estudante',
+          ]
+
+          for name in ('PBL.html', 'PBL_Teste.html'):
+              path = Path(name)
+              text = path.read_text(encoding='utf-8')
+              changed = 0
+              for old in old_titles:
+                  count = text.count(old)
+                  if count:
+                      text = text.replace(old, exact)
+                      changed += count
+              if changed == 0 and exact not in text:
+                  raise SystemExit(f'{name}: título não encontrado')
+              if text.count(exact) < 2:
+                  raise SystemExit(f'{name}: título final incompleto')
+              for old in old_titles:
+                  if old != exact and old in text:
+                      raise SystemExit(f'{name}: título antigo permaneceu')
+              path.write_text(text, encoding='utf-8')
+
+          for name in ('PBL.html', 'PBL_Teste.html'):
+              text = Path(name).read_text(encoding='utf-8')
+              scripts = re.findall(r'<script(?:\s+[^>]*)?>(.*?)</script>', text, re.I | re.S)
+              with tempfile.TemporaryDirectory() as td:
+                  for index, body in enumerate(scripts):
+                      if not body.strip():
+                          continue
+                      js = Path(td) / f'{index:03d}.js'
+                      js.write_text(body, encoding='utf-8')
+                      result = subprocess.run(['node', '--check', str(js)], text=True, capture_output=True)
+                      if result.returncode:
+                          raise SystemExit(f'{name} script {index}: {result.stderr}')
+          PY
+
+      - name: Publicar na main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add PBL.html PBL_Teste.html
+          if git diff --cached --quiet; then
+            echo "Os ficheiros já contêm o título final."
+          else
+            git commit -m "PBL: corrigir título do Excel Estudante"
+            git push origin main
+          fi
