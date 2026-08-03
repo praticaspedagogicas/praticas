@@ -7863,6 +7863,7 @@ input:focus, textarea:focus, select:focus,
     }
 
     var userOpenedCourseSearch = false;
+    var lastOptionsSignature = "";
 
     function renderOptions(forceOpenEmpty){
       var term = cleanText(search.value).toLowerCase();
@@ -7871,6 +7872,7 @@ input:focus, textarea:focus, select:focus,
       // Com termo vazio, só mostra a lista quando o clique/tecla vier do utilizador.
       if(!term && !forceOpenEmpty){
         dropdown.innerHTML = "";
+        lastOptionsSignature = "";
         dropdown.classList.remove("open");
         return;
       }
@@ -7878,21 +7880,27 @@ input:focus, textarea:focus, select:focus,
       var opts = getCourseOptions().filter(function(v){
         return selected.indexOf(v) === -1 && (!term || v.toLowerCase().indexOf(term) !== -1);
       }).slice(0, 30);
-      dropdown.innerHTML = "";
-      opts.forEach(function(v, idx){
-        var opt = document.createElement("div");
-        opt.className = "rbl-course-option" + (idx === 0 ? " active" : "");
-        opt.textContent = v;
-        opt.addEventListener("mousedown", function(e){ e.preventDefault(); addCourse(v); });
-        dropdown.appendChild(opt);
-      });
+      var signature = term + "|" + selected.join("|") + "|" + opts.join("|");
+      if(signature !== lastOptionsSignature){
+        var fragment = document.createDocumentFragment();
+        opts.forEach(function(v, idx){
+          var opt = document.createElement("div");
+          opt.className = "rbl-course-option" + (idx === 0 ? " active" : "");
+          opt.textContent = v;
+          opt.addEventListener("mousedown", function(e){ e.preventDefault(); addCourse(v); });
+          fragment.appendChild(opt);
+        });
+        dropdown.replaceChildren(fragment);
+        lastOptionsSignature = signature;
+      }
       dropdown.classList.toggle("open", opts.length > 0 && document.activeElement === search && (!!term || !!forceOpenEmpty));
     }
 
-    search.addEventListener("pointerdown", function(){ userOpenedCourseSearch = true; renderOptions(true); }, true);
+    search.addEventListener("pointerdown", function(){ userOpenedCourseSearch = true; }, true);
+    search.addEventListener("click", function(){ renderOptions(true); }, true);
     search.addEventListener("keydown", function(){ userOpenedCourseSearch = true; }, true);
     search.addEventListener("input", function(){ renderOptions(false); });
-    search.addEventListener("focus", function(){ renderOptions(userOpenedCourseSearch && !cleanText(search.value)); });
+    search.addEventListener("focus", function(){ renderOptions(true); });
     search.addEventListener("keydown", function(e){
       if(e.key === "Enter"){
         e.preventDefault();
@@ -12077,6 +12085,7 @@ body:not(.guiao-pdf-mode) .rbl-course-unit-warning.is-visible{display:block;}
   function clean(v){return String(v==null?'':v).replace(/\s+/g,' ').trim();}
   function unique(values){var seen=Object.create(null),out=[];(values||[]).forEach(function(v){v=clean(v);if(v&&!seen[v]){seen[v]=1;out.push(v);}});return out;}
   var ALL_COURSES=unique(Object.keys(COURSES_BY_UNIT).reduce(function(out,unit){return out.concat(COURSES_BY_UNIT[unit]);},[]));
+  var lastListSignature='';
   function unitEl(){return document.getElementById('unidadeOrganica');}
   function listEl(){return document.getElementById('rblCursosList');}
   function searchEl(){return document.getElementById('cursoSearch')||document.getElementById('cursoBusca');}
@@ -12086,7 +12095,7 @@ body:not(.guiao-pdf-mode) .rbl-course-unit-warning.is-visible{display:block;}
   function allowed(unit){return COURSES_BY_UNIT[unit]?COURSES_BY_UNIT[unit].slice():ALL_COURSES.slice();}
   function warningEl(){var picker=document.querySelector('.rbl-course-picker');if(!picker)return null;var warning=picker.querySelector('.rbl-course-unit-warning');if(!warning){warning=document.createElement('div');warning.className='rbl-course-unit-warning';warning.setAttribute('role','status');warning.setAttribute('aria-live','polite');picker.appendChild(warning);}return warning;}
   function updateWarning(){var unit=clean(unitEl()&&unitEl().value),warning=warningEl();if(!warning)return;if(!unit||!COURSES_BY_UNIT[unit]){warning.textContent='';warning.classList.remove('is-visible');return;}var valid=Object.create(null);COURSES_BY_UNIT[unit].forEach(function(v){valid[v]=1;});var invalid=selectedCourses().filter(function(v){return !valid[v];});if(invalid.length){warning.textContent='Atenção: '+invalid.join('; ')+(invalid.length===1?' não pertence':' não pertencem')+' à unidade '+unit+'. Remova '+(invalid.length===1?'este curso':'estes cursos')+' antes de enviar para validação.';warning.classList.add('is-visible');}else{warning.textContent='';warning.classList.remove('is-visible');}}
-  function rebuildList(){var list=listEl();if(!list)return[];var unit=clean(unitEl()&&unitEl().value),values=allowed(unit);list.innerHTML='';values.forEach(function(course){var option=document.createElement('option');option.value=course;list.appendChild(option);});var search=searchEl();if(search){search.value='';search.placeholder='Selecione ou pesquise um curso';try{search.dispatchEvent(new Event('input',{bubbles:true}));search.dispatchEvent(new CustomEvent('rbl:courses-filtered',{bubbles:true,detail:{unit:unit,courses:values.slice()}}));}catch(e){}}updateWarning();return values;}
+  function rebuildList(){var list=listEl();if(!list)return[];var unit=clean(unitEl()&&unitEl().value),values=allowed(unit),signature=unit+'|'+values.join('|');if(signature!==lastListSignature){lastListSignature=signature;list.innerHTML='';values.forEach(function(course){var option=document.createElement('option');option.value=course;list.appendChild(option);});var search=searchEl();if(search){search.value='';search.placeholder='Selecione ou pesquise um curso';try{search.dispatchEvent(new Event('input',{bubbles:true}));search.dispatchEvent(new CustomEvent('rbl:courses-filtered',{bubbles:true,detail:{unit:unit,courses:values.slice()}}));}catch(e){}}}updateWarning();return values;}
   function bind(){var unit=unitEl();if(unit&&unit.dataset.rblCourseFilterSblBound!=='1'){unit.dataset.rblCourseFilterSblBound='1';unit.addEventListener('change',rebuildList,true);unit.addEventListener('input',rebuildList,true);}var hidden=hiddenEl();if(hidden&&hidden.dataset.rblCourseFilterSblBound!=='1'){hidden.dataset.rblCourseFilterSblBound='1';hidden.addEventListener('input',updateWarning,true);hidden.addEventListener('change',updateWarning,true);}var chips=document.querySelector('.rbl-course-chip-area');if(chips&&chips.dataset.rblCourseFilterSblObserved!=='1'&&window.MutationObserver){chips.dataset.rblCourseFilterSblObserved='1';new MutationObserver(updateWarning).observe(chips,{childList:true,subtree:true,characterData:true});}rebuildList();}
   window.RBL_COURSES_BY_UNIT=COURSES_BY_UNIT;
   window.RBL_ALL_COURSES=ALL_COURSES;
