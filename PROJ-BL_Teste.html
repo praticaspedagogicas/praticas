@@ -16616,6 +16616,7 @@ html body .page button[data-proj-tooltip]::after {
   }
 
   function ensureDatalist(){
+    if(document.getElementById('guioes-curso-dropdown-custom-v2-js')) return;
     var dl = document.getElementById('cblCursosList');
     if (!dl){
       dl = document.createElement('datalist');
@@ -16695,6 +16696,8 @@ html body .page button[data-proj-tooltip]::after {
   }
 
   function init(){
+    /* O seletor final abaixo gere também os chips e a seleção. */
+    if(document.getElementById('guioes-curso-dropdown-custom-v2-js')) return;
     var hidden = document.getElementById('curso');
     var busca = document.getElementById('cursoBusca');
     var box = document.getElementById('cblCursosSelecionados');
@@ -18720,6 +18723,10 @@ html body .page button[data-proj-tooltip]::after {
   }
 
   function bindCursos(){
+    /* A lista final (guioes-curso-dropdown-custom-v2-js) é a única responsável
+       pela abertura/pesquisa. Impede os controladores legados de reagirem ao
+       mesmo foco/clique e reconstruírem a lista várias vezes. */
+    if(document.getElementById('guioes-curso-dropdown-custom-v2-js')) return;
     var h = hidden(), b = busca();
     if(!h || !b) return;
     h.type = 'hidden';
@@ -18761,6 +18768,7 @@ html body .page button[data-proj-tooltip]::after {
   }
 
   function init(){
+    if(document.getElementById('guioes-curso-dropdown-custom-v2-js')) return;
     bindCursos();
     render();
   }
@@ -18837,6 +18845,8 @@ html body .page button[data-proj-tooltip]::after {
     bx.classList.add('open');
   }
   function bind(){
+    /* Evita concorrência com o seletor final de cursos. */
+    if(document.getElementById('guioes-curso-dropdown-custom-v2-js')) return;
     var h=hidden(), b=busca(); if(!h||!b) return;
     h.type='hidden'; h.style.setProperty('display','none','important'); b.removeAttribute('list'); b.setAttribute('autocomplete','off');
     if(b.dataset.projblCoursePickerV3==='1') return; b.dataset.projblCoursePickerV3='1';
@@ -19400,6 +19410,8 @@ html body:not(.guiao-pdf-mode) .page #uxMenuMaisOpcoes button {
   }
 
   function installCourseSearchFix(){
+    /* Substituído pelo seletor final: o reordenador antigo restaurava a lista
+       completa no foco e entrava em conflito com o filtro por unidade. */
     function initInput(input){
       if(!input || input.dataset.guioesCursoFixV1 === '1') return;
       var listId = input.getAttribute('list');
@@ -19454,7 +19466,7 @@ html body:not(.guiao-pdf-mode) .page #uxMenuMaisOpcoes button {
   }
 
   installFetchPatch();
-  installCourseSearchFix();
+  /* installCourseSearchFix desativado: o seletor final gere pesquisa e ordenação. */
 
   window.guioesPadronizarPayloadTituloAnoCursos = normalizePayload;
 })();
@@ -19630,7 +19642,7 @@ body:not(.guiao-pdf-mode) .guioes-curso-toggle-v3{position:absolute;right:7px;to
 body:not(.guiao-pdf-mode) .guioes-curso-toggle-v3:hover,
 body:not(.guiao-pdf-mode) .guioes-curso-toggle-v3:focus,
 body:not(.guiao-pdf-mode) .guioes-curso-toggle-v3[aria-expanded="true"]{background:#fff5f5;outline:none;}
-body:not(.guiao-pdf-mode) .guioes-curso-suggestions-v2{position:absolute;z-index:100000;left:0;right:0;top:calc(100% + 4px);max-height:260px;overflow:auto;background:#fff;border:1px solid #c7cbd1;border-radius:10px;box-shadow:0 10px 22px rgba(0,0,0,.16);padding:5px;display:none;font-family:'Century Gothic','Segoe UI',Arial,sans-serif;}
+body:not(.guiao-pdf-mode) .guioes-curso-suggestions-v2{position:absolute;z-index:100000;left:0;right:0;top:calc(100% + 4px);max-height:260px;overflow:auto;background:#fff;border:1px solid #c7cbd1;border-radius:10px;box-shadow:0 10px 22px rgba(0,0,0,.16);padding:5px;display:none;font-family:'Century Gothic','Segoe UI',Arial,sans-serif;box-sizing:border-box;transition:none !important;animation:none !important;transform:none !important;scrollbar-gutter:stable;overscroll-behavior:contain;}
 body:not(.guiao-pdf-mode) .guioes-curso-suggestions-v2.is-open{display:block;}
 body:not(.guiao-pdf-mode) .guioes-curso-suggestion-v2{display:block;width:100%;text-align:left;border:0;background:#fff;color:#111827;padding:8px 10px;border-radius:7px;font-size:13px !important;line-height:1.25 !important;font-weight:500 !important;cursor:pointer;}
 body:not(.guiao-pdf-mode) .guioes-curso-suggestion-v2:hover,
@@ -19654,7 +19666,21 @@ body:not(.guiao-pdf-mode) .guioes-curso-empty-v3{padding:10px;color:#666;font-si
   function searchEl(){return document.getElementById('cursoBusca');}
   function selected(){var h=hiddenEl(),out=h?split(h.value):[];Array.prototype.slice.call(document.querySelectorAll('#cblCursosSelecionados .cbl-course-chip,#cblCursosSelecionados .projbl-course-chip,[data-course-chip]')).forEach(function(chip){var span=chip.querySelector('span');var v=clean((span||chip).textContent||'').replace(/[×x]$/i,'').trim();if(v)out.push(v);});return unique(out);}
   function allowed(unit){return COURSES_BY_UNIT[unit]?COURSES_BY_UNIT[unit].slice():ALL_COURSES.slice();}
-  function rebuildList(){var unit=clean(unitEl()&&unitEl().value),vals=allowed(unit);['cblCursosList','projCursosList'].forEach(function(id){var dl=document.getElementById(id);if(!dl)return;dl.innerHTML='';vals.forEach(function(v){var o=document.createElement('option');o.value=v;dl.appendChild(o);});});var q=searchEl();if(q){q.placeholder='Selecione ou pesquise um curso';try{q.dispatchEvent(new CustomEvent('projbl:courses-filtered',{bubbles:true,detail:{unit:unit,courses:vals.slice()}}));}catch(e){}}updateWarning();return vals;}
+  var lastListSignature='';
+  function rebuildList(){
+    var unit=clean(unitEl()&&unitEl().value),vals=allowed(unit),signature=unit+'|'+vals.join('|');
+    var q=searchEl();
+    if(signature===lastListSignature){
+      if(q)q.placeholder='Selecione ou pesquise um curso';
+      updateWarning();
+      return vals;
+    }
+    lastListSignature=signature;
+    ['cblCursosList','projCursosList'].forEach(function(id){var dl=document.getElementById(id);if(!dl)return;dl.innerHTML='';vals.forEach(function(v){var o=document.createElement('option');o.value=v;dl.appendChild(o);});});
+    if(q){q.placeholder='Selecione ou pesquise um curso';try{q.dispatchEvent(new CustomEvent('projbl:courses-filtered',{bubbles:true,detail:{unit:unit,courses:vals.slice()}}));}catch(e){}}
+    updateWarning();
+    return vals;
+  }
   function warningEl(){var wrap=document.querySelector('.proj-curso-combobox-wrap');if(!wrap)return null;var w=wrap.querySelector('.projbl-course-unit-warning');if(!w){w=document.createElement('div');w.className='projbl-course-unit-warning';w.setAttribute('role','status');w.setAttribute('aria-live','polite');wrap.appendChild(w);}return w;}
   function incompatible(){var unit=clean(unitEl()&&unitEl().value);if(!unit||!COURSES_BY_UNIT[unit])return [];var keys=Object.create(null);COURSES_BY_UNIT[unit].forEach(function(v){keys[strip(v)]=1;});return selected().filter(function(v){return !keys[strip(v)];});}
   function updateWarning(){var w=warningEl();if(!w)return;var unit=clean(unitEl()&&unitEl().value),bad=incompatible();if(!unit||!bad.length){w.textContent='';w.classList.remove('is-visible');return;}w.textContent='Verifique Curso(s): '+bad.join('; ')+(bad.length===1?' não pertence':' não pertencem')+' à unidade '+unit+'.';w.classList.add('is-visible');}
@@ -19681,13 +19707,28 @@ body:not(.guiao-pdf-mode) .guioes-curso-empty-v3{padding:10px;color:#666;font-si
   function selectedKeys(){var out=Object.create(null),h=document.getElementById('curso');String(h&&h.value||'').split(/\s*;\s*|\n+/).map(clean).filter(Boolean).forEach(function(v){out[strip(v)]=1;});Array.prototype.slice.call(document.querySelectorAll('#cblCursosSelecionados .cbl-course-chip,#cblCursosSelecionados .projbl-course-chip,[data-course-chip]')).forEach(function(chip){var span=chip.querySelector('span'),v=clean((span||chip).textContent||'').replace(/[×x]$/i,'').trim();if(v)out[strip(v)]=1;});return out;}
   function fire(el,type){try{el.dispatchEvent(new Event(type,{bubbles:true}));}catch(e){}}
   function selectCourse(input,value){var api=window.GUIOES_MULTICURSO_EMAILS_FINAL_V1;if(api&&typeof api.adicionarCurso==='function'){api.adicionarCurso(value);input.value='';fire(input,'input');return;}input.value=value;fire(input,'input');fire(input,'change');setTimeout(function(){input.value='';fire(input,'input');},120);}
-  function init(input){if(!input||input.dataset.projblImmediateCourse==='1')return;var listId=input.getAttribute('list')||input.dataset.nativeList||'cblCursosList';if(!options(listId).length)return;input.dataset.nativeList=listId;input.removeAttribute('list');input.setAttribute('autocomplete','off');input.setAttribute('role','combobox');input.setAttribute('aria-autocomplete','list');input.setAttribute('aria-expanded','false');input.placeholder='Selecione ou pesquise um curso';input.dataset.projblImmediateCourse='1';var wrap=input.closest('.projbl-curso-real-wrap')||input.parentElement;if(!wrap)return;if(getComputedStyle(wrap).position==='static')wrap.style.position='relative';Array.prototype.slice.call(wrap.querySelectorAll('.guioes-curso-suggestions-v2,.guioes-curso-toggle-v3')).forEach(function(n){n.remove();});var box=document.createElement('div');box.className='guioes-curso-suggestions-v2';box.id='projblCursoSuggestionsV1';box.setAttribute('role','listbox');box.setAttribute('aria-label','Cursos disponíveis');wrap.appendChild(box);input.setAttribute('aria-controls',box.id);var toggle=document.createElement('button');toggle.type='button';toggle.className='guioes-curso-toggle-v3';toggle.setAttribute('aria-label','Abrir lista de cursos');toggle.setAttribute('aria-expanded','false');toggle.textContent='⌄';wrap.appendChild(toggle);var active=-1;
+  function init(input){if(!input||input.dataset.projblImmediateCourse==='1')return;var listId=input.getAttribute('list')||input.dataset.nativeList||'cblCursosList';if(!options(listId).length)return;input.dataset.nativeList=listId;input.removeAttribute('list');input.setAttribute('autocomplete','off');input.setAttribute('role','combobox');input.setAttribute('aria-autocomplete','list');input.setAttribute('aria-expanded','false');input.placeholder='Selecione ou pesquise um curso';input.dataset.projblImmediateCourse='1';var wrap=input.closest('.projbl-curso-real-wrap')||input.parentElement;if(!wrap)return;if(getComputedStyle(wrap).position==='static')wrap.style.position='relative';Array.prototype.slice.call(wrap.querySelectorAll('.guioes-curso-suggestions-v2,.guioes-curso-toggle-v3')).forEach(function(n){n.remove();});var box=document.createElement('div');box.className='guioes-curso-suggestions-v2';box.id='projblCursoSuggestionsV1';box.setAttribute('role','listbox');box.setAttribute('aria-label','Cursos disponíveis');wrap.appendChild(box);input.setAttribute('aria-controls',box.id);var toggle=document.createElement('button');toggle.type='button';toggle.className='guioes-curso-toggle-v3';toggle.setAttribute('aria-label','Abrir lista de cursos');toggle.setAttribute('aria-expanded','false');toggle.textContent='⌄';wrap.appendChild(toggle);var active=-1,lastRenderSignature='',initialSelected=selectedKeys();if(clean(input.value)&&initialSelected[strip(input.value)])input.value='';
     function isOpen(){return box.classList.contains('is-open');}
     function close(){box.classList.remove('is-open');active=-1;input.setAttribute('aria-expanded','false');toggle.setAttribute('aria-expanded','false');}
     function open(){if(box.children.length){box.classList.add('is-open');input.setAttribute('aria-expanded','true');toggle.setAttribute('aria-expanded','true');}}
-    function render(allowOpen){var q=clean(input.value),sel=selectedKeys(),matches=options(listId).map(function(o){return{value:o.value,idx:o.idx,score:score(o.value,q)};}).filter(function(o){return o.score<99&&!sel[strip(o.value)];}).sort(function(a,b){return(a.score-b.score)||(a.idx-b.idx);});box.innerHTML='';active=-1;if(!matches.length){var e=document.createElement('div');e.className='guioes-curso-empty-v3';e.textContent=q?'Nenhum curso encontrado.':'Não existem outros cursos disponíveis para selecionar.';box.appendChild(e);}else{matches.forEach(function(item){var b=document.createElement('button');b.type='button';b.className='guioes-curso-suggestion-v2';b.setAttribute('role','option');b.textContent=item.value;b.addEventListener('mousedown',function(ev){ev.preventDefault();});b.addEventListener('click',function(){selectCourse(input,item.value);close();input.focus();});box.appendChild(b);});}if(allowOpen)open();else close();}
+    function render(allowOpen){
+      var q=clean(input.value),sel=selectedKeys(),all=options(listId),matches=all.map(function(o){return{value:o.value,idx:o.idx,score:score(o.value,q)};}).filter(function(o){return o.score<99&&!sel[strip(o.value)];}).sort(function(a,b){return(a.score-b.score)||(a.idx-b.idx);});
+      var signature=strip(q)+'|'+Object.keys(sel).sort().join('|')+'|'+matches.map(function(o){return o.value;}).join('|');
+      /* Foco e clique chegam na mesma interação. Se o conteúdo é igual, mantém os
+         nós existentes e apenas confirma o estado aberto, evitando o "tremor". */
+      if(signature!==lastRenderSignature){
+        box.innerHTML='';active=-1;
+        if(!matches.length){
+          var e=document.createElement('div');e.className='guioes-curso-empty-v3';e.textContent=q?'Nenhum curso encontrado.':'Não existem outros cursos disponíveis para selecionar.';box.appendChild(e);
+        }else{
+          matches.forEach(function(item){var b=document.createElement('button');b.type='button';b.className='guioes-curso-suggestion-v2';b.setAttribute('role','option');b.textContent=item.value;b.addEventListener('mousedown',function(ev){ev.preventDefault();});b.addEventListener('click',function(){selectCourse(input,item.value);close();input.focus();});box.appendChild(b);});
+        }
+        lastRenderSignature=signature;
+      }
+      if(allowOpen)open();else close();
+    }
     function setActive(i){var items=Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));items.forEach(function(x){x.classList.remove('is-active');x.setAttribute('aria-selected','false');});if(!items.length){active=-1;return;}active=Math.max(0,Math.min(i,items.length-1));items[active].classList.add('is-active');items[active].setAttribute('aria-selected','true');items[active].scrollIntoView({block:'nearest'});}
-    input.addEventListener('focus',function(){render(true);},true);input.addEventListener('click',function(){render(true);},true);input.addEventListener('input',function(){render(true);},true);input.addEventListener('projbl:courses-filtered',function(){if(document.activeElement===input||isOpen())render(true);else close();},true);input.addEventListener('keydown',function(ev){var items=Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));if(ev.key==='ArrowDown'){ev.preventDefault();if(!isOpen())render(true);setActive(active+1);}else if(ev.key==='ArrowUp'){ev.preventDefault();if(!isOpen())render(true);setActive(active<=0?items.length-1:active-1);}else if(ev.key==='Enter'){if(isOpen()&&items.length){ev.preventDefault();var chosen=items[active>=0?active:0];selectCourse(input,chosen.textContent||'');close();}}else if(ev.key==='Escape'){close();}},true);toggle.addEventListener('mousedown',function(ev){ev.preventDefault();});toggle.addEventListener('click',function(){if(isOpen())close();else{input.focus();render(true);}});document.addEventListener('click',function(ev){if(!wrap.contains(ev.target))close();},true);
+    input.addEventListener('focus',function(){render(true);},true);input.addEventListener('click',function(){render(true);},true);input.addEventListener('input',function(){render(true);},true);input.addEventListener('projbl:courses-filtered',function(){if(isOpen())render(true);else{lastRenderSignature='';close();}},true);input.addEventListener('keydown',function(ev){var items=Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));if(ev.key==='ArrowDown'){ev.preventDefault();if(!isOpen())render(true);setActive(active+1);}else if(ev.key==='ArrowUp'){ev.preventDefault();if(!isOpen())render(true);setActive(active<=0?items.length-1:active-1);}else if(ev.key==='Enter'){if(isOpen()&&items.length){ev.preventDefault();var chosen=items[active>=0?active:0];selectCourse(input,chosen.textContent||'');close();}}else if(ev.key==='Escape'){close();}},true);toggle.addEventListener('mousedown',function(ev){ev.preventDefault();});toggle.addEventListener('click',function(){if(isOpen())close();else{if(document.activeElement!==input)input.focus();if(!isOpen())render(true);}});document.addEventListener('click',function(ev){if(!wrap.contains(ev.target))close();},true);
   }
   function initAll(){Array.prototype.slice.call(document.querySelectorAll('#cursoBusca')).forEach(init);}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initAll);else initAll();
