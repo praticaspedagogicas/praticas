@@ -8926,7 +8926,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
   }
   function score(value,query){
     var v=strip(value), q=strip(query);
-    if(!q) return 99;
+    if(!q) return 0;
     if(v===q) return 0;
     if(v.indexOf(q)===0) return 1;
     if(wordsMatch(v,q)) return 2;
@@ -9035,7 +9035,6 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     }
     function close(){
       box.classList.remove('is-open');
-      box.innerHTML='';
       active=-1;
       input.setAttribute('aria-expanded','false');
     }
@@ -9063,25 +9062,20 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
       input.focus();
       return true;
     }
-    function render(){
+    function render(allowOpen){
       var query=clean(input.value);
-      if(query.length<2){
-        close();
-        return;
-      }
       var matches=options()
         .map(function(option){
           return {
             value:option.value,
             index:option.index,
-            rank:score(option.value,query)
+            rank:query ? score(option.value,query) : 0
           };
         })
         .filter(function(option){return option.rank<99;})
         .sort(function(a,b){
           return (a.rank-b.rank) || (a.index-b.index);
-        })
-        .slice(0,12);
+        });
 
       box.innerHTML='';
       active=-1;
@@ -9101,14 +9095,18 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
         });
         box.appendChild(button);
       });
-      open();
+      if(allowOpen === false) close();
+      else open();
     }
 
-    input.addEventListener('input',render,true);
-    input.addEventListener('focus',function(){
-      if(clean(input.value).length>=2) render();
-      else close();
+    input.addEventListener('pointerdown',function(){
+      if(!box.classList.contains('is-open')) render(true);
     },true);
+    input.addEventListener('input',function(){render(true);},true);
+    input.addEventListener('focus',function(){
+      if(!box.classList.contains('is-open')) render(true);
+    },true);
+    input.addEventListener('pbl:courses-filtered',function(){render(false);},true);
     input.addEventListener('change',function(){
       var exact=exactCourse(input.value);
       if(exact) choose(exact);
@@ -9122,11 +9120,11 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
       var current=items();
       if(ev.key==='ArrowDown'){
         ev.preventDefault();
-        if(!box.classList.contains('is-open')) render();
+        if(!box.classList.contains('is-open')) render(true);
         setActive(active+1);
       }else if(ev.key==='ArrowUp'){
         ev.preventDefault();
-        if(!box.classList.contains('is-open')) render();
+        if(!box.classList.contains('is-open')) render(true);
         setActive(active<=0 ? current.length-1 : active-1);
       }else if(ev.key==='Enter'){
         if(box.classList.contains('is-open') && current.length){
@@ -9149,6 +9147,7 @@ body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap{ position:relative; }
     input.setAttribute('role','combobox');
     input.setAttribute('aria-autocomplete','list');
     input.setAttribute('aria-expanded','false');
+    render(false);
   }
 
   window.GUIOES_CURSOS_PBL_FINAL={

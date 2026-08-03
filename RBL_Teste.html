@@ -7781,13 +7781,50 @@ input:focus, textarea:focus, select:focus,
       data:"2026-09-15",
       duracao:"01:30",
       tarefas:"Constituir grupos de investigação; analisar o tema de partida; formular perguntas orientadoras; definir fontes académicas iniciais; registar critérios éticos para utilização de inteligência artificial no apoio ao trabalho académico.",
-      desc:"Sessão inicial dedicada ao enquadramento do Research Base Learning, à compreensão do problema de investigação e à organização do percurso de trabalho.<h3>Aula ' + n + '</h3>' +
+      desc:"Sessão inicial dedicada ao enquadramento do Research Base Learning, à compreensão do problema de investigação e à organização do percurso de trabalho. Os estudantes identificam necessidades de pesquisa, distribuem responsabilidades e definem o produto investigativo a desenvolver."
+    },
+    {
+      data:"2026-09-22",
+      duracao:"01:30",
+      tarefas:"Pesquisar literatura científica; selecionar referências relevantes; construir uma matriz de análise; comparar evidências; usar a ferramenta institucional de IA apenas como apoio à síntese, revisão linguística e organização das ideias.",
+      desc:"Sessão dedicada à recolha e análise de evidências. Os estudantes trabalham com bases de dados científicas, discutem a qualidade das fontes e articulam os resultados encontrados com a pergunta de investigação definida na primeira sessão."
+    },
+    {
+      data:"2026-09-29",
+      duracao:"01:30",
+      tarefas:"Organizar resultados; preparar síntese crítica; rever a coerência metodológica; planear a comunicação dos resultados; explicitar limites, implicações e critérios de uso responsável da inteligência artificial.",
+      desc:"Sessão de consolidação do percurso investigativo. Os estudantes sistematizam evidências, discutem conclusões provisórias e preparam uma apresentação ou relatório breve, com foco na clareza académica e na fundamentação das decisões tomadas."
+    }
+  ];
+
+  function setVal(id, value){
+    var el = document.getElementById(id);
+    if(!el) return;
+    el.value = value;
+    try{
+      el.dispatchEvent(new Event("input", {bubbles:true}));
+      el.dispatchEvent(new Event("change", {bubbles:true}));
+    }catch(e){}
+  }
+
+  function getAulas(){
+    return Array.from(document.querySelectorAll(".section")).filter(function(sec){
+      var h = sec.querySelector("h3,.rbl-aula-title");
+      return h && /^Aula\s+\d+/i.test((h.textContent || "").trim());
+    });
+  }
+
+  function createAula(n){
+    var sec = document.createElement("div");
+    sec.className = "section aula-dinamica";
+    sec.innerHTML =
+      '<h3>Aula ' + n + '</h3>' +
       '<div class="rbl-inline-soft-fields">' +
         '<div class="rbl-soft-field-card"><label for="aula' + n + '_data">Data:</label><input id="aula' + n + '_data" type="date"></div>' +
         '<div class="rbl-soft-field-card"><label for="aula' + n + '_duracao">Duração:</label><input id="aula' + n + '_duracao" type="time" step="60"></div>' +
       '</div>' +
-      '<label for="aula' + n + '_tarefas">Tarefas:</label><textarea id="aula' + n + '_tarefas" placeholder="Ex.: Constituir grupos de investigação; analisar o tema de partida; formular perguntas orientadoras; definir fontes académicas iniciais; registar critérios éticos para utilização de inteligência artificial no apoio ao trabalho académico."></textarea>' +
-      '<label for="aula' + n + '_desc">Descrição:</label><textarea id="aula' + n + '_desc" placeholder="Ex.: Sessão inicial dedicada ao enquadramento do Research Base Learning, à compreensão do problema de investigação e à organização do percurso de trabalho.</textarea>';
+      '<label for="aula' + n + '_tarefas">Tarefas:</label><textarea id="aula' + n + '_tarefas" placeholder="Indique as tarefas..."></textarea>' +
+      '<label for="aula' + n + '_desc">Descrição:</label><textarea id="aula' + n + '_desc" placeholder="Descrição da aula..."></textarea>';
     return sec;
   }
 
@@ -8033,7 +8070,7 @@ input:focus, textarea:focus, select:focus,
       dropdown.classList.toggle("open", opts.length > 0 && document.activeElement === search && (!!term || !!forceOpenEmpty));
     }
 
-    search.addEventListener("pointerdown", function(){ userOpenedCourseSearch = true; }, true);
+    search.addEventListener("pointerdown", function(){ userOpenedCourseSearch = true; renderOptions(true); }, true);
     search.addEventListener("keydown", function(){ userOpenedCourseSearch = true; }, true);
     search.addEventListener("input", function(){ renderOptions(false); });
     search.addEventListener("focus", function(){ renderOptions(userOpenedCourseSearch && !cleanText(search.value)); });
@@ -12263,6 +12300,39 @@ body:not(.guiao-pdf-mode) .pbl-course-chip button{
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
   else init();
+})();
+</script>
+
+<style id="rbl-course-filter-by-unit-sbl-v1-css">
+body:not(.guiao-pdf-mode) .rbl-course-unit-warning{display:none;margin-top:7px;padding:8px 10px;border:1px solid rgba(227,30,36,.30);border-radius:9px;background:#fff8f8;color:#8b1e23;font-size:10.5px;line-height:1.35;font-weight:600;}
+body:not(.guiao-pdf-mode) .rbl-course-unit-warning.is-visible{display:block;}
+@media print{.rbl-course-unit-warning{display:none!important;}}
+</style>
+<script id="rbl-course-filter-by-unit-sbl-v1">
+(function(){
+  'use strict';
+  if(window.__rblCourseFilterByUnitSblV1)return;
+  window.__rblCourseFilterByUnitSblV1=true;
+  var COURSES_BY_UNIT={"IADE":["Licenciatura em Animação e Criação Visual","Licenciatura em Animação Global","Licenciatura em Fotografia e Cultura Visual","Mestrado em Animação e Criação Visual","Mestrado em Design e Produção de Jogos","Licenciatura em Marketing e Publicidade","Mestrado em Comunicação Audiovisual e Multimédia","Licenciatura em Ciências da Comunicação","Mestrado em Marketing e Inovação","Mestrado em Branding e Estratégia","Mestrado em Comunicação Estratégica","Doutoramento em Comunicação, Media e Ambientes Digitais","Licenciatura em Design","Licenciatura em Design Global","Mestrado em Design e Cultura Visual","Mestrado em Design & Publicidade","Mestrado em Design Management","Mestrado em Design de Produto, Espaço e Interações","Mestrado em Branding e Design de Moda","Mestrado em Design para a Sustentabilidade","Doutoramento em Design","Licenciatura em Desenvolvimento de Jogos","Licenciatura em Creative Tech","Licenciatura em Engenharia Informática","Licenciatura em Informática de Gestão","Mestrado em Computação Criativa e Inteligência Artificial","Doutoramento em Jogos Digitais","Mestrado em Direção de Arte EaD","Mestrado em Comunicação Multimédia EaD","Licenciatura em Ciências da Comunicação EaD","Licenciatura em Design Visual EaD","Licenciatura em Engenharia Informática EaD"],"IPAM Lisboa":["Licenciatura em Gestão de Negócios","Marketing Digital","Licenciatura em Marketing Global","Mestrado em Gestão de Negócios","Mestrado em Marketing e Tecnologia","Mestrado em Marketing","Mestrado em Gestão de Marketing EaD","Licenciatura em Gestão de Marketing","Mestrado em Gestão de Marketing","Gestão de Negócios Internacionais","Licenciatura em Negócios Global","Mestrado em Global Business"],"IPAM Porto":["Licenciatura em Gestão de Marketing EaD","Licenciatura em Gestão de Marketing","Licenciatura em Gestão de Negócios","Licenciatura em Marketing Global","Licenciatura em Global Business","Mestrado em Gestão de Marketing EaD","Mestrado em Gestão de Negócios EaD","Mestrado em Inovação em Marketing e Negócios","Mestrado em Global Business","Mestrado em Marketing","Mestrado em Gestão de Marketing","Mestrado em Gestão de Negócios","Mestrado em Marketing e Tecnologia","CTeSP em Gestão Comercial e Vendas","CTeSP em Gestão de Negócios Internacionais","CTeSP em Marketing Digital"],"FCS":["Licenciatura em Psicologia","Mestrado em Psicologia Clínica e da Saúde","Licenciatura em Ciências da Nutrição","Licenciatura em Psicologia EaD","Mestrado em Gestão da Saúde EaD","Mestrado em Neuropsicologia EaD"],"FCST":["Licenciatura em Gestão de Recursos Humanos","Mestrado em Gestão de Recursos Humanos","Mestrado em Psicologia Social e das Organizações","Licenciatura em Gestão de Recursos Humanos EaD","Mestrado em Gestão de Recursos Humanos EaD","Licenciatura em Marketing EAD","Licenciatura em Ciências Sociais EaD","Licenciatura em Contabilidade EaD","Licenciatura em Gestão de Empresas EaD","Mestrado em Cibersegurança EaD","Mestrado em Direito e Segurança da Informação EaD","Mestrado em Gestão de Empresas EaD","Mestrado em Marketing estratégico EaD","Mestrado em Psicologia Social e de Organizações EaD","Licenciatura em Gestão","Licenciatura em Management","Mestrado em Management","Mestrado em Gestão","Licenciatura em Direito","Mestrado em Direito Judiciário","Licenciatura em Ciência Dados Gestão","Licenciatura em Gestão do Desporto","Licenciatura em Gestão Hoteleira","Licenciatura em Tourism","Licenciatura em Turismo","Mestrado em Ciências de Dados e Gestão","Mestrado em Ciências de Dados e Análise de Negócios EaD","Mestrado em Gestão do Desporto"]};
+  function clean(v){return String(v==null?'':v).replace(/\s+/g,' ').trim();}
+  function unique(values){var seen=Object.create(null),out=[];(values||[]).forEach(function(v){v=clean(v);if(v&&!seen[v]){seen[v]=1;out.push(v);}});return out;}
+  var ALL_COURSES=unique(Object.keys(COURSES_BY_UNIT).reduce(function(out,unit){return out.concat(COURSES_BY_UNIT[unit]);},[]));
+  function unitEl(){return document.getElementById('unidadeOrganica');}
+  function listEl(){return document.getElementById('rblCursosList');}
+  function searchEl(){return document.getElementById('cursoSearch')||document.getElementById('cursoBusca');}
+  function hiddenEl(){return document.getElementById('curso');}
+  function split(v){return String(v||'').split(/\s*;\s*|\n+/).map(clean).filter(Boolean);}
+  function selectedCourses(){var hidden=hiddenEl(),out=hidden?split(hidden.value):[];Array.prototype.slice.call(document.querySelectorAll('.rbl-course-chip-area .rbl-course-chip')).forEach(function(chip){var span=chip.querySelector('span');var value=clean((span||chip).textContent||'').replace(/[×x]\s*$/i,'').trim();if(value)out.push(value);});return unique(out);}
+  function allowed(unit){return COURSES_BY_UNIT[unit]?COURSES_BY_UNIT[unit].slice():ALL_COURSES.slice();}
+  function warningEl(){var picker=document.querySelector('.rbl-course-picker');if(!picker)return null;var warning=picker.querySelector('.rbl-course-unit-warning');if(!warning){warning=document.createElement('div');warning.className='rbl-course-unit-warning';warning.setAttribute('role','status');warning.setAttribute('aria-live','polite');picker.appendChild(warning);}return warning;}
+  function updateWarning(){var unit=clean(unitEl()&&unitEl().value),warning=warningEl();if(!warning)return;if(!unit||!COURSES_BY_UNIT[unit]){warning.textContent='';warning.classList.remove('is-visible');return;}var valid=Object.create(null);COURSES_BY_UNIT[unit].forEach(function(v){valid[v]=1;});var invalid=selectedCourses().filter(function(v){return !valid[v];});if(invalid.length){warning.textContent='Atenção: '+invalid.join('; ')+(invalid.length===1?' não pertence':' não pertencem')+' à unidade '+unit+'. Remova '+(invalid.length===1?'este curso':'estes cursos')+' antes de enviar para validação.';warning.classList.add('is-visible');}else{warning.textContent='';warning.classList.remove('is-visible');}}
+  function rebuildList(){var list=listEl();if(!list)return[];var unit=clean(unitEl()&&unitEl().value),values=allowed(unit);list.innerHTML='';values.forEach(function(course){var option=document.createElement('option');option.value=course;list.appendChild(option);});var search=searchEl();if(search){search.value='';search.placeholder='Selecione ou pesquise um curso';try{search.dispatchEvent(new Event('input',{bubbles:true}));search.dispatchEvent(new CustomEvent('rbl:courses-filtered',{bubbles:true,detail:{unit:unit,courses:values.slice()}}));}catch(e){}}updateWarning();return values;}
+  function bind(){var unit=unitEl();if(unit&&unit.dataset.rblCourseFilterSblBound!=='1'){unit.dataset.rblCourseFilterSblBound='1';unit.addEventListener('change',rebuildList,true);unit.addEventListener('input',rebuildList,true);}var hidden=hiddenEl();if(hidden&&hidden.dataset.rblCourseFilterSblBound!=='1'){hidden.dataset.rblCourseFilterSblBound='1';hidden.addEventListener('input',updateWarning,true);hidden.addEventListener('change',updateWarning,true);}var chips=document.querySelector('.rbl-course-chip-area');if(chips&&chips.dataset.rblCourseFilterSblObserved!=='1'&&window.MutationObserver){chips.dataset.rblCourseFilterSblObserved='1';new MutationObserver(updateWarning).observe(chips,{childList:true,subtree:true,characterData:true});}rebuildList();}
+  window.RBL_COURSES_BY_UNIT=COURSES_BY_UNIT;
+  window.RBL_ALL_COURSES=ALL_COURSES;
+  window.RBL_APLICAR_FILTRO_CURSOS=rebuildList;
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind);else bind();
+  [80,250,700,1600,3000].forEach(function(ms){setTimeout(bind,ms);});
 })();
 </script>
 

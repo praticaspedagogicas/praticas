@@ -9015,7 +9015,8 @@ html body:not(.guiao-pdf-mode) .projbl-js-resize-wrap:focus-within {
 </style>
 <script id="projbl-c15-top4-red-force-js">
 document.addEventListener('DOMContentLoaded', function(){
-  const selectors = ['#cursoBusca','#anoLetivoProjeto','#numeroEstudantes','.projbl-nome-uc-projeto-field'];
+  /* Curso(s) é gerido pela camada final estável; não recebe esta borda de 2 px. */
+  const selectors = ['#anoLetivoProjeto','#numeroEstudantes','.projbl-nome-uc-projeto-field'];
   const neutral = function(el){
     if(!el) return;
     el.style.setProperty('background','#fff','important');
@@ -16234,8 +16235,7 @@ html body .page .proj-v9-example-field::placeholder {
       {selector:"#unidadeOrganica", label:"Unidade Orgânica"},
       {selector:"#modalidade", label:"Modalidade"},
       {selector:"#curso", label:"Curso(s)"},
-      {selector:"#numeroEstudantes", label:"Nº de estudantes"},
-      {selector:"#numeroGrupos", label:"Nº de grupos"}
+      {selector:"#numeroEstudantes", label:"Nº de estudantes"}
     ];
 
     var missing = [];
@@ -16264,7 +16264,7 @@ html body .page .proj-v9-example-field::placeholder {
   };
 
   function bindVisualCleanup(){
-    ["#unidadeOrganica","#modalidade","#curso","#numeroEstudantes","#numeroGrupos"].forEach(function(selector){
+    ["#unidadeOrganica","#modalidade","#curso","#numeroEstudantes"].forEach(function(selector){
       var el = document.querySelector(selector);
       if(!el || el.dataset.projRequiredBound === "1") return;
       el.dataset.projRequiredBound = "1";
@@ -19653,18 +19653,28 @@ body:not(.guiao-pdf-mode) .guioes-curso-empty-v3{padding:10px;color:#666;font-si
       /* Foco e clique chegam na mesma interação. Se o conteúdo é igual, mantém os
          nós existentes e apenas confirma o estado aberto, evitando o "tremor". */
       if(signature!==lastRenderSignature){
-        box.innerHTML='';active=-1;
+        var fragment=document.createDocumentFragment();active=-1;
         if(!matches.length){
-          var e=document.createElement('div');e.className='guioes-curso-empty-v3';e.textContent=q?'Nenhum curso encontrado.':'Não existem outros cursos disponíveis para selecionar.';box.appendChild(e);
+          var e=document.createElement('div');e.className='guioes-curso-empty-v3';e.textContent=q?'Nenhum curso encontrado.':'Não existem outros cursos disponíveis para selecionar.';fragment.appendChild(e);
         }else{
-          matches.forEach(function(item){var b=document.createElement('button');b.type='button';b.className='guioes-curso-suggestion-v2';b.setAttribute('role','option');b.textContent=item.value;b.addEventListener('mousedown',function(ev){ev.preventDefault();});b.addEventListener('click',function(){selectCourse(input,item.value);close();input.focus();});box.appendChild(b);});
+          matches.forEach(function(item){var b=document.createElement('button');b.type='button';b.className='guioes-curso-suggestion-v2';b.setAttribute('role','option');b.textContent=item.value;b.addEventListener('mousedown',function(ev){ev.preventDefault();});b.addEventListener('click',function(){selectCourse(input,item.value);close();try{input.focus({preventScroll:true});}catch(_e){input.focus();}});fragment.appendChild(b);});
         }
+        box.replaceChildren(fragment);
         lastRenderSignature=signature;
       }
       if(allowOpen)open();else close();
     }
     function setActive(i){var items=Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));items.forEach(function(x){x.classList.remove('is-active');x.setAttribute('aria-selected','false');});if(!items.length){active=-1;return;}active=Math.max(0,Math.min(i,items.length-1));items[active].classList.add('is-active');items[active].setAttribute('aria-selected','true');items[active].scrollIntoView({block:'nearest'});}
-    input.addEventListener('focus',function(){render(true);},true);input.addEventListener('click',function(){render(true);},true);input.addEventListener('input',function(){render(true);},true);input.addEventListener('projbl:courses-filtered',function(){if(isOpen())render(true);else{lastRenderSignature='';close();}},true);input.addEventListener('keydown',function(ev){var items=Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));if(ev.key==='ArrowDown'){ev.preventDefault();if(!isOpen())render(true);setActive(active+1);}else if(ev.key==='ArrowUp'){ev.preventDefault();if(!isOpen())render(true);setActive(active<=0?items.length-1:active-1);}else if(ev.key==='Enter'){if(isOpen()&&items.length){ev.preventDefault();var chosen=items[active>=0?active:0];selectCourse(input,chosen.textContent||'');close();}}else if(ev.key==='Escape'){close();}},true);toggle.addEventListener('mousedown',function(ev){ev.preventDefault();});toggle.addEventListener('click',function(){if(isOpen())close();else{if(document.activeElement!==input)input.focus();if(!isOpen())render(true);}});document.addEventListener('click',function(ev){if(!wrap.contains(ev.target))close();},true);
+    input.addEventListener('pointerdown',function(){if(!isOpen())render(true);},true);
+    input.addEventListener('input',function(){render(true);},true);
+    input.addEventListener('projbl:courses-filtered',function(){if(isOpen())render(true);else{lastRenderSignature='';render(false);}},true);
+    input.addEventListener('keydown',function(ev){var items=Array.prototype.slice.call(box.querySelectorAll('.guioes-curso-suggestion-v2'));if(ev.key==='ArrowDown'){ev.preventDefault();if(!isOpen())render(true);setActive(active+1);}else if(ev.key==='ArrowUp'){ev.preventDefault();if(!isOpen())render(true);setActive(active<=0?items.length-1:active-1);}else if(ev.key==='Enter'){if(isOpen()&&items.length){ev.preventDefault();var chosen=items[active>=0?active:0];selectCourse(input,chosen.textContent||'');close();}}else if(ev.key==='Escape'){close();}},true);
+    toggle.addEventListener('mousedown',function(ev){ev.preventDefault();});
+    toggle.addEventListener('click',function(){if(isOpen())close();else{if(document.activeElement!==input){try{input.focus({preventScroll:true});}catch(_e){input.focus();}}render(true);}});
+    document.addEventListener('click',function(ev){if(!wrap.contains(ev.target))close();},true);
+    /* A lista fica pronta antes da primeira interação. No clique só muda a
+       visibilidade, evitando repaginação e o salto inicial no Safari. */
+    render(false);
   }
   function initAll(){Array.prototype.slice.call(document.querySelectorAll('#cursoBusca')).forEach(init);}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initAll);else initAll();
@@ -20282,7 +20292,6 @@ body:not(.guiao-pdf-mode) .guioes-curso-empty-v3{padding:10px;color:#666;font-si
       ['Unidade(s) Curricular(es)', ucTop],
       ['Ano letivo', hasValueByIds(['ano','ano_letivo','anoLetivo','anoLetivoProjeto'])],
       ['Nº de estudantes', hasValueByIds(['n_estudantes','numeroEstudantes'])],
-      ['Nº de grupos', hasValueByIds(['n_grupos','numeroGrupos'])],
       ['Docente(s)/Email(s)', docentes || emails],
       ['Autorização repositório', auth]
     ];
@@ -21405,7 +21414,7 @@ html body:not(.guiao-pdf-mode) .page textarea[readonly]{
     if(!isControl(el)) return;
 
     el.classList.remove('projbl-ui-v3-error');
-    setImportant(el, 'border', '1.5px solid ' + FOCUS_BORDER);
+    setImportant(el, 'border', (el.id === 'cursoBusca' ? '1px solid ' + NORMAL_BORDER : '1.5px solid ' + FOCUS_BORDER));
     setImportant(el, 'border-radius', '11px');
     setImportant(el, 'outline', 'none');
     setImportant(el, 'outline-offset', '0');
@@ -21545,6 +21554,14 @@ html body:not(.guiao-pdf-mode) .page textarea[readonly]{
       var el = event.target;
       if(!isControl(el)) return;
 
+      /* O seletor de Curso(s) tem a sua própria camada estável. Aplicar o foco
+         de imediato evita um fotograma intermédio no Safari. */
+      if(el.id === 'cursoBusca'){
+        applyFocus(el);
+        el.__projblV3Ancestors = [];
+        return;
+      }
+
       var ancestors = neutralizeAncestors(el);
       el.__projblV3Ancestors = ancestors;
 
@@ -21557,6 +21574,13 @@ html body:not(.guiao-pdf-mode) .page textarea[readonly]{
     document.addEventListener('focusout', function(event){
       var el = event.target;
       if(!isControl(el)) return;
+
+      if(el.id === 'cursoBusca'){
+        window.setTimeout(function(){
+          if(document.activeElement !== el) applyRest(el);
+        }, 0);
+        return;
+      }
 
       window.setTimeout(function(){
         if(document.activeElement !== el){
@@ -21946,7 +21970,6 @@ body:not(.guiao-pdf-mode) #projblAutorizacaoRepositorioSection.projbl-required-v
     addRequiredField(issues, 'Unidade(s) Curricular(es) Complementar(es)', document.querySelector('.projbl-nome-uc-projeto-field'));
     addRequiredField(issues, 'Ano letivo', fieldById('anoLetivoProjeto'));
     addRequiredField(issues, 'Nº de estudantes', fieldById('numeroEstudantes'));
-    addRequiredField(issues, 'Nº de grupos', fieldById('numeroGrupos'));
 
     validateRows(issues, {
       label:'Docentes das UCs complementares',
@@ -22021,7 +22044,7 @@ body:not(.guiao-pdf-mode) #projblAutorizacaoRepositorioSection.projbl-required-v
   }
 
   function installRequiredIndicators(){
-    ['unidadeOrganica','modalidade','anoCurricular','semestre','turmaEdicao','tituloProjeto','anoLetivoProjeto','numeroEstudantes','numeroGrupos','autoria','estadoGuiao'].forEach(function(id){
+    ['unidadeOrganica','modalidade','anoCurricular','semestre','turmaEdicao','tituloProjeto','anoLetivoProjeto','numeroEstudantes','autoria','estadoGuiao'].forEach(function(id){
       addStar(document.querySelector('label[for="' + id + '"]'));
     });
     addStar(document.querySelector('label[for="curso"]'));
@@ -22803,9 +22826,14 @@ textarea.projbl-autogrow-final {
   },true);
   document.addEventListener('projbl:autosave-restored',function(){ deferred(document); });
 
+  function isCourseMenuMutation(node){
+    return !!(node && node.nodeType === 1 && node.closest && node.closest('.guioes-curso-suggestions-v2'));
+  }
   var observer = new MutationObserver(function(records){
     records.forEach(function(rec){
-      rec.addedNodes && rec.addedNodes.forEach(function(node){ if(node.nodeType === 1) deferred(node); });
+      rec.addedNodes && rec.addedNodes.forEach(function(node){
+        if(node.nodeType === 1 && !isCourseMenuMutation(node)) deferred(node);
+      });
       if(rec.type === 'attributes' && rec.target && rec.target.tagName === 'SELECT') markSelects(rec.target);
     });
     keepStyleLast();
@@ -22843,6 +22871,13 @@ html body:not(.guiao-pdf-mode) .projbl-curso-real-wrap{
   'use strict';
   if(window.__projblCourseFieldStabilityFinal) return;
   window.__projblCourseFieldStabilityFinal = true;
+  function stableBorder(input){
+    if(!input) return;
+    input.style.setProperty('border','1px solid #8E8E8E','important');
+    input.style.setProperty('outline','none','important');
+    input.style.setProperty('outline-offset','0','important');
+    input.style.setProperty('box-shadow','none','important');
+  }
   function apply(){
     var input=document.getElementById('cursoBusca');
     if(!input) return;
@@ -22850,10 +22885,168 @@ html body:not(.guiao-pdf-mode) .projbl-curso-real-wrap{
     input.setAttribute('aria-autocomplete','list');
     input.style.setProperty('transition','none','important');
     input.style.setProperty('transform','none','important');
+    stableBorder(input);
+    if(input.dataset.projblStableFocusBound!=='1'){
+      input.dataset.projblStableFocusBound='1';
+      input.addEventListener('focus',function(){stableBorder(input);},true);
+      input.addEventListener('blur',function(){setTimeout(function(){stableBorder(input);},0);},true);
+    }
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',apply,{once:true});
   else apply();
   window.addEventListener('load',apply,{once:true});
+})();
+</script>
+<style id="projbl-final-correcoes-campos-v2">
+/* Correção final: foco estável no seletor de cursos e um único padrão para exemplos. */
+html body:not(#projblCourseStableA):not(#projblCourseStableB):not(.guiao-pdf-mode) .page .proj-top-field-card:has(#cursoBusca),
+html body:not(#projblCourseStableA):not(#projblCourseStableB):not(.guiao-pdf-mode) .page .proj-top-field-card:has(#cursoBusca:hover),
+html body:not(#projblCourseStableA):not(#projblCourseStableB):not(.guiao-pdf-mode) .page .proj-top-field-card:has(#cursoBusca:focus),
+html body:not(#projblCourseStableA):not(#projblCourseStableB):not(.guiao-pdf-mode) .page .proj-top-field-card:has(#cursoBusca:focus-visible){
+  border-width:1.45px !important;
+  padding:12px 13px !important;
+  outline:0 !important;
+  transform:none !important;
+  transition:none !important;
+  animation:none !important;
+}
+html body:not(#projblCourseStableA):not(#projblCourseStableB):not(.guiao-pdf-mode) .page #cursoBusca,
+html body:not(#projblCourseStableA):not(#projblCourseStableB):not(.guiao-pdf-mode) .page #cursoBusca:hover,
+html body:not(#projblCourseStableA):not(#projblCourseStableB):not(.guiao-pdf-mode) .page #cursoBusca:focus,
+html body:not(#projblCourseStableA):not(#projblCourseStableB):not(.guiao-pdf-mode) .page #cursoBusca:focus-visible{
+  box-sizing:border-box !important;
+  width:100% !important;
+  min-height:38px !important;
+  height:38px !important;
+  margin:0 !important;
+  padding:8px 38px 8px 10px !important;
+  border-width:1px !important;
+  outline:0 !important;
+  transform:none !important;
+  transition:none !important;
+  animation:none !important;
+}
+html body:not(#projblCourseStableA):not(#projblCourseStableB):not(.guiao-pdf-mode) .page #cursoBusca:focus,
+html body:not(#projblCourseStableA):not(#projblCourseStableB):not(.guiao-pdf-mode) .page #cursoBusca:focus-visible{
+  border-color:#8E8E8E !important;
+  box-shadow:none !important;
+}
+html body:not(#projblCourseStableA):not(#projblCourseStableB):not(.guiao-pdf-mode) .page .proj-curso-combobox-wrap,
+html body:not(#projblCourseStableA):not(#projblCourseStableB):not(.guiao-pdf-mode) .page .projbl-curso-real-wrap,
+html body:not(#projblCourseStableA):not(#projblCourseStableB):not(.guiao-pdf-mode) .page .guioes-curso-suggestions-v2{
+  overflow-anchor:none !important;
+  transform:none !important;
+  transition:none !important;
+  animation:none !important;
+}
+html body:not(#projblCourseStableA):not(#projblCourseStableB):not(.guiao-pdf-mode) .page .guioes-curso-suggestions-v2{
+  overflow-y:scroll !important;
+  display:block;
+  visibility:hidden;
+  opacity:0;
+  pointer-events:none;
+  contain:layout style;
+}
+html body:not(#projblCourseStableA):not(#projblCourseStableB):not(.guiao-pdf-mode) .page .guioes-curso-suggestions-v2.is-open{
+  visibility:visible;
+  opacity:1;
+  pointer-events:auto;
+}
+html body:not(#projblCourseStableA):not(#projblCourseStableB):not(.guiao-pdf-mode) .page .guioes-curso-toggle-v3,
+html body:not(#projblCourseStableA):not(#projblCourseStableB):not(.guiao-pdf-mode) .page .guioes-curso-toggle-v3:hover,
+html body:not(#projblCourseStableA):not(#projblCourseStableB):not(.guiao-pdf-mode) .page .guioes-curso-toggle-v3:focus{
+  background:#ffffff !important;
+  transform:none !important;
+  transition:none !important;
+  animation:none !important;
+}
+
+/* Dois seletores de ID fictícios dão precedência às regras antigas específicas por secção. */
+html body:not(#projblPlaceholderFinalA):not(#projblPlaceholderFinalB):not(.guiao-pdf-mode):not(.projbl-exporting) .page input[placeholder]::placeholder,
+html body:not(#projblPlaceholderFinalA):not(#projblPlaceholderFinalB):not(.guiao-pdf-mode):not(.projbl-exporting) .page textarea[placeholder]::placeholder{
+  color:#a8a8a8 !important;
+  -webkit-text-fill-color:#a8a8a8 !important;
+  opacity:1 !important;
+  font-weight:400 !important;
+  font-style:normal !important;
+  text-shadow:none !important;
+}
+html body:not(#projblPlaceholderFinalA):not(#projblPlaceholderFinalB):not(.guiao-pdf-mode):not(.projbl-exporting) .page input[placeholder]::-webkit-input-placeholder,
+html body:not(#projblPlaceholderFinalA):not(#projblPlaceholderFinalB):not(.guiao-pdf-mode):not(.projbl-exporting) .page textarea[placeholder]::-webkit-input-placeholder{
+  color:#a8a8a8 !important;
+  -webkit-text-fill-color:#a8a8a8 !important;
+  opacity:1 !important;
+  font-weight:400 !important;
+  font-style:normal !important;
+  text-shadow:none !important;
+}
+html body:not(#projblPlaceholderFinalA):not(#projblPlaceholderFinalB):not(.guiao-pdf-mode):not(.projbl-exporting) .page input[placeholder]::-moz-placeholder,
+html body:not(#projblPlaceholderFinalA):not(#projblPlaceholderFinalB):not(.guiao-pdf-mode):not(.projbl-exporting) .page textarea[placeholder]::-moz-placeholder{
+  color:#a8a8a8 !important;
+  opacity:1 !important;
+  font-weight:400 !important;
+  font-style:normal !important;
+  text-shadow:none !important;
+}
+</style>
+<script id="projbl-final-exemplos-avaliacao-opcional-grupos-v2">
+(function(){
+  'use strict';
+  if(window.__projblFinalExemplosAvaliacaoOpcionalGruposV2) return;
+  window.__projblFinalExemplosAvaliacaoOpcionalGruposV2=true;
+
+  var evaluationExamples=[
+    'Ex.: 6',
+    'Ex.: Projeto Aplicado',
+    'Ex.: 45h',
+    'Ex.: Coordenação',
+    'Ex.: Sofia / sofia@ue.pt',
+    'Ex.: 40%'
+  ];
+
+  function setExamples(root){
+    root=root||document;
+    Array.prototype.slice.call(root.querySelectorAll('.projbl-entregaveis-datas')).forEach(function(field){
+      field.setAttribute('placeholder','Ex.: 27/09');
+    });
+    Array.prototype.slice.call(root.querySelectorAll('.projblz7g-row.projblz7g-data-row')).forEach(function(row){
+      Array.prototype.slice.call(row.querySelectorAll('.projblz7g-cell')).forEach(function(cell,index){
+        var field=cell.querySelector('input,textarea');
+        if(field && evaluationExamples[index]) field.setAttribute('placeholder',evaluationExamples[index]);
+      });
+    });
+  }
+
+  function makeGroupsOptional(){
+    var field=document.getElementById('numeroGrupos');
+    if(field){
+      field.removeAttribute('required');
+      field.removeAttribute('aria-required');
+      field.removeAttribute('aria-invalid');
+      field.classList.remove('proj-required-invalid','projbl-required-v3-invalid','guiao-required-missing');
+      field.removeAttribute('data-projbl-required-v3-invalid');
+      field.setAttribute('data-progress-optional','true');
+    }
+    var label=document.querySelector('label[for="numeroGrupos"]');
+    if(label){
+      Array.prototype.slice.call(label.querySelectorAll('.projbl-required-star')).forEach(function(star){star.remove();});
+    }
+  }
+
+  function apply(){setExamples(document);makeGroupsOptional();}
+  function observeRows(){
+    ['.projbliso-table-entregaveis tbody','#projblz7gGrid'].forEach(function(selector){
+      var target=document.querySelector(selector);
+      if(!target || target.dataset.projblExamplesObserved==='1') return;
+      target.dataset.projblExamplesObserved='1';
+      new MutationObserver(function(){setExamples(target);}).observe(target,{childList:true,subtree:true});
+    });
+  }
+  function init(){apply();observeRows();}
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
+  window.addEventListener('load',apply,{once:true});
+  [100,500,1500].forEach(function(ms){setTimeout(apply,ms);});
 })();
 </script>
 </body>
