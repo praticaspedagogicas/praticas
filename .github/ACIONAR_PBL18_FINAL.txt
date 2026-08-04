@@ -1,0 +1,2 @@
+Acionamento temporário da publicação final de PBL.html e PBL_Teste.html.
+Execução definitiva por patches Zstandard com hashes verificados.
