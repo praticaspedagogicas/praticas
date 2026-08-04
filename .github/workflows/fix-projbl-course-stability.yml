@@ -1,0 +1,89 @@
+name: Corrigir estabilidade do campo de cursos PROJ-BL
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Aplicar correção final
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          block = r'''
+          <style id="projbl-course-field-stability-final-css">
+          /* Evita oscilações visuais ao abrir a lista personalizada de cursos. */
+          html body:not(.guiao-pdf-mode) #cursoBusca{
+            box-sizing:border-box !important;
+            width:100% !important;
+            min-height:38px !important;
+            height:38px !important;
+            transition:none !important;
+            transform:none !important;
+          }
+          html body:not(.guiao-pdf-mode) .proj-curso-combobox-wrap,
+          html body:not(.guiao-pdf-mode) .projbl-curso-real-wrap{
+            box-sizing:border-box !important;
+            width:100% !important;
+            transform:none !important;
+          }
+          </style>
+          <script id="projbl-course-field-stability-final-js">
+          (function(){
+            'use strict';
+            if(window.__projblCourseFieldStabilityFinal) return;
+            window.__projblCourseFieldStabilityFinal = true;
+            function apply(){
+              var input=document.getElementById('cursoBusca');
+              if(!input) return;
+              input.removeAttribute('list');
+              input.setAttribute('aria-autocomplete','list');
+              input.style.setProperty('transition','none','important');
+              input.style.setProperty('transform','none','important');
+            }
+            if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',apply,{once:true});
+            else apply();
+            window.addEventListener('load',apply,{once:true});
+          })();
+          </script>
+          '''
+
+          for name in ('PROJ-BL.html','PROJ-BL_Teste.html'):
+              p=Path(name)
+              text=p.read_text(encoding='utf-8')
+              if 'projbl-course-field-stability-final-js' not in text:
+                  if text.count('</body>') != 1:
+                      raise SystemExit(f'Fecho body inesperado em {name}')
+                  text=text.replace('</body>', block + '</body>')
+                  p.write_text(text,encoding='utf-8')
+          PY
+
+          grep -Fq 'id="projbl-course-field-stability-final-js"' PROJ-BL.html
+          grep -Fq 'id="projbl-course-field-stability-final-js"' PROJ-BL_Teste.html
+          grep -Fq "input.removeAttribute('list')" PROJ-BL.html
+          grep -Fq 'transition:none !important' PROJ-BL.html
+          git diff --check
+
+      - name: Publicar no main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add PROJ-BL.html PROJ-BL_Teste.html
+          git commit -m 'Estabilizar campo de cursos do PROJ-BL [skip ci]'
+          git push origin HEAD:main
